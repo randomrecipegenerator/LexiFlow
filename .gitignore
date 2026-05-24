@@ -1,0 +1,27 @@
+# Environment variables
+.env
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Database
+lexiflow.db
+lexiflow.db-journal
+
+# Logs
+server.log
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel/
