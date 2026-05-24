@@ -141,7 +141,7 @@ function renderLeads(leads) {
             </td>
             `;
             table.appendChild(tr);
-
+        });
 }
 
 function filterLeads() {
