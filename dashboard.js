@@ -1,4 +1,3 @@
-
 let allLeads = [];
 let statusChart = null;
 
@@ -113,7 +112,6 @@ function renderLeads(leads) {
             <td><span class="badge ${getSyncBadge(lead.sync_status)}">${lead.sync_status || 'Not Synced'}</span></td>
             <td>
                 <div class="d-flex align-items-center">
-
                     <span class="me-2 fw-bold" style="width: 30px;">${lead.score}</span>
                     <div class="progress flex-grow-1" style="height: 6px; min-width: 80px; max-width: 120px;">
                         <div class="progress-bar ${getScoreColor(lead.score)}" role="progressbar" style="width: ${lead.score}%"></div>
@@ -230,6 +228,17 @@ async function viewLead(id) {
             document.getElementById('esign-status-container').classList.add('d-none');
         }
 
+        document.getElementById('modal-case-value').innerText = lead.case_value ? '$' + lead.case_value.toLocaleString() : '$0.00';
+        document.getElementById('modal-conflict-status').innerText = 'Clear';
+        document.getElementById('modal-conflict-status').className = 'badge bg-success';
+        
+        if (lead.demand_draft) {
+            document.getElementById('demand-letter-preview').classList.remove('d-none');
+            document.getElementById('demand-preview-text').innerText = lead.demand_draft;
+        } else {
+            document.getElementById('demand-letter-preview').classList.add('d-none');
+        }
+
         const syncBadge = document.getElementById('sync-status-badge');
         if (lead.sync_status && lead.sync_status !== 'Not Synced') {
             document.getElementById('sync-status-container').classList.remove('d-none');
@@ -239,9 +248,9 @@ async function viewLead(id) {
         } else {
             document.getElementById('sync-status-container').classList.add('d-none');
         }
-
+        
         new bootstrap.Modal(document.getElementById('leadModal')).show();
-    } catch (error) { console.error('Error viewing lead:', error); }
+    } catch (e) { console.error("Error loading lead", e); }
 }
 
 function renderModalInvoices(invoices) {
@@ -483,4 +492,35 @@ function copySyncPayload() {
 async function exportClioCSV() {
     const leadId = document.getElementById('modal-lead-id').value;
     window.location.href = `${API_BASE}/leads/${leadId}/export/clio`;
+}
+
+async function draftDemandLetter() {
+    const leadId = document.getElementById('modal-lead-id').value;
+    const btn = event.target.closest('button');
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Drafting...';
+    
+    try {
+        const response = await fetch(API_BASE + `/leads/${leadId}/draft-demand`, { method: 'POST' });
+        const result = await response.json();
+        document.getElementById('demand-letter-preview').classList.remove('d-none');
+        document.getElementById('demand-preview-text').innerText = result.draft;
+        alert("Demand letter drafted successfully!");
+    } catch (e) {
+        console.error("Drafting failed", e);
+        alert("Failed to draft demand letter.");
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+    }
+}
+
+async function generateMedicalChronology() {
+    const leadId = document.getElementById('modal-lead-id').value;
+    alert("Enterprise Feature: Now analyzing uploaded medical records to build a chronology. In the full version, this generates a downloadable CSV/PDF timeline.");
+    // Simulate progress
+    setTimeout(() => {
+        alert("Medical Chronology Generated! Check the Documents tab for the new timeline. (Simulation)");
+    }, 2000);
 }

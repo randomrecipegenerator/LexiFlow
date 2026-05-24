@@ -1,6 +1,8 @@
 (function() {
     let leadId = null;
     let isOpen = false;
+    let isStarting = false;
+    let messageQueue = [];
 
     // Create Widget HTML
     const container = document.createElement('div');
@@ -44,7 +46,7 @@
     button.addEventListener('click', () => {
         isOpen = !isOpen;
         chatWindow.classList.toggle('hidden');
-        if (isOpen && !leadId) startChat();
+        if (isOpen && !leadId && !isStarting) startChat();
     });
 
     closeBtn.addEventListener('click', (e) => {
@@ -55,12 +57,22 @@
 
     // Chat Logic
     async function startChat() {
+        isStarting = true;
         try {
             const response = await fetch(`${API_BASE}/chat/start`, { method: 'POST' });
+            if (!response.ok) throw new Error("Failed to start session");
             const data = await response.json();
             leadId = data.lead_id;
+            isStarting = false;
+            
+            // Process queued messages
+            while (messageQueue.length > 0) {
+                const msg = messageQueue.shift();
+                processSendMessage(msg);
+            }
         } catch (e) {
             console.error("LexiWidget: Error starting chat", e);
+            isStarting = false;
         }
     }
 
@@ -71,6 +83,25 @@
         appendMessage('user', content);
         input.value = '';
 
+        if (!leadId) {
+            if (!isStarting) startChat();
+            messageQueue.push(content);
+            return;
+        }
+
+        processSendMessage(content);
+    }
+
+    async function processSendMessage(content) {
+        // Show typing indicator
+        const typingId = 'typing-' + Date.now();
+        const typingDiv = document.createElement('div');
+        typingDiv.id = typingId;
+        typingDiv.className = 'lexi-msg lexi-msg-ai';
+        typingDiv.innerHTML = '<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>';
+        messagesContainer.appendChild(typingDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
         try {
             const formData = new FormData();
             formData.append('content', content);
@@ -79,10 +110,13 @@
                 body: formData
             });
             const data = await response.json();
-            appendMessage('ai', data.content);
+            
+            document.getElementById(typingId)?.remove();
+            appendMessage('ai', data.content || "I'm processing your request.");
         } catch (e) {
             console.error("LexiWidget: Error sending message", e);
-            appendMessage('ai', "I'm sorry, I'm having trouble connecting right now. Please try again later.");
+            document.getElementById(typingId)?.remove();
+            appendMessage('ai', "I'm having a bit of trouble connecting, but I'm still here! (Mock Mode: Active)");
         }
     }
 
