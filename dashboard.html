@@ -33,6 +33,9 @@
                     <a class="nav-link" href="#" id="nav-billing" onclick="showSection('billing')">Billing</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#" id="nav-marketplace" onclick="showSection('marketplace')">Marketplace <span class="badge bg-warning text-dark ms-1" style="font-size: 0.5rem;">New</span></a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#" id="nav-settings" onclick="showSection('settings')">Settings</a>
                 </li>
             </ul>
@@ -101,10 +104,13 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card border-0 shadow-sm overflow-hidden" style="border-radius: 12px;">
-                    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-0">
                         <h5 class="mb-0 fw-bold">Active Intake Pipeline</h5>
                         <div class="d-flex gap-2 align-items-center">
-                            <div class="form-check form-switch me-2">
+                            <button class="btn btn-outline-primary btn-sm rounded-pill px-3" onclick="seedVoiceLead()">
+                                <i class="bi bi-mic me-1"></i> Simulate Voice AI Intake
+                            </button>
+                            <div class="form-check form-switch ms-2">
                                 <input class="form-check-input" type="checkbox" id="demo-mode-toggle" onchange="toggleDemoMode()">
                                 <label class="form-check-label small fw-bold text-primary" for="demo-mode-toggle">Demo Mode</label>
                             </div>
@@ -204,6 +210,78 @@
                                         <!-- Invoices populated here -->
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: Marketplace -->
+        <div id="section-marketplace" class="d-none">
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h3 class="fw-bold">LexiFlow Suite Marketplace</h3>
+                    <p class="text-muted">Expand your firm's capabilities with specialized AI modules.</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm overflow-hidden">
+                        <div class="bg-primary py-4 text-center text-white">
+                            <i class="bi bi-mic display-4"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="fw-bold">Voice AI Receptionist</h5>
+                            <p class="small text-muted">A 24/7 phone intake agent that qualifies leads via voice and syncs transcripts instantly. Integrated with Smith.ai and Ruby.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                <span class="h6 mb-0 fw-bold">$199/mo</span>
+                                <button class="btn btn-sm btn-success rounded-pill px-3">Active</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm overflow-hidden">
+                        <div class="bg-purple py-4 text-center text-white" style="background-color: #6f42c1;">
+                            <i class="bi bi-file-medical display-4"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="fw-bold">Medical Chronology Engine</h5>
+                            <p class="small text-muted">Instantly parse hundreds of pages of medical records into a structured, searchable timeline for demand letters.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                <span class="h6 mb-0 fw-bold">$299/mo</span>
+                                <button class="btn btn-sm btn-primary rounded-pill px-3">Enable Module</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm overflow-hidden">
+                        <div class="bg-success py-4 text-center text-white">
+                            <i class="bi bi-magic display-4"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="fw-bold">AI Demand Letter Drafter</h5>
+                            <p class="small text-muted">Generate high-fidelity demand letters based on intake data and case laws. Reduces drafting time by 90%.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                <span class="h6 mb-0 fw-bold">$149/mo</span>
+                                <button class="btn btn-sm btn-success rounded-pill px-3">Active</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm overflow-hidden">
+                        <div class="bg-info py-4 text-center text-white">
+                            <i class="bi bi-search display-4"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="fw-bold">Conflicts & CRM Sync</h5>
+                            <p class="small text-muted">Deep integration with Clio, MyCase, and Filevine. Automated conflict checking against your existing client base.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                <span class="h6 mb-0 fw-bold">$99/mo</span>
+                                <button class="btn btn-sm btn-success rounded-pill px-3">Active</button>
                             </div>
                         </div>
                     </div>

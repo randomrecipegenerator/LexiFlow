@@ -333,17 +333,24 @@
                     method: 'POST',
                     body: formData
                 });
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Server error:', errorText);
+                    throw new Error('Server responded with ' + response.status);
+                }
+
                 const result = await response.json();
                 if (result.status === 'success') {
                     alert('Thank you! Your demo request has been received. Our team will be in touch shortly.');
                     toggleModal('demoModal');
                     e.target.reset();
                 } else {
-                    alert('Something went wrong. Please try again.');
+                    alert('Something went wrong: ' + (result.message || 'Unknown error'));
                 }
             } catch (error) {
-                console.error('Error:', error);
-                alert('Error sending request.');
+                console.error('Detailed Error:', error);
+                alert('Error sending request. Please check the console for details.');
             }
         });
     </script>

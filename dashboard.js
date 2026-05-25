@@ -28,6 +28,17 @@ async function toggleDemoMode() {
     }
 }
 
+async function seedVoiceLead() {
+    try {
+        const response = await fetch(API_BASE + '/demo/seed-voice', { method: 'POST' });
+        const result = await response.json();
+        alert("Voice AI Lead generated! Check the leads list.");
+        loadLeads();
+    } catch (e) {
+        console.error("Voice seed failed", e);
+    }
+}
+
 async function loadLeads() {
     const toggle = document.getElementById('demo-mode-toggle');
     const isDemo = toggle ? toggle.checked : false;
@@ -229,9 +240,8 @@ async function viewLead(id) {
         }
 
         document.getElementById('modal-case-value').innerText = lead.case_value ? '$' + lead.case_value.toLocaleString() : '$0.00';
-        document.getElementById('modal-conflict-status').innerText = 'Clear';
-        document.getElementById('modal-conflict-status').className = 'badge bg-success';
-        
+        runConflictCheck(lead.id);
+
         if (lead.demand_draft) {
             document.getElementById('demand-letter-preview').classList.remove('d-none');
             document.getElementById('demand-preview-text').innerText = lead.demand_draft;
@@ -251,6 +261,18 @@ async function viewLead(id) {
         
         new bootstrap.Modal(document.getElementById('leadModal')).show();
     } catch (e) { console.error("Error loading lead", e); }
+}
+
+async function runConflictCheck(id) {
+    const statusEl = document.getElementById('modal-conflict-status');
+    statusEl.innerText = 'Checking...';
+    statusEl.className = 'badge bg-secondary';
+    try {
+        const response = await fetch(API_BASE + `/leads/${id}/conflict-check`);
+        const result = await response.json();
+        statusEl.innerText = result.status;
+        statusEl.className = `badge ${result.status === 'Clear' ? 'bg-success' : 'bg-danger'}`;
+    } catch (e) { console.error("Conflict check failed", e); }
 }
 
 function renderModalInvoices(invoices) {
@@ -377,10 +399,18 @@ async function deleteLeadPrivacy() {
 }
 
 window.showSection = function(section) {
-    ['leads', 'forms', 'billing', 'settings'].forEach(s => document.getElementById('section-' + s).classList.add('d-none'));
+    ['leads', 'forms', 'billing', 'marketplace', 'settings'].forEach(s => {
+        const el = document.getElementById('section-' + s);
+        if (el) el.classList.add('d-none');
+    });
     document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-    document.getElementById('section-' + section).classList.remove('d-none');
-    document.getElementById('nav-' + section).classList.add('active');
+    
+    const target = document.getElementById('section-' + section);
+    if (target) target.classList.remove('d-none');
+    
+    const nav = document.getElementById('nav-' + section);
+    if (nav) nav.classList.add('active');
+    
     if (section === 'leads') loadLeads();
     if (section === 'billing') loadInvoices();
     if (section === 'settings') {
@@ -518,9 +548,32 @@ async function draftDemandLetter() {
 
 async function generateMedicalChronology() {
     const leadId = document.getElementById('modal-lead-id').value;
-    alert("Enterprise Feature: Now analyzing uploaded medical records to build a chronology. In the full version, this generates a downloadable CSV/PDF timeline.");
-    // Simulate progress
-    setTimeout(() => {
-        alert("Medical Chronology Generated! Check the Documents tab for the new timeline. (Simulation)");
-    }, 2000);
+    const btn = event.target.closest('button');
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Analyzing...';
+    
+    try {
+        const response = await fetch(API_BASE + `/leads/${leadId}/medical-chronology`);
+        const result = await response.json();
+        
+        let html = '<table class="table table-sm table-bordered mt-2 small"><thead><tr><th>Date</th><th>Event</th><th>Details</th></tr></thead><tbody>';
+        result.chronology.forEach(item => {
+            html += `<tr><td>${item.date}</td><td>${item.event}</td><td>${item.details}</td></tr>`;
+        });
+        html += '</tbody></table>';
+        
+        // Use a simple alert or update a div. Let's update the summary area or a new area.
+        const summaryArea = document.getElementById('modal-summary');
+        const originalSummary = summaryArea.innerText;
+        summaryArea.innerHTML = `<strong>Medical Chronology:</strong><br>${html}<hr><strong>Original Summary:</strong><br>${originalSummary}`;
+        alert("Medical Chronology generated and added to summary view!");
+        
+    } catch (e) {
+        console.error("Chronology failed", e);
+        alert("Failed to generate chronology.");
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+    }
 }
