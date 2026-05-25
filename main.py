@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, Form
+from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, Form, Header
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List
@@ -8,13 +8,26 @@ import uuid
 import httpx
 import json
 
-from . import models, database, ai_engine, esign_engine, integration_engine
+from . import models, database, ai_engine, esign_engine, integration_engine, reception_engine, utils
 from .database import engine, get_db
 
-def create_audit_log(db: Session, action: str, lead_id: int = None, details: str = None):
-    log = models.AuditLog(lead_id=lead_id, action=action, details=details)
+def create_audit_log(db: Session, action: str, lead_id: int = None, details: str = None, firm_id: int = None):
+    log = models.AuditLog(lead_id=lead_id, action=action, details=details, firm_id=firm_id)
     db.add(log)
     db.commit()
+
+# Dependency to get current firm (for dashboard/authenticated routes)
+def get_current_firm(db: Session = Depends(get_db), x_firm_slug: str = Header(None)):
+    if not x_firm_slug:
+        return None
+    firm = db.query(models.Firm).filter(models.Firm.slug == x_firm_slug).first()
+    return firm
+
+# Helper to find firm by slug (for public intake routes)
+def find_firm_by_slug(db: Session, slug: str):
+    if not slug:
+        return None
+    return db.query(models.Firm).filter(models.Firm.slug == slug).first()
 
 app = FastAPI(title="LexiFlow API")
 
@@ -53,8 +66,9 @@ if not os.path.exists(UPLOAD_DIR):
 # API Endpoints
 
 @app.post("/chat/start")
-def start_chat(db: Session = Depends(get_db)):
-    lead = models.Lead()
+def start_chat(firm_slug: str = None, db: Session = Depends(get_db)):
+    firm = find_firm_by_slug(db, firm_slug)
+    lead = models.Lead(firm_id=firm.id if firm else None)
     db.add(lead)
     db.commit()
     db.refresh(lead)
@@ -69,15 +83,20 @@ def demo_request(name: str = Form(...), email: str = Form(...), firm: str = Form
     return {"status": "success", "message": "Demo request received"}
 
 @app.post("/demo/seed")
-def seed_demo_leads(firm: str = Form("General"), db: Session = Depends(get_db)):
-    # Delete existing demo leads to refresh for the specific firm if requested
-    db.query(models.Lead).filter(models.Lead.is_demo == 1).delete()
+def seed_demo_leads(firm_slug: str = Form("general"), db: Session = Depends(get_db)):
+    firm = db.query(models.Firm).filter(models.Firm.slug == firm_slug).first()
+    if not firm:
+        raise HTTPException(status_code=404, detail=f"Firm with slug '{firm_slug}' not found. Please provision it first.")
+
+    # Delete existing demo leads for this firm to refresh
+    db.query(models.Lead).filter(models.Lead.is_demo == 1, models.Lead.firm_id == firm.id).delete()
     
     demo_leads = []
     
-    if firm == "Smith LaCien":
+    if firm.slug == "smith-lacien":
         demo_leads = [
             models.Lead(
+                firm_id=firm.id,
                 full_name="Todd's High-Value Lead (MedMal)",
                 email="victim.medical@example.com",
                 phone="312-555-9000",
@@ -89,17 +108,7 @@ def seed_demo_leads(firm: str = Form("General"), db: Session = Depends(get_db)):
                 is_demo=1
             ),
             models.Lead(
-                full_name="Aviation Incident: Pilot Error",
-                email="survivor@aviation.com",
-                phone="773-555-1234",
-                case_type="Aviation Accident",
-                description="Engine failure during takeoff from Midway. Minor injuries but severe emotional distress.",
-                qualification_score=82.0,
-                status="Qualified",
-                ai_summary="Aviation litigation lead. Potential for punitive damages if maintenance records show pattern of neglect.",
-                is_demo=1
-            ),
-            models.Lead(
+                firm_id=firm.id,
                 full_name="Truck Collision: Route 66",
                 email="driver.hit@gmail.com",
                 phone="312-555-4444",
@@ -111,9 +120,10 @@ def seed_demo_leads(firm: str = Form("General"), db: Session = Depends(get_db)):
                 is_demo=1
             )
         ]
-    elif firm == "Clifford Law":
+    elif firm.slug == "clifford-law":
         demo_leads = [
             models.Lead(
+                firm_id=firm.id,
                 full_name="Mass Tort: Flight 402 Claimant",
                 email="claimant@mass-tort-hub.com",
                 phone="312-555-1111",
@@ -125,6 +135,7 @@ def seed_demo_leads(firm: str = Form("General"), db: Session = Depends(get_db)):
                 is_demo=1
             ),
             models.Lead(
+                firm_id=firm.id,
                 full_name="Product Liability: Defective Valve",
                 email="consumer.hurt@outlook.com",
                 phone="312-555-8888",
@@ -136,34 +147,10 @@ def seed_demo_leads(firm: str = Form("General"), db: Session = Depends(get_db)):
                 is_demo=1
             )
         ]
-    elif firm == "Levin & Perconti":
-        demo_leads = [
-            models.Lead(
-                full_name="Nursing Home Abuse: Maria G.",
-                email="daughter@family.org",
-                phone="847-555-6789",
-                case_type="Nursing Home Abuse",
-                description="Unexplained bruising and rapid weight loss at Sunset Care facility.",
-                qualification_score=89.5,
-                status="High Priority",
-                ai_summary="Serious elder abuse allegation. Levin & Perconti's niche. Needs immediate intervention.",
-                is_demo=1
-            ),
-            models.Lead(
-                full_name="Wrongful Death: James P.",
-                email="estate.admin@legalservices.net",
-                phone="708-555-3333",
-                case_type="Medical Malpractice / Wrongful Death",
-                description="Failure to diagnose sepsis in a nursing home resident, leading to death within 48 hours.",
-                qualification_score=96.8,
-                status="High Priority",
-                ai_summary="Devastating wrongful death lead. Clear failure in standard of care. Perfect for L&P's senior litigation team.",
-                is_demo=1
-            )
-        ]
     else:
         demo_leads = [
             models.Lead(
+                firm_id=firm.id,
                 full_name="Standard PI Lead",
                 email="john.doe@example.com",
                 phone="555-000-1111",
@@ -179,21 +166,88 @@ def seed_demo_leads(firm: str = Form("General"), db: Session = Depends(get_db)):
     for lead in demo_leads:
         db.add(lead)
         db.flush()
-        msg1 = models.Message(lead_id=lead.id, role="assistant", content="Hello! I'm Lexi, your AI legal assistant. I'm here to help you through this difficult time.")
+        msg1 = models.Message(lead_id=lead.id, role="assistant", content=f"Hello! I'm Lexi, the AI assistant for {firm.name}. I'm here to help.")
         msg2 = models.Message(lead_id=lead.id, role="user", content=lead.description)
-        msg3 = models.Message(lead_id=lead.id, role="assistant", content="I've recorded all the details. An attorney will review your case immediately.")
+        msg3 = models.Message(lead_id=lead.id, role="assistant", content="I've recorded all the details for our legal team.")
         db.add_all([msg1, msg2, msg3])
+        
+        create_audit_log(db, "demo_lead_seeded", lead.id, f"Firm: {firm.name}", firm_id=firm.id)
 
     db.commit()
-    return {"status": "success", "message": f"Demo leads seeded for {firm}"}
+    return {"status": "success", "message": f"Demo leads seeded for {firm.name}"}
 
 @app.get("/demo/firms")
-def get_demo_firms():
-    return ["General", "Smith LaCien", "Clifford Law", "Levin & Perconti"]
+def get_demo_firms(db: Session = Depends(get_db)):
+    firms = db.query(models.Firm).all()
+    return [{"name": f.name, "slug": f.slug} for f in firms]
+
+@app.get("/firm/me")
+def get_current_firm_details(current_firm: models.Firm = Depends(get_current_firm)):
+    if not current_firm:
+        # Return default branding if no firm selected
+        return {
+            "name": "LexiFlow Pro",
+            "slug": "general",
+            "branding_logo": "/branding/logo-icon.svg",
+            "branding_colors": json.dumps({
+                "primary": "#2563eb",
+                "secondary": "#1e40af"
+            })
+        }
+    return {
+        "name": current_firm.name,
+        "slug": current_firm.slug,
+        "branding_logo": current_firm.branding_logo,
+        "branding_colors": current_firm.branding_colors,
+        "voice_enabled": current_firm.voice_enabled,
+        "voice_config": json.loads(current_firm.voice_config_json) if current_firm.voice_config_json else {},
+        "email_enabled": current_firm.email_enabled,
+        "email_config": json.loads(current_firm.email_config_json) if current_firm.email_config_json else {},
+        "active_hours": json.loads(current_firm.active_hours_json) if current_firm.active_hours_json else {},
+        "production_sync_enabled": current_firm.production_sync_enabled,
+        "api_config": json.loads(current_firm.api_config_json) if current_firm.api_config_json else {}
+    }
+
+@app.post("/firm/settings")
+def update_firm_settings(
+    voice_enabled: int = Form(None),
+    voice_config: str = Form(None),
+    email_enabled: int = Form(None),
+    email_config: str = Form(None),
+    active_hours: str = Form(None),
+    production_sync_enabled: int = Form(None),
+    api_config: str = Form(None),
+    db: Session = Depends(get_db),
+    current_firm: models.Firm = Depends(get_current_firm)
+):
+    if not current_firm:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    
+    if voice_enabled is not None:
+        current_firm.voice_enabled = voice_enabled
+    if voice_config:
+        current_firm.voice_config_json = voice_config
+    if email_enabled is not None:
+        current_firm.email_enabled = email_enabled
+    if email_config:
+        current_firm.email_config_json = email_config
+    if active_hours:
+        current_firm.active_hours_json = active_hours
+    if production_sync_enabled is not None:
+        current_firm.production_sync_enabled = production_sync_enabled
+    if api_config:
+        current_firm.api_config_json = api_config
+    
+    db.commit()
+    create_audit_log(db, "settings_updated", details="Firm settings updated via dashboard", firm_id=current_firm.id)
+    return {"status": "success"}
 
 @app.post("/sync/{system}/{lead_id}")
-async def universal_sync(system: str, lead_id: int, db: Session = Depends(get_db)):
-    lead = db.query(models.Lead).filter(models.Lead.id == lead_id).first()
+async def universal_sync(system: str, lead_id: int, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    query = db.query(models.Lead).filter(models.Lead.id == lead_id)
+    if current_firm:
+        query = query.filter(models.Lead.firm_id == current_firm.id)
+    lead = query.first()
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
     
@@ -273,6 +327,10 @@ async def upload_file(lead_id: int, file: UploadFile = File(...), db: Session = 
     db.add(doc)
     
     # Update Lead profile if we found key data
+    lead = db.query(models.Lead).filter(models.Lead.id == lead_id).first()
+    if lead and lead.firm_id:
+        utils.log_usage(db, lead.firm_id, "document_analysis", quantity=1.0, details=f"File: {file.filename}")
+
     if extracted_data and "extracted_fields" in extracted_data:
         lead = db.query(models.Lead).filter(models.Lead.id == lead_id).first()
         fields = extracted_data["extracted_fields"]
@@ -308,7 +366,10 @@ def complete_chat(lead_id: int, db: Session = Depends(get_db)):
     full_transcript = transcript + "\n" + doc_context
     
     # Fetch Knowledge Base context
-    kb_entries = db.query(models.KnowledgeBase).filter(models.KnowledgeBase.is_active == 1).all()
+    kb_entries = db.query(models.KnowledgeBase).filter(models.KnowledgeBase.is_active == 1)
+    if lead.firm_id:
+        kb_entries = kb_entries.filter(models.KnowledgeBase.firm_id == lead.firm_id)
+    kb_entries = kb_entries.all()
     kb_context = "\n".join([f"KB - {k.title}: {k.content}" for k in kb_entries])
     
     score, status, summary, client_info, case_value = ai_engine.qualify_lead(full_transcript, context=kb_context)
@@ -317,6 +378,9 @@ def complete_chat(lead_id: int, db: Session = Depends(get_db)):
     lead.status = status
     lead.ai_summary = summary
     lead.case_value_estimate = case_value
+    
+    if lead.firm_id:
+        utils.log_usage(db, lead.firm_id, "web_intake", quantity=1.0, details=f"Lead ID: {lead_id}")
     
     if client_info:
         if not lead.full_name and client_info.get("full_name"):
@@ -333,8 +397,12 @@ def complete_chat(lead_id: int, db: Session = Depends(get_db)):
     return {"status": status, "score": score}
 
 @app.get("/leads", response_model=List[dict])
-def get_leads(demo_mode: bool = False, db: Session = Depends(get_db)):
+def get_leads(demo_mode: bool = False, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
     query = db.query(models.Lead)
+    
+    if current_firm:
+        query = query.filter(models.Lead.firm_id == current_firm.id)
+    
     if demo_mode:
         query = query.filter(models.Lead.is_demo == 1)
     else:
@@ -357,8 +425,12 @@ def get_leads(demo_mode: bool = False, db: Session = Depends(get_db)):
     return result
 
 @app.get("/leads/{lead_id}")
-def get_lead_detail(lead_id: int, db: Session = Depends(get_db)):
-    lead = db.query(models.Lead).filter(models.Lead.id == lead_id).first()
+def get_lead_detail(lead_id: int, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    query = db.query(models.Lead).filter(models.Lead.id == lead_id)
+    if current_firm:
+        query = query.filter(models.Lead.firm_id == current_firm.id)
+    
+    lead = query.first()
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
     
@@ -393,8 +465,9 @@ def get_lead_detail(lead_id: int, db: Session = Depends(get_db)):
 
 
 @app.post("/forms")
-def create_form(name: str = Form(...), branding_logo: str = Form(None), branding_colors: str = Form(None), questions_json: str = Form(...), db: Session = Depends(get_db)):
-    form = models.Form(name=name, branding_logo=branding_logo, branding_colors=branding_colors)
+def create_form(name: str = Form(...), branding_logo: str = Form(None), branding_colors: str = Form(None), questions_json: str = Form(...), db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    firm_id = current_firm.id if current_firm else None
+    form = models.Form(name=name, branding_logo=branding_logo, branding_colors=branding_colors, firm_id=firm_id)
     db.add(form)
     db.flush()
     
@@ -432,13 +505,19 @@ def create_form(name: str = Form(...), branding_logo: str = Form(None), branding
     return {"form_id": form.id}
 
 @app.get("/forms")
-def get_forms(db: Session = Depends(get_db)):
-    forms = db.query(models.Form).all()
-    return forms
+def get_forms(db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    query = db.query(models.Form)
+    if current_firm:
+        query = query.filter(models.Form.firm_id == current_firm.id)
+    return query.all()
 
 @app.get("/forms/{form_id}")
-def get_form(form_id: int, db: Session = Depends(get_db)):
-    form = db.query(models.Form).filter(models.Form.id == form_id).first()
+def get_form(form_id: int, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    query = db.query(models.Form).filter(models.Form.id == form_id)
+    if current_firm:
+        query = query.filter(models.Form.firm_id == current_firm.id)
+    
+    form = query.first()
     if not form:
         raise HTTPException(status_code=404, detail="Form not found")
     questions = db.query(models.Question).filter(models.Question.form_id == form_id).order_by(models.Question.order.asc()).all()
@@ -459,6 +538,10 @@ def get_form(form_id: int, db: Session = Depends(get_db)):
 
 @app.post("/forms/{form_id}/submit")
 def submit_form(form_id: int, answers_json: str = Form(...), db: Session = Depends(get_db)):
+    form = db.query(models.Form).filter(models.Form.id == form_id).first()
+    if not form:
+        raise HTTPException(status_code=404, detail="Form not found")
+        
     answers = json.loads(answers_json) # dict of question_id: answer
     
     # Create a lead
@@ -467,7 +550,7 @@ def submit_form(form_id: int, answers_json: str = Form(...), db: Session = Depen
         # Try to find a question that might be the name
         name = "Form Lead"
     
-    lead = models.Lead(full_name=name)
+    lead = models.Lead(full_name=name, firm_id=form.firm_id)
     db.add(lead)
     db.flush()
     
@@ -490,6 +573,9 @@ def submit_form(form_id: int, answers_json: str = Form(...), db: Session = Depen
     lead.status = status
     lead.ai_summary = summary
     
+    if form.firm_id:
+        utils.log_usage(db, form.firm_id, "form_intake", quantity=1.0, details=f"Form ID: {form_id}, Lead ID: {lead.id}")
+    
     db.commit()
     return {"status": "success", "lead_id": lead.id}
 
@@ -500,23 +586,29 @@ async def reception_webhook(
     phone: str = Form(None), 
     notes: str = Form(None), 
     source: str = Form("Receptionist"),
+    firm_slug: str = Form(None),
     db: Session = Depends(get_db)
 ):
     """
     Endpoint for virtual receptionists (e.g., Ruby, Smith.ai) to push lead info.
     """
+    firm = find_firm_by_slug(db, firm_slug)
     lead = models.Lead(
         full_name=name, 
         email=email, 
         phone=phone, 
         description=notes, 
-        source=source
+        source=source,
+        firm_id=firm.id if firm else None
     )
     db.add(lead)
     db.flush()
     
     # AI Qualification
-    kb_entries = db.query(models.KnowledgeBase).filter(models.KnowledgeBase.is_active == 1).all()
+    kb_entries = db.query(models.KnowledgeBase).filter(models.KnowledgeBase.is_active == 1)
+    if lead.firm_id:
+        kb_entries = kb_entries.filter(models.KnowledgeBase.firm_id == lead.firm_id)
+    kb_entries = kb_entries.all()
     kb_context = "\n".join([f"KB - {k.title}: {k.content}" for k in kb_entries])
     
     score, status, summary = ai_engine.qualify_lead(f"Receptionist Notes: {notes}", context=kb_context)
@@ -524,27 +616,51 @@ async def reception_webhook(
     lead.status = status
     lead.ai_summary = summary
     
+    if lead.firm_id:
+        utils.log_usage(db, lead.firm_id, "receptionist_intake", quantity=1.0, details=f"Source: {source}, Lead ID: {lead.id}")
+    
     db.commit()
     
     create_audit_log(db, "reception_sync", lead.id, f"Source: {source}")
     
     return {"status": "success", "lead_id": lead.id}
 
+@app.post("/reception/vapi/brain")
+async def vapi_brain(payload: dict, db: Session = Depends(get_db)):
+    """Vapi Server URL for Voice AI logic"""
+    return await reception_engine.handle_vapi_message(payload, db)
+
+@app.post("/reception/postmark/inbound")
+async def postmark_inbound(payload: dict, db: Session = Depends(get_db)):
+    """Postmark Inbound Webhook for Email leads"""
+    return await reception_engine.handle_postmark_inbound(payload, db)
+
 @app.get("/knowledge-base")
-def get_kb(db: Session = Depends(get_db)):
-    return db.query(models.KnowledgeBase).all()
+def get_kb(db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    query = db.query(models.KnowledgeBase)
+    if current_firm:
+        query = query.filter(models.KnowledgeBase.firm_id == current_firm.id)
+    return query.all()
 
 @app.post("/knowledge-base")
-def add_kb(title: str = Form(...), content: str = Form(...), db: Session = Depends(get_db)):
-    kb = models.KnowledgeBase(title=title, content=content)
+def add_kb(title: str = Form(...), content: str = Form(...), db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    kb = models.KnowledgeBase(
+        title=title, 
+        content=content,
+        firm_id=current_firm.id if current_firm else None
+    )
     db.add(kb)
     db.commit()
     db.refresh(kb)
     return kb
 
 @app.delete("/knowledge-base/{kb_id}")
-def delete_kb(kb_id: int, db: Session = Depends(get_db)):
-    kb = db.query(models.KnowledgeBase).filter(models.KnowledgeBase.id == kb_id).first()
+def delete_kb(kb_id: int, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    query = db.query(models.KnowledgeBase).filter(models.KnowledgeBase.id == kb_id)
+    if current_firm:
+        query = query.filter(models.KnowledgeBase.firm_id == current_firm.id)
+    
+    kb = query.first()
     if not kb:
         raise HTTPException(status_code=404, detail="Entry not found")
     db.delete(kb)
@@ -552,17 +668,29 @@ def delete_kb(kb_id: int, db: Session = Depends(get_db)):
     return {"status": "success"}
 
 @app.get("/billing/invoices")
-def get_invoices(db: Session = Depends(get_db)):
-    invoices = db.query(models.Invoice).all()
-    return invoices
+def get_invoices(db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    query = db.query(models.Invoice)
+    if current_firm:
+        query = query.filter(models.Invoice.firm_id == current_firm.id)
+    return query.all()
 
 @app.post("/billing/invoices")
-def create_invoice(lead_id: int = Form(...), amount: float = Form(...), currency: str = Form("USD"), description: str = Form(None), db: Session = Depends(get_db)):
-    lead = db.query(models.Lead).filter(models.Lead.id == lead_id).first()
+def create_invoice(lead_id: int = Form(...), amount: float = Form(...), currency: str = Form("USD"), description: str = Form(None), db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    lead_query = db.query(models.Lead).filter(models.Lead.id == lead_id)
+    if current_firm:
+        lead_query = lead_query.filter(models.Lead.firm_id == current_firm.id)
+    
+    lead = lead_query.first()
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
     
-    invoice = models.Invoice(lead_id=lead_id, amount=amount, currency=currency, description=description)
+    invoice = models.Invoice(
+        lead_id=lead_id, 
+        amount=amount, 
+        currency=currency, 
+        description=description,
+        firm_id=current_firm.id if current_firm else lead.firm_id
+    )
     db.add(invoice)
     db.commit()
     db.refresh(invoice)
@@ -571,7 +699,7 @@ def create_invoice(lead_id: int = Form(...), amount: float = Form(...), currency
     invoice.external_id = f"lp_{uuid.uuid4().hex[:8]}"
     db.commit()
     
-    create_audit_log(db, "invoice_created", lead_id, f"Amount: {amount} {currency}")
+    create_audit_log(db, "invoice_created", lead_id, f"Amount: {amount} {currency}", firm_id=invoice.firm_id)
     
     return invoice
 
@@ -589,8 +717,11 @@ def sync_lawpay(invoice_id: int, db: Session = Depends(get_db)):
 
 # eSignature Endpoints
 @app.post("/esign/send/{lead_id}")
-def send_esign_request(lead_id: int, db: Session = Depends(get_db)):
-    lead = db.query(models.Lead).filter(models.Lead.id == lead_id).first()
+def send_esign_request(lead_id: int, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    query = db.query(models.Lead).filter(models.Lead.id == lead_id)
+    if current_firm:
+        query = query.filter(models.Lead.firm_id == current_firm.id)
+    lead = query.first()
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
     
@@ -608,8 +739,11 @@ def send_esign_request(lead_id: int, db: Session = Depends(get_db)):
     return result
 
 @app.get("/esign/status/{lead_id}")
-def get_esign_status(lead_id: int, db: Session = Depends(get_db)):
-    lead = db.query(models.Lead).filter(models.Lead.id == lead_id).first()
+def get_esign_status(lead_id: int, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    query = db.query(models.Lead).filter(models.Lead.id == lead_id)
+    if current_firm:
+        query = query.filter(models.Lead.firm_id == current_firm.id)
+    lead = query.first()
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
     
@@ -628,8 +762,11 @@ async def esign_webhook(db: Session = Depends(get_db)):
     return {"status": "success"}
 
 @app.post("/esign/simulate_signed/{lead_id}")
-def simulate_esign_signed(lead_id: int, db: Session = Depends(get_db)):
-    lead = db.query(models.Lead).filter(models.Lead.id == lead_id).first()
+def simulate_esign_signed(lead_id: int, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    query = db.query(models.Lead).filter(models.Lead.id == lead_id)
+    if current_firm:
+        query = query.filter(models.Lead.firm_id == current_firm.id)
+    lead = query.first()
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
     
@@ -641,9 +778,12 @@ def simulate_esign_signed(lead_id: int, db: Session = Depends(get_db)):
     return {"status": "success", "message": "Lead status updated to Signed"}
 
 @app.get("/leads/{lead_id}/export/clio")
-def export_lead_clio_csv(lead_id: int, db: Session = Depends(get_db)):
+def export_lead_clio_csv(lead_id: int, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
     """Export lead in Clio-compatible CSV format"""
-    lead = db.query(models.Lead).filter(models.Lead.id == lead_id).first()
+    query = db.query(models.Lead).filter(models.Lead.id == lead_id)
+    if current_firm:
+        query = query.filter(models.Lead.firm_id == current_firm.id)
+    lead = query.first()
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
     
@@ -681,11 +821,60 @@ def export_lead_clio_csv(lead_id: int, db: Session = Depends(get_db)):
         headers={"Content-Disposition": f"attachment; filename=clio_lead_{lead_id}.csv"}
     )
 
+@app.get("/billing/usage")
+def get_usage(db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    if not current_firm:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    
+    usage_entries = db.query(models.Usage).filter(models.Usage.firm_id == current_firm.id).order_by(models.Usage.timestamp.desc()).all()
+    
+    # Calculate totals by type
+    totals = {}
+    for entry in usage_entries:
+        totals[entry.usage_type] = totals.get(entry.usage_type, 0) + entry.quantity
+    
+    return {
+        "plan_status": current_firm.plan_status,
+        "trial_expires_at": current_firm.trial_expires_at.isoformat() if current_firm.trial_expires_at else None,
+        "totals": totals,
+        "history": [
+            {
+                "type": e.usage_type,
+                "quantity": e.quantity,
+                "details": e.details,
+                "timestamp": e.timestamp.isoformat()
+            } for e in usage_entries
+        ]
+    }
+
+@app.get("/admin/usage-report")
+def get_admin_usage_report(db: Session = Depends(get_db)):
+    """Global usage report for all firms (Admin only)"""
+    firms = db.query(models.Firm).all()
+    report = []
+    for firm in firms:
+        usage_entries = db.query(models.Usage).filter(models.Usage.firm_id == firm.id).all()
+        totals = {}
+        for entry in usage_entries:
+            totals[entry.usage_type] = totals.get(entry.usage_type, 0) + entry.quantity
+            
+        report.append({
+            "firm_id": firm.id,
+            "firm_name": firm.name,
+            "firm_slug": firm.slug,
+            "plan_status": firm.plan_status,
+            "totals": totals
+        })
+    return report
+
 # GDPR & Compliance Endpoints
 @app.delete("/leads/{lead_id}")
-def delete_lead(lead_id: int, db: Session = Depends(get_db)):
+def delete_lead(lead_id: int, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
     """Right to be Forgotten - GDPR Compliance"""
-    lead = db.query(models.Lead).filter(models.Lead.id == lead_id).first()
+    query = db.query(models.Lead).filter(models.Lead.id == lead_id)
+    if current_firm:
+        query = query.filter(models.Lead.firm_id == current_firm.id)
+    lead = query.first()
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
     
@@ -705,9 +894,12 @@ def delete_lead(lead_id: int, db: Session = Depends(get_db)):
     return {"status": "success", "message": f"Lead {lead_id} and all related data deleted."}
 
 @app.get("/leads/{lead_id}/export")
-def export_lead_data(lead_id: int, db: Session = Depends(get_db)):
+def export_lead_data(lead_id: int, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
     """Data Portability - GDPR Compliance"""
-    lead = db.query(models.Lead).filter(models.Lead.id == lead_id).first()
+    query = db.query(models.Lead).filter(models.Lead.id == lead_id)
+    if current_firm:
+        query = query.filter(models.Lead.firm_id == current_firm.id)
+    lead = query.first()
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
     
@@ -737,8 +929,11 @@ def export_lead_data(lead_id: int, db: Session = Depends(get_db)):
     return data
 
 @app.post("/leads/{lead_id}/draft-demand")
-def generate_demand_draft(lead_id: int, db: Session = Depends(get_db)):
-    lead = db.query(models.Lead).filter(models.Lead.id == lead_id).first()
+def generate_demand_draft(lead_id: int, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    query = db.query(models.Lead).filter(models.Lead.id == lead_id)
+    if current_firm:
+        query = query.filter(models.Lead.firm_id == current_firm.id)
+    lead = query.first()
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
     
@@ -747,6 +942,10 @@ def generate_demand_draft(lead_id: int, db: Session = Depends(get_db)):
     
     draft = ai_engine.draft_demand_letter(transcript)
     lead.demand_letter_draft = draft
+    
+    if lead.firm_id:
+        utils.log_usage(db, lead.firm_id, "document_analysis", quantity=1.0, details=f"Demand Letter Draft (Lead ID: {lead_id})")
+        
     db.commit()
     
     create_audit_log(db, "demand_draft_generated", lead_id)
@@ -754,8 +953,11 @@ def generate_demand_draft(lead_id: int, db: Session = Depends(get_db)):
     return {"draft": draft}
 
 @app.get("/leads/{lead_id}/medical-chronology")
-def get_medical_chronology(lead_id: int, db: Session = Depends(get_db)):
-    lead = db.query(models.Lead).filter(models.Lead.id == lead_id).first()
+def get_medical_chronology(lead_id: int, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    query = db.query(models.Lead).filter(models.Lead.id == lead_id)
+    if current_firm:
+        query = query.filter(models.Lead.firm_id == current_firm.id)
+    lead = query.first()
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
     
@@ -764,13 +966,19 @@ def get_medical_chronology(lead_id: int, db: Session = Depends(get_db)):
     
     chronology = ai_engine.generate_medical_chronology(transcript)
     
+    if lead.firm_id:
+        utils.log_usage(db, lead.firm_id, "document_analysis", quantity=1.0, details=f"Medical Chronology (Lead ID: {lead_id})")
+        
     create_audit_log(db, "medical_chronology_generated", lead_id)
     
     return {"chronology": chronology}
 
 @app.get("/leads/{lead_id}/conflict-check")
-def run_conflict_check(lead_id: int, db: Session = Depends(get_db)):
-    lead = db.query(models.Lead).filter(models.Lead.id == lead_id).first()
+def run_conflict_check(lead_id: int, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    query = db.query(models.Lead).filter(models.Lead.id == lead_id)
+    if current_firm:
+        query = query.filter(models.Lead.firm_id == current_firm.id)
+    lead = query.first()
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
     
@@ -779,10 +987,14 @@ def run_conflict_check(lead_id: int, db: Session = Depends(get_db)):
     
     # Simple name-based search for potential conflicts
     # In a real app, this would check against a "Client" database and adverse parties.
-    potential_matches = db.query(models.Lead).filter(
+    conflict_query = db.query(models.Lead).filter(
         models.Lead.full_name.ilike(f"%{lead.full_name}%"),
         models.Lead.id != lead_id
-    ).all()
+    )
+    if current_firm:
+        conflict_query = conflict_query.filter(models.Lead.firm_id == current_firm.id)
+        
+    potential_matches = conflict_query.all()
     
     status = "Clear"
     if len(potential_matches) > 0:
@@ -795,9 +1007,10 @@ def run_conflict_check(lead_id: int, db: Session = Depends(get_db)):
     }
 
 @app.post("/demo/seed-voice")
-def seed_voice_leads(db: Session = Depends(get_db)):
+def seed_voice_leads(db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
     """Seed specialized leads that look like they came from Voice AI"""
     voice_lead = models.Lead(
+        firm_id=current_firm.id if current_firm else None,
         full_name="Sarah Miller (Voice Intake)",
         email="smiller@example.com",
         phone="312-555-0982",
@@ -832,8 +1045,11 @@ def seed_voice_leads(db: Session = Depends(get_db)):
     return {"status": "success", "lead_id": voice_lead.id}
 
 @app.get("/audit-logs")
-def get_audit_logs(limit: int = 100, db: Session = Depends(get_db)):
-    logs = db.query(models.AuditLog).order_by(models.AuditLog.timestamp.desc()).limit(limit).all()
+def get_audit_logs(limit: int = 100, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    query = db.query(models.AuditLog)
+    if current_firm:
+        query = query.filter(models.AuditLog.firm_id == current_firm.id)
+    logs = query.order_by(models.AuditLog.timestamp.desc()).limit(limit).all()
     return logs
 
 # For local development and sandbox serving

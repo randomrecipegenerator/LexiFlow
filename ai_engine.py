@@ -338,3 +338,64 @@ def generate_medical_chronology(transcript):
     except Exception as e:
         print(f"Error generating chronology: {e}")
         return []
+
+def generate_qualification_rules(firm_name, criteria_text):
+    """
+    Generate detailed qualification rules for a law firm based on provided text.
+    """
+    if not client:
+        return f"Standard personal injury qualification rules for {firm_name}."
+
+    prompt = f"""
+    Create a detailed set of case qualification rules for the law firm '{firm_name}'.
+    Use the following information as your primary guide:
+    {criteria_text}
+    
+    Format the rules as a series of clear, actionable bullet points in Markdown.
+    The goal is for another AI to use these rules to score and status incoming leads.
+    
+    Include:
+    - High-value case indicators (e.g., specific injuries, liability clarity, insurance coverage).
+    - Automatic disqualifiers (e.g., statute of limitations expired, conflict of interest, wrong practice area).
+    - Differentiators specific to {firm_name}'s practice.
+    
+    Be specific and professional.
+    """
+
+    try:
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": "You are a senior law firm intake consultant and legal strategist. Your task is to extract qualification criteria from raw data and turn them into clear instructions for an intake AI."},
+                {"role": "user", "content": prompt}
+            ]
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        print(f"Error generating rules: {e}")
+        # Robust fallback using basic extraction
+        high_value_keywords = [
+            "aviation", "birth injury", "brain injury", "wrongful death", 
+            "medical malpractice", "truck accident", "mass tort", 
+            "spinal cord injury", "cerebral palsy", "hypoxia"
+        ]
+        found = [k.title() for k in high_value_keywords if k in criteria_text.lower()]
+        
+        rules = f"### Qualification Rules for {firm_name}\n\n"
+        rules += "#### High-Value Case Indicators\n"
+        if found:
+            for f in found:
+                rules += f"- Case involves **{f}**.\n"
+        else:
+            rules += "- Clear liability and significant damages.\n"
+            rules += "- Practice area alignment (Personal Injury).\n"
+            
+        rules += "\n#### Disqualifiers\n"
+        rules += "- Conflict of interest.\n"
+        rules += "- Statute of limitations expired.\n"
+        rules += "- Incident outside firm's geographic jurisdiction.\n"
+        
+        rules += "\n#### Practice Focus\n"
+        rules += f"- This set of rules was automatically generated via LexiFlow heuristic analysis for {firm_name}."
+        
+        return rules

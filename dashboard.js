@@ -1,6 +1,23 @@
 let allLeads = [];
 let statusChart = null;
 
+// Initialize firm selector from context on load
+document.addEventListener('DOMContentLoaded', () => {
+    const slug = LexiContext.getFirmSlug();
+    const firmSelect = document.getElementById('demo-firm-select');
+    if (firmSelect) {
+        firmSelect.value = slug;
+        // If it's not 'general', we probably want demo mode enabled
+        if (slug !== 'general') {
+            const toggle = document.getElementById('demo-mode-toggle');
+            if (toggle) {
+                toggle.checked = true;
+                firmSelect.classList.remove('d-none');
+            }
+        }
+    }
+});
+
 async function toggleDemoMode() {
     const isDemo = document.getElementById('demo-mode-toggle').checked;
     const firmSelect = document.getElementById('demo-firm-select');
@@ -15,10 +32,11 @@ async function toggleDemoMode() {
     
     if (isDemo) {
         const firm = firmSelect.value;
+        LexiContext.setFirmSlug(firm); // Persist selection
         try {
             const formData = new FormData();
-            formData.append('firm', firm);
-            await fetch(API_BASE + '/demo/seed', { method: 'POST', body: formData });
+            formData.append('firm_slug', firm);
+            await apiFetch('/demo/seed', { method: 'POST', body: formData });
             await loadLeads();
         } catch (e) {
             console.error("Seeding failed", e);
@@ -30,7 +48,7 @@ async function toggleDemoMode() {
 
 async function seedVoiceLead() {
     try {
-        const response = await fetch(API_BASE + '/demo/seed-voice', { method: 'POST' });
+        const response = await apiFetch('/demo/seed-voice', { method: 'POST' });
         const result = await response.json();
         alert("Voice AI Lead generated! Check the leads list.");
         loadLeads();
@@ -43,12 +61,71 @@ async function loadLeads() {
     const toggle = document.getElementById('demo-mode-toggle');
     const isDemo = toggle ? toggle.checked : false;
     try {
-        const response = await fetch(API_BASE + `/leads?demo_mode=${isDemo}`);
+        // Load firm branding
+        const firmResponse = await apiFetch('/firm/me');
+        if (firmResponse.ok) {
+            const firmData = await firmResponse.json();
+            applyFirmBranding(firmData);
+        }
+
+        const response = await apiFetch(`/leads?demo_mode=${isDemo}`);
         allLeads = await response.json();
         updateStats();
         filterLeads();
     } catch (error) {
         console.error('Error loading leads:', error);
+    }
+}
+
+function applyFirmBranding(firm) {
+    // Update logo in navbar
+    const navBrand = document.querySelector('.navbar-brand');
+    if (navBrand && firm.branding_logo) {
+        // Special handling for high-fidelity demo firms where the SVG includes the name
+        if (firm.slug === 'clifford-law' || firm.slug === 'smith-lacien') {
+            navBrand.innerHTML = `<img src="${firm.branding_logo}" alt="${firm.name}" height="45" class="py-1">`;
+        } else {
+            navBrand.innerHTML = `<img src="${firm.branding_logo}" alt="${firm.name}" height="32" class="me-2">${firm.name}`;
+        }
+    }
+
+    // Apply colors if available
+    if (firm.branding_colors) {
+        try {
+            const colors = JSON.parse(firm.branding_colors);
+            
+            // Set primary color
+            if (colors.primary) {
+                document.documentElement.style.setProperty('--bs-primary', colors.primary);
+                
+                // Update elements that might not use the CSS variable directly or need manual overrides
+                const btnPrimary = document.querySelectorAll('.btn-primary');
+                btnPrimary.forEach(btn => {
+                    btn.style.setProperty('background-color', colors.primary, 'important');
+                    btn.style.setProperty('border-color', colors.primary, 'important');
+                });
+
+                // Update text-primary elements
+                const textPrimary = document.querySelectorAll('.text-primary');
+                textPrimary.forEach(el => {
+                    el.style.setProperty('color', colors.primary, 'important');
+                });
+
+                // Update progress bars
+                const progressBars = document.querySelectorAll('.progress-bar.bg-primary');
+                progressBars.forEach(pb => {
+                    pb.style.setProperty('background-color', colors.primary, 'important');
+                });
+            }
+
+            // Set background if specified
+            if (colors.background && colors.background !== '#ffffff') {
+                document.body.style.backgroundColor = colors.background;
+            }
+
+        } catch (e) {
+            console.error("Error applying branding colors", e);
+        }
     }
 }
 
@@ -193,7 +270,7 @@ function getScoreColor(score) {
 
 async function viewLead(id) {
     try {
-        const response = await fetch(API_BASE + `/leads/${id}`);
+        const response = await apiFetch(`/leads/${id}`);
         const lead = await response.json();
         document.getElementById('modal-lead-id').value = lead.id;
         document.getElementById('modal-name').innerText = lead.full_name || `Lead #${lead.id}`;
@@ -268,7 +345,7 @@ async function runConflictCheck(id) {
     statusEl.innerText = 'Checking...';
     statusEl.className = 'badge bg-secondary';
     try {
-        const response = await fetch(API_BASE + `/leads/${id}/conflict-check`);
+        const response = await apiFetch(`/leads/${id}/conflict-check`);
         const result = await response.json();
         statusEl.innerText = result.status;
         statusEl.className = `badge ${result.status === 'Clear' ? 'bg-success' : 'bg-danger'}`;
@@ -288,9 +365,43 @@ function getCurrencySymbol(curr) {
     return curr === 'EUR' ? '€' : '$';
 }
 
+async function loadUsage() {
+    try {
+        const response = await apiFetch('/billing/usage');
+        if (!response.ok) return;
+        const data = await response.json();
+        
+        const planEl = document.getElementById('billing-plan-status');
+        const trialEl = document.getElementById('billing-trial-expires');
+        if (planEl) planEl.innerText = data.plan_status;
+        if (trialEl) trialEl.innerText = data.trial_expires_at 
+            ? `Expires: ${new Date(data.trial_expires_at).toLocaleDateString()}`
+            : 'No expiry';
+            
+        const docUsageEl = document.getElementById('usage-docs');
+        const voiceUsageEl = document.getElementById('usage-voice');
+        const webUsageEl = document.getElementById('usage-web');
+        const emailUsageEl = document.getElementById('usage-email');
+        
+        if (docUsageEl) docUsageEl.innerText = data.totals.document_analysis || 0;
+        if (voiceUsageEl) voiceUsageEl.innerText = (data.totals.voice_minutes || 0).toFixed(2);
+        
+        // Aggregate web-based intakes
+        const webTotal = (data.totals.web_intake || 0) + 
+                         (data.totals.form_intake || 0) + 
+                         (data.totals.receptionist_intake || 0);
+        if (webUsageEl) webUsageEl.innerText = webTotal;
+        
+        if (emailUsageEl) emailUsageEl.innerText = data.totals.email_intake || 0;
+        
+    } catch (e) {
+        console.error("Error loading usage", e);
+    }
+}
+
 async function loadInvoices() {
     try {
-        const response = await fetch(API_BASE + '/billing/invoices');
+        const response = await apiFetch('/billing/invoices');
         const invoices = await response.json();
         const table = document.getElementById('invoices-table');
         table.innerHTML = invoices.map(inv => `
@@ -310,7 +421,7 @@ async function loadInvoices() {
 
 async function syncLawPay(id) {
     try {
-        const response = await fetch(API_BASE + `/billing/sync/lawpay/${id}`, { method: 'POST' });
+        const response = await apiFetch(`/billing/sync/lawpay/${id}`, { method: 'POST' });
         const result = await response.json();
         alert(result.message);
         loadInvoices();
@@ -328,11 +439,11 @@ async function requestPayment() {
     formData.append('currency', currency);
     formData.append('description', 'Retainer Request');
     try {
-        const response = await fetch(API_BASE + '/billing/invoices', { method: 'POST', body: formData });
+        const response = await apiFetch('/billing/invoices', { method: 'POST', body: formData });
         if (response.ok) {
             alert("Payment request sent!");
             document.getElementById('request-amount').value = '';
-            const leadResponse = await fetch(API_BASE + `/leads/${leadId}`);
+            const leadResponse = await apiFetch(`/leads/${leadId}`);
             const lead = await leadResponse.json();
             renderModalInvoices(lead.invoices);
         }
@@ -342,11 +453,11 @@ async function requestPayment() {
 async function sendRetainer() {
     const leadId = document.getElementById('modal-lead-id').value;
     try {
-        const response = await fetch(API_BASE + `/esign/send/${leadId}`, { method: 'POST' });
+        const response = await apiFetch(`/esign/send/${leadId}`, { method: 'POST' });
         if (response.ok) {
             const result = await response.json();
             alert(`Retainer sent! Request ID: ${result.signature_request_id}`);
-            const leadResponse = await fetch(API_BASE + `/leads/${leadId}`);
+            const leadResponse = await apiFetch(`/leads/${leadId}`);
             const lead = await leadResponse.json();
             const esignContainer = document.getElementById('esign-status-container');
             const esignBadge = document.getElementById('esign-status-badge');
@@ -359,7 +470,7 @@ async function sendRetainer() {
 
 async function loadAuditLogs() {
     try {
-        const response = await fetch(API_BASE + '/audit-logs');
+        const response = await apiFetch('/audit-logs');
         const logs = await response.json();
         document.getElementById('audit-logs-table').innerHTML = logs.map(log => `
             <tr>
@@ -376,7 +487,7 @@ async function exportLeadPrivacy() {
     const leadId = document.getElementById('privacy-lead-id').value;
     if (!leadId) return alert("Please enter a Lead ID");
     try {
-        const response = await fetch(API_BASE + `/leads/${leadId}/export`);
+        const response = await apiFetch(`/leads/${leadId}/export`);
         if (!response.ok) throw new Error("Lead not found");
         const data = await response.json();
         const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
@@ -391,7 +502,7 @@ async function deleteLeadPrivacy() {
     if (!leadId) return alert("Please enter a Lead ID");
     if (!confirm("Permanently delete all data for this lead?")) return;
     try {
-        const response = await fetch(API_BASE + `/leads/${leadId}`, { method: 'DELETE' });
+        const response = await apiFetch(`/leads/${leadId}`, { method: 'DELETE' });
         const result = await response.json();
         alert(result.message);
         loadLeads(); loadAuditLogs();
@@ -399,7 +510,7 @@ async function deleteLeadPrivacy() {
 }
 
 window.showSection = function(section) {
-    ['leads', 'forms', 'billing', 'marketplace', 'settings'].forEach(s => {
+    ['leads', 'forms', 'billing', 'marketplace', 'front-desk', 'settings'].forEach(s => {
         const el = document.getElementById('section-' + s);
         if (el) el.classList.add('d-none');
     });
@@ -412,17 +523,242 @@ window.showSection = function(section) {
     if (nav) nav.classList.add('active');
     
     if (section === 'leads') loadLeads();
-    if (section === 'billing') loadInvoices();
+    if (section === 'billing') {
+        loadInvoices();
+        loadUsage();
+    }
+    if (section === 'front-desk') loadFrontDeskSettings();
     if (section === 'settings') {
         loadAuditLogs();
         loadKB();
-        document.getElementById('webhook-url').value = API_BASE + '/reception/webhook';
+        document.getElementById('webhook-url').value = API_BASE + '/api/reception/webhook';
     }
 };
 
+let fdSourceChart = null;
+
+async function loadFrontDeskSettings() {
+    try {
+        const response = await apiFetch('/firm/me');
+        const firm = await response.json();
+        
+        // Voice Tab
+        document.getElementById('voiceToggle').checked = firm.voice_enabled === 1;
+        document.getElementById('voiceGreeting').value = firm.voice_config.greeting || "Hello, and thank you for calling. I am your AI intake assistant. How can I help you today?";
+        
+        // Select voice card
+        const voiceId = firm.voice_config.voice_id || 'sarah';
+        document.querySelectorAll('.voice-card').forEach(card => {
+            card.classList.toggle('selected', card.dataset.voiceId === voiceId);
+        });
+
+        // Email Tab
+        document.getElementById('emailToggle').checked = firm.email_enabled === 1;
+        document.getElementById('fd-email-address').innerText = `intake+${firm.slug}@lexiflow.co`;
+        document.getElementById('emailAutoReply').value = firm.email_config.template || "Thank you for reaching out. We have received your inquiry and will review it shortly.\n\nThis is an automated response from LexiFlow AI.";
+
+        // Active Hours Tab
+        renderActiveHours(firm.active_hours);
+
+        // Stats & Analytics
+        updateFrontDeskAnalytics();
+
+    } catch (e) {
+        console.error("Error loading Front Desk settings", e);
+    }
+}
+
+function renderActiveHours(hours) {
+    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const grid = document.getElementById('fd-hours-grid');
+    grid.innerHTML = `
+        <div class="day-label fw-bold text-muted small text-uppercase mb-1">Day</div>
+        <div class="text-center fw-bold text-muted small text-uppercase mb-1">Open</div>
+        <div class="text-center fw-bold text-muted small text-uppercase mb-1">Close</div>
+    `;
+
+    days.forEach(day => {
+        const dayKey = day.toLowerCase();
+        const dayHours = hours[dayKey] || { open: "09:00", close: "17:00", active: true };
+        
+        const row = document.createElement('div');
+        row.className = 'contents'; // Just a wrapper, grid handles placement
+        row.innerHTML = `
+            <div class="day-label">
+                <div class="form-check form-switch mb-0 d-inline-block">
+                    <input class="form-check-input hour-toggle" type="checkbox" id="toggle-${dayKey}" ${dayHours.active ? 'checked' : ''}>
+                </div>
+                ${day}
+            </div>
+            <div><input type="time" class="form-control form-control-sm time-input open-time" value="${dayHours.open}" ${!dayHours.active ? 'disabled' : ''}></div>
+            <div><input type="time" class="form-control form-control-sm time-input close-time" value="${dayHours.close}" ${!dayHours.active ? 'disabled' : ''}></div>
+        `;
+        // Flatten the row for the grid
+        Array.from(row.children).forEach(child => grid.appendChild(child));
+    });
+
+    // Add event listeners for toggles
+    document.querySelectorAll('.hour-toggle').forEach(toggle => {
+        toggle.addEventListener('change', (e) => {
+            const row = e.target.closest('.day-label');
+            const inputs = [e.target.closest('.day-label').nextElementSibling.querySelector('input'), 
+                            e.target.closest('.day-label').nextElementSibling.nextElementSibling.querySelector('input')];
+            inputs.forEach(i => i.disabled = !e.target.checked);
+        });
+    });
+}
+
+async function saveFrontDeskSettings() {
+    const btn = document.querySelector('#section-front-desk .btn-primary');
+    const originalHtml = btn.innerHTML;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Saving...';
+    
+    try {
+        const voiceConfig = {
+            voice_id: document.querySelector('.voice-card.selected').dataset.voiceId,
+            greeting: document.getElementById('voiceGreeting').value
+        };
+
+        const emailConfig = {
+            template: document.getElementById('emailAutoReply').value
+        };
+
+        const activeHours = {};
+        const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        const hourToggles = document.querySelectorAll('.hour-toggle');
+        const openTimes = document.querySelectorAll('.open-time');
+        const closeTimes = document.querySelectorAll('.close-time');
+
+        days.forEach((day, i) => {
+            activeHours[day] = {
+                active: hourToggles[i].checked,
+                open: openTimes[i].value,
+                close: closeTimes[i].value
+            };
+        });
+
+        const formData = new FormData();
+        formData.append('voice_enabled', document.getElementById('voiceToggle').checked ? 1 : 0);
+        formData.append('voice_config', JSON.stringify(voiceConfig));
+        formData.append('email_enabled', document.getElementById('emailToggle').checked ? 1 : 0);
+        formData.append('email_config', JSON.stringify(emailConfig));
+        formData.append('active_hours', JSON.stringify(activeHours));
+
+        const response = await apiFetch('/firm/settings', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            alert("Front Desk settings saved!");
+        } else {
+            alert("Failed to save settings.");
+        }
+    } catch (e) {
+        console.error("Save failed", e);
+        alert("Error saving settings.");
+    } finally {
+        btn.innerHTML = originalHtml;
+    }
+}
+
+function updateFrontDeskAnalytics() {
+    // Lead Source Data
+    const sources = { 'Chat': 0, 'Voice AI': 0, 'Email': 0, 'Receptionist': 0 };
+    allLeads.forEach(l => {
+        const s = l.source || 'Chat';
+        if (sources.hasOwnProperty(s)) sources[s]++;
+        else sources['Chat']++;
+    });
+
+    const total = allLeads.length;
+    const voiceCount = sources['Voice AI'] || 0;
+    const emailCount = sources['Email'] || 0;
+    const webCount = sources['Chat'] || 0;
+    const rate = total > 0 ? Math.round((allLeads.filter(l => l.status === 'High Priority').length / total) * 100) : 0;
+
+    document.getElementById('fd-stat-voice').innerText = voiceCount;
+    document.getElementById('fd-stat-email').innerText = emailCount;
+    document.getElementById('fd-stat-web').innerText = webCount;
+    document.getElementById('fd-stat-rate').innerText = rate + '%';
+
+    // Update Chart
+    const ctx = document.getElementById('fdLeadSourceChart').getContext('2d');
+    const chartData = {
+        labels: ['Web Chat', 'Voice AI', 'Email'],
+        datasets: [{
+            data: [webCount, voiceCount, emailCount],
+            backgroundColor: ['#2563eb', '#16a34a', '#d97706'],
+            borderWidth: 0,
+        }]
+    };
+
+    if (fdSourceChart) {
+        fdSourceChart.data = chartData;
+        fdSourceChart.update();
+    } else {
+        fdSourceChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: chartData,
+            options: {
+                cutout: '70%',
+                plugins: { legend: { display: false } },
+                maintainAspectRatio: false
+            }
+        });
+    }
+
+    // Legend
+    const legend = document.getElementById('fd-source-legend');
+    legend.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+            <div><span class="source-badge web"><i class="bi bi-globe2"></i>Web Chat</span></div>
+            <div class="fw-bold">${webCount}</div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+            <div><span class="source-badge voice"><i class="bi bi-telephone"></i>Voice AI</span></div>
+            <div class="fw-bold">${voiceCount}</div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center py-2">
+            <div><span class="source-badge email"><i class="bi bi-envelope"></i>Email</span></div>
+            <div class="fw-bold">${emailCount}</div>
+        </div>
+    `;
+
+    // Recent Activity
+    const activityList = document.getElementById('fd-recent-activity');
+    activityList.innerHTML = allLeads.slice(0, 5).map(l => `
+        <div class="list-group-item px-3 py-2 border-0">
+            <div class="d-flex align-items-start gap-2">
+                <i class="bi ${l.source === 'Voice AI' ? 'bi-telephone text-success' : (l.source === 'Email' ? 'bi-envelope text-warning' : 'bi-globe2 text-primary')} mt-1"></i>
+                <div class="flex-grow-1">
+                    <div class="small fw-bold">${l.full_name}</div>
+                    <div class="small text-muted text-truncate" style="max-width: 180px;">${l.summary || 'Processing...'}</div>
+                    <div class="small text-muted" style="font-size:0.65rem;">${new Date(l.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                </div>
+                ${l.status === 'High Priority' ? '<span class="badge bg-danger rounded-pill" style="font-size:0.5rem;">Priority</span>' : ''}
+            </div>
+        </div>
+    `).join('') || '<div class="p-3 text-center text-muted small">No recent activity.</div>';
+}
+
+function copyFDEmail() {
+    const email = document.getElementById('fd-email-address').innerText;
+    navigator.clipboard.writeText(email).then(() => alert("Email address copied!"));
+}
+
+// Voice card selection listener
+document.addEventListener('click', function(e) {
+    const voiceCard = e.target.closest('.voice-card');
+    if (voiceCard) {
+        document.querySelectorAll('.voice-card').forEach(c => c.classList.remove('selected'));
+        voiceCard.classList.add('selected');
+    }
+});
+
 async function loadKB() {
     try {
-        const response = await fetch(API_BASE + '/knowledge-base');
+        const response = await apiFetch('/knowledge-base');
         const kb = await response.json();
         document.getElementById('kb-list').innerHTML = kb.map(item => `
             <div class="list-group-item">
@@ -445,7 +781,7 @@ async function saveKB() {
     formData.append('title', title);
     formData.append('content', content);
     try {
-        const response = await fetch(API_BASE + '/knowledge-base', { method: 'POST', body: formData });
+        const response = await apiFetch('/knowledge-base', { method: 'POST', body: formData });
         if (response.ok) {
             alert("Knowledge Base entry added!");
             document.getElementById('kb-title').value = '';
@@ -458,7 +794,7 @@ async function saveKB() {
 async function deleteKB(id) {
     if (!confirm("Remove this entry from AI context?")) return;
     try {
-        const response = await fetch(API_BASE + `/knowledge-base/${id}`, { method: 'DELETE' });
+        const response = await apiFetch(`/knowledge-base/${id}`, { method: 'DELETE' });
         if (response.ok) {
             alert("Entry removed.");
             loadKB();
@@ -484,7 +820,7 @@ async function syncToSystem(leadId, system) {
     if (btn) btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Syncing...';
     
     try {
-        const response = await fetch(API_BASE + `/sync/${system}/${leadId}`, { method: 'POST' });
+        const response = await apiFetch(`/sync/${system}/${leadId}`, { method: 'POST' });
         const result = await response.json();
         
         if (result.status === 'success') {
@@ -532,7 +868,7 @@ async function draftDemandLetter() {
     btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Drafting...';
     
     try {
-        const response = await fetch(API_BASE + `/leads/${leadId}/draft-demand`, { method: 'POST' });
+        const response = await apiFetch(`/leads/${leadId}/draft-demand`, { method: 'POST' });
         const result = await response.json();
         document.getElementById('demand-letter-preview').classList.remove('d-none');
         document.getElementById('demand-preview-text').innerText = result.draft;
@@ -554,7 +890,7 @@ async function generateMedicalChronology() {
     btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Analyzing...';
     
     try {
-        const response = await fetch(API_BASE + `/leads/${leadId}/medical-chronology`);
+        const response = await apiFetch(`/leads/${leadId}/medical-chronology`);
         const result = await response.json();
         
         let html = '<table class="table table-sm table-bordered mt-2 small"><thead><tr><th>Date</th><th>Event</th><th>Details</th></tr></thead><tbody>';
@@ -576,4 +912,73 @@ async function generateMedicalChronology() {
         btn.disabled = false;
         btn.innerHTML = originalText;
     }
+}
+
+async function loadCRMSettings() {
+    try {
+        const response = await apiFetch('/firm/me');
+        const data = await response.json();
+        
+        const productionSyncToggle = document.getElementById('productionSyncToggle');
+        const filevineApiKey = document.getElementById('filevine-api-key');
+        const filevineApiSecret = document.getElementById('filevine-api-secret');
+        const filevineSessionId = document.getElementById('filevine-session-id');
+        const clioStatus = document.getElementById('clio-status');
+
+        if (productionSyncToggle) productionSyncToggle.checked = data.production_sync_enabled === 1;
+        
+        const apiConfig = data.api_config || {};
+        if (filevineApiKey) filevineApiKey.value = apiConfig.filevine_api_key || '';
+        if (filevineApiSecret) filevineApiSecret.value = apiConfig.filevine_api_secret || '';
+        if (filevineSessionId) filevineSessionId.value = apiConfig.filevine_session_id || '';
+        
+        if (clioStatus) {
+            clioStatus.innerText = apiConfig.clio_oauth_token ? "Connected" : "Not Connected";
+            if (apiConfig.clio_oauth_token) {
+                clioStatus.classList.remove('text-muted');
+                clioStatus.classList.add('text-success');
+            }
+        }
+    } catch (e) {
+        console.error("Error loading CRM settings", e);
+    }
+}
+
+async function saveCRMSettings() {
+    const productionSyncToggle = document.getElementById('productionSyncToggle');
+    const filevineApiKey = document.getElementById('filevine-api-key');
+    const filevineApiSecret = document.getElementById('filevine-api-secret');
+    const filevineSessionId = document.getElementById('filevine-session-id');
+    
+    // We need current config to not overwrite Clio token if we only change Filevine
+    const currentResp = await apiFetch('/firm/me');
+    const currentData = await currentResp.json();
+    const apiConfig = currentData.api_config || {};
+    
+    apiConfig.filevine_api_key = filevineApiKey.value;
+    apiConfig.filevine_api_secret = filevineApiSecret.value;
+    apiConfig.filevine_session_id = filevineSessionId.value;
+    
+    const formData = new FormData();
+    formData.append('production_sync_enabled', productionSyncToggle.checked ? 1 : 0);
+    formData.append('api_config', JSON.stringify(apiConfig));
+    
+    try {
+        const response = await apiFetch('/firm/settings', {
+            method: 'POST',
+            body: formData
+        });
+        if (response.ok) {
+            alert("CRM Settings saved successfully");
+        }
+    } catch (e) {
+        console.error("Error saving CRM settings", e);
+    }
+}
+
+function copyWebhook() {
+    const url = document.getElementById('webhook-url');
+    url.select();
+    document.execCommand('copy');
+    alert("Webhook URL copied to clipboard");
 }

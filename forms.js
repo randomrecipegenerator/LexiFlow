@@ -26,7 +26,7 @@ function showSection(section) {
 
 async function loadForms() {
     try {
-        const response = await fetch(API_BASE + '/forms');
+        const response = await apiFetch('/forms');
         allForms = await response.json();
         renderFormsList();
     } catch (e) {
@@ -222,7 +222,7 @@ async function saveForm() {
     formData.append('questions_json', JSON.stringify(fbQuestions));
     
     try {
-        const response = await fetch(API_BASE + '/forms', {
+        const response = await apiFetch('/forms', {
             method: 'POST',
             body: formData
         });

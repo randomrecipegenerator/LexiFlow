@@ -1,8 +1,10 @@
 # Environment variables
 .env
+.env.local
 
 # Python
 venv/
+env/
 __pycache__/
 *.pyc
 *.pyo
@@ -11,9 +13,19 @@ __pycache__/
 .coverage
 htmlcov/
 
+# Node
+node_modules/
+dist/
+build/
+.npm
+package-lock.json
+
 # Database
 lexiflow.db
+lexiflow.db.bak
 lexiflow.db-journal
+*.db
+*.sqlite
 
 # Logs
 server.log
@@ -25,3 +37,16 @@ Thumbs.db
 
 # Vercel
 .vercel/
+
+# Temporary files
+*-tmp
+*.tmp
+.db.bak
+dashboard.js.new
+dashboard.min.js
+config.min.js
+widget.min.js
+forms.min.js
+widget.min.css
+style.css.map
+node_modules/

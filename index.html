@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LexiFlow | AI-Powered Legal Intake & Lead Qualification</title>
-    <meta name="description" content="LexiFlow is the leading AI-powered legal intake software. Automate lead qualification, capture case details 24/7, and sync directly to Clio, MyCase, and Filevine.">
+    <meta name="description" content="LexiFlow is the leading AI-powered legal intake software. Automate lead qualification, capture case details 24/7 via web, voice, and email intake. Sync directly to Clio, MyCase, and Filevine.">
     <link rel="canonical" href="https://lexiflow.co">
 
     <!-- Open Graph / Facebook -->
@@ -24,8 +24,16 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://lexiflow.co/favicon.png">
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" type="image/svg+xml" href="/branding/favicon.svg">
+    <link rel="icon" type="image/png" href="/branding/favicon.png" sizes="32x32">
+    
+    <!-- OG Tags -->
+    <meta property="og:title" content="LexiFlow | AI Legal Intake">
+    <meta property="og:description" content="The future of legal intake powered by reasoning AI.">
+    <meta property="og:image" content="https://lexiflow.co/branding/social-banner.png">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:image" content="https://lexiflow.co/branding/social-banner.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
@@ -40,14 +48,14 @@
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center">
-                    <i class="bi bi-briefcase-fill text-blue-600 text-2xl mr-2"></i>
+                    <img src="/branding/logo-main.svg" alt="LexiFlow" height="32" class="h-8">
                     <span class="text-xl font-bold tracking-tight">Lexi<span class="text-blue-600">Flow</span></span>
                 </div>
                 <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
-                    <a href="/solutions.html" class="hover:text-blue-600 transition">Solutions</a>
-                    <a href="/features.html" class="hover:text-blue-600 transition">Features</a>
-                    <a href="/demo.html" class="hover:text-blue-600 transition">Live Demo</a>
-                    <a href="/dashboard.html" class="hover:text-blue-600 transition">Attorney Login</a>
+                    <a href="/solutions" class="hover:text-blue-600 transition">Solutions</a>
+                    <a href="/features" class="hover:text-blue-600 transition">Features</a>
+                    <a href="/demo" class="hover:text-blue-600 transition">Live Demo</a>
+                    <a href="/dashboard" class="hover:text-blue-600 transition">Attorney Login</a>
                 </div>
                 <div>
                     <button onclick="toggleModal('demoModal')" class="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-200">Request Demo</button>
@@ -60,6 +68,11 @@
         <!-- Hero Section -->
         <section class="gradient-bg text-white py-20 lg:py-32">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="inline-flex items-center gap-2 bg-blue-600/20 border border-blue-400/30 rounded-full px-4 py-1.5 text-sm font-semibold text-blue-300 mb-6">
+                    <i class="bi bi-mic"></i>
+                    <span>Now with Voice &amp; Email AI Intake</span>
+                    <span class="bg-blue-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">NEW</span>
+                </div>
                 <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
                     The Future of Legal Intake <br><span class="text-blue-400 text-3xl md:text-5xl">Powered by Reasoning AI</span>
                 </h1>
@@ -68,7 +81,7 @@
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
                     <button onclick="toggleModal('demoModal')" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition text-lg shadow-xl shadow-blue-900/20">Get Started Now</button>
-                    <a href="/demo.html" class="bg-white/10 text-white border border-white/20 px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition text-lg backdrop-blur-sm">Try Live Demo</a>
+                    <a href="/demo" class="bg-white/10 text-white border border-white/20 px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition text-lg backdrop-blur-sm">Try Live Demo</a>
                 </div>
                 <div class="mt-16 relative">
                     <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl blur opacity-25"></div>
@@ -161,8 +174,8 @@
                         <div class="bg-orange-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6 group-hover:bg-orange-600 group-hover:text-white transition">
                             <i class="bi bi-telephone text-xl"></i>
                         </div>
-                        <h4 class="font-bold text-xl mb-3">Voice AI Receptionist</h4>
-                        <p class="text-slate-600">An automated voice bridge that handles initial screening calls and schedules meetings 24/7.</p>
+                        <h4 class="font-bold text-xl mb-3">AI Voice Receptionist</h4>
+                        <p class="text-slate-600">24/7 empathetic phone intake that sounds like a senior paralegal. Handles screening, scheduling, and qualification naturally — never a cold voicemail.</p>
                     </div>
                     <!-- Feature 5 -->
                     <div class="bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-xl transition group">
@@ -179,6 +192,14 @@
                         </div>
                         <h4 class="font-bold text-xl mb-3">95+ Languages</h4>
                         <p class="text-slate-600">Auto-detecting language support allows you to serve a global client base effortlessly.</p>
+                    </div>
+                    <!-- Feature 7 -->
+                    <div class="bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-xl transition group">
+                        <div class="bg-amber-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition">
+                            <i class="bi bi-envelope-paper text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl mb-3">Smart Email Intake</h4>
+                        <p class="text-slate-600">Automatically parse and qualify every inbound email lead. Auto-reply with intake forms, extract case details, and route to the right attorney — all without opening your inbox.</p>
                     </div>
                 </div>
             </div>
@@ -312,9 +333,9 @@
         </div>
     </div>
 
-    <link rel="stylesheet" href="widget.css">
-    <script src="config.js"></script>
-    <script src="widget.js"></script>
+    <link rel="stylesheet" href="/widget.css">
+    <script src="/config.js"></script>
+    <script src="/widget.js"></script>
     <script>
         function toggleModal(modalId) {
             const body = document.querySelector('body');
@@ -329,7 +350,7 @@
             const formData = new FormData(e.target);
             
             try {
-                const response = await fetch(API_BASE + '/demo-request', {
+                const response = await apiFetch('/demo-request', {
                     method: 'POST',
                     body: formData
                 });

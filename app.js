@@ -1,7 +1,7 @@
 let leadId = null;
 
 async function startChat() {
-    const response = await fetch(`${API_BASE}/chat/start`, { method: 'POST' });
+    const response = await apiFetch(`/chat/start`, { method: 'POST' });
     const data = await response.json();
     leadId = data.lead_id;
 }
@@ -13,7 +13,7 @@ async function sendMessage() {
     input.value = '';
     const formData = new FormData();
     formData.append('content', content);
-    const response = await fetch(`${API_BASE}/chat/message?lead_id=${leadId}`, {
+    const response = await apiFetch(`/chat/message?lead_id=${leadId}`, {
         method: 'POST',
         body: formData
     });
@@ -25,7 +25,7 @@ async function uploadFile() {
     if (fileInput.files.length === 0) return;
     const formData = new FormData();
     formData.append('file', fileInput.files[0]);
-    const response = await fetch(`${API_BASE}/chat/upload?lead_id=${leadId}`, {
+    const response = await apiFetch(`/chat/upload?lead_id=${leadId}`, {
         method: 'POST',
         body: formData
     });
@@ -33,7 +33,7 @@ async function uploadFile() {
     alert(`File ${data.filename} uploaded successfully!`);
 }
 async function completeChat() {
-    const response = await fetch(`${API_BASE}/chat/complete?lead_id=${leadId}`, { method: 'POST' });
+    const response = await apiFetch(`/chat/complete?lead_id=${leadId}`, { method: 'POST' });
     const data = await response.json();
     alert(`Intake complete! Status: ${data.status}, Score: ${data.score}`);
 }

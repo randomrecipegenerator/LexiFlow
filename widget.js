@@ -56,10 +56,40 @@
     });
 
     // Chat Logic
+    async function fetchBranding(slug) {
+        try {
+            const response = await fetch(`${API_BASE}/firm/me`, {
+                headers: { 'X-Firm-Slug': slug }
+            });
+            if (response.ok) {
+                const firm = await response.json();
+                if (firm.branding_colors) {
+                    const colors = JSON.parse(firm.branding_colors);
+                    if (colors.primary) {
+                        document.getElementById('lexi-chat-header').style.backgroundColor = colors.primary;
+                        document.getElementById('lexi-widget-button').style.backgroundColor = colors.primary;
+                    }
+                }
+                if (firm.name && firm.name !== 'LexiFlow Pro') {
+                    const headerSpan = document.querySelector('#lexi-chat-header span');
+                    if (headerSpan) headerSpan.innerText = `${firm.name} Assistant`;
+                }
+            }
+        } catch (e) {
+            console.error("LexiWidget: Error fetching branding", e);
+        }
+    }
+
     async function startChat() {
         isStarting = true;
         try {
-            const response = await fetch(`${API_BASE}/chat/start`, { method: 'POST' });
+            const urlParams = new URLSearchParams(window.location.search);
+            const firmSlug = urlParams.get('firm') || 'general';
+            
+            // Apply Branding
+            fetchBranding(firmSlug);
+
+            const response = await fetch(`${API_BASE}/chat/start?firm_slug=${firmSlug}`, { method: 'POST' });
             if (!response.ok) throw new Error("Failed to start session");
             const data = await response.json();
             leadId = data.lead_id;
@@ -133,5 +163,10 @@
     input.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') sendMessage();
     });
+
+    // Fetch branding on load
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialFirmSlug = urlParams.get('firm') || 'general';
+    fetchBranding(initialFirmSlug);
 
 })();

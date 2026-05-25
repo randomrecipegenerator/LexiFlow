@@ -39,7 +39,8 @@
         <!-- Footer -->
         <div class="p-6 bg-slate-50 text-center border-t border-slate-100">
             <p class="text-slate-400 text-sm flex items-center justify-center">
-                <i class="bi bi-shield-lock-fill mr-2"></i> Powered by LexiFlow Secure AI Intake
+                <img src="/branding/logo-icon.svg" alt="LexiFlow" class="h-4 mr-2 grayscale opacity-50">
+                Powered by LexiFlow Secure AI Intake
             </p>
         </div>
     </div>
@@ -56,7 +57,7 @@
         </div>
     </div>
 
-    <script src="config.js"></script>
+    <script src="/config.js"></script>
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const formId = urlParams.get('id');
@@ -70,7 +71,7 @@
             }
 
             try {
-                const response = await fetch(API_BASE + `/forms/${formId}`);
+                const response = await apiFetch(`/forms/${formId}`);
                 formData = await response.json();
                 renderForm();
             } catch (e) {
@@ -164,7 +165,7 @@
             fd.append('answers_json', JSON.stringify(finalAnswers));
 
             try {
-                const response = await fetch(API_BASE + `/forms/${formId}/submit`, {
+                const response = await apiFetch(`/forms/${formId}/submit`, {
                     method: 'POST',
                     body: fd
                 });

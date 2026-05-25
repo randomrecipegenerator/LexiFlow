@@ -1,38 +1,45 @@
-# LexiFlow: AI-Powered Legal Intake & Lead Qualification
+# LexiFlow Legal Suite: Reasoning AI Intake & Lead Qualification
 
-LexiFlow is an intelligent legal intake platform designed to automate client screening and lead qualification for law firms. It uses Large Language Models (LLMs) to engage potential clients in natural conversation, score leads based on custom legal criteria, and provide attorneys with a prioritized dashboard of qualified opportunities.
+LexiFlow transforms law firm intake from a manual, leaky bucket into a 24/7 high-conversion revenue engine using **Reasoning AI**. We solve the "wasted billable hours" problem by qualifying leads with the nuance of a senior attorney but the speed and availability of a machine.
 
 ## 🚀 Key Features
 
-- **Intelligent Intake Agent:** A conversational AI widget that captures lead information naturally.
-- **Automated Qualification:** AI-driven scoring (0-100) and categorization based on firm-specific criteria.
-- **Document Analysis (OCR):** Extracts key facts from uploaded medical records or legal documents using AI.
-- **Attorney Dashboard:** Unified interface for managing leads, viewing AI summaries, and tracking qualification scores.
-- **CRM Integrations:** Ready-to-sync connectors for Clio, MyCase, and Filevine (Simulated/Demo mode).
-- **Embedded eSign:** Integration with Dropbox Sign for immediate retainer or intake form signing.
-- **Unified Vercel Hosting:** Optimized for deployment on Vercel with zero-config serverless functions.
+- **Multi-Channel AI Intake:** 
+  - **Conversational Chat:** Natural language web widget for high-conversion capture.
+  - **Voice AI Receptionist (Beta):** Handle inbound calls with low-latency reasoning agents (via Vapi).
+  - **Email Intake & Triage:** Automatically parse and summarize inbound lead emails (via Postmark).
+- **Intelligent Qualification & Scoring:**
+  - Proprietary **Narrative Synthesis** that captures the "story" behind the lead.
+  - Automated scoring (0-100) based on firm-specific case criteria.
+  - Instant conflict check against existing lead database.
+- **Production CRM Integrations:**
+  - **Clio Grow (Lexicata):** Direct sync to the intake inbox for seamless attorney review.
+  - **Filevine & LeadDock:** Enterprise-ready lead pushing with custom field support.
+  - **Simulation Mode:** Test and demo lead mapping without affecting production data.
+- **Document Intelligence (OCR):**
+  - Instant extraction of facts from medical records and legal documents.
+  - Generates professional Medical Chronologies for personal injury cases.
+- **Embedded eSign & Billing:**
+  - Integrated Dropbox Sign (HelloSign) for immediate retainer signing.
+  - Integrated LawPay/Stripe for instant consultation fee capture.
 
 ## 📂 Project Structure
 
 ```text
 ├── api/                # Vercel Serverless Function entry points
 ├── backend/            # Core FastAPI logic (Models, AI Engine, Integrations)
-├── docs/               # Technical documentation and migration guides
-├── screenshots/        # Product visuals and dashboard previews
+│   ├── integration_engine.py  # Production CRM & Webhook logic
+│   ├── ai_engine.py           # LLM Prompting & Reasoning logic
+│   └── models.py              # SQLAlchemy database schema
+├── branding/           # Logos, icons, and social media assets
+├── dashboard.html      # Professional Attorney Lead Dashboard
+├── dashboard.js        # Dynamic management of leads and CRM settings
 ├── index.html          # Main landing page & floating chat widget
-├── dashboard.html      # Attorney lead management portal
-├── demo.html           # Live interactive demo environment
-├── config.js           # Frontend environment configuration
-├── vercel.json         # Vercel deployment and routing rules
+├── widget.js           # Lightweight embeddable intake script
 └── requirements.txt    # Python dependencies
 ```
 
-## 🛠️ Local Development
-
-### Prerequisites
-
-- Python 3.9+
-- An API key for Groq (default) or OpenAI.
+## 🛠️ Quick Start
 
 ### Installation
 
@@ -45,35 +52,31 @@ LexiFlow is an intelligent legal intake platform designed to automate client scr
 2. **Set up Virtual Environment:**
    ```bash
    python3 -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   source venv/bin/activate
    pip install -r requirements.txt
    ```
 
-3. **Configure Environment Variables:**
-   Copy `.env.example` to `.env` and add your API keys:
-   ```bash
-   cp .env.example .env
+3. **Configure Environment:**
+   Create a `.env` file with your API keys:
+   ```env
+   GROQ_API_KEY=your_key
+   OPENAI_API_KEY=your_key
+   POSTMARK_SERVER_TOKEN=your_token
+   VAPI_API_KEY=your_key
    ```
 
-4. **Run the Application:**
+4. **Run Locally:**
    ```bash
    python3 -m uvicorn backend.main:app --host 0.0.0.0 --port 8000
    ```
 
-### Access
+## ☁️ Production Deployment
 
-- **Landing Page & Chatbot:** [http://localhost:8000](http://localhost:8000)
-- **Attorney Dashboard:** [http://localhost:8000/dashboard.html](http://localhost:8000/dashboard.html)
+LexiFlow is optimized for **Vercel** and **FastAPI**.
 
-## ☁️ Deployment
-
-This project is optimized for **Vercel**. To deploy:
-
-1. Push your code to a GitHub repository.
-2. Connect your repository to Vercel.
-3. Configure the environment variables in the Vercel Dashboard.
-4. Deployment happens automatically on push.
+- **Frontend:** Static files served via Vercel or FastAPI.
+- **Backend:** Serverless endpoints and a persistent SQLite database (syncable via Turso for distributed teams).
 
 ## ⚖️ License
 
-Private / Confidential. Built by Ai Future Team.
+Proprietary & Confidential. Built by the LexiFlow AI Team.
