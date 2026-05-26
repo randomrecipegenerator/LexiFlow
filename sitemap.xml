@@ -2,14 +2,92 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc>https://lexiflow.co/</loc>
-      <lastmod>2026-05-23</lastmod>
+      <lastmod>2026-05-26</lastmod>
       <changefreq>monthly</changefreq>
       <priority>1.0</priority>
    </url>
    <url>
-      <loc>https://lexiflow.co/demo.html</loc>
-      <lastmod>2026-05-23</lastmod>
+      <loc>https://lexiflow.co/cities/nyc</loc>
+      <lastmod>2026-05-26</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://lexiflow.co/cities/la</loc>
+      <lastmod>2026-05-26</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://lexiflow.co/cities/chicago</loc>
+      <lastmod>2026-05-26</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://lexiflow.co/cities/houston</loc>
+      <lastmod>2026-05-26</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://lexiflow.co/cities/phoenix</loc>
+      <lastmod>2026-05-26</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://lexiflow.co/cities/philadelphia</loc>
+      <lastmod>2026-05-26</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://lexiflow.co/cities/san-antonio</loc>
+      <lastmod>2026-05-26</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://lexiflow.co/cities/san-diego</loc>
+      <lastmod>2026-05-26</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://lexiflow.co/cities/dallas</loc>
+      <lastmod>2026-05-26</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://lexiflow.co/cities/san-jose</loc>
+      <lastmod>2026-05-26</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://lexiflow.co/features</loc>
+      <lastmod>2026-05-26</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
+      <loc>https://lexiflow.co/solutions</loc>
+      <lastmod>2026-05-26</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
+      <loc>https://lexiflow.co/depolens</loc>
+      <lastmod>2026-05-26</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
+      <loc>https://lexiflow.co/meritscan</loc>
+      <lastmod>2026-05-26</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
    </url>
 </urlset>

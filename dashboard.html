@@ -84,6 +84,9 @@
             
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-4">
                 <li class="nav-item">
+                    <a class="nav-link" href="#" id="nav-onboarding" onclick="showSection('onboarding')">Onboarding</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link active" href="#" id="nav-leads" onclick="showSection('leads')">Leads</a>
                 </li>
                 <li class="nav-item">
@@ -97,6 +100,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" id="nav-front-desk" onclick="showSection('front-desk')">AI Front Desk</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="nav-reports" onclick="showSection('reports')">Reports</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" id="nav-settings" onclick="showSection('settings')">Settings</a>
@@ -118,6 +124,132 @@
         </div>
     </nav>
     <div class="container">
+        <!-- Section: Onboarding -->
+        <div id="section-onboarding" class="d-none">
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h2 class="fw-bold">Welcome to LexiFlow AI</h2>
+                    <p class="text-muted">Follow this checklist to get your firm ready for high-conversion AI intake.</p>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-md-8">
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5 class="mb-0 fw-bold">Setup Progress</h5>
+                                <span id="onboarding-progress-percent" class="fw-bold text-primary">0%</span>
+                            </div>
+                            <div class="progress mb-4" style="height: 10px;">
+                                <div id="onboarding-progress-bar" class="progress-bar bg-primary" style="width: 0%"></div>
+                            </div>
+                            
+                            <div id="onboarding-checklist" class="list-group list-group-flush">
+                                <!-- Checklist items will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm bg-primary text-white h-100">
+                        <div class="card-body p-4 d-flex flex-column">
+                            <h5 class="fw-bold mb-3">Why complete setup?</h5>
+                            <ul class="list-unstyled flex-grow-1">
+                                <li class="mb-3 d-flex gap-2">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <span>Increase lead conversion by 50% with instant AI qualification.</span>
+                                </li>
+                                <li class="mb-3 d-flex gap-2">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <span>Save hours of manual data entry by syncing with your CRM.</span>
+                                </li>
+                                <li class="mb-3 d-flex gap-2">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <span>Get notified the moment a high-value case is identified.</span>
+                                </li>
+                            </ul>
+                            <div class="mt-4">
+                                <small class="opacity-75">Need help? Email support@lexiflow.ai</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm text-center p-4">
+                        <div class="h1 text-primary mb-3"><i class="bi bi-github"></i></div>
+                        <h6 class="fw-bold">GitHub Export</h6>
+                        <p class="small text-muted mb-2" id="status-github">Disconnected</p>
+                        <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="showQuickConnect('github')">Configure</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm text-center p-4">
+                        <div class="h1 text-primary mb-3"><i class="bi bi-envelope-check"></i></div>
+                        <h6 class="fw-bold">Postmark API</h6>
+                        <p class="small text-muted mb-2" id="status-postmark">Disconnected</p>
+                        <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="showQuickConnect('postmark')">Configure</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm text-center p-4">
+                        <div class="h1 text-primary mb-3"><i class="bi bi-shield-check"></i></div>
+                        <h6 class="fw-bold">Domain Verified</h6>
+                        <p class="small text-muted mb-2" id="status-domain">Pending</p>
+                        <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="showQuickConnect('domain')">Verify</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Connect Modal -->
+        <div class="modal fade" id="quickConnectModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content border-0 shadow-lg">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title fw-bold" id="quickConnectTitle">Quick Connect</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <div id="quick-connect-github" class="d-none">
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">GitHub Personal Access Token</label>
+                                <input type="password" id="quick-github-token" class="form-control" placeholder="ghp_xxxxxxxxxxxx">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Default Repository</label>
+                                <input type="text" id="quick-github-repo" class="form-control" placeholder="owner/repo">
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="saveQuickConnect('github')">Connect GitHub</button>
+                        </div>
+                        <div id="quick-connect-postmark" class="d-none">
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Postmark Server API Token</label>
+                                <input type="password" id="quick-postmark-token" class="form-control" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Recipient Email</label>
+                                <input type="email" id="quick-postmark-recipient" class="form-control" placeholder="hello@firm.com">
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="saveQuickConnect('postmark')">Connect Postmark</button>
+                        </div>
+                        <div id="quick-connect-domain" class="d-none">
+                            <p class="small text-muted">Enter your firm's website domain to verify and generate your custom AI intake snippet.</p>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Firm Domain</label>
+                                <input type="text" id="quick-domain-name" class="form-control" placeholder="www.yourfirm.com">
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="saveQuickConnect('domain')">Verify Domain</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Section: Leads -->
         <div id="section-leads">
             <!-- Dashboard Header Stats & Charts -->
@@ -288,10 +420,15 @@
                                     <div class="h4 fw-bold mt-1" id="usage-web">0</div>
                                     <div class="small text-muted">Included</div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-2 border-end">
                                     <div class="stat-label">Email Intakes</div>
                                     <div class="h4 fw-bold mt-1" id="usage-email">0</div>
                                     <div class="small text-muted">Free in Pilot</div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="stat-label text-success">Value Reclaimed</div>
+                                    <div class="h4 fw-bold mt-1 text-success" id="usage-roi">$0</div>
+                                    <div class="small text-muted">Billable Time</div>
                                 </div>
                             </div>
                         </div>
@@ -647,6 +784,88 @@ This is an automated response from LexiFlow AI.</textarea>
             </div>
         </div>
 
+        <!-- Section: Reports -->
+        <div id="section-reports" class="d-none">
+            <div class="row mb-4">
+                <div class="col-md-12 d-flex justify-content-between align-items-center">
+                    <h3 class="fw-bold">Weekly Performance Reports</h3>
+                    <button class="btn btn-primary" onclick="triggerWeeklyReport()">
+                        <i class="bi bi-envelope-paper me-1"></i> Send Weekly Report Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm text-center p-4">
+                        <div class="stat-label">Leads (7d)</div>
+                        <div class="h2 fw-bold mt-2" id="report-stat-leads">0</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm text-center p-4">
+                        <div class="stat-label">Qualified (7d)</div>
+                        <div class="h2 fw-bold mt-2 text-success" id="report-stat-qualified">0</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm text-center p-4">
+                        <div class="stat-label">Conversion Rate</div>
+                        <div class="h2 fw-bold mt-2 text-primary" id="report-stat-conv">0%</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm text-center p-4">
+                        <div class="stat-label">Docs Analyzed</div>
+                        <div class="h2 fw-bold mt-2" id="report-stat-docs">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white py-3">
+                            <h5 class="mb-0 fw-bold">Top Leads (Past 7 Days)</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="bg-light">
+                                        <tr class="small text-uppercase text-muted">
+                                            <th class="ps-4 py-3">Name</th>
+                                            <th class="py-3">Type</th>
+                                            <th class="py-3">Score</th>
+                                            <th class="text-end pe-4 py-3">View</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="report-top-leads-table">
+                                        <!-- Top leads here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm bg-dark text-white">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold mb-3">Report Settings</h5>
+                            <div class="mb-3">
+                                <label class="form-label small">Report Recipient Email</label>
+                                <input type="email" id="report-recipient-email" class="form-control form-control-sm bg-secondary text-white border-0" placeholder="firm-partners@example.com">
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="autoReportToggle" checked disabled>
+                                <label class="form-check-label small" for="autoReportToggle">Auto-send every Monday</label>
+                            </div>
+                            <button class="btn btn-primary btn-sm w-100" onclick="saveReportSettings()">Save Report Settings</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Section: Settings -->
         <div id="section-settings" class="d-none">
             <div class="row mb-4">
@@ -765,6 +984,52 @@ This is an automated response from LexiFlow AI.</textarea>
                     </div>
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center">
+                            GitHub Integration
+                        </div>
+                        <div class="card-body">
+                            <p class="small text-muted mb-3">Configure GitHub for direct export of document analysis and summaries.</p>
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label class="form-label small">GitHub Personal Access Token</label>
+                                    <input type="password" id="github-token" class="form-control form-control-sm" placeholder="ghp_xxxxxxxxxxxx">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small">Default Repository</label>
+                                    <input type="text" id="github-repo" class="form-control form-control-sm" placeholder="owner/repo">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small">Default Branch</label>
+                                    <input type="text" id="github-branch" class="form-control form-control-sm" placeholder="main" value="main">
+                                </div>
+                            </div>
+                            <div class="mt-3 text-end">
+                                <button class="btn btn-primary btn-sm px-4" onclick="saveGitHubSettings()">Save GitHub Settings</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center">
+                            Postmark Integration
+                        </div>
+                        <div class="card-body">
+                            <p class="small text-muted mb-3">Configure Postmark to receive instant email notifications for new leads and consultation requests.</p>
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label class="form-label small">Postmark Server API Token</label>
+                                    <input type="password" id="postmark-token" class="form-control form-control-sm" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label small">Notification Recipient Email</label>
+                                    <input type="email" id="postmark-recipient" class="form-control form-control-sm" placeholder="hello@firm.com">
+                                </div>
+                            </div>
+                            <div class="mt-3 text-end">
+                                <button class="btn btn-primary btn-sm px-4" onclick="savePostmarkSettings()">Save Postmark Settings</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center">
                             Knowledge Base Entries
                             <button class="btn btn-sm btn-link text-decoration-none" onclick="loadKB()"><i class="bi bi-arrow-clockwise"></i></button>
                         </div>
@@ -839,6 +1104,9 @@ This is an automated response from LexiFlow AI.</textarea>
                         </button>
                         <button class="btn btn-outline-primary btn-sm" onclick="generateMedicalChronology()">
                             <i class="bi bi-file-medical me-1"></i> Generate Medical Chronology
+                        </button>
+                        <button class="btn btn-dark btn-sm" onclick="exportToGitHub()">
+                            <i class="bi bi-github me-1"></i> Export to GitHub
                         </button>
                     </div>
                     <div id="demand-letter-preview" class="d-none mt-3">

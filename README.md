@@ -4,10 +4,13 @@ LexiFlow transforms law firm intake from a manual, leaky bucket into a 24/7 high
 
 ## 🚀 Key Features
 
-- **Multi-Channel AI Intake:** 
+- **Multi-Channel AI Intake (LexiFlow):** 
   - **Conversational Chat:** Natural language web widget for high-conversion capture.
   - **Voice AI Receptionist (Beta):** Handle inbound calls with low-latency reasoning agents (via Vapi).
   - **Email Intake & Triage:** Automatically parse and summarize inbound lead emails (via Postmark).
+- **Medical & Legal Intelligence:**
+  - **MeritScan:** AI Medical Merit Review for MedMal/PI cases. Generates automated chronologies and negligence alerts.
+  - **DepoLens:** Advanced AI deposition analysis and summary engine.
 - **Intelligent Qualification & Scoring:**
   - Proprietary **Narrative Synthesis** that captures the "story" behind the lead.
   - Automated scoring (0-100) based on firm-specific case criteria.

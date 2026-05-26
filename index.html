@@ -52,13 +52,43 @@
                     <span class="text-xl font-bold tracking-tight">Lexi<span class="text-blue-600">Flow</span></span>
                 </div>
                 <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
-                    <a href="/solutions" class="hover:text-blue-600 transition">Solutions</a>
+                    <!-- Products Dropdown -->
+                    <div class="relative group">
+                        <button class="hover:text-blue-600 transition flex items-center gap-1">
+                            Products
+                            <i class="bi bi-chevron-down text-xs"></i>
+                        </button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                            <a href="/" class="flex items-start gap-3 px-4 py-3 hover:bg-blue-50 rounded-t-xl transition">
+                                <i class="bi bi-briefcase-fill text-blue-600 mt-1"></i>
+                                <div>
+                                    <div class="font-semibold text-slate-900">LexiFlow</div>
+                                    <div class="text-xs text-slate-500">AI Legal Intake &amp; Lead Qualification</div>
+                                </div>
+                            </a>
+                            <div class="border-t border-slate-100"></div>
+                            <a href="/depolens" class="flex items-start gap-3 px-4 py-3 hover:bg-cyan-50 transition">
+                                <i class="bi bi-search text-cyan-600 mt-1"></i>
+                                <div>
+                                    <div class="font-semibold text-slate-900">DepoLens</div>
+                                    <div class="text-xs text-slate-500">AI Deposition Conflict Detector</div>
+                                </div>
+                            </a>
+                            <div class="border-t border-slate-100"></div>
+                            <a href="/meritscan.html" class="flex items-start gap-3 px-4 py-3 hover:bg-blue-50 rounded-b-xl transition">
+                                <i class="bi bi-shield-check text-blue-600 mt-1"></i>
+                                <div>
+                                    <div class="font-semibold text-slate-900">MeritScan</div>
+                                    <div class="text-xs text-slate-500">AI Medical Merit Review</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                     <a href="/features" class="hover:text-blue-600 transition">Features</a>
-                    <a href="/demo" class="hover:text-blue-600 transition">Live Demo</a>
                     <a href="/dashboard" class="hover:text-blue-600 transition">Attorney Login</a>
                 </div>
                 <div>
-                    <button onclick="toggleModal('demoModal')" class="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-200">Request Demo</button>
+                    <button onclick="toggleConsultation()" class="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-200">Get Started</button>
                 </div>
             </div>
         </nav>
@@ -80,8 +110,7 @@
                     Don't just capture leads—qualify them with intelligence. LexiFlow uses Reasoning AI to understand case nuances, boosting conversions by 391% while saving your firm thousands in wasted billable hours.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <button onclick="toggleModal('demoModal')" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition text-lg shadow-xl shadow-blue-900/20">Get Started Now</button>
-                    <a href="/demo" class="bg-white/10 text-white border border-white/20 px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition text-lg backdrop-blur-sm">Try Live Demo</a>
+                    <button onclick="toggleConsultation()" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition text-lg shadow-xl shadow-blue-900/20">Get Started Now</button>
                 </div>
                 <div class="mt-16 relative">
                     <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl blur opacity-25"></div>
@@ -225,6 +254,49 @@
             </div>
         </section>
 
+        <!-- DepoLens Section -->
+        <section class="py-20" style="background: linear-gradient(135deg, #1e3a5f 0%, #1e293b 100%);">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <div class="inline-flex items-center gap-2 bg-cyan-500/20 border border-cyan-400/30 rounded-full px-4 py-1.5 text-sm font-semibold text-cyan-300 mb-4">
+                        <i class="bi bi-search"></i>
+                        <span>New Product Launch</span>
+                        <span class="bg-cyan-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">NEW</span>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4">
+                        Introducing <span style="color:#06b6d4;">DepoLens</span>
+                    </h2>
+                    <p class="text-lg text-slate-300 max-w-2xl mx-auto">The AI-powered deposition conflict detector. Upload transcripts and instantly find contradictions between witnesses.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition">
+                        <div class="w-14 h-14 rounded-xl bg-red-500/20 flex items-center justify-center mx-auto mb-5">
+                            <i class="bi bi-exclamation-triangle text-red-400 text-2xl"></i>
+                        </div>
+                        <h4 class="text-white font-bold text-xl mb-3">⚡ Conflict Detection</h4>
+                        <p class="text-slate-400 text-sm">AI highlights direct contradictions between witnesses on speed, location, and sequence of events. Never miss a critical inconsistency.</p>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition">
+                        <div class="w-14 h-14 rounded-xl bg-cyan-500/20 flex items-center justify-center mx-auto mb-5">
+                            <i class="bi bi-clock-history text-cyan-400 text-2xl"></i>
+                        </div>
+                        <h4 class="text-white font-bold text-xl mb-3">📅 Fact Chronology</h4>
+                        <p class="text-slate-400 text-sm">Every event from every deposition is extracted and organized into a unified, timestamped timeline. See the full story in order.</p>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition">
+                        <div class="w-14 h-14 rounded-xl bg-blue-500/20 flex items-center justify-center mx-auto mb-5">
+                            <i class="bi bi-file-text text-blue-400 text-2xl"></i>
+                        </div>
+                        <h4 class="text-white font-bold text-xl mb-3">📋 Executive Summary</h4>
+                        <p class="text-slate-400 text-sm">A boardroom-ready 2-page PDF summarizing key admissions, risks, and settlement implications. Generated in seconds.</p>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="/depolens" class="inline-block bg-cyan-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-cyan-700 transition text-lg shadow-lg shadow-cyan-900/30">Learn More About DepoLens</a>
+                </div>
+            </div>
+        </section>
+
         <!-- CTA Section -->
         <section id="demo" class="py-20 bg-slate-50 border-t border-slate-200">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -232,11 +304,10 @@
                     <div class="relative z-10">
                         <h2 class="text-3xl md:text-5xl font-bold mb-6">Ready to see LexiFlow in action?</h2>
                         <p class="text-blue-100 mb-10 max-w-2xl mx-auto text-lg">
-                            Join the leading firms using LexiFlow to automate their intake. Try the live demo or request a private walkthrough.
+                            Join the leading firms using LexiFlow to automate their intake. Request a private consultation today.
                         </p>
                         <div class="flex flex-col sm:flex-row justify-center gap-4">
-                            <button onclick="toggleModal('demoModal')" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition text-lg">Request Private Demo</button>
-                            <a href="/demo.html" class="bg-blue-700 text-white border border-blue-500 px-8 py-4 rounded-xl font-bold hover:bg-blue-800 transition text-lg">Launch Interactive Demo</a>
+                            <button onclick="toggleConsultation()" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition text-lg">Request Consultation</button>
                         </div>
                     </div>
                     <!-- Decorative Circle -->
@@ -249,6 +320,24 @@
 
     <!-- Footer -->
     <footer class="bg-white py-12 border-t border-slate-200">
+        <!-- City Links for SEO -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+            <div class="border-b border-slate-100 pb-6">
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3 text-center">Serving Law Firms Nationwide</p>
+                <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+                    <a href="/cities/nyc" class="text-slate-500 hover:text-blue-600 transition">New York City</a>
+                    <a href="/cities/la" class="text-slate-500 hover:text-blue-600 transition">Los Angeles</a>
+                    <a href="/cities/chicago" class="text-slate-500 hover:text-blue-600 transition">Chicago</a>
+                    <a href="/cities/houston" class="text-slate-500 hover:text-blue-600 transition">Houston</a>
+                    <a href="/cities/phoenix" class="text-slate-500 hover:text-blue-600 transition">Phoenix</a>
+                    <a href="/cities/philadelphia" class="text-slate-500 hover:text-blue-600 transition">Philadelphia</a>
+                    <a href="/cities/san-antonio" class="text-slate-500 hover:text-blue-600 transition">San Antonio</a>
+                    <a href="/cities/san-diego" class="text-slate-500 hover:text-blue-600 transition">San Diego</a>
+                    <a href="/cities/dallas" class="text-slate-500 hover:text-blue-600 transition">Dallas</a>
+                    <a href="/cities/san-jose" class="text-slate-500 hover:text-blue-600 transition">San Jose</a>
+                </div>
+            </div>
+        </div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:justify-between items-center space-y-6 md:flex-row md:space-y-0 text-slate-500 text-sm">
             <div class="flex items-center text-slate-900">
                 <i class="bi bi-briefcase-fill text-blue-600 text-xl mr-2"></i>
@@ -257,7 +346,7 @@
             <div class="flex space-x-8">
                 <a href="/privacy.html" class="hover:text-blue-600">Privacy Policy</a>
                 <a href="/terms.html" class="hover:text-blue-600">Terms of Service</a>
-                <button onclick="toggleModal('contactModal')" class="hover:text-blue-600">Contact Us</button>
+                <button onclick="toggleConsultation('Contact Us')" class="hover:text-blue-600">Contact Us</button>
             </div>
             <p>
                 &copy; 2026 LexiFlow AI. Built for the future of law.
@@ -265,115 +354,7 @@
         </div>
     </footer>
 
-    <!-- Demo Modal -->
-    <div id="demoModal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-[100]">
-        <div class="modal-overlay absolute w-full h-full bg-slate-900 opacity-50"></div>
-        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-            <div class="modal-content py-4 text-left px-6">
-                <div class="flex justify-between items-center pb-3">
-                    <p class="text-2xl font-bold">Request a Demo</p>
-                    <div class="modal-close cursor-pointer z-50" onclick="toggleModal('demoModal')">
-                        <i class="bi bi-x-lg"></i>
-                    </div>
-                </div>
-                <form id="demoForm" class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700">Full Name</label>
-                        <input type="text" name="name" required class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700">Work Email</label>
-                        <input type="email" name="email" required class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700">Law Firm Name</label>
-                        <input type="text" name="firm" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
-                    </div>
-                    <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition">Submit Request</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Contact Modal -->
-    <div id="contactModal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-[100]">
-        <div class="modal-overlay absolute w-full h-full bg-slate-900 opacity-50"></div>
-        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-            <div class="modal-content py-4 text-left px-6">
-                <div class="flex justify-between items-center pb-3">
-                    <p class="text-2xl font-bold">Contact Us</p>
-                    <div class="modal-close cursor-pointer z-50" onclick="toggleModal('contactModal')">
-                        <i class="bi bi-x-lg"></i>
-                    </div>
-                </div>
-                <div class="space-y-6 py-4">
-                    <div class="flex items-start">
-                        <i class="bi bi-envelope text-blue-600 text-xl mr-4"></i>
-                        <div>
-                            <h4 class="font-bold">Email</h4>
-                            <p class="text-slate-600">hello@lexiflow.co</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start">
-                        <i class="bi bi-geo-alt text-blue-600 text-xl mr-4"></i>
-                        <div>
-                            <h4 class="font-bold">Headquarters</h4>
-                            <p class="text-slate-600">123 N. LaSalle St, Suite 500<br>Chicago, IL 60602</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start">
-                        <i class="bi bi-telephone text-blue-600 text-xl mr-4"></i>
-                        <div>
-                            <h4 class="font-bold">Sales</h4>
-                            <p class="text-slate-600">+1 (312) 555-0198</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <link rel="stylesheet" href="/widget.css">
     <script src="/config.js"></script>
-    <script src="/widget.js"></script>
-    <script>
-        function toggleModal(modalId) {
-            const body = document.querySelector('body');
-            const modal = document.getElementById(modalId);
-            modal.classList.toggle('opacity-0');
-            modal.classList.toggle('pointer-events-none');
-            body.classList.toggle('modal-active');
-        }
-
-        document.getElementById('demoForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            
-            try {
-                const response = await apiFetch('/demo-request', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error('Server error:', errorText);
-                    throw new Error('Server responded with ' + response.status);
-                }
-
-                const result = await response.json();
-                if (result.status === 'success') {
-                    alert('Thank you! Your demo request has been received. Our team will be in touch shortly.');
-                    toggleModal('demoModal');
-                    e.target.reset();
-                } else {
-                    alert('Something went wrong: ' + (result.message || 'Unknown error'));
-                }
-            } catch (error) {
-                console.error('Detailed Error:', error);
-                alert('Error sending request. Please check the console for details.');
-            }
-        });
-    </script>
+    <script src="/modal.js"></script>
 </body>
 </html>

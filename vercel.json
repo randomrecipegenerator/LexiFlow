@@ -1,59 +1,23 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/index.py",
-      "use": "@vercel/python"
-    },
-    {
-      "src": "*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.js",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.css",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "branding/*",
-      "use": "@vercel/static"
-    }
-  ],
   "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/demo",
-      "destination": "/demo.html"
-    },
-    {
-      "source": "/dashboard",
-      "destination": "/dashboard.html"
-    },
-    {
-      "source": "/solutions",
-      "destination": "/solutions.html"
-    },
-    {
-      "source": "/features",
-      "destination": "/features.html"
-    },
-    {
-      "source": "/privacy",
-      "destination": "/privacy.html"
-    },
-    {
-      "source": "/terms",
-      "destination": "/terms.html"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/$1"
-    }
+    { "source": "/api/(.*)", "destination": "/api/index.py" },
+    { "source": "/dashboard", "destination": "/dashboard.html" },
+    { "source": "/solutions", "destination": "/solutions.html" },
+    { "source": "/features", "destination": "/features.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/depolens", "destination": "/depolens.html" },
+    { "source": "/meritscan", "destination": "/meritscan.html" },
+    { "source": "/cities/nyc", "destination": "/cities/nyc.html" },
+    { "source": "/cities/la", "destination": "/cities/la.html" },
+    { "source": "/cities/chicago", "destination": "/cities/chicago.html" },
+    { "source": "/cities/houston", "destination": "/cities/houston.html" },
+    { "source": "/cities/phoenix", "destination": "/cities/phoenix.html" },
+    { "source": "/cities/philadelphia", "destination": "/cities/philadelphia.html" },
+    { "source": "/cities/san-antonio", "destination": "/cities/san-antonio.html" },
+    { "source": "/cities/san-diego", "destination": "/cities/san-diego.html" },
+    { "source": "/cities/dallas", "destination": "/cities/dallas.html" },
+    { "source": "/cities/san-jose", "destination": "/cities/san-jose.html" }
   ]
 }

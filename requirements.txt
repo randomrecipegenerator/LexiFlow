@@ -8,3 +8,5 @@ jinja2
 python-dotenv
 httpx
 google-generativeai
+pymupdf
+sqlalchemy-libsql

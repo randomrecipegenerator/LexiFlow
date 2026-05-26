@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+    // Default to onboarding view to guide the user
+    showSection('onboarding');
 });
 
 async function toggleDemoMode() {
@@ -78,10 +80,8 @@ async function loadLeads() {
 }
 
 function applyFirmBranding(firm) {
-    // Update logo in navbar
     const navBrand = document.querySelector('.navbar-brand');
     if (navBrand && firm.branding_logo) {
-        // Special handling for high-fidelity demo firms where the SVG includes the name
         if (firm.slug === 'clifford-law' || firm.slug === 'smith-lacien') {
             navBrand.innerHTML = `<img src="${firm.branding_logo}" alt="${firm.name}" height="45" class="py-1">`;
         } else {
@@ -89,63 +89,47 @@ function applyFirmBranding(firm) {
         }
     }
 
-    // Apply colors if available
     if (firm.branding_colors) {
         try {
             const colors = JSON.parse(firm.branding_colors);
-            
-            // Set primary color
             if (colors.primary) {
                 document.documentElement.style.setProperty('--bs-primary', colors.primary);
-                
-                // Update elements that might not use the CSS variable directly or need manual overrides
-                const btnPrimary = document.querySelectorAll('.btn-primary');
-                btnPrimary.forEach(btn => {
+                document.querySelectorAll('.btn-primary').forEach(btn => {
                     btn.style.setProperty('background-color', colors.primary, 'important');
                     btn.style.setProperty('border-color', colors.primary, 'important');
                 });
-
-                // Update text-primary elements
-                const textPrimary = document.querySelectorAll('.text-primary');
-                textPrimary.forEach(el => {
+                document.querySelectorAll('.text-primary').forEach(el => {
                     el.style.setProperty('color', colors.primary, 'important');
                 });
-
-                // Update progress bars
-                const progressBars = document.querySelectorAll('.progress-bar.bg-primary');
-                progressBars.forEach(pb => {
+                document.querySelectorAll('.progress-bar.bg-primary').forEach(pb => {
                     pb.style.setProperty('background-color', colors.primary, 'important');
                 });
             }
-
-            // Set background if specified
             if (colors.background && colors.background !== '#ffffff') {
                 document.body.style.backgroundColor = colors.background;
             }
-
-        } catch (e) {
-            console.error("Error applying branding colors", e);
-        }
+        } catch (e) { console.error("Error applying colors", e); }
     }
 }
 
 function updateStats() {
     const total = allLeads.length;
     const highPriority = allLeads.filter(l => l.status === 'High Priority').length;
-    const avgScore = total > 0 
-        ? (allLeads.reduce((acc, curr) => acc + (curr.score || 0), 0) / total).toFixed(1) 
-        : 0;
+    const avgScore = total > 0 ? (allLeads.reduce((acc, curr) => acc + (curr.score || 0), 0) / total).toFixed(1) : 0;
 
     document.getElementById('stat-total').innerText = total;
     document.getElementById('stat-high-priority').innerText = highPriority;
     document.getElementById('stat-avg-score').innerText = avgScore;
     const hpPercent = total > 0 ? (highPriority / total * 100) : 0;
-    document.getElementById('stat-hp-progress').style.width = `${hpPercent}%`;
+    const progress = document.getElementById('stat-hp-progress');
+    if (progress) progress.style.width = `${hpPercent}%`;
     updateChart(allLeads);
 }
 
 function updateChart(leads) {
-    const ctx = document.getElementById('statusChart').getContext('2d');
+    const chartEl = document.getElementById('statusChart');
+    if (!chartEl) return;
+    const ctx = chartEl.getContext('2d');
     const statusCounts = { 'High Priority': 0, 'Requires Review': 0, 'Disqualified': 0, 'New': 0 };
     leads.forEach(l => {
         if (statusCounts.hasOwnProperty(l.status)) statusCounts[l.status]++;
@@ -182,6 +166,7 @@ function updateChart(leads) {
 function renderLeads(leads) {
     const table = document.getElementById('leads-table');
     const emptyState = document.getElementById('empty-state');
+    if (!table) return;
     table.innerHTML = '';
     if (leads.length === 0) emptyState.classList.remove('d-none');
     else emptyState.classList.add('d-none');
@@ -219,15 +204,13 @@ function renderLeads(leads) {
                         <li><a class="dropdown-item small" href="#" onclick="syncToSystem(${lead.id}, 'clio')"><i class="bi bi-box-fill me-2 text-warning"></i> Clio Grow</a></li>
                         <li><a class="dropdown-item small" href="#" onclick="syncToSystem(${lead.id}, 'mycase')"><i class="bi bi-briefcase-fill me-2 text-primary"></i> MyCase</a></li>
                         <li><a class="dropdown-item small" href="#" onclick="syncToSystem(${lead.id}, 'filevine')"><i class="bi bi-leaf-fill me-2 text-success"></i> Filevine</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item small" href="#" onclick="syncToSystem(${lead.id}, 'litify')"><i class="bi bi-cloud-fill me-2 text-info"></i> Litify (Salesforce)</a></li>
                     </ul>
                     <button class="btn btn-sm btn-white border shadow-sm px-3 rounded-end-pill" onclick="viewLead(${lead.id})">View Case</button>
                 </div>
             </td>
-            `;
-            table.appendChild(tr);
-        });
+        `;
+        table.appendChild(tr);
+    });
 }
 
 function filterLeads() {
@@ -361,9 +344,7 @@ function renderModalInvoices(invoices) {
     `).join('') || '<div class="text-center py-2 text-muted small">No payment requests yet.</div>';
 }
 
-function getCurrencySymbol(curr) {
-    return curr === 'EUR' ? '€' : '$';
-}
+function getCurrencySymbol(curr) { return curr === 'EUR' ? '€' : '$'; }
 
 async function loadUsage() {
     try {
@@ -374,9 +355,7 @@ async function loadUsage() {
         const planEl = document.getElementById('billing-plan-status');
         const trialEl = document.getElementById('billing-trial-expires');
         if (planEl) planEl.innerText = data.plan_status;
-        if (trialEl) trialEl.innerText = data.trial_expires_at 
-            ? `Expires: ${new Date(data.trial_expires_at).toLocaleDateString()}`
-            : 'No expiry';
+        if (trialEl) trialEl.innerText = data.trial_expires_at ? `Expires: ${new Date(data.trial_expires_at).toLocaleDateString()}` : 'No expiry';
             
         const docUsageEl = document.getElementById('usage-docs');
         const voiceUsageEl = document.getElementById('usage-voice');
@@ -386,17 +365,15 @@ async function loadUsage() {
         if (docUsageEl) docUsageEl.innerText = data.totals.document_analysis || 0;
         if (voiceUsageEl) voiceUsageEl.innerText = (data.totals.voice_minutes || 0).toFixed(2);
         
-        // Aggregate web-based intakes
-        const webTotal = (data.totals.web_intake || 0) + 
-                         (data.totals.form_intake || 0) + 
-                         (data.totals.receptionist_intake || 0);
+        const webTotal = (data.totals.web_intake || 0) + (data.totals.form_intake || 0) + (data.totals.receptionist_intake || 0);
         if (webUsageEl) webUsageEl.innerText = webTotal;
-        
         if (emailUsageEl) emailUsageEl.innerText = data.totals.email_intake || 0;
         
-    } catch (e) {
-        console.error("Error loading usage", e);
-    }
+        const totalIntakes = webTotal + (data.totals.email_intake || 0) + (data.totals.voice_minutes || 0) / 10;
+        const roi = totalIntakes * 2.5 * 300;
+        const roiEl = document.getElementById('usage-roi');
+        if (roiEl) roiEl.innerText = '$' + roi.toLocaleString();
+    } catch (e) { console.error("Error loading usage", e); }
 }
 
 async function loadInvoices() {
@@ -510,99 +487,65 @@ async function deleteLeadPrivacy() {
 }
 
 window.showSection = function(section) {
-    ['leads', 'forms', 'billing', 'marketplace', 'front-desk', 'settings'].forEach(s => {
+    ['leads', 'forms', 'billing', 'marketplace', 'front-desk', 'settings', 'onboarding', 'reports'].forEach(s => {
         const el = document.getElementById('section-' + s);
         if (el) el.classList.add('d-none');
     });
     document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-    
+
     const target = document.getElementById('section-' + section);
     if (target) target.classList.remove('d-none');
-    
+
     const nav = document.getElementById('nav-' + section);
     if (nav) nav.classList.add('active');
-    
+
+    if (section === 'onboarding') loadOnboarding();
     if (section === 'leads') loadLeads();
-    if (section === 'billing') {
-        loadInvoices();
-        loadUsage();
-    }
+    if (section === 'billing') { loadInvoices(); loadUsage(); }
+    if (section === 'reports') loadReports();
     if (section === 'front-desk') loadFrontDeskSettings();
     if (section === 'settings') {
         loadAuditLogs();
         loadKB();
+        loadCRMSettings();
+        loadGitHubSettings();
+        loadPostmarkSettings();
         document.getElementById('webhook-url').value = API_BASE + '/api/reception/webhook';
     }
 };
 
 let fdSourceChart = null;
-
 async function loadFrontDeskSettings() {
     try {
         const response = await apiFetch('/firm/me');
         const firm = await response.json();
-        
-        // Voice Tab
         document.getElementById('voiceToggle').checked = firm.voice_enabled === 1;
         document.getElementById('voiceGreeting').value = firm.voice_config.greeting || "Hello, and thank you for calling. I am your AI intake assistant. How can I help you today?";
-        
-        // Select voice card
         const voiceId = firm.voice_config.voice_id || 'sarah';
-        document.querySelectorAll('.voice-card').forEach(card => {
-            card.classList.toggle('selected', card.dataset.voiceId === voiceId);
-        });
-
-        // Email Tab
+        document.querySelectorAll('.voice-card').forEach(card => card.classList.toggle('selected', card.dataset.voiceId === voiceId));
         document.getElementById('emailToggle').checked = firm.email_enabled === 1;
         document.getElementById('fd-email-address').innerText = `intake+${firm.slug}@lexiflow.co`;
         document.getElementById('emailAutoReply').value = firm.email_config.template || "Thank you for reaching out. We have received your inquiry and will review it shortly.\n\nThis is an automated response from LexiFlow AI.";
-
-        // Active Hours Tab
         renderActiveHours(firm.active_hours);
-
-        // Stats & Analytics
         updateFrontDeskAnalytics();
-
-    } catch (e) {
-        console.error("Error loading Front Desk settings", e);
-    }
+    } catch (e) { console.error("Error loading Front Desk settings", e); }
 }
 
 function renderActiveHours(hours) {
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const grid = document.getElementById('fd-hours-grid');
-    grid.innerHTML = `
-        <div class="day-label fw-bold text-muted small text-uppercase mb-1">Day</div>
-        <div class="text-center fw-bold text-muted small text-uppercase mb-1">Open</div>
-        <div class="text-center fw-bold text-muted small text-uppercase mb-1">Close</div>
-    `;
-
+    grid.innerHTML = `<div class="day-label fw-bold text-muted small text-uppercase mb-1">Day</div><div class="text-center fw-bold text-muted small text-uppercase mb-1">Open</div><div class="text-center fw-bold text-muted small text-uppercase mb-1">Close</div>`;
     days.forEach(day => {
         const dayKey = day.toLowerCase();
         const dayHours = hours[dayKey] || { open: "09:00", close: "17:00", active: true };
-        
         const row = document.createElement('div');
-        row.className = 'contents'; // Just a wrapper, grid handles placement
-        row.innerHTML = `
-            <div class="day-label">
-                <div class="form-check form-switch mb-0 d-inline-block">
-                    <input class="form-check-input hour-toggle" type="checkbox" id="toggle-${dayKey}" ${dayHours.active ? 'checked' : ''}>
-                </div>
-                ${day}
-            </div>
-            <div><input type="time" class="form-control form-control-sm time-input open-time" value="${dayHours.open}" ${!dayHours.active ? 'disabled' : ''}></div>
-            <div><input type="time" class="form-control form-control-sm time-input close-time" value="${dayHours.close}" ${!dayHours.active ? 'disabled' : ''}></div>
-        `;
-        // Flatten the row for the grid
+        row.className = 'contents';
+        row.innerHTML = `<div class="day-label"><div class="form-check form-switch mb-0 d-inline-block"><input class="form-check-input hour-toggle" type="checkbox" id="toggle-${dayKey}" ${dayHours.active ? 'checked' : ''}></div>${day}</div><div><input type="time" class="form-control form-control-sm time-input open-time" value="${dayHours.open}" ${!dayHours.active ? 'disabled' : ''}></div><div><input type="time" class="form-control form-control-sm time-input close-time" value="${dayHours.close}" ${!dayHours.active ? 'disabled' : ''}></div>`;
         Array.from(row.children).forEach(child => grid.appendChild(child));
     });
-
-    // Add event listeners for toggles
     document.querySelectorAll('.hour-toggle').forEach(toggle => {
         toggle.addEventListener('change', (e) => {
-            const row = e.target.closest('.day-label');
-            const inputs = [e.target.closest('.day-label').nextElementSibling.querySelector('input'), 
-                            e.target.closest('.day-label').nextElementSibling.nextElementSibling.querySelector('input')];
+            const inputs = [e.target.closest('.day-label').nextElementSibling.querySelector('input'), e.target.closest('.day-label').nextElementSibling.nextElementSibling.querySelector('input')];
             inputs.forEach(i => i.disabled = !e.target.checked);
         });
     });
@@ -612,201 +555,177 @@ async function saveFrontDeskSettings() {
     const btn = document.querySelector('#section-front-desk .btn-primary');
     const originalHtml = btn.innerHTML;
     btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Saving...';
-    
     try {
-        const voiceConfig = {
-            voice_id: document.querySelector('.voice-card.selected').dataset.voiceId,
-            greeting: document.getElementById('voiceGreeting').value
-        };
-
-        const emailConfig = {
-            template: document.getElementById('emailAutoReply').value
-        };
-
+        const voiceConfig = { voice_id: document.querySelector('.voice-card.selected').dataset.voiceId, greeting: document.getElementById('voiceGreeting').value };
+        const emailConfig = { template: document.getElementById('emailAutoReply').value };
         const activeHours = {};
         const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         const hourToggles = document.querySelectorAll('.hour-toggle');
         const openTimes = document.querySelectorAll('.open-time');
         const closeTimes = document.querySelectorAll('.close-time');
-
-        days.forEach((day, i) => {
-            activeHours[day] = {
-                active: hourToggles[i].checked,
-                open: openTimes[i].value,
-                close: closeTimes[i].value
-            };
-        });
-
+        days.forEach((day, i) => { activeHours[day] = { active: hourToggles[i].checked, open: openTimes[i].value, close: closeTimes[i].value }; });
         const formData = new FormData();
         formData.append('voice_enabled', document.getElementById('voiceToggle').checked ? 1 : 0);
         formData.append('voice_config', JSON.stringify(voiceConfig));
         formData.append('email_enabled', document.getElementById('emailToggle').checked ? 1 : 0);
         formData.append('email_config', JSON.stringify(emailConfig));
         formData.append('active_hours', JSON.stringify(activeHours));
-
-        const response = await apiFetch('/firm/settings', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (response.ok) {
-            alert("Front Desk settings saved!");
-        } else {
-            alert("Failed to save settings.");
-        }
-    } catch (e) {
-        console.error("Save failed", e);
-        alert("Error saving settings.");
-    } finally {
-        btn.innerHTML = originalHtml;
-    }
+        const response = await apiFetch('/firm/settings', { method: 'POST', body: formData });
+        if (response.ok) alert("Front Desk settings saved!");
+        else alert("Failed to save settings.");
+    } catch (e) { alert("Error saving settings."); } finally { btn.innerHTML = originalHtml; }
 }
 
 function updateFrontDeskAnalytics() {
-    // Lead Source Data
     const sources = { 'Chat': 0, 'Voice AI': 0, 'Email': 0, 'Receptionist': 0 };
     allLeads.forEach(l => {
         const s = l.source || 'Chat';
         if (sources.hasOwnProperty(s)) sources[s]++;
         else sources['Chat']++;
     });
-
     const total = allLeads.length;
     const voiceCount = sources['Voice AI'] || 0;
     const emailCount = sources['Email'] || 0;
     const webCount = sources['Chat'] || 0;
     const rate = total > 0 ? Math.round((allLeads.filter(l => l.status === 'High Priority').length / total) * 100) : 0;
-
     document.getElementById('fd-stat-voice').innerText = voiceCount;
     document.getElementById('fd-stat-email').innerText = emailCount;
     document.getElementById('fd-stat-web').innerText = webCount;
     document.getElementById('fd-stat-rate').innerText = rate + '%';
-
-    // Update Chart
     const ctx = document.getElementById('fdLeadSourceChart').getContext('2d');
-    const chartData = {
-        labels: ['Web Chat', 'Voice AI', 'Email'],
-        datasets: [{
-            data: [webCount, voiceCount, emailCount],
-            backgroundColor: ['#2563eb', '#16a34a', '#d97706'],
-            borderWidth: 0,
-        }]
-    };
-
-    if (fdSourceChart) {
-        fdSourceChart.data = chartData;
-        fdSourceChart.update();
-    } else {
-        fdSourceChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: chartData,
-            options: {
-                cutout: '70%',
-                plugins: { legend: { display: false } },
-                maintainAspectRatio: false
-            }
-        });
-    }
-
-    // Legend
-    const legend = document.getElementById('fd-source-legend');
-    legend.innerHTML = `
-        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-            <div><span class="source-badge web"><i class="bi bi-globe2"></i>Web Chat</span></div>
-            <div class="fw-bold">${webCount}</div>
-        </div>
-        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-            <div><span class="source-badge voice"><i class="bi bi-telephone"></i>Voice AI</span></div>
-            <div class="fw-bold">${voiceCount}</div>
-        </div>
-        <div class="d-flex justify-content-between align-items-center py-2">
-            <div><span class="source-badge email"><i class="bi bi-envelope"></i>Email</span></div>
-            <div class="fw-bold">${emailCount}</div>
-        </div>
-    `;
-
-    // Recent Activity
-    const activityList = document.getElementById('fd-recent-activity');
-    activityList.innerHTML = allLeads.slice(0, 5).map(l => `
-        <div class="list-group-item px-3 py-2 border-0">
-            <div class="d-flex align-items-start gap-2">
-                <i class="bi ${l.source === 'Voice AI' ? 'bi-telephone text-success' : (l.source === 'Email' ? 'bi-envelope text-warning' : 'bi-globe2 text-primary')} mt-1"></i>
-                <div class="flex-grow-1">
-                    <div class="small fw-bold">${l.full_name}</div>
-                    <div class="small text-muted text-truncate" style="max-width: 180px;">${l.summary || 'Processing...'}</div>
-                    <div class="small text-muted" style="font-size:0.65rem;">${new Date(l.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
-                </div>
-                ${l.status === 'High Priority' ? '<span class="badge bg-danger rounded-pill" style="font-size:0.5rem;">Priority</span>' : ''}
-            </div>
-        </div>
-    `).join('') || '<div class="p-3 text-center text-muted small">No recent activity.</div>';
+    const chartData = { labels: ['Web Chat', 'Voice AI', 'Email'], datasets: [{ data: [webCount, voiceCount, emailCount], backgroundColor: ['#2563eb', '#16a34a', '#d97706'], borderWidth: 0 }] };
+    if (fdSourceChart) { fdSourceChart.data = chartData; fdSourceChart.update(); }
+    else { fdSourceChart = new Chart(ctx, { type: 'doughnut', data: chartData, options: { cutout: '70%', plugins: { legend: { display: false } }, maintainAspectRatio: false } }); }
+    document.getElementById('fd-source-legend').innerHTML = `<div class="d-flex justify-content-between align-items-center py-2 border-bottom"><div><span class="source-badge web"><i class="bi bi-globe2"></i>Web Chat</span></div><div class="fw-bold">${webCount}</div></div><div class="d-flex justify-content-between align-items-center py-2 border-bottom"><div><span class="source-badge voice"><i class="bi bi-telephone"></i>Voice AI</span></div><div class="fw-bold">${voiceCount}</div></div><div class="d-flex justify-content-between align-items-center py-2"><div><span class="source-badge email"><i class="bi bi-envelope"></i>Email</span></div><div class="fw-bold">${emailCount}</div></div>`;
+    document.getElementById('fd-recent-activity').innerHTML = allLeads.slice(0, 5).map(l => `<div class="list-group-item px-3 py-2 border-0"><div class="d-flex align-items-start gap-2"><i class="bi ${l.source === 'Voice AI' ? 'bi-telephone text-success' : (l.source === 'Email' ? 'bi-envelope text-warning' : 'bi-globe2 text-primary')} mt-1"></i><div class="flex-grow-1"><div class="small fw-bold">${l.full_name}</div><div class="small text-muted text-truncate" style="max-width: 180px;">${l.summary || 'Processing...'}</div><div class="small text-muted" style="font-size:0.65rem;">${new Date(l.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div></div>${l.status === 'High Priority' ? '<span class="badge bg-danger rounded-pill" style="font-size:0.5rem;">Priority</span>' : ''}</div></div>`).join('') || '<div class="p-3 text-center text-muted small">No recent activity.</div>';
 }
 
-function copyFDEmail() {
-    const email = document.getElementById('fd-email-address').innerText;
-    navigator.clipboard.writeText(email).then(() => alert("Email address copied!"));
-}
+function copyFDEmail() { const email = document.getElementById('fd-email-address').innerText; navigator.clipboard.writeText(email).then(() => alert("Email address copied!")); }
+document.addEventListener('click', function(e) { const voiceCard = e.target.closest('.voice-card'); if (voiceCard) { document.querySelectorAll('.voice-card').forEach(c => c.classList.remove('selected')); voiceCard.classList.add('selected'); } });
+async function loadKB() { try { const response = await apiFetch('/knowledge-base'); const kb = await response.json(); document.getElementById('kb-list').innerHTML = kb.map(item => `<div class="list-group-item"><div class="d-flex justify-content-between align-items-start"><div class="fw-bold">${item.title}</div><button class="btn btn-sm btn-link text-danger p-0" onclick="deleteKB(${item.id})"><i class="bi bi-trash"></i></button></div><div class="small text-muted mt-1">${item.content}</div><div class="text-muted italic mt-1" style="font-size: 0.65rem;">Added ${new Date(item.created_at).toLocaleDateString()}</div></div>`).join('') || '<div class="p-4 text-center text-muted">No context entries yet.</div>'; } catch (e) { console.error("Error loading KB", e); } }
+async function saveKB() { const title = document.getElementById('kb-title').value; const content = document.getElementById('kb-content').value; if (!title || !content) return alert("Title and content required"); const formData = new FormData(); formData.append('title', title); formData.append('content', content); try { const response = await apiFetch('/knowledge-base', { method: 'POST', body: formData }); if (response.ok) { alert("Knowledge Base entry added!"); document.getElementById('kb-title').value = ''; document.getElementById('kb-content').value = ''; loadKB(); } } catch (e) { console.error("KB Save failed", e); } }
+async function deleteKB(id) { if (!confirm("Remove this entry from AI context?")) return; try { const response = await apiFetch(`/knowledge-base/${id}`, { method: 'DELETE' }); if (response.ok) { alert("Entry removed."); loadKB(); } } catch (e) { console.error("Delete failed", e); } }
+async function syncToSystem(leadId, system) { const btn = event ? event.target.closest('button') : null; const originalHtml = btn ? btn.innerHTML : ''; if (btn) btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Syncing...'; try { const response = await apiFetch(`/sync/${system}/${leadId}`, { method: 'POST' }); const result = await response.json(); if (result.status === 'success') { loadLeads(); document.getElementById('sync-system-name').innerText = `Target System: ${system.charAt(0).toUpperCase() + system.slice(1)} ${system === 'clio' ? 'Grow' : ''}`; document.getElementById('sync-payload-display').innerText = JSON.stringify(result.payload_sent, null, 2); const syncModal = new bootstrap.Modal(document.getElementById('syncResultModal')); syncModal.show(); if (btn) { btn.innerHTML = '<i class="bi bi-check2-all me-1"></i>Synced'; btn.className = btn.className.replace('btn-primary', 'btn-success'); } } else { alert(`Sync failed: ${result.message}`); if (btn) btn.innerHTML = originalHtml; } } catch (e) { alert("Sync failed. See console for details."); if (btn) btn.innerHTML = originalHtml; } }
+function copySyncPayload() { const text = document.getElementById('sync-payload-display').innerText; navigator.clipboard.writeText(text).then(() => alert("Payload JSON copied to clipboard!")); }
+async function exportClioCSV() { const leadId = document.getElementById('modal-lead-id').value; window.location.href = `${API_BASE}/leads/${leadId}/export/clio`; }
+async function draftDemandLetter() { const leadId = document.getElementById('modal-lead-id').value; const btn = event.target.closest('button'); const originalText = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Drafting...'; try { const response = await apiFetch(`/leads/${leadId}/draft-demand`, { method: 'POST' }); const result = await response.json(); document.getElementById('demand-letter-preview').classList.remove('d-none'); document.getElementById('demand-preview-text').innerText = result.draft; alert("Demand letter drafted successfully!"); } catch (e) { alert("Failed to draft demand letter."); } finally { btn.disabled = false; btn.innerHTML = originalText; } }
+async function generateMedicalChronology() { const leadId = document.getElementById('modal-lead-id').value; const btn = event.target.closest('button'); const originalText = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Analyzing...'; try { const response = await apiFetch(`/leads/${leadId}/medical-chronology`); const result = await response.json(); let html = '<table class="table table-sm table-bordered mt-2 small"><thead><tr><th>Date</th><th>Event</th><th>Details</th></tr></thead><tbody>'; result.chronology.forEach(item => { html += `<tr><td>${item.date}</td><td>${item.event}</td><td>${item.details}</td></tr>`; }); html += '</tbody></table>'; const summaryArea = document.getElementById('modal-summary'); const originalSummary = summaryArea.innerText; summaryArea.innerHTML = `<strong>Medical Chronology:</strong><br>${html}<hr><strong>Original Summary:</strong><br>${originalSummary}`; alert("Medical Chronology generated and added to summary view!"); } catch (e) { alert("Failed to generate chronology."); } finally { btn.disabled = false; btn.innerHTML = originalText; } }
 
-// Voice card selection listener
-document.addEventListener('click', function(e) {
-    const voiceCard = e.target.closest('.voice-card');
-    if (voiceCard) {
-        document.querySelectorAll('.voice-card').forEach(c => c.classList.remove('selected'));
-        voiceCard.classList.add('selected');
-    }
-});
-
-async function loadKB() {
+async function loadCRMSettings() {
     try {
-        const response = await apiFetch('/knowledge-base');
-        const kb = await response.json();
-        document.getElementById('kb-list').innerHTML = kb.map(item => `
-            <div class="list-group-item">
-                <div class="d-flex justify-content-between align-items-start">
-                    <div class="fw-bold">${item.title}</div>
-                    <button class="btn btn-sm btn-link text-danger p-0" onclick="deleteKB(${item.id})"><i class="bi bi-trash"></i></button>
-                </div>
-                <div class="small text-muted mt-1">${item.content}</div>
-                <div class="text-muted italic mt-1" style="font-size: 0.65rem;">Added ${new Date(item.created_at).toLocaleDateString()}</div>
-            </div>
-        `).join('') || '<div class="p-4 text-center text-muted">No context entries yet.</div>';
-    } catch (e) { console.error("Error loading KB", e); }
+        const response = await apiFetch('/firm/me');
+        const data = await response.json();
+        const productionSyncToggle = document.getElementById('productionSyncToggle');
+        if (productionSyncToggle) productionSyncToggle.checked = data.production_sync_enabled === 1;
+        const apiConfig = data.api_config || {};
+        if (document.getElementById('filevine-api-key')) document.getElementById('filevine-api-key').value = apiConfig.filevine_api_key || '';
+        if (document.getElementById('filevine-api-secret')) document.getElementById('filevine-api-secret').value = apiConfig.filevine_api_secret || '';
+        if (document.getElementById('filevine-session-id')) document.getElementById('filevine-session-id').value = apiConfig.filevine_session_id || '';
+        const clioStatus = document.getElementById('clio-status');
+        if (clioStatus) {
+            clioStatus.innerText = apiConfig.clio_oauth_token ? "Connected" : "Not Connected";
+            if (apiConfig.clio_oauth_token) { clioStatus.classList.remove('text-muted'); clioStatus.classList.add('text-success'); }
+        }
+    } catch (e) { console.error("Error loading CRM settings", e); }
 }
 
-async function saveKB() {
-    const title = document.getElementById('kb-title').value;
-    const content = document.getElementById('kb-content').value;
-    if (!title || !content) return alert("Title and content required");
+async function saveCRMSettings() {
+    const currentResp = await apiFetch('/firm/me');
+    const currentData = await currentResp.json();
+    const apiConfig = currentData.api_config || {};
+    apiConfig.filevine_api_key = document.getElementById('filevine-api-key').value;
+    apiConfig.filevine_api_secret = document.getElementById('filevine-api-secret').value;
+    apiConfig.filevine_session_id = document.getElementById('filevine-session-id').value;
     const formData = new FormData();
-    formData.append('title', title);
+    formData.append('production_sync_enabled', document.getElementById('productionSyncToggle').checked ? 1 : 0);
+    formData.append('api_config', JSON.stringify(apiConfig));
+    try {
+        const response = await apiFetch('/firm/settings', { method: 'POST', body: formData });
+        if (response.ok) alert("CRM Settings saved successfully");
+    } catch (e) { console.error("Error saving CRM settings", e); }
+}
+
+async function loadGitHubSettings() {
+    try {
+        const response = await apiFetch('/firm/me');
+        const data = await response.json();
+        const apiConfig = data.api_config || {};
+        document.getElementById('github-token').value = apiConfig.github_token || '';
+        document.getElementById('github-repo').value = apiConfig.github_repo || '';
+        document.getElementById('github-branch').value = apiConfig.github_branch || 'main';
+    } catch (e) { console.error("Error loading GitHub settings", e); }
+}
+
+async function saveGitHubSettings() {
+    const currentResp = await apiFetch('/firm/me');
+    const currentData = await currentResp.json();
+    const apiConfig = currentData.api_config || {};
+    apiConfig.github_token = document.getElementById('github-token').value;
+    apiConfig.github_repo = document.getElementById('github-repo').value;
+    apiConfig.github_branch = document.getElementById('github-branch').value;
+    const formData = new FormData();
+    formData.append('api_config', JSON.stringify(apiConfig));
+    try {
+        const response = await apiFetch('/firm/settings', { method: 'POST', body: formData });
+        if (response.ok) alert("GitHub Settings saved successfully");
+    } catch (e) { console.error("Error saving GitHub settings", e); }
+}
+
+async function loadPostmarkSettings() {
+    try {
+        const response = await apiFetch('/firm/me');
+        const data = await response.json();
+        const apiConfig = data.api_config || {};
+        document.getElementById('postmark-token').value = apiConfig.postmark_api_key || '';
+        document.getElementById('postmark-recipient').value = apiConfig.postmark_recipient_email || '';
+    } catch (e) { console.error("Error loading Postmark settings", e); }
+}
+
+async function savePostmarkSettings() {
+    const currentResp = await apiFetch('/firm/me');
+    const currentData = await currentResp.json();
+    const apiConfig = currentData.api_config || {};
+    apiConfig.postmark_api_key = document.getElementById('postmark-token').value;
+    apiConfig.postmark_recipient_email = document.getElementById('postmark-recipient').value;
+    const formData = new FormData();
+    formData.append('api_config', JSON.stringify(apiConfig));
+    try {
+        const response = await apiFetch('/firm/settings', { method: 'POST', body: formData });
+        if (response.ok) alert("Postmark Settings saved successfully");
+    } catch (e) { console.error("Error saving Postmark settings", e); }
+}
+
+async function exportToGitHub() {
+    const leadId = document.getElementById('modal-lead-id').value;
+    const repo = document.getElementById('github-repo')?.value;
+    if (!repo) return alert("Please configure GitHub repository in Settings first.");
+    
+    const summary = document.getElementById('modal-summary').innerText;
+    const name = document.getElementById('modal-name').innerText;
+    const content = `# Case Summary: ${name}\n\n${summary}`;
+    const path = `exports/lead_${leadId}.md`;
+    
+    const formData = new FormData();
+    formData.append('repo', repo);
+    formData.append('path', path);
     formData.append('content', content);
+    formData.append('commit_message', `Export lead ${leadId} summary`);
+    
+    const btn = event.target.closest('button');
+    const originalHtml = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Exporting...';
+    
     try {
-        const response = await apiFetch('/knowledge-base', { method: 'POST', body: formData });
-        if (response.ok) {
-            alert("Knowledge Base entry added!");
-            document.getElementById('kb-title').value = '';
-            document.getElementById('kb-content').value = '';
-            loadKB();
+        const response = await apiFetch('/integrations/github/push', { method: 'POST', body: formData });
+        const result = await response.json();
+        if (result.status === 'success') {
+            alert(`Exported to GitHub successfully!\nURL: ${result.url}`);
+        } else {
+            alert(`GitHub Export failed: ${result.message}`);
         }
-    } catch (e) { console.error("KB Save failed", e); }
-}
-
-async function deleteKB(id) {
-    if (!confirm("Remove this entry from AI context?")) return;
-    try {
-        const response = await apiFetch(`/knowledge-base/${id}`, { method: 'DELETE' });
-        if (response.ok) {
-            alert("Entry removed.");
-            loadKB();
-        }
-    } catch (e) { console.error("Delete failed", e); }
-}
-
-function copyWebhook() {
-    const el = document.getElementById('webhook-url');
-    el.select();
-    document.execCommand('copy');
-    alert("Webhook URL copied to clipboard!");
+    } catch (e) { alert("GitHub Export failed. See console for details."); }
+    finally { btn.disabled = false; btn.innerHTML = originalHtml; }
 }
 
 loadLeads();
@@ -814,171 +733,198 @@ setInterval(() => {
     if (!document.getElementById('filter-status').value && !document.getElementById('filter-score').value && !document.getElementById('search-input').value) loadLeads();
 }, 30000);
 
-async function syncToSystem(leadId, system) {
-    const btn = event ? event.target.closest('button') : null;
-    const originalHtml = btn ? btn.innerHTML : '';
-    if (btn) btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Syncing...';
-    
+async function loadOnboarding() {
     try {
-        const response = await apiFetch(`/sync/${system}/${leadId}`, { method: 'POST' });
-        const result = await response.json();
-        
-        if (result.status === 'success') {
-            loadLeads();
-            
-            // Show high-fidelity simulation modal
-            document.getElementById('sync-system-name').innerText = `Target System: ${system.charAt(0).toUpperCase() + system.slice(1)} ${system === 'clio' ? 'Grow' : ''}`;
-            document.getElementById('sync-payload-display').innerText = JSON.stringify(result.payload_sent, null, 2);
-            
-            const syncModal = new bootstrap.Modal(document.getElementById('syncResultModal'));
-            syncModal.show();
-            
-            if (btn) {
-                btn.innerHTML = '<i class="bi bi-check2-all me-1"></i>Synced';
-                btn.className = btn.className.replace('btn-primary', 'btn-success');
-            }
-        } else {
-            alert(`Sync failed: ${result.message}`);
-            if (btn) btn.innerHTML = originalHtml;
-        }
-    } catch (e) {
-        console.error("Sync failed", e);
-        alert("Sync failed. See console for details.");
-        if (btn) btn.innerHTML = originalHtml;
-    }
-}
-
-function copySyncPayload() {
-    const text = document.getElementById('sync-payload-display').innerText;
-    navigator.clipboard.writeText(text).then(() => {
-        alert("Payload JSON copied to clipboard!");
-    });
-}
-
-async function exportClioCSV() {
-    const leadId = document.getElementById('modal-lead-id').value;
-    window.location.href = `${API_BASE}/leads/${leadId}/export/clio`;
-}
-
-async function draftDemandLetter() {
-    const leadId = document.getElementById('modal-lead-id').value;
-    const btn = event.target.closest('button');
-    const originalText = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Drafting...';
-    
-    try {
-        const response = await apiFetch(`/leads/${leadId}/draft-demand`, { method: 'POST' });
-        const result = await response.json();
-        document.getElementById('demand-letter-preview').classList.remove('d-none');
-        document.getElementById('demand-preview-text').innerText = result.draft;
-        alert("Demand letter drafted successfully!");
-    } catch (e) {
-        console.error("Drafting failed", e);
-        alert("Failed to draft demand letter.");
-    } finally {
-        btn.disabled = false;
-        btn.innerHTML = originalText;
-    }
-}
-
-async function generateMedicalChronology() {
-    const leadId = document.getElementById('modal-lead-id').value;
-    const btn = event.target.closest('button');
-    const originalText = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Analyzing...';
-    
-    try {
-        const response = await apiFetch(`/leads/${leadId}/medical-chronology`);
-        const result = await response.json();
-        
-        let html = '<table class="table table-sm table-bordered mt-2 small"><thead><tr><th>Date</th><th>Event</th><th>Details</th></tr></thead><tbody>';
-        result.chronology.forEach(item => {
-            html += `<tr><td>${item.date}</td><td>${item.event}</td><td>${item.details}</td></tr>`;
-        });
-        html += '</tbody></table>';
-        
-        // Use a simple alert or update a div. Let's update the summary area or a new area.
-        const summaryArea = document.getElementById('modal-summary');
-        const originalSummary = summaryArea.innerText;
-        summaryArea.innerHTML = `<strong>Medical Chronology:</strong><br>${html}<hr><strong>Original Summary:</strong><br>${originalSummary}`;
-        alert("Medical Chronology generated and added to summary view!");
-        
-    } catch (e) {
-        console.error("Chronology failed", e);
-        alert("Failed to generate chronology.");
-    } finally {
-        btn.disabled = false;
-        btn.innerHTML = originalText;
-    }
-}
-
-async function loadCRMSettings() {
-    try {
-        const response = await apiFetch('/firm/me');
+        const response = await apiFetch('/firm/onboarding');
         const data = await response.json();
         
-        const productionSyncToggle = document.getElementById('productionSyncToggle');
-        const filevineApiKey = document.getElementById('filevine-api-key');
-        const filevineApiSecret = document.getElementById('filevine-api-secret');
-        const filevineSessionId = document.getElementById('filevine-session-id');
-        const clioStatus = document.getElementById('clio-status');
-
-        if (productionSyncToggle) productionSyncToggle.checked = data.production_sync_enabled === 1;
+        // Update progress bar
+        const progressBar = document.getElementById('onboarding-progress-bar');
+        const progressPercent = document.getElementById('onboarding-progress-percent');
+        if (progressBar) progressBar.style.width = data.overall_progress + '%';
+        if (progressPercent) progressPercent.innerText = data.overall_progress + '%';
         
-        const apiConfig = data.api_config || {};
-        if (filevineApiKey) filevineApiKey.value = apiConfig.filevine_api_key || '';
-        if (filevineApiSecret) filevineApiSecret.value = apiConfig.filevine_api_secret || '';
-        if (filevineSessionId) filevineSessionId.value = apiConfig.filevine_session_id || '';
-        
-        if (clioStatus) {
-            clioStatus.innerText = apiConfig.clio_oauth_token ? "Connected" : "Not Connected";
-            if (apiConfig.clio_oauth_token) {
-                clioStatus.classList.remove('text-muted');
-                clioStatus.classList.add('text-success');
-            }
+        // Render checklist
+        const checklistContainer = document.getElementById('onboarding-checklist');
+        if (checklistContainer) {
+            checklistContainer.innerHTML = '';
+            data.checklist.forEach(item => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'list-group-item border-0 px-0 py-3 d-flex align-items-center gap-3';
+                
+                const iconClass = item.status === 'completed' ? 'bi-check-circle-fill text-success' : 'bi-circle text-muted opacity-50';
+                
+                itemEl.innerHTML = `
+                    <div class="h3 mb-0"><i class="bi ${iconClass}"></i></div>
+                    <div class="flex-grow-1">
+                        <h6 class="fw-bold mb-1 ${item.status === 'completed' ? 'text-muted text-decoration-line-through' : ''}">${item.title}</h6>
+                        <p class="small text-muted mb-0">${item.description}</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-sm ${item.status === 'completed' ? 'btn-outline-secondary' : 'btn-outline-primary'} rounded-pill px-3" onclick="showSection('${item.action_link}')">
+                            ${item.action_text}
+                        </button>
+                    </div>
+                `;
+                checklistContainer.appendChild(itemEl);
+            });
         }
+
+        // Update status indicators
+        const githubStatus = data.checklist.find(i => i.id === 'github')?.status;
+        const postmarkStatus = data.checklist.find(i => i.id === 'postmark')?.status;
+        const domainStatus = data.checklist.find(i => i.id === 'domain')?.status;
+
+        updateIndicator('status-github', githubStatus);
+        updateIndicator('status-postmark', postmarkStatus);
+        updateIndicator('status-domain', domainStatus);
+
     } catch (e) {
-        console.error("Error loading CRM settings", e);
+        console.error("Error loading onboarding data", e);
     }
 }
 
-async function saveCRMSettings() {
-    const productionSyncToggle = document.getElementById('productionSyncToggle');
-    const filevineApiKey = document.getElementById('filevine-api-key');
-    const filevineApiSecret = document.getElementById('filevine-api-secret');
-    const filevineSessionId = document.getElementById('filevine-session-id');
+function updateIndicator(id, status) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (status === 'completed') {
+        el.innerText = 'Connected';
+        el.className = 'small text-success fw-bold mb-2';
+    } else {
+        el.innerText = 'Disconnected';
+        el.className = 'small text-muted mb-2';
+    }
+}
+
+function showQuickConnect(type) {
+    const modal = new bootstrap.Modal(document.getElementById('quickConnectModal'));
+    const title = document.getElementById('quickConnectTitle');
     
-    // We need current config to not overwrite Clio token if we only change Filevine
+    // Hide all
+    ['github', 'postmark', 'domain'].forEach(t => {
+        document.getElementById(`quick-connect-${t}`).classList.add('d-none');
+    });
+    
+    // Show selected
+    document.getElementById(`quick-connect-${type}`).classList.remove('d-none');
+    
+    if (type === 'github') title.innerText = 'Connect GitHub';
+    if (type === 'postmark') title.innerText = 'Connect Postmark';
+    if (type === 'domain') title.innerText = 'Verify Domain';
+    
+    modal.show();
+}
+
+async function saveQuickConnect(type) {
     const currentResp = await apiFetch('/firm/me');
     const currentData = await currentResp.json();
     const apiConfig = currentData.api_config || {};
     
-    apiConfig.filevine_api_key = filevineApiKey.value;
-    apiConfig.filevine_api_secret = filevineApiSecret.value;
-    apiConfig.filevine_session_id = filevineSessionId.value;
+    if (type === 'github') {
+        apiConfig.github_token = document.getElementById('quick-github-token').value;
+        apiConfig.github_repo = document.getElementById('quick-github-repo').value;
+    } else if (type === 'postmark') {
+        apiConfig.postmark_api_key = document.getElementById('quick-postmark-token').value;
+        apiConfig.postmark_recipient_email = document.getElementById('quick-postmark-recipient').value;
+    } else if (type === 'domain') {
+        apiConfig.domain_name = document.getElementById('quick-domain-name').value;
+        apiConfig.domain_verified = true; // Simulating verification
+    }
     
     const formData = new FormData();
-    formData.append('production_sync_enabled', productionSyncToggle.checked ? 1 : 0);
     formData.append('api_config', JSON.stringify(apiConfig));
     
     try {
-        const response = await apiFetch('/firm/settings', {
-            method: 'POST',
-            body: formData
-        });
+        const response = await apiFetch('/firm/settings', { method: 'POST', body: formData });
         if (response.ok) {
-            alert("CRM Settings saved successfully");
+            bootstrap.Modal.getInstance(document.getElementById('quickConnectModal')).hide();
+            loadOnboarding(); // Refresh status
+            // Also refresh main settings if they are visible
+            if (!document.getElementById('section-settings').classList.contains('d-none')) {
+                loadGitHubSettings();
+                loadPostmarkSettings();
+            }
         }
-    } catch (e) {
-        console.error("Error saving CRM settings", e);
+    } catch (e) { console.error(`Error saving ${type} settings`, e); }
+}
+
+async function loadReports() {
+    try {
+        const statsResp = await apiFetch('/reports/stats');
+        const stats = await statsResp.json();
+        
+        document.getElementById('report-stat-leads').innerText = stats.total_leads;
+        document.getElementById('report-stat-qualified').innerText = stats.qualified_leads;
+        document.getElementById('report-stat-conv').innerText = stats.conversion_rate + '%';
+        document.getElementById('report-stat-docs').innerText = stats.docs_analyzed;
+        
+        const table = document.getElementById('report-top-leads-table');
+        table.innerHTML = stats.top_leads.map(lead => `
+            <tr>
+                <td class="ps-4">
+                    <div class="fw-bold">${lead.full_name || 'Anonymous'}</div>
+                    <div class="small text-muted">${new Date(lead.created_at).toLocaleDateString()}</div>
+                </td>
+                <td><span class="badge bg-light text-dark border">${lead.case_type || 'General'}</span></td>
+                <td>
+                    <div class="fw-bold text-primary">${lead.score || 0}</div>
+                </td>
+                <td class="text-end pe-4">
+                    <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="viewLead(${lead.id})">Details</button>
+                </td>
+            </tr>
+        `).join('') || '<tr><td colspan="4" class="text-center py-4 text-muted">No high-scoring leads this week.</td></tr>';
+
+        // Load recipient email from firm settings
+        const firmResp = await apiFetch('/firm/me');
+        const firm = await firmResp.json();
+        const apiConfig = firm.api_config || {};
+        document.getElementById('report-recipient-email').value = apiConfig.report_recipient_email || apiConfig.postmark_recipient_email || '';
+    } catch (e) { console.error("Error loading reports", e); }
+}
+
+async function triggerWeeklyReport() {
+    const btn = event ? event.target.closest('button') : null;
+    const originalHtml = btn ? btn.innerHTML : '';
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Sending...';
+    }
+    
+    try {
+        const response = await apiFetch('/reports/trigger', { method: 'POST' });
+        const result = await response.json();
+        if (result.status === 'success') {
+            alert(`Report sent successfully to ${result.recipient}!`);
+        } else {
+            alert(`Failed to send report: ${result.message || 'Unknown error'}`);
+        }
+    } catch (e) { 
+        alert("Error triggering report."); 
+        console.error(e);
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = originalHtml;
+        }
     }
 }
 
-function copyWebhook() {
-    const url = document.getElementById('webhook-url');
-    url.select();
-    document.execCommand('copy');
-    alert("Webhook URL copied to clipboard");
+async function saveReportSettings() {
+    const email = document.getElementById('report-recipient-email').value;
+    if (!email) return alert("Please enter a recipient email.");
+    
+    const currentResp = await apiFetch('/firm/me');
+    const currentData = await currentResp.json();
+    const apiConfig = currentData.api_config || {};
+    apiConfig.report_recipient_email = email;
+    
+    const formData = new FormData();
+    formData.append('api_config', JSON.stringify(apiConfig));
+    
+    try {
+        const response = await apiFetch('/firm/settings', { method: 'POST', body: formData });
+        if (response.ok) alert("Report settings saved!");
+    } catch (e) { console.error("Error saving report settings", e); }
 }
+
