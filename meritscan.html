@@ -3,7 +3,54 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MeritScan — AI Medical Merit Review</title>
+    <title>MeritScan — AI Medical Merit Review for Attorneys | Screen Cases in Minutes</title>
+    <meta name="description" content="Upload medical records. Get a citation-backed preliminary merit report with chronology, negligence markers, and standard of care analysis — in minutes." />
+    <link rel="canonical" href="https://lexiflow.co/meritscan" />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lexiflow.co/meritscan">
+    <meta property="og:title" content="MeritScan — AI Medical Merit Review for Attorneys | Screen Cases in Minutes">
+    <meta property="og:description" content="Upload medical records. Get a citation-backed preliminary merit report with chronology, negligence markers, and standard of care analysis — in minutes.">
+    <meta property="og:image" content="https://lexiflow.co/branding/social-banner.png">
+
+    <!-- Schema -->
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"SoftwareApplication","name":"MeritScan","operatingSystem":"Web","applicationCategory":"Legal Software","offers":{"@type":"Offer","price":"75.00","priceCurrency":"USD"}}
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How accurate is the AI medical merit review?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MeritScan's AI achieves an 87% recall rate for negligence markers. Every finding is backed by specific citations to the uploaded medical records for human verification."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What file types are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We support high-resolution PDFs, scans, and standard medical record exports (TXT, DOCX)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the platform HIPAA compliant?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, MeritScan is fully HIPAA secure, with end-to-end encryption and BAA availability for enterprise partners."
+          }
+        }
+      ]
+    }
+    </script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -33,7 +80,7 @@
         <div class="d-flex gap-3 align-items-center">
             <a href="#features" class="text-dark text-decoration-none small fw-medium d-none d-md-block">Features</a>
             <a href="#pricing" class="text-dark text-decoration-none small fw-medium d-none d-md-block">Pricing</a>
-            <button class="btn btn-sm rounded-pill px-4 fw-bold" style="background:#2563eb;color:white;">Start Screening</button>
+            <a href="/meritscan-app.html" class="btn btn-sm rounded-pill px-4 fw-bold" style="background:#2563eb;color:white;">Start Screening</a>
         </div>
     </div>
 </nav>
@@ -50,42 +97,13 @@
                 <h1 class="display-5 fw-bold mb-4" style="line-height:1.15;color:#1e3a5f;">Screen MedMal Cases in <span style="color:#2563eb;">Minutes</span>, Not Weeks</h1>
                 <p class="fs-5 mb-4 text-muted">Stop spending $2,000+ on expert reviews for non-viable cases. MeritScan's AI analyzes medical records instantly — flagging negligence markers, benchmarking against standards of care, and delivering citation-backed merit reports.</p>
                 <div class="d-flex gap-3 mb-4">
-                    <button class="btn btn-lg rounded-pill px-5 fw-bold" style="background:#2563eb;color:white;">Upload Records Free</button>
+                    <a href="/meritscan-app.html" class="btn btn-lg rounded-pill px-5 fw-bold" style="background:#2563eb;color:white;">Upload Records Free</a>
                     <button class="btn btn-lg rounded-pill px-4 fw-bold border border-slate-300 text-slate-700">See Sample Report</button>
                 </div>
                 <p class="small text-muted"><i class="bi bi-check-circle-fill text-green-500 me-1"></i> No credit card required &bull; Medicare/Medicaid compliant &bull; HIPAA secure</p>
             </div>
             <div class="col-lg-6">
-                <div class="rounded-4 p-4 shadow-lg bg-white" style="border:1px solid #e2e8f0;">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <i class="bi bi-file-medical text-blue-600 fs-4"></i>
-                        <span class="fw-bold small">MeritScan Report — patient_2341_records.pdf</span>
-                    </div>
-                    <!-- Alert -->
-                    <div class="alert-marker rounded-3 p-3 mb-3" style="background:#fef2f2;">
-                        <div class="d-flex align-items-center gap-2 mb-1">
-                            <i class="bi bi-exclamation-triangle-fill text-red-500"></i>
-                            <span class="fw-bold small text-red-600">NEGLIGENCE MARKER DETECTED</span>
-                        </div>
-                        <p class="small mb-0 text-slate-700"><strong>Sepsis Alert:</strong> Lab results (WBC 18.2, Lactate 4.1) at 14:00 on 03/12. Next physician note at 03:13 08:00 — <strong>18-hour gap</strong>. CDC guidelines recommend <strong>3-hour</strong> antibiotic window for sepsis.</p>
-                    </div>
-                    <!-- Chronology -->
-                    <div class="rounded-3 p-3 mb-3" style="background:#f0f9ff;border-left:4px solid #0ea5e9;">
-                        <span class="fw-bold small text-sky-700"><i class="bi bi-clock-history me-1"></i>MEDICAL CHRONOLOGY</span>
-                        <p class="small mb-0 mt-1 text-slate-600">03/10 — Admitted w/ abdominal pain &bull; 03/12 14:00 — Labs show sepsis markers &bull; 03/13 08:00 — First physician response &bull; 03/15 — Transferred to ICU</p>
-                    </div>
-                    <!-- Merit score -->
-                    <div class="rounded-3 p-3 d-flex align-items-center justify-content-between" style="background:#f0fdf4;border-left:4px solid #16a34a;">
-                        <div>
-                            <span class="fw-bold small text-green-700"><i class="bi bi-award me-1"></i>MERIT SCORE</span>
-                            <div class="small text-slate-600 mt-1">Standard of Care breach confirmed. Estimated viability: <strong>High</strong>.</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="fw-bold text-green-600" style="font-size:1.5rem;">84</div>
-                            <div class="small text-muted">/100</div>
-                        </div>
-                    </div>
-                </div>
+                <img src="/branding/product-graphics/meritscan-negligence-marker.svg" alt="MeritScan Negligence Marker Detection" class="img-fluid rounded-4 shadow-xl border border-slate-200">
             </div>
         </div>
     </div>
@@ -188,7 +206,7 @@
                         <li class="mb-2"><i class="bi bi-check-circle me-2" style="color:#16a34a;"></i>Table of contents</li>
                         <li class="mb-2"><i class="bi bi-check-circle me-2" style="color:#16a34a;"></i>5 uploads/month</li>
                     </ul>
-                    <button class="btn w-100 rounded-pill fw-bold" style="background:#1e3a5f;color:white;">Get Started Free</button>
+                    <a href="/meritscan-app.html" class="btn w-100 rounded-pill fw-bold" style="background:#1e3a5f;color:white;">Get Started Free</a>
                 </div>
             </div>
             <div class="col-md-4">
@@ -204,7 +222,7 @@
                         <li class="mb-2"><i class="bi bi-check-circle me-2" style="color:#2563eb;"></i>Standard of Care check</li>
                         <li class="mb-2"><i class="bi bi-check-circle me-2" style="color:#2563eb;"></i>Citation-backed report</li>
                     </ul>
-                    <button class="btn w-100 rounded-pill fw-bold" style="background:#2563eb;color:white;">Run Merit Scan</button>
+                    <a href="/meritscan-app.html" class="btn w-100 rounded-pill fw-bold" style="background:#2563eb;color:white;">Run Merit Scan</a>
                 </div>
             </div>
             <div class="col-md-4">
@@ -218,7 +236,7 @@
                         <li class="mb-2"><i class="bi bi-check-circle me-2" style="color:#0ea5e9;"></i>Deposition strategy gen</li>
                         <li class="mb-2"><i class="bi bi-check-circle me-2" style="color:#0ea5e9;"></i>Priority processing</li>
                     </ul>
-                    <button class="btn w-100 rounded-pill fw-bold" style="background:#0ea5e9;color:white;">Go Boutique</button>
+                    <a href="/meritscan-app.html" class="btn w-100 rounded-pill fw-bold" style="background:#0ea5e9;color:white;">Go Boutique</a>
                 </div>
             </div>
         </div>
@@ -236,6 +254,8 @@
     </div>
 </footer>
 
+<script src="/config.js"></script>
+<script src="/modal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
