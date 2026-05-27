@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DepoLens — AI Deposition Conflict Detector | Find Witness Contradictions Instantly</title>
+    <meta name="description" content="Upload deposition transcripts. AI detects contradictions between witnesses, builds a unified fact chronology, and generates executive summaries. Essential for trial prep." />
+    <link rel="canonical" href="https://lexiflow.co/depolens" />
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lexiflow.co/depolens">
+    <meta property="og:title" content="DepoLens — AI Deposition Conflict Detector | Find Witness Contradictions Instantly">
+    <meta property="og:description" content="Upload deposition transcripts. AI detects contradictions between witnesses, builds a unified fact chronology, and generates executive summaries.">
+    <meta property="og:image" content="https://lexiflow.co/branding/social-banner.png">
+
+    <!-- Schema -->
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"SoftwareApplication","name":"DepoLens","operatingSystem":"Web","applicationCategory":"Legal Software","offers":{"@type":"Offer","price":"99.00","priceCurrency":"USD"}}
+    </script>
+
+    <style>
+        :root {
+            --brand-primary: #2563eb;
+            --brand-dark: #1e3a5f;
+            --brand-accent: #0ea5e9;
+        }
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #334155; }
+        .hero-section { background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 100px 0; }
+        .pricing-card { border: none; border-radius: 20px; transition: transform 0.3s ease; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
+        .pricing-card:hover { transform: translateY(-5px); }
+        .pricing-card.featured { border: 2px solid var(--brand-primary); }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <img src="/branding/logo-icon.svg" alt="LexiFlow" height="30" class="me-2" />
+            <span class="fw-bold" style="color: var(--brand-dark);">Lexi<span style="color: var(--brand-primary);">Flow</span></span>
+        </a>
+        <div class="ms-auto">
+            <a href="/depolens-app.html" class="btn btn-primary rounded-pill px-4 fw-bold">Open App</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero-section">
+    <div class="container text-center">
+        <h1 class="display-3 fw-extrabold mb-4" style="color: var(--brand-dark);">Find Every Deposition <br/><span style="color: var(--brand-primary);">Contradiction</span> — In Seconds</h1>
+        <p class="lead mb-5 mx-auto" style="max-width: 700px;">Stop wasting hours hunting for "gotcha" moments. DepoLens uses Reasoning AI to cross-reference multiple transcripts and flag conflicts instantly.</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="/depolens-app.html" class="btn btn-lg btn-primary rounded-pill px-5 fw-bold shadow-lg">Analyze a Transcript Free</a>
+            <button class="btn btn-lg btn-outline-secondary rounded-pill px-4 fw-bold">Watch Demo</button>
+            <button onclick="toggleConsultation()" class="btn btn-lg btn-primary rounded-pill px-4 fw-bold">Request Consultation</button>
+        </div>
+        <div class="mt-5 pt-4">
+            <img src="/branding/product-graphics/depolens-witness-conflict.svg" alt="DepoLens Conflict Detection" class="img-fluid rounded-4 shadow-2xl border border-slate-200" style="max-width: 900px;">
+        </div>
+    </div>
+</section>
+
+<!-- Problem -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="fw-bold mb-4" style="color: var(--brand-dark);">Manual Review Misses 30%+ of Contradictions</h2>
+                <p class="text-muted mb-4">When juggling thousands of pages of testimony, even the best legal teams miss subtle witness inconsistencies. DepoLens never blinks.</p>
+                <ul class="list-unstyled space-y-3">
+                    <li class="mb-2"><i class="bi bi-x-circle-fill text-danger me-2"></i> Missed impeachment opportunities</li>
+                    <li class="mb-2"><i class="bi bi-x-circle-fill text-danger me-2"></i> Days spent on manual chronology building</li>
+                    <li class="mb-2"><i class="bi bi-x-circle-fill text-danger me-2"></i> Human error in cross-referencing</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="p-5 rounded-4 bg-light">
+                    <span class="display-4 fw-bold text-primary">85%</span>
+                    <p class="fw-bold mb-0">Reduction in Review Time</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold" style="color: var(--brand-dark);">Built for Litigation Power-Users</h2>
+        </div>
+        <div class="row g-4 text-center">
+            <div class="col-md-4">
+                <div class="p-4">
+                    <i class="bi bi-search text-primary display-5 mb-3"></i>
+                    <h5 class="fw-bold">Conflict Detection</h5>
+                    <p class="text-muted small">Instantly find where Witness A contradicts Witness B or their own prior testimony.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4">
+                    <i class="bi bi-calendar3 text-primary display-5 mb-3"></i>
+                    <h5 class="fw-bold">Fact Chronology</h5>
+                    <p class="text-muted small">AI builds a unified timeline from all transcripts, cited by page and line number.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4">
+                    <i class="bi bi-file-earmark-text text-primary display-5 mb-3"></i>
+                    <h5 class="fw-bold">Executive Summary</h5>
+                    <p class="text-muted small">Get a 1-page summary of admissions, risks, and pivotal testimony moments.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-3" style="color: var(--brand-dark);">Fair, Transparent Pricing</h2>
+        </div>
+        <div class="row justify-content-center g-4">
+            <div class="col-md-4">
+                <div class="card pricing-card p-4 text-center">
+                    <h6 class="fw-bold mb-2">Standard</h6>
+                    <div class="display-5 fw-bold mb-2" style="color: var(--brand-primary);">$99</div>
+                    <p class="text-muted small mb-0">per transcript</p>
+                    <hr />
+                    <ul class="list-unstyled text-start small mb-4">
+                        <li class="mb-2"><i class="bi bi-check-circle me-2 text-success"></i> Full Conflict Detection</li>
+                        <li class="mb-2"><i class="bi bi-check-circle me-2 text-success"></i> PDF/TXT Support</li>
+                        <li class="mb-2"><i class="bi bi-check-circle me-2 text-success"></i> Export to Word/Excel</li>
+                    </ul>
+                    <a href="/depolens-app.html" class="btn w-100 rounded-pill fw-bold btn-primary">Start Analysis</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card pricing-card featured p-4 text-center">
+                    <div class="badge bg-primary mb-2 px-3 py-1">Best Value</div>
+                    <h6 class="fw-bold mb-2">Firm Pack</h6>
+                    <div class="display-5 fw-bold mb-2" style="color: var(--brand-primary);">$79</div>
+                    <p class="text-muted small mb-0">per transcript (10+)</p>
+                    <hr />
+                    <ul class="list-unstyled text-start small mb-4">
+                        <li class="mb-2"><i class="bi bi-check-circle me-2 text-success"></i> Priority Processing</li>
+                        <li class="mb-2"><i class="bi bi-check-circle me-2 text-success"></i> Multi-Witness Cross-Ref</li>
+                        <li class="mb-2"><i class="bi bi-check-circle me-2 text-success"></i> Dedicated Support</li>
+                    </ul>
+                    <a href="/depolens-app.html" class="btn w-100 rounded-pill fw-bold btn-primary">Buy Credits</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-4 border-top" style="background: white;">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+            <img src="/branding/logo-icon.svg" alt="DepoLens" height="20" class="me-2" />
+            <span class="fw-bold">Depo<span style="color: var(--brand-primary);">Lens</span></span>
+        </div>
+        <p class="small mb-0 text-muted">&copy; 2026 LexiFlow AI. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="/config.js"></script>
+<script src="/modal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
