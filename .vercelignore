@@ -1,0 +1,8 @@
+venv/
+__pycache__/
+*.pyc
+lexiflow.db-journal
+lexiflow.db-shm
+lexiflow.db-wal
+.git/
+.env

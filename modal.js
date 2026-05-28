@@ -105,7 +105,10 @@ const ConsultationModal = {
         
         try {
             // Use apiFetch if available, fallback to fetch
-            const fetchFn = typeof apiFetch === 'function' ? apiFetch : async (url, opts) => fetch(url, opts);
+            const fetchFn = typeof apiFetch === 'function' ? apiFetch : async (url, opts) => {
+                const apiUrl = url.startsWith('/api') ? url : `/api${url}`;
+                return fetch(apiUrl, opts);
+            };
             
             const response = await fetchFn('/demo-request', {
                 method: 'POST',

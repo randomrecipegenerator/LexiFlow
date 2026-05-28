@@ -1,5 +1,7 @@
 let allLeads = [];
 let statusChart = null;
+let analyticsSourceChart = null;
+let fdSourceChart = null;
 
 // Initialize firm selector from context on load
 document.addEventListener('DOMContentLoaded', () => {
@@ -7,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const firmSelect = document.getElementById('demo-firm-select');
     if (firmSelect) {
         firmSelect.value = slug;
-        // If it's not 'general', we probably want demo mode enabled
         if (slug !== 'general') {
             const toggle = document.getElementById('demo-mode-toggle');
             if (toggle) {
@@ -16,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-    // Default to onboarding view to guide the user
     showSection('onboarding');
 });
 
@@ -24,25 +24,20 @@ async function toggleDemoMode() {
     const isDemo = document.getElementById('demo-mode-toggle').checked;
     const firmSelect = document.getElementById('demo-firm-select');
     
-    if (isDemo) {
-        firmSelect.classList.remove('d-none');
-    } else {
-        firmSelect.classList.add('d-none');
-    }
+    if (isDemo) firmSelect.classList.remove('d-none');
+    else firmSelect.classList.add('d-none');
 
     renderLeads([]);
     
     if (isDemo) {
         const firm = firmSelect.value;
-        LexiContext.setFirmSlug(firm); // Persist selection
+        LexiContext.setFirmSlug(firm);
         try {
             const formData = new FormData();
             formData.append('firm_slug', firm);
             await apiFetch('/demo/seed', { method: 'POST', body: formData });
             await loadLeads();
-        } catch (e) {
-            console.error("Seeding failed", e);
-        }
+        } catch (e) { console.error("Seeding failed", e); }
     } else {
         await loadLeads();
     }
@@ -51,19 +46,17 @@ async function toggleDemoMode() {
 async function seedVoiceLead() {
     try {
         const response = await apiFetch('/demo/seed-voice', { method: 'POST' });
-        const result = await response.json();
-        alert("Voice AI Lead generated! Check the leads list.");
-        loadLeads();
-    } catch (e) {
-        console.error("Voice seed failed", e);
-    }
+        if (response.ok) {
+            alert("Voice AI Lead generated! Check the leads list.");
+            loadLeads();
+        }
+    } catch (e) { console.error("Voice seed failed", e); }
 }
 
 async function loadLeads() {
     const toggle = document.getElementById('demo-mode-toggle');
     const isDemo = toggle ? toggle.checked : false;
     try {
-        // Load firm branding
         const firmResponse = await apiFetch('/firm/me');
         if (firmResponse.ok) {
             const firmData = await firmResponse.json();
@@ -74,9 +67,7 @@ async function loadLeads() {
         allLeads = await response.json();
         updateStats();
         filterLeads();
-    } catch (error) {
-        console.error('Error loading leads:', error);
-    }
+    } catch (error) { console.error('Error loading leads:', error); }
 }
 
 function applyFirmBranding(firm) {
@@ -173,11 +164,14 @@ function renderLeads(leads) {
 
     leads.forEach(lead => {
         const tr = document.createElement('tr');
-        if (lead.status === 'High Priority') tr.classList.add('priority-row');
+        if (lead.status === 'High Priority' || lead.score >= 90) tr.classList.add('priority-row');
+        
+        let hotBadge = lead.score >= 90 ? '<span class="badge bg-danger ms-2" style="font-size: 0.6rem;">HOT</span>' : '';
+        
         tr.innerHTML = `
             <td class="ps-4 fw-bold">#${lead.id}</td>
             <td>
-                <div class="fw-bold text-dark">${lead.full_name || 'Anonymous'}</div>
+                <div class="fw-bold text-dark d-flex align-items-center">${lead.full_name || 'Anonymous'} ${hotBadge}</div>
                 <div class="small text-muted text-truncate" style="max-width: 250px;">${lead.summary || 'No summary yet...'}</div>
             </td>
             <td><span class="badge bg-light text-dark border">${lead.source || 'Chat'}</span></td>
@@ -381,18 +375,20 @@ async function loadInvoices() {
         const response = await apiFetch('/billing/invoices');
         const invoices = await response.json();
         const table = document.getElementById('invoices-table');
-        table.innerHTML = invoices.map(inv => `
-            <tr>
-                <td class="ps-4">#${inv.id}</td>
-                <td>Lead #${inv.lead_id}</td>
-                <td class="fw-bold">${getCurrencySymbol(inv.currency)}${inv.amount.toFixed(2)}</td>
-                <td><span class="badge ${inv.status === 'Paid' ? 'bg-success' : 'bg-warning'}">${inv.status}</span></td>
-                <td>${new Date(inv.created_at).toLocaleDateString()}</td>
-                <td class="text-end pe-4">
-                    ${inv.status === 'Pending' ? `<button class="btn btn-sm btn-outline-success rounded-pill px-3" onclick="syncLawPay(${inv.id})">Sync LawPay</button>` : `<button class="btn btn-sm btn-light disabled rounded-pill px-3">Completed</button>`}
-                </td>
-            </tr>
-        `).join('') || '<tr><td colspan="6" class="text-center py-4">No invoices found.</td></tr>';
+        if (table) {
+            table.innerHTML = invoices.map(inv => `
+                <tr>
+                    <td class="ps-4">#${inv.id}</td>
+                    <td>Lead #${inv.lead_id}</td>
+                    <td class="fw-bold">${getCurrencySymbol(inv.currency)}${inv.amount.toFixed(2)}</td>
+                    <td><span class="badge ${inv.status === 'Paid' ? 'bg-success' : 'bg-warning'}">${inv.status}</span></td>
+                    <td>${new Date(inv.created_at).toLocaleDateString()}</td>
+                    <td class="text-end pe-4">
+                        ${inv.status === 'Pending' ? `<button class="btn btn-sm btn-outline-success rounded-pill px-3" onclick="syncLawPay(${inv.id})">Sync LawPay</button>` : `<button class="btn btn-sm btn-light disabled rounded-pill px-3">Completed</button>`}
+                    </td>
+                </tr>
+            `).join('') || '<tr><td colspan="6" class="text-center py-4">No invoices found.</td></tr>';
+        }
     } catch (e) { console.error("Error loading invoices", e); }
 }
 
@@ -449,72 +445,134 @@ async function loadAuditLogs() {
     try {
         const response = await apiFetch('/audit-logs');
         const logs = await response.json();
-        document.getElementById('audit-logs-table').innerHTML = logs.map(log => `
-            <tr>
-                <td class="ps-3"><span class="badge bg-light text-dark border">${log.action}</span></td>
-                <td>${log.lead_id || '-'}</td>
-                <td class="text-wrap" style="max-width: 300px;">${log.details || ''}</td>
-                <td class="text-muted">${new Date(log.timestamp).toLocaleString()}</td>
-            </tr>
-        `).join('');
+        const table = document.getElementById('audit-logs-table');
+        if (table) {
+            table.innerHTML = logs.map(log => `
+                <tr>
+                    <td class="ps-3"><span class="badge bg-light text-dark border">${log.action}</span></td>
+                    <td>${log.lead_id || '-'}</td>
+                    <td class="text-wrap" style="max-width: 300px;">${log.details || ''}</td>
+                    <td class="text-muted">${new Date(log.timestamp).toLocaleString()}</td>
+                </tr>
+            `).join('');
+        }
     } catch (e) { console.error("Error loading audit logs", e); }
 }
 
-async function exportLeadPrivacy() {
-    const leadId = document.getElementById('privacy-lead-id').value;
-    if (!leadId) return alert("Please enter a Lead ID");
+async function loadAnalytics() {
     try {
-        const response = await apiFetch(`/leads/${leadId}/export`);
-        if (!response.ok) throw new Error("Lead not found");
+        const response = await apiFetch('/analytics/overview');
+        if (!response.ok) return;
         const data = await response.json();
-        const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url; a.download = `lead_${leadId}_data.json`; a.click();
-    } catch (e) { alert(e.message); }
-}
+        
+        document.getElementById('analytics-conversion-rate').innerText = data.conversion_rate + '%';
+        document.getElementById('analytics-pipeline-value').innerText = '$' + data.total_pipeline_value.toLocaleString();
+        document.getElementById('analytics-total-leads').innerText = data.total_leads;
 
-async function deleteLeadPrivacy() {
-    const leadId = document.getElementById('privacy-lead-id').value;
-    if (!leadId) return alert("Please enter a Lead ID");
-    if (!confirm("Permanently delete all data for this lead?")) return;
-    try {
-        const response = await apiFetch(`/leads/${leadId}`, { method: 'DELETE' });
-        const result = await response.json();
-        alert(result.message);
-        loadLeads(); loadAuditLogs();
-    } catch (e) { alert("Error deleting lead"); }
+        const ctx = document.getElementById('analyticsSourceChart').getContext('2d');
+        const labels = Object.keys(data.source_breakdown);
+        const counts = Object.values(data.source_breakdown);
+        const chartData = { 
+            labels: labels, 
+            datasets: [{ 
+                label: 'Leads by Source', 
+                data: counts, 
+                backgroundColor: ['#2563eb', '#16a34a', '#d97706', '#dc2626', '#7c3aed', '#db2777'], 
+                borderWidth: 0, 
+                borderRadius: 4 
+            }] 
+        };
+        if (analyticsSourceChart) { 
+            analyticsSourceChart.data = chartData; 
+            analyticsSourceChart.update(); 
+        } else { 
+            analyticsSourceChart = new Chart(ctx, { 
+                type: 'bar', 
+                data: chartData, 
+                options: { 
+                    indexAxis: 'y', 
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    plugins: { legend: { display: false } }, 
+                    scales: { x: { beginAtZero: true, grid: { color: '#f1f5f9' } }, y: { grid: { display: false } } } 
+                } 
+            }); 
+        }
+
+        const hotLeadsContainer = document.getElementById('analytics-hot-leads');
+        if (data.hot_leads.length === 0) { 
+            hotLeadsContainer.innerHTML = '<div class="p-4 text-center text-muted small">No hot leads identified yet.</div>'; 
+        } else { 
+            hotLeadsContainer.innerHTML = data.hot_leads.map(lead => `
+                <div class="list-group-item p-3 border-0 border-bottom">
+                    <div class="d-flex justify-content-between align-items-start mb-1">
+                        <div class="fw-bold text-dark">${lead.full_name}</div>
+                        <span class="badge bg-danger rounded-pill">${lead.score}</span>
+                    </div>
+                    <div class="small text-muted mb-2">${lead.case_type}</div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="small text-muted" style="font-size: 0.7rem;">${new Date(lead.created_at).toLocaleDateString()}</div>
+                        <button class="btn btn-sm btn-outline-primary py-0 px-2 small" style="font-size: 0.7rem;" onclick="viewLead(${lead.id})">Details</button>
+                    </div>
+                </div>
+            `).join(''); 
+        }
+    } catch (e) { console.error("Error loading analytics", e); }
 }
 
 window.showSection = function(section) {
-    ['leads', 'forms', 'billing', 'marketplace', 'front-desk', 'settings', 'onboarding', 'reports'].forEach(s => {
+    ['leads', 'analytics', 'forms', 'billing', 'marketplace', 'front-desk', 'settings', 'onboarding', 'reports', 'integrations'].forEach(s => {
         const el = document.getElementById('section-' + s);
         if (el) el.classList.add('d-none');
     });
     document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-
     const target = document.getElementById('section-' + section);
     if (target) target.classList.remove('d-none');
-
     const nav = document.getElementById('nav-' + section);
     if (nav) nav.classList.add('active');
 
     if (section === 'onboarding') loadOnboarding();
     if (section === 'leads') loadLeads();
+    if (section === 'analytics') loadAnalytics();
     if (section === 'billing') { loadInvoices(); loadUsage(); }
     if (section === 'reports') loadReports();
     if (section === 'front-desk') loadFrontDeskSettings();
+    if (section === 'integrations') loadIntegrations();
     if (section === 'settings') {
         loadAuditLogs();
         loadKB();
         loadCRMSettings();
         loadGitHubSettings();
         loadPostmarkSettings();
+        loadBillingSettings();
         document.getElementById('webhook-url').value = API_BASE + '/api/reception/webhook';
     }
 };
 
-let fdSourceChart = null;
+async function loadBillingSettings() {
+    try {
+        const response = await apiFetch('/firm/me');
+        const data = await response.json();
+        const apiConfig = data.api_config || {};
+        document.getElementById('settings-stripe-secret').value = apiConfig.stripe_secret_key || '';
+        document.getElementById('settings-stripe-public').value = apiConfig.stripe_public_key || '';
+    } catch (e) { console.error("Error loading billing settings", e); }
+}
+
+async function saveBillingSettings() {
+    const currentResp = await apiFetch('/firm/me');
+    const currentData = await currentResp.json();
+    const apiConfig = currentData.api_config || {};
+    apiConfig.stripe_secret_key = document.getElementById('settings-stripe-secret').value;
+    apiConfig.stripe_public_key = document.getElementById('settings-stripe-public').value;
+    const formData = new FormData();
+    formData.append('api_config', JSON.stringify(apiConfig));
+    try {
+        const response = await apiFetch('/firm/settings', { method: 'POST', body: formData });
+        if (response.ok) alert("Billing settings saved successfully");
+    } catch (e) { console.error("Error saving billing settings", e); }
+}
+
 async function loadFrontDeskSettings() {
     try {
         const response = await apiFetch('/firm/me');
@@ -534,20 +592,15 @@ async function loadFrontDeskSettings() {
 function renderActiveHours(hours) {
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const grid = document.getElementById('fd-hours-grid');
+    if (!grid) return;
     grid.innerHTML = `<div class="day-label fw-bold text-muted small text-uppercase mb-1">Day</div><div class="text-center fw-bold text-muted small text-uppercase mb-1">Open</div><div class="text-center fw-bold text-muted small text-uppercase mb-1">Close</div>`;
     days.forEach(day => {
         const dayKey = day.toLowerCase();
-        const dayHours = hours[dayKey] || { open: "09:00", close: "17:00", active: true };
+        const dayHours = (hours && hours[dayKey]) || { open: "09:00", close: "17:00", active: true };
         const row = document.createElement('div');
         row.className = 'contents';
         row.innerHTML = `<div class="day-label"><div class="form-check form-switch mb-0 d-inline-block"><input class="form-check-input hour-toggle" type="checkbox" id="toggle-${dayKey}" ${dayHours.active ? 'checked' : ''}></div>${day}</div><div><input type="time" class="form-control form-control-sm time-input open-time" value="${dayHours.open}" ${!dayHours.active ? 'disabled' : ''}></div><div><input type="time" class="form-control form-control-sm time-input close-time" value="${dayHours.close}" ${!dayHours.active ? 'disabled' : ''}></div>`;
         Array.from(row.children).forEach(child => grid.appendChild(child));
-    });
-    document.querySelectorAll('.hour-toggle').forEach(toggle => {
-        toggle.addEventListener('change', (e) => {
-            const inputs = [e.target.closest('.day-label').nextElementSibling.querySelector('input'), e.target.closest('.day-label').nextElementSibling.nextElementSibling.querySelector('input')];
-            inputs.forEach(i => i.disabled = !e.target.checked);
-        });
     });
 }
 
@@ -556,7 +609,10 @@ async function saveFrontDeskSettings() {
     const originalHtml = btn.innerHTML;
     btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Saving...';
     try {
-        const voiceConfig = { voice_id: document.querySelector('.voice-card.selected').dataset.voiceId, greeting: document.getElementById('voiceGreeting').value };
+        const voiceConfig = { 
+            voice_id: document.querySelector('.voice-card.selected')?.dataset.voiceId || 'sarah', 
+            greeting: document.getElementById('voiceGreeting').value 
+        };
         const emailConfig = { template: document.getElementById('emailAutoReply').value };
         const activeHours = {};
         const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
@@ -564,6 +620,7 @@ async function saveFrontDeskSettings() {
         const openTimes = document.querySelectorAll('.open-time');
         const closeTimes = document.querySelectorAll('.close-time');
         days.forEach((day, i) => { activeHours[day] = { active: hourToggles[i].checked, open: openTimes[i].value, close: closeTimes[i].value }; });
+        
         const formData = new FormData();
         formData.append('voice_enabled', document.getElementById('voiceToggle').checked ? 1 : 0);
         formData.append('voice_config', JSON.stringify(voiceConfig));
@@ -577,7 +634,7 @@ async function saveFrontDeskSettings() {
 }
 
 function updateFrontDeskAnalytics() {
-    const sources = { 'Chat': 0, 'Voice AI': 0, 'Email': 0, 'Receptionist': 0 };
+    const sources = { 'Chat': 0, 'Voice AI': 0, 'Email': 0 };
     allLeads.forEach(l => {
         const s = l.source || 'Chat';
         if (sources.hasOwnProperty(s)) sources[s]++;
@@ -588,35 +645,127 @@ function updateFrontDeskAnalytics() {
     const emailCount = sources['Email'] || 0;
     const webCount = sources['Chat'] || 0;
     const rate = total > 0 ? Math.round((allLeads.filter(l => l.status === 'High Priority').length / total) * 100) : 0;
-    document.getElementById('fd-stat-voice').innerText = voiceCount;
-    document.getElementById('fd-stat-email').innerText = emailCount;
-    document.getElementById('fd-stat-web').innerText = webCount;
-    document.getElementById('fd-stat-rate').innerText = rate + '%';
-    const ctx = document.getElementById('fdLeadSourceChart').getContext('2d');
-    const chartData = { labels: ['Web Chat', 'Voice AI', 'Email'], datasets: [{ data: [webCount, voiceCount, emailCount], backgroundColor: ['#2563eb', '#16a34a', '#d97706'], borderWidth: 0 }] };
-    if (fdSourceChart) { fdSourceChart.data = chartData; fdSourceChart.update(); }
-    else { fdSourceChart = new Chart(ctx, { type: 'doughnut', data: chartData, options: { cutout: '70%', plugins: { legend: { display: false } }, maintainAspectRatio: false } }); }
-    document.getElementById('fd-source-legend').innerHTML = `<div class="d-flex justify-content-between align-items-center py-2 border-bottom"><div><span class="source-badge web"><i class="bi bi-globe2"></i>Web Chat</span></div><div class="fw-bold">${webCount}</div></div><div class="d-flex justify-content-between align-items-center py-2 border-bottom"><div><span class="source-badge voice"><i class="bi bi-telephone"></i>Voice AI</span></div><div class="fw-bold">${voiceCount}</div></div><div class="d-flex justify-content-between align-items-center py-2"><div><span class="source-badge email"><i class="bi bi-envelope"></i>Email</span></div><div class="fw-bold">${emailCount}</div></div>`;
-    document.getElementById('fd-recent-activity').innerHTML = allLeads.slice(0, 5).map(l => `<div class="list-group-item px-3 py-2 border-0"><div class="d-flex align-items-start gap-2"><i class="bi ${l.source === 'Voice AI' ? 'bi-telephone text-success' : (l.source === 'Email' ? 'bi-envelope text-warning' : 'bi-globe2 text-primary')} mt-1"></i><div class="flex-grow-1"><div class="small fw-bold">${l.full_name}</div><div class="small text-muted text-truncate" style="max-width: 180px;">${l.summary || 'Processing...'}</div><div class="small text-muted" style="font-size:0.65rem;">${new Date(l.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div></div>${l.status === 'High Priority' ? '<span class="badge bg-danger rounded-pill" style="font-size:0.5rem;">Priority</span>' : ''}</div></div>`).join('') || '<div class="p-3 text-center text-muted small">No recent activity.</div>';
+    
+    if (document.getElementById('fd-stat-voice')) document.getElementById('fd-stat-voice').innerText = voiceCount;
+    if (document.getElementById('fd-stat-email')) document.getElementById('fd-stat-email').innerText = emailCount;
+    if (document.getElementById('fd-stat-web')) document.getElementById('fd-stat-web').innerText = webCount;
+    if (document.getElementById('fd-stat-rate')) document.getElementById('fd-stat-rate').innerText = rate + '%';
+    
+    const chartEl = document.getElementById('fdLeadSourceChart');
+    if (chartEl) {
+        const ctx = chartEl.getContext('2d');
+        const chartData = { labels: ['Web Chat', 'Voice AI', 'Email'], datasets: [{ data: [webCount, voiceCount, emailCount], backgroundColor: ['#2563eb', '#16a34a', '#d97706'], borderWidth: 0 }] };
+        if (fdSourceChart) { fdSourceChart.data = chartData; fdSourceChart.update(); }
+        else { fdSourceChart = new Chart(ctx, { type: 'doughnut', data: chartData, options: { cutout: '70%', plugins: { legend: { display: false } }, maintainAspectRatio: false } }); }
+    }
+    
+    const legendEl = document.getElementById('fd-source-legend');
+    if (legendEl) {
+        legendEl.innerHTML = `<div class="d-flex justify-content-between align-items-center py-2 border-bottom"><div><span class="source-badge web"><i class="bi bi-globe2"></i>Web Chat</span></div><div class="fw-bold">${webCount}</div></div><div class="d-flex justify-content-between align-items-center py-2 border-bottom"><div><span class="source-badge voice"><i class="bi bi-telephone"></i>Voice AI</span></div><div class="fw-bold">${voiceCount}</div></div><div class="d-flex justify-content-between align-items-center py-2"><div><span class="source-badge email"><i class="bi bi-envelope"></i>Email</span></div><div class="fw-bold">${emailCount}</div></div>`;
+    }
+    
+    const activityEl = document.getElementById('fd-recent-activity');
+    if (activityEl) {
+        activityEl.innerHTML = allLeads.slice(0, 5).map(l => `<div class="list-group-item px-3 py-2 border-0"><div class="d-flex align-items-start gap-2"><i class="bi ${l.source === 'Voice AI' ? 'bi-telephone text-success' : (l.source === 'Email' ? 'bi-envelope text-warning' : 'bi-globe2 text-primary')} mt-1"></i><div class="flex-grow-1"><div class="small fw-bold">${l.full_name}</div><div class="small text-muted text-truncate" style="max-width: 180px;">${l.summary || 'Processing...'}</div><div class="small text-muted" style="font-size:0.65rem;">${new Date(l.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div></div>${l.status === 'High Priority' ? '<span class="badge bg-danger rounded-pill" style="font-size:0.5rem;">Priority</span>' : ''}</div></div>`).join('') || '<div class="p-3 text-center text-muted small">No recent activity.</div>';
+    }
 }
 
-function copyFDEmail() { const email = document.getElementById('fd-email-address').innerText; navigator.clipboard.writeText(email).then(() => alert("Email address copied!")); }
-document.addEventListener('click', function(e) { const voiceCard = e.target.closest('.voice-card'); if (voiceCard) { document.querySelectorAll('.voice-card').forEach(c => c.classList.remove('selected')); voiceCard.classList.add('selected'); } });
-async function loadKB() { try { const response = await apiFetch('/knowledge-base'); const kb = await response.json(); document.getElementById('kb-list').innerHTML = kb.map(item => `<div class="list-group-item"><div class="d-flex justify-content-between align-items-start"><div class="fw-bold">${item.title}</div><button class="btn btn-sm btn-link text-danger p-0" onclick="deleteKB(${item.id})"><i class="bi bi-trash"></i></button></div><div class="small text-muted mt-1">${item.content}</div><div class="text-muted italic mt-1" style="font-size: 0.65rem;">Added ${new Date(item.created_at).toLocaleDateString()}</div></div>`).join('') || '<div class="p-4 text-center text-muted">No context entries yet.</div>'; } catch (e) { console.error("Error loading KB", e); } }
-async function saveKB() { const title = document.getElementById('kb-title').value; const content = document.getElementById('kb-content').value; if (!title || !content) return alert("Title and content required"); const formData = new FormData(); formData.append('title', title); formData.append('content', content); try { const response = await apiFetch('/knowledge-base', { method: 'POST', body: formData }); if (response.ok) { alert("Knowledge Base entry added!"); document.getElementById('kb-title').value = ''; document.getElementById('kb-content').value = ''; loadKB(); } } catch (e) { console.error("KB Save failed", e); } }
-async function deleteKB(id) { if (!confirm("Remove this entry from AI context?")) return; try { const response = await apiFetch(`/knowledge-base/${id}`, { method: 'DELETE' }); if (response.ok) { alert("Entry removed."); loadKB(); } } catch (e) { console.error("Delete failed", e); } }
-async function syncToSystem(leadId, system) { const btn = event ? event.target.closest('button') : null; const originalHtml = btn ? btn.innerHTML : ''; if (btn) btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Syncing...'; try { const response = await apiFetch(`/sync/${system}/${leadId}`, { method: 'POST' }); const result = await response.json(); if (result.status === 'success') { loadLeads(); document.getElementById('sync-system-name').innerText = `Target System: ${system.charAt(0).toUpperCase() + system.slice(1)} ${system === 'clio' ? 'Grow' : ''}`; document.getElementById('sync-payload-display').innerText = JSON.stringify(result.payload_sent, null, 2); const syncModal = new bootstrap.Modal(document.getElementById('syncResultModal')); syncModal.show(); if (btn) { btn.innerHTML = '<i class="bi bi-check2-all me-1"></i>Synced'; btn.className = btn.className.replace('btn-primary', 'btn-success'); } } else { alert(`Sync failed: ${result.message}`); if (btn) btn.innerHTML = originalHtml; } } catch (e) { alert("Sync failed. See console for details."); if (btn) btn.innerHTML = originalHtml; } }
-function copySyncPayload() { const text = document.getElementById('sync-payload-display').innerText; navigator.clipboard.writeText(text).then(() => alert("Payload JSON copied to clipboard!")); }
-async function exportClioCSV() { const leadId = document.getElementById('modal-lead-id').value; window.location.href = `${API_BASE}/leads/${leadId}/export/clio`; }
-async function draftDemandLetter() { const leadId = document.getElementById('modal-lead-id').value; const btn = event.target.closest('button'); const originalText = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Drafting...'; try { const response = await apiFetch(`/leads/${leadId}/draft-demand`, { method: 'POST' }); const result = await response.json(); document.getElementById('demand-letter-preview').classList.remove('d-none'); document.getElementById('demand-preview-text').innerText = result.draft; alert("Demand letter drafted successfully!"); } catch (e) { alert("Failed to draft demand letter."); } finally { btn.disabled = false; btn.innerHTML = originalText; } }
-async function generateMedicalChronology() { const leadId = document.getElementById('modal-lead-id').value; const btn = event.target.closest('button'); const originalText = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Analyzing...'; try { const response = await apiFetch(`/leads/${leadId}/medical-chronology`); const result = await response.json(); let html = '<table class="table table-sm table-bordered mt-2 small"><thead><tr><th>Date</th><th>Event</th><th>Details</th></tr></thead><tbody>'; result.chronology.forEach(item => { html += `<tr><td>${item.date}</td><td>${item.event}</td><td>${item.details}</td></tr>`; }); html += '</tbody></table>'; const summaryArea = document.getElementById('modal-summary'); const originalSummary = summaryArea.innerText; summaryArea.innerHTML = `<strong>Medical Chronology:</strong><br>${html}<hr><strong>Original Summary:</strong><br>${originalSummary}`; alert("Medical Chronology generated and added to summary view!"); } catch (e) { alert("Failed to generate chronology."); } finally { btn.disabled = false; btn.innerHTML = originalText; } }
+async function loadKB() { 
+    try { 
+        const response = await apiFetch('/knowledge-base'); 
+        const kb = await response.json(); 
+        const listEl = document.getElementById('kb-list');
+        if (listEl) {
+            listEl.innerHTML = kb.map(item => `<div class="list-group-item"><div class="d-flex justify-content-between align-items-start"><div class="fw-bold">${item.title}</div><button class="btn btn-sm btn-link text-danger p-0" onclick="deleteKB(${item.id})"><i class="bi bi-trash"></i></button></div><div class="small text-muted mt-1">${item.content}</div><div class="text-muted italic mt-1" style="font-size: 0.65rem;">Added ${new Date(item.created_at).toLocaleDateString()}</div></div>`).join('') || '<div class="p-4 text-center text-muted">No context entries yet.</div>'; 
+        }
+    } catch (e) { console.error("Error loading KB", e); } 
+}
+
+async function saveKB() { 
+    const title = document.getElementById('kb-title').value; 
+    const content = document.getElementById('kb-content').value; 
+    if (!title || !content) return alert("Title and content required"); 
+    const formData = new FormData(); 
+    formData.append('title', title); 
+    formData.append('content', content); 
+    try { 
+        const response = await apiFetch('/knowledge-base', { method: 'POST', body: formData }); 
+        if (response.ok) { 
+            alert("Knowledge Base entry added!"); 
+            document.getElementById('kb-title').value = ''; 
+            document.getElementById('kb-content').value = ''; 
+            loadKB(); 
+        } 
+    } catch (e) { console.error("KB Save failed", e); } 
+}
+
+async function deleteKB(id) { 
+    if (!confirm("Remove this entry from AI context?")) return; 
+    try { 
+        const response = await apiFetch(`/knowledge-base/${id}`, { method: 'DELETE' }); 
+        if (response.ok) { alert("Entry removed."); loadKB(); } 
+    } catch (e) { console.error("Delete failed", e); } 
+}
+
+async function syncToSystem(leadId, system) { 
+    const btn = event ? event.target.closest('button') : null; 
+    const originalHtml = btn ? btn.innerHTML : ''; 
+    if (btn) btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Syncing...'; 
+    try { 
+        const response = await apiFetch(`/sync/${system}/${leadId}`, { method: 'POST' }); 
+        const result = await response.json(); 
+        if (result.status === 'success') { 
+            loadLeads(); 
+            document.getElementById('sync-system-name').innerText = `Target System: ${system.charAt(0).toUpperCase() + system.slice(1)} ${system === 'clio' ? 'Grow' : ''}`; 
+            document.getElementById('sync-payload-display').innerText = JSON.stringify(result.payload_sent, null, 2); 
+            new bootstrap.Modal(document.getElementById('syncResultModal')).show(); 
+            if (btn) { btn.innerHTML = '<i class="bi bi-check2-all me-1"></i>Synced'; btn.className = btn.className.replace('btn-primary', 'btn-success'); } 
+        } else { alert(`Sync failed: ${result.message}`); if (btn) btn.innerHTML = originalHtml; } 
+    } catch (e) { alert("Sync failed. See console for details."); if (btn) btn.innerHTML = originalHtml; } 
+}
+
+async function draftDemandLetter() { 
+    const leadId = document.getElementById('modal-lead-id').value; 
+    const btn = event.target.closest('button'); 
+    const originalText = btn.innerHTML; 
+    btn.disabled = true; 
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Drafting...'; 
+    try { 
+        const response = await apiFetch(`/leads/${leadId}/draft-demand`, { method: 'POST' }); 
+        const result = await response.json(); 
+        document.getElementById('demand-letter-preview').classList.remove('d-none'); 
+        document.getElementById('demand-preview-text').innerText = result.draft; 
+        alert("Demand letter drafted successfully!"); 
+    } catch (e) { alert("Failed to draft demand letter."); } 
+    finally { btn.disabled = false; btn.innerHTML = originalText; } 
+}
+
+async function generateMedicalChronology() { 
+    const leadId = document.getElementById('modal-lead-id').value; 
+    const btn = event.target.closest('button'); 
+    const originalText = btn.innerHTML; 
+    btn.disabled = true; 
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Analyzing...'; 
+    try { 
+        const response = await apiFetch(`/leads/${leadId}/medical-chronology`); 
+        const result = await response.json(); 
+        let html = '<table class="table table-sm table-bordered mt-2 small"><thead><tr><th>Date</th><th>Event</th><th>Details</th></tr></thead><tbody>'; 
+        result.chronology.forEach(item => { html += `<tr><td>${item.date}</td><td>${item.event}</td><td>${item.details}</td></tr>`; }); 
+        html += '</tbody></table>'; 
+        const summaryArea = document.getElementById('modal-summary'); 
+        const originalSummary = summaryArea.innerText; 
+        summaryArea.innerHTML = `<strong>Medical Chronology:</strong><br>${html}<hr><strong>Original Summary:</strong><br>${originalSummary}`; 
+        alert("Medical Chronology generated and added to summary view!"); 
+    } catch (e) { alert("Failed to generate chronology."); } 
+    finally { btn.disabled = false; btn.innerHTML = originalText; } 
+}
 
 async function loadCRMSettings() {
     try {
         const response = await apiFetch('/firm/me');
         const data = await response.json();
-        const productionSyncToggle = document.getElementById('productionSyncToggle');
-        if (productionSyncToggle) productionSyncToggle.checked = data.production_sync_enabled === 1;
+        const toggle = document.getElementById('productionSyncToggle');
+        if (toggle) toggle.checked = data.production_sync_enabled === 1;
         const apiConfig = data.api_config || {};
         if (document.getElementById('filevine-api-key')) document.getElementById('filevine-api-key').value = apiConfig.filevine_api_key || '';
         if (document.getElementById('filevine-api-secret')) document.getElementById('filevine-api-secret').value = apiConfig.filevine_api_secret || '';
@@ -626,6 +775,18 @@ async function loadCRMSettings() {
             clioStatus.innerText = apiConfig.clio_oauth_token ? "Connected" : "Not Connected";
             if (apiConfig.clio_oauth_token) { clioStatus.classList.remove('text-muted'); clioStatus.classList.add('text-success'); }
         }
+
+        const integrationsResp = await apiFetch('/firm/integrations');
+        const integrations = await integrationsResp.json();
+        integrations.forEach(integ => {
+            if (integ.crm_system === 'clio') {
+                const autoSync = document.getElementById('clio-auto-sync-toggle');
+                if (autoSync) autoSync.checked = integ.auto_sync_enabled === 1;
+            } else if (integ.crm_system === 'filevine') {
+                const autoSync = document.getElementById('filevine-auto-sync-toggle');
+                if (autoSync) autoSync.checked = integ.auto_sync_enabled === 1;
+            }
+        });
     } catch (e) { console.error("Error loading CRM settings", e); }
 }
 
@@ -640,8 +801,19 @@ async function saveCRMSettings() {
     formData.append('production_sync_enabled', document.getElementById('productionSyncToggle').checked ? 1 : 0);
     formData.append('api_config', JSON.stringify(apiConfig));
     try {
-        const response = await apiFetch('/firm/settings', { method: 'POST', body: formData });
-        if (response.ok) alert("CRM Settings saved successfully");
+        await apiFetch('/firm/settings', { method: 'POST', body: formData });
+        
+        const clioFormData = new FormData();
+        clioFormData.append('crm_system', 'clio');
+        clioFormData.append('auto_sync_enabled', document.getElementById('clio-auto-sync-toggle').checked ? 1 : 0);
+        await apiFetch('/firm/integrations', { method: 'POST', body: clioFormData });
+
+        const fvFormData = new FormData();
+        fvFormData.append('crm_system', 'filevine');
+        fvFormData.append('auto_sync_enabled', document.getElementById('filevine-auto-sync-toggle').checked ? 1 : 0);
+        await apiFetch('/firm/integrations', { method: 'POST', body: fvFormData });
+
+        alert("CRM Settings saved successfully");
     } catch (e) { console.error("Error saving CRM settings", e); }
 }
 
@@ -728,90 +900,60 @@ async function exportToGitHub() {
     finally { btn.disabled = false; btn.innerHTML = originalHtml; }
 }
 
-loadLeads();
-setInterval(() => {
-    if (!document.getElementById('filter-status').value && !document.getElementById('filter-score').value && !document.getElementById('search-input').value) loadLeads();
-}, 30000);
-
 async function loadOnboarding() {
     try {
         const response = await apiFetch('/firm/onboarding');
         const data = await response.json();
-        
-        // Update progress bar
         const progressBar = document.getElementById('onboarding-progress-bar');
         const progressPercent = document.getElementById('onboarding-progress-percent');
         if (progressBar) progressBar.style.width = data.overall_progress + '%';
         if (progressPercent) progressPercent.innerText = data.overall_progress + '%';
         
-        // Render checklist
-        const checklistContainer = document.getElementById('onboarding-checklist');
-        if (checklistContainer) {
-            checklistContainer.innerHTML = '';
-            data.checklist.forEach(item => {
-                const itemEl = document.createElement('div');
-                itemEl.className = 'list-group-item border-0 px-0 py-3 d-flex align-items-center gap-3';
-                
+        const container = document.getElementById('onboarding-checklist');
+        if (container) {
+            container.innerHTML = data.checklist.map(item => {
                 const iconClass = item.status === 'completed' ? 'bi-check-circle-fill text-success' : 'bi-circle text-muted opacity-50';
-                
-                itemEl.innerHTML = `
-                    <div class="h3 mb-0"><i class="bi ${iconClass}"></i></div>
-                    <div class="flex-grow-1">
-                        <h6 class="fw-bold mb-1 ${item.status === 'completed' ? 'text-muted text-decoration-line-through' : ''}">${item.title}</h6>
-                        <p class="small text-muted mb-0">${item.description}</p>
-                    </div>
-                    <div>
-                        <button class="btn btn-sm ${item.status === 'completed' ? 'btn-outline-secondary' : 'btn-outline-primary'} rounded-pill px-3" onclick="showSection('${item.action_link}')">
-                            ${item.action_text}
-                        </button>
+                return `
+                    <div class="list-group-item border-0 px-0 py-3 d-flex align-items-center gap-3">
+                        <div class="h3 mb-0"><i class="bi ${iconClass}"></i></div>
+                        <div class="flex-grow-1">
+                            <h6 class="fw-bold mb-1 ${item.status === 'completed' ? 'text-muted text-decoration-line-through' : ''}">${item.title}</h6>
+                            <p class="small text-muted mb-0">${item.description}</p>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm ${item.status === 'completed' ? 'btn-outline-secondary' : 'btn-outline-primary'} rounded-pill px-3" onclick="showSection('${item.action_link}')">
+                                ${item.action_text}
+                            </button>
+                        </div>
                     </div>
                 `;
-                checklistContainer.appendChild(itemEl);
-            });
+            }).join('');
         }
 
-        // Update status indicators
-        const githubStatus = data.checklist.find(i => i.id === 'github')?.status;
-        const postmarkStatus = data.checklist.find(i => i.id === 'postmark')?.status;
-        const domainStatus = data.checklist.find(i => i.id === 'domain')?.status;
-
-        updateIndicator('status-github', githubStatus);
-        updateIndicator('status-postmark', postmarkStatus);
-        updateIndicator('status-domain', domainStatus);
-
-    } catch (e) {
-        console.error("Error loading onboarding data", e);
-    }
+        updateIndicator('status-github', data.checklist.find(i => i.id === 'github')?.status);
+        updateIndicator('status-postmark', data.checklist.find(i => i.id === 'postmark')?.status);
+        updateIndicator('status-domain', data.checklist.find(i => i.id === 'domain')?.status);
+    } catch (e) { console.error("Error loading onboarding data", e); }
 }
 
 function updateIndicator(id, status) {
     const el = document.getElementById(id);
     if (!el) return;
     if (status === 'completed') {
-        el.innerText = 'Connected';
-        el.className = 'small text-success fw-bold mb-2';
+        el.innerText = 'Connected'; el.className = 'small text-success fw-bold mb-2';
     } else {
-        el.innerText = 'Disconnected';
-        el.className = 'small text-muted mb-2';
+        el.innerText = 'Disconnected'; el.className = 'small text-muted mb-2';
     }
 }
 
 function showQuickConnect(type) {
     const modal = new bootstrap.Modal(document.getElementById('quickConnectModal'));
     const title = document.getElementById('quickConnectTitle');
-    
-    // Hide all
-    ['github', 'postmark', 'domain'].forEach(t => {
-        document.getElementById(`quick-connect-${t}`).classList.add('d-none');
-    });
-    
-    // Show selected
+    ['github', 'postmark', 'domain'].forEach(t => document.getElementById(`quick-connect-${t}`).classList.add('d-none'));
     document.getElementById(`quick-connect-${type}`).classList.remove('d-none');
-    
     if (type === 'github') title.innerText = 'Connect GitHub';
     if (type === 'postmark') title.innerText = 'Connect Postmark';
     if (type === 'domain') title.innerText = 'Verify Domain';
-    
     modal.show();
 }
 
@@ -828,22 +970,16 @@ async function saveQuickConnect(type) {
         apiConfig.postmark_recipient_email = document.getElementById('quick-postmark-recipient').value;
     } else if (type === 'domain') {
         apiConfig.domain_name = document.getElementById('quick-domain-name').value;
-        apiConfig.domain_verified = true; // Simulating verification
+        apiConfig.domain_verified = true;
     }
     
     const formData = new FormData();
     formData.append('api_config', JSON.stringify(apiConfig));
-    
     try {
         const response = await apiFetch('/firm/settings', { method: 'POST', body: formData });
         if (response.ok) {
             bootstrap.Modal.getInstance(document.getElementById('quickConnectModal')).hide();
-            loadOnboarding(); // Refresh status
-            // Also refresh main settings if they are visible
-            if (!document.getElementById('section-settings').classList.contains('d-none')) {
-                loadGitHubSettings();
-                loadPostmarkSettings();
-            }
+            loadOnboarding();
         }
     } catch (e) { console.error(`Error saving ${type} settings`, e); }
 }
@@ -852,7 +988,6 @@ async function loadReports() {
     try {
         const statsResp = await apiFetch('/reports/stats');
         const stats = await statsResp.json();
-        
         document.getElementById('report-stat-leads').innerText = stats.total_leads;
         document.getElementById('report-stat-qualified').innerText = stats.qualified_leads;
         document.getElementById('report-stat-conv').innerText = stats.conversion_rate + '%';
@@ -866,65 +1001,87 @@ async function loadReports() {
                     <div class="small text-muted">${new Date(lead.created_at).toLocaleDateString()}</div>
                 </td>
                 <td><span class="badge bg-light text-dark border">${lead.case_type || 'General'}</span></td>
-                <td>
-                    <div class="fw-bold text-primary">${lead.score || 0}</div>
-                </td>
-                <td class="text-end pe-4">
-                    <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="viewLead(${lead.id})">Details</button>
-                </td>
+                <td><div class="fw-bold text-primary">${lead.score || 0}</div></td>
+                <td class="text-end pe-4"><button class="btn btn-sm btn-outline-primary rounded-pill" onclick="viewLead(${lead.id})">Details</button></td>
             </tr>
         `).join('') || '<tr><td colspan="4" class="text-center py-4 text-muted">No high-scoring leads this week.</td></tr>';
 
-        // Load recipient email from firm settings
         const firmResp = await apiFetch('/firm/me');
         const firm = await firmResp.json();
-        const apiConfig = firm.api_config || {};
-        document.getElementById('report-recipient-email').value = apiConfig.report_recipient_email || apiConfig.postmark_recipient_email || '';
+        document.getElementById('report-recipient-email').value = firm.api_config?.report_recipient_email || firm.api_config?.postmark_recipient_email || '';
     } catch (e) { console.error("Error loading reports", e); }
 }
 
 async function triggerWeeklyReport() {
     const btn = event ? event.target.closest('button') : null;
-    const originalHtml = btn ? btn.innerHTML : '';
-    if (btn) {
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Sending...';
-    }
-    
+    if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Sending...'; }
     try {
         const response = await apiFetch('/reports/trigger', { method: 'POST' });
         const result = await response.json();
-        if (result.status === 'success') {
-            alert(`Report sent successfully to ${result.recipient}!`);
-        } else {
-            alert(`Failed to send report: ${result.message || 'Unknown error'}`);
-        }
-    } catch (e) { 
-        alert("Error triggering report."); 
-        console.error(e);
-    } finally {
-        if (btn) {
-            btn.disabled = false;
-            btn.innerHTML = originalHtml;
-        }
-    }
+        if (result.status === 'success') alert(`Report sent successfully to ${result.recipient}!`);
+        else alert(`Failed to send report: ${result.message || 'Unknown error'}`);
+    } catch (e) { alert("Error triggering report."); } finally { if (btn) { btn.disabled = false; btn.innerHTML = '<i class="bi bi-envelope-paper me-1"></i> Send Weekly Report Now'; } }
 }
 
 async function saveReportSettings() {
     const email = document.getElementById('report-recipient-email').value;
     if (!email) return alert("Please enter a recipient email.");
-    
     const currentResp = await apiFetch('/firm/me');
     const currentData = await currentResp.json();
     const apiConfig = currentData.api_config || {};
     apiConfig.report_recipient_email = email;
-    
     const formData = new FormData();
     formData.append('api_config', JSON.stringify(apiConfig));
-    
     try {
         const response = await apiFetch('/firm/settings', { method: 'POST', body: formData });
         if (response.ok) alert("Report settings saved!");
     } catch (e) { console.error("Error saving report settings", e); }
 }
 
+async function loadIntegrations() {
+    try {
+        const response = await apiFetch('/firm/integrations');
+        const integrations = await response.json();
+        integrations.forEach(i => {
+            if (i.crm_system === 'clio') {
+                document.getElementById('clio-api-key').value = i.api_key || '';
+                document.getElementById('clio-active-toggle').checked = i.is_active === 1;
+                document.getElementById('clio-auto-sync-toggle').checked = i.auto_sync_enabled === 1;
+            } else if (i.crm_system === 'filevine') {
+                document.getElementById('filevine-api-key').value = i.api_key || '';
+                document.getElementById('filevine-active-toggle').checked = i.is_active === 1;
+                document.getElementById('filevine-auto-sync-toggle').checked = i.auto_sync_enabled === 1;
+                try {
+                    const cfg = JSON.parse(i.config_json);
+                    document.getElementById('filevine-session-id').value = cfg.session_id || '';
+                } catch(e) {}
+            }
+        });
+    } catch (e) { console.error("Error loading integrations", e); }
+}
+
+async function saveIntegration(system) {
+    const formData = new FormData();
+    formData.append('crm_system', system);
+    if (system === 'clio') {
+        formData.append('api_key', document.getElementById('clio-api-key').value);
+        formData.append('is_active', document.getElementById('clio-active-toggle').checked ? 1 : 0);
+        formData.append('auto_sync_enabled', document.getElementById('clio-auto-sync-toggle').checked ? 1 : 0);
+    } else if (system === 'filevine') {
+        formData.append('api_key', document.getElementById('filevine-api-key').value);
+        formData.append('is_active', document.getElementById('filevine-active-toggle').checked ? 1 : 0);
+        formData.append('auto_sync_enabled', document.getElementById('filevine-auto-sync-toggle').checked ? 1 : 0);
+        formData.append('config_json', JSON.stringify({ session_id: document.getElementById('filevine-session-id').value }));
+    }
+    try {
+        const response = await apiFetch('/firm/integrations', { method: 'POST', body: formData });
+        if (response.ok) alert(system.charAt(0).toUpperCase() + system.slice(1) + " integration saved!");
+    } catch (e) { console.error("Error saving integration", e); }
+}
+
+async function updateIntegrationStatus(system) { saveIntegration(system); }
+
+loadLeads();
+setInterval(() => {
+    if (!document.getElementById('filter-status').value && !document.getElementById('filter-score').value && !document.getElementById('search-input').value) loadLeads();
+}, 30000);

@@ -13,7 +13,7 @@
 
 **Subject:** Recapturing 40+ billable hours/month at {{Firm Name}}
 
-**Pre-header:** {{Attorney Name}}, see how 94% cheaper AI intake works.
+**Pre-header:** {{Attorney Name}}, see how 99% cheaper AI intake works.
 
 ---
 
@@ -57,8 +57,8 @@ Most firms don't touch them until 9 AM the next day. By then, 391% of those lead
 **2. Speed is the #1 conversion lever.**
 Responding within 5 minutes improves conversion by **391%**. LexiFlow doesn't sleep — it captures, qualifies, and prepares each lead instantly, 24/7.
 
-**3. LexiFlow costs 94% less than a full-time intake specialist.**
-$3,500/year vs. $60,000+ for a single staff member. With better results.
+**3. LexiFlow costs 99% less than a full-time intake specialist.**
+$468/year vs. $60,000+ for a single staff member. With better results.
 
 **The math:** For a firm handling 20 inquiries/month, the 2.5 hours saved per case = ~$12,000/month in recovered billable partner time.
 
@@ -149,7 +149,7 @@ Sales Representative
 | 2.5 hours saved per intake | Sales Collateral (Slide 8) | 1, 2 |
 | 35% of legal leads come after hours | ROI Research | 2 |
 | 391% conversion improvement with 5-min response | ROI Research | 2 |
-| 94% cheaper than full-time specialist ($3.5k vs $60k) | ROI Research | 2 |
+| 99% cheaper than full-time specialist ($468/yr vs $60k) | ROI Research | 2 |
 | ~$12,000/month recovered billable partner time | ROI Research | 2 |
 | 100% capture rate for required intake info | Sales Collateral (Slide 8) | 3 |
 | 14-day free trial, up to 5 intakes | Sales Collateral (Slide 10) | 4 |

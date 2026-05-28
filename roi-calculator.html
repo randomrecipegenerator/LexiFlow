@@ -113,7 +113,7 @@
         document.getElementById('leadCapture').textContent = '+' + Math.round(lossRate * 60) + '%';
         document.getElementById('efficiency').textContent = Math.round((1 - aiMinsPerLead/manualMinsPerLead) * 100) + '%';
         document.getElementById('hoursSaved').textContent = hoursSavedMonthly;
-        const paybackMonths = 299 / (annualSavingsRounded / 12);
+        const paybackMonths = 39 / (annualSavingsRounded / 12);
         document.getElementById('payback').textContent = paybackMonths < 1 ? '< 1 month' : Math.ceil(paybackMonths) + ' months';
     }
     document.querySelectorAll('input[type=range]').forEach(el => el.addEventListener('input', calc));
