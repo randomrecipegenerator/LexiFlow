@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexiFlow AI | Service Areas - Local AI Legal Intake</title>
+    <meta name="description" content="LexiFlow provides enterprise-grade AI legal intake across the United States. Explore our local service areas and see how we help firms in your city.">
+    <link rel="icon" type="image/svg+xml" href="/branding/logo-icon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root { --navy: #0f172a; --blue: #2563eb; --slate-50: #f8fafc; --slate-100: #f1f5f9; --slate-200: #e2e8f0; --slate-400: #94a3b8; --slate-600: #475569; }
+        body { font-family: 'Inter', sans-serif; background-color: #fff; color: var(--navy); -webkit-font-smoothing: antialiased; }
+        .nav-link { font-size: 14px; font-weight: 500; color: var(--slate-600); transition: color 0.2s ease; }
+        .nav-link:hover { color: var(--blue); }
+        .btn-primary { background-color: var(--blue); color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 15px; transition: all 0.2s ease; border: none; cursor: pointer; }
+        .btn-primary:hover { background-color: #1d4ed8; transform: translateY(-1px); }
+        .max-w-screen { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+        .hero { padding: 80px 0; background: radial-gradient(40% 40% at 50% 0%, rgba(37, 99, 235, 0.03) 0%, transparent 100%); text-align: center; }
+        .city-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; padding: 64px 0; }
+        .city-link { display: block; padding: 16px; background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 12px; font-weight: 600; text-decoration: none; color: var(--navy); transition: all 0.2s ease; text-align: center; }
+        .city-link:hover { border-color: var(--blue); background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+        <div class="max-w-screen flex justify-between h-16 items-center">
+            <a href="/" class="flex items-center gap-2">
+                <img src="/branding/logo-icon.svg" alt="LexiFlow" width="24" height="24">
+                <span class="text-xl font-bold tracking-tight">LexiFlow</span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="/features.html" class="nav-link">Platform</a>
+                <a href="/solutions.html" class="nav-link">Solutions</a>
+                <a href="/roi-calculator.html" class="nav-link">ROI Analysis</a>
+                <a href="/dashboard.html" class="nav-link">Firm Portal</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="window.location.href='/roi-calculator.html'" class="btn-primary">Request Demo</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="max-w-screen">
+            <h1 style="font-size: 48px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 24px;">National Reach. <span style="color: var(--blue);">Local Precision.</span></h1>
+            <p style="font-size: 20px; color: var(--slate-600); max-width: 700px; margin: 0 auto;">Select your city below to see how LexiFlow's Reasoning AI is transforming intake for law firms in your market.</p>
+        </div>
+    </header>
+
+    <section class="max-w-screen">
+        <div class="city-grid" id="city-list">
+            <!-- Cities will be injected here if needed, but let's hardcode for PSI optimization -->
+            <a href="/cities/new-york.html" class="city-link">New York</a>
+            <a href="/cities/los-angeles.html" class="city-link">Los Angeles</a>
+            <a href="/cities/chicago.html" class="city-link">Chicago</a>
+            <a href="/cities/houston.html" class="city-link">Houston</a>
+            <a href="/cities/phoenix.html" class="city-link">Phoenix</a>
+            <a href="/cities/philadelphia.html" class="city-link">Philadelphia</a>
+            <a href="/cities/san-antonio.html" class="city-link">San Antonio</a>
+            <a href="/cities/san-diego.html" class="city-link">San Diego</a>
+            <a href="/cities/dallas.html" class="city-link">Dallas</a>
+            <a href="/cities/san-jose.html" class="city-link">San Jose</a>
+            <a href="/cities/austin.html" class="city-link">Austin</a>
+            <a href="/cities/jacksonville.html" class="city-link">Jacksonville</a>
+            <a href="/cities/fort-worth.html" class="city-link">Fort Worth</a>
+            <a href="/cities/columbus.html" class="city-link">Columbus</a>
+            <a href="/cities/charlotte.html" class="city-link">Charlotte</a>
+            <a href="/cities/indianapolis.html" class="city-link">Indianapolis</a>
+            <a href="/cities/san-francisco.html" class="city-link">San Francisco</a>
+            <a href="/cities/seattle.html" class="city-link">Seattle</a>
+            <a href="/cities/denver.html" class="city-link">Denver</a>
+            <a href="/cities/oklahoma-city.html" class="city-link">Oklahoma City</a>
+            <a href="/cities/nashville.html" class="city-link">Nashville</a>
+            <a href="/cities/el-paso.html" class="city-link">El Paso</a>
+            <a href="/cities/washington.html" class="city-link">Washington</a>
+            <a href="/cities/boston.html" class="city-link">Boston</a>
+            <a href="/cities/las-vegas.html" class="city-link">Las Vegas</a>
+            <a href="/cities/portland.html" class="city-link">Portland</a>
+            <a href="/cities/detroit.html" class="city-link">Detroit</a>
+            <a href="/cities/louisville.html" class="city-link">Louisville</a>
+            <a href="/cities/memphis.html" class="city-link">Memphis</a>
+            <a href="/cities/baltimore.html" class="city-link">Baltimore</a>
+            <a href="/cities/milwaukee.html" class="city-link">Milwaukee</a>
+            <a href="/cities/albuquerque.html" class="city-link">Albuquerque</a>
+            <a href="/cities/tucson.html" class="city-link">Tucson</a>
+            <a href="/cities/fresno.html" class="city-link">Fresno</a>
+            <a href="/cities/sacramento.html" class="city-link">Sacramento</a>
+            <a href="/cities/kansas-city.html" class="city-link">Kansas City</a>
+            <a href="/cities/mesa.html" class="city-link">Mesa</a>
+            <a href="/cities/atlanta.html" class="city-link">Atlanta</a>
+            <a href="/cities/omaha.html" class="city-link">Omaha</a>
+            <a href="/cities/colorado-springs.html" class="city-link">Colorado Springs</a>
+            <a href="/cities/raleigh.html" class="city-link">Raleigh</a>
+            <a href="/cities/long-beach.html" class="city-link">Long Beach</a>
+            <a href="/cities/virginia-beach.html" class="city-link">Virginia Beach</a>
+            <a href="/cities/miami.html" class="city-link">Miami</a>
+            <a href="/cities/oakland.html" class="city-link">Oakland</a>
+            <a href="/cities/minneapolis.html" class="city-link">Minneapolis</a>
+            <a href="/cities/tulsa.html" class="city-link">Tulsa</a>
+            <a href="/cities/bakersfield.html" class="city-link">Bakersfield</a>
+            <a href="/cities/wichita.html" class="city-link">Wichita</a>
+            <a href="/cities/arlington.html" class="city-link">Arlington</a>
+            <a href="/cities/aurora.html" class="city-link">Aurora</a>
+            <a href="/cities/tampa.html" class="city-link">Tampa</a>
+            <a href="/cities/new-orleans.html" class="city-link">New Orleans</a>
+            <a href="/cities/cleveland.html" class="city-link">Cleveland</a>
+            <a href="/cities/honolulu.html" class="city-link">Honolulu</a>
+            <a href="/cities/anaheim.html" class="city-link">Anaheim</a>
+            <a href="/cities/lexington.html" class="city-link">Lexington</a>
+            <a href="/cities/stockton.html" class="city-link">Stockton</a>
+            <a href="/cities/corpus-christi.html" class="city-link">Corpus Christi</a>
+            <a href="/cities/henderson.html" class="city-link">Henderson</a>
+            <a href="/cities/riverside.html" class="city-link">Riverside</a>
+            <a href="/cities/newark.html" class="city-link">Newark</a>
+            <a href="/cities/saint-paul.html" class="city-link">Saint Paul</a>
+            <a href="/cities/santa-ana.html" class="city-link">Santa Ana</a>
+            <a href="/cities/cincinnati.html" class="city-link">Cincinnati</a>
+            <a href="/cities/irvine.html" class="city-link">Irvine</a>
+            <a href="/cities/orlando.html" class="city-link">Orlando</a>
+            <a href="/cities/pittsburgh.html" class="city-link">Pittsburgh</a>
+            <a href="/cities/st.-louis.html" class="city-link">St. Louis</a>
+            <a href="/cities/greensboro.html" class="city-link">Greensboro</a>
+            <a href="/cities/jersey-city.html" class="city-link">Jersey City</a>
+            <a href="/cities/anchorage.html" class="city-link">Anchorage</a>
+            <a href="/cities/lincoln.html" class="city-link">Lincoln</a>
+            <a href="/cities/plano.html" class="city-link">Plano</a>
+            <a href="/cities/durham.html" class="city-link">Durham</a>
+            <a href="/cities/buffalo.html" class="city-link">Buffalo</a>
+            <a href="/cities/chandler.html" class="city-link">Chandler</a>
+            <a href="/cities/chula-vista.html" class="city-link">Chula Vista</a>
+            <a href="/cities/toledo.html" class="city-link">Toledo</a>
+            <a href="/cities/madison.html" class="city-link">Madison</a>
+            <a href="/cities/gilbert.html" class="city-link">Gilbert</a>
+            <a href="/cities/reno.html" class="city-link">Reno</a>
+            <a href="/cities/fort-wayne.html" class="city-link">Fort Wayne</a>
+            <a href="/cities/north-las-vegas.html" class="city-link">North Las Vegas</a>
+            <a href="/cities/st.-petersburg.html" class="city-link">St. Petersburg</a>
+            <a href="/cities/lubbock.html" class="city-link">Lubbock</a>
+            <a href="/cities/irving.html" class="city-link">Irving</a>
+            <a href="/cities/laredo.html" class="city-link">Laredo</a>
+            <a href="/cities/winston-salem.html" class="city-link">Winston-Salem</a>
+            <a href="/cities/chesapeake.html" class="city-link">Chesapeake</a>
+            <a href="/cities/glendale.html" class="city-link">Glendale</a>
+            <a href="/cities/garland.html" class="city-link">Garland</a>
+            <a href="/cities/scottsdale.html" class="city-link">Scottsdale</a>
+            <a href="/cities/norfolk.html" class="city-link">Norfolk</a>
+            <a href="/cities/boise.html" class="city-link">Boise</a>
+            <a href="/cities/fremont.html" class="city-link">Fremont</a>
+            <a href="/cities/san-bernardino.html" class="city-link">San Bernardino</a>
+            <a href="/cities/birmingham.html" class="city-link">Birmingham</a>
+            <a href="/cities/spokane.html" class="city-link">Spokane</a>
+        </div>
+    </section>
+
+    <footer class="py-20 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-screen">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <div class="flex items-center gap-2 mb-6">
+                        <img src="/branding/logo-icon.svg" alt="LexiFlow" width="20">
+                        <span class="font-bold">LexiFlow</span>
+                    </div>
+                    <p class="text-xs text-slate-500 leading-relaxed">Enterprise-grade AI for legal intake and lead qualification. Built for the modern attorney.</p>
+                </div>
+                <div>
+                    <h5 class="text-[10px] font-bold text-slate-900 uppercase mb-6 tracking-widest">Platform</h5>
+                    <ul class="space-y-4 text-xs text-slate-600 font-medium">
+                        <li><a href="/features.html">Features</a></li>
+                        <li><a href="/solutions.html">Solutions</a></li>
+                        <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+                        <li><a href="/cities.html">Service Areas</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-[10px] font-bold text-slate-900 uppercase mb-6 tracking-widest">Legal</h5>
+                    <ul class="space-y-4 text-xs text-slate-600 font-medium">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="#">SOC2 Compliance</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-[10px] font-bold text-slate-900 uppercase mb-6 tracking-widest">Security</h5>
+                    <div class="flex gap-4 text-slate-300 text-xl">
+                        <i class="bi bi-shield-lock"></i>
+                        <i class="bi bi-safe"></i>
+                        <i class="bi bi-fingerprint"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-slate-200 flex justify-between items-center">
+                <p class="text-[10px] font-bold text-slate-400 uppercase">&copy; 2026 LexiFlow AI. All rights reserved.</p>
+                <div class="flex gap-6 text-slate-400">
+                    <a href="#" class="hover:text-blue"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="hover:text-blue"><i class="bi bi-twitter-x"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
