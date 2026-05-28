@@ -1,138 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LexiFlow City Pages — AI Legal Intake for Law Firms Across the US</title>
-    <meta name="description" content="LexiFlow provides AI-powered legal intake software for law firms in 20 major US cities. Find your city and see how LexiFlow can automate your intake today.">
-    <link rel="canonical" href="https://lexiflow.co/cities">
-    <meta property="og:type" content="website"><meta property="og:url" content="https://lexiflow.co/cities">
-    <meta property="og:title" content="LexiFlow City Pages — AI Legal Intake Nationwide"><meta property="og:description" content="AI legal intake for law firms across 20 major US cities.">
-    <meta property="og:image" content="https://lexiflow.co/branding/social-banner.png">
-    <meta property="twitter:card" content="summary_large_image"><meta property="twitter:image" content="https://lexiflow.co/branding/social-banner.png">
-    <link rel="icon" type="image/svg+xml" href="/branding/favicon.svg"><link rel="icon" type="image/png" href="/branding/favicon.png" sizes="32x32">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexiFlow | AI-Powered Legal Intake & Lead Qualification</title>
+    <meta name="description" content="LexiFlow transforms law firm intake with Reasoning AI. Qualify leads 24/7, automate dashboard reporting, and increase conversion by 391%.">
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');body{font-family:'Inter',sans-serif;}.gradient-bg{background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);}</style>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"LexiFlow City Pages","description":"Local AI legal intake landing pages for 20 major US cities.","url":"https://lexiflow.co/cities"}</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
+        .modal { transition: opacity 0.25s ease; }
+        body.modal-active { overflow-x: hidden; overflow-y: visible !important; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-50"><nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between h-16 items-center">
-        <div class="flex items-center"><img src="/branding/logo-main.svg" alt="LexiFlow" height="32" class="h-8"><span class="text-xl font-bold tracking-tight">Lexi<span class="text-blue-600">Flow</span></span></div>
-        <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
-            <a href="/" class="hover:text-blue-600 transition">Home</a>
-            <a href="/features" class="hover:text-blue-600 transition">Features</a>
-            <a href="/demo" class="hover:text-blue-600 transition">Live Demo</a>
-            <a href="/dashboard" class="hover:text-blue-600 transition">Attorney Login</a>
-        </div>
-    </div></nav></header>
+    <!-- Navigation -->
+    <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <img src="/branding/logo-main.svg" alt="LexiFlow" height="32" class="h-8">
+                    <span class="text-xl font-bold tracking-tight ml-2">Lexi<span class="text-blue-600">Flow</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
+                    <a href="/features" class="hover:text-blue-600 transition">Features</a>
+                    <a href="/solutions" class="hover:text-blue-600 transition">Solutions</a>
+                    <a href="#pricing" class="hover:text-blue-600 transition">Pricing</a>
+                    <a href="/dashboard" class="hover:text-blue-600 transition">Attorney Login</a>
+                </div>
+                <div>
+                    <button onclick="toggleConsultation()" class="bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200">Get Started</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
     <main>
-        <section class="gradient-bg text-white py-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <div class="inline-flex items-center gap-2 bg-blue-600/20 border border-blue-400/30 rounded-full px-4 py-1.5 text-sm font-semibold text-blue-300 mb-6"><i class="bi bi-globe"></i><span>Serving Law Firms in 20 Major US Markets</span></div>
-                <h1 class="text-4xl md:text-5xl font-extrabold mb-6">AI Legal Intake <br><span class="text-blue-400">Nationwide</span></h1>
-                <p class="text-lg text-slate-300 mb-10 max-w-3xl mx-auto">LexiFlow provides AI-powered legal intake and lead qualification for personal injury, family law, and immigration firms across the United States. Select your city to learn more.</p>
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden pt-20 pb-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center max-w-4xl mx-auto">
+                    <div class="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-full px-4 py-1.5 text-sm font-semibold text-blue-600 mb-8">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+                        </span>
+                        Reasoning AI for Legal Intake
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-8">
+                        Stop Losing Leads to <br><span class="text-blue-600">Manual Intake</span>
+                    </h1>
+                    <p class="text-xl text-slate-600 mb-12 leading-relaxed">
+                        LexiFlow uses advanced AI to qualify leads with the nuance of an attorney, 24/7. 
+                        Boost your firm's revenue by capturing every opportunity while saving 50%+ on paralegal time.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <button onclick="toggleConsultation()" class="bg-blue-600 text-white px-10 py-5 rounded-2xl font-bold hover:bg-blue-700 transition text-lg shadow-xl shadow-blue-200">Start Your 30-Day Trial</button>
+                        <a href="/demo" class="bg-white text-slate-900 border border-slate-200 px-10 py-5 rounded-2xl font-bold hover:bg-slate-50 transition text-lg">Watch Live Demo</a>
+                    </div>
+                    <div class="mt-12 flex flex-wrap justify-center gap-8 text-sm font-medium text-slate-400">
+                        <div class="flex items-center gap-2"><i class="bi bi-shield-check text-green-500"></i> HIPAA & SOC2 Compliant</div>
+                        <div class="flex items-center gap-2"><i class="bi bi-lightning-charge-fill text-yellow-500"></i> Instant CRM Sync</div>
+                        <div class="flex items-center gap-2"><i class="bi bi-globe text-blue-500"></i> Multilingual Support</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Background Decoration -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-0 opacity-10">
+                <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-400 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-400 rounded-full blur-3xl"></div>
             </div>
         </section>
-        <section class="py-20 bg-white">
+
+        <!-- Stats Section -->
+        <section class="py-20 bg-slate-900 text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <a href="/cities/atlanta" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">Atlanta</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake Atlanta</div>
-                    </a>
-                    <a href="/cities/austin" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">Austin</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake Austin</div>
-                    </a>
-                    <a href="/cities/boston" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">Boston</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake Boston</div>
-                    </a>
-                    <a href="/cities/charlotte" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">Charlotte</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake Charlotte</div>
-                    </a>
-                    <a href="/cities/chicago" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">Chicago</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake Chicago</div>
-                    </a>
-                    <a href="/cities/dallas" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">Dallas</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake Dallas</div>
-                    </a>
-                    <a href="/cities/denver" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">Denver</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake Denver</div>
-                    </a>
-                    <a href="/cities/houston" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">Houston</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake Houston</div>
-                    </a>
-                    <a href="/cities/la" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">Los Angeles</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake LA</div>
-                    </a>
-                    <a href="/cities/las-vegas" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">Las Vegas</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake Vegas</div>
-                    </a>
-                    <a href="/cities/miami" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">Miami</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake Miami</div>
-                    </a>
-                    <a href="/cities/nyc" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">New York City</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake NYC</div>
-                    </a>
-                    <a href="/cities/philadelphia" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">Philadelphia</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake Philadelphia</div>
-                    </a>
-                    <a href="/cities/phoenix" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">Phoenix</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake Phoenix</div>
-                    </a>
-                    <a href="/cities/san-antonio" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">San Antonio</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake San Antonio</div>
-                    </a>
-                    <a href="/cities/san-diego" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">San Diego</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake San Diego</div>
-                    </a>
-                    <a href="/cities/san-francisco" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">San Francisco</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake SF</div>
-                    </a>
-                    <a href="/cities/san-jose" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">San Jose</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake Silicon Valley</div>
-                    </a>
-                    <a href="/cities/seattle" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">Seattle</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake Seattle</div>
-                    </a>
-                    <a href="/cities/washington-dc" class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:border-blue-300 transition group">
-                        <div class="font-bold text-lg mb-1 group-hover:text-blue-600">Washington D.C.</div>
-                        <div class="text-sm text-slate-500">AI Legal Intake DC</div>
-                    </a>
+                <div class="grid md:grid-cols-3 gap-12 text-center">
+                    <div>
+                        <div class="text-5xl font-black text-blue-400 mb-2">391%</div>
+                        <p class="text-slate-400 font-medium">Avg. Increase in Qualified Leads</p>
+                    </div>
+                    <div>
+                        <div class="text-5xl font-black text-blue-400 mb-2">24/7</div>
+                        <p class="text-slate-400 font-medium">Automated Availability</p>
+                    </div>
+                    <div>
+                        <div class="text-5xl font-black text-blue-400 mb-2"><$1.00</div>
+                        <p class="text-slate-400 font-medium">Cost Per Lead Qualified</p>
+                    </div>
                 </div>
             </div>
         </section>
-        <section class="py-20 bg-slate-50 border-t border-slate-200">
+
+        <!-- Features Grid -->
+        <section class="py-32 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-20">
+                    <h2 class="text-3xl md:text-5xl font-extrabold mb-4">Built for Modern Law Firms</h2>
+                    <p class="text-lg text-slate-600 max-w-2xl mx-auto">LexiFlow isn't just a chatbot. It's a comprehensive AI ecosystem designed to maximize your billable potential.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100 hover:shadow-xl transition group">
+                        <div class="bg-blue-100 w-12 h-12 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition">
+                            <i class="bi bi-chat-left-text text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl mb-3">Reasoning AI Intake</h4>
+                        <p class="text-slate-600">Our AI uses complex legal reasoning to qualify personal injury, family law, and immigration leads with high precision.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100 hover:shadow-xl transition group">
+                        <div class="bg-indigo-100 w-12 h-12 rounded-xl flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition">
+                            <i class="bi bi-kanban text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl mb-3">Attorney Dashboard</h4>
+                        <p class="text-slate-600">Review all leads in a unified dashboard with automated summaries, risk scores, and prioritization.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100 hover:shadow-xl transition group">
+                        <div class="bg-cyan-100 w-12 h-12 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cyan-600 group-hover:text-white transition">
+                            <i class="bi bi-telephone text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl mb-3">AI Voice Receptionist</h4>
+                        <p class="text-slate-600">24/7 empathetic phone intake that sounds like a senior paralegal. Handles screening and scheduling naturally.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="py-20 bg-white border-t border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-5xl font-extrabold mb-4">Simple, Transparent <span class="text-blue-600">Pricing</span></h2>
+                    <p class="text-lg text-slate-600 max-w-2xl mx-auto">Everything you need to automate your law firm intake. No setup fees, no hidden costs.</p>
+                </div>
+                <div class="max-w-md mx-auto bg-slate-50 rounded-3xl border-2 border-blue-600 p-10 relative shadow-2xl">
+                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-6 py-1 rounded-full text-sm font-bold tracking-widest uppercase">Most Popular</div>
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold mb-4">LexiFlow Suite</h3>
+                        <div class="flex items-center justify-center gap-1">
+                            <span class="text-4xl font-extrabold">$39</span>
+                            <span class="text-slate-500">/month</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-2">All-in-one legal intake platform</p>
+                    </div>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center"><i class="bi bi-check-circle-fill text-blue-600 mr-3"></i><span>Full AI Intake Suite</span></li>
+                        <li class="flex items-center"><i class="bi bi-check-circle-fill text-blue-600 mr-3"></i><span>Attorney Lead Dashboard</span></li>
+                        <li class="flex items-center"><i class="bi bi-check-circle-fill text-blue-600 mr-3"></i><span>AI Voice Receptionist</span></li>
+                        <li class="flex items-center"><i class="bi bi-check-circle-fill text-blue-600 mr-3"></i><span>Unlimited Lead Qualification</span></li>
+                        <li class="flex items-center"><i class="bi bi-check-circle-fill text-blue-600 mr-3"></i><span>Clio / Filevine / Litify Sync</span></li>
+                    </ul>
+                    <button onclick="toggleConsultation('LexiFlow Suite - $39')" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200">Get Started Now</button>
+                    <p class="text-center text-xs text-slate-400 mt-6">30-day risk-free trial available for pilot firms.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section id="demo" class="py-20 bg-slate-50 border-t border-slate-200">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="bg-blue-600 rounded-3xl p-10 md:p-20 text-white text-center shadow-2xl relative overflow-hidden">
-                    <div class="relative z-10"><h2 class="text-3xl md:text-5xl font-bold mb-6">Don't see your city?</h2><p class="text-blue-100 mb-10 max-w-2xl mx-auto text-lg">LexiFlow serves law firms nationwide. Request a demo and we'll show you how our AI intake works for your practice — anywhere in the US.</p>
-                    <div class="flex flex-col sm:flex-row justify-center gap-4"><a href="/" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition text-lg">Back to Home</a></div></div>
-                    <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-white opacity-5 rounded-full"></div><div class="absolute -left-20 -top-20 w-64 h-64 bg-white opacity-5 rounded-full"></div>
+                    <div class="relative z-10">
+                        <h2 class="text-3xl md:text-5xl font-bold mb-6">Ready to see LexiFlow in action?</h2>
+                        <p class="text-blue-100 mb-10 max-w-2xl mx-auto text-lg">
+                            Join the leading firms using LexiFlow to automate their intake. Request a private consultation today.
+                        </p>
+                        <div class="flex flex-col sm:flex-row justify-center gap-4">
+                            <button onclick="toggleConsultation()" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition text-lg">Request Consultation</button>
+                        </div>
+                    </div>
+                    <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-white opacity-5 rounded-full"></div>
+                    <div class="absolute -left-20 -top-20 w-64 h-64 bg-white opacity-5 rounded-full"></div>
                 </div>
             </div>
         </section>
     </main>
-    <footer class="bg-white py-12 border-t border-slate-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:justify-between items-center space-y-6 md:flex-row md:space-y-0 text-slate-500 text-sm">
-        <div class="flex items-center text-slate-900"><img src="/branding/logo-main.svg" alt="LexiFlow" height="28" class="h-7 mr-2"><span class="font-bold tracking-tight">LexiFlow</span></div>
-        <div class="flex space-x-6"><a href="/privacy.html" class="hover:text-blue-600">Privacy</a><a href="/terms.html" class="hover:text-blue-600">Terms</a></div>
-        <p>&copy; 2026 LexiFlow AI. Serving 20 US markets.</p>
-    </div></footer>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+            <div class="border-b border-slate-100 pb-6">
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3 text-center">Serving Law Firms Nationwide — <a href="/cities" class="text-blue-600 hover:text-blue-700 font-bold">View All 20 Cities</a></p>
+                <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+                    <a href="/cities/atlanta" class="text-slate-500 hover:text-blue-600 transition">Atlanta</a>
+                    <a href="/cities/austin" class="text-slate-500 hover:text-blue-600 transition">Austin</a>
+                    <a href="/cities/boston" class="text-slate-500 hover:text-blue-600 transition">Boston</a>
+                    <a href="/cities/charlotte" class="text-slate-500 hover:text-blue-600 transition">Charlotte</a>
+                    <a href="/cities/chicago" class="text-slate-500 hover:text-blue-600 transition">Chicago</a>
+                    <a href="/cities/dallas" class="text-slate-500 hover:text-blue-600 transition">Dallas</a>
+                    <a href="/cities/denver" class="text-slate-500 hover:text-blue-600 transition">Denver</a>
+                    <a href="/cities/houston" class="text-slate-500 hover:text-blue-600 transition">Houston</a>
+                    <a href="/cities/la" class="text-slate-500 hover:text-blue-600 transition">Los Angeles</a>
+                    <a href="/cities/las-vegas" class="text-slate-500 hover:text-blue-600 transition">Las Vegas</a>
+                    <a href="/cities/miami" class="text-slate-500 hover:text-blue-600 transition">Miami</a>
+                    <a href="/cities/nyc" class="text-slate-500 hover:text-blue-600 transition">New York City</a>
+                    <a href="/cities/philadelphia" class="text-slate-500 hover:text-blue-600 transition">Philadelphia</a>
+                    <a href="/cities/phoenix" class="text-slate-500 hover:text-blue-600 transition">Phoenix</a>
+                    <a href="/cities/san-antonio" class="text-slate-500 hover:text-blue-600 transition">San Antonio</a>
+                    <a href="/cities/san-diego" class="text-slate-500 hover:text-blue-600 transition">San Diego</a>
+                    <a href="/cities/san-francisco" class="text-slate-500 hover:text-blue-600 transition">San Francisco</a>
+                    <a href="/cities/san-jose" class="text-slate-500 hover:text-blue-600 transition">San Jose</a>
+                    <a href="/cities/seattle" class="text-slate-500 hover:text-blue-600 transition">Seattle</a>
+                    <a href="/cities/washington-dc" class="text-slate-500 hover:text-blue-600 transition">Washington DC</a>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:justify-between items-center space-y-6 md:flex-row md:space-y-0 text-slate-500 text-sm">
+            <div class="flex items-center text-slate-900">
+                <img src="/branding/logo-main.svg" alt="LexiFlow" height="28" class="h-7 mr-2">
+                <span class="font-bold tracking-tight">LexiFlow</span>
+            </div>
+            <div class="flex space-x-8">
+                <a href="/privacy.html" class="hover:text-blue-600">Privacy Policy</a>
+                <a href="/terms.html" class="hover:text-blue-600">Terms of Service</a>
+                <button onclick="toggleConsultation('Contact Us')" class="hover:text-blue-600">Contact Us</button>
+            </div>
+            <p>&copy; 2026 LexiFlow AI. Built for the future of law.</p>
+        </div>
+    </footer>
+
+    <script src="/config.js"></script>
+    <script src="/modal.js"></script>
 </body>
 </html>
