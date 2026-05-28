@@ -1,4 +1,5 @@
-const API_BASE = '/api/depolens'; // Using a proxy or relative path
+// API_BASE is defined in config.js
+const DEPO_API_PREFIX = '/depolens';
 
 // DOM Elements
 const uploadBtn = document.getElementById('upload-btn');
@@ -23,34 +24,36 @@ async function init() {
 }
 
 // Event Listeners
-uploadBtn.addEventListener('click', () => uploadModal.classList.remove('hidden'));
-cancelUpload.addEventListener('click', () => {
+if (uploadBtn) uploadBtn.addEventListener('click', () => uploadModal.classList.remove('hidden'));
+if (cancelUpload) cancelUpload.addEventListener('click', () => {
     uploadModal.classList.add('hidden');
     resetUpload();
 });
 
-dropZone.addEventListener('click', () => fileInput.click());
-fileInput.addEventListener('change', handleFileSelect);
+if (dropZone) dropZone.addEventListener('click', () => fileInput.click());
+if (fileInput) fileInput.addEventListener('change', handleFileSelect);
 
-dropZone.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    dropZone.classList.add('border-blue-500');
-});
+if (dropZone) {
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('border-blue-500');
+    });
 
-dropZone.addEventListener('dragleave', () => {
-    dropZone.classList.remove('border-blue-500');
-});
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('border-blue-500');
+    });
 
-dropZone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    dropZone.classList.remove('border-blue-500');
-    if (e.dataTransfer.files.length) {
-        handleFile(e.dataTransfer.files[0]);
-    }
-});
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('border-blue-500');
+        if (e.dataTransfer.files.length) {
+            handleFile(e.dataTransfer.files[0]);
+        }
+    });
+}
 
-confirmUpload.addEventListener('click', uploadTranscript);
-backToList.addEventListener('click', () => {
+if (confirmUpload) confirmUpload.addEventListener('click', uploadTranscript);
+if (backToList) backToList.addEventListener('click', () => {
     resultSection.classList.add('hidden');
     transcriptListSection.classList.remove('hidden');
     loadTranscripts();
@@ -64,46 +67,51 @@ function handleFileSelect(e) {
 
 function handleFile(file) {
     selectedFile = file;
-    filenameDisplay.innerText = file.name;
-    fileInfo.classList.remove('hidden');
-    confirmUpload.disabled = false;
+    if (filenameDisplay) filenameDisplay.innerText = file.name;
+    if (fileInfo) fileInfo.classList.remove('hidden');
+    if (confirmUpload) confirmUpload.disabled = false;
 }
 
 function resetUpload() {
     selectedFile = null;
-    fileInput.value = '';
-    fileInfo.classList.add('hidden');
-    confirmUpload.disabled = true;
+    if (fileInput) fileInput.value = '';
+    if (fileInfo) fileInfo.classList.add('hidden');
+    if (confirmUpload) confirmUpload.disabled = true;
 }
 
 async function uploadTranscript() {
     const formData = new FormData();
     formData.append('file', selectedFile);
 
-    confirmUpload.innerText = 'Uploading...';
-    confirmUpload.disabled = true;
+    if (confirmUpload) {
+        confirmUpload.innerText = 'Uploading...';
+        confirmUpload.disabled = true;
+    }
 
     try {
-        const res = await fetch(`${API_BASE}/upload`, {
+        const res = await apiFetch(`${DEPO_API_PREFIX}/upload`, {
             method: 'POST',
             body: formData
         });
         const data = await res.json();
-        uploadModal.classList.add('hidden');
+        if (uploadModal) uploadModal.classList.add('hidden');
         resetUpload();
-        confirmUpload.innerText = 'Start Analysis';
+        if (confirmUpload) confirmUpload.innerText = 'Start Analysis';
         loadTranscripts();
     } catch (err) {
         console.error(err);
         alert('Upload failed');
-        confirmUpload.innerText = 'Start Analysis';
-        confirmUpload.disabled = false;
+        if (confirmUpload) {
+            confirmUpload.innerText = 'Start Analysis';
+            confirmUpload.disabled = false;
+        }
     }
 }
 
 async function loadTranscripts() {
+    if (!transcriptGrid) return;
     try {
-        const res = await fetch(`${API_BASE}/transcripts`);
+        const res = await apiFetch(`${DEPO_API_PREFIX}/transcripts`);
         const transcripts = await res.json();
         
         transcriptGrid.innerHTML = '';
@@ -120,7 +128,7 @@ async function loadTranscripts() {
                 <h3 class="font-bold text-lg mb-1 truncate" title="${t.filename}">${t.filename}</h3>
                 <p class="text-gray-500 text-sm mb-4">${new Date(t.upload_date).toLocaleDateString()}</p>
                 <div class="flex justify-end">
-                    <button class="text-blue-600 font-semibold text-sm hover:underline" onclick="viewResult(${t.id})">View Analysis →</button>
+                    <button class="text-blue-600 font-semibold text-sm hover:underline" onclick="event.stopPropagation(); viewResult(${t.id})">View Analysis →</button>
                 </div>
             `;
             card.onclick = () => viewResult(t.id);
@@ -142,7 +150,7 @@ function getStatusClass(status) {
 
 async function viewResult(id) {
     try {
-        const res = await fetch(`${API_BASE}/transcripts/${id}`);
+        const res = await apiFetch(`${DEPO_API_PREFIX}/transcripts/${id}`);
         const data = await res.json();
         
         if (data.transcript.status !== 'completed') {
@@ -150,22 +158,25 @@ async function viewResult(id) {
             return;
         }
 
-        transcriptListSection.classList.add('hidden');
-        resultSection.classList.remove('hidden');
+        if (transcriptListSection) transcriptListSection.classList.add('hidden');
+        if (resultSection) resultSection.classList.remove('hidden');
 
         // Populate Summary
-        document.getElementById('summary-text').innerText = data.summary?.executive_summary || 'No summary available.';
+        const summaryEl = document.getElementById('summary-text');
+        if (summaryEl) summaryEl.innerText = data.summary?.executive_summary || 'No summary available.';
         
         const risksList = document.getElementById('risks-list');
-        risksList.innerHTML = (data.summary?.risks || '').split('\n').map(r => `<li>${r}</li>`).join('');
+        if (risksList) risksList.innerHTML = (data.summary?.risks || '').split('\n').map(r => `<li>${r}</li>`).join('');
         
         const admissionsList = document.getElementById('admissions-list');
-        admissionsList.innerHTML = (data.summary?.admissions || '').split('\n').map(a => `<li>${a}</li>`).join('');
+        if (admissionsList) admissionsList.innerHTML = (data.summary?.admissions || '').split('\n').map(a => `<li>${a}</li>`).join('');
 
         // Populate Conflicts
-        document.getElementById('conflict-count').innerText = `${data.conflicts.length} Conflicts`;
+        const conflictCountEl = document.getElementById('conflict-count');
+        if (conflictCountEl) conflictCountEl.innerText = `${data.conflicts.length} Conflicts`;
+        
         const conflictsContainer = document.getElementById('conflicts-container');
-        conflictsContainer.innerHTML = data.conflicts.map(c => `
+        if (conflictsContainer) conflictsContainer.innerHTML = data.conflicts.map(c => `
             <div class="p-4 border border-red-100 bg-red-50 rounded-lg">
                 <div class="flex justify-between items-start mb-2">
                     <h4 class="font-bold text-red-800">${c.witness_a} vs ${c.witness_b}</h4>
@@ -180,7 +191,7 @@ async function viewResult(id) {
 
         // Populate Chronology
         const chronologyBody = document.getElementById('chronology-body');
-        chronologyBody.innerHTML = data.facts.map(f => `
+        if (chronologyBody) chronologyBody.innerHTML = data.facts.map(f => `
             <tr>
                 <td class="px-4 py-3 text-sm font-medium text-gray-900">${f.witness_name}</td>
                 <td class="px-4 py-3 text-sm text-gray-500">${f.date_time}</td>

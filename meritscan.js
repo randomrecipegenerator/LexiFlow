@@ -1,4 +1,5 @@
-const API_BASE = '/api/meritscan';
+// MeritScan Application Logic
+// API_BASE is defined in config.js
 
 // DOM Elements
 const uploadBtn = document.getElementById('upload-btn');

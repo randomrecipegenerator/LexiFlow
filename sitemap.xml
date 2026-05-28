@@ -1,37 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url><loc>https://lexiflow.co/</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
-   <url><loc>https://lexiflow.co/cities</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-   <url><loc>https://lexiflow.co/cities/nyc</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/la</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/chicago</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/houston</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/phoenix</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/philadelphia</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/san-antonio</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/san-diego</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/dallas</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/san-jose</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/miami</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/atlanta</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/washington-dc</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/boston</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/seattle</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/denver</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/san-francisco</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/austin</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/las-vegas</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/cities/charlotte</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-   <url><loc>https://lexiflow.co/features</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-   <url><loc>https://lexiflow.co/solutions</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-   <url><loc>https://lexiflow.co/portal</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-   <url><loc>https://lexiflow.co/whitepaper</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-   <url><loc>https://lexiflow.co/roi-calculator</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-   <url><loc>https://lexiflow.co/depolens</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-   <url><loc>https://lexiflow.co/meritscan</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-   <url><loc>https://lexiflow.co/practice-areas/medmal/orlando</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-   <url><loc>https://lexiflow.co/practice-areas/workers-comp/nashville</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-   <url><loc>https://lexiflow.co/practice-areas/medmal/portland</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-   <url><loc>https://lexiflow.co/practice-areas/workers-comp/las-vegas</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-   <url><loc>https://lexiflow.co/practice-areas/medmal/charlotte</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+   <url><loc>https://lexiflow.co/features.html</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+   <url><loc>https://lexiflow.co/solutions.html</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+   <url><loc>https://lexiflow.co/portal.html</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+   <url><loc>https://lexiflow.co/whitepaper.html</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+   <url><loc>https://lexiflow.co/roi-calculator.html</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+   <url><loc>https://lexiflow.co/depolens.html</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+   <url><loc>https://lexiflow.co/meritscan.html</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

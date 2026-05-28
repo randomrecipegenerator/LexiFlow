@@ -1,5 +1,5 @@
 // LexiFlow Client Portal Logic
-const API_BASE = '/api';
+// API_BASE is defined in config.js
 
 // DOM Elements
 const dropZone = document.getElementById('drop-zone');

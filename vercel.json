@@ -1,17 +1,8 @@
 {
   "version": 2,
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index.py" },
-    { "source": "/practice-areas/family-law/chicago", "destination": "/practice-areas/family-law-chicago.html" },
-    { "source": "/practice-areas/immigration/nyc", "destination": "/practice-areas/immigration-nyc.html" },
-    { "source": "/practice-areas/personal-injury/houston", "destination": "/practice-areas/personal-injury-houston.html" },
-    { "source": "/practice-areas/personal-injury/los-angeles", "destination": "/practice-areas/personal-injury-los-angeles.html" },
-    { "source": "/practice-areas/medmal/orlando", "destination": "/practice-areas/medmal-orlando.html" },
-    { "source": "/practice-areas/medmal/portland", "destination": "/practice-areas/medmal-portland.html" },
-    { "source": "/practice-areas/medmal/charlotte", "destination": "/practice-areas/medmal-charlotte.html" },
-    { "source": "/practice-areas/workers-comp/las-vegas", "destination": "/practice-areas/workers-comp-las-vegas.html" },
-    { "source": "/practice-areas/workers-comp/nashville", "destination": "/practice-areas/workers-comp-nashville.html" }
+    { "source": "/api/(.*)", "destination": "/api/index.py" }
   ]
 }
