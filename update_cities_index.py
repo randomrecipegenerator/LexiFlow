@@ -15,7 +15,7 @@ def update_cities_index():
     for name, filename in cities:
         links_html += f'            <a href="/usa-cities/{filename}" class="city-link">{name}</a>\n'
     
-    path = "/home/team/shared/lexiflow-pro/usa-cities/index.html"
+    path = "/home/team/shared/lexiflow-pro/usa-cities.html"
     if not os.path.exists(path):
         print(f"Error: {path} not found.")
         return

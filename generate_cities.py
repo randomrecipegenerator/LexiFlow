@@ -125,7 +125,7 @@ TEMPLATE = """<!DOCTYPE html>
                     <li><a href="/features.html">Features</a></li>
                     <li><a href="/solutions.html">Solutions</a></li>
                     <li><a href="/roi-calculator.html">ROI Calculator</a></li>
-                    <li><a href="/cities.html">Service Areas</a></li>
+                    <li><a href="/usa-cities.html">usa-cities</a></li>
                     </ul>
                     </div>
                     <div>
