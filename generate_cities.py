@@ -2,7 +2,7 @@ import os
 import json
 import re
 
-# List of top 200 largest US cities (approximate list for SEO)
+# List of top 99 largest US cities (approximate list for SEO)
 CITIES = [
     "New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose",
     "Austin", "Jacksonville", "Fort Worth", "Columbus", "Charlotte", "Indianapolis", "San Francisco", "Seattle", "Denver", "Oklahoma City",
@@ -13,17 +13,7 @@ CITIES = [
     "Riverside", "Newark", "Saint Paul", "Santa Ana", "Cincinnati", "Irvine", "Orlando", "Pittsburgh", "St. Louis", "Greensboro",
     "Jersey City", "Anchorage", "Lincoln", "Plano", "Durham", "Buffalo", "Chandler", "Chula Vista", "Toledo", "Madison",
     "Gilbert", "Reno", "Fort Wayne", "North Las Vegas", "St. Petersburg", "Lubbock", "Irving", "Laredo", "Winston-Salem", "Chesapeake",
-    "Glendale", "Garland", "Scottsdale", "Norfolk", "Boise", "Fremont", "San Bernardino", "Birmingham", "Spokane", "Rochester",
-    "Des Moines", "Modesto", "Fayetteville", "Tacoma", "Oxnard", "Fontana", "Montgomery", "Moreno Valley", "Shreveport", "Yonkers",
-    "Akron", "Huntington Beach", "Little Rock", "Augusta", "Amarillo", "Mobile", "Grand Rapids", "Salt Lake City", "Huntsville", "Tallahassee",
-    "Grand Prairie", "Overland Park", "Knoxville", "Brownsville", "Worcester", "Newport News", "Santa Clarita", "Providence", "Fort Lauderdale", "Garden Grove",
-    "Oceanside", "Rancho Cucamonga", "Santa Rosa", "Chattanooga", "Ontario", "Vancouver", "Tempe", "Springfield", "Lancaster", "Eugene",
-    "Pembroke Pines", "Salem", "Cape Coral", "Peoria", "Sioux Falls", "Elk Grove", "Rockford", "Palmdale", "Corona", "Salinas",
-    "Pomona", "Joliet", "Paterson", "Torrance", "Bridgeport", "Hayward", "Fort Collins", "Escondido", "Syracuse",
-    "Lakewood", "Alexandria", "Hollywood", "Sunnyvale", "Cary", "Mesquite", "Savannah", "Dayton", "Orange", "Fullerton",
-    "Pasadena", "Hampton", "McAllen", "Killeen", "Naperville", "Roseville", "Sterling Heights", "Miramar", "Lafayette", "New Haven",
-    "Hartford", "Bellevue", "Waco", "Elizabeth", "Visalia", "Olathe", "Thousand Oaks", "Denton", "Concord", "Carrollton",
-    "Cedar Rapids", "Warren", "Simi Valley", "Kent", "Columbia", "Gainesville", "Athens", "Round Rock"
+    "Glendale", "Garland", "Scottsdale", "Norfolk", "Boise", "Fremont", "San Bernardino", "Birmingham", "Spokane"
 ]
 
 CITIES = list(dict.fromkeys(CITIES))
