@@ -4,12 +4,12 @@ from datetime import datetime
 BASE_URL = "https://lexiflow.ai" # Updating to .ai as per user's enterprise preference
 CORE_PAGES = [
     "index.html", "features.html", "solutions.html", "roi-calculator.html", 
-    "dashboard.html", "portal.html", "cities.html", "whitepaper.html", 
+    "dashboard.html", "portal.html", "usa-cities/index.html", "whitepaper.html", 
     "privacy.html", "terms.html", "depolens.html", "meritscan.html"
 ]
 
 def generate_sitemap():
-    sitemap_path = "/home/team/shared/lexiflow-mvp/sitemap.xml"
+    sitemap_path = "/home/team/shared/lexiflow-pro/sitemap.xml"
     today = datetime.now().strftime("%Y-%m-%d")
     
     xml = ['<?xml version="1.0" encoding="UTF-8"?>']
@@ -22,11 +22,11 @@ def generate_sitemap():
         xml.append(f'   <url><loc>{loc}</loc><lastmod>{today}</lastmod><changefreq>weekly</changefreq><priority>{priority}</priority></url>')
     
     # Add City Pages
-    city_dir = "/home/team/shared/lexiflow-mvp/cities"
+    city_dir = "/home/team/shared/lexiflow-pro/usa-cities"
     if os.path.exists(city_dir):
         for filename in sorted(os.listdir(city_dir)):
             if filename.endswith(".html"):
-                loc = f"{BASE_URL}/cities/{filename}"
+                loc = f"{BASE_URL}/usa-cities/{filename}"
                 xml.append(f'   <url><loc>{loc}</loc><lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>')
     
     xml.append('</urlset>')

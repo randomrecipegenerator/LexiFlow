@@ -42,7 +42,7 @@ TEMPLATE = """<!DOCTYPE html>
     <meta name="description" content="LexiFlow transforms law firm intake in {city} with Reasoning AI. Qualify cases 24/7 with attorney-level nuance. Built for top {city} firms.">
     
     <!-- SEO HARDENING -->
-    <link rel="canonical" href="https://lexiflow.ai/cities/{slug}.html">
+    <link rel="canonical" href="https://lexiflow.ai/usa-cities/{slug}.html">
     <link rel="icon" type="image/svg+xml" href="/branding/logo-icon.svg">
 
     <!-- PSI OPTIMIZATION: Critical Inline CSS -->
@@ -126,10 +126,10 @@ TEMPLATE = """<!DOCTYPE html>
                     <li><a href="/solutions.html">Solutions</a></li>
                     <li><a href="/roi-calculator.html">ROI Calculator</a></li>
                     <li><a href="/cities.html">Service Areas</a></li>
-                </ul>
-            </div>
-            <div>
-                <h5 style="font-size: 10px; font-bold: 800; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px;">Legal</h5>
+                    </ul>
+                    </div>
+                    <div>
+                    <h5 style="font-size: 10px; font-bold: 800; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px;">Legal</h5>
                 <ul style="list-style: none; padding: 0; font-size: 13px; line-height: 2.5;">
                     <li><a href="/privacy.html">Privacy Policy</a></li>
                     <li><a href="/terms.html">Terms of Service</a></li>
@@ -151,13 +151,13 @@ TEMPLATE = """<!DOCTYPE html>
 """
 
 def generate():
-    if not os.path.exists('cities'):
-        os.makedirs('cities')
+    if not os.path.exists('usa-cities'):
+        os.makedirs('usa-cities')
     
     # Remove existing city files to ensure clean generation
-    for f in os.listdir('cities'):
+    for f in os.listdir('usa-cities'):
         if f.endswith('.html'):
-            os.remove(os.path.join('cities', f))
+            os.remove(os.path.join('usa-cities', f))
             
     sitemap_entries = []
     
@@ -171,12 +171,12 @@ def generate():
             state_code=state_code
         )
         
-        with open(f'cities/{slug}.html', 'w') as f:
+        with open(f'usa-cities/{slug}.html', 'w') as f:
             f.write(content)
         
-        sitemap_entries.append(f"https://lexiflow.ai/cities/{slug}.html")
+        sitemap_entries.append(f"https://lexiflow.ai/usa-cities/{slug}.html")
     
-    print(f"Generated {len(CITIES)} pages in cities/")
+    print(f"Generated {len(CITIES)} pages in usa-cities/")
     return sitemap_entries
 
 if __name__ == "__main__":

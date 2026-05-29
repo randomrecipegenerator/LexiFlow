@@ -16,7 +16,7 @@ FOOTER = """    <footer class="py-20 bg-slate-50 border-t border-slate-200">
                         <li><a href="/features.html">Features</a></li>
                         <li><a href="/solutions.html">Solutions</a></li>
                         <li><a href="/roi-calculator.html">ROI Calculator</a></li>
-                        <li><a href="/cities.html">Service Areas</a></li>
+                        <li><a href="/usa-cities/">Service Areas</a></li>
                     </ul>
                 </div>
                 <div>
@@ -62,7 +62,7 @@ FILES = [
 
 def update_footers():
     for filename in FILES:
-        path = f"/home/team/shared/lexiflow-mvp/{filename}"
+        path = f"/home/team/shared/lexiflow-pro/{filename}"
         if not os.path.exists(path):
             continue
             

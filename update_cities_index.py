@@ -1,11 +1,11 @@
 import os
 
-def update_cities_html():
-    city_dir = "/home/team/shared/lexiflow-mvp/cities"
+def update_cities_index():
+    city_dir = "/home/team/shared/lexiflow-pro/usa-cities"
     cities = []
     if os.path.exists(city_dir):
         for filename in sorted(os.listdir(city_dir)):
-            if filename.endswith(".html"):
+            if filename.endswith(".html") and filename != "index.html":
                 slug = filename.replace(".html", "")
                 name = slug.replace("-", " ").title()
                 # Special cases for names like "St. Louis" which might be "St.-Louis" in slug
@@ -13,9 +13,13 @@ def update_cities_html():
     
     links_html = ""
     for name, filename in cities:
-        links_html += f'            <a href="/cities/{filename}" class="city-link">{name}</a>\n'
+        links_html += f'            <a href="/usa-cities/{filename}" class="city-link">{name}</a>\n'
     
-    path = "/home/team/shared/lexiflow-mvp/cities.html"
+    path = "/home/team/shared/lexiflow-pro/usa-cities/index.html"
+    if not os.path.exists(path):
+        print(f"Error: {path} not found.")
+        return
+
     with open(path, "r") as f:
         content = f.read()
     
@@ -29,4 +33,4 @@ def update_cities_html():
     print(f"Updated {path} with {len(cities)} cities.")
 
 if __name__ == "__main__":
-    update_cities_html()
+    update_cities_index()
