@@ -1,0 +1,222 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.08" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.03" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+
+  <!-- Subtle grid -->
+  <g opacity="0.03">
+    <line x1="0" y1="180" x2="1920" y2="180" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="360" x2="1920" y2="360" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="540" x2="1920" y2="540" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="720" x2="1920" y2="720" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="900" x2="1920" y2="900" stroke="#fff" stroke-width="0.5"/>
+    <line x1="320" y1="0" x2="320" y2="1080" stroke="#fff" stroke-width="0.5"/>
+    <line x1="640" y1="0" x2="640" y2="1080" stroke="#fff" stroke-width="0.5"/>
+    <line x1="960" y1="0" x2="960" y2="1080" stroke="#fff" stroke-width="0.5"/>
+    <line x1="1280" y1="0" x2="1280" y2="1080" stroke="#fff" stroke-width="0.5"/>
+    <line x1="1600" y1="0" x2="1600" y2="1080" stroke="#fff" stroke-width="0.5"/>
+  </g>
+
+  <!-- Decorative glow orbs -->
+  <circle cx="200" cy="900" r="300" fill="#2563eb" opacity="0.04"/>
+  <circle cx="1700" cy="200" r="250" fill="#6366f1" opacity="0.05"/>
+
+  <!-- === LEFT SIDE: Text Content === -->
+  <g transform="translate(100, 0)">
+    <!-- Badge -->
+    <rect x="0" y="200" width="200" height="36" rx="18" fill="#2563eb" opacity="0.15"/>
+    <text x="100" y="218" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="600" fill="#60a5fa" text-anchor="middle" dominant-baseline="central">AVAILABLE ON CTO.NEW</text>
+
+    <!-- Headline -->
+    <text x="0" y="300" font-family="'Inter', system-ui, sans-serif" font-size="64" font-weight="800" fill="#ffffff" letter-spacing="-2">The AI Front Desk</text>
+    <text x="0" y="380" font-family="'Inter', system-ui, sans-serif" font-size="64" font-weight="800" fill="url(#accentGrad)" letter-spacing="-2">for Law Firms</text>
+
+    <!-- Subheadline -->
+    <text x="0" y="450" font-family="'Inter', system-ui, sans-serif" font-size="22" font-weight="300" fill="#94a3b8">24/7 Voice &amp; Email AI Intake · Reasoning Lead Qualification</text>
+    <text x="0" y="485" font-family="'Inter', system-ui, sans-serif" font-size="22" font-weight="300" fill="#94a3b8">CRM Sync · Medical Document Analysis</text>
+
+    <!-- Feature pills -->
+    <g transform="translate(0, 540)">
+      <rect x="0" y="0" width="160" height="38" rx="19" fill="#ffffff" opacity="0.08"/>
+      <text x="80" y="19" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="500" fill="#93c5fd" text-anchor="middle" dominant-baseline="central">🤖 Reasoning AI</text>
+
+      <rect x="175" y="0" width="160" height="38" rx="19" fill="#ffffff" opacity="0.08"/>
+      <text x="255" y="19" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="500" fill="#93c5fd" text-anchor="middle" dominant-baseline="central">🎙️ Voice Intake</text>
+
+      <rect x="350" y="0" width="160" height="38" rx="19" fill="#ffffff" opacity="0.08"/>
+      <text x="430" y="19" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="500" fill="#93c5fd" text-anchor="middle" dominant-baseline="central">📧 Email Parsing</text>
+    </g>
+
+    <!-- CTA -->
+    <g transform="translate(0, 630)">
+      <rect x="0" y="0" width="200" height="52" rx="26" fill="url(#accentGrad)" filter="url(#glow)"/>
+      <text x="100" y="26" font-family="'Inter', system-ui, sans-serif" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle" dominant-baseline="central">Visit Marketplace →</text>
+    </g>
+  </g>
+
+  <!-- === RIGHT SIDE: Dashboard Mockup === -->
+  <g transform="translate(820, 160)" filter="url(#shadow)">
+    <!-- Mockup frame -->
+    <rect x="0" y="0" width="960" height="760" rx="16" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+
+    <!-- Dashboard header -->
+    <rect x="0" y="0" width="960" height="64" rx="16" fill="#0f172a"/>
+    <rect x="0" y="48" width="960" height="16" fill="#0f172a"/>
+    <!-- Nav items -->
+    <rect x="24" y="18" width="80" height="28" rx="6" fill="#2563eb" opacity="0.2"/>
+    <text x="64" y="32" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="500" fill="#60a5fa" text-anchor="middle" dominant-baseline="central">Leads</text>
+    <rect x="116" y="18" width="80" height="28" rx="6" fill="#ffffff" opacity="0.06"/>
+    <text x="156" y="32" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="500" fill="#94a3b8" text-anchor="middle" dominant-baseline="central">Forms</text>
+    <rect x="208" y="18" width="100" height="28" rx="6" fill="#ffffff" opacity="0.06"/>
+    <text x="258" y="32" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="500" fill="#94a3b8" text-anchor="middle" dominant-baseline="central">AI Front Desk</text>
+
+    <!-- Dashboard content area -->
+    <!-- Stat cards row -->
+    <g transform="translate(24, 80)">
+      <rect x="0" y="0" width="210" height="80" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="0.5"/>
+      <text x="16" y="20" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="600" fill="#64748b">VOICE CALLS</text>
+      <text x="16" y="52" font-family="'Inter', system-ui, sans-serif" font-size="28" font-weight="700" fill="#ffffff">247</text>
+      <text x="120" y="52" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="500" fill="#16a34a">↑ 12.5%</text>
+
+      <rect x="222" y="0" width="210" height="80" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="0.5"/>
+      <text x="238" y="20" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="600" fill="#64748b">EMAILS</text>
+      <text x="238" y="52" font-family="'Inter', system-ui, sans-serif" font-size="28" font-weight="700" fill="#ffffff">183</text>
+      <text x="342" y="52" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="500" fill="#16a34a">↑ 8.3%</text>
+
+      <rect x="444" y="0" width="210" height="80" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="0.5"/>
+      <text x="460" y="20" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="600" fill="#64748b">WEB LEADS</text>
+      <text x="460" y="52" font-family="'Inter', system-ui, sans-serif" font-size="28" font-weight="700" fill="#ffffff">412</text>
+      <text x="564" y="52" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="500" fill="#16a34a">↑ 5.2%</text>
+
+      <rect x="666" y="0" width="270" height="80" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="0.5"/>
+      <text x="682" y="20" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="600" fill="#64748b">QUALIFICATION RATE</text>
+      <text x="682" y="52" font-family="'Inter', system-ui, sans-serif" font-size="28" font-weight="700" fill="#ffffff">68%</text>
+      <text x="786" y="52" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="500" fill="#16a34a">↑ 3.1%</text>
+    </g>
+
+    <!-- Lead table -->
+    <g transform="translate(24, 180)">
+      <rect x="0" y="0" width="912" height="220" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="0.5"/>
+      <!-- Table header -->
+      <rect x="0" y="0" width="912" height="36" rx="10" fill="#ffffff" opacity="0.04"/>
+      <text x="16" y="24" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">NAME</text>
+      <text x="176" y="24" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">SOURCE</text>
+      <text x="336" y="24" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">CASE TYPE</text>
+      <text x="556" y="24" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">SCORE</text>
+      <text x="716" y="24" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">STATUS</text>
+
+      <!-- Row 1 -->
+      <line x1="0" y1="52" x2="912" y2="52" stroke="#334155" stroke-width="0.5"/>
+      <circle cx="30" cy="72" r="14" fill="#2563eb" opacity="0.2"/>
+      <text x="30" y="72" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#60a5fa" text-anchor="middle" dominant-baseline="central">MG</text>
+      <text x="52" y="72" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="500" fill="#e2e8f0">Maria Gonzalez</text>
+
+      <rect x="176" y="64" width="80" height="16" rx="8" fill="#2563eb" opacity="0.15"/>
+      <text x="196" y="72" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="500" fill="#60a5fa" dominant-baseline="central">Voice</text>
+
+      <text x="336" y="72" font-family="'Inter', system-ui, sans-serif" font-size="12" fill="#cbd5e1">Auto Accident</text>
+
+      <rect x="556" y="64" width="40" height="16" rx="8" fill="#16a34a" opacity="0.2"/>
+      <text x="576" y="72" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#16a34a" dominant-baseline="central">82</text>
+
+      <rect x="716" y="64" width="80" height="16" rx="8" fill="#16a34a" opacity="0.15"/>
+      <text x="756" y="72" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="500" fill="#16a34a" text-anchor="middle" dominant-baseline="central">Qualified</text>
+
+      <!-- Row 2 -->
+      <line x1="0" y1="96" x2="912" y2="96" stroke="#334155" stroke-width="0.5"/>
+      <circle cx="30" cy="116" r="14" fill="#d97706" opacity="0.2"/>
+      <text x="30" y="116" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#fbbf24" text-anchor="middle" dominant-baseline="central">RK</text>
+      <text x="52" y="116" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="500" fill="#e2e8f0">Robert Kim</text>
+
+      <rect x="176" y="108" width="80" height="16" rx="8" fill="#d97706" opacity="0.15"/>
+      <text x="196" y="116" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="500" fill="#fbbf24" dominant-baseline="central">Email</text>
+
+      <text x="336" y="116" font-family="'Inter', system-ui, sans-serif" font-size="12" fill="#cbd5e1">Med Malpractice</text>
+
+      <rect x="556" y="108" width="40" height="16" rx="8" fill="#fbbf24" opacity="0.2"/>
+      <text x="576" y="116" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#fbbf24" dominant-baseline="central">63</text>
+
+      <rect x="716" y="108" width="80" height="16" rx="8" fill="#d97706" opacity="0.15"/>
+      <text x="756" y="116" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="500" fill="#fbbf24" text-anchor="middle" dominant-baseline="central">Reviewing</text>
+
+      <!-- Row 3 -->
+      <line x1="0" y1="140" x2="912" y2="140" stroke="#334155" stroke-width="0.5"/>
+      <circle cx="30" cy="160" r="14" fill="#2563eb" opacity="0.2"/>
+      <text x="30" y="160" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#60a5fa" text-anchor="middle" dominant-baseline="central">JT</text>
+      <text x="52" y="160" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="500" fill="#e2e8f0">James Thompson</text>
+
+      <rect x="176" y="152" width="80" height="16" rx="8" fill="#2563eb" opacity="0.15"/>
+      <text x="196" y="160" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="500" fill="#60a5fa" dominant-baseline="central">Web</text>
+
+      <text x="336" y="160" font-family="'Inter', system-ui, sans-serif" font-size="12" fill="#cbd5e1">Boeing 737 MAX</text>
+
+      <rect x="556" y="152" width="40" height="16" rx="8" fill="#16a34a" opacity="0.2"/>
+      <text x="576" y="160" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#16a34a" dominant-baseline="central">91</text>
+
+      <rect x="716" y="152" width="80" height="16" rx="8" fill="#dc2626" opacity="0.15"/>
+      <text x="756" y="160" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="500" fill="#ef4444" text-anchor="middle" dominant-baseline="central">Urgent</text>
+    </g>
+
+    <!-- Bottom: Donut chart + lead source -->
+    <g transform="translate(24, 420)">
+      <rect x="0" y="0" width="440" height="150" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="0.5"/>
+      <!-- Mini donut -->
+      <circle cx="100" cy="75" r="45" fill="none" stroke="#2563eb" stroke-width="18" stroke-dasharray="170 100"/>
+      <circle cx="100" cy="75" r="45" fill="none" stroke="#16a34a" stroke-width="18" stroke-dasharray="100 200" stroke-dashoffset="-50"/>
+      <circle cx="100" cy="75" r="45" fill="none" stroke="#d97706" stroke-width="18" stroke-dasharray="44 256" stroke-dashoffset="-150"/>
+      <circle cx="100" cy="75" r="36" fill="#1e293b"/>
+      <text x="100" y="75" font-family="'Inter', system-ui, sans-serif" font-size="18" font-weight="700" fill="#e2e8f0" text-anchor="middle" dominant-baseline="central">842</text>
+
+      <text x="145" y="40" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="600" fill="#e2e8f0">Lead Source Breakdown</text>
+
+      <rect x="145" y="60" width="10" height="10" rx="3" fill="#2563eb"/>
+      <text x="162" y="69" font-family="'Inter', system-ui, sans-serif" font-size="12" fill="#94a3b8">Web Widget</text>
+      <text x="380" y="69" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0" text-anchor="end">54%</text>
+
+      <rect x="145" y="85" width="10" height="10" rx="3" fill="#16a34a"/>
+      <text x="162" y="94" font-family="'Inter', system-ui, sans-serif" font-size="12" fill="#94a3b8">Voice Call</text>
+      <text x="380" y="94" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0" text-anchor="end">32%</text>
+
+      <rect x="145" y="110" width="10" height="10" rx="3" fill="#d97706"/>
+      <text x="162" y="119" font-family="'Inter', system-ui, sans-serif" font-size="12" fill="#94a3b8">Email Intake</text>
+      <text x="380" y="119" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0" text-anchor="end">14%</text>
+    </g>
+
+    <!-- Right: AI Summary card -->
+    <g transform="translate(480, 420)">
+      <rect x="0" y="0" width="456" height="150" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="0.5"/>
+      <text x="16" y="24" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#64748b">AI SUMMARY — James Thompson</text>
+      <rect x="0" y="36" width="456" height="1" fill="#334155"/>
+      <text x="16" y="60" font-family="'Inter', system-ui, sans-serif" font-size="12" fill="#cbd5e1">
+        <tspan x="16" dy="0">High-value mass tort lead. Surviving family member</tspan>
+        <tspan x="16" dy="18">of Boeing 737 MAX crash. 2 dependents.</tspan>
+        <tspan x="16" dy="18">Potential claim value: $2M–$5M.</tspan>
+        <tspan x="16" dy="18">Priority: Urgent — NTSB hearing next week.</tspan>
+      </text>
+    </g>
+  </g>
+
+  <!-- Bottom tagline -->
+  <text x="960" y="1030" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="400" fill="#475569" text-anchor="middle" letter-spacing="3">LEXIFLOW — AI-POWERED LEGAL INTAKE</text>
+</svg>

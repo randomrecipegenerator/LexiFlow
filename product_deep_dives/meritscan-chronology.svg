@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f1f5f9;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" rx="16" fill="url(#bgGrad)" stroke="#e2e8f0" stroke-width="1"/>
+  <!-- Header -->
+  <rect x="0" y="0" width="800" height="52" rx="16" fill="#1e3a5f"/>
+  <rect x="0" y="36" width="800" height="16" fill="#1e3a5f"/>
+  <text x="400" y="32" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">📋 MeritScan — Medical Record Chronology</text>
+  <!-- Patient banner -->
+  <g transform="translate(24, 72)">
+    <rect x="0" y="0" width="752" height="44" rx="8" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="16" y="28" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#1e3a5f">PATIENT: John D.</text>
+    <text x="160" y="28" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#64748b">MRN: 48291-03</text>
+    <text x="340" y="28" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#64748b">Admitted: 03/10/2026</text>
+    <text x="560" y="28" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#64748b">Records: 247 pages</text>
+  </g>
+  <!-- Timeline columns -->
+  <g transform="translate(24, 130)">
+    <!-- Column headers -->
+    <rect x="0" y="0" width="240" height="32" rx="6" fill="#1e3a5f" opacity="0.08"/>
+    <text x="120" y="22" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#1e3a5f" text-anchor="middle">Date &amp; Time</text>
+    <rect x="250" y="0" width="500" height="32" rx="6" fill="#1e3a5f" opacity="0.08"/>
+    <text x="500" y="22" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#1e3a5f" text-anchor="middle">Clinical Event / Finding</text>
+    <!-- Timeline row 1 -->
+    <line x1="0" y1="44" x2="750" y2="44" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="16" y="64" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#2563eb">03/10 — 10:00</text>
+    <text x="266" y="64" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#475569">Admitted with acute abdominal pain (BP 160/95, HR 105)</text>
+    <!-- Row 2 -->
+    <line x1="0" y1="78" x2="750" y2="78" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="16" y="98" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#2563eb">03/12 — 14:00</text>
+    <text x="266" y="98" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#475569">Labs drawn: WBC 18.2 (H), Lactate 4.1 (H), CRP 45 (H)</text>
+    <!-- Row 3 - Alert -->
+    <rect x="248" y="100" width="500" height="36" rx="6" fill="#fef2f2"/>
+    <line x1="0" y1="120" x2="750" y2="120" stroke="#e2e8f0" stroke-width="1"/>
+    <circle cx="100" cy="136" r="5" fill="#ef4444"/>
+    <text x="116" y="136" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#dc2626">🚨 CRITICAL ALERT</text>
+    <text x="266" y="124" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#dc2626">18-hour gap: Sepsis markers without physician response</text>
+    <text x="266" y="140" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#7f1d1d">CDC window: 3h for antibiotic intervention | Actual: 18h</text>
+    <!-- Row 4 -->
+    <line x1="0" y1="154" x2="750" y2="154" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="16" y="174" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#2563eb">03/13 — 08:00</text>
+    <text x="266" y="174" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#475569">Physician note: "Patient appears stable. Monitoring."</text>
+    <!-- Row 5 -->
+    <line x1="0" y1="188" x2="750" y2="188" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="16" y="208" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#2563eb">03/15 — 06:00</text>
+    <text x="266" y="208" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#475569">Septic shock — Patient transferred to ICU</text>
+    <!-- Row 6 -->
+    <line x1="0" y1="222" x2="750" y2="222" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="16" y="242" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#2563eb">03/16 — 14:00</text>
+    <text x="266" y="242" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#475569">Discharged to step-down unit. Patient survives with organ damage.</text>
+  </g>
+  <!-- Bottom: Merit Score & Actions -->
+  <g transform="translate(24, 410)">
+    <rect x="0" y="0" width="350" height="64" rx="8" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+    <text x="16" y="22" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#16a34a">📊 Merit Score: 84/100 <tspan fill="#64748b" font-weight="400">(High Viability)</tspan></text>
+    <text x="16" y="44" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#166534">Standard of Care breach confirmed. Estimated settlement: $450K–$1.2M</text>
+    <rect x="380" y="8" width="160" height="28" rx="6" fill="#2563eb"/>
+    <text x="460" y="28" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="white" text-anchor="middle" dominant-baseline="central">Download Full Report</text>
+    <rect x="555" y="8" width="180" height="28" rx="6" fill="#1e3a5f"/>
+    <text x="645" y="28" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="white" text-anchor="middle" dominant-baseline="central">Engage Expert Review →</text>
+  </g>
+</svg>

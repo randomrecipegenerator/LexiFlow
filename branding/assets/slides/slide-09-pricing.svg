@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" rx="16" fill="url(#bgGrad)"/>
+  <circle cx="200" cy="600" r="250" fill="#2563eb" opacity="0.03"/>
+  <circle cx="1000" cy="100" r="200" fill="#6366f1" opacity="0.04"/>
+  <g opacity="0.03">
+    <line x1="0" y1="135" x2="1200" y2="135" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="270" x2="1200" y2="270" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="405" x2="1200" y2="405" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="540" x2="1200" y2="540" stroke="#fff" stroke-width="0.5"/>
+  </g>
+
+  <!-- Header -->
+  <text x="600" y="80" font-family="'Inter', system-ui, sans-serif" font-size="36" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="-1">Simple, Transparent Pricing</text>
+  <text x="600" y="116" font-family="'Inter', system-ui, sans-serif" font-size="16" font-weight="400" fill="#94a3b8" text-anchor="middle">One platform. Three tiers. Start free, scale as you grow.</text>
+
+  <!-- Feature table header -->
+  <g transform="translate(100, 160)">
+    <rect x="0" y="0" width="1000" height="44" rx="8" fill="#1a2332" stroke="#334155" stroke-width="1"/>
+    <text x="30" y="28" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#94a3b8">Feature</text>
+    <text x="380" y="28" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#94a3b8" text-anchor="middle">Starter</text>
+    <text x="620" y="28" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#2563eb" text-anchor="middle">Litigator <tspan fill="#60a5fa" font-size="10">(Popular)</tspan></text>
+    <text x="860" y="28" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#94a3b8" text-anchor="middle">Enterprise</text>
+
+    <!-- Row 1 -->
+    <line x1="0" y1="56" x2="1000" y2="56" stroke="#334155" stroke-width="1"/>
+    <text x="30" y="78" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#e2e8f0">Monthly Price</text>
+    <text x="380" y="78" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="600" fill="#e2e8f0" text-anchor="middle">Free</text>
+    <text x="620" y="78" font-family="'Inter', system-ui, sans-serif" font-size="20" font-weight="800" fill="#60a5fa" text-anchor="middle">$39/mo</text>
+    <text x="860" y="78" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="600" fill="#e2e8f0" text-anchor="middle">Custom</text>
+
+    <!-- Row 2 -->
+    <line x1="0" y1="100" x2="1000" y2="100" stroke="#334155" stroke-width="1"/>
+    <text x="30" y="122" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#e2e8f0">AI Intake Agent</text>
+    <text x="380" y="122" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle">✓ 50 leads/mo</text>
+    <text x="620" y="122" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle">✓ Unlimited</text>
+    <text x="860" y="122" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle">✓ Unlimited</text>
+
+    <!-- Row 3 -->
+    <line x1="0" y1="144" x2="1000" y2="144" stroke="#334155" stroke-width="1"/>
+    <text x="30" y="166" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#e2e8f0">Lead Scoring &amp; Dashboard</text>
+    <text x="380" y="166" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle">✓</text>
+    <text x="620" y="166" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle">✓</text>
+    <text x="860" y="166" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle">✓</text>
+
+    <!-- Row 4 -->
+    <line x1="0" y1="188" x2="1000" y2="188" stroke="#334155" stroke-width="1"/>
+    <text x="30" y="210" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#e2e8f0">Voice AI Receptionist</text>
+    <text x="380" y="210" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#64748b" text-anchor="middle">—</text>
+    <text x="620" y="210" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle">✓</text>
+    <text x="860" y="210" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle">✓</text>
+
+    <!-- Row 5 -->
+    <line x1="0" y1="232" x2="1000" y2="232" stroke="#334155" stroke-width="1"/>
+    <text x="30" y="254" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#e2e8f0">Smart Email Intake</text>
+    <text x="380" y="254" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#64748b" text-anchor="middle">—</text>
+    <text x="620" y="254" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle">✓</text>
+    <text x="860" y="254" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle">✓</text>
+
+    <!-- Row 6 -->
+    <line x1="0" y1="276" x2="1000" y2="276" stroke="#334155" stroke-width="1"/>
+    <text x="30" y="298" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#e2e8f0">CRM Sync (Clio / Filevine)</text>
+    <text x="380" y="298" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#64748b" text-anchor="middle">—</text>
+    <text x="620" y="298" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle">✓</text>
+    <text x="860" y="298" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle">✓</text>
+
+    <!-- Row 7 -->
+    <line x1="0" y1="320" x2="1000" y2="320" stroke="#334155" stroke-width="1"/>
+    <text x="30" y="342" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#e2e8f0">Multi-User Access</text>
+    <text x="380" y="342" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#64748b" text-anchor="middle">1 user</text>
+    <text x="620" y="342" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle">5 users</text>
+    <text x="860" y="342" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle">Unlimited</text>
+
+    <!-- Highlight litigator column -->
+    <rect x="480" y="-2" width="280" height="358" rx="8" fill="none" stroke="#2563eb" stroke-width="2"/>
+  </g>
+
+  <!-- Bottom CTA -->
+  <g transform="translate(100, 540)">
+    <rect x="0" y="0" width="1000" height="64" rx="10" fill="url(#accent)" opacity="0.1"/>
+    <text x="360" y="30" font-family="'Inter', system-ui, sans-serif" font-size="15" font-weight="600" fill="#60a5fa" text-anchor="middle">🚀 All plans include a 14-day free trial. No credit card required.</text>
+    <text x="360" y="50" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="400" fill="#64748b" text-anchor="middle">Volume discounts available for firms with 10+ attorneys.</text>
+    <rect x="720" y="10" width="220" height="44" rx="22" fill="url(#accent)"/>
+    <text x="830" y="32" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle" dominant-baseline="central">Start Free Trial →</text>
+  </g>
+</svg>

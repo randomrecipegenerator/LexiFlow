@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="iconBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Square background -->
+  <rect width="512" height="512" rx="64" fill="url(#iconBg)"/>
+  <!-- Subtle border -->
+  <rect x="2" y="2" width="508" height="508" rx="63" fill="none" stroke="#334155" stroke-width="2"/>
+
+  <!-- Scales of justice + AI flow icon (centered) -->
+  <g transform="translate(156, 156) scale(2.2)">
+    <!-- Background glow -->
+    <circle cx="50" cy="50" r="45" fill="url(#accent)" opacity="0.12"/>
+
+    <!-- Scale beam -->
+    <line x1="10" y1="50" x2="90" y2="50" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Fulcrum -->
+    <polygon points="45,72 55,72 50,50" fill="url(#accent)" opacity="0.95"/>
+
+    <!-- Left pan (tradition) -->
+    <path d="M10 50 Q5 65 -2 68 Q8 72 18 68 Q14 65 10 50Z" fill="url(#accent)" opacity="0.9"/>
+
+    <!-- Right pan (AI flow upward) -->
+    <path d="M90 50 Q95 38 102 35 Q92 32 82 35 Q87 38 90 50Z" fill="url(#accent)" opacity="0.9"/>
+
+    <!-- AI data dots -->
+    <circle cx="85" cy="38" r="3" fill="#818cf8" opacity="0.9"/>
+    <circle cx="93" cy="34" r="3.5" fill="#818cf8" opacity="0.6"/>
+    <circle cx="100" cy="37" r="2.5" fill="#818cf8" opacity="0.4"/>
+  </g>
+
+  <!-- "LexiFlow" wordmark -->
+  <text x="256" y="410" font-family="'Inter', system-ui, sans-serif" font-size="42" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="-1">Lexi</text>
+  <text x="256" y="455" font-family="'Inter', system-ui, sans-serif" font-size="42" font-weight="700" fill="url(#accent)" text-anchor="middle" letter-spacing="-1">Flow</text>
+</svg>

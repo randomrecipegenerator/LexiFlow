@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0ea5e9;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Shield with medical cross -->
+  <g transform="translate(10, 10)">
+    <path d="M40 15 L70 30 L70 55 Q70 80 40 95 Q10 80 10 55 L10 30 Z" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/>
+    <path d="M40 20 L65 32 L65 55 Q65 75 40 88 Q15 75 15 55 L15 32 Z" fill="url(#g)" opacity="0.08"/>
+    <!-- Medical cross -->
+    <rect x="36" y="42" width="8" height="24" rx="2" fill="#2563eb"/>
+    <rect x="30" y="48" width="20" height="8" rx="2" fill="#2563eb"/>
+    <!-- Scan line -->
+    <line x1="20" y1="62" x2="60" y2="62" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.4"/>
+    <line x1="22" y1="68" x2="58" y2="68" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.3"/>
+    <!-- Alert dot -->
+    <circle cx="65" cy="30" r="4" fill="#ef4444"/>
+  </g>
+  <!-- Wordmark -->
+  <g transform="translate(100, 0)">
+    <text x="0" y="68" font-family="'Inter', system-ui, sans-serif" font-size="40" font-weight="700" fill="#1e3a5f" letter-spacing="-1" dominant-baseline="central">Merit</text>
+    <text x="108" y="68" font-family="'Inter', system-ui, sans-serif" font-size="40" font-weight="300" fill="url(#g)" letter-spacing="-1" dominant-baseline="central">Scan</text>
+    <text x="2" y="98" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="500" fill="#64748b" letter-spacing="2">AI MEDICAL MERIT REVIEW</text>
+  </g>
+</svg>

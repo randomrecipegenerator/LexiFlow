@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" rx="16" fill="url(#bgGrad)" stroke="#334155" stroke-width="1"/>
+  <rect x="0" y="0" width="800" height="52" rx="16" fill="#1e3a5f"/>
+  <rect x="0" y="36" width="800" height="16" fill="#1e3a5f"/>
+  <text x="400" y="32" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">💬 LexiFlow — AI Intake Chat Widget</text>
+  <!-- Phone frame (left) -->
+  <g transform="translate(60, 80)">
+    <rect x="0" y="0" width="280" height="380" rx="30" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+    <rect x="10" y="10" width="260" height="360" rx="24" fill="#0f172a"/>
+    <!-- Status bar -->
+    <rect x="10" y="10" width="260" height="36" rx="24" fill="#0f172a"/>
+    <text x="140" y="32" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="600" fill="#64748b" text-anchor="middle">LexiFlow AI</text>
+    <circle cx="100" cy="32" r="3" fill="#16a34a"/>
+    <!-- Chat messages -->
+    <g transform="translate(16, 60)">
+      <!-- Bot -->
+      <rect x="0" y="0" width="180" height="32" rx="12" fill="#2563eb" opacity="0.15"/>
+      <text x="12" y="20" font-family="'Inter', system-ui, sans-serif" font-size="9" fill="#93c5fd">Hi! I'm LexiFlow. How can I</text>
+      <text x="12" y="34" font-family="'Inter', system-ui, sans-serif" font-size="9" fill="#93c5fd">help your firm today?</text>
+      <!-- User -->
+      <rect x="30" y="48" width="150" height="24" rx="12" fill="#16a34a" opacity="0.15"/>
+      <text x="42" y="64" font-family="'Inter', system-ui, sans-serif" font-size="9" fill="#16a34a">I was in a car accident...</text>
+      <!-- Bot -->
+      <rect x="0" y="84" width="210" height="48" rx="12" fill="#2563eb" opacity="0.15"/>
+      <text x="12" y="100" font-family="'Inter', system-ui, sans-serif" font-size="9" fill="#93c5fd">I'm sorry to hear that. Let me</text>
+      <text x="12" y="114" font-family="'Inter', system-ui, sans-serif" font-size="9" fill="#93c5fd">gather some details to help</text>
+      <text x="12" y="128" font-family="'Inter', system-ui, sans-serif" font-size="9" fill="#93c5fd">qualify your case.</text>
+      <!-- User typing -->
+      <rect x="30" y="144" width="120" height="24" rx="12" fill="#16a34a" opacity="0.15"/>
+      <text x="42" y="160" font-family="'Inter', system-ui, sans-serif" font-size="9" fill="#16a34a">It happened on I-95...</text>
+      <!-- Bot typing indicator -->
+      <rect x="0" y="180" width="80" height="24" rx="12" fill="#2563eb" opacity="0.1"/>
+      <text x="12" y="196" font-family="'Inter', system-ui, sans-serif" font-size="9" fill="#64748b">Typing...</text>
+      <!-- Reasoning tag -->
+      <rect x="0" y="216" width="140" height="22" rx="6" fill="#2563eb" opacity="0.2"/>
+      <text x="12" y="232" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="500" fill="#60a5fa">🧠 Reasoning AI Analyzing...</text>
+    </g>
+    <!-- Bottom bar -->
+    <rect x="40" y="328" width="200" height="30" rx="15" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="80" y="350" font-family="'Inter', system-ui, sans-serif" font-size="9" fill="#64748b">Type your response...</text>
+    <circle cx="220" cy="343" r="12" fill="#2563eb"/>
+    <text x="220" y="343" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="white" text-anchor="middle" dominant-baseline="central">➤</text>
+  </g>
+  <!-- Live scoring panel (right) -->
+  <g transform="translate(400, 80)">
+    <rect x="0" y="0" width="360" height="380" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="0" y="0" width="360" height="40" rx="10" fill="#0f172a"/>
+    <text x="180" y="24" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#e2e8f0" text-anchor="middle">📊 Real-Time Lead Qualification</text>
+    <!-- Lead info -->
+    <g transform="translate(16, 56)">
+      <rect x="0" y="0" width="328" height="100" rx="8" fill="#1a2332" stroke="#334155" stroke-width="0.5"/>
+      <text x="16" y="22" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#e2e8f0">Maria Gonzalez</text>
+      <text x="16" y="40" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#64748b">📞 Voice Intake — 2 min ago</text>
+      <text x="16" y="60" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#94a3b8">Case: Auto Accident — I-95, Miami FL</text>
+      <text x="16" y="76" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#94a3b8">Injuries: Whiplash, potential herniated disc</text>
+      <!-- Score badge -->
+      <circle cx="280" cy="30" r="20" fill="#16a34a" opacity="0.15"/>
+      <text x="280" y="30" font-family="'Inter', system-ui, sans-serif" font-size="16" font-weight="800" fill="#16a34a" text-anchor="middle" dominant-baseline="central">82</text>
+    </g>
+    <!-- AI Assessment -->
+    <g transform="translate(16, 172)">
+      <text x="0" y="0" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">🧠 AI Summary</text>
+      <rect x="0" y="12" width="328" height="90" rx="8" fill="#1a2332" stroke="#334155" stroke-width="0.5"/>
+      <text x="16" y="34" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#cbd5e1">Rear-end collision at highway speed.</text>
+      <text x="16" y="52" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#cbd5e1">Liability clear — other driver cited.</text>
+      <text x="16" y="70" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#cbd5e1">Est. claim value: $25K–$80K</text>
+      <text x="16" y="88" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#cbd5e1">Priority: <tspan fill="#16a34a" font-weight="600">High</tspan></text>
+    </g>
+    <!-- Next Steps -->
+    <g transform="translate(16, 280)">
+      <text x="0" y="0" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">✅ Automated Actions</text>
+      <g transform="translate(0, 14)">
+        <rect x="0" y="0" width="328" height="28" rx="6" fill="#16a34a" opacity="0.08"/>
+        <text x="16" y="18" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#16a34a">✓ Lead synced to Clio Grow</text>
+        <rect x="0" y="34" width="328" height="28" rx="6" fill="#16a34a" opacity="0.08"/>
+        <text x="16" y="52" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#16a34a">✓ SMS sent to intake team</text>
+        <rect x="0" y="68" width="328" height="28" rx="6" fill="#2563eb" opacity="0.08"/>
+        <text x="16" y="86" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#60a5fa">📄 Intake form queued for client</text>
+      </g>
+    </g>
+  </g>
+</svg>
