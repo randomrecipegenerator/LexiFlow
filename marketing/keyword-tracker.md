@@ -2,7 +2,7 @@
 
 | Date | Post | Primary Keyword | Volume | SERP Position | Clicks | Impressions | Notes |
 |------|------|----------------|--------|---------------|--------|-------------|-------|
-| 2026-06-01 | (TBD) | AI medical merit review | 90 | — | — | — | Launch post — MeritScan cluster |
+| 2026-06-01 | How AI Medical Merit Review Cuts Case Screening | AI medical merit review | 90 | — | — | — | Launch post — MeritScan cluster |
 | 2026-06-08 | (TBD) | legal intake software | 320 | — | — | — | LexiFlow Intake cluster |
 | 2026-06-15 | (TBD) | AI deposition analysis | 140 | — | — | — | DepoLens cluster |
 | 2026-06-22 | (TBD) | medical chronology software | 260 | — | — | — | Medical Chronologies cluster |
@@ -27,7 +27,6 @@
 | AI legal intake | 140 | Low | ★★★★★ |
 | law firm lead qualification | 70 | Low | ★★★★ |
 | automated intake system | 90 | Low | ★★★★ |
-| lead response time law firm | 50 | Very Low | ★★★ |
 
 ### Deposition Analysis
 | Keyword | Volume | Difficulty | Priority |
@@ -37,7 +36,6 @@
 | deposition transcript analysis software | 90 | Low | ★★★★ |
 | deposition conflict detector | 30 | Very Low | ★★★★★ |
 | witness contradiction finder | 20 | Very Low | ★★★★ |
-| AI for deposition preparation | 80 | Low | ★★★★ |
 
 ### Medical Chronology
 | Keyword | Volume | Difficulty | Priority |

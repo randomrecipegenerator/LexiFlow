@@ -9,11 +9,9 @@
 
 ---
 
-## The Challenge Every {{TARGET_AUDIENCE}} Faces
+## The Challenge Every {{AUDIENCE}} Faces
 
-{{HOOK_PARAGRAPH_1}}
-
-{{HOOK_PARAGRAPH_2}}
+{{HOOK}}
 
 ## Why Traditional {{PROBLEM_AREA}} Falls Short
 
@@ -23,48 +21,40 @@
 
 {{SOLUTION_EXPLANATION}}
 
-> **LexiFlow's approach:** {{LEXIFLOW_ANGLE}} [Learn more about {{PRODUCT}} →]({{PRODUCT_URL}})
+> **LexiFlow's approach:** {{LEXIFLOW_ANGLE}} The full LexiFlow Suite — all six AI-powered modules — is available for just **$69/month**. [Learn more →]({{PRODUCT_URL}})
 
-## {{HOW_TO_HEADER}}
+## Step-by-Step Guide
 
-### Step 1: {{STEP_1_TITLE}}
+### Step 1: {{STEP_1}}
 {{STEP_1_DETAIL}}
 
-### Step 2: {{STEP_2_TITLE}}
+### Step 2: {{STEP_2}}
 {{STEP_2_DETAIL}}
 
-### Step 3: {{STEP_3_TITLE}}
+### Step 3: {{STEP_3}}
 {{STEP_3_DETAIL}}
 
-## Key Benefits of {{SOLUTION_AREA}}
+## Key Benefits
 
-1. **{{BENEFIT_1_TITLE}}** — {{BENEFIT_1_DETAIL}}
-2. **{{BENEFIT_2_TITLE}}** — {{BENEFIT_2_DETAIL}}
-3. **{{BENEFIT_3_TITLE}}** — {{BENEFIT_3_DETAIL}}
-4. **{{BENEFIT_4_TITLE}}** — {{BENEFIT_4_DETAIL}}
-5. **{{BENEFIT_5_TITLE}}** — {{BENEFIT_5_DETAIL}}
+1. **{{BENEFIT_1}}** — {{DETAIL}}
+2. **{{BENEFIT_2}}** — {{DETAIL}}
+3. **{{BENEFIT_3}}** — {{DETAIL}}
 
 ## Frequently Asked Questions
 
-### {{FAQ_1_QUESTION}}
-{{FAQ_1_ANSWER}}
+### {{FAQ_Q1}}
+{{FAQ_A1}}
 
-### {{FAQ_2_QUESTION}}
-{{FAQ_2_ANSWER}}
+### {{FAQ_Q2}}
+{{FAQ_A2}}
 
-### {{FAQ_3_QUESTION}}
-{{FAQ_3_ANSWER}}
-
-### {{FAQ_4_QUESTION}}
-{{FAQ_4_ANSWER}}
-
-### {{FAQ_5_QUESTION}}
-{{FAQ_5_ANSWER}}
+### {{FAQ_Q3}}
+{{FAQ_A3}}
 
 ## The Bottom Line
 
-{{CONCLUSION_SUMMARY}}
+{{CONCLUSION}}
 
 ---
 
-**Ready to transform your firm's {{INTAKE_AREA}}?** [Email our team →](mailto:leads@lexiflow.ai) for a free {{FREE_OFFER}}.
+**Ready to transform your firm's intake?** [Email our team →](mailto:leads@lexiflow.ai) for a free audit.

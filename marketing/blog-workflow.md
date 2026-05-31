@@ -29,7 +29,7 @@
 | Trend direction | 10% | |
 
 - Target **combined volume** ≥ 200 searches/month per post
-- Prioritise **commercial + informational** mix (e.g., "AI medical merit review" + "how to screen med mal cases")
+- Prioritise **commercial + informational** mix
 - Document in `marketing/keyword-tracker.md`
 
 ### Approved Keyword Clusters for 2026
@@ -37,7 +37,7 @@
 |---------|----------|----------------|
 | AI Medical Record Review | AI medical record review, medical merit review, medical chronology software, medical malpractice screening tool | MeritScan |
 | AI Deposition Analysis | AI deposition analysis, deposition conflict detector, witness contradiction finder, AI deposition summary | DepoLens |
-| Legal Intake Automation | legal intake software, AI legal intake, law firm lead qualification, automated intake system | LexiFlow Intake |
+| Legal Intake Automation | legal intake software, AI legal intake, law firm lead qualification | LexiFlow Intake |
 | Medical Chronology | medical chronology software, automated medical chronology, medical timeline software | Medical Chronologies |
 | AI Legal Writing | AI legal writing, demand letter AI, legal narrative generator | Narrative Synthesis |
 | CRM Legal Tech | Filevine integration, Clio integration, legal CRM automation | CRM Integrations |
@@ -51,6 +51,7 @@
 - **Empathy:** Acknowledge the pain points (overwhelmed paralegals, missed leads, slow intake).
 - **Clarity:** No legalese. No hype. Simple direct sentences.
 - **Structure:** Inverted pyramid — most important info first.
+- **Pricing Positioning:** Reference $69/mo for full LexiFlow Suite when mentioning affordability.
 
 ### Required Post Structure
 ```markdown
@@ -80,9 +81,8 @@
 
 ## [H2: Step-by-Step / How It Works]
 - Practical breakdown (3-5 steps)
-- Bullet points or numbered list
 
-## [H2: Key Benefits (if applicable)]
+## [H2: Key Benefits]
 - 3-5 benefits with data where possible
 
 ## [H2: FAQ / Common Questions]
@@ -91,7 +91,7 @@
 
 ## Conclusion
 - Recap the transformation
-- **CTA:** "Ready to transform your intake? Get a free audit → [mailto:leads@lexiflow.ai](mailto:leads@lexiflow.ai)"
+- **CTA:** "Ready to transform your intake? Get a free audit → [mailto:leads@lexiflow.ai]"
 ```
 
 ### No Forms Policy (CRITICAL)
@@ -100,116 +100,29 @@
 - This ensures zero friction — prospects email us directly
 - Rationale: Legal decision-makers prefer email outreach over form fills
 
-### CTA Placement Rules
-| Location | CTA Text | Style |
-|----------|----------|-------|
-| After H2 "Solution" section | "See how LexiFlow handles this →" | Text link to product page |
-| Mid-post (after FAQ) | "Want a free medical merit review of a real case? Email us." | mailto link |
-| **Conclusion (mandatory)** | "Ready to transform your firm's intake? [Email our team →](mailto:leads@lexiflow.ai)" | Bold button-style link |
-| Sidebar/bottom (skyscraper) | "Get a Free Intake Audit → leads@lexiflow.ai" | mailto link |
+### HIPAA Trust Signals
+- Mention HIPAA compliance prominently when discussing medical records
+- Reference end-to-end encryption, BAAs, and access controls
+- Include trust badges in layout
 
 ---
 
 ## 3. JSON-LD Schema Injection (Day 3 — Thursday)
 
-Every post MUST include structured data. Template:
+Every post MUST include structured data. See `blog/templates/post-template.html` for full schema.
 
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "[Full Post Title]",
-  "description": "[Meta Description]",
-  "author": {
-    "@type": "Organization",
-    "name": "LexiFlow Legal Suite",
-    "url": "https://lexiflow.com"
-  },
-  "datePublished": "YYYY-MM-DD",
-  "dateModified": "YYYY-MM-DD",
-  "publisher": {
-    "@type": "Organization",
-    "name": "LexiFlow",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://lexiflow.com/assets/logo.png"
-    }
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://lexiflow.com/blog/[slug]"
-  },
-  "image": {
-    "@type": "ImageObject",
-    "url": "https://lexiflow.com/blog/images/[slug]-hero.png"
-  },
-  "keywords": "[primary keyword], [secondary keywords comma separated]",
-  "articleSection": "[Content cluster category]",
-  "about": {
-    "@type": "Thing",
-    "name": "[Primary keyword topic]"
-  }
-}
-```
+### Required Schemas
+1. **BlogPosting** — General article schema with headline, description, author, datePublished, publisher
+2. **FAQPage** — If post includes FAQ section, append FAQ schema with mainEntity array
 
-Additionally, if the post has FAQ sections, append FAQ schema:
-
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Question 1?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Answer 1."
-      }
-    }
-  ]
-}
-```
-
-### Integration with backend-engineer
-- Coordinate with backend-engineer to automate schema injection via FastAPI middleware
-- Schema should be server-side rendered into `<script type="application/ld+json">` tags
-- Future state: auto-generate from markdown frontmatter
+Coordinate with backend-engineer to automate schema injection via FastAPI middleware.
 
 ---
 
 ## 4. Social Distribution Hooks (Day 4 — Friday)
 
 ### Per-Post Social Package
-Create in `blog/social/[slug]-social.md`:
-
-```markdown
-# Social Distribution: [Post Title]
-
-## LinkedIn (Attorney-Focused)
-**Headline (1 line):** [Compelling stat or question, 1 line]
-**Body (2-3 paragraphs):**
-[Problem → Solution → CTA]
-**Link:** https://lexiflow.com/blog/[slug]
-**Image:** /blog/images/[slug]-social.png
-**Best Time:** Tue-Thu 8-10am or 12-1pm
-
-## X/Twitter (Thread)
-1/ [Hook tweet with stat]
-2/ [Problem statement]
-3/ [Solution highlight]
-4/ [Bullet benefits]
-5/ CTA: "Read the full post → [link]"
-
-## Email Newsletter (To Firm List)
-**Subject Line:** [Intriguing, 40-50 chars]
-**Preview:** [Compelling snippet, 100 chars]
-**Body:** Brief intro + link to full post + CTA to reply for free audit
-
-## Reddit (r/LawFirm, r/Lawyers)
-**Post:** [Question or discussion starter based on post topic]
-**Comment:** [Link to blog post only if relevant, no overt selling]
-```
+See `blog/social/[slug]-social.md` template.
 
 ### Distribution Checklist
 | Channel | Action | Time |
@@ -218,35 +131,14 @@ Create in `blog/social/[slug]-social.md`:
 | X/Twitter | Tweet thread (5-7 tweets) | Monday 10am |
 | Email (firm list) | Newsletter blast | Tuesday 8am |
 | Reddit | Community engagement | Tuesday-Wednesday |
-| Facebook (Legal groups) | Share with discussion prompt | Wednesday |
-| Re-share (LinkedIn) | Different angle/quote card | Thursday |
 
 ---
 
 ## 5. mailto:leads@lexiflow.ai CTA Strategy
 
-### Why mailto: instead of forms
-| Factor | Form | mailto: |
-|--------|------|---------|
-| Friction | High — fields, captcha, submit | Low — one click opens email |
-| Trust | Medium — spam concerns | High — personal outreach |
-| Conversion rate | 2-5% typical | 8-15% tested |
-| Follow-up | Manual export needed | Direct to inbox |
-| Mobile UX | Variable | Native email client |
-
-### CTA Variations by Post Type
-| Post Type | CTA | Placement |
-|-----------|-----|-----------|
-| Educational / How-to | "Want a free AI analysis of one of your cases? Email us." | Mid-post + conclusion |
-| Product-focused | "See LexiFlow in action. Email our team for a demo." | After feature section |
-| Industry trend | "Ready to future-proof your intake? [leads@lexiflow.ai](mailto:leads@lexiflow.ai)" | Conclusion |
-| Case study | "Want results like this? Email us for a free audit." | After results section |
-
-### Email Auto-Response Setup
-When a prospect emails leads@lexiflow.ai:
-1. **Auto-reply (immediate):** "Thanks for reaching out — we'll review your intake process and get back to you within 2 hours."
-2. **Human follow-up (within 2 hrs):** Free audit offer with specific recommendations
-3. **CRM entry:** Prospect added to pipeline automatically
+- **No forms** — all CTAs use mailto: leads@lexiflow.ai
+- Tested 8-15% conversion vs 2-5% for forms
+- Auto-response within 2 hours with free audit offer
 
 ---
 
@@ -256,8 +148,7 @@ When a prospect emails leads@lexiflow.ai:
 - [ ] Primary keyword in H1, first 100 words, meta description, and URL slug
 - [ ] Secondary keywords distributed in H2s and body
 - [ ] Internal links to 2+ LexiFlow product pages
-- [ ] External links to 1+ authoritative source (.gov, .edu, known legal publications)
-- [ ] Image alt tags with keywords
+- [ ] External links to 1+ authoritative source
 - [ ] JSON-LD BlogPosting schema injected
 - [ ] FAQ schema (if applicable)
 - [ ] Open Graph tags (og:title, og:description, og:image)
@@ -265,29 +156,17 @@ When a prospect emails leads@lexiflow.ai:
 
 ### Content
 - [ ] No forms — all CTAs use mailto:leads@lexiflow.ai
+- [ ] HIPAA trust signals included (if medical content)
+- [ ] Pricing references $69/mo suite where appropriate
 - [ ] At least 1,200 words (target: 1,500-2,500)
 - [ ] Data-backed claims with citations
-- [ ] Reading level: Grade 8-10 (not too complex)
-- [ ] Scannable: short paragraphs, bullet points, headers
-- [ ] Legal accuracy reviewed (no incorrect case law or statutes)
 
 ### Technical
 - [ ] URL: /blog/kebab-case-slug
 - [ ] Canonical URL set
 - [ ] robots.txt allows indexing
-- [ ] Sitemap updated
-- [ ] Page speed checked (target: <2s load)
 - [ ] Mobile responsive
-- [ ] HTTPS enforced
-
----
-
-## 7. Blog Post Template Files
-
-See the following template files:
-- `blog/templates/post-template.md` — Markdown template for drafting
-- `blog/templates/post-template.html` — HTML template with injected schema
-- `scripts/generate-blog-post.sh` — Automation script to scaffold new posts
+- [ ] Page speed <2s load
 
 ---
 
@@ -298,7 +177,5 @@ See the following template files:
 | Google Search Console | Track keyword performance, identify gaps |
 | Google Trends | Validate rising topics |
 | AnswerThePublic | Generate People Also Ask questions |
-| Grammarly / Hemingway | Proofreading and readability |
 | LexiFlow AI Engine | Draft generation (via backend-engineer's API) |
 | GitHub | Version control for all blog content |
-| Vercel / Railway | Hosting and deployment |
