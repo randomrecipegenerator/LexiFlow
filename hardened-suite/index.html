@@ -10,6 +10,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/lexiflow-products/css/product-base.css" />
   <style>
+    .nav { position:fixed; top:0; width:100%; z-index:100; background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); }
+    .nav .container { max-width:var(--max-width); margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; height:68px; }
+    .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
+    .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; }
+    .nav-links { display:flex; gap:28px; list-style:none; }
+    .nav-links a { font-size:0.88rem; font-weight:500; color:var(--text-muted); text-decoration:none; }
+    .nav-links a:hover { color:var(--primary); }
     .splash {
       padding: 120px 0 60px;
       background: linear-gradient(135deg, var(--primary-dark), var(--primary));
@@ -58,6 +65,17 @@
   </style>
 </head>
 <body>
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo"><span class="nav-logo-icon">LF</span> LexiFlow</a>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="pricing.html" style="padding:8px 20px;background:var(--accent);color:var(--primary-dark)!important;font-weight:600;border-radius:8px;">Get Started →</a></li>
+    </ul>
+  </div>
+</nav>
 <section class="splash">
   <div class="container">
     <h1>LexiFlow <span>Product Suite</span></h1>
