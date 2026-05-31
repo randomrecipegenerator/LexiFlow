@@ -57,4 +57,4 @@
 
 ---
 
-**Ready to transform your firm's intake?** [Email our team →](mailto:leads@lexiflow.ai) for a free audit.
+**Ready to transform your firm's intake?** [Email our team →](mailto:leads@lexiflow.co) for a free audit.

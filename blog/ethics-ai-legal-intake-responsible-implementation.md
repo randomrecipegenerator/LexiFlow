@@ -19,7 +19,7 @@ The American Bar Association's Model Rules of Professional Conduct — particula
 
 This guide walks through the five critical ethical considerations every firm must address before deploying AI in legal intake — and how modern platforms like LexiFlow are designed to meet them.
 
-> **LexiFlow's approach:** Every module in the LexiFlow Suite was built with ethics and compliance as foundational requirements, not afterthoughts. From HIPAA-compliant data handling to transparent AI reasoning outputs, we designed for the rules that govern your practice. The full Suite is available for **$69/month**. [Learn more about LexiFlow →](https://lexiflow.com)
+> **LexiFlow's approach:** Every module in the LexiFlow Suite was built with ethics and compliance as foundational requirements, not afterthoughts. From HIPAA-compliant data handling to transparent AI reasoning outputs, we designed for the rules that govern your practice. The full Suite is available for **$69/month**. [Learn more about LexiFlow →](https://lexiflow.co)
 
 ## 1. Client Confidentiality and the Duty of Protection
 
@@ -199,4 +199,4 @@ The firms that will thrive in the AI era are not the ones that avoid the technol
 
 ---
 
-**Ready to implement AI responsibly in your firm?** [Email our team →](mailto:leads@lexiflow.ai) for a free ethics review and intake audit. The full LexiFlow Suite — HIPAA-compliant, transparent AI, and attorney-supervised by design — from just **$69/month**.
+**Ready to implement AI responsibly in your firm?** [Email our team →](mailto:leads@lexiflow.co) for a free ethics review and intake audit. The full LexiFlow Suite — HIPAA-compliant, transparent AI, and attorney-supervised by design — from just **$69/month**.

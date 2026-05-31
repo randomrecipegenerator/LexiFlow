@@ -2,7 +2,7 @@
 
 **Owner:** Content Specialist
 **Cadence:** 1 post per week (publish every Monday)
-**Primary Goal:** Dominate high-intent legal search terms to drive qualified lead traffic to lexiflow.com
+**Primary Goal:** Dominate high-intent legal search terms to drive qualified lead traffic to lexiflow.co
 
 ---
 
@@ -91,12 +91,12 @@
 
 ## Conclusion
 - Recap the transformation
-- **CTA:** "Ready to transform your intake? Get a free audit → [mailto:leads@lexiflow.ai]"
+- **CTA:** "Ready to transform your intake? Get a free audit → [mailto:leads@lexiflow.co]"
 ```
 
 ### No Forms Policy (CRITICAL)
 - **NEVER** include a contact form or web form in blog posts
-- **ALWAYS** use the CTA: `mailto:leads@lexiflow.ai`
+- **ALWAYS** use the CTA: `mailto:leads@lexiflow.co`
 - This ensures zero friction — prospects email us directly
 - Rationale: Legal decision-makers prefer email outreach over form fills
 
@@ -134,9 +134,9 @@ See `blog/social/[slug]-social.md` template.
 
 ---
 
-## 5. mailto:leads@lexiflow.ai CTA Strategy
+## 5. mailto:leads@lexiflow.co CTA Strategy
 
-- **No forms** — all CTAs use mailto: leads@lexiflow.ai
+- **No forms** — all CTAs use mailto: leads@lexiflow.co
 - Tested 8-15% conversion vs 2-5% for forms
 - Auto-response within 2 hours with free audit offer
 
@@ -155,7 +155,7 @@ See `blog/social/[slug]-social.md` template.
 - [ ] Twitter card tags
 
 ### Content
-- [ ] No forms — all CTAs use mailto:leads@lexiflow.ai
+- [ ] No forms — all CTAs use mailto:leads@lexiflow.co
 - [ ] HIPAA trust signals included (if medical content)
 - [ ] Pricing references $69/mo suite where appropriate
 - [ ] At least 1,200 words (target: 1,500-2,500)

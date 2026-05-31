@@ -6,11 +6,11 @@ Usage: python3 scripts/generate-blog-post.py
 """
 
 CLUSTERS = [
-    {"name": "Medical Merit Review", "primary_kw": "AI medical merit review", "secondary_kws": "medical malpractice screening tool, medical record review AI", "product": "MeritScan", "product_url": "https://lexiflow.com/meritscan", "audience": "Personal Injury Attorneys"},
-    {"name": "Legal Intake Automation", "primary_kw": "legal intake software", "secondary_kws": "AI legal intake, law firm lead qualification, automated intake system", "product": "LexiFlow Intake", "product_url": "https://lexiflow.com/lexiflow-intake", "audience": "Law Firm Partners"},
-    {"name": "Deposition Analysis", "primary_kw": "AI deposition analysis", "secondary_kws": "deposition conflict detector, witness contradiction finder, AI deposition summary", "product": "DepoLens", "product_url": "https://lexiflow.com/depolens", "audience": "Litigation Attorneys"},
-    {"name": "Medical Chronology", "primary_kw": "medical chronology software", "secondary_kws": "automated medical chronology, medical timeline software", "product": "Medical Chronologies", "product_url": "https://lexiflow.com/medical-chronologies", "audience": "Paralegals & Litigation Support"},
-    {"name": "CRM & Legal Tech Integration", "primary_kw": "legal CRM integration", "secondary_kws": "Filevine integration, Clio integration, law firm workflow automation", "product": "CRM Integrations", "product_url": "https://lexiflow.com/crm-integrations", "audience": "Law Firm Administrators"},
+    {"name": "Medical Merit Review", "primary_kw": "AI medical merit review", "secondary_kws": "medical malpractice screening tool, medical record review AI", "product": "MeritScan", "product_url": "https://lexiflow.co/meritscan", "audience": "Personal Injury Attorneys"},
+    {"name": "Legal Intake Automation", "primary_kw": "legal intake software", "secondary_kws": "AI legal intake, law firm lead qualification, automated intake system", "product": "LexiFlow Intake", "product_url": "https://lexiflow.co/lexiflow-intake", "audience": "Law Firm Partners"},
+    {"name": "Deposition Analysis", "primary_kw": "AI deposition analysis", "secondary_kws": "deposition conflict detector, witness contradiction finder, AI deposition summary", "product": "DepoLens", "product_url": "https://lexiflow.co/depolens", "audience": "Litigation Attorneys"},
+    {"name": "Medical Chronology", "primary_kw": "medical chronology software", "secondary_kws": "automated medical chronology, medical timeline software", "product": "Medical Chronologies", "product_url": "https://lexiflow.co/medical-chronologies", "audience": "Paralegals & Litigation Support"},
+    {"name": "CRM & Legal Tech Integration", "primary_kw": "legal CRM integration", "secondary_kws": "Filevine integration, Clio integration, law firm workflow automation", "product": "CRM Integrations", "product_url": "https://lexiflow.co/crm-integrations", "audience": "Law Firm Administrators"},
 ]
 
 POST_IDEAS = {
@@ -106,7 +106,7 @@ A1.
 
 ---
 
-**Ready to transform your firm?** [Email our team →](mailto:leads@lexiflow.ai) for a free audit.
+**Ready to transform your firm?** [Email our team →](mailto:leads@lexiflow.co) for a free audit.
 """
     path = os.path.join(BLOG_DIR, f"{slug}.md")
     with open(path, "w") as f:
