@@ -29,6 +29,11 @@
     .nav .container { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; height:68px; }
     .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
     .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; }
+    .nav-links { display:flex; gap:22px; list-style:none; align-items:center; }
+    .nav-links a { font-size:0.88rem; font-weight:500; color:var(--text-muted); text-decoration:none; }
+    .nav-links a:hover { color:var(--primary); }
+    .nav-cta { padding:8px 20px!important; background:var(--accent)!important; color:var(--primary-dark)!important; font-weight:600!important; border-radius:8px!important; text-decoration:none!important; }
+    .nav-cta:hover { background:var(--accent-light)!important; }
 
     /* Dashboard Header */
     .dash-header {
@@ -225,11 +230,13 @@
 <nav class="nav">
   <div class="container">
     <a href="index.html" class="nav-logo"><span class="nav-logo-icon">LF</span> LexiFlow</a>
-    <div style="display:flex;gap:24px;align-items:center;">
-      <span style="font-size:0.82rem;color:var(--text-muted);">Dashboard</span>
-      <a href="pricing.html" style="font-size:0.85rem;font-weight:600;color:var(--primary);text-decoration:none;">Pricing</a>
-      <a href="blog.html" style="font-size:0.85rem;font-weight:600;color:var(--primary);text-decoration:none;">Blog</a>
-    </div>
+    <ul class="nav-links">
+      <li><a href="dashboard.html" style="font-weight:600;color:var(--primary);">Dashboard</a></li>
+      <li><a href="index.html">Products</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="pricing.html" class="nav-cta">Get Started →</a></li>
+    </ul>
   </div>
 </nav>
 
