@@ -13,19 +13,22 @@
     <link rel="icon" type="image/svg+xml" href="/branding/logo-icon.svg">
 
     <!-- PSI OPTIMIZATION: Critical Inline CSS -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --blue: #2563eb; --navy: #0f172a; --slate-600: #475569; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; color: var(--navy); line-height: 1.5; }
+        :root { --primary: #1a3a5c; --primary-light: #2a5a8c --accent: #c9a84c; --primary-dark: #0d1f33; --text-muted: #475569; }
+        body { padding-top: 68px; font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; color: #1a3a5c; line-height: 1.5; }
         .max-w { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        nav { height: 64px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between; }
-        .hero { padding: 80px 0; background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.05), transparent); text-align: center; }
-        h1 { font-size: 48px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
-        .sub { font-size: 18px; color: var(--slate-600); max-width: 700px; margin: 0 auto 32px; }
-        .btn { display: inline-block; background: var(--blue); color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600; text-decoration: none; }
+        nav { height: 68px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); position: fixed; top: 0; width: 100%; z-index: 100; }
+        .hero { padding: 80px 0; background: radial-gradient(circle at 50% 0%, rgba(26, 58, 92, 0.05), transparent); text-align: center; }
+        h1 { font-family: "Playfair Display", Georgia, serif; font-size: 2.75rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 16px; }
+        .sub { font-size: 18px; color: var(--text-muted); max-width: 700px; margin: 0 auto 32px; }
+        .btn { display: inline-block; background: var(--primary); color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600; text-decoration: none; }
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; padding: 60px 0; }
         .card { padding: 32px; border: 1px solid #f1f5f9; border-radius: 12px; }
-        .magnet { background: var(--navy); color: white; padding: 60px; border-radius: 24px; text-align: center; margin-top: 40px; }
-        footer { padding: 40px 0; border-top: 1px solid #f1f5f9; font-size: 12px; color: var(--slate-400); }
+        .magnet { background: #0d1f33; color: white; padding: 60px; border-radius: 24px; text-align: center; margin-top: 40px; }
+        footer { padding: 40px 0; border-top: 1px solid #f1f5f9; font-size: 12px; color: var(--text-muted); }
         a { color: inherit; text-decoration: none; }
     </style>
 
@@ -57,7 +60,7 @@
 
 <section class="hero">
     <div class="max-w">
-        <div style="font-size: 12px; font-weight: 700; color: var(--blue); text-transform: uppercase; margin-bottom: 16px;">Now Serving Mesa Attorneys</div>
+        <div style="font-size: 12px; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 16px;">Now Serving Mesa Attorneys</div>
         <h1>The New Standard for Intake <br>in Mesa, USA</h1>
         <p class="sub">LexiFlow helps Mesa firms capture more high-value cases with 24/7 Reasoning AI. Qualify leads while you sleep.</p>
         <a href="/roi-calculator.html" class="btn">Calculate Mesa Market Lift</a>
@@ -68,22 +71,22 @@
     <div class="feature-grid">
         <div class="card">
             <h3 style="margin-top:0">Local Precision</h3>
-            <p style="font-size: 14px; color: var(--slate-600)">Our AI is tuned for Mesa legal standards, ensuring every lead is qualified with the right local context.</p>
+            <p style="font-size: 14px; color: var(--text-muted)">Our AI is tuned for Mesa legal standards, ensuring every lead is qualified with the right local context.</p>
         </div>
         <div class="card">
             <h3 style="margin-top:0">24/7 Engagement</h3>
-            <p style="font-size: 14px; color: var(--slate-600)">Don't let Mesa competitors take your leads. LexiFlow responds in seconds, even at 3 AM.</p>
+            <p style="font-size: 14px; color: var(--text-muted)">Don't let Mesa competitors take your leads. LexiFlow responds in seconds, even at 3 AM.</p>
         </div>
         <div class="card">
             <h3 style="margin-top:0">Seamless CRM Sync</h3>
-            <p style="font-size: 14px; color: var(--slate-600)">Direct integration with Clio and Filevine for all Mesa-based firms.</p>
+            <p style="font-size: 14px; color: var(--text-muted)">Direct integration with Clio and Filevine for all Mesa-based firms.</p>
         </div>
     </div>
 
     <div class="magnet">
         <h2 style="margin-top:0">Is your Mesa firm losing leads?</h2>
         <p style="color: #94a3b8; margin-bottom: 32px;">Download our specialized report for Mesa Law Firms.</p>
-        <a href="/roi-calculator.html" class="btn" style="background: white; color: var(--navy)">Run Free ROI Analysis</a>
+        <a href="/roi-calculator.html" class="btn" style="background: white; color: #1a3a5c">Run Free ROI Analysis</a>
     </div>
 </div>
 
@@ -92,7 +95,7 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px;">
             <div>
                 <div style="font-weight: 800; font-size: 20px; margin-bottom: 16px;">LexiFlow</div>
-                <p style="font-size: 12px; color: var(--slate-600); line-height: 1.6;">Enterprise-grade AI for legal intake and lead qualification. Built for the modern Mesa attorney.</p>
+                <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6;">Enterprise-grade AI for legal intake and lead qualification. Built for the modern Mesa attorney.</p>
             </div>
             <div>
                 <h5 style="font-size: 10px; font-bold: 800; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px;">Platform</h5>
@@ -111,7 +114,7 @@
                 </ul>
             </div>
         </div>
-        <div style="padding-top: 24px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--slate-400);">
+        <div style="padding-top: 24px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-muted);">
             <div>&copy; 2026 LexiFlow AI. All rights reserved.</div>
             <div style="display: flex; gap: 20px;">
                 <a href="#">LinkedIn</a>
