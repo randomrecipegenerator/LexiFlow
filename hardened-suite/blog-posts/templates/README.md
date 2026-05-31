@@ -14,7 +14,7 @@ Copy `post-template.html` to create new blog posts. Replace the following placeh
 | `{cta_subject}` | URL-encoded CTA subject line |
 
 ## Rules
-- All CTAs must use `mailto:leads@lexiflow.ai` — no forms
+- All CTAs must use `mailto:leads@lexiflow.co` — no forms
 - Include JSON-LD schema in every post
 - Author is James Delaney, Esq. (for EEAT trust signals)
 - Maintain consistent LexiFlow branding

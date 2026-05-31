@@ -32,7 +32,7 @@ TEMPLATE = """<!DOCTYPE html>
     <meta name="description" content="LexiFlow transforms law firm intake in {city} with Reasoning AI. Qualify cases 24/7 with attorney-level nuance. Built for top {city} firms.">
     
     <!-- SEO HARDENING -->
-    <link rel="canonical" href="https://lexiflow.ai/usa-cities/{slug}.html">
+    <link rel="canonical" href="https://lexiflow.co/usa-cities/{slug}.html">
     <link rel="icon" type="image/svg+xml" href="/branding/logo-icon.svg">
 
     <!-- PSI OPTIMIZATION: Critical Inline CSS -->
@@ -164,7 +164,7 @@ def generate():
         with open(f'usa-cities/{slug}.html', 'w') as f:
             f.write(content)
         
-        sitemap_entries.append(f"https://lexiflow.ai/usa-cities/{slug}.html")
+        sitemap_entries.append(f"https://lexiflow.co/usa-cities/{slug}.html")
     
     print(f"Generated {len(CITIES)} pages in usa-cities/")
     return sitemap_entries

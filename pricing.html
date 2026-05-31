@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LexiFlow Pricing — Transparent Plans for Every Firm</title>
-  <meta name="description" content="Affordable AI-powered legal intake and document automation from $69/mo. Replace expensive $1,000/mo tools with all-in-one pricing." />
+  <title>LexiFlow Pricing — Flat $69/mo for All 6 Modules</title>
+  <meta name="description" content="All 6 LexiFlow AI modules for a flat $69/mo. Replace expensive $1,000/mo legal tech stacks with one integrated platform." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -28,107 +28,123 @@
     body { font-family: var(--font-sans); color: var(--text-dark); line-height: 1.6; background: var(--bg-light); }
     .container { max-width: var(--max-width); margin:0 auto; padding:0 24px; }
 
-    /* Nav */
     .nav { position:fixed; top:0; width:100%; z-index:100; background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); }
     .nav .container { display:flex; align-items:center; justify-content:space-between; height:68px; }
-    .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); }
+    .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
     .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:800; }
     .nav-links { display:flex; gap:28px; list-style:none; }
-    .nav-links a { font-size:0.88rem; font-weight:500; color:var(--text-muted); }
+    .nav-links a { font-size:0.88rem; font-weight:500; color:var(--text-muted); text-decoration:none; }
     .nav-links a:hover { color:var(--primary); }
 
-    /* Hero */
-    .hero { padding:120px 0 60px; background:linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%); color:var(--text-light); text-align:center; position:relative; overflow:hidden; }
+    .hero { padding:120px 0 50px; background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 50%,var(--primary-light) 100%); color:var(--text-light); text-align:center; position:relative; overflow:hidden; }
     .hero::before { content:''; position:absolute; top:-30%; right:-10%; width:60%; height:160%; background:radial-gradient(ellipse,rgba(201,168,76,0.07) 0%,transparent 70%); pointer-events:none; }
-    .hero h1 { font-family:var(--font-serif); font-size:2.8rem; margin-bottom:12px; position:relative; z-index:1; }
+    .hero h1 { font-family:var(--font-serif); font-size:2.5rem; margin-bottom:12px; position:relative; z-index:1; }
     .hero h1 span { color:var(--accent); }
-    .hero p { font-size:1.15rem; color:rgba(255,255,255,0.8); max-width:600px; margin:0 auto 20px; position:relative; z-index:1; }
+    .hero p { font-size:1.1rem; color:rgba(255,255,255,0.8); max-width:600px; margin:0 auto; position:relative; z-index:1; }
     .hero .badge { display:inline-block; padding:5px 14px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.18); border-radius:100px; font-size:0.8rem; margin-bottom:20px; position:relative; z-index:1; }
 
-    /* Comparison Banner */
-    .comparison { background:var(--bg-white); border-bottom:1px solid var(--border); padding:24px 0; }
-    .comparison .container { display:flex; align-items:center; justify-content:center; gap:32px; flex-wrap:wrap; }
-    .comparison-item { display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text-muted); }
-    .comparison-item strike { color:#ef4444; }
-    .comparison-item strong { color:var(--green); }
+    .comparison { background:var(--bg-white); border-bottom:1px solid var(--border); padding:24px 0; text-align:center; }
+    .comparison .container { display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap; font-size:1rem; }
+    .comparison strike { color:#ef4444; font-size:1.1rem; }
+    .comparison strong { color:var(--green); font-size:1.3rem; }
 
-    /* Pricing Grid */
-    .pricing { padding:80px 0; }
-    .section-header { text-align:center; max-width:650px; margin:0 auto 48px; }
-    .section-label { display:inline-block; padding:4px 14px; background:rgba(201,168,76,0.12); color:var(--accent-dark); font-size:0.78rem; font-weight:600; border-radius:100px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:14px; }
-    .section-header h2 { font-family:var(--font-serif); font-size:2.2rem; color:var(--primary); margin-bottom:12px; }
-    .section-header p { font-size:1.05rem; color:var(--text-muted); }
+    .highlight-section { padding:60px 0; background:var(--bg-white); }
+    .highlight-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:32px; }
+    .highlight-item { text-align:center; padding:20px; border:1px solid var(--border); border-radius:var(--radius-lg); }
+    .highlight-item .icon { font-size:2.2rem; margin-bottom:10px; }
+    .highlight-item h4 { font-size:1rem; color:var(--primary); margin-bottom:6px; }
+    .highlight-item p { font-size:0.82rem; color:var(--text-muted); }
 
-    .pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; align-items:stretch; }
-    .pricing-card { background:var(--bg-white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:36px 28px; display:flex; flex-direction:column; position:relative; transition:all 0.3s; }
-    .pricing-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-xl); }
-    .pricing-card.featured { border:2px solid var(--accent); box-shadow:0 0 0 1px var(--accent), var(--shadow-lg); }
-    .pricing-card.featured:hover { box-shadow:0 0 0 1px var(--accent), var(--shadow-xl); }
-    .pricing-card .badge { position:absolute; top:-14px; left:50%; transform:translateX(-50%); padding:4px 20px; background:var(--accent); color:var(--primary-dark); border-radius:100px; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; }
-    .pricing-card .plan-name { font-size:1.1rem; font-weight:700; color:var(--primary); margin-bottom:4px; }
-    .pricing-card .plan-desc { font-size:0.85rem; color:var(--text-muted); margin-bottom:20px; }
-    .pricing-card .price { margin-bottom:24px; }
-    .pricing-card .price .amount { font-family:var(--font-serif); font-size:3rem; font-weight:700; color:var(--primary); line-height:1; }
-    .pricing-card .price .period { font-size:0.92rem; color:var(--text-muted); }
-    .pricing-card .price .savings { display:inline-block; padding:2px 8px; background:rgba(22,163,74,0.1); color:var(--green); border-radius:100px; font-size:0.72rem; font-weight:600; margin-top:4px; }
-    .pricing-card ul { list-style:none; flex:1; margin-bottom:24px; }
-    .pricing-card ul li { padding:8px 0; font-size:0.88rem; color:var(--text-dark); display:flex; align-items:flex-start; gap:8px; border-bottom:1px solid #f3f4f6; }
-    .pricing-card ul li:last-child { border-bottom:none; }
-    .pricing-card ul li::before { content:'✓'; color:var(--accent-dark); font-weight:700; flex-shrink:0; }
-    .pricing-card ul li.limited { color:var(--text-muted); }
-    .pricing-card ul li.limited::before { content:'○'; color:var(--text-muted); }
-    .pricing-card .btn {
-      display:block; text-align:center; padding:14px; border-radius:var(--radius);
-      font-weight:600; font-size:0.95rem; text-decoration:none; transition:all 0.2s;
+    .pricing-card-single {
+      max-width: 520px; margin: 0 auto;
+      background: var(--bg-white);
+      border: 3px solid var(--accent);
+      border-radius: var(--radius-lg);
+      padding: 48px 40px;
+      text-align: center;
+      position: relative;
+      box-shadow: var(--shadow-xl);
     }
-    .btn-primary { background:var(--accent); color:var(--primary-dark); }
-    .btn-primary:hover { background:var(--accent-light); transform:translateY(-1px); }
-    .btn-outline { background:transparent; color:var(--primary); border:2px solid var(--primary); }
-    .btn-outline:hover { background:var(--primary); color:white; }
+    .pricing-card-single .save-badge {
+      display: inline-block;
+      padding: 6px 20px;
+      background: var(--accent);
+      color: var(--primary-dark);
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .pricing-card-single .price-big {
+      font-family: var(--font-serif);
+      font-size: 4rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .pricing-card-single .price-period {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .pricing-card-single .modules-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 24px;
+      text-align: left;
+      margin: 24px 0 28px;
+      list-style: none;
+    }
+    .pricing-card-single .modules-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      padding: 4px 0;
+    }
+    .pricing-card-single .modules-list li::before { content:'✓'; color:var(--accent-dark); font-weight:700; }
+    .pricing-card-single .btn-cta {
+      display: block;
+      padding: 16px 32px;
+      background: var(--accent);
+      color: var(--primary-dark);
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-bottom: 12px;
+    }
+    .pricing-card-single .btn-cta:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .pricing-card-single .money-back { font-size:0.8rem; color:var(--text-muted); }
 
-    /* Enterprise */
-    .enterprise { background:var(--primary); color:var(--text-light); padding:60px 0; text-align:center; }
-    .enterprise h2 { font-family:var(--font-serif); font-size:2rem; margin-bottom:12px; }
-    .enterprise p { font-size:1.05rem; color:rgba(255,255,255,0.8); max-width:600px; margin:0 auto 28px; }
-    .enterprise .btn { display:inline-flex; align-items:center; gap:8px; padding:14px 32px; border-radius:var(--radius); font-weight:600; text-decoration:none; background:var(--accent); color:var(--primary-dark); transition:all 0.2s; }
-    .enterprise .btn:hover { background:var(--accent-light); transform:translateY(-2px); }
+    .enterprise { background:var(--primary); color:var(--text-light); padding:50px 0; text-align:center; }
+    .enterprise h2 { font-family:var(--font-serif); font-size:1.8rem; margin-bottom:10px; }
+    .enterprise p { font-size:0.95rem; color:rgba(255,255,255,0.8); max-width:500px; margin:0 auto 24px; }
+    .enterprise a { display:inline-flex; align-items:center; gap:6px; padding:12px 28px; background:var(--accent); color:var(--primary-dark); font-weight:600; border-radius:var(--radius); text-decoration:none; }
+    .enterprise a:hover { background:var(--accent-light); }
 
-    /* Compare Table */
-    .compare { padding:80px 0; }
-    .compare table { width:100%; border-collapse:collapse; font-size:0.88rem; }
-    .compare th { text-align:left; padding:14px 16px; background:var(--primary); color:white; font-weight:600; }
-    .compare th:first-child { border-radius:8px 0 0 0; }
-    .compare th:last-child { border-radius:0 8px 0 0; }
-    .compare td { padding:12px 16px; border-bottom:1px solid var(--border); }
-    .compare tr:hover td { background:#f1f5f9; }
-    .compare td:first-child { font-weight:600; color:var(--primary); }
-    .compare .check { color:var(--green); font-weight:700; }
-    .compare .dash { color:var(--text-muted); }
-
-    /* FAQ */
-    .faq { padding:60px 0; background:var(--bg-white); }
-    .faq h2 { text-align:center; font-family:var(--font-serif); font-size:2rem; color:var(--primary); margin-bottom:36px; }
-    .faq-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+    .faq-section { padding:60px 0; background:var(--bg-white); }
+    .faq-section h2 { text-align:center; font-family:var(--font-serif); font-size:2rem; color:var(--primary); margin-bottom:36px; }
+    .faq-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:800px; margin:0 auto; }
     .faq-item { padding:16px; border:1px solid var(--border); border-radius:var(--radius); }
     .faq-item h4 { font-size:0.95rem; color:var(--primary); margin-bottom:6px; }
     .faq-item p { font-size:0.85rem; color:var(--text-muted); line-height:1.6; }
 
-    /* CTA */
-    .cta { padding:80px 0; background:linear-gradient(135deg,var(--primary-dark),var(--primary)); color:var(--text-light); text-align:center; }
-    .cta h2 { font-family:var(--font-serif); font-size:2.2rem; margin-bottom:12px; }
-    .cta p { font-size:1.05rem; color:rgba(255,255,255,0.8); max-width:500px; margin:0 auto 28px; }
-    .cta .btn { display:inline-flex; align-items:center; gap:8px; padding:14px 32px; border-radius:var(--radius); font-weight:600; text-decoration:none; background:var(--accent); color:var(--primary-dark); transition:all 0.2s; }
-    .cta .btn:hover { background:var(--accent-light); transform:translateY(-2px); }
+    .cta-final { padding:60px 0; background:linear-gradient(135deg,var(--primary-dark),var(--primary)); color:var(--text-light); text-align:center; }
+    .cta-final h2 { font-family:var(--font-serif); font-size:2.2rem; margin-bottom:10px; }
+    .cta-final p { font-size:1rem; color:rgba(255,255,255,0.8); max-width:500px; margin:0 auto 24px; }
+    .cta-final a { display:inline-flex; align-items:center; gap:8px; padding:14px 32px; background:var(--accent); color:var(--primary-dark); font-weight:700; font-size:1.05rem; border-radius:var(--radius); text-decoration:none; }
+    .cta-final a:hover { background:var(--accent-light); transform:translateY(-2px); }
 
-    /* Footer */
     .footer { background:var(--bg-dark); color:rgba(255,255,255,0.6); padding:36px 0; text-align:center; font-size:0.82rem; }
 
-    @media (max-width:1024px) {
-      .pricing-grid { grid-template-columns:1fr; max-width:450px; margin:0 auto; }
-    }
     @media (max-width:768px) {
-      .hero h1 { font-size:2rem; }
-      .section-header h2 { font-size:1.8rem; }
+      .hero h1 { font-size:1.9rem; }
+      .pricing-card-single .modules-list { grid-template-columns:1fr; }
+      .highlight-grid { grid-template-columns:1fr; }
       .faq-grid { grid-template-columns:1fr; }
     }
   </style>
@@ -137,177 +153,128 @@
 
 <nav class="nav">
   <div class="container">
-    <a href="#" class="nav-logo"><span class="nav-logo-icon">LF</span> LexiFlow</a>
+    <a href="../index.html" class="nav-logo"><span class="nav-logo-icon">LF</span> LexiFlow</a>
     <ul class="nav-links">
-      <li><a href="#pricing">Pricing</a></li>
-      <li><a href="products/index.html">Products</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="../index.html">Products</a></li>
+                <li><a href="#pricing" style="font-weight:600;color:var(--primary);">Pricing</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="mailto:leads@lexiflow.co" class="nav-cta">Get Started →</a></li>
     </ul>
   </div>
 </nav>
 
+<!-- Hero -->
 <section class="hero">
   <div class="container">
-    <span class="badge">⚡ Launch Pricing — Lock in $69/mo</span>
-    <h1>Enterprise-Grade AI Tools.<br /><span>Starting at $69/month.</span></h1>
-    <p>Replace $1,000+/mo standalone tools with one integrated AI platform. Everything your firm needs to automate intake, analyze cases, and close more.</p>
+    <span class="badge">⚡ Launch Offer — Lock In $69/mo</span>
+    <h1>All 6 AI Modules.<br /><span>One Flat Price. $69/mo.</span></h1>
+    <p>Replace $1,000+/mo in fragmented legal tech tools with one integrated AI platform for your entire firm.</p>
   </div>
 </section>
 
+<!-- Comparison -->
 <section class="comparison">
   <div class="container">
-    <div class="comparison-item">Competitors: <strike>$1,000+/mo</strike></div>
-    <div class="comparison-item">→</div>
-    <div class="comparison-item">LexiFlow: <strong>$69/mo — All 6 Modules Included</strong></div>
+    <span>Competitors charge <strike>$1,000+/mo</strike> for the same capabilities</span>
+    <span>→</span>
+    <span>LexiFlow: <strong>$69/mo — Everything Included</strong></span>
   </div>
 </section>
 
-<!-- Pricing Cards -->
-<section class="pricing" id="pricing">
+<!-- Single Pricing Card -->
+<section class="highlight-section" id="pricing">
   <div class="container">
-    <div class="section-header">
-      <span class="section-label">Plans &amp; Pricing</span>
-      <h2>Choose the Right Plan for Your Firm</h2>
-      <p>No hidden fees. No per-seat charges. Cancel anytime.</p>
-    </div>
-    <div class="pricing-grid">
-      <!-- Basic -->
-      <div class="pricing-card">
-        <div class="plan-name">Basic</div>
-        <div class="plan-desc">For solo practitioners and small firms getting started with AI.</div>
-        <div class="price"><span class="amount">$69</span> <span class="period">/mo</span></div>
-        <ul>
-          <li><strong>AI Intake Agent</strong> — Up to 100 leads/mo</li>
-          <li>AI Lead Scoring &amp; Qualification</li>
-          <li>Embeddable Intake Widget</li>
-          <li>Email Alerts &amp; Dashboard</li>
-          <li>Basic CRM Sync (Clio/Filevine)</li>
-          <li>Standard Support (Email)</li>
-        </ul>
-        <a href="#" class="btn btn-primary">Start Free Trial →</a>
-      </div>
-
-      <!-- Advanced (Featured) -->
-      <div class="pricing-card featured">
-        <span class="badge">MOST POPULAR</span>
-        <div class="plan-name">Advanced</div>
-        <div class="plan-desc">For growing firms with multiple practice areas and higher volume.</div>
-        <div class="price"><span class="amount">$149</span> <span class="period">/mo</span><br/><span class="savings">Save 46% vs Basic + add-ons</span></div>
-        <ul>
-          <li><strong>All Basic features</strong>, plus:</li>
-          <li>Unlimited Leads</li>
-          <li><strong>AI Medical Chronologies</strong> — 100 docs/mo</li>
-          <li><strong>MeritScan</strong> — Medical Merit Review</li>
-          <li><strong>Auto-Document Drafter</strong> — Demand letters &amp; summaries</li>
-          <li><strong>DepoLens AI</strong> — 10 depositions/mo</li>
-          <li><strong>Settlement Estimator</strong> — AI case valuation</li>
-          <li>Full CRM Sync (Filevine, Clio, LeadDock)</li>
-          <li>Priority Support (Chat + Email)</li>
-        </ul>
-        <a href="#" class="btn btn-primary">Start Free Trial →</a>
-      </div>
-
-      <!-- Enterprise -->
-      <div class="pricing-card">
-        <div class="plan-name">Enterprise</div>
-        <div class="plan-desc">For large firms with custom requirements and dedicated support.</div>
-        <div class="price"><span class="amount">Custom</span></div>
-        <ul>
-          <li><strong>All Advanced features</strong>, plus:</li>
-          <li>Unlimited Documents &amp; Depo Analyses</li>
-          <li>Custom AI Model Training</li>
-          <li>White-Label Widget (your brand)</li>
-          <li>API Access &amp; Custom Integrations</li>
-          <li>HIPAA BAA Agreement</li>
-          <li>SSO / SAML Authentication</li>
-          <li>Dedicated Account Manager</li>
-          <li>99.99% Uptime SLA</li>
-        </ul>
-        <a href="#" class="btn btn-outline">Contact Sales →</a>
-      </div>
-    </div>
-
-    <!-- Per-module add-on pricing -->
-    <div style="margin-top:48px;padding:24px;background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius-lg);">
-      <h3 style="font-family:var(--font-serif);color:var(--primary);text-align:center;margin-bottom:20px;">📦 Add-On Per-Module Pricing</h3>
-      <p style="text-align:center;color:var(--text-muted);font-size:0.9rem;margin-bottom:28px;">Already on Basic? Add individual modules as your firm grows.</p>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
-        <div style="padding:16px;border:1px solid var(--border);border-radius:var(--radius);text-align:center;">
-          <strong style="color:var(--primary);display:block;margin-bottom:4px;">AI Medical Chronologies</strong>
-          <span style="font-size:1.3rem;font-weight:700;color:var(--primary);">$39</span><span style="color:var(--text-muted);font-size:0.8rem;">/mo</span>
-        </div>
-        <div style="padding:16px;border:1px solid var(--border);border-radius:var(--radius);text-align:center;">
-          <strong style="color:var(--primary);display:block;margin-bottom:4px;">MeritScan + DepoLens</strong>
-          <span style="font-size:1.3rem;font-weight:700;color:var(--primary);">$49</span><span style="color:var(--text-muted);font-size:0.8rem;">/mo</span>
-        </div>
-        <div style="padding:16px;border:1px solid var(--border);border-radius:var(--radius);text-align:center;">
-          <strong style="color:var(--primary);display:block;margin-bottom:4px;">Auto-Document Drafter</strong>
-          <span style="font-size:1.3rem;font-weight:700;color:var(--primary);">$29</span><span style="color:var(--text-muted);font-size:0.8rem;">/mo</span>
-        </div>
-      </div>
+    <div class="pricing-card-single">
+      <span class="save-badge">🔥 Save 93% vs. Traditional Stack</span>
+      <div class="price-big">$69</div>
+      <div class="price-period">per month — flat, no tiers, no per-seat fees</div>
+      <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:16px;"><strong style="color:var(--green);">All 6 modules. Unlimited usage.</strong> What others charge $1,000+ for.</p>
+      <ul class="modules-list">
+        <li>AI Intake Agent</li>
+        <li>Voice AI Receptionist</li>
+        <li>AI Medical Chronologies</li>
+        <li>Auto-Document Drafter</li>
+        <li>DepoLens AI</li>
+        <li>Settlement Estimator</li>
+      </ul>
+      <a href="mailto:leads@lexiflow.co?subject=Start%20Free%20Trial" class="btn-cta">Start Your 14-Day Free Trial →</a>
+      <div class="money-back">No credit card required. Cancel anytime.</div>
     </div>
   </div>
 </section>
 
-<!-- Comparison Table -->
-<section class="compare">
+<!-- Highlights -->
+<section style="padding:40px 0;background:var(--bg-light);">
   <div class="container">
-    <div class="section-header">
-      <span class="section-label">Feature Comparison</span>
-      <h2>See What You Get at Each Tier</h2>
+    <div style="text-align:center;margin-bottom:8px;">
+      <span class="section-label" style="display:inline-block;padding:4px 14px;background:rgba(201,168,76,0.12);color:var(--accent-dark);font-size:0.78rem;font-weight:600;border-radius:100px;text-transform:uppercase;letter-spacing:0.05em;">What $69/mo Gets You</span>
     </div>
-    <table>
-      <thead><tr><th>Feature</th><th>Basic</th><th>Advanced</th><th>Enterprise</th></tr></thead>
-      <tbody>
-        <tr><td>AI Intake Agent</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
-        <tr><td>Lead Scoring &amp; Qualification</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
-        <tr><td>Monthly Lead Limit</td><td>100</td><td>Unlimited</td><td>Unlimited</td></tr>
-        <tr><td>CRM Sync (Filevine, Clio, LeadDock)</td><td>Basic</td><td>Full</td><td>Full + Custom</td></tr>
-        <tr><td>AI Medical Chronologies</td><td class="dash">—</td><td>100 docs/mo</td><td>Unlimited</td></tr>
-        <tr><td>MeritScan Medical Review</td><td class="dash">—</td><td class="check">✓</td><td class="check">✓</td></tr>
-        <tr><td>DepoLens AI Deposition Analysis</td><td class="dash">—</td><td>10 depo/mo</td><td>Unlimited</td></tr>
-        <tr><td>Auto-Document Drafter</td><td class="dash">—</td><td class="check">✓</td><td class="check">✓</td></tr>
-        <tr><td>Settlement Estimator</td><td class="dash">—</td><td class="check">✓</td><td class="check">✓</td></tr>
-        <tr><td>Voice AI Receptionist</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td></tr>
-        <tr><td>HIPAA Compliance</td><td>Standard</td><td>Standard</td><td>BAA + Audit</td></tr>
-        <tr><td>Support</td><td>Email</td><td>Chat + Email</td><td>Dedicated Mgr</td></tr>
-        <tr><td>API Access</td><td class="dash">—</td><td>Read</td><td>Full + Webhooks</td></tr>
-        <tr><td>SSO / SAML</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td></tr>
-        <tr><td>Custom Model Training</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td></tr>
-      </tbody>
-    </table>
+    <div class="highlight-grid">
+      <div class="highlight-item">
+        <div class="icon">🤖</div>
+        <h4>AI Intake Agent</h4>
+        <p>24/7 lead capture, qualification, and routing. Converts 3.2× more leads.</p>
+      </div>
+      <div class="highlight-item">
+        <div class="icon">🎙️</div>
+        <h4>Voice AI Receptionist</h4>
+        <p>Never miss an after-hours call. Natural voice AI with empathy and precision.</p>
+      </div>
+      <div class="highlight-item">
+        <div class="icon">📅</div>
+        <h4>AI Medical Chronologies</h4>
+        <p>From 5,000 pages to trial-ready timelines in under 60 seconds.</p>
+      </div>
+      <div class="highlight-item">
+        <div class="icon">✍️</div>
+        <h4>Auto-Document Drafter</h4>
+        <p>Draft demand letters and filings in seconds, not hours.</p>
+      </div>
+      <div class="highlight-item">
+        <div class="icon">🎯</div>
+        <h4>DepoLens AI</h4>
+        <p>Deposition intelligence that finds what humans miss.</p>
+      </div>
+      <div class="highlight-item">
+        <div class="icon">💰</div>
+        <h4>Settlement Estimator</h4>
+        <p>Predict case value with 94% accuracy against 50K+ cases.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- Enterprise CTA -->
+<!-- Enterprise -->
 <section class="enterprise">
   <div class="container">
-    <h2>Need a Custom Solution?</h2>
-    <p>Enterprise firms get dedicated onboarding, custom integrations, white-label options, and a dedicated account manager.</p>
-    <a href="#" class="btn">Talk to Our Team →</a>
+    <h2>Need Something Different?</h2>
+    <p>Enterprise firms get custom integrations, white-label options, HIPAA BAA, dedicated support, and custom AI training.</p>
+    <a href="mailto:leads@lexiflow.co?subject=Enterprise%20Plan%20Inquiry">Talk to Our Team →</a>
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="faq">
+<section class="faq-section">
   <div class="container">
     <h2>Frequently Asked Questions</h2>
     <div class="faq-grid">
-      <div class="faq-item"><h4>Can I start with Basic and upgrade later?</h4><p>Absolutely. Upgrade anytime — your data and settings carry over seamlessly. No setup fees.</p></div>
-      <div class="faq-item"><h4>Is there a free trial?</h4><p>Yes! Start with a 14-day free trial of Basic. No credit card required. Full access to the intake agent and dashboard.</p></div>
-      <div class="faq-item"><h4>How does this compare to $1,000/mo tools?</h4><p>LexiFlow bundles 6 modules that competitors charge $200-500 each. You get everything — intake, chronologies, depo analysis, drafting, and more — from $69/mo.</p></div>
-      <div class="faq-item"><h4>Is my data secure?</h4><p>Yes. All data encrypted at rest (AES-256) and in transit (TLS 1.3). SOC 2 compliant. HIPAA available on Enterprise.</p></div>
-      <div class="faq-item"><h4>What CRM platforms do you support?</h4><p>Native integrations with Filevine, Clio Manage, and LeadDock. Custom API integrations available on Enterprise.</p></div>
-      <div class="faq-item"><h4>Can I cancel anytime?</h4><p>Yes. No long-term contracts. Cancel with 30 days notice. Your data is yours — we'll export it on request.</p></div>
+      <div class="faq-item"><h4>Is there a free trial?</h4><p>Yes! 14-day free trial. No credit card required. Full access to all 6 modules.</p></div>
+      <div class="faq-item"><h4>How does this compare to $1,000/mo tools?</h4><p>We bundle 6 modules that standalone competitors charge $200-500 each. You get everything for $69/mo flat.</p></div>
+      <div class="faq-item"><h4>Are there any usage limits?</h4><p>No. $69/mo covers unlimited leads, unlimited documents, unlimited deposition analyses. No per-seat fees.</p></div>
+      <div class="faq-item"><h4>Is my data secure?</h4><p>Yes. AES-256 encryption, SOC 2 compliant, TLS 1.3 in transit. HIPAA BAA available on Enterprise.</p></div>
+      <div class="faq-item"><h4>What CRM platforms do you support?</h4><p>Filevine, Clio Manage, and LeadDock out of the box. Custom API integrations available on Enterprise.</p></div>
+      <div class="faq-item"><h4>Can I cancel anytime?</h4><p>Yes. No long-term contracts. Cancel with 30 days notice. Your data is yours — we'll export it.</p></div>
     </div>
   </div>
 </section>
 
-<section class="cta" id="contact">
+<!-- Final CTA -->
+<section class="cta-final" id="contact">
   <div class="container">
-    <h2>Start Automating Your Intake Today</h2>
-    <p>Join 500+ firms using LexiFlow to capture more leads, save billable hours, and close cases faster.</p>
-    <a href="#" class="btn">Start Your 14-Day Free Trial →</a>
+    <h2>Ready to Transform Your Firm?</h2>
+    <p>Join 500+ firms using LexiFlow to work faster, close more cases, and save thousands per month.</p>
+    <a href="mailto:leads@lexiflow.co?subject=Start%20Free%20Trial">Start Your 14-Day Free Trial →</a>
   </div>
 </section>
 
