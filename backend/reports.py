@@ -94,7 +94,7 @@ Best regards,
 LexiFlow AI Agent
     """
     
-    # Get recipient email from firm config or default to hello@lexiflow.co
+    # Get recipient email from firm config or default to leads@lexiflow.co
     recipient_email = None
     if firm.api_config_json:
         try:
@@ -110,7 +110,7 @@ LexiFlow AI Agent
             recipient_email = user.email
             
     if not recipient_email:
-        recipient_email = "hello@lexiflow.co" # Fallback
+        recipient_email = "leads@lexiflow.co" # Fallback
         
     result = await integration_engine.send_postmark_email(
         to_email=recipient_email,
