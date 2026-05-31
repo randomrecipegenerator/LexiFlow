@@ -578,6 +578,15 @@ def complete_chat(lead_id: int, db: Session = Depends(get_db)):
     
     create_audit_log(db, "lead_qualified", lead_id, f"Score: {score}, Status: {status}")
     
+    # Auto-sync to configured CRMs based on qualification score
+    try:
+        import asyncio
+        sync_result = asyncio.run(integration_engine.integration_engine.sync_lead_auto(lead, db=db))
+        if sync_result.get("targets"):
+            create_audit_log(db, "lead_auto_sync", lead_id, f"Score: {score}, Targets: {sync_result['targets']}, Results: {sync_result['results']}")
+    except Exception as e:
+        print(f"Auto-sync failed for lead {lead_id}: {str(e)}")
+    
     return {"status": status, "score": score}
 
 @app.get("/leads", response_model=List[dict])
