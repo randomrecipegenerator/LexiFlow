@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-BASE_URL = "https://lexiflow.ai" # Updating to .ai as per user's enterprise preference
+BASE_URL = "https://lexiflow.co" # Updating to .ai as per user's enterprise preference
 CORE_PAGES = [
     "index.html", "features.html", "solutions.html", "roi-calculator.html", 
     "dashboard.html", "portal.html", "usa-cities/index.html", "whitepaper.html", 

@@ -16,7 +16,7 @@ We are currently opening 5 pilot slots for [City]. Would you be open to a 5-minu
 Best,
 
 [Your Name]
-LexiFlow AI | lexiflow.ai
+LexiFlow AI | lexiflow.co
 
 
 ---
@@ -30,14 +30,14 @@ I was looking at your presence in the [City] market and noticed you’re competi
 
 We just launched a dedicated **[City] Intake Hub** for LexiFlow AI, designed to capture local leads and qualify them using our proprietary Reasoning Engine before they even call your office.
 
-Unlike standard chatbots, LexiFlow understands the specifics of [State] liability and filters for merit in real-time. We’ve just launched our local landing page for [City] (you can see it here: https://lexiflow.ai/cities/[slug].html) and we are looking for one premier partner firm to anchor our pilot program there.
+Unlike standard chatbots, LexiFlow understands the specifics of [State] liability and filters for merit in real-time. We’ve just launched our local landing page for [City] (you can see it here: https://lexiflow.co/cities/[slug].html) and we are looking for one premier partner firm to anchor our pilot program there.
 
 Are you available for a brief demo this week?
 
 Best,
 
 [Your Name]
-LexiFlow AI | lexiflow.ai
+LexiFlow AI | lexiflow.co
 
 
 ---
@@ -60,4 +60,4 @@ Is your intake team ready for an AI upgrade?
 Best,
 
 [Your Name]
-LexiFlow AI | lexiflow.ai
+LexiFlow AI | lexiflow.co
