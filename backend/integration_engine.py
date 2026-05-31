@@ -48,34 +48,25 @@ class IntegrationClient:
                 return {"status": "error", "message": str(e)}
 
     async def sync_to_filevine(self, mapped_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Create a lead/project in Filevine"""
+        """Create a lead/project in Filevine via direct API"""
         api_key = self.config.get("filevine_api_key")
         session_id = self.config.get("filevine_session_id")
         
         if not api_key:
             return {"status": "error", "message": "Filevine API credentials missing"}
+        if not session_id:
+            return {"status": "error", "message": "Filevine Session ID required for direct API"}
 
         async with httpx.AsyncClient() as client:
             try:
-                # Determine if we are using LeadDock or direct Filevine API
-                # If session_id is provided, we assume direct Filevine
-                if session_id:
-                    # Direct Filevine Project creation
-                    response = await client.post(
-                        f"{self.filevine_base_url}/projects",
-                        json=mapped_data,
-                        headers={
-                            "x-fv-apikey": api_key,
-                            "x-fv-sessionid": session_id
-                        }
-                    )
-                else:
-                    # Default to LeadDock endpoint (most common for intake)
-                    response = await client.post(
-                        f"{self.leaddock_base_url}/leads",
-                        json=mapped_data,
-                        headers={"x-api-key": api_key}
-                    )
+                response = await client.post(
+                    f"{self.filevine_base_url}/projects",
+                    json=mapped_data,
+                    headers={
+                        "x-fv-apikey": api_key,
+                        "x-fv-sessionid": session_id
+                    }
+                )
                 
                 if response.status_code in [200, 201]:
                     data = response.json()
@@ -85,6 +76,31 @@ class IntegrationClient:
                     return {"status": "error", "message": f"Filevine API error: {response.status_code}"}
             except Exception as e:
                 logger.error(f"Filevine Connection Exception: {str(e)}")
+                return {"status": "error", "message": str(e)}
+
+    async def sync_to_leaddock(self, mapped_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Create a lead in LeadDock via API key auth"""
+        api_key = self.config.get("leaddock_api_key")
+        
+        if not api_key:
+            return {"status": "error", "message": "LeadDock API key missing"}
+
+        async with httpx.AsyncClient() as client:
+            try:
+                response = await client.post(
+                    f"{self.leaddock_base_url}/leads",
+                    json=mapped_data,
+                    headers={"x-api-key": api_key}
+                )
+                
+                if response.status_code in [200, 201]:
+                    data = response.json()
+                    return {"status": "success", "external_id": str(data.get("id"))}
+                else:
+                    logger.error(f"LeadDock Sync Error: {response.status_code} - {response.text}")
+                    return {"status": "error", "message": f"LeadDock API error: {response.status_code}"}
+            except Exception as e:
+                logger.error(f"LeadDock Connection Exception: {str(e)}")
                 return {"status": "error", "message": str(e)}
 
 class UniversalLeadMapper:
@@ -120,6 +136,20 @@ class UniversalLeadMapper:
                 "projectName": f"{first_name} {last_name} - {lead.case_type or 'Intake'}",
                 "referenceNumber": f"LEX-{lead.id}",
                 "description": summary
+            }
+        elif target_system == "leaddock":
+            return {
+                "firstName": first_name,
+                "lastName": last_name,
+                "email": lead.email or "",
+                "phone": lead.phone or "",
+                "caseType": lead.case_type or "General Intake",
+                "description": lead.description or summary,
+                "source": "LexiFlow AI",
+                "score": lead.qualification_score or 0,
+                "caseValue": lead.case_value_estimate or 0,
+                "notes": f"AI Summary: {summary}",
+                "externalId": f"LEX-{lead.id}"
             }
         elif target_system == "mycase":
             return {
@@ -168,6 +198,8 @@ class IntegrationEngine:
             return await client.sync_to_clio(payload)
         elif system == "filevine":
             return await client.sync_to_filevine(payload)
+        elif system == "leaddock":
+            return await client.sync_to_leaddock(payload)
         else:
             return {
                 "status": "error",
