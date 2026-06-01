@@ -1,170 +1,379 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LexiFlow — AI-Powered Legal Tools Suite</title>
-  <meta name="description" content="Six AI-powered products for law firms: AI Intake Agent, Voice AI Receptionist, AI Medical Chronologies, Auto-Document Drafter, DepoLens AI, Settlement Estimator." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/lexiflow-products/css/product-base.css" />
-  <style>
-    :root {
-      --primary: #1a3a5c; --primary-light: #2a5a8c; --primary-dark: #0d1f33;
-      --accent: #c9a84c; --accent-light: #e2c96e; --accent-dark: #a88a30;
-      --text-dark: #1a1a2e; --text-muted: #6b7280; --text-light: #f8fafc;
-      --bg-light: #f8fafc; --bg-white: #ffffff; --bg-dark: #0d1f33;
-      --border: #e2e8f0; --green: #16a34a;
-      --font-sans: 'Inter', sans-serif;
-      --font-serif: 'Playfair Display', serif;
-      --max-width: 1100px;
-      --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
-      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
-      --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
-    }
-    .nav { position:fixed; top:0; width:100%; z-index:100; background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); }
-    .nav .container { max-width:var(--max-width); margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; height:68px; }
-    .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
-    .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; }
-    .nav-links { display:flex; gap:28px; list-style:none; }
-    .nav-links a { font-size:0.88rem; font-weight:500; color:var(--text-muted); text-decoration:none; }
-    .nav-links a:hover { color:var(--primary); }
-    .splash {
-      padding: 120px 0 60px;
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-      color: var(--text-light); text-align: center;
-    }
-    .splash h1 { font-family: var(--font-serif); font-size: 2.8rem; margin-bottom: 12px; }
-    .splash h1 span { color: var(--accent); }
-    .splash p { font-size: 1.1rem; color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto; }
-    .price-banner {
-      background: var(--bg-white); border-bottom: 1px solid var(--border);
-      padding: 20px 0; text-align: center;
-    }
-    .price-banner strong { color: var(--green, #16a34a); font-size: 1.2rem; }
-    .grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; padding: 60px 0; }
-    .card {
-      background: white; border: 1px solid var(--border); border-radius: 16px;
-      padding: 28px; transition: all 0.3s;
-    }
-    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); border-color: var(--accent); }
-    .card-icon { font-size: 2.2rem; margin-bottom: 12px; }
-    .card h3 { font-size: 1.1rem; color: var(--primary); margin-bottom: 6px; }
-    .card .tagline { font-size: 0.82rem; color: var(--accent-dark); font-style: italic; margin-bottom: 10px; }
-    .card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px; }
-    .card .magnet {
-      display: inline-block; padding: 2px 8px; border-radius: 4px;
-      font-size: 0.7rem; font-weight: 600;
-      background: rgba(34,197,94,0.1); color: #16a34a; margin-bottom: 12px;
-    }
-    .card a { font-weight: 600; color: var(--primary); font-size: 0.85rem; display: inline-flex; align-items: center; gap: 4px; }
-    .card a:hover { color: var(--accent); }
-    .cta-foot {
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-      color: white; text-align: center; padding: 60px 0;
-    }
-    .cta-foot h2 { font-family: var(--font-serif); font-size: 2rem; margin-bottom: 10px; }
-    .cta-foot a {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 32px; background: var(--accent); color: var(--primary-dark);
-      border-radius: 8px; font-weight: 600; text-decoration: none; margin-top: 20px;
-    }
-    .cta-foot a:hover { background: var(--accent-light); }
-    @media (max-width: 768px) {
-      .grid { grid-template-columns: 1fr; }
-      .splash h1 { font-size: 2rem; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexiFlow | AI-Powered Legal Intake & Lead Qualification</title>
+    <meta name="description" content="LexiFlow is the leading AI-powered legal intake software. Automate lead qualification, capture case details 24/7 via web, voice, and email intake. Sync directly to Clio, MyCase, and Filevine.">
+    <link rel="canonical" href="https://lexiflow.co">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lexiflow.co">
+    <meta property="og:title" content="LexiFlow | AI-Powered Legal Intake & Lead Qualification">
+    <meta property="og:description" content="Automate your law firm's intake process with LexiFlow AI. Qualify leads instantly and focus on winning cases.">
+    <meta property="og:image" content="https://lexiflow.co/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://lexiflow.co">
+    <meta property="twitter:title" content="LexiFlow | AI-Powered Legal Intake & Lead Qualification">
+    <meta property="twitter:description" content="Automate your law firm's intake process with LexiFlow AI. Qualify leads instantly and focus on winning cases.">
+    <meta property="twitter:image" content="https://lexiflow.co/og-image.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://lexiflow.co/favicon.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="branding/favicon.svg">
+    <link rel="icon" type="image/png" href="branding/favicon.png" sizes="32x32">
+    
+    <!-- OG Tags -->
+    <meta property="og:title" content="LexiFlow | AI Legal Intake">
+    <meta property="og:description" content="The future of legal intake powered by reasoning AI.">
+    <meta property="og:image" content="https://lexiflow.co/branding/social-banner.png">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:image" content="https://lexiflow.co/branding/social-banner.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #1a3a5c 0%, #0d1f33 100%); }
+        .modal { transition: opacity 0.25s ease; }
+        body.modal-active { overflow-x: hidden; overflow-y: visible !important; }
+    </style>
 </head>
-<body>
-<nav class="nav">
-  <div class="container">
-    <a href="index.html" class="nav-logo"><span class="nav-logo-icon">LF</span> LexiFlow</a>
-    <ul class="nav-links">
-      <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="index.html">Products</a></li>
-                <li><a href="pricing.html">Pricing</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="pricing.html" class="nav-cta">Get Started →</a></li>
-    </ul>
-  </div>
-</nav>
-<section class="splash">
-  <div class="container">
-    <h1>LexiFlow <span>Product Suite</span></h1>
-    <p>Six AI-powered products designed to transform every stage of your legal practice — from intake to settlement.</p>
-  </div>
-</section>
+<body class="bg-slate-50 text-slate-900">
+    <!-- Navbar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <img src="branding/logo-main.svg" alt="LexiFlow" height="32" class="h-8">
+                    <span class="text-xl font-bold tracking-tight">Lexi<span class="text-blue-600">Flow</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
+                    <a href="solutions" class="hover:text-blue-600 transition">Solutions</a>
+                    <a href="features" class="hover:text-blue-600 transition">Features</a>
+                    <a href="demo" class="hover:text-blue-600 transition">Live Demo</a>
+                    <a href="dashboard" class="hover:text-blue-600 transition">Attorney Login</a>
+                </div>
+                <div>
+                    <button onclick="toggleModal('demoModal')" class="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-200">Request Demo</button>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-<section class="price-banner">
-  <div class="container">
-    <strike style="color:#ef4444;">Competitors: $1,000+/mo</strike> &nbsp;→&nbsp; <strong>$69/mo — All 6 Modules Included</strong>
-  </div>
-</section>
+    <main>
+        <!-- Hero Section -->
+        <section class="gradient-bg text-white py-20 lg:py-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="inline-flex items-center gap-2 bg-blue-600/20 border border-blue-400/30 rounded-full px-4 py-1.5 text-sm font-semibold text-blue-300 mb-6">
+                    <i class="bi bi-mic"></i>
+                    <span>Now with Voice &amp; Email AI Intake</span>
+                    <span class="bg-blue-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">NEW</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+                    The Future of Legal Intake <br><span class="text-blue-400 text-3xl md:text-5xl">Powered by Reasoning AI</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-300 mb-10 max-w-3xl mx-auto leading-relaxed">
+                    Don't just capture leads—qualify them with intelligence. LexiFlow uses Reasoning AI to understand case nuances, boosting conversions by 391% while saving your firm thousands in wasted billable hours.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button onclick="toggleModal('demoModal')" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition text-lg shadow-xl shadow-blue-900/20">Get Started Now</button>
+                    <a href="demo" class="bg-white/10 text-white border border-white/20 px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition text-lg backdrop-blur-sm">Try Live Demo</a>
+                </div>
+                <div class="mt-16 relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl blur opacity-25"></div>
+                    <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format,webp&fit=crop&q=60&w=1200&h=600" alt="LexiFlow AI Legal Intake Software Dashboard" class="relative rounded-2xl shadow-2xl border border-white/10 mx-auto">
+                </div>
+            </div>
+        </section>
 
-<div class="container">
-  <div class="grid">
-    <div class="card">
-      <div class="card-icon">🤖</div>
-      <h3>AI Intake Agent</h3>
-      <div class="tagline">The 24/7 Gatekeeper that never sleeps.</div>
-      <p>Capture and qualify leads around the clock with AI reasoning.</p>
-      <span class="magnet">🎁 Intake Leakage Audit</span><br/><br/>
-      <a href="ai-intake-agent.html">View Product →</a>
-    </div>
-    <div class="card">
-      <div class="card-icon">🎙️</div>
-      <h3>Voice AI Receptionist</h3>
-      <div class="tagline">Your high-volume receptionist with empathy and precision.</div>
-      <p>Never miss an after-hours call. Voice AI answers naturally 24/7.</p>
-      <span class="magnet">🎁 After-Hours Missed Call Report</span><br/><br/>
-      <a href="voice-ai-receptionist.html">View Product →</a>
-    </div>
-    <div class="card">
-      <div class="card-icon">📅</div>
-      <h3>AI Medical Chronologies</h3>
-      <div class="tagline">From 5,000 pages to trial-ready chronologies in minutes.</div>
-      <p>Auto-generate detailed medical timelines from uploaded records.</p>
-      <span class="magnet">🎁 Sample AI Chronology Report</span><br/><br/>
-      <a href="ai-medical-chronologies.html">View Product →</a>
-    </div>
-    <div class="card">
-      <div class="card-icon">✍️</div>
-      <h3>Auto-Document Drafter</h3>
-      <div class="tagline">Draft demand letters and filings in seconds, not hours.</div>
-      <p>Generate polished legal documents from case data instantly.</p>
-      <span class="magnet">🎁 Winning Demand Letter Template Pack</span><br/><br/>
-      <a href="auto-document-drafter.html">View Product →</a>
-    </div>
-    <div class="card">
-      <div class="card-icon">🎯</div>
-      <h3>DepoLens AI</h3>
-      <div class="tagline">Deposition intelligence that prepares you for cross-examination.</div>
-      <p>Analyze transcripts for admissions, inconsistencies, and credibility.</p>
-      <span class="magnet">🎁 The 2026 Depo Preparation Checklist</span><br/><br/>
-      <a href="depolens-ai.html">View Product →</a>
-    </div>
-    <div class="card">
-      <div class="card-icon">💰</div>
-      <h3>Settlement Estimator</h3>
-      <div class="tagline">Predict case value with historical precision.</div>
-      <p>AI-powered case valuation based on 50,000+ analyzed PI cases.</p>
-      <span class="magnet">🎁 PI Case Valuation Cheat Sheet</span><br/><br/>
-      <a href="settlement-estimator.html">View Product →</a>
-    </div>
-  </div>
-</div>
+        <!-- Problem/Solution & ROI -->
+        <section id="problem" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-6">Recapture $12,000+ in Billable Hours Every Month</h2>
+                        <p class="text-slate-600 mb-6 text-lg">
+                            Firms lose thousands of dollars every year chasing unqualified leads. Manual intake is slow, prone to error, and keeps your best attorneys away from high-value work. LexiFlow turns your website into a 24/7 revenue engine.
+                        </p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="bi bi-check-circle-fill text-green-500 mr-3 mt-1"></i>
+                                <span><strong>Automated Qualification:</strong> Instant scoring ensures you only spend time on viable matters.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="bi bi-check-circle-fill text-green-500 mr-3 mt-1"></i>
+                                <span><strong>24/7 Availability:</strong> Capture and qualify leads while you sleep, even on weekends and holidays.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="bi bi-check-circle-fill text-green-500 mr-3 mt-1"></i>
+                                <span><strong>Empathetic Reasoning:</strong> Our AI understands the "why" behind a case, providing a human-like experience.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100 shadow-sm text-center">
+                            <div class="text-4xl font-extrabold text-blue-600 mb-1">391%</div>
+                            <div class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Conversion Boost</div>
+                        </div>
+                        <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100 shadow-sm text-center">
+                            <div class="text-4xl font-extrabold text-blue-600 mb-1">$12k</div>
+                            <div class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Monthly Recovery</div>
+                        </div>
+                        <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100 shadow-sm text-center col-span-1 sm:col-span-2">
+                             <div class="flex items-center justify-center mb-4">
+                                <div class="bg-blue-600/10 p-3 rounded-full">
+                                    <i class="bi bi-cpu text-blue-600 text-2xl"></i>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-xl mb-2">Reasoning AI vs. Decision Trees</h3>
+                            <p class="text-sm text-slate-600">Unlike legacy chatbots that use rigid "if-then" logic, LexiFlow uses advanced LLMs to reason through complex legal facts, identifying high-value cases that others miss.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<section class="cta-foot">
-  <div class="container">
-    <h2>One Platform. Six Powerful Tools. One Low Price.</h2>
-    <p>Replace $1,000+/mo in standalone tools with LexiFlow's integrated suite starting at $69/mo.</p>
-    <a href="pricing.html">View Pricing &amp; Plans →</a>
-  </div>
-</section>
+        <!-- Features -->
+        <section id="features" class="py-20 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold mb-4">Built for Modern Law Firms</h2>
+                    <p class="text-slate-600 max-w-2xl mx-auto">Everything you need to streamline your intake pipeline in one seamless platform.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-xl transition group">
+                        <div class="bg-blue-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition">
+                            <i class="bi bi-chat-dots text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl mb-3">Reasoning AI Intake</h4>
+                        <p class="text-slate-600">Gathers facts, injuries, and evidence naturally using LLMs instead of rigid decision trees.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-xl transition group">
+                        <div class="bg-purple-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-600 group-hover:text-white transition">
+                            <i class="bi bi-magic text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl mb-3">Auto-Demand Drafter</h4>
+                        <p class="text-slate-600">Instantly generate professional demand letters using facts captured during the intake process.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-xl transition group">
+                        <div class="bg-emerald-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition">
+                            <i class="bi bi-graph-up-arrow text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl mb-3">Settlement Estimator</h4>
+                        <p class="text-slate-600">AI-driven valuation models provide conservative settlement estimates for every new lead.</p>
+                    </div>
+                    <!-- Feature 4 -->
+                    <div class="bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-xl transition group">
+                        <div class="bg-orange-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6 group-hover:bg-orange-600 group-hover:text-white transition">
+                            <i class="bi bi-telephone text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl mb-3">AI Voice Receptionist</h4>
+                        <p class="text-slate-600">24/7 empathetic phone intake that sounds like a senior paralegal. Handles screening, scheduling, and qualification naturally — never a cold voicemail.</p>
+                    </div>
+                    <!-- Feature 5 -->
+                    <div class="bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-xl transition group">
+                        <div class="bg-blue-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition">
+                            <i class="bi bi-cloud-arrow-up text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl mb-3">Universal CRM Sync</h4>
+                        <p class="text-slate-600">Push qualified lead data directly into Clio, MyCase, Filevine, and Litify with one click.</p>
+                    </div>
+                    <!-- Feature 6 -->
+                    <div class="bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-xl transition group">
+                        <div class="bg-indigo-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition">
+                            <i class="bi bi-translate text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl mb-3">95+ Languages</h4>
+                        <p class="text-slate-600">Auto-detecting language support allows you to serve a global client base effortlessly.</p>
+                    </div>
+                    <!-- Feature 7 -->
+                    <div class="bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-xl transition group">
+                        <div class="bg-amber-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition">
+                            <i class="bi bi-envelope-paper text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl mb-3">Smart Email Intake</h4>
+                        <p class="text-slate-600">Automatically parse and qualify every inbound email lead. Auto-reply with intake forms, extract case details, and route to the right attorney — all without opening your inbox.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<footer class="footer"><div class="container"><span class="footer-copy">&copy; 2025 LexiFlow Legal Suite</span><ul class="footer-links"><li><a href="pricing.html">Pricing</a></li><li><a href="#">Privacy</a></li><li><a href="mailto:leads@lexiflow.co">Contact</a></li></ul></div></footer>
+        <!-- Testimonial -->
+        <section class="py-20 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="flex justify-center mb-8">
+                    <div class="flex space-x-1 text-yellow-400">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                </div>
+                <blockquote class="text-2xl font-semibold mb-8 italic">
+                    "LexiFlow has transformed our intake process. We've seen a 391% increase in qualified matters this month alone. It's like having a specialized intake attorney working 24/7."
+                </blockquote>
+                <div class="font-bold text-lg">Managing Partner</div>
+                <div class="text-slate-500">Chicago Boutique Law Firm</div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section id="demo" class="py-20 bg-slate-50 border-t border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-blue-600 rounded-3xl p-10 md:p-20 text-white text-center shadow-2xl relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h2 class="text-3xl md:text-5xl font-bold mb-6">Ready to see LexiFlow in action?</h2>
+                        <p class="text-blue-100 mb-10 max-w-2xl mx-auto text-lg">
+                            Join the leading firms using LexiFlow to automate their intake. Try the live demo or request a private walkthrough.
+                        </p>
+                        <div class="flex flex-col sm:flex-row justify-center gap-4">
+                            <button onclick="toggleModal('demoModal')" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition text-lg">Request Private Demo</button>
+                            <a href="demo.html" class="bg-blue-700 text-white border border-blue-500 px-8 py-4 rounded-xl font-bold hover:bg-blue-800 transition text-lg">Launch Interactive Demo</a>
+                        </div>
+                    </div>
+                    <!-- Decorative Circle -->
+                    <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-white opacity-5 rounded-full"></div>
+                    <div class="absolute -left-20 -top-20 w-64 h-64 bg-white opacity-5 rounded-full"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:justify-between items-center space-y-6 md:flex-row md:space-y-0 text-slate-500 text-sm">
+            <div class="flex items-center text-slate-900">
+                <i class="bi bi-briefcase-fill text-blue-600 text-xl mr-2"></i>
+                <span class="font-bold tracking-tight">LexiFlow</span>
+            </div>
+            <div class="flex space-x-8">
+                <a href="privacy.html" class="hover:text-blue-600">Privacy Policy</a>
+                <a href="terms.html" class="hover:text-blue-600">Terms of Service</a>
+                <button onclick="toggleModal('contactModal')" class="hover:text-blue-600">Contact Us</button>
+            </div>
+            <p>
+                &copy; 2026 LexiFlow AI. Built for the future of law.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Demo Modal -->
+    <div id="demoModal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-[100]">
+        <div class="modal-overlay absolute w-full h-full bg-slate-900 opacity-50"></div>
+        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+            <div class="modal-content py-4 text-left px-6">
+                <div class="flex justify-between items-center pb-3">
+                    <p class="text-2xl font-bold">Request a Demo</p>
+                    <div class="modal-close cursor-pointer z-50" onclick="toggleModal('demoModal')">
+                        <i class="bi bi-x-lg"></i>
+                    </div>
+                </div>
+                <form id="demoForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700">Full Name</label>
+                        <input type="text" name="name" required class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700">Work Email</label>
+                        <input type="email" name="email" required class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700">Law Firm Name</label>
+                        <input type="text" name="firm" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition">Submit Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-[100]">
+        <div class="modal-overlay absolute w-full h-full bg-slate-900 opacity-50"></div>
+        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+            <div class="modal-content py-4 text-left px-6">
+                <div class="flex justify-between items-center pb-3">
+                    <p class="text-2xl font-bold">Contact Us</p>
+                    <div class="modal-close cursor-pointer z-50" onclick="toggleModal('contactModal')">
+                        <i class="bi bi-x-lg"></i>
+                    </div>
+                </div>
+                <div class="space-y-6 py-4">
+                    <div class="flex items-start">
+                        <i class="bi bi-envelope text-blue-600 text-xl mr-4"></i>
+                        <div>
+                            <h4 class="font-bold">Email</h4>
+                            <p class="text-slate-600">leads@lexiflow.co</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="bi bi-geo-alt text-blue-600 text-xl mr-4"></i>
+                        <div>
+                            <h4 class="font-bold">Headquarters</h4>
+                            <p class="text-slate-600">123 N. LaSalle St, Suite 500<br>Chicago, IL 60602</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="bi bi-telephone text-blue-600 text-xl mr-4"></i>
+                        <div>
+                            <h4 class="font-bold">Sales</h4>
+                            <p class="text-slate-600">+1 (312) 555-0198</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="widget.css">
+    <script src="config.js"></script>
+    <script src="widget.js"></script>
+    <script>
+        function toggleModal(modalId) {
+            const body = document.querySelector('body');
+            const modal = document.getElementById(modalId);
+            modal.classList.toggle('opacity-0');
+            modal.classList.toggle('pointer-events-none');
+            body.classList.toggle('modal-active');
+        }
+
+        document.getElementById('demoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            
+            try {
+                const response = await apiFetch('/demo-request', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Server error:', errorText);
+                    throw new Error('Server responded with ' + response.status);
+                }
+
+                const result = await response.json();
+                if (result.status === 'success') {
+                    alert('Thank you! Your demo request has been received. Our team will be in touch shortly.');
+                    toggleModal('demoModal');
+                    e.target.reset();
+                } else {
+                    alert('Something went wrong: ' + (result.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Detailed Error:', error);
+                alert('Error sending request. Please check the console for details.');
+            }
+        });
+    </script>
 </body>
 </html>
