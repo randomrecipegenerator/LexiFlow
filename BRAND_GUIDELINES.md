@@ -1,135 +1,97 @@
 # LexiFlow Brand Guidelines
 
-## Brand Identity Overview
+## Brand Overview
 
-**Brand Essence:** Elite intelligence. Human empathy. Uncompromising efficiency.
+**Product Name:** LexiFlow  
+**Company:** Ai Future  
+**Tagline:** "AI-Powered Legal Intake & Lead Qualification"  
+**Domain:** lexiflow.co  
 
-**Tone of Voice:** Authoritative but approachable. Precise but warm. Tech-forward but grounded in legal tradition.
+## Logo Variations
 
-**Target Audience:** Boutique to mid-size personal injury, family law, and immigration law firm partners and managing attorneys.
-
----
+| File | Description | Format |
+|------|-------------|--------|
+| `logo-main.svg` / `.png` | Horizontal wordmark with icon (primary logo) | SVG + PNG |
+| `logo-stacked.svg` / `.png` | Vertical/stacked layout (for mobile, social avatars) | SVG + PNG |
+| `logo-icon.svg` / `.png` | Icon-only (favicon, app icon, square contexts) | SVG + PNG |
+| `logo-monochrome.svg` / `.png` | Light-on-dark variant (dark mode, dark backgrounds) | SVG + PNG |
+| `favicon.svg` / `.png` | 32×32 favicon / app icon | SVG + PNG |
+| `social-banner.svg` / `.png` | OG image 1200×630px (social sharing, LinkedIn, Twitter) | SVG + PNG |
 
 ## Color Palette
 
 ### Primary Colors
 | Color | Hex | Usage |
 |-------|-----|-------|
-| **Navy** | `#0F172A` | Primary backgrounds, headers, dark UI elements |
-| **Professional Teal** | `#0D9488` | CTAs, accents, highlights, "Flow" in wordmark |
+| LexiFlow Blue | `#2563eb` (blue-600) | Brand accent, CTAs, links, "Flow" wordmark |
+| Light Blue | `#3b82f6` (blue-500) | Hover states, gradients |
+| Indigo Accent | `#6366f1` (indigo-500) | Secondary gradients, data flow elements |
+| Deep Slate | `#0f172a` (slate-900) | Dark background, hero sections |
+| Mid Slate | `#1e293b` (slate-800) | Secondary dark backgrounds |
+| Slate Base | `#334155` (slate-700) | Body text on light backgrounds |
+| Light Slate | `#94a3b8` (slate-400) | Muted text, placeholders |
 
-### Secondary Colors
-| Color | Hex | Usage |
-|-------|-----|-------|
-| **Slate 50** | `#f8fafc` | Light backgrounds, cards |
-| **Slate 200** | `#e2e8f0` | Borders, dividers |
-| **Slate 600** | `#475569` | Body text |
-| **Slate 900** | `#0f172a` | Headings |
-
-### Semantic Colors
-| Color | Hex | Usage |
-|-------|-----|-------|
-| **Success Green** | `#10b981` | High-priority leads, positive metrics |
-| **Warning Amber** | `#f59e0b` | Requires review, medium priority |
-| **Error Red** | `#ef4444` | Disqualified, alerts |
-| **Info Blue** | `#3b82f6` | Informational tags |
-
----
+### Gradient
+- **Primary Gradient:** `#2563eb → #6366f1` (Blue to Indigo)
+- **Background Gradient:** `#1e293b → #0f172a` (Dark slate for hero)
 
 ## Typography
 
-### Primary Font: Inter
-- **Headings:** Inter Bold / SemiBold (700/600)
-- **Body:** Inter Regular (400)
-- **UI Labels:** Inter Medium (500)
-
-### Accent Font: Playfair Display
-- **Logo / Hero titles:** Playfair Display Bold (700)
-- Used sparingly for premium feel
+**Primary Font:** Inter (Google Fonts)
+- **Weights:** 300 (Light), 400 (Regular), 600 (Semi-Bold), 700 (Bold)
+- **Usage:** All UI text, headlines, body copy
+- **Fallback:** `'Segoe UI', system-ui, sans-serif`
 
 ### Font Sizing
-| Element | Size | Weight |
-|---------|------|--------|
-| Cover Title | 52px | 700 |
-| Section Title | 28px | 700 |
-| Subtitle | 24px | 300 |
-| Body | 15-16px | 400 |
-| Small/Labels | 12-13px | 500 |
-| Caption | 11px | 400 |
-
----
+- **Hero Headline:** 3rem–3.75rem (48px–60px)
+- **Section Headings:** 1.5rem–2.25rem (24px–36px)
+- **Body Text:** 0.875rem–1rem (14px–16px)
+- **Small/Meta:** 0.75rem (12px)
 
 ## Logo Usage
 
-- **Full Logo (Horizontal):** Preferred on light backgrounds (navy + teal wordmark)
-- **Full Logo (Reversed):** On dark navy backgrounds (white + teal wordmark)
-- **Icon Mark:** Use the flowing gavel/AI icon standalone for favicon and app icon
+### Clear Space
+- Maintain padding equal to the height of the "L" in "Lexi" on all sides.
+- Minimum clear space: 16px on digital, 1/4" on print.
 
-### Minimum Clear Space
-- Maintain padding of at least the height of the "L" in LexiFlow around all sides
+### Minimum Size
+- **Horizontal logo:** 140px wide
+- **Icon only:** 32px wide
+- **Stacked logo:** 100px wide
 
 ### Don'ts
-- Do not add drop shadows or effects
-- Do not stretch or distort proportions
-- Do not place on busy backgrounds
-- Do not use on low-contrast backgrounds
+- ❌ Do not stretch or distort the logo
+- ❌ Do not change the logo colors
+- ❌ Do not add drop shadows or effects
+- ❌ Do not place on low-contrast backgrounds
+- ❌ Do not rearrange the icon and wordmark
 
----
+## Social Media Assets
 
-## Design Principles
+### Open Graph Image
+- **Dimensions:** 1200×630px
+- **File:** `social-banner.png`
+- **Description:** Dark background with LexiFlow logo, tagline, feature pills, and URL
+- **Usage:** Set as `og:image` and `twitter:image` metatags
 
-1. **Premium Minimalism:** Clean layouts, ample whitespace, no clutter
-2. **Data Clarity:** Present data in clear, scannable formats (cards, tables, gauges)
-3. **Professional Warmth:** Navy provides authority; teal adds approachability
-4. **Consistent Spacing:** Use 8px grid system — margins/padding in multiples of 8
-5. **Visual Hierarchy:** Lead with bold numbers, support with clear labels
+## Files to Update in Site
 
----
-
-## Slide Deck Guidelines
-
-- **Background:** Dark navy (`#0F172A`) with subtle radial gradient
-- **Accent Elements:** Teal lines, icons, and highlights
-- **Typography:** White/light headings, slate body text
-- **Layout:** 60/40 content-to-white-space ratio
-- **Data Viz:** Clean bar charts, gauge meters, before/after comparisons
-- **Slide Count:** 10-12 slides max for sales presentation
-
----
-
-## Report Template Guidelines
-
-- **Cover:** Full-bleed navy gradient with white/teal typography
-- **Interior:** White background with navy and teal accents
-- **Tables:** Dark navy headers, alternating row transparency
-- **Data Cards:** Light backgrounds with bold metric numbers
-- **CTA Boxes:** Dark navy with teal buttons and light text
-
----
-
-## Mockup Style (UI)
-
-- **Dashboard Background:** Dark navy (`#0F172A`) or light (`#f8fafc`)
-- **Cards:** Rounded (12px), subtle border, light shadow
-- **Data Elements:** Clean gauges, progress bars, KPI cards
-- **Status Tags:** Rounded pill badges (green/amber/red)
-- **Typography:** Clean sans-serif, consistent hierarchy
-
----
-
-## Asset Naming Convention
-
-```
-lexiflow-[asset-type]-[descriptor]-[variant].[ext]
+### index.html
+Replace the current `bi-briefcase-fill` Bootstrap icon with:
+```html
+<img src="/branding/logo-main.svg" alt="LexiFlow" height="32" class="h-8">
 ```
 
-Examples:
-- `lexiflow-logo-dark.png`
-- `slide-03-solution.png`
-- `mockup-narrative-synthesis.png`
-- `report-roi-template.html`
+### Favicon
+Replace the favicon link:
+```html
+<link rel="icon" type="image/svg+xml" href="/branding/favicon.svg">
+<link rel="icon" type="image/png" href="/branding/favicon.png" sizes="32x32">
+```
 
----
-
-*Brand Guidelines v1.0 — LexiFlow AI Legal Suite*
-*Last Updated: 2025-05-27*
+### OG Image
+Update the OG meta tags to point to the new banner:
+```html
+<meta property="og:image" content="https://lexiflow.co/branding/social-banner.png">
+<meta property="twitter:image" content="https://lexiflow.co/branding/social-banner.png">
+```
