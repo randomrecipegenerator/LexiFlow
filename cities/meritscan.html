@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MeritScan — AI Medical Merit Review for Attorneys | Screen Cases in Minutes</title>
+    <meta name="description" content="Upload medical records. Get a citation-backed preliminary merit report with chronology, negligence markers, and standard of care analysis — in minutes." />
+    <link rel="canonical" href="https://lexiflow.co/meritscan.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lexiflow.co/meritscan.html">
+    <meta property="og:title" content="MeritScan — AI Medical Merit Review for Attorneys | Screen Cases in Minutes">
+    <meta property="og:description" content="Upload medical records. Get a citation-backed preliminary merit report with chronology, negligence markers, and standard of care analysis — in minutes.">
+    <meta property="og:image" content="https://lexiflow.co/branding/social-banner.png">
+
+    <!-- Schema -->
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"SoftwareApplication","name":"MeritScan","operatingSystem":"Web","applicationCategory":"Legal Software","offers":{"@type":"Offer","price":"75.00","priceCurrency":"USD"}}
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How accurate is the AI medical merit review?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MeritScan's AI achieves an 87% recall rate for negligence markers. Every finding is backed by specific citations to the uploaded medical records for human verification."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What file types are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We support high-resolution PDFs, scans, and standard medical record exports (TXT, DOCX)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the platform HIPAA compliant?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, MeritScan is fully HIPAA secure, with end-to-end encryption and BAA availability for enterprise partners."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        * { font-family: 'Inter', system-ui, sans-serif; }
+        body { background: #f8fafc; color: #1e293b; }
+        .hero-grad { background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #ffffff 100%); }
+        .card { border-radius: 12px; border: 1px solid #e2e8f0; transition: all 0.2s; }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
+        .feature-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+        .pricing-card { border-radius: 16px; }
+        .pricing-card.featured { border: 2px solid #2563eb; transform: scale(1.03); }
+        .stat-value { font-size: 2.2rem; font-weight: 800; line-height: 1; }
+        .stat-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: #64748b; font-weight: 600; }
+        .alert-marker { border-left: 4px solid #ef4444; }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top py-3 shadow-sm border-bottom">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-4 d-flex align-items-center" href="#">
+            <img src="/branding/meritscan/logo-icon.svg" alt="MeritScan" height="28" class="me-2" />
+            Merit<span style="color:#2563eb;">Scan</span>
+        </a>
+        <div class="d-flex gap-3 align-items-center">
+            <a href="#features" class="text-dark text-decoration-none small fw-medium d-none d-md-block">Features</a>
+            <a href="#pricing" class="text-dark text-decoration-none small fw-medium d-none d-md-block">Pricing</a>
+            <a href="/meritscan-app.html" class="btn btn-sm rounded-pill px-4 fw-bold" style="background:#2563eb;color:white;">Start Screening</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero-grad py-5" style="padding:5rem 0;">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="d-inline-flex gap-2 align-items-center bg-blue-100 rounded-pill px-3 py-1 mb-4">
+                    <i class="bi bi-shield-check text-blue-600"></i>
+                    <span class="small fw-semibold text-blue-700">AI-Powered MedMal Screening</span>
+                </div>
+                <h1 class="display-5 fw-bold mb-4" style="line-height:1.15;color:#1e3a5f;">Screen MedMal Cases in <span style="color:#2563eb;">Minutes</span>, Not Weeks</h1>
+                <p class="fs-5 mb-4 text-muted">Stop spending $2,000+ on expert reviews for non-viable cases. MeritScan's AI analyzes medical records instantly — flagging negligence markers, benchmarking against standards of care, and delivering citation-backed merit reports.</p>
+                <div class="d-flex gap-3 mb-4">
+                    <a href="/meritscan-app.html" class="btn btn-lg rounded-pill px-5 fw-bold" style="background:#2563eb;color:white;">Upload Records Free</a>
+                    <button class="btn btn-lg rounded-pill px-4 fw-bold border border-slate-300 text-slate-700">See Sample Report</button>
+                </div>
+                <p class="small text-muted"><i class="bi bi-check-circle-fill text-green-500 me-1"></i> No credit card required &bull; Medicare/Medicaid compliant &bull; HIPAA secure</p>
+            </div>
+            <div class="col-lg-6">
+                <img src="/branding/product-graphics/meritscan-negligence-marker.svg" alt="MeritScan Negligence Marker Detection" class="img-fluid rounded-4 shadow-xl border border-slate-200">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats -->
+<section class="py-4 bg-white border-bottom">
+    <div class="container">
+        <div class="row text-center g-3">
+            <div class="col-6 col-lg-3"><div class="stat-value" style="color:#1e3a5f;">95%</div><div class="stat-label">Cases Screened Without Expert</div></div>
+            <div class="col-6 col-lg-3"><div class="stat-value" style="color:#2563eb;">10+</div><div class="stat-label">Hours Saved Per Review</div></div>
+            <div class="col-6 col-lg-3"><div class="stat-value" style="color:#16a34a;">$2K</div><div class="stat-label">Saved Per Meritless Case</div></div>
+            <div class="col-6 col-lg-3"><div class="stat-value" style="color:#ef4444;">87%</div><div class="stat-label">Negligence Marker Recall</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section id="features" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-3" style="color:#1e3a5f;">What MeritScan Does</h2>
+            <p class="text-muted mx-auto" style="max-width:600px;">Upload medical records. Get a full preliminary merit report with citations, chronology, and negligence alerts — in minutes.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="card p-4 h-100 border-0 shadow-sm">
+                    <div class="feature-icon mb-3" style="background:#eff6ff;color:#2563eb;"><i class="bi bi-file-earmark-medical"></i></div>
+                    <h6 class="fw-bold mb-2">📋 Medical Chronology</h6>
+                    <p class="text-muted small">Auto-indexes records by provider, date, and document type. Every lab value, medication, and note timestamped and organized.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card p-4 h-100 border-0 shadow-sm">
+                    <div class="feature-icon mb-3" style="background:#fef2f2;color:#ef4444;"><i class="bi bi-exclamation-triangle"></i></div>
+                    <h6 class="fw-bold mb-2">🚨 Negligence Markers</h6>
+                    <p class="text-muted small">Flags delayed responses, contraindications, abnormal labs without follow-up, and medication errors. Color-coded by severity.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card p-4 h-100 border-0 shadow-sm">
+                    <div class="feature-icon mb-3" style="background:#f0fdf4;color:#16a34a;"><i class="bi bi-clipboard-data"></i></div>
+                    <h6 class="fw-bold mb-2">📊 Standard of Care Check</h6>
+                    <p class="text-muted small">Compares treatment against CDC, AHA, and specialty-specific protocols. Know exactly where care deviated from the standard.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card p-4 h-100 border-0 shadow-sm">
+                    <div class="feature-icon mb-3" style="background:#fdf4ff;color:#a855f7;"><i class="bi bi-file-check"></i></div>
+                    <h6 class="fw-bold mb-2">📑 Citation Report</h6>
+                    <p class="text-muted small">Every finding is backed by citations to specific records and clinical guidelines. Ready to share with expert witnesses.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Workflow -->
+<section class="py-5 bg-white border-top border-bottom">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-3" style="color:#1e3a5f;">From Upload to Merit Report in 3 Steps</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4 text-center">
+                <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width:56px;height:56px;background:#2563eb;color:white;font-size:1.3rem;font-weight:800;">1</div>
+                <h6 class="fw-bold">Upload Records</h6>
+                <p class="text-muted small">Drag-and-drop any medical PDFs. Our AI auto-categorizes by document type and provider.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width:56px;height:56px;background:#0ea5e9;color:white;font-size:1.3rem;font-weight:800;">2</div>
+                <h6 class="fw-bold">AI Analyzes</h6>
+                <p class="text-muted small">Extracts timeline, flags risks, benchmarks against clinical standards. Powered by Gemini 1.5 Pro + UMLS.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width:56px;height:56px;background:#16a34a;color:white;font-size:1.3rem;font-weight:800;">3</div>
+                <h6 class="fw-bold">Get Merit Report</h6>
+                <p class="text-muted small">Export a citation-backed preliminary merit report. Decide whether to engage a human expert — with confidence.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-3" style="color:#1e3a5f;">Simple Pricing</h2>
+            <p class="text-muted mx-auto" style="max-width:500px;">Start free. Pay only when you need a full merit analysis.</p>
+        </div>
+        <div class="row justify-content-center g-4">
+            <div class="col-md-4">
+                <div class="card pricing-card p-4 text-center">
+                    <h6 class="fw-bold mb-2">Lite</h6>
+                    <div class="display-5 fw-bold mb-2" style="color:#16a34a;">Free</div>
+                    <p class="text-muted small mb-0">Basic document indexing</p>
+                    <hr />
+                    <ul class="list-unstyled text-start small mb-4">
+                        <li class="mb-2"><i class="bi bi-check-circle me-2" style="color:#16a34a;"></i>OCR &amp; categorization</li>
+                        <li class="mb-2"><i class="bi bi-check-circle me-2" style="color:#16a34a;"></i>Table of contents</li>
+                        <li class="mb-2"><i class="bi bi-check-circle me-2" style="color:#16a34a;"></i>5 uploads/month</li>
+                    </ul>
+                    <a href="/meritscan-app.html" class="btn w-100 rounded-pill fw-bold" style="background:#1e3a5f;color:white;">Get Started Free</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card pricing-card featured p-4 text-center">
+                    <div class="badge mb-2 px-3 py-1" style="background:#2563eb;color:white;">Most Popular</div>
+                    <h6 class="fw-bold mb-2">Merit Scan</h6>
+                    <div class="display-5 fw-bold mb-2" style="color:#2563eb;">$75</div>
+                    <p class="text-muted small mb-0">per case analysis</p>
+                    <hr />
+                    <ul class="list-unstyled text-start small mb-4">
+                        <li class="mb-2"><i class="bi bi-check-circle me-2" style="color:#2563eb;"></i>Everything in Lite</li>
+                        <li class="mb-2"><i class="bi bi-check-circle me-2" style="color:#2563eb;"></i>Full negligence alerting</li>
+                        <li class="mb-2"><i class="bi bi-check-circle me-2" style="color:#2563eb;"></i>Standard of Care check</li>
+                        <li class="mb-2"><i class="bi bi-check-circle me-2" style="color:#2563eb;"></i>Citation-backed report</li>
+                    </ul>
+                    <a href="/meritscan-app.html" class="btn w-100 rounded-pill fw-bold" style="background:#2563eb;color:white;">Run Merit Scan</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card pricing-card p-4 text-center">
+                    <h6 class="fw-bold mb-2">Boutique</h6>
+                    <div class="display-5 fw-bold mb-2" style="color:#0ea5e9;">$39</div>
+                    <p class="text-muted small mb-0">per month</p>
+                    <hr />
+                    <ul class="list-unstyled text-start small mb-4">
+                        <li class="mb-2"><i class="bi bi-check-circle me-2" style="color:#0ea5e9;"></i>Up to 5 merit scans/mo</li>
+                        <li class="mb-2"><i class="bi bi-check-circle me-2" style="color:#0ea5e9;"></i>Deposition strategy gen</li>
+                        <li class="mb-2"><i class="bi bi-check-circle me-2" style="color:#0ea5e9;"></i>Priority processing</li>
+                    </ul>
+                    <a href="/meritscan-app.html" class="btn w-100 rounded-pill fw-bold" style="background:#0ea5e9;color:white;">Go Boutique</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-4" style="background:#1e3a5f;">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center text-white">
+            <img src="/branding/meritscan/logo-icon.svg" alt="MeritScan" height="20" class="me-2" />
+            <span class="fw-bold">Merit<span style="color:#60a5fa;">Scan</span></span>
+        </div>
+        <p class="small mb-0" style="color:#94a3b8;">&copy; 2026 MeritScan. A LexiFlow AI Product.</p>
+    </div>
+</footer>
+
+<script src="/config.js"></script>
+<script src="/modal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

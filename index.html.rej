@@ -1,0 +1,12 @@
+diff a/index.html b/index.html	(rejected hunks)
+@@ -601,7 +601,9 @@
+                 </div>
+             </div>
+         </div>
+-    </footer>
++    
++            <a href="cities.html" class="footer-link">Areas We Serve</a>
++        </footer>
+ 
+     <!-- Demo Modal -->
+     <div id="demoModal" class="opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-[200] transition-opacity duration-300">
