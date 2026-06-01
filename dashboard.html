@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="css/hardened.css" />
   <style>
     :root {
-      --primary: #0f172a; --primary-light: #2a5a8c; --primary-dark: #0d1f33;
+      --primary: #1a3a5c; --primary-light: #2a5a8c; --primary-dark: #0d1f33;
       --accent: #c9a84c; --accent-light: #e2c96e; --accent-dark: #a88a30;
       --text-dark: #1a1a2e; --text-muted: #6b7280; --text-light: #f8fafc;
       --bg-light: #f8fafc; --bg-white: #ffffff; --bg-dark: #0d1f33;
@@ -38,11 +38,11 @@
     /* Dashboard Header */
     .dash-header {
       padding: 110px 0 40px;
-      background: #0f172a;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
       color: white;
     }
     .dash-header .container { max-width:1200px; margin:0 auto; padding:0 24px; }
-    .dash-header h1 { font-family: "Playfair Display", serif; letter-spacing: -0.01em; font-size: 2.2rem; margin-bottom: 8px; }
+    .dash-header h1 { font-family: var(--font-serif); font-size: 2.2rem; margin-bottom: 8px; }
     .dash-header h1 span { color: var(--accent); }
     .dash-header p { color: rgba(255,255,255,0.8); font-size: 1rem; max-width: 600px; }
 
@@ -250,7 +250,7 @@
 <section class="status-bar">
   <div class="container">
     <div class="status-item"><span class="status-dot dot-green"></span> <strong>All Systems Operational</strong></div>
-    <div class="status-item">⚖️ AI Engine: <strong>Online</strong></div>
+    <div class="status-item">🤖 AI Engine: <strong>Online</strong></div>
     <div class="status-item">🔗 CRM Sync: <strong>Connected</strong></div>
     <div class="status-item">📊 Leads Today: <strong>142</strong></div>
     <div class="status-item">📈 Conversion Rate: <strong>3.2×</strong></div>
@@ -265,7 +265,7 @@
       <!-- 1. AI Intake Agent -->
       <div class="module-card">
         <div class="module-card-head">
-          <span class="icon">⚖️</span>
+          <span class="icon">🤖</span>
           <h3>AI Intake Agent</h3>
           <span class="module-status status-live">LIVE</span>
         </div>
@@ -286,7 +286,7 @@
       <!-- 2. Voice AI Receptionist -->
       <div class="module-card">
         <div class="module-card-head">
-          <span class="icon">📞</span>
+          <span class="icon">🎙️</span>
           <h3>Voice AI Receptionist</h3>
           <span class="module-status status-live">LIVE</span>
         </div>
@@ -307,7 +307,7 @@
       <!-- 3. AI Medical Chronologies -->
       <div class="module-card">
         <div class="module-card-head">
-          <span class="icon">📊</span>
+          <span class="icon">📅</span>
           <h3>AI Medical Chronologies</h3>
           <span class="module-status status-live">LIVE</span>
         </div>
@@ -328,7 +328,7 @@
       <!-- 4. Auto-Document Drafter -->
       <div class="module-card">
         <div class="module-card-head">
-          <span class="icon">📜</span>
+          <span class="icon">✍️</span>
           <h3>Auto-Document Drafter</h3>
           <span class="module-status status-beta">BETA</span>
         </div>
@@ -349,7 +349,7 @@
       <!-- 5. DepoLens AI -->
       <div class="module-card">
         <div class="module-card-head">
-          <span class="icon">🔍</span>
+          <span class="icon">🎯</span>
           <h3>DepoLens AI</h3>
           <span class="module-status status-live">LIVE</span>
         </div>
@@ -370,7 +370,7 @@
       <!-- 6. Settlement Estimator -->
       <div class="module-card">
         <div class="module-card-head">
-          <span class="icon">🏛️</span>
+          <span class="icon">💰</span>
           <h3>Settlement Estimator</h3>
           <span class="module-status status-live">LIVE</span>
         </div>
