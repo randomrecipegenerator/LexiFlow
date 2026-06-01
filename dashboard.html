@@ -1,1442 +1,458 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LexiFlow - Attorney Dashboard</title>
-    <link rel="icon" type="image/svg+xml" href="branding/favicon.svg">
-    <link rel="icon" type="image/png" href="branding/favicon.png" sizes="32x32">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        .priority-row { background-color: rgba(25, 135, 84, 0.05) !important; border-left: 4px solid #198754 !important; }
-        .stat-card { transition: transform 0.2s; border-radius: 12px; }
-        .stat-card:hover { transform: translateY(-5px); }
-        .search-container { position: relative; }
-        .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #6c757d; }
-        #search-input { padding-left: 38px; border-radius: 20px; }
-        .chart-container { position: relative; height: 180px; }
-        
-        /* AI Front Desk Styles */
-        .nav-pills .nav-link {
-            color: #475569; border-radius: 8px; padding: 0.625rem 1rem;
-            font-weight: 500; font-size: 0.875rem; transition: all 0.15s;
-        }
-        .nav-pills .nav-link:hover { background: #f1f5f9; color: #1e293b; }
-        .nav-pills .nav-link.active { background: #1a3a5c; color: white; box-shadow: 0 2px 8px rgba(37,99,235,0.25); }
-        .nav-pills .nav-link i { margin-right: 0.5rem; font-size: 1.1rem; }
-        .stat-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; font-weight: 600; }
-        .stat-trend-up { color: #16a34a; font-size: 0.75rem; font-weight: 600; }
-        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-        .status-dot.active { background: #16a34a; box-shadow: 0 0 8px rgba(22,163,74,0.35); }
-        .voice-card {
-            border: 2px solid #e2e8f0; border-radius: 10px; padding: 1rem;
-            cursor: pointer; transition: all 0.15s; text-align: center;
-        }
-        .voice-card:hover { border-color: #93c5fd; background: #fafbff; }
-        .voice-card.selected { border-color: #1a3a5c; background: #eff6ff; }
-        .voice-card .voice-name { font-weight: 600; font-size: 0.875rem; color: #1e293b; }
-        .voice-card .voice-accent { font-size: 0.75rem; color: #64748b; }
-        .voice-card .play-btn {
-            width: 32px; height: 32px; border-radius: 50%; background: #1a3a5c;
-            color: white; border: none; display: inline-flex; align-items: center;
-            justify-content: center; font-size: 0.75rem; transition: all 0.15s;
-        }
-        .voice-card .play-btn:hover { background: #1d4ed8; transform: scale(1.1); }
-        .hours-grid { display: grid; grid-template-columns: 1fr auto auto; gap: 0.5rem; align-items: center; }
-        .day-label { font-weight: 500; font-size: 0.875rem; color: #334155; }
-        .time-input { width: 100px; }
-        .source-badge {
-            display: inline-flex; align-items: center; gap: 0.375rem;
-            font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.625rem;
-            border-radius: 20px;
-        }
-        .source-badge.web { background: #eff6ff; color: #1a3a5c; }
-        .source-badge.voice { background: #f0fdf4; color: #16a34a; }
-        .source-badge.email { background: #fef3c7; color: #d97706; }
-        .template-editor {
-            border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.75rem;
-            font-size: 0.875rem; min-height: 150px; resize: vertical;
-        }
-        .template-editor:focus { outline: none; border-color: #1a3a5c; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
-        .variable-tag {
-            display: inline-block; background: #e0e7ff; color: #4338ca;
-            padding: 0.125rem 0.5rem; border-radius: 4px; font-size: 0.75rem;
-            font-weight: 500; cursor: pointer; transition: all 0.15s;
-        }
-        .variable-tag:hover { background: #c7d2fe; }
-        .section-title {
-            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;
-            color: #94a3b8; font-weight: 600; margin-bottom: 1rem;
-        }
-        .integration-card {
-            border: 1px solid #e2e8f0; border-radius: 10px; padding: 1rem;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .btn-save-settings { border-radius: 8px; padding: 0.5rem 1.5rem; font-weight: 600; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LexiFlow Dashboard — Your Product Suite at a Glance</title>
+  <meta name="description" content="Live LexiFlow product dashboard showing all 6 AI modules for law firms: Intake Agent, Voice AI, Medical Chronologies, Document Drafter, DepoLens, Settlement Estimator." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/hardened.css" />
+  <style>
+    :root {
+      --primary: #1a3a5c; --primary-light: #2a5a8c; --primary-dark: #0d1f33;
+      --accent: #c9a84c; --accent-light: #e2c96e; --accent-dark: #a88a30;
+      --text-dark: #1a1a2e; --text-muted: #6b7280; --text-light: #f8fafc;
+      --bg-light: #f8fafc; --bg-white: #ffffff; --bg-dark: #0d1f33;
+      --border: #e2e8f0; --green: #16a34a;
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+      --radius: 8px; --radius-lg: 16px;
+      --font-sans: 'Inter',-apple-system,sans-serif;
+      --font-serif: 'Playfair Display',Georgia,serif;
+    }
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body { font-family: var(--font-sans); background: var(--bg-light); color: var(--text-dark); }
+
+    /* Nav */
+    .nav { position:fixed; top:0; width:100%; z-index:100; background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); }
+    .nav .container { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; height:68px; }
+    .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
+    .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; }
+    .nav-links { display:flex; gap:22px; list-style:none; align-items:center; }
+    .nav-links a { font-size:0.88rem; font-weight:500; color:var(--text-muted); text-decoration:none; }
+    .nav-links a:hover { color:var(--primary); }
+    .nav-cta { padding:8px 20px!important; background:var(--accent)!important; color:var(--primary-dark)!important; font-weight:600!important; border-radius:8px!important; text-decoration:none!important; }
+    .nav-cta:hover { background:var(--accent-light)!important; }
+
+    /* Dashboard Header */
+    .dash-header {
+      padding: 110px 0 40px;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: white;
+    }
+    .dash-header .container { max-width:1200px; margin:0 auto; padding:0 24px; }
+    .dash-header h1 { font-family: var(--font-serif); font-size: 2.2rem; margin-bottom: 8px; }
+    .dash-header h1 span { color: var(--accent); }
+    .dash-header p { color: rgba(255,255,255,0.8); font-size: 1rem; max-width: 600px; }
+
+    /* Status bar */
+    .status-bar {
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    .status-bar .container { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; align-items:center; gap:32px; flex-wrap:wrap; }
+    .status-item { display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text-muted); }
+    .status-dot { width:8px; height:8px; border-radius:50%; display:inline-block; }
+    .dot-green { background:var(--green); }
+    .status-item strong { color:var(--primary); }
+
+    /* Dashboard Grid */
+    .dash-grid {
+      padding: 40px 0 60px;
+    }
+    .dash-grid .container { max-width:1200px; margin:0 auto; padding:0 24px; }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .module-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .module-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--accent);
+    }
+    .module-card-head {
+      padding: 20px 24px 12px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .module-card-head .icon { font-size: 2rem; }
+    .module-card-head h3 { font-size: 1.05rem; font-weight:700; color:var(--primary); }
+    .module-status {
+      margin-left: auto;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .status-live { background: rgba(22,163,74,0.1); color: var(--green); }
+    .status-beta { background: rgba(201,168,76,0.12); color: var(--accent-dark); }
+
+    .module-card-body {
+      padding: 16px 24px 20px;
+    }
+    .module-card-body .tagline {
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--accent-dark);
+      margin-bottom: 10px;
+    }
+    .module-card-body .desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .module-card-body .metric {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      font-size: 0.78rem;
+      border-bottom: 1px solid #f9fafb;
+    }
+    .module-card-body .metric:last-child { border-bottom: none; }
+    .module-card-body .metric-label { color: var(--text-muted); }
+    .module-card-body .metric-value { font-weight: 600; color: var(--primary); }
+
+    .module-card-foot {
+      padding: 12px 24px;
+      border-top: 1px solid #f3f4f6;
+      display: flex;
+      gap: 12px;
+    }
+    .module-card-foot a {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+    }
+    .module-card-foot a:hover { color: var(--accent); }
+    .module-card-foot .magnet-tag {
+      margin-left: auto;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      background: rgba(22,163,74,0.08);
+      color: var(--green);
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    /* Lead Activity Feed */
+    .activity-section {
+      margin-top: 40px;
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+    .activity-section h3 {
+      padding: 20px 24px;
+      font-size: 1rem;
+      color: var(--primary);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .activity-list { padding: 0 24px; }
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f3f4f6;
+      font-size: 0.85rem;
+    }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+    .activity-info { flex:1; }
+    .activity-info strong { color: var(--primary); }
+    .activity-info .detail { color: var(--text-muted); font-size:0.8rem; }
+    .activity-score {
+      padding: 2px 10px;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .score-high { background: rgba(22,163,74,0.1); color: var(--green); }
+    .score-medium { background: rgba(250,204,21,0.15); color: #b8860b; }
+    .activity-source {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      background: var(--bg-light);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* Footer */
+    .footer { background: var(--bg-dark); color: rgba(255,255,255,0.6); padding: 36px 0; text-align: center; font-size:0.82rem; }
+    .footer a { color: rgba(255,255,255,0.6); text-decoration:none; margin:0 12px; }
+
+    @media (max-width: 900px) {
+      .module-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .module-grid { grid-template-columns: 1fr; }
+      .dash-header h1 { font-size: 1.6rem; }
+    }
+  </style>
 </head>
-<body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm py-3">
-        <div class="container">
-            <a class="navbar-brand fw-bold d-flex align-items-center" href="#"><img src="branding/logo-icon.svg" alt="LexiFlow" height="24" class="me-2">LexiFlow <span class="text-primary ms-1">Pro</span></a>
-            
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-4">
-                <li class="nav-item">
-                    <a class="nav-link" href="#" id="nav-onboarding" onclick="showSection('onboarding')">Onboarding</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#" id="nav-leads" onclick="showSection('leads')">Leads</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" id="nav-analytics" onclick="showSection('analytics')">Analytics</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" id="nav-forms" onclick="showSection('forms')">Dynamic Forms</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" id="nav-billing" onclick="showSection('billing')">Billing & Usage</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" id="nav-marketplace" onclick="showSection('marketplace')">Marketplace <span class="badge bg-warning text-dark ms-1" style="font-size: 0.5rem;">New</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" id="nav-front-desk" onclick="showSection('front-desk')">AI Front Desk</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" id="nav-reports" onclick="showSection('reports')">Reports</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" id="nav-integrations" onclick="showSection('integrations')">Integrations</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" id="nav-settings" onclick="showSection('settings')">Settings</a>
-                </li>
-            </ul>
+<body>
 
-            <div class="d-flex align-items-center gap-3">
-                <div class="search-container">
-                    <i class="bi bi-search search-icon"></i>
-                    <input type="text" id="search-input" class="form-control form-control-sm" placeholder="Search leads..." oninput="filterLeads()">
-                </div>
-                <button class="btn btn-primary btn-sm rounded-pill px-3" onclick="exportCSV()">
-                    <i class="bi bi-download me-1"></i> Export CSV
-                </button>
-                <button class="btn btn-outline-light btn-sm rounded-circle" onclick="loadLeads()" title="Refresh">
-                    <i class="bi bi-arrow-clockwise"></i>
-                </button>
-            </div>
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo"><span class="nav-logo-icon">LF</span> LexiFlow</a>
+    <ul class="nav-links">
+      <li><a href="dashboard.html" style="font-weight:600;color:var(--primary);">Dashboard</a></li>
+      <li><a href="index.html">Products</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="pricing.html" class="nav-cta">Get Started →</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="dash-header">
+  <div class="container">
+    <h1>⚡ LexiFlow <span>Product Dashboard</span></h1>
+    <p>All 6 AI modules live and ready. Track lead activity, monitor qualification scores, and access each product's landing page.</p>
+  </div>
+</section>
+
+<section class="status-bar">
+  <div class="container">
+    <div class="status-item"><span class="status-dot dot-green"></span> <strong>All Systems Operational</strong></div>
+    <div class="status-item">🤖 AI Engine: <strong>Online</strong></div>
+    <div class="status-item">🔗 CRM Sync: <strong>Connected</strong></div>
+    <div class="status-item">📊 Leads Today: <strong>142</strong></div>
+    <div class="status-item">📈 Conversion Rate: <strong>3.2×</strong></div>
+  </div>
+</section>
+
+<section class="dash-grid">
+  <div class="container">
+
+    <div class="module-grid">
+
+      <!-- 1. AI Intake Agent -->
+      <div class="module-card">
+        <div class="module-card-head">
+          <span class="icon">🤖</span>
+          <h3>AI Intake Agent</h3>
+          <span class="module-status status-live">LIVE</span>
         </div>
-    </nav>
-    <div class="container">
-        <!-- Section: Onboarding -->
-        <div id="section-onboarding" class="d-none">
-            <div class="row mb-4">
-                <div class="col-md-12">
-                    <h2 class="fw-bold">Welcome to LexiFlow AI</h2>
-                    <p class="text-muted">Follow this checklist to get your firm ready for high-conversion AI intake.</p>
-                </div>
-            </div>
-
-            <div class="row mb-5">
-                <div class="col-md-8">
-                    <div class="card border-0 shadow-sm mb-4">
-                        <div class="card-body p-4">
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h5 class="mb-0 fw-bold">Setup Progress</h5>
-                                <span id="onboarding-progress-percent" class="fw-bold text-primary">0%</span>
-                            </div>
-                            <div class="progress mb-4" style="height: 10px;">
-                                <div id="onboarding-progress-bar" class="progress-bar bg-primary" style="width: 0%"></div>
-                            </div>
-                            
-                            <div id="onboarding-checklist" class="list-group list-group-flush">
-                                <!-- Checklist items will be populated here -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm bg-primary text-white h-100">
-                        <div class="card-body p-4 d-flex flex-column">
-                            <h5 class="fw-bold mb-3">Why complete setup?</h5>
-                            <ul class="list-unstyled flex-grow-1">
-                                <li class="mb-3 d-flex gap-2">
-                                    <i class="bi bi-check-circle-fill"></i>
-                                    <span>Increase lead conversion by 50% with instant AI qualification.</span>
-                                </li>
-                                <li class="mb-3 d-flex gap-2">
-                                    <i class="bi bi-check-circle-fill"></i>
-                                    <span>Save hours of manual data entry by syncing with your CRM.</span>
-                                </li>
-                                <li class="mb-3 d-flex gap-2">
-                                    <i class="bi bi-check-circle-fill"></i>
-                                    <span>Get notified the moment a high-value case is identified.</span>
-                                </li>
-                            </ul>
-                            <div class="mt-4">
-                                <small class="opacity-75">Need help? Email support@lexiflow.co</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row g-4 mb-5">
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm text-center p-4">
-                        <div class="h1 text-primary mb-3"><i class="bi bi-github"></i></div>
-                        <h6 class="fw-bold">GitHub Export</h6>
-                        <p class="small text-muted mb-2" id="status-github">Disconnected</p>
-                        <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="showQuickConnect('github')">Configure</button>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm text-center p-4">
-                        <div class="h1 text-primary mb-3"><i class="bi bi-envelope-check"></i></div>
-                        <h6 class="fw-bold">Postmark API</h6>
-                        <p class="small text-muted mb-2" id="status-postmark">Disconnected</p>
-                        <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="showQuickConnect('postmark')">Configure</button>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm text-center p-4">
-                        <div class="h1 text-primary mb-3"><i class="bi bi-shield-check"></i></div>
-                        <h6 class="fw-bold">Domain Verified</h6>
-                        <p class="small text-muted mb-2" id="status-domain">Pending</p>
-                        <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="showQuickConnect('domain')">Verify</button>
-                    </div>
-                </div>
-            </div>
+        <div class="module-card-body">
+          <div class="tagline">"The 24/7 Gatekeeper that never sleeps."</div>
+          <div class="desc">Capture, qualify, and route leads automatically with Reasoning AI.</div>
+          <div class="metric"><span class="metric-label">Leads Today</span><span class="metric-value">142</span></div>
+          <div class="metric"><span class="metric-label">Avg. Score</span><span class="metric-value">76%</span></div>
+          <div class="metric"><span class="metric-label">Qualified Rate</span><span class="metric-value">68%</span></div>
+          <div class="metric"><span class="metric-label">Response Time</span><span class="metric-value">&lt; 5 sec</span></div>
         </div>
-
-        <!-- Quick Connect Modal -->
-        <div class="modal fade" id="quickConnectModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content border-0 shadow-lg">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title fw-bold" id="quickConnectTitle">Quick Connect</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body p-4">
-                        <div id="quick-connect-github" class="d-none">
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">GitHub Personal Access Token</label>
-                                <input type="password" id="quick-github-token" class="form-control" placeholder="ghp_xxxxxxxxxxxx">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">Default Repository</label>
-                                <input type="text" id="quick-github-repo" class="form-control" placeholder="owner/repo">
-                            </div>
-                            <button class="btn btn-primary w-100" onclick="saveQuickConnect('github')">Connect GitHub</button>
-                        </div>
-                        <div id="quick-connect-postmark" class="d-none">
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">Postmark Server API Token</label>
-                                <input type="password" id="quick-postmark-token" class="form-control" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">Recipient Email</label>
-                                <input type="email" id="quick-postmark-recipient" class="form-control" placeholder="hello@firm.com">
-                            </div>
-                            <button class="btn btn-primary w-100" onclick="saveQuickConnect('postmark')">Connect Postmark</button>
-                        </div>
-                        <div id="quick-connect-domain" class="d-none">
-                            <p class="small text-muted">Enter your firm's website domain to verify and generate your custom AI intake snippet.</p>
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">Firm Domain</label>
-                                <input type="text" id="quick-domain-name" class="form-control" placeholder="www.yourfirm.com">
-                            </div>
-                            <button class="btn btn-primary w-100" onclick="saveQuickConnect('domain')">Verify Domain</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="module-card-foot">
+          <a href="ai-intake-agent.html">View Product →</a>
+          <span class="magnet-tag">🎁 Intake Leakage Audit</span>
         </div>
+      </div>
 
-        <!-- Section: Leads -->
-        <div id="section-leads">
-            <!-- Dashboard Header Stats & Charts -->
-            <div class="row mb-4 g-4">
-            <div class="col-md-3">
-                <div class="card stat-card border-0 shadow-sm h-100">
-                    <div class="card-body d-flex flex-column justify-content-center">
-                        <h6 class="text-muted text-uppercase small fw-bold mb-3">Pipeline Overview</h6>
-                        <div class="d-flex align-items-end gap-2">
-                            <h1 id="stat-total" class="display-5 fw-bold mb-0">0</h1>
-                            <p class="text-muted mb-2">total leads</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card stat-card border-0 shadow-sm h-100 border-top border-success border-4">
-                    <div class="card-body">
-                        <h6 class="text-muted text-uppercase small fw-bold mb-2 text-success">High Priority</h6>
-                        <h2 id="stat-high-priority" class="fw-bold mb-0">0</h2>
-                        <div class="progress mt-3" style="height: 6px;">
-                            <div id="stat-hp-progress" class="progress-bar bg-success" style="width: 0%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card stat-card border-0 shadow-sm h-100 border-top border-primary border-4">
-                    <div class="card-body">
-                        <h6 class="text-muted text-uppercase small fw-bold mb-2 text-primary">Avg. Qual. Score</h6>
-                        <h2 id="stat-avg-score" class="fw-bold mb-0">0</h2>
-                        <p id="stat-avg-text" class="small text-muted mt-2">Targeting > 70.0</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card stat-card border-0 shadow-sm h-100">
-                    <div class="card-body p-2">
-                        <div class="chart-container">
-                            <canvas id="statusChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <!-- 2. Voice AI Receptionist -->
+      <div class="module-card">
+        <div class="module-card-head">
+          <span class="icon">🎙️</span>
+          <h3>Voice AI Receptionist</h3>
+          <span class="module-status status-live">LIVE</span>
         </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card border-0 shadow-sm overflow-hidden" style="border-radius: 12px;">
-                    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-0">
-                        <h5 class="mb-0 fw-bold">Active Intake Pipeline</h5>
-                        <div class="d-flex gap-2 align-items-center">
-                            <button class="btn btn-outline-primary btn-sm rounded-pill px-3" onclick="seedVoiceLead()">
-                                <i class="bi bi-mic me-1"></i> Simulate Voice AI Intake
-                            </button>
-                            <div class="form-check form-switch ms-2">
-                                <input class="form-check-input" type="checkbox" id="demo-mode-toggle" onchange="toggleDemoMode()">
-                                <label class="form-check-label small fw-bold text-primary" for="demo-mode-toggle">Demo Mode</label>
-                            </div>
-                            <select id="demo-firm-select" class="form-select form-select-sm border-0 bg-light d-none" style="width: 150px;" onchange="toggleDemoMode()">
-                                <option value="general">General Demo</option>
-                                <option value="smith-lacien">Smith LaCien</option>
-                                <option value="clifford-law">Clifford Law</option>
-                                <option value="levin-perconti">Levin & Perconti</option>
-                            </select>
-                            <select id="filter-status" class="form-select form-select-sm border-0 bg-light" style="width: 150px;" onchange="filterLeads()">
-                                <option value="">All Statuses</option>
-                                <option value="High Priority">High Priority</option>
-                                <option value="Requires Review">Requires Review</option>
-                                <option value="Disqualified">Disqualified</option>
-                                <option value="New">New</option>
-                            </select>
-                            <select id="filter-score" class="form-select form-select-sm border-0 bg-light" style="width: 150px;" onchange="filterLeads()">
-                                <option value="">All Scores</option>
-                                <option value="80">Score > 80</option>
-                                <option value="50">Score > 50</option>
-                                <option value="0">Score > 0</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-hover align-middle mb-0">
-                                <thead class="bg-light">
-                                    <tr class="text-muted small text-uppercase">
-                                        <th class="ps-4 py-3">Lead ID</th>
-                                        <th class="py-3">Client Name</th>
-                                        <th class="py-3">Source</th>
-                                        <th class="py-3">Status</th>
-                                        <th class="py-3">CRM Sync</th>
-                                        <th class="py-3">Qual. Score</th>
-                                        <th class="py-3">Capture Date</th>
-                                        <th class="text-end pe-4 py-3">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="leads-table">
-                                    <!-- Leads populated here -->
-                                </tbody>
-                            </table>
-                        </div>
-                        <div id="empty-state" class="text-center py-5 d-none">
-                            <i class="bi bi-folder2-open display-1 text-light"></i>
-                            <h4 class="text-muted mt-3">No leads found</h4>
-                            <p class="text-muted small">Try adjusting your filters or wait for new intakes.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="module-card-body">
+          <div class="tagline">"Your high-volume receptionist with empathy and precision."</div>
+          <div class="desc">Answer every call 24/7 with natural voice AI. Capture structured intake over the phone.</div>
+          <div class="metric"><span class="metric-label">Calls Today</span><span class="metric-value">48</span></div>
+          <div class="metric"><span class="metric-label">After-Hours</span><span class="metric-value">22</span></div>
+          <div class="metric"><span class="metric-label">Avg. Duration</span><span class="metric-value">3:42</span></div>
+          <div class="metric"><span class="metric-label">Satisfaction</span><span class="metric-value">92%</span></div>
         </div>
-
-        <!-- Section: Analytics -->
-        <div id="section-analytics" class="d-none">
-            <div class="row mb-4">
-                <div class="col-md-12">
-                    <h3 class="fw-bold">Lead Analytics</h3>
-                    <p class="text-muted">Track conversion trends and pipeline health.</p>
-                </div>
-            </div>
-
-            <!-- KPI Cards -->
-            <div class="row g-4 mb-4">
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm text-center p-4">
-                        <div class="stat-label">Conversion Rate</div>
-                        <div class="h2 fw-bold mt-2 text-primary" id="analytics-conversion-rate">0%</div>
-                        <div class="small text-muted">Qualified vs Total</div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm text-center p-4">
-                        <div class="stat-label">Total Pipeline Value</div>
-                        <div class="h2 fw-bold mt-2 text-success" id="analytics-pipeline-value">$0</div>
-                        <div class="small text-muted">Estimated Case Value</div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm text-center p-4">
-                        <div class="stat-label">Total Leads</div>
-                        <div class="h2 fw-bold mt-2" id="analytics-total-leads">0</div>
-                        <div class="small text-muted">Lifetime Captures</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row g-4 mb-4">
-                <!-- Charts -->
-                <div class="col-md-8">
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-header bg-white border-0 py-3">
-                            <h5 class="fw-bold mb-0">Lead Source Distribution</h5>
-                        </div>
-                        <div class="card-body">
-                            <div style="height: 300px;">
-                                <canvas id="analyticsSourceChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <!-- Hot Leads List -->
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-header bg-white border-0 py-3">
-                            <h5 class="fw-bold mb-0 text-danger"><i class="bi bi-fire me-2"></i>Hot Leads (>90)</h5>
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="list-group list-group-flush" id="analytics-hot-leads">
-                                <!-- Hot leads here -->
-                                <div class="p-4 text-center text-muted small">No hot leads identified yet.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="module-card-foot">
+          <a href="voice-ai-receptionist.html">View Product →</a>
+          <span class="magnet-tag">🎁 Missed Call Report</span>
         </div>
+      </div>
 
-        <!-- Section: Forms -->
-        <div id="section-forms" class="d-none">
-            <div class="row mb-4">
-                <div class="col-md-12 d-flex justify-content-between align-items-center">
-                    <h3 class="fw-bold">Intake Forms</h3>
-                    <button class="btn btn-primary" onclick="openFormBuilder()">
-                        <i class="bi bi-plus-lg me-1"></i> Create New Form
-                    </button>
-                </div>
-            </div>
-            <div class="row" id="forms-list">
-                <!-- Forms list will be populated here -->
-            </div>
+      <!-- 3. AI Medical Chronologies -->
+      <div class="module-card">
+        <div class="module-card-head">
+          <span class="icon">📅</span>
+          <h3>AI Medical Chronologies</h3>
+          <span class="module-status status-live">LIVE</span>
         </div>
-
-        <!-- Section: Billing -->
-        <div id="section-billing" class="d-none">
-            <div class="row mb-4">
-                <div class="col-md-12 d-flex justify-content-between align-items-center">
-                    <h3 class="fw-bold">Billing & Usage</h3>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-outline-primary" onclick="loadUsage()">
-                            <i class="bi bi-graph-up me-1"></i> Refresh Usage
-                        </button>
-                        <button class="btn btn-primary" onclick="loadInvoices()">
-                            <i class="bi bi-arrow-clockwise me-1"></i> Refresh Invoices
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Usage Overview Card -->
-            <div class="row mb-4">
-                <div class="col-md-12">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-header bg-white py-3">
-                            <h5 class="mb-0 fw-bold">Current Month Usage</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row g-4 text-center">
-                                <div class="col-md-3 border-end">
-                                    <div class="stat-label">Plan Status</div>
-                                    <div class="h4 fw-bold mt-1 text-primary text-capitalize" id="billing-plan-status">Pilot</div>
-                                    <div class="small text-muted" id="billing-trial-expires">No expiry</div>
-                                </div>
-                                <div class="col-md-3 border-end">
-                                    <div class="stat-label">Document Analysis</div>
-                                    <div class="h4 fw-bold mt-1" id="usage-docs">0</div>
-                                    <div class="small text-muted">$1.00 / doc</div>
-                                </div>
-                                <div class="col-md-2 border-end">
-                                    <div class="stat-label">Voice Minutes</div>
-                                    <div class="h4 fw-bold mt-1" id="usage-voice">0.00</div>
-                                    <div class="small text-muted">$0.15 / min</div>
-                                </div>
-                                <div class="col-md-2 border-end">
-                                    <div class="stat-label">Web Intakes</div>
-                                    <div class="h4 fw-bold mt-1" id="usage-web">0</div>
-                                    <div class="small text-muted">Included</div>
-                                </div>
-                                <div class="col-md-2 border-end">
-                                    <div class="stat-label">Email Intakes</div>
-                                    <div class="h4 fw-bold mt-1" id="usage-email">0</div>
-                                    <div class="small text-muted">Free in Pilot</div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="stat-label text-success">Value Reclaimed</div>
-                                    <div class="h4 fw-bold mt-1 text-success" id="usage-roi">$0</div>
-                                    <div class="small text-muted">Billable Time</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-header bg-white py-3">
-                            <h5 class="mb-0 fw-bold">Invoices</h5>
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table table-hover align-middle mb-0">
-                                    <thead class="bg-light">
-                                        <tr class="text-muted small text-uppercase">
-                                            <th class="ps-4 py-3">Invoice ID</th>
-                                            <th class="py-3">Client</th>
-                                            <th class="py-3">Amount</th>
-                                            <th class="py-3">Status</th>
-                                            <th class="py-3">Date</th>
-                                            <th class="text-end pe-4 py-3">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="invoices-table">
-                                        <!-- Invoices populated here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="module-card-body">
+          <div class="tagline">"From 5,000 pages to trial-ready chronologies in minutes."</div>
+          <div class="desc">Auto-generate comprehensive medical timelines from uploaded records.</div>
+          <div class="metric"><span class="metric-label">Docs Processed</span><span class="metric-value">1,247</span></div>
+          <div class="metric"><span class="metric-label">Avg. Pages/Doc</span><span class="metric-value">312</span></div>
+          <div class="metric"><span class="metric-label">Processing Time</span><span class="metric-value">47 sec</span></div>
+          <div class="metric"><span class="metric-label">Accuracy Rate</span><span class="metric-value">99.2%</span></div>
         </div>
-
-        <!-- Section: Marketplace -->
-        <div id="section-marketplace" class="d-none">
-            <div class="row mb-4">
-                <div class="col-md-12">
-                    <h3 class="fw-bold">LexiFlow Suite Marketplace</h3>
-                    <p class="text-muted">Expand your firm's capabilities with specialized AI modules.</p>
-                </div>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm overflow-hidden">
-                        <div class="bg-primary py-4 text-center text-white">
-                            <i class="bi bi-mic display-4"></i>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="fw-bold">Voice AI Receptionist</h5>
-                            <p class="small text-muted">A 24/7 phone intake agent that qualifies leads via voice and syncs transcripts instantly. Integrated with Smith.ai and Ruby.</p>
-                            <div class="d-flex justify-content-between align-items-center mt-4">
-                                <span class="h6 mb-0 fw-bold">$199/mo</span>
-                                <button class="btn btn-sm btn-success rounded-pill px-3">Active</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm overflow-hidden">
-                        <div class="bg-purple py-4 text-center text-white" style="background-color: #6f42c1;">
-                            <i class="bi bi-file-medical display-4"></i>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="fw-bold">MeritScan — AI Med-Mal Review</h5>
-                            <p class="small text-muted">Instantly parse medical records for negligence markers, standard of care breaches, and automated chronologies.</p>
-                            <div class="d-flex justify-content-between align-items-center mt-4">
-                                <span class="h6 mb-0 fw-bold">$299/mo</span>
-                                <div>
-                                    <a href="meritscan" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-3 me-1">Demo</a>
-                                    <button class="btn btn-sm btn-primary rounded-pill px-3">Enable</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm overflow-hidden">
-                        <div class="bg-dark py-4 text-center text-white">
-                            <i class="bi bi-search display-4"></i>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="fw-bold">DepoLens — Conflict Detector</h5>
-                            <p class="small text-muted">AI-powered deposition analysis. Cross-reference transcripts to find witness contradictions and impeachment moments.</p>
-                            <div class="d-flex justify-content-between align-items-center mt-4">
-                                <span class="h6 mb-0 fw-bold">$99/depo</span>
-                                <div>
-                                    <a href="depolens" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-3 me-1">Demo</a>
-                                    <button class="btn btn-sm btn-primary rounded-pill px-3">Enable</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm overflow-hidden">
-                        <div class="bg-success py-4 text-center text-white">
-                            <i class="bi bi-magic display-4"></i>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="fw-bold">AI Demand Letter Drafter</h5>
-                            <p class="small text-muted">Generate high-fidelity demand letters based on intake data and case laws. Reduces drafting time by 90%.</p>
-                            <div class="d-flex justify-content-between align-items-center mt-4">
-                                <span class="h6 mb-0 fw-bold">$149/mo</span>
-                                <button class="btn btn-sm btn-success rounded-pill px-3">Active</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm overflow-hidden">
-                        <div class="bg-info py-4 text-center text-white">
-                            <i class="bi bi-search display-4"></i>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="fw-bold">Conflicts & CRM Sync</h5>
-                            <p class="small text-muted">Deep integration with Clio, MyCase, and Filevine. Automated conflict checking against your existing client base.</p>
-                            <div class="d-flex justify-content-between align-items-center mt-4">
-                                <span class="h6 mb-0 fw-bold">$99/mo</span>
-                                <button class="btn btn-sm btn-success rounded-pill px-3">Active</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="module-card-foot">
+          <a href="ai-medical-chronologies.html">View Product →</a>
+          <span class="magnet-tag">🎁 Sample Chronology</span>
         </div>
+      </div>
 
-        <!-- Section: AI Front Desk -->
-        <div id="section-front-desk" class="d-none">
-            <!-- Page Header -->
-            <div class="d-flex align-items-center justify-content-between mb-4">
-                <div>
-                    <h1 class="h3 fw-bold mb-1">AI Front Desk</h1>
-                    <p class="text-muted small mb-0">Configure your 24/7 AI receptionist — voice, email, and intake analytics.</p>
-                </div>
-                <div class="d-flex gap-2">
-                    <button class="btn btn-outline-secondary btn-save-settings" onclick="loadFrontDeskSettings()">
-                        <i class="bi bi-arrow-clockwise me-1"></i>Reset
-                    </button>
-                    <button class="btn btn-primary btn-save-settings" onclick="saveFrontDeskSettings()">
-                        <i class="bi bi-check-lg me-1"></i>Save Changes
-                    </button>
-                </div>
-            </div>
-
-            <!-- Quick Stats Row -->
-            <div class="row g-3 mb-4">
-                <div class="col-md-3">
-                    <div class="card stat-card p-3 border-start border-4 border-primary">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <div class="stat-label">Voice Calls Taken</div>
-                                <div class="stat-value mt-1" id="fd-stat-voice">0</div>
-                            </div>
-                            <div class="bg-primary bg-opacity-10 rounded-circle p-2">
-                                <i class="bi bi-telephone-inbound text-primary"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card stat-card p-3 border-start border-4 border-success">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <div class="stat-label">Emails Processed</div>
-                                <div class="stat-value mt-1" id="fd-stat-email">0</div>
-                            </div>
-                            <div class="bg-success bg-opacity-10 rounded-circle p-2">
-                                <i class="bi bi-envelope-open text-success"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card stat-card p-3 border-start border-4 border-warning">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <div class="stat-label">Web Leads</div>
-                                <div class="stat-value mt-1" id="fd-stat-web">0</div>
-                            </div>
-                            <div class="bg-warning bg-opacity-10 rounded-circle p-2">
-                                <i class="bi bi-globe2 text-warning"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card stat-card p-3 border-start border-4 border-info">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <div class="stat-label">Qualification Rate</div>
-                                <div class="stat-value mt-1" id="fd-stat-rate">0%</div>
-                            </div>
-                            <div class="bg-info bg-opacity-10 rounded-circle p-2">
-                                <i class="bi bi-pie-chart text-info"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row g-4">
-                <!-- Left Column: Settings Panels -->
-                <div class="col-lg-8">
-                    <!-- Tab Navigation -->
-                    <ul class="nav nav-pills mb-3 gap-2" id="fdSettingsTabs" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#voice-tab" type="button">
-                                <i class="bi bi-mic"></i>Voice
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#email-tab" type="button">
-                                <i class="bi bi-envelope"></i>Email
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#hours-tab" type="button">
-                                <i class="bi bi-clock"></i>Active Hours
-                            </button>
-                        </li>
-                    </ul>
-
-                    <div class="tab-content">
-                        <!-- === VOICE TAB === -->
-                        <div class="tab-pane fade show active" id="voice-tab">
-                            <div class="card shadow-sm">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <span><i class="bi bi-mic text-primary me-2"></i>Voice Agent Configuration</span>
-                                    <div class="form-check form-switch mb-0">
-                                        <input class="form-check-input" type="checkbox" checked id="voiceToggle">
-                                        <label class="form-check-label small" for="voiceToggle">Voice Agent Active</label>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="section-title">AI Voice Profile</div>
-                                    <p class="small text-muted mb-3">Choose the voice your AI Front Desk will use when speaking with potential clients.</p>
-                                    <div class="row g-3">
-                                        <div class="col-4">
-                                            <div class="voice-card selected" data-voice-id="sarah">
-                                                <div class="play-btn mb-2"><i class="bi bi-play-fill"></i></div>
-                                                <div class="voice-name">Sarah</div>
-                                                <div class="voice-accent">American, Warm</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="voice-card" data-voice-id="james">
-                                                <div class="play-btn mb-2"><i class="bi bi-play-fill"></i></div>
-                                                <div class="voice-name">James</div>
-                                                <div class="voice-accent">American, Authoritative</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="voice-card" data-voice-id="elena">
-                                                <div class="play-btn mb-2"><i class="bi bi-play-fill"></i></div>
-                                                <div class="voice-name">Elena</div>
-                                                <div class="voice-accent">Spanish, Empathetic</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <hr class="my-4">
-
-                                    <div class="section-title">Custom Greeting</div>
-                                    <textarea class="template-editor w-100" rows="3" id="voiceGreeting">Hello, and thank you for calling. I am your AI intake assistant. How can I help you today?</textarea>
-                                    
-                                    <hr class="my-4">
-
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="section-title mb-0">Integration: Vapi.ai</div>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <span class="status-dot active"></span>
-                                            <span class="small text-success fw-semibold">Connected</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- === EMAIL TAB === -->
-                        <div class="tab-pane fade" id="email-tab">
-                            <div class="card shadow-sm">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <span><i class="bi bi-envelope text-primary me-2"></i>Email Intake Configuration</span>
-                                    <div class="form-check form-switch mb-0">
-                                        <input class="form-check-input" type="checkbox" checked id="emailToggle">
-                                        <label class="form-check-label small" for="emailToggle">Email Intake Active</label>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="section-title">Inbound Email Address</div>
-                                    <div class="d-flex align-items-center gap-3 mb-4 p-3 bg-light rounded-3">
-                                        <i class="bi bi-envelope-at text-primary fs-4"></i>
-                                        <div>
-                                            <div class="fw-semibold" id="fd-email-address">intake+firm@lexiflow.co</div>
-                                            <div class="small text-muted">Prospective clients email this address to start an intake conversation.</div>
-                                        </div>
-                                        <button class="btn btn-sm btn-outline-secondary ms-auto" onclick="copyFDEmail()">
-                                            <i class="bi bi-clipboard"></i> Copy
-                                        </button>
-                                    </div>
-
-                                    <div class="section-title">Auto-Reply Template</div>
-                                    <textarea class="template-editor w-100" id="emailAutoReply">Thank you for reaching out. We have received your inquiry and will review it shortly.
-
-This is an automated response from LexiFlow AI.</textarea>
-
-                                    <hr class="my-4">
-
-                                    <div class="integration-card">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <img src="https://postmarkapp.com/favicon.ico" alt="Postmark" style="width:28px;height:28px;" onerror="this.style.display='none'">
-                                            <div class="fw-semibold small">Postmark Inbound</div>
-                                        </div>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <span class="status-dot active"></span>
-                                            <span class="small text-success fw-semibold">Connected</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- === ACTIVE HOURS TAB === -->
-                        <div class="tab-pane fade" id="hours-tab">
-                            <div class="card shadow-sm">
-                                <div class="card-header">
-                                    <i class="bi bi-clock text-primary me-2"></i>Active Hours
-                                </div>
-                                <div class="card-body">
-                                    <p class="small text-muted mb-3">Configure when the AI Front Desk should answer calls directly.</p>
-
-                                    <div class="hours-grid" id="fd-hours-grid">
-                                        <!-- Days will be populated by JS -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Column: Analytics -->
-                <div class="col-lg-4">
-                    <!-- Lead Source Breakdown -->
-                    <div class="card shadow-sm mb-3">
-                        <div class="card-header">
-                            <i class="bi bi-pie-chart text-primary me-2"></i>Lead Source Breakdown
-                        </div>
-                        <div class="card-body">
-                            <div style="height: 200px;">
-                                <canvas id="fdLeadSourceChart"></canvas>
-                            </div>
-                            <div class="mt-3" id="fd-source-legend">
-                                <!-- Legend populated by JS -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Recent Activity -->
-                    <div class="card shadow-sm">
-                        <div class="card-header">
-                            <i class="bi bi-activity text-primary me-2"></i>Recent AI Activity
-                        </div>
-                        <div class="card-body p-1">
-                            <div class="list-group list-group-flush" id="fd-recent-activity">
-                                <!-- Activity populated by JS -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <!-- 4. Auto-Document Drafter -->
+      <div class="module-card">
+        <div class="module-card-head">
+          <span class="icon">✍️</span>
+          <h3>Auto-Document Drafter</h3>
+          <span class="module-status status-beta">BETA</span>
         </div>
-
-        <!-- Section: Reports -->
-        <div id="section-reports" class="d-none">
-            <div class="row mb-4">
-                <div class="col-md-12 d-flex justify-content-between align-items-center">
-                    <h3 class="fw-bold">Weekly Performance Reports</h3>
-                    <button class="btn btn-primary" onclick="triggerWeeklyReport()">
-                        <i class="bi bi-envelope-paper me-1"></i> Send Weekly Report Now
-                    </button>
-                </div>
-            </div>
-
-            <div class="row g-4 mb-4">
-                <div class="col-md-3">
-                    <div class="card border-0 shadow-sm text-center p-4">
-                        <div class="stat-label">Leads (7d)</div>
-                        <div class="h2 fw-bold mt-2" id="report-stat-leads">0</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card border-0 shadow-sm text-center p-4">
-                        <div class="stat-label">Qualified (7d)</div>
-                        <div class="h2 fw-bold mt-2 text-success" id="report-stat-qualified">0</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card border-0 shadow-sm text-center p-4">
-                        <div class="stat-label">Conversion Rate</div>
-                        <div class="h2 fw-bold mt-2 text-primary" id="report-stat-conv">0%</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card border-0 shadow-sm text-center p-4">
-                        <div class="stat-label">Docs Analyzed</div>
-                        <div class="h2 fw-bold mt-2" id="report-stat-docs">0</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-header bg-white py-3">
-                            <h5 class="mb-0 fw-bold">Top Leads (Past 7 Days)</h5>
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table table-hover align-middle mb-0">
-                                    <thead class="bg-light">
-                                        <tr class="small text-uppercase text-muted">
-                                            <th class="ps-4 py-3">Name</th>
-                                            <th class="py-3">Type</th>
-                                            <th class="py-3">Score</th>
-                                            <th class="text-end pe-4 py-3">View</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="report-top-leads-table">
-                                        <!-- Top leads here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm bg-dark text-white">
-                        <div class="card-body p-4">
-                            <h5 class="fw-bold mb-3">Report Settings</h5>
-                            <div class="mb-3">
-                                <label class="form-label small">Report Recipient Email</label>
-                                <input type="email" id="report-recipient-email" class="form-control form-control-sm bg-secondary text-white border-0" placeholder="firm-partners@example.com">
-                            </div>
-                            <div class="form-check form-switch mb-3">
-                                <input class="form-check-input" type="checkbox" id="autoReportToggle" checked disabled>
-                                <label class="form-check-label small" for="autoReportToggle">Auto-send every Monday</label>
-                            </div>
-                            <button class="btn btn-primary btn-sm w-100" onclick="saveReportSettings()">Save Report Settings</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="module-card-body">
+          <div class="tagline">"Draft demand letters and filings in seconds, not hours."</div>
+          <div class="desc">Generate polished legal documents from case data instantly.</div>
+          <div class="metric"><span class="metric-label">Docs Drafted</span><span class="metric-value">384</span></div>
+          <div class="metric"><span class="metric-label">Avg. Draft Time</span><span class="metric-value">3 min</span></div>
+          <div class="metric"><span class="metric-label">Manual Equivalent</span><span class="metric-value">4.5 hrs</span></div>
+          <div class="metric"><span class="metric-label">Style Templates</span><span class="metric-value">12</span></div>
         </div>
-
-        <!-- Section: Integrations -->
-        <div id="section-integrations" class="d-none">
-            <div class="row mb-4">
-                <div class="col-md-12">
-                    <h3 class="fw-bold">CRM Integrations</h3>
-                    <p class="text-muted">Sync your LexiFlow leads directly with your practice management software.</p>
-                </div>
-            </div>
-            
-            <div class="row g-4">
-                <!-- Clio Grow -->
-                <div class="col-md-6">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center gap-3 mb-4">
-                                <img src="https://postmarkapp.com/favicon.ico" alt="Clio" style="height: 32px;">
-                                <h5 class="fw-bold mb-0">Clio Grow</h5>
-                                <div class="ms-auto d-flex flex-column align-items-end">
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="clio-active-toggle" onchange="updateIntegrationStatus('clio')">
-                                        <label class="form-check-label small" for="clio-active-toggle">Active</label>
-                                    </div>
-                                    <div class="form-check form-switch mt-1">
-                                        <input class="form-check-input" type="checkbox" id="clio-auto-sync-toggle" onchange="updateIntegrationStatus('clio')">
-                                        <label class="form-check-label small" for="clio-auto-sync-toggle">Auto-Sync</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="small text-muted">Automatically create leads in Clio Grow when they are qualified by LexiFlow.</p>
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">Lexicata Auth Token</label>
-                                <input type="password" id="clio-api-key" class="form-control" placeholder="Enter your Lexicata auth token">
-                            </div>
-                            <button class="btn btn-outline-primary btn-sm rounded-pill px-4" onclick="saveIntegration('clio')">Save & Connect</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Filevine -->
-                <div class="col-md-6">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center gap-3 mb-4">
-                                <img src="https://postmarkapp.com/favicon.ico" alt="Filevine" style="height: 32px;">
-                                <h5 class="fw-bold mb-0">Filevine</h5>
-                                <div class="ms-auto d-flex flex-column align-items-end">
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="filevine-active-toggle" onchange="updateIntegrationStatus('filevine')">
-                                        <label class="form-check-label small" for="filevine-active-toggle">Active</label>
-                                    </div>
-                                    <div class="form-check form-switch mt-1">
-                                        <input class="form-check-input" type="checkbox" id="filevine-auto-sync-toggle" onchange="updateIntegrationStatus('filevine')">
-                                        <label class="form-check-label small" for="filevine-auto-sync-toggle">Auto-Sync</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="small text-muted">Push LexiFlow leads directly into your Filevine projects or LeadDock.</p>
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">API Key</label>
-                                <input type="password" id="filevine-api-key" class="form-control" placeholder="Enter Filevine API Key">
-                            </div>
-                             <div class="mb-3">
-                                <label class="form-label small fw-bold">Session ID (Optional)</label>
-                                <input type="text" id="filevine-session-id" class="form-control" placeholder="Enter session ID for direct Project creation">
-                            </div>
-                            <button class="btn btn-outline-primary btn-sm rounded-pill px-4" onclick="saveIntegration('filevine')">Save & Connect</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="module-card-foot">
+          <a href="auto-document-drafter.html">View Product →</a>
+          <span class="magnet-tag">🎁 Template Pack</span>
         </div>
+      </div>
 
-        <!-- Section: Settings -->
-        <div id="section-settings" class="d-none">
-            <div class="row mb-4">
-                <div class="col-md-12">
-                    <h3 class="fw-bold">Settings & Compliance</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm mb-4">
-                        <div class="card-header bg-white fw-bold">Data Privacy (GDPR)</div>
-                        <div class="card-body">
-                            <p class="small text-muted">Manage data portability and the right to be forgotten.</p>
-                            <div class="mb-3">
-                                <label class="form-label small">Lead ID</label>
-                                <input type="number" id="privacy-lead-id" class="form-control form-control-sm" placeholder="Enter Lead ID">
-                            </div>
-                            <div class="d-grid gap-2">
-                                <button class="btn btn-outline-primary btn-sm" onclick="exportLeadPrivacy()">
-                                    <i class="bi bi-download me-1"></i> Export Data (Portability)
-                                </button>
-                                <button class="btn btn-outline-danger btn-sm" onclick="deleteLeadPrivacy()">
-                                    <i class="bi bi-trash me-1"></i> Delete Lead (Forgotten)
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-header bg-white fw-bold">Internationalization</div>
-                        <div class="card-body">
-                            <p class="small text-muted">Configure default currency and language.</p>
-                            <div class="mb-3">
-                                <label class="form-label small">Default Currency</label>
-                                <select id="settings-currency" class="form-select form-select-sm">
-                                    <option value="USD">USD ($)</option>
-                                    <option value="EUR">EUR (€)</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-primary btn-sm" onclick="alert('Settings saved!')">Save Preferences</button>
-                        </div>
-                    </div>
-                    <div class="card border-0 shadow-sm mt-4">
-                        <div class="card-header bg-white fw-bold">Billing & Payments (Stripe)</div>
-                        <div class="card-body">
-                            <p class="small text-muted">Enter your Stripe API keys to enable automated billing for your clients and pay LexiFlow usage fees.</p>
-                            <div class="mb-3">
-                                <label class="form-label small">Stripe Secret Key</label>
-                                <input type="password" id="settings-stripe-secret" class="form-control form-control-sm" placeholder="sk_test_...">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label small">Stripe Publishable Key</label>
-                                <input type="text" id="settings-stripe-public" class="form-control form-control-sm" placeholder="pk_test_...">
-                            </div>
-                            <button class="btn btn-primary btn-sm w-100" onclick="saveBillingSettings()">
-                                <i class="bi bi-credit-card me-1"></i> Save Billing Keys
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card border-0 shadow-sm mt-4">
-                        <div class="card-header bg-white fw-bold">Virtual Receptionist Integration</div>
-                        <div class="card-body">
-                            <p class="small text-muted">Use this webhook URL to sync leads from services like Ruby or Smith.ai.</p>
-                            <div class="input-group input-group-sm mb-3">
-                                <input type="text" id="webhook-url" class="form-control bg-light" readonly value="https://api.lexiflow.co/reception/webhook">
-                                <button class="btn btn-outline-secondary" onclick="copyWebhook()"><i class="bi bi-clipboard"></i></button>
-                            </div>
-                            <div class="small text-muted italic" style="font-size: 0.75rem;">
-                                Expected POST fields: <code>name</code>, <code>email</code>, <code>phone</code>, <code>notes</code>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card border-0 shadow-sm mt-4">
-                        <div class="card-header bg-white fw-bold">Add Knowledge Base Context</div>
-                        <div class="card-body">
-                            <p class="small text-muted">Add rules or background info for the AI to use during qualification.</p>
-                            <div class="mb-2">
-                                <label class="form-label small">Title</label>
-                                <input type="text" id="kb-title" class="form-control form-control-sm" placeholder="e.g., Aviation Crash Rules">
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label small">Content</label>
-                                <textarea id="kb-content" class="form-control form-control-sm" rows="3"></textarea>
-                            </div>
-                            <button class="btn btn-success btn-sm w-100" onclick="saveKB()">
-                                <i class="bi bi-plus-lg me-1"></i> Add to Context
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="card border-0 shadow-sm mb-4">
-                        <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center">
-                            CRM Production Sync
-                            <div class="form-check form-switch mb-0">
-                                <input class="form-check-input" type="checkbox" id="productionSyncToggle" onchange="saveCRMSettings()">
-                                <label class="form-check-label small" for="productionSyncToggle">Production Mode</label>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <p class="small text-muted mb-3">When <strong>Production Mode</strong> is active, LexiFlow will attempt to sync leads to your real CRM account. Otherwise, it will simulate the sync.</p>
-                            
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="p-3 border rounded-3 bg-light">
-                                        <div class="fw-bold mb-2 small"><i class="bi bi-clio text-primary me-1"></i> Clio Grow OAuth</div>
-                                        <div class="d-grid">
-                                            <button class="btn btn-sm btn-outline-primary" onclick="alert('OAuth flow simulation started...')">
-                                                Connect Clio Grow
-                                            </button>
-                                        </div>
-                                        <div id="clio-status" class="small mt-2 text-muted italic">Not Connected</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="p-3 border rounded-3 bg-light">
-                                        <div class="fw-bold mb-2 small"><i class="bi bi-link-45deg text-primary me-1"></i> Filevine / LeadDock</div>
-                                        <div class="mb-2">
-                                            <input type="text" id="filevine-api-key" class="form-control form-control-sm" placeholder="API Key">
-                                        </div>
-                                        <div class="mb-2">
-                                            <input type="password" id="filevine-api-secret" class="form-control form-control-sm" placeholder="API Secret">
-                                        </div>
-                                        <div class="mb-0">
-                                            <input type="text" id="filevine-session-id" class="form-control form-control-sm" placeholder="Session ID (Direct only)">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-3 text-end">
-                                <button class="btn btn-primary btn-sm px-4" onclick="saveCRMSettings()">Save CRM Settings</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card border-0 shadow-sm mb-4">
-                        <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center">
-                            GitHub Integration
-                        </div>
-                        <div class="card-body">
-                            <p class="small text-muted mb-3">Configure GitHub for direct export of document analysis and summaries.</p>
-                            <div class="row g-3">
-                                <div class="col-md-12">
-                                    <label class="form-label small">GitHub Personal Access Token</label>
-                                    <input type="password" id="github-token" class="form-control form-control-sm" placeholder="ghp_xxxxxxxxxxxx">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label small">Default Repository</label>
-                                    <input type="text" id="github-repo" class="form-control form-control-sm" placeholder="owner/repo">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label small">Default Branch</label>
-                                    <input type="text" id="github-branch" class="form-control form-control-sm" placeholder="main" value="main">
-                                </div>
-                            </div>
-                            <div class="mt-3 text-end">
-                                <button class="btn btn-primary btn-sm px-4" onclick="saveGitHubSettings()">Save GitHub Settings</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card border-0 shadow-sm mb-4">
-                        <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center">
-                            Postmark Integration
-                        </div>
-                        <div class="card-body">
-                            <p class="small text-muted mb-3">Configure Postmark to receive instant email notifications for new leads and consultation requests.</p>
-                            <div class="row g-3">
-                                <div class="col-md-12">
-                                    <label class="form-label small">Postmark Server API Token</label>
-                                    <input type="password" id="postmark-token" class="form-control form-control-sm" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label small">Notification Recipient Email</label>
-                                    <input type="email" id="postmark-recipient" class="form-control form-control-sm" placeholder="hello@firm.com">
-                                </div>
-                            </div>
-                            <div class="mt-3 text-end">
-                                <button class="btn btn-primary btn-sm px-4" onclick="savePostmarkSettings()">Save Postmark Settings</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card border-0 shadow-sm mb-4">
-                        <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center">
-                            Knowledge Base Entries
-                            <button class="btn btn-sm btn-link text-decoration-none" onclick="loadKB()"><i class="bi bi-arrow-clockwise"></i></button>
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="list-group list-group-flush" id="kb-list">
-                                <!-- KB items here -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center">
-                            Audit Log
-                            <button class="btn btn-sm btn-link text-decoration-none" onclick="loadAuditLogs()"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="table-responsive" style="max-height: 500px;">
-                                <table class="table table-sm table-hover mb-0">
-                                    <thead class="bg-light">
-                                        <tr class="small text-uppercase text-muted">
-                                            <th class="ps-3">Action</th>
-                                            <th>Lead ID</th>
-                                            <th>Details</th>
-                                            <th>Timestamp</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="audit-logs-table" class="small">
-                                        <!-- Logs here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <!-- 5. DepoLens AI -->
+      <div class="module-card">
+        <div class="module-card-head">
+          <span class="icon">🎯</span>
+          <h3>DepoLens AI</h3>
+          <span class="module-status status-live">LIVE</span>
         </div>
+        <div class="module-card-body">
+          <div class="tagline">"Deposition intelligence that prepares you for cross-examination."</div>
+          <div class="desc">Analyze transcripts for admissions, inconsistencies, and credibility signals.</div>
+          <div class="metric"><span class="metric-label">Depositions</span><span class="metric-value">215</span></div>
+          <div class="metric"><span class="metric-label">Admissions Found</span><span class="metric-value">847</span></div>
+          <div class="metric"><span class="metric-label">Inconsistencies</span><span class="metric-value">312</span></div>
+          <div class="metric"><span class="metric-label">Avg. Transcript</span><span class="metric-value">187 pg</span></div>
+        </div>
+        <div class="module-card-foot">
+          <a href="depolens-ai.html">View Product →</a>
+          <span class="magnet-tag">🎁 Prep Checklist</span>
+        </div>
+      </div>
+
+      <!-- 6. Settlement Estimator -->
+      <div class="module-card">
+        <div class="module-card-head">
+          <span class="icon">💰</span>
+          <h3>Settlement Estimator</h3>
+          <span class="module-status status-live">LIVE</span>
+        </div>
+        <div class="module-card-body">
+          <div class="tagline">"Predict case value with historical precision."</div>
+          <div class="desc">AI-powered case valuation based on 50,000+ analyzed PI cases.</div>
+          <div class="metric"><span class="metric-label">Estimates Run</span><span class="metric-value">3,891</span></div>
+          <div class="metric"><span class="metric-label">Avg. Case Value</span><span class="metric-value">$187K</span></div>
+          <div class="metric"><span class="metric-label">Accuracy Rate</span><span class="metric-value">94%</span></div>
+          <div class="metric"><span class="metric-label">Avg. Calc Time</span><span class="metric-value">42 sec</span></div>
+        </div>
+        <div class="module-card-foot">
+          <a href="settlement-estimator.html">View Product →</a>
+          <span class="magnet-tag">🎁 Valuation Cheat Sheet</span>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Modal for Lead Details -->
-    <div class="modal fade" id="leadModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modal-name">Lead Detail</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" id="modal-lead-id">
-                    <h6>AI Summary</h6>
-                    <p id="modal-summary" class="text-muted"></p>
-                    <hr>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h6>AI Case Strategy & Pro Tools</h6>
-                        <span class="badge bg-purple-100 text-purple-700 uppercase" style="font-size: 0.6rem;">Enterprise Suite</span>
-                    </div>
-                    <div class="row g-2 mb-3">
-                        <div class="col-md-6">
-                            <div class="p-3 border rounded-3 bg-light">
-                                <div class="small text-muted mb-1 uppercase fw-bold" style="font-size: 0.6rem;">Est. Case Value</div>
-                                <div id="modal-case-value" class="h5 fw-bold text-primary mb-0">$0.00</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3 border rounded-3 bg-light">
-                                <div class="small text-muted mb-1 uppercase fw-bold" style="font-size: 0.6rem;">Conflict Check</div>
-                                <div id="modal-conflict-status" class="badge bg-success">Clear</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-grid gap-2 mb-3">
-                        <button class="btn btn-purple btn-sm text-white" style="background-color: #6f42c1;" onclick="draftDemandLetter()">
-                            <i class="bi bi-magic me-1"></i> Draft AI Demand Letter
-                        </button>
-                        <button class="btn btn-outline-primary btn-sm" onclick="generateMedicalChronology()">
-                            <i class="bi bi-file-medical me-1"></i> Generate Medical Chronology
-                        </button>
-                        <button class="btn btn-dark btn-sm" onclick="exportToGitHub()">
-                            <i class="bi bi-github me-1"></i> Export to GitHub
-                        </button>
-                    </div>
-                    <div id="demand-letter-preview" class="d-none mt-3">
-                        <h6 class="small fw-bold text-muted">AI Draft Preview (First 500 chars):</h6>
-                        <div class="p-2 border rounded bg-white small italic" id="demand-preview-text" style="max-height: 100px; overflow-y: auto;"></div>
-                    </div>
-                    <hr>
-                    <h6>Transcript</h6>
-                    <div id="modal-transcript" style="max-height: 300px; overflow-y: auto; background: #f8f9fa; padding: 10px;"></div>
-                    <hr>
-                    <h6>Documents</h6>
-                    <ul id="modal-docs"></ul>
-                    <hr>
-                    <h6>Financials & Retainer</h6>
-                    <div id="modal-billing">
-                        <div class="d-flex gap-2 align-items-center mb-3">
-                            <input type="number" id="request-amount" class="form-control form-control-sm" style="width: 100px;" placeholder="Amount">
-                            <select id="request-currency" class="form-select form-select-sm" style="width: 80px;">
-                                <option value="USD">USD</option>
-                                <option value="EUR">EUR</option>
-                            </select>
-                            <button class="btn btn-sm btn-success" onclick="requestPayment()">
-                                <i class="bi bi-credit-card me-1"></i> Request
-                            </button>
-                            <button class="btn btn-sm btn-primary" onclick="sendRetainer()">
-                                <i class="bi bi-pen me-1"></i> Retainer
-                            </button>
-                            <button class="btn btn-sm btn-outline-dark" onclick="exportClioCSV()">
-                                <i class="bi bi-file-earmark-spreadsheet me-1"></i> Clio CSV
-                            </button>
-                        </div>
-                        <div id="esign-status-container" class="mb-3 d-none">
-                            <span class="small fw-bold">eSignature Status:</span>
-                            <span id="esign-status-badge" class="badge bg-info">Unknown</span>
-                        </div>
-                        <div id="sync-status-container" class="mb-3 d-none">
-                            <span class="small fw-bold">CRM Sync:</span>
-                            <span id="sync-status-badge" class="badge bg-primary">Not Synced</span>
-                            <span id="external-id-text" class="small text-muted ms-2" style="font-size: 0.7rem;"></span>
-                        </div>
-                        <ul id="modal-invoices" class="mt-2 small list-group list-group-flush"></ul>
-                    </div>
-                </div>
-            </div>
+    <!-- Live Activity Feed -->
+    <div class="activity-section">
+      <h3>📋 Live Lead Activity</h3>
+      <div class="activity-list">
+        <div class="activity-item">
+          <div class="activity-avatar">JM</div>
+          <div class="activity-info">
+            <strong>James Morrison</strong>
+            <div class="detail">Auto Accident · AI Intake Agent</div>
+          </div>
+          <span class="activity-score score-high">92%</span>
+          <span class="activity-source">Widget</span>
         </div>
+        <div class="activity-item">
+          <div class="activity-avatar">SG</div>
+          <div class="activity-info">
+            <strong>Sofia Garcia</strong>
+            <div class="detail">Medical Malpractice · Voice AI Receptionist</div>
+          </div>
+          <span class="activity-score score-high">87%</span>
+          <span class="activity-source">Phone</span>
+        </div>
+        <div class="activity-item">
+          <div class="activity-avatar">MR</div>
+          <div class="activity-info">
+            <strong>Michael Reyes</strong>
+            <div class="detail">Slip &amp; Fall · AI Intake Agent</div>
+          </div>
+          <span class="activity-score score-medium">64%</span>
+          <span class="activity-source">Widget</span>
+        </div>
+        <div class="activity-item">
+          <div class="activity-avatar">AL</div>
+          <div class="activity-info">
+            <strong>Amanda Lewis</strong>
+            <div class="detail">Auto Accident · Settlement Estimator</div>
+          </div>
+          <span class="activity-score score-high">88%</span>
+          <span class="activity-source">Web</span>
+        </div>
+        <div class="activity-item">
+          <div class="activity-avatar">DT</div>
+          <div class="activity-info">
+            <strong>David Tran</strong>
+            <div class="detail">Workers' Comp · Voice AI Receptionist</div>
+          </div>
+          <span class="activity-score score-medium">71%</span>
+          <span class="activity-source">Phone</span>
+        </div>
+      </div>
     </div>
 
-    <!-- Modal for Form Builder -->
-    <div class="modal fade" id="formBuilderModal" tabindex="-1">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Form Builder</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-4 border-end">
-                            <h6 class="fw-bold mb-3">Branding & Info</h6>
-                            <div class="mb-3">
-                                <label class="form-label small">Form Name</label>
-                                <input type="text" id="fb-name" class="form-control" placeholder="e.g., Personal Injury Intake">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label small">Logo URL (optional)</label>
-                                <input type="text" id="fb-logo" class="form-control" placeholder="https://...">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label small">Primary Color</label>
-                                <input type="color" id="fb-color" class="form-control form-control-color w-100" value="#0d6efd">
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <h6 class="fw-bold mb-3 d-flex justify-content-between">
-                                Questions
-                                <button class="btn btn-sm btn-outline-primary" onclick="addFBQuestion()">
-                                    <i class="bi bi-plus-lg"></i> Add Question
-                                </button>
-                            </h6>
-                            <div id="fb-questions-container" style="max-height: 500px; overflow-y: auto; padding-right: 10px;">
-                                <!-- Questions will be added here -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="saveForm()">Save Form</button>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
+</section>
 
-    <!-- Modal for Sync Result (High Fidelity Simulation) -->
-    <div class="modal fade" id="syncResultModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content border-0 shadow-lg">
-                <div class="modal-header bg-primary text-white border-0">
-                    <h5 class="modal-title fw-bold"><i class="bi bi-cloud-check-fill me-2"></i>Sync Simulation Result</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <div class="alert alert-success d-flex align-items-center mb-4">
-                        <i class="bi bi-check-circle-fill fs-4 me-3"></i>
-                        <div>
-                            <div class="fw-bold">High-Fidelity Lead Mapping Successful</div>
-                            <span id="sync-system-name" class="small">Target System: Clio Grow</span>
-                        </div>
-                    </div>
-                    
-                    <h6 class="fw-bold text-muted text-uppercase small mb-3">Professional API Payload</h6>
-                    <div class="bg-dark rounded-3 p-3 mb-4">
-                        <pre id="sync-payload-display" class="text-info mb-0" style="font-size: 0.85rem; max-height: 300px; overflow-y: auto;"></pre>
-                    </div>
+<section class="footer">
+  <div class="container">
+    <span>&copy; 2025 LexiFlow Legal Suite</span>
+    <a href="pricing.html">Pricing</a>
+    <a href="blog.html">Blog</a>
+    <a href="mailto:leads@lexiflow.co">Contact</a>
+  </div>
+</section>
 
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="card bg-light border-0 h-100">
-                                <div class="card-body">
-                                    <h6 class="fw-bold small mb-2">Sync Status</h6>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <span class="badge bg-success">Success</span>
-                                        <span class="text-muted small">ID: SIM-77291-LX</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card bg-light border-0 h-100">
-                                <div class="card-body">
-                                    <h6 class="fw-bold small mb-2">Actions</h6>
-                                    <button class="btn btn-sm btn-outline-primary w-100 mb-2" onclick="copySyncPayload()">
-                                        <i class="bi bi-copy me-1"></i> Copy JSON
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer border-0 pt-0">
-                    <button type="button" class="btn btn-secondary px-4 rounded-pill" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="config.js"></script>
-    <script src="dashboard.js"></script>
-    <script src="forms.js"></script>
 </body>
 </html>
