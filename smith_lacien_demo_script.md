@@ -91,7 +91,7 @@
 ### Objection Handling
 - **"Intaker works fine for us":** "Intaker is an excellent tool for basic intake. But if you've ever had a client describe a complex medical malpractice scenario that didn't fit the dropdown options — that's where LexiFlow shines. It's the upgrade from button-clicking to conversation."
 - **"We've already invested in Intaker":** "LexiFlow can complement or replace Intaker. It integrates with your existing CRM the same way. And the 14-day free trial means you can compare them side by side with zero risk."
-- **"How does pricing compare?":** "Intaker's pricing varies. Our Litigator plan at $299/month is all-inclusive — unlimited intakes, no per-user fees, no document limits."
+- **"How does pricing compare?":** "Intaker's pricing varies. Our Litigator plan at $69/month is all-inclusive — unlimited intakes, no per-user fees, no document limits."
 
 ---
 

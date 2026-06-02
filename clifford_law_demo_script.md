@@ -71,7 +71,7 @@
 
 ### Step 6: ROI Close (1 min)
 
-"Quick math: for a firm handling 20+ new inquiries a month, that's potentially 50 hours of staff time recaptured. At $299/month for our Litigator plan, you're paying less than the cost of one hour of paralegal time."
+"Quick math: for a firm handling 20+ new inquiries a month, that's potentially 50 hours of staff time recaptured. At $69/month for our Litigator plan, you're paying less than the cost of one hour of paralegal time."
 
 "Let's get you set up with a 14-day free trial — 5 intakes, no credit card required. We can configure it specifically for your aviation practice."
 
