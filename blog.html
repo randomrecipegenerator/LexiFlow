@@ -3,183 +3,192 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LexiFlow Blog — Legal AI Insights & Practice Management</title>
-  <meta name="description" content="Expert insights on AI-powered legal intake, medical chronologies, deposition analysis, and law firm growth. Written by attorneys for attorneys." />
+  <title>Insights | LexiFlow Legal Suite — AI for High-Stakes Litigation</title>
+  <meta name="description" content="Expert insights on AI-powered legal intake, medical merit review, deposition analysis, and law firm growth. Written for elite plaintiff-side firms." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="lexiflow-products/css/product-base.css" />
-  <link rel="stylesheet" href="css/blog.css" />
-  <script type="application/ld+json">{
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    "name": "LexiFlow Blog",
-    "description": "Legal AI insights, practice management tips, and case intake strategies for law firms."
-  }</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0f172a;
+      --gold: #c9a84c;
+      --gold-light: #e2c96e;
+      --slate-50: #f8fafc;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-600: #475569;
+      --slate-900: #0f172a;
+      --max-width: 1200px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--slate-900); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* Navigation */
+    nav { position: fixed; top: 0; width: 100%; height: 80px; background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--slate-200); z-index: 1000; display: flex; align-items: center; }
+    .nav-container { max-width: var(--max-width); margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--navy); text-decoration: none; display: flex; align-items: center; gap: 12px; }
+    .logo span { background: var(--navy); color: var(--gold); padding: 4px 8px; border-radius: 4px; font-size: 18px; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--navy); }
+    .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; transition: transform 0.2s, background 0.2s; }
+    .btn-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* Blog Header */
+    .blog-header { padding: 160px 0 60px; background: var(--navy); color: #fff; text-align: center; }
+    .blog-header h1 { font-family: 'Playfair Display', serif; font-size: 48px; margin-bottom: 16px; }
+    .blog-header h1 span { color: var(--gold); font-style: italic; }
+    .blog-header p { font-size: 18px; color: var(--slate-400); max-width: 600px; margin: 0 auto; font-weight: 300; }
+
+    /* Blog Layout */
+    .blog-content { padding: 80px 0; background: var(--slate-50); }
+    .blog-container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr 1fr; gap: 60px; }
+
+    /* Post Cards */
+    .post-list { display: flex; flex-direction: column; gap: 32px; }
+    .post-card { background: #fff; border: 1px solid var(--slate-200); border-radius: 12px; padding: 40px; transition: all 0.3s; }
+    .post-card:hover { border-color: var(--gold); box-shadow: 0 20px 40px rgba(0,0,0,0.05); transform: translateY(-4px); }
+    .category { font-size: 12px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; display: block; }
+    .post-card h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--navy); margin-bottom: 16px; line-height: 1.3; }
+    .post-card h2 a { text-decoration: none; color: inherit; }
+    .post-card h2 a:hover { color: var(--gold); }
+    .excerpt { color: var(--slate-600); font-size: 16px; margin-bottom: 24px; }
+    .meta { display: flex; gap: 20px; font-size: 13px; color: var(--slate-400); border-top: 1px solid var(--slate-200); padding-top: 20px; }
+
+    /* Sidebar */
+    .sidebar-widget { background: #fff; border: 1px solid var(--slate-200); border-radius: 12px; padding: 32px; margin-bottom: 32px; }
+    .sidebar-widget h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 20px; }
+    .cat-list { list-style: none; }
+    .cat-list li { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--slate-50); }
+    .cat-list a { text-decoration: none; color: var(--slate-600); font-size: 14px; display: flex; justify-content: space-between; }
+    .cat-list a:hover { color: var(--navy); }
+    
+    .sidebar-cta { background: var(--navy); color: #fff; padding: 32px; border-radius: 12px; text-align: center; }
+    .sidebar-cta h4 { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 12px; }
+    .sidebar-cta p { font-size: 14px; color: var(--slate-400); margin-bottom: 20px; }
+
+    /* Footer */
+    footer { background: var(--navy); color: var(--slate-400); padding: 80px 0 40px; }
+    .footer-container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; margin-bottom: 20px; display: block; }
+    .footer-col h4 { color: #fff; margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 12px; }
+    .footer-col ul a { color: var(--slate-400); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+    .footer-col ul a:hover { color: var(--gold); }
+    .footer-bottom { max-width: var(--max-width); margin: 60px auto 0; padding: 40px 40px 0; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; text-align: center; }
+
+    @media (max-width: 1024px) { .blog-container { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
 
-<nav class="nav" id="navbar">
-  <div class="container">
-    <a href="index.html" class="nav-logo"><span class="nav-logo-icon">LF</span> LexiFlow</a>
+<nav>
+  <div class="nav-container">
+    <a href="/index.html" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links">
-              <li><a href="dashboard.html">Dashboard</a></li>
-              <li><a href="index.html">Products</a></li>
-              <li><a href="pricing.html">Pricing</a></li>
-              <li><a href="blog.html" style="font-weight:600;color:var(--primary);">Blog</a></li>
-              <li><a href="pricing.html" class="nav-cta">Get Started →</a></li>
+      <li><a href="/dashboard.html">Attorney Portal</a></li>
+      <li><a href="/pricing.html">Capabilities</a></li>
+      <li><a href="/blog.html">Insights</a></li>
+      <li><a href="/cities.html">Areas We Serve</a></li>
     </ul>
+    <a href="/pricing.html" class="btn-cta">Request Access</a>
   </div>
 </nav>
 
-<section class="blog-header">
-  <div class="container">
-    <h1>LexiFlow <span>Blog</span></h1>
-    <p>Expert insights on AI-powered legal intake, medical chronologies, deposition analysis, and law firm growth strategies.</p>
-  </div>
-</section>
+<header class="blog-header">
+  <h1>Legal <span>Insights</span></h1>
+  <p>Executive intelligence on AI orchestration for high-stakes plaintiff firms.</p>
+</header>
 
-<div class="blog-layout">
-  <div class="container">
-
-    <!-- Main content -->
-    <main>
+<section class="blog-content">
+  <div class="blog-container">
+    <main class="post-list">
+      
       <article class="post-card">
-        <div class="post-card-body">
-          <span class="post-card-category">AI Intake</span>
-          <h2><a href="blog-posts/ai-intake-agent-guide.html">How an AI Intake Agent Can Double Your Firm's Conversion Rate</a></h2>
-          <div class="meta"><span>May 28, 2025</span><span>By James Delaney, Esq.</span><span>8 min read</span></div>
-          <p class="excerpt">Most law firms lose 60% of inbound leads because they don't respond fast enough. Here's how an AI intake agent captures, qualifies, and routes leads in real-time — and why firms using one see 3.2× better conversion.</p>
-          <a href="blog-posts/ai-intake-agent-guide.html" class="read-more">Read More →</a>
+        <span class="category">Medical Merit Review</span>
+        <h2><a href="/blog/how-ai-medical-merit-review-slashes-law-firm-overhead.html">How AI Medical Merit Review Slashes Law Firm Overhead: An ROI Breakdown</a></h2>
+        <p class="excerpt">See the detailed ROI of AI medical merit review for plaintiff firms. Includes hard cost comparisons, time savings, and case-level profitability analysis.</p>
+        <div class="meta">
+          <span>June 22, 2025</span>
+          <span>11 min read</span>
+          <span>By Legal AI Team</span>
         </div>
       </article>
 
       <article class="post-card">
-        <div class="post-card-body">
-          <span class="post-card-category">Medical Chronologies</span>
-          <h2><a href="blog-posts/ai-medical-chronologies-guide.html">From 500 Pages to a Clean Chronology in Under 60 Seconds</a></h2>
-          <div class="meta"><span>May 22, 2025</span><span>By James Delaney, Esq.</span><span>6 min read</span></div>
-          <p class="excerpt">Building medical chronologies by hand costs your firm hundreds of billable hours per month. Discover how AI-powered chronology generation works and why it's 15× faster than manual review.</p>
-          <a href="blog-posts/ai-medical-chronologies-guide.html" class="read-more">Read More →</a>
+        <span class="category">Automation Strategy</span>
+        <h2><a href="/blog/how-ai-medical-merit-review-cuts-case-screening.html">How AI Medical Merit Review Cuts Case Screening from 8 Hours to 3 Minutes</a></h2>
+        <p class="excerpt">Learn how elite firms are using AI to screen medical malpractice cases in minutes instead of hours, recapturing billable time and increasing intake precision.</p>
+        <div class="meta">
+          <span>June 15, 2025</span>
+          <span>10 min read</span>
+          <span>By Legal AI Team</span>
         </div>
       </article>
 
       <article class="post-card">
-        <div class="post-card-body">
-          <span class="post-card-category">Deposition Analysis</span>
-          <h2><a href="blog-posts/depolens-ai-deposition-tips.html">5 Things DepoLens AI Finds in Depositions That Humans Miss</a></h2>
-          <div class="meta"><span>May 15, 2025</span><span>By James Delaney, Esq.</span><span>7 min read</span></div>
-          <p class="excerpt">Even the most experienced litigators miss critical admissions buried in 200-page deposition transcripts. DepoLens AI finds inconsistencies, credibility issues, and key admissions that change case strategy.</p>
-          <a href="blog-posts/depolens-ai-deposition-tips.html" class="read-more">Read More →</a>
+        <span class="category">Legal Ethics</span>
+        <h2><a href="/blog/ethics-ai-legal-intake-responsible-implementation.html">The Ethics of AI in Legal Intake: A Responsible Implementation Guide</a></h2>
+        <p class="excerpt">Explore the ethical considerations of using AI in legal intake, including client confidentiality, bias, informed consent, and HIPAA compliance for 2025.</p>
+        <div class="meta">
+          <span>June 8, 2025</span>
+          <span>12 min read</span>
+          <span>By Legal AI Team</span>
         </div>
       </article>
 
-      <article class="post-card">
-        <div class="post-card-body">
-          <span class="post-card-category">Practice Management</span>
-          <h2><a href="blog-posts/voice-ai-receptionist-law-firms.html">Why Every Law Firm Needs a Voice AI Receptionist in 2025</a></h2>
-          <div class="meta"><span>May 8, 2025</span><span>By James Delaney, Esq.</span><span>5 min read</span></div>
-          <p class="excerpt">After-hours calls are the most valuable leads you're missing. Voice AI answers with empathy, captures structured intake data, and routes urgent cases — all while your team is asleep.</p>
-          <a href="blog-posts/voice-ai-receptionist-law-firms.html" class="read-more">Read More →</a>
-        </div>
-      </article>
-
-      <article class="post-card">
-        <div class="post-card-body">
-          <span class="post-card-category">Settlement Strategy</span>
-          <h2><a href="blog-posts/settlement-estimator-case-valuation.html">How to Predict PI Case Value with AI-Driven Accuracy</a></h2>
-          <div class="meta"><span>May 1, 2025</span><span>By James Delaney, Esq.</span><span>6 min read</span></div>
-          <p class="excerpt">Settlement estimation is part art, part science. LexiFlow's Settlement Estimator analyzes 50,000+ case records to predict case value with 94% accuracy — helping you negotiate from a position of strength.</p>
-          <a href="blog-posts/settlement-estimator-case-valuation.html" class="read-more">Read More →</a>
-        </div>
-      </article>
-
-      <article class="post-card">
-        <div class="post-card-body">
-          <span class="post-card-category">Document Automation</span>
-          <h2><a href="blog-posts/auto-document-drafter-demand-letters.html">Drafting Demand Letters: 10 Hours vs. 10 Minutes with AI</a></h2>
-          <div class="meta"><span>Apr 24, 2025</span><span>By James Delaney, Esq.</span><span>5 min read</span></div>
-          <p class="excerpt">A single demand letter can take an entire day to draft from scratch. With LexiFlow's Auto-Document Drafter, your case data becomes a polished, persuasive demand letter in minutes.</p>
-          <a href="blog-posts/auto-document-drafter-demand-letters.html" class="read-more">Read More →</a>
-        </div>
-      </article>
-
-      <!-- Pagination -->
-      <div style="display:flex;justify-content:center;gap:8px;padding:24px 0;">
-        <span style="padding:8px 16px;background:var(--primary);color:white;border-radius:var(--radius);font-weight:600;">1</span>
-        <a href="#" style="padding:8px 16px;border:1px solid var(--border);border-radius:var(--radius);color:var(--text-muted);">2</a>
-        <a href="#" style="padding:8px 16px;border:1px solid var(--border);border-radius:var(--radius);color:var(--text-muted);">3</a>
-        <span style="padding:8px 8px;color:var(--text-muted);">...</span>
-        <a href="#" style="padding:8px 16px;border:1px solid var(--border);border-radius:var(--radius);color:var(--text-muted);">12</a>
-      </div>
     </main>
 
-    <!-- Sidebar -->
-    <aside class="blog-sidebar">
+    <aside class="sidebar">
       <div class="sidebar-widget">
-        <h3>📂 Categories</h3>
+        <h3>Categories</h3>
         <ul class="cat-list">
-          <li><a href="#">AI Intake <span class="count">(8)</span></a></li>
-          <li><a href="#">Medical Chronologies <span class="count">(6)</span></a></li>
-          <li><a href="#">Deposition Analysis <span class="count">(5)</span></a></li>
-          <li><a href="#">Document Automation <span class="count">(4)</span></a></li>
-          <li><a href="#">Settlement Strategy <span class="count">(3)</span></a></li>
-          <li><a href="#">Practice Management <span class="count">(7)</span></a></li>
-          <li><a href="#">Voice AI <span class="count">(3)</span></a></li>
+          <li><a href="#">AI Intake <span>(8)</span></a></li>
+          <li><a href="#">Medical Review <span>(6)</span></a></li>
+          <li><a href="#">Case Strategy <span>(5)</span></a></li>
+          <li><a href="#">Legal Ethics <span>(4)</span></a></li>
         </ul>
       </div>
 
-      <div class="sidebar-widget">
-        <h3>🔒 HIPAA &amp; Security</h3>
-        <div class="trust-signal">
-          <span class="icon">🔐</span>
-          <div><strong>AES-256 Encryption</strong>Data encrypted at rest and in transit</div>
-        </div>
-        <div class="trust-signal">
-          <span class="icon">📋</span>
-          <div><strong>SOC 2 Compliant</strong>Annual audits by independent firms</div>
-        </div>
-        <div class="trust-signal">
-          <span class="icon">🏥</span>
-          <div><strong>HIPAA Eligible</strong>BAA available on Enterprise plans</div>
-        </div>
-        <div class="trust-signal">
-          <span class="icon">🔍</span>
-          <div><strong>Audit Logging</strong>Full access and change history</div>
-        </div>
-      </div>
-
-      <div class="sidebar-widget">
-        <h3>🏆 Trusted By</h3>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:center;">
-          <div style="padding:12px;background:var(--bg-light);border-radius:var(--radius);font-weight:600;color:var(--primary);font-size:0.85rem;">500+ Firms</div>
-          <div style="padding:12px;background:var(--bg-light);border-radius:var(--radius);font-weight:600;color:var(--primary);font-size:0.85rem;">4.9★ Rating</div>
-          <div style="padding:12px;background:var(--bg-light);border-radius:var(--radius);font-weight:600;color:var(--primary);font-size:0.85rem;">94% Accuracy</div>
-          <div style="padding:12px;background:var(--bg-light);border-radius:var(--radius);font-weight:600;color:var(--primary);font-size:0.85rem;">99.9% Uptime</div>
-        </div>
-      </div>
-
       <div class="sidebar-cta">
-        <h4>⚡ Try LexiFlow Free</h4>
-        <p>See how our AI tools can transform your firm's intake, document review, and case valuation — starting at $69/mo.</p>
-        <a href="mailto:leads@lexiflow.co?subject=Free%20Trial%20Inquiry">Start Free Trial →</a>
+        <h4>Request Trial</h4>
+        <p>Experience the full LexiFlow Suite for $69/mo. Automate your intake and medical review today.</p>
+        <a href="/pricing.html" class="btn-cta">Start Free Trial</a>
       </div>
     </aside>
-
   </div>
-</div>
+</section>
 
-<footer class="footer">
-  <div class="container">
-    <span class="footer-copy">&copy; 2025 LexiFlow Legal Suite. All rights reserved.</span>
-    <ul class="footer-links">
-      <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="#">Privacy</a></li>
-      <li><a href="mailto:leads@lexiflow.co">Contact</a></li>
-    </ul>
+<footer>
+  <div class="footer-container">
+    <div class="footer-col">
+      <a href="/index.html" class="footer-logo">LexiFlow</a>
+      <p>Enterprise Legal Intelligence. Empowering the next generation of top-tier law firms.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="/pricing.html">Pricing</a></li>
+        <li><a href="/dashboard.html">Attorney Portal</a></li>
+        <li><a href="/blog.html">Legal Insights</a></li>
+        <li><a href="/cities.html">Areas We Serve</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="/terms.html">Terms of Service</a></li>
+        <li><a href="mailto:leads@lexiflow.co">Contact Relations</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 LexiFlow Legal Suite. All Rights Reserved.
   </div>
 </footer>
 
-<script>window.addEventListener('scroll',function(){document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20);});</script>
 </body>
 </html>
