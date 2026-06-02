@@ -1,8 +1,10 @@
 {
-  "version": 2,
-  "cleanUrls": true,
-  "trailingSlash": false,
+  "functions": {
+    "api/index.py": {
+      "includeFiles": "api/**"
+    }
+  },
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index.py" }
+    { "source": "/(.*)", "destination": "/api/index.py" }
   ]
 }
