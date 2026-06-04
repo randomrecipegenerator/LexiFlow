@@ -1,285 +1,363 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="google-site-verification" content="SdZcqCNhIJHLlfx2BU22unsBd6smFsTf7o6pv-np5Zk" />
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LexiFlow AI | Service Areas - Local AI Legal Intake</title>
-    <meta name="description" content="LexiFlow provides enterprise-grade AI legal intake across the United States. Explore our local service areas and see how we help firms in your city.">
-    <link rel="icon" type="image/svg+xml" href="/branding/logo-icon.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <style>
-        :root { --primary-dark: #0d1f33; --primary: #1a3a5c; --primary-light: #2a5a8c --accent: #c9a84c; --slate-50: #f8fafc; --slate-100: #f1f5f9; --slate-200: #e2e8f0; --text-muted: #94a3b8; --text-muted: #475569; }
-        body { padding-top: 68px; font-family: 'Inter', sans-serif; background-color: #fff; color: #1a3a5c; -webkit-font-smoothing: antialiased; margin: 0; }
-        .max-w-screen { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
-        nav { height: 64px; border-bottom: 1px solid var(--slate-100); display: flex; align-items: center; background: white/80; backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 50; }
-        .nav-link { font-size: 14px; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s ease; }
-        .nav-link:hover { color: var(--primary); }
-        .btn-primary { background-color: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 14px; transition: all 0.2s ease; border: none; cursor: pointer; text-decoration: none; }
-        .btn-primary:hover { background-color: #1d4ed8; transform: translateY(-1px); }
-        
-        .hero { padding: 100px 0 60px; background: radial-gradient(40% 40% at 50% 0%, rgba(37, 99, 235, 0.03) 0%, transparent 100%); text-align: center; }
-        h1 { font-size: 56px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 24px; line-height: 1.1; }
-        .hero p { font-size: 20px; color: var(--text-muted); max-width: 700px; margin: 0 auto; line-height: 1.6; }
-
-        .city-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; padding: 64px 0; }
-        .city-link { display: block; padding: 20px; background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 12px; font-weight: 600; text-decoration: none; color: #1a3a5c; transition: all 0.2s ease; text-align: center; font-size: 15px; }
-        .city-link:hover { border-color: var(--primary); background: white; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); transform: translateY(-3px); color: var(--primary); }
-
-        .cta-section { background: #0d1f33; color: white; border-radius: 32px; padding: 80px; text-align: center; margin: 40px 0 80px; }
-        .cta-section h2 { font-size: 40px; font-weight: 800; margin-bottom: 24px; letter-spacing: -0.02em; }
-        .cta-section p { font-size: 18px; color: var(--text-muted); margin-bottom: 40px; }
-
-        footer { padding: 80px 0; background: var(--slate-50); border-top: 1px solid var(--slate-200); }
-    
-    /* Mobile-Friendly Adjustments */
-    @media (max-width: 768px) {
-        .container, .nav-container, .max-w-screen, .max-w, .hero-container, .footer-container { 
-            padding-left: 20px !important; 
-            padding-right: 20px !important; 
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-        .grid, .highlight-grid, .faq-grid, .pricing-grid, .assoc-grid, .city-grid { 
-            grid-template-columns: 1fr !important; 
-            display: grid !important;
-            gap: 20px !important;
-        }
-        .hero-container, .footer-container, .section-header { 
-            grid-template-columns: 1fr !important; 
-            text-align: center !important; 
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-        }
-        .hero-text, .hero-image, .footer-col {
-            width: 100% !important;
-            margin-bottom: 30px !important;
-        }
-        h1 { font-size: 32px !important; line-height: 1.2 !important; }
-        h2 { font-size: 26px !important; }
-        h3 { font-size: 22px !important; }
-        
-        /* Nav adjustments */
-        nav, .nav { height: auto !important; padding: 10px 0 !important; min-height: 60px; }
-        .nav-container, .nav .container { flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; padding: 10px 20px !important; }
-        .nav-links { flex-direction: column !important; align-items: center !important; gap: 10px !important; display: none !important; width: 100% !important; order: 3; padding: 20px 0 !important; }
-        .nav-links.active { display: flex !important; }
-        .nav-toggle { display: block !important; background: #1a3a5c; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 20px; order: 2; }
-        .btn-cta, .btn-primary { padding: 8px 16px !important; font-size: 13px !important; }
-        
-        /* Card and Feature adjustments */
-        .card, .pricing-card, .highlight-item, .faq-item, .assoc-card { 
-            margin-bottom: 20px !important; 
-            width: 100% !important;
-            min-width: 0 !important;
-        }
-        .pricing-card.featured { transform: none !important; margin: 20px 0 !important; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-site-verification" content="SdZcqCNhIJHLlfx2BU22unsBd6smFsTf7o6pv-np5Zk" />
+  <title>LexiFlow AI | Service Areas - Local AI Legal Intake</title>
+  <meta name="description" content="LexiFlow provides enterprise-grade AI legal intake across the United States. Explore our local service areas and see how we help firms in your city." />
+  <link rel="icon" type="image/svg+xml" href="/branding/logo-icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    :root {
+      --navy: #0f172a; --gold: #c9a84c; --gold-light: #e2c96e;
+      --slate-50: #f8fafc; --slate-100: #f1f5f9; --slate-200: #e2e8f0; --slate-400: #94a3b8; --slate-600: #475569;
+      --slate-900: #0f172a; --max-width: 1200px;
     }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--slate-900); line-height: 1.6; padding-top: 80px; }
     
-    </style>
+    nav { position: fixed; top: 0; width: 100%; height: 80px; background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--slate-200); z-index: 1000; display: flex; align-items: center; }
+    .nav-container { max-width: var(--max-width); margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--navy); text-decoration: none; display: flex; align-items: center; gap: 12px; }
+    .logo span { background: var(--navy); color: var(--gold); padding: 4px 8px; border-radius: 4px; font-size: 18px; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; }
+    .nav-links a:hover { color: var(--navy); }
+    .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
+    .nav-toggle { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--navy); }
+
+    .hero { padding: 100px 0 60px; background: radial-gradient(40% 40% at 50% 0%, rgba(37, 99, 235, 0.03) 0%, transparent 100%); text-align: center; }
+    .max-w-screen { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 24px; line-height: 1.1; color: var(--navy); }
+    .hero p { font-size: 20px; color: var(--slate-600); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+
+    .city-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; padding: 64px 0; }
+    .city-link { display: block; padding: 20px; background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 12px; font-weight: 600; text-decoration: none; color: var(--navy); transition: all 0.2s ease; text-align: center; font-size: 15px; }
+    .city-link:hover { border-color: var(--gold); background: white; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); transform: translateY(-3px); color: var(--gold); }
+
+    .cta-section { background: var(--navy); color: white; border-radius: 32px; padding: 80px; text-align: center; margin: 40px 0 80px; }
+    .cta-section h2 { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 800; margin-bottom: 24px; letter-spacing: -0.02em; }
+    .cta-section p { font-size: 18px; color: var(--slate-400); margin-bottom: 40px; }
+    .btn-primary { background: var(--gold); color: var(--navy); padding: 16px 32px; border-radius: 8px; font-weight: 600; font-size: 16px; text-decoration: none; display: inline-block; transition: all 0.2s; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+    footer { background: var(--navy); color: var(--slate-400); padding: 80px 0 40px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .footer-container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; margin-bottom: 20px; display: block; }
+    .footer-col h4 { color: #fff; margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 12px; }
+    .footer-col ul a { color: var(--slate-400); text-decoration: none; font-size: 14px; }
+    .footer-col ul a:hover { color: var(--gold); }
+    .footer-bottom { max-width: var(--max-width); margin: 60px auto 0; padding: 40px 40px 0; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; text-align: center; }
+
+    @media (max-width: 768px) {
+      .nav-container { padding: 0 20px; }
+      .nav-links { display: none; position: absolute; top: 80px; left: 0; width: 100%; background: #fff; flex-direction: column; padding: 20px; gap: 20px; border-bottom: 1px solid var(--slate-200); box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
+      .nav-links.active { display: flex; }
+      .nav-toggle { display: block; }
+      .btn-cta { display: none; }
+      .hero h1 { font-size: 36px; }
+      .footer-container { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+      .city-grid { grid-template-columns: 1fr; }
+      .cta-section { padding: 40px 20px; border-radius: 0; }
+    }
+  </style>
 </head>
 <body>
-    <nav>
-        <div class="max-w-screen" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
-            <a href="/" style="display: flex; items-center: center; gap: 10px; text-decoration: none; color: inherit;">
-                <img src="/branding/logo-icon.svg" alt="LexiFlow" width="24" height="24">
-                <span style="font-size: 20px; font-weight: 800; tracking-tight: -0.02em;">LexiFlow</span>
-            </a>
-            <div style="display: flex; gap: 32px; align-items: center;">
-                <a href="/features.html" class="nav-link">Platform</a>
-                <a href="/solutions.html" class="nav-link">Solutions</a>
-                <a href="/roi-calculator.html" class="nav-link">ROI Analysis</a>
-                <a href="/roi-calculator.html" class="btn-primary">Request Demo</a>
-            </div>
-        </div>
-    </nav>
+  <nav><div class="nav-container">
+    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/dashboard.html">Dashboard</a></li>
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/cities.html">Areas We Serve</a></li>
+      <li><a href="/pricing.html" class="btn-cta">Get Started</a></li>
+    </ul>
+    <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')">☰</button>
+  </div></nav>
 
-    <header class="hero">
-        <div class="max-w-screen">
-            <div style="display: inline-block; padding: 8px 16px; background: rgba(26, 58, 92, 0.05); color: var(--primary); border-radius: 100px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px;">National Service Network</div>
-            <h1>Local Reach. <span style="color: var(--primary);">National Scale.</span></h1>
-            <p>LexiFlow's Reasoning AI is transforming intake for law firms across 200+ U.S. cities. Select your market to see how we drive conversion.</p>
-        </div>
-    </header>
+  <header class="hero">
+    <div class="max-w-screen">
+      <div style="display: inline-block; padding: 8px 16px; background: rgba(201, 168, 76, 0.1); color: var(--gold); border-radius: 100px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px;">National Service Network</div>
+      <h1>Local Reach. <span>National Scale.</span></h1>
+      <p>LexiFlow's Reasoning AI is transforming intake for law firms across the United States. Select your market to see how we drive conversion.</p>
+    </div>
+  </header>
 
-    <section class="max-w-screen">
-        <div class="city-grid" id="city-list">
+  <section class="max-w-screen">
+    <div class="city-grid">
+            <a href="/locations/ohio/akron.html" class="city-link">Akron</a>
             <a href="/locations/new-mexico/albuquerque.html" class="city-link">Albuquerque</a>
+            <a href="/locations/virginia/alexandria.html" class="city-link">Alexandria</a>
+            <a href="/locations/texas/amarillo.html" class="city-link">Amarillo</a>
             <a href="/locations/california/anaheim.html" class="city-link">Anaheim</a>
             <a href="/locations/alaska/anchorage.html" class="city-link">Anchorage</a>
             <a href="/locations/texas/arlington.html" class="city-link">Arlington</a>
+            <a href="/locations/georgia/athens.html" class="city-link">Athens</a>
             <a href="/locations/georgia/atlanta.html" class="city-link">Atlanta</a>
+            <a href="/locations/georgia/augusta.html" class="city-link">Augusta</a>
             <a href="/locations/illinois/aurora.html" class="city-link">Aurora</a>
             <a href="/locations/texas/austin.html" class="city-link">Austin</a>
             <a href="/locations/california/bakersfield.html" class="city-link">Bakersfield</a>
             <a href="/locations/maryland/baltimore.html" class="city-link">Baltimore</a>
+            <a href="/locations/washington/bellevue.html" class="city-link">Bellevue</a>
             <a href="/locations/alabama/birmingham.html" class="city-link">Birmingham</a>
             <a href="/locations/idaho/boise.html" class="city-link">Boise</a>
             <a href="/locations/massachusetts/boston.html" class="city-link">Boston</a>
+            <a href="/locations/connecticut/bridgeport.html" class="city-link">Bridgeport</a>
+            <a href="/locations/texas/brownsville.html" class="city-link">Brownsville</a>
             <a href="/locations/new-york/buffalo.html" class="city-link">Buffalo</a>
+            <a href="/locations/florida/cape-coral.html" class="city-link">Cape Coral</a>
+            <a href="/locations/texas/carrollton.html" class="city-link">Carrollton</a>
+            <a href="/locations/north-carolina/cary.html" class="city-link">Cary</a>
+            <a href="/locations/iowa/cedar-rapids.html" class="city-link">Cedar Rapids</a>
             <a href="/locations/arizona/chandler.html" class="city-link">Chandler</a>
             <a href="/locations/north-carolina/charlotte.html" class="city-link">Charlotte</a>
+            <a href="/locations/tennessee/chattanooga.html" class="city-link">Chattanooga</a>
             <a href="/locations/virginia/chesapeake.html" class="city-link">Chesapeake</a>
             <a href="/locations/illinois/chicago.html" class="city-link">Chicago</a>
             <a href="/locations/california/chula-vista.html" class="city-link">Chula Vista</a>
             <a href="/locations/ohio/cincinnati.html" class="city-link">Cincinnati</a>
             <a href="/locations/ohio/cleveland.html" class="city-link">Cleveland</a>
             <a href="/locations/colorado/colorado-springs.html" class="city-link">Colorado Springs</a>
+            <a href="/locations/south-carolina/columbia.html" class="city-link">Columbia</a>
             <a href="/locations/ohio/columbus.html" class="city-link">Columbus</a>
+            <a href="/locations/california/concord.html" class="city-link">Concord</a>
+            <a href="/locations/california/corona.html" class="city-link">Corona</a>
             <a href="/locations/texas/corpus-christi.html" class="city-link">Corpus Christi</a>
             <a href="/locations/texas/dallas.html" class="city-link">Dallas</a>
+            <a href="/locations/ohio/dayton.html" class="city-link">Dayton</a>
+            <a href="/locations/texas/denton.html" class="city-link">Denton</a>
             <a href="/locations/colorado/denver.html" class="city-link">Denver</a>
+            <a href="/locations/iowa/des-moines.html" class="city-link">Des Moines</a>
             <a href="/locations/michigan/detroit.html" class="city-link">Detroit</a>
             <a href="/locations/north-carolina/durham.html" class="city-link">Durham</a>
             <a href="/locations/texas/el-paso.html" class="city-link">El Paso</a>
+            <a href="/locations/new-jersey/elizabeth.html" class="city-link">Elizabeth</a>
+            <a href="/locations/california/elk-grove.html" class="city-link">Elk Grove</a>
+            <a href="/locations/california/escondido.html" class="city-link">Escondido</a>
+            <a href="/locations/oregon/eugene.html" class="city-link">Eugene</a>
+            <a href="/locations/north-carolina/fayetteville.html" class="city-link">Fayetteville</a>
+            <a href="/locations/california/fontana.html" class="city-link">Fontana</a>
+            <a href="/locations/colorado/fort-collins.html" class="city-link">Fort Collins</a>
+            <a href="/locations/florida/fort-lauderdale.html" class="city-link">Fort Lauderdale</a>
             <a href="/locations/indiana/fort-wayne.html" class="city-link">Fort Wayne</a>
             <a href="/locations/texas/fort-worth.html" class="city-link">Fort Worth</a>
             <a href="/locations/california/fremont.html" class="city-link">Fremont</a>
             <a href="/locations/california/fresno.html" class="city-link">Fresno</a>
+            <a href="/locations/california/fullerton.html" class="city-link">Fullerton</a>
+            <a href="/locations/florida/gainesville.html" class="city-link">Gainesville</a>
+            <a href="/locations/california/garden-grove.html" class="city-link">Garden Grove</a>
             <a href="/locations/texas/garland.html" class="city-link">Garland</a>
             <a href="/locations/arizona/gilbert.html" class="city-link">Gilbert</a>
             <a href="/locations/arizona/glendale.html" class="city-link">Glendale</a>
+            <a href="/locations/texas/grand-prairie.html" class="city-link">Grand Prairie</a>
+            <a href="/locations/michigan/grand-rapids.html" class="city-link">Grand Rapids</a>
             <a href="/locations/north-carolina/greensboro.html" class="city-link">Greensboro</a>
+            <a href="/locations/virginia/hampton.html" class="city-link">Hampton</a>
+            <a href="/locations/connecticut/hartford.html" class="city-link">Hartford</a>
+            <a href="/locations/california/hayward.html" class="city-link">Hayward</a>
             <a href="/locations/nevada/henderson.html" class="city-link">Henderson</a>
+            <a href="/locations/south-carolina/hollywood.html" class="city-link">Hollywood</a>
+            <a href="/locations/alabama/hollywood.html" class="city-link">Hollywood</a>
             <a href="/locations/hawaii/honolulu.html" class="city-link">Honolulu</a>
             <a href="/locations/texas/houston.html" class="city-link">Houston</a>
+            <a href="/locations/california/huntington-beach.html" class="city-link">Huntington Beach</a>
+            <a href="/locations/alabama/huntsville.html" class="city-link">Huntsville</a>
             <a href="/locations/indiana/indianapolis.html" class="city-link">Indianapolis</a>
             <a href="/locations/california/irvine.html" class="city-link">Irvine</a>
             <a href="/locations/texas/irving.html" class="city-link">Irving</a>
             <a href="/locations/florida/jacksonville.html" class="city-link">Jacksonville</a>
             <a href="/locations/new-jersey/jersey-city.html" class="city-link">Jersey City</a>
+            <a href="/locations/illinois/joliet.html" class="city-link">Joliet</a>
             <a href="/locations/missouri/kansas-city.html" class="city-link">Kansas City</a>
+            <a href="/locations/washington/kent.html" class="city-link">Kent</a>
+            <a href="/locations/alabama/kent.html" class="city-link">Kent</a>
+            <a href="/locations/texas/killeen.html" class="city-link">Killeen</a>
+            <a href="/locations/tennessee/knoxville.html" class="city-link">Knoxville</a>
+            <a href="/locations/california/la.html" class="city-link">La</a>
+            <a href="/locations/louisiana/lafayette.html" class="city-link">Lafayette</a>
+            <a href="/locations/california/lakewood.html" class="city-link">Lakewood</a>
+            <a href="/locations/california/lancaster.html" class="city-link">Lancaster</a>
             <a href="/locations/texas/laredo.html" class="city-link">Laredo</a>
             <a href="/locations/nevada/las-vegas.html" class="city-link">Las Vegas</a>
             <a href="/locations/kentucky/lexington.html" class="city-link">Lexington</a>
             <a href="/locations/nebraska/lincoln.html" class="city-link">Lincoln</a>
+            <a href="/locations/arkansas/little-rock.html" class="city-link">Little Rock</a>
             <a href="/locations/california/long-beach.html" class="city-link">Long Beach</a>
             <a href="/locations/california/los-angeles.html" class="city-link">Los Angeles</a>
             <a href="/locations/kentucky/louisville.html" class="city-link">Louisville</a>
             <a href="/locations/texas/lubbock.html" class="city-link">Lubbock</a>
             <a href="/locations/wisconsin/madison.html" class="city-link">Madison</a>
+            <a href="/locations/texas/mcallen.html" class="city-link">Mcallen</a>
+            <a href="/locations/georgia/medmal-atlanta.html" class="city-link">Medical Malpractice Atlanta</a>
+            <a href="/locations/massachusetts/medmal-boston.html" class="city-link">Medical Malpractice Boston</a>
+            <a href="/locations/north-carolina/medmal-charlotte.html" class="city-link">Medical Malpractice Charlotte</a>
+            <a href="/locations/illinois/medmal-chicago.html" class="city-link">Medical Malpractice Chicago</a>
+            <a href="/locations/california/medmal-la.html" class="city-link">Medical Malpractice La</a>
+            <a href="/locations/florida/medmal-miami.html" class="city-link">Medical Malpractice Miami</a>
+            <a href="/locations/new-york/medmal-nyc.html" class="city-link">Medical Malpractice Nyc</a>
+            <a href="/locations/florida/medmal-orlando.html" class="city-link">Medical Malpractice Orlando</a>
+            <a href="/locations/pennsylvania/medmal-philadelphia.html" class="city-link">Medical Malpractice Philadelphia</a>
+            <a href="/locations/arizona/medmal-phoenix.html" class="city-link">Medical Malpractice Phoenix</a>
+            <a href="/locations/oregon/medmal-portland.html" class="city-link">Medical Malpractice Portland</a>
             <a href="/locations/tennessee/memphis.html" class="city-link">Memphis</a>
             <a href="/locations/arizona/mesa.html" class="city-link">Mesa</a>
+            <a href="/locations/texas/mesquite.html" class="city-link">Mesquite</a>
             <a href="/locations/florida/miami.html" class="city-link">Miami</a>
             <a href="/locations/wisconsin/milwaukee.html" class="city-link">Milwaukee</a>
             <a href="/locations/minnesota/minneapolis.html" class="city-link">Minneapolis</a>
+            <a href="/locations/alabama/mobile.html" class="city-link">Mobile</a>
+            <a href="/locations/california/modesto.html" class="city-link">Modesto</a>
+            <a href="/locations/alabama/montgomery.html" class="city-link">Montgomery</a>
+            <a href="/locations/california/moreno-valley.html" class="city-link">Moreno Valley</a>
+            <a href="/locations/illinois/naperville.html" class="city-link">Naperville</a>
             <a href="/locations/tennessee/nashville.html" class="city-link">Nashville</a>
+            <a href="/locations/connecticut/new-haven.html" class="city-link">New Haven</a>
             <a href="/locations/louisiana/new-orleans.html" class="city-link">New Orleans</a>
             <a href="/locations/new-york/new-york.html" class="city-link">New York</a>
             <a href="/locations/new-jersey/newark.html" class="city-link">Newark</a>
+            <a href="/locations/virginia/newport-news.html" class="city-link">Newport News</a>
             <a href="/locations/virginia/norfolk.html" class="city-link">Norfolk</a>
             <a href="/locations/nevada/north-las-vegas.html" class="city-link">North Las Vegas</a>
+            <a href="/locations/new-york/nyc.html" class="city-link">Nyc</a>
             <a href="/locations/california/oakland.html" class="city-link">Oakland</a>
+            <a href="/locations/california/oceanside.html" class="city-link">Oceanside</a>
             <a href="/locations/oklahoma/oklahoma-city.html" class="city-link">Oklahoma City</a>
+            <a href="/locations/kansas/olathe.html" class="city-link">Olathe</a>
             <a href="/locations/nebraska/omaha.html" class="city-link">Omaha</a>
+            <a href="/locations/california/ontario.html" class="city-link">Ontario</a>
+            <a href="/locations/california/orange.html" class="city-link">Orange</a>
             <a href="/locations/florida/orlando.html" class="city-link">Orlando</a>
+            <a href="/locations/kansas/overland-park.html" class="city-link">Overland Park</a>
+            <a href="/locations/california/oxnard.html" class="city-link">Oxnard</a>
+            <a href="/locations/california/palmdale.html" class="city-link">Palmdale</a>
+            <a href="/locations/california/pasadena.html" class="city-link">Pasadena</a>
+            <a href="/locations/new-jersey/paterson.html" class="city-link">Paterson</a>
+            <a href="/locations/florida/pembroke-pines.html" class="city-link">Pembroke Pines</a>
+            <a href="/locations/illinois/peoria.html" class="city-link">Peoria</a>
             <a href="/locations/pennsylvania/philadelphia.html" class="city-link">Philadelphia</a>
             <a href="/locations/arizona/phoenix.html" class="city-link">Phoenix</a>
             <a href="/locations/pennsylvania/pittsburgh.html" class="city-link">Pittsburgh</a>
             <a href="/locations/texas/plano.html" class="city-link">Plano</a>
+            <a href="/locations/california/pomona.html" class="city-link">Pomona</a>
+            <a href="/locations/north-dakota/portal.html" class="city-link">Portal</a>
+            <a href="/locations/georgia/portal.html" class="city-link">Portal</a>
             <a href="/locations/oregon/portland.html" class="city-link">Portland</a>
+            <a href="/locations/utah/providence.html" class="city-link">Providence</a>
+            <a href="/locations/kentucky/providence.html" class="city-link">Providence</a>
             <a href="/locations/north-carolina/raleigh.html" class="city-link">Raleigh</a>
+            <a href="/locations/california/rancho-cucamonga.html" class="city-link">Rancho Cucamonga</a>
             <a href="/locations/nevada/reno.html" class="city-link">Reno</a>
             <a href="/locations/california/riverside.html" class="city-link">Riverside</a>
+            <a href="/locations/new-york/rochester.html" class="city-link">Rochester</a>
+            <a href="/locations/illinois/rockford.html" class="city-link">Rockford</a>
+            <a href="/locations/california/roseville.html" class="city-link">Roseville</a>
+            <a href="/locations/texas/round-rock.html" class="city-link">Round Rock</a>
             <a href="/locations/california/sacramento.html" class="city-link">Sacramento</a>
             <a href="/locations/minnesota/saint-paul.html" class="city-link">Saint Paul</a>
+            <a href="/locations/oregon/salem.html" class="city-link">Salem</a>
+            <a href="/locations/california/salinas.html" class="city-link">Salinas</a>
+            <a href="/locations/utah/salt-lake-city.html" class="city-link">Salt Lake City</a>
             <a href="/locations/texas/san-antonio.html" class="city-link">San Antonio</a>
             <a href="/locations/california/san-bernardino.html" class="city-link">San Bernardino</a>
             <a href="/locations/california/san-diego.html" class="city-link">San Diego</a>
             <a href="/locations/california/san-francisco.html" class="city-link">San Francisco</a>
             <a href="/locations/california/san-jose.html" class="city-link">San Jose</a>
             <a href="/locations/california/santa-ana.html" class="city-link">Santa Ana</a>
+            <a href="/locations/california/santa-clarita.html" class="city-link">Santa Clarita</a>
+            <a href="/locations/california/santa-rosa.html" class="city-link">Santa Rosa</a>
+            <a href="/locations/georgia/savannah.html" class="city-link">Savannah</a>
             <a href="/locations/arizona/scottsdale.html" class="city-link">Scottsdale</a>
             <a href="/locations/washington/seattle.html" class="city-link">Seattle</a>
+            <a href="/locations/louisiana/shreveport.html" class="city-link">Shreveport</a>
+            <a href="/locations/california/simi-valley.html" class="city-link">Simi Valley</a>
+            <a href="/locations/south-dakota/sioux-falls.html" class="city-link">Sioux Falls</a>
             <a href="/locations/washington/spokane.html" class="city-link">Spokane</a>
-            <a href="/locations/st-louis.html" class="city-link">St Louis</a>
-            <a href="/locations/st-petersburg.html" class="city-link">St Petersburg</a>
+            <a href="/locations/illinois/springfield.html" class="city-link">Springfield</a>
+            <a href="/locations/michigan/sterling-heights.html" class="city-link">Sterling Heights</a>
             <a href="/locations/california/stockton.html" class="city-link">Stockton</a>
+            <a href="/locations/california/sunnyvale.html" class="city-link">Sunnyvale</a>
+            <a href="/locations/new-york/syracuse.html" class="city-link">Syracuse</a>
+            <a href="/locations/washington/tacoma.html" class="city-link">Tacoma</a>
+            <a href="/locations/florida/tallahassee.html" class="city-link">Tallahassee</a>
             <a href="/locations/florida/tampa.html" class="city-link">Tampa</a>
+            <a href="/locations/arizona/tempe.html" class="city-link">Tempe</a>
+            <a href="/locations/california/thousand-oaks.html" class="city-link">Thousand Oaks</a>
             <a href="/locations/ohio/toledo.html" class="city-link">Toledo</a>
+            <a href="/locations/california/torrance.html" class="city-link">Torrance</a>
             <a href="/locations/arizona/tucson.html" class="city-link">Tucson</a>
             <a href="/locations/oklahoma/tulsa.html" class="city-link">Tulsa</a>
+            <a href="/locations/washington/vancouver.html" class="city-link">Vancouver</a>
             <a href="/locations/virginia/virginia-beach.html" class="city-link">Virginia Beach</a>
+            <a href="/locations/california/visalia.html" class="city-link">Visalia</a>
+            <a href="/locations/texas/waco.html" class="city-link">Waco</a>
+            <a href="/locations/michigan/warren.html" class="city-link">Warren</a>
             <a href="/locations/district-of-columbia/washington.html" class="city-link">Washington</a>
+            <a href="/locations/district-of-columbia/washington-dc.html" class="city-link">Washington Dc</a>
             <a href="/locations/kansas/wichita.html" class="city-link">Wichita</a>
-            <a href="/locations/winstonsalem.html" class="city-link">Winstonsalem</a>
+            <a href="/locations/north-carolina/winston-salem.html" class="city-link">Winston Salem</a>
+            <a href="/locations/massachusetts/worcester.html" class="city-link">Worcester</a>
+            <a href="/locations/new-york/yonkers.html" class="city-link">Yonkers</a>
+
+    </div>
+
+    <div class="cta-section">
+      <h2>Don't see your city?</h2>
+      <p>LexiFlow can be deployed for any firm, anywhere in the United States. Schedule a custom market analysis today.</p>
+      <a href="/roi-calculator.html" class="btn-primary">Get Started Now</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LexiFlow</a>
+        <p>Enterprise-grade AI for legal intake and lead qualification. Built for the modern attorney.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-intake-agent.html">LexiFlow Intake</a></li>
+          <li><a href="/voice-ai-receptionist.html">Voice AI</a></li>
+          <li><a href="/ai-medical-chronologies.html">Medical Review</a></li>
+          <li><a href="/auto-document-drafter.html">Doc Automation</a></li>
+          <li><a href="/depolens-ai.html">DepoLens AI</a></li>
+          <li><a href="/settlement-estimator.html">Settlement AI</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+          <li><a href="#">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Security</h4>
+        <div style="font-size: 24px; display: flex; gap: 16px;">
+          <i class="bi bi-shield-lock"></i>
+          <i class="bi bi-safe"></i>
+          <i class="bi bi-fingerprint"></i>
         </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 LexiFlow AI. All rights reserved.
+    </div>
+  </footer>
 
-        <div class="cta-section">
-            <h2>Don't see your city?</h2>
-            <p>LexiFlow can be deployed for any firm, anywhere in the United States. Schedule a custom market analysis today.</p>
-            <a href="/roi-calculator.html" class="btn-primary" style="padding: 16px 32px; font-size: 16px;">Get Started Now</a>
-        </div>
-    </section>
-
-                                <footer class="py-20 bg-slate-50 border-t border-slate-200">
-        <div class="max-w-screen">
-            <div class="grid md:grid-cols-4 gap-12 mb-16">
-                <div>
-                    <div class="flex items-center gap-2 mb-6">
-                        <img src="/branding/logo-icon.svg" alt="LexiFlow" width="20">
-                        <span class="font-bold">LexiFlow</span>
-                    </div>
-                    <p class="text-xs text-slate-500 leading-relaxed">Enterprise-grade AI for legal intake and lead qualification. Built for the modern attorney.</p>
-                </div>
-                <div>
-                    <h5 class="text-[10px] font-bold text-slate-900 uppercase mb-6 tracking-widest">Products</h5>
-                    <ul class="space-y-4 text-xs text-slate-600 font-medium">
-                        <li><a href="/products/intake.html">LexiFlow Intake</a></li>
-                        <li><a href="/products/voice.html">Voice AI</a></li>
-                        <li><a href="/products/medical.html">Medical Review</a></li>
-                        <li><a href="/products/documents.html">Doc Automation</a></li>
-                        <li><a href="/products/depolens.html">DepoLens AI</a></li>
-                        <li><a href="/products/estimator.html">Settlement AI</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="text-[10px] font-bold text-slate-900 uppercase mb-6 tracking-widest">Legal</h5>
-                    <ul class="space-y-4 text-xs text-slate-600 font-medium">
-                        <li><a href="/privacy.html">Privacy Policy</a></li>
-                        <li><a href="/terms.html">Terms of Service</a></li>
-                        <li><a href="#">SOC2 Compliance</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="text-[10px] font-bold text-slate-900 uppercase mb-6 tracking-widest">Security</h5>
-                    <div class="flex gap-4 text-slate-300 text-xl">
-                        <i class="bi bi-shield-lock"></i>
-                        <i class="bi bi-safe"></i>
-                        <i class="bi bi-fingerprint"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="pt-8 border-t border-slate-200 flex justify-between items-center">
-                <p class="text-[10px] font-bold text-slate-400 uppercase">&copy; 2026 LexiFlow AI. All rights reserved.</p>
-                <div class="flex gap-6 text-slate-400">
-                    <a href="#" class="hover:text-blue"><i class="bi bi-linkedin"></i></a>
-                    <a href="#" class="hover:text-blue"><i class="bi bi-twitter-x"></i></a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Footer will be injected by update_footers.py
-    </script>
-
-        <script>
-        // Mobile menu toggle helper
-        document.addEventListener('DOMContentLoaded', function() {
-            var toggle = document.querySelector('.nav-toggle');
-            var links = document.getElementById('navLinks');
-            if (toggle && links) {
-                toggle.addEventListener('click', function() {
-                    links.classList.toggle('active');
-                });
-            }
-        });
-        </script>
-        
+  <script>
+    // Simple toggle for mobile nav
+    document.querySelector('.nav-toggle').addEventListener('click', function() {
+      document.getElementById('navLinks').classList.toggle('active');
+    });
+  </script>
 </body>
 </html>
