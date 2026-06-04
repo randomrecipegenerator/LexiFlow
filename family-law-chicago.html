@@ -12,7 +12,7 @@
     <meta property="twitter:image" content="https://lexiflow.co/branding/social-banner.png">
     <link rel="icon" type="image/svg+xml" href="branding/favicon.svg">
     <link rel="icon" type="image/png" href="branding/favicon.png" sizes="32x32">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');body{font-family:'Inter',sans-serif;}.hero-gradient{background:linear-gradient(135deg,#0f172a 0%,#2d1b3d 100%);}.modal{transition:opacity 0.25s ease;}body.modal-active{overflow-x:hidden;overflow-y:visible!important;}
     /* Mobile-Friendly Adjustments */
@@ -63,15 +63,23 @@
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-50"><nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between h-16 items-center">
-        <div class="flex items-center"><img src="branding/logo-main.svg" alt="LexiFlow" height="32" class="h-8"><span class="text-xl font-bold tracking-tight">Lexi<span class="text-blue-600">Flow</span></span></div>
-        <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
-            <a href="" class="hover:text-blue-600 transition">Home</a>
-            <a href="features" class="hover:text-blue-600 transition">Features</a>
-            <a href="cities/chicago" class="hover:text-blue-600 transition">Chicago</a>
-        </div>
-        <div><button onclick="toggleConsultation('Request Chicago Family Law Demo')" class="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-200">Get Started</button></div>
-    </div></nav></header>
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+  
+  
+  <nav><div class="nav-container">
+    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/blog/index.html">Blog</a></li>
+      <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+      <li><a href="/cities.html">Areas We Serve</a></li>
+      <li><a href="/pricing.html" class="btn-cta">Get Started</a></li>
+    </ul>
+    <button class="nav-toggle">☰</button>
+  </div></nav>
+
+
+</header>
     <main>
         <section class="hero-gradient text-white py-20 lg:py-32 relative overflow-hidden">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
@@ -92,11 +100,44 @@
         </div></div></section>
         <section class="py-20 bg-purple-600"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center text-white"><h2 class="text-3xl md:text-5xl font-bold mb-6">Grow your Chicago family law practice?</h2><p class="text-purple-100 mb-10 max-w-2xl mx-auto text-lg">Join Illinois's leading family law firms using LexiFlow.</p><div class="flex flex-col sm:flex-row justify-center gap-4"><button onclick="toggleConsultation('Request Chicago Family Law Demo')" class="bg-white text-purple-600 px-8 py-4 rounded-xl font-bold hover:bg-purple-50 transition text-lg">Request a Demo</button></div></div></div></section>
     </main>
-    <footer class="bg-white py-12 border-t border-slate-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:justify-between items-center space-y-6 md:flex-row md:space-y-0 text-slate-500 text-sm">
-        <div class="flex items-center text-slate-900"><img src="branding/logo-main.svg" alt="LexiFlow" height="28" class="h-7 mr-2"><span class="font-bold tracking-tight">LexiFlow</span></div>
-        <div class="flex space-x-6"><a href="privacy.html" class="hover:text-blue-600">Privacy</a><a href="terms.html" class="hover:text-blue-600">Terms</a></div>
-        <p>&copy; 2026 LexiFlow AI.</p>
-    </div></footer>
+    
+
+
+
+  
+
+
+
+  
+<section id="ethics-resources" style="background: var(--slate-50); padding: 80px 0; border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200); margin: 80px 0;">
+    <div style="max-width: var(--max-width); margin: 0 auto; padding: 0 40px;">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; color: var(--navy); margin-bottom: 8px; text-align: center;">Legal AI Ethics & Compliance Resources</h2>
+        <p style="color: var(--slate-600); margin-bottom: 32px; text-align: center;">Regulatory frameworks and adoption guides for modern law firms.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 32px;">
+            <a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake.html" style="display: block; padding: 32px; background: white; border: 1px solid var(--slate-200); border-radius: 24px; text-decoration: none; transition: all 0.2s; height: 100%;">
+                <h4 style="color: var(--navy); font-size: 20px; margin-bottom: 12px; font-family: 'Playfair Display', serif;">Pennsylvania AI Ethics Guide</h4>
+                <p style="color: var(--slate-600); font-size: 15px; line-height: 1.6;">A practical framework for PA trial lawyers adopting AI in legal intake and merit review.</p>
+            </a>
+            <a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake.html" style="display: block; padding: 32px; background: white; border: 1px solid var(--slate-200); border-radius: 24px; text-decoration: none; transition: all 0.2s; height: 100%;">
+                <h4 style="color: var(--navy); font-size: 20px; margin-bottom: 12px; font-family: 'Playfair Display', serif;">Illinois AI Ethics Guide</h4>
+                <p style="color: var(--slate-600); font-size: 15px; line-height: 1.6;">Ethics and Section 2-622 compliance for Illinois firm AI adoption and automated screening.</p>
+            </a>
+            <a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake.html" style="display: block; padding: 32px; background: white; border: 1px solid var(--slate-200); border-radius: 24px; text-decoration: none; transition: all 0.2s; height: 100%;">
+                <h4 style="color: var(--navy); font-size: 20px; margin-bottom: 12px; font-family: 'Playfair Display', serif;">New York AI Ethics Guide</h4>
+                <p style="color: var(--slate-600); font-size: 15px; line-height: 1.6;">Navigating 22 NYCRR Part 1200 and AI in New York Medical Malpractice intake.</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+  
+  
+  
+
+
+
+
     <script src="config.js"></script>
     <script>
         function toggleConsultation(label) { alert('Demo request initiated: ' + label); }
@@ -116,5 +157,67 @@
         });
         </script>
         
+
+    
+
+
+    
+
+
+    
+
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LexiFlow</a>
+        <p>Enterprise-grade AI for legal intake and lead qualification. Built for the modern attorney.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-intake-agent.html">LexiFlow Intake</a></li>
+          <li><a href="/voice-ai-receptionist.html">Voice AI</a></li>
+          <li><a href="/ai-medical-chronologies.html">Medical Review</a></li>
+          <li><a href="/auto-document-drafter.html">Doc Automation</a></li>
+          <li><a href="/depolens-ai.html">DepoLens AI</a></li>
+          <li><a href="/settlement-estimator.html">Settlement AI</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+          <li><a href="/soc2.html">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Security</h4>
+        <div style="font-size: 24px; display: flex; gap: 16px;">
+          <i class="bi bi-shield-lock"></i>
+          <i class="bi bi-safe"></i>
+          <i class="bi bi-fingerprint"></i>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 LexiFlow AI. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+        var toggle = document.querySelector('.nav-toggle');
+        var navLinks = document.getElementById('navLinks');
+        if (toggle && navLinks) {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.classList.toggle('active');
+            });
+        }
+    })();
+  </script>
+
 </body>
 </html>
