@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Law Firm Intake AI & Lead Qualification in San Francisco","sameAs":"https://en.wikipedia.org/wiki/San_Francisco","containedInPlace":{"@type":"State","name":"California | LexiFlow</title>
     <meta name="description" content="LexiFlow provides advanced law firm intake AI and personal injury lead qualification in San Francisco","sameAs":"https://en.wikipedia.org/wiki/San_Francisco","containedInPlace":{"@type":"State","name":"California, California. Automate your intake 24/7 with attorney-level reasoning.">
@@ -10,7 +11,7 @@
     <meta property="og:image" content="https://lexiflow.co/branding/social-banner.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:image" content="https://lexiflow.co/branding/social-banner.png">
     <link rel="icon" type="image/svg+xml" href="/branding/favicon.svg"><link rel="icon" type="image/png" href="/branding/favicon.png" sizes="32x32">
     <link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');body{font-family:'Inter',sans-serif;}.sf-gradient{background:linear-gradient(135deg,#0f172a 0%,#1a2a3e 50%,#2d1b2e 100%);}.modal{transition:opacity 0.25s ease;}body.modal-active{overflow-x:hidden;overflow-y:visible!important;}
+    <style>
     /* Mobile-Friendly Adjustments */
     @media (max-width: 768px) {
         .container, .nav-container, .max-w-screen, .max-w, .hero-container, .footer-container { 
@@ -40,11 +41,11 @@
         h3 { font-size: 20px !important; }
         
         /* Nav adjustments */
-        nav, .nav { height: auto !important; padding: 10px 0 !important; min-height: 60px; }
-        .nav-container, .nav .container { flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; padding: 10px 20px !important; }
-        .nav-links { flex-direction: column !important; align-items: center !important; gap: 10px !important; display: none !important; width: 100% !important; order: 3; padding: 20px 0 !important; }
+        nav, .nav { height: auto !important; padding: 10px 0 !important; min-height: 60px; position: fixed; top: 0; width: 100%; background: #fff; z-index: 1000; border-bottom: 1px solid #e2e8f0; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; height: 80px; }
+        .nav-links { flex-direction: column !important; align-items: center !important; gap: 10px !important; display: none !important; width: 100% !important; order: 3; padding: 20px 0 !important; position: absolute; top: 80px; left: 0; background: #fff; }
         .nav-links.active { display: flex !important; }
-        .nav-toggle { display: block !important; background: #1a3a5c; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 20px; order: 2; }
+        .nav-toggle { display: block !important; background: none; border: none; font-size: 24px; cursor: pointer; color: #0f172a; }
         .btn-cta, .btn-primary { padding: 8px 16px !important; font-size: 13px !important; }
         
         /* Card and Feature adjustments */
@@ -53,10 +54,35 @@
             width: 100% !important;
             min-width: 0 !important;
         }
-        .pricing-card.featured { transform: none !important; margin: 20px 0 !important; }
     }
     
-    </style>
+    /* Internal Page Styles */
+    :root {
+      --navy: #0f172a; --gold: #c9a84c; --gold-light: #e2c96e;
+      --slate-50: #f8fafc; --slate-100: #f1f5f9; --slate-200: #e2e8f0; --slate-400: #94a3b8; --slate-600: #475569;
+      --slate-900: #0f172a; --max-width: 1200px;
+    }
+    body { margin: 0; padding-top: 80px; }
+    nav { position: fixed; top: 0; width: 100%; height: 80px; background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--slate-200); z-index: 1000; display: flex; align-items: center; }
+    .nav-container { max-width: var(--max-width); margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--navy); text-decoration: none; display: flex; align-items: center; gap: 12px; }
+    .logo span { background: var(--navy); color: var(--gold); padding: 4px 8px; border-radius: 4px; font-size: 18px; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; }
+    .nav-links a:hover { color: var(--navy); }
+    .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
+    .nav-toggle { display: none; }
+
+    footer { background: var(--navy); color: var(--slate-400); padding: 80px 0 40px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .footer-container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; margin-bottom: 20px; display: block; }
+    .footer-col h4 { color: #fff; margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; }
+    .footer-col ul { list-style: none; padding: 0; }
+    .footer-col ul li { margin-bottom: 12px; }
+    .footer-col ul a { color: var(--slate-400); text-decoration: none; font-size: 14px; }
+    .footer-col ul a:hover { color: var(--gold); }
+    .footer-bottom { max-width: var(--max-width); margin: 60px auto 0; padding: 40px 40px 0; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; text-align: center; }
+</style>
     
 
     <script type="application/ld+json">
@@ -132,26 +158,23 @@
   ]
 }
     </script>
+
 </head>
-<body class="bg-slate-50 text-slate-900"><header class="bg-white border-b border-slate-200 sticky top-0 z-50"><nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between h-16 items-center">
-<div class="flex items-center"><img src="branding/logo-main.svg" alt="LexiFlow" height="32" class="h-8"><span class="text-xl font-bold tracking-tight">Lexi<span class="text-blue-600">Flow</span></span></div>
-<div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
-<div class="relative group"><button class="hover:text-blue-600 transition flex items-center gap-1">Products <i class="bi bi-chevron-down text-xs"></i></button>
-<div class="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-<a href="" class="flex items-start gap-3 px-4 py-3 hover:bg-blue-50 rounded-t-xl transition"><i class="bi bi-briefcase-fill text-blue-600 mt-1"></i><div><div class="font-semibold text-slate-900">LexiFlow</div><div class="text-xs text-slate-500">AI Legal Intake & Lead Qualification</div></div></a>
-<div class="border-t border-slate-100"></div>
-<a href="depolens" class="flex items-start gap-3 px-4 py-3 hover:bg-cyan-50 transition"><i class="bi bi-search text-cyan-600 mt-1"></i><div><div class="font-semibold text-slate-900">DepoLens</div><div class="text-xs text-slate-500">AI Deposition Conflict Detector</div></div></a>
-<div class="border-t border-slate-100"></div>
-<a href="meritscan.html" class="flex items-start gap-3 px-4 py-3 hover:bg-blue-50 rounded-b-xl transition"><i class="bi bi-shield-check text-blue-600 mt-1"></i><div><div class="font-semibold text-slate-900">MeritScan</div><div class="text-xs text-slate-500">AI Medical Merit Review</div></div></a>
-</div></div>
-<a href="features" class="hover:text-blue-600 transition">Features</a><a href="demo" class="hover:text-blue-600 transition">Live Demo</a><a href="dashboard" class="hover:text-blue-600 transition">Attorney Login</a>
-</div>
-                <a href="portal" class="text-blue-600 font-semibold text-sm hover:text-blue-700 transition flex items-center gap-1">
-                    <i class="bi bi-shield-lock-fill text-xs"></i> Client Portal
-                </a>
-                <div><button onclick="toggleModal('demoModal')" class="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-200">Get Started</button></div>
-</div></nav></header>
+<body class="bg-slate-50 text-slate-900">
+<nav><div class="nav-container">
+    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/dashboard.html">Dashboard</a></li>
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/cities.html">Areas We Serve</a></li>
+      <li><a href="/pricing.html" class="btn-cta">Get Started</a></li>
+    </ul>
+    <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')">☰</button>
+  </div></nav>
 <main>
+
+
 <section class="sf-gradient text-white py-20 lg:py-32 relative overflow-hidden">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
 <div class="inline-flex items-center gap-2 bg-blue-600/20 border border-blue-400/30 rounded-full px-4 py-1.5 text-sm font-semibold text-blue-300 mb-6"><i class="bi bi-bridge"></i><span>San Francisco's Leading AI Intake</span></div>
@@ -184,8 +207,8 @@
 <section class="py-20 bg-slate-50"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-16"><h2 class="text-3xl font-bold mb-4">Products for SF Law Firms</h2></div>
 <div class="grid md:grid-cols-3 gap-8">
 <div class="bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-xl transition group"><div class="bg-blue-50 w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition"><i class="bi bi-briefcase-fill text-xl"></i></div><h3 class="font-bold text-xl mb-3">LexiFlow Intake</h3><p class="text-slate-600 mb-4">24/7 AI intake with California-specific intelligence.</p><button onclick="toggleModal('demoModal')" class="text-blue-600 font-semibold hover:text-blue-700 transition">Learn More →</button></div>
-<div class="bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-xl transition group"><div class="bg-cyan-50 w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cyan-600 transition"><img src="branding/product-graphics/depolens-witness-conflict.svg" class="w-8 h-8"></div><h3 class="font-bold text-xl mb-3">DepoLens</h3><p class="text-slate-600 mb-4">AI deposition conflict detection for California trial prep.</p><a href="depolens" class="text-cyan-600 font-semibold hover:text-cyan-700 transition">Learn More →</a></div>
-<div class="bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-xl transition group"><div class="bg-emerald-50 w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 transition"><img src="branding/product-graphics/meritscan-negligence-marker.svg" class="w-8 h-8"></div><h3 class="font-bold text-xl mb-3">MeritScan</h3><p class="text-slate-600 mb-4">AI medical merit review for California PI cases.</p><a href="meritscan.html" class="text-emerald-600 font-semibold hover:text-emerald-700 transition">Learn More →</a></div>
+<div class="bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-xl transition group"><div class="bg-cyan-50 w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cyan-600 transition"><img src="/branding/product-graphics/depolens-witness-conflict.svg" class="w-8 h-8"></div><h3 class="font-bold text-xl mb-3">DepoLens</h3><p class="text-slate-600 mb-4">AI deposition conflict detection for California trial prep.</p><a href="depolens" class="text-cyan-600 font-semibold hover:text-cyan-700 transition">Learn More →</a></div>
+<div class="bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-xl transition group"><div class="bg-emerald-50 w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 transition"><img src="/branding/product-graphics/meritscan-negligence-marker.svg" class="w-8 h-8"></div><h3 class="font-bold text-xl mb-3">MeritScan</h3><p class="text-slate-600 mb-4">AI medical merit review for California PI cases.</p><a href="meritscan.html" class="text-emerald-600 font-semibold hover:text-emerald-700 transition">Learn More →</a></div>
 </div></div></section>
 <section class="py-20 bg-slate-50 border-t border-slate-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="bg-blue-600 rounded-3xl p-10 md:p-20 text-white text-center shadow-2xl relative overflow-hidden"><div class="relative z-10"><h2 class="text-3xl md:text-5xl font-bold mb-6">Ready to grow your SF firm?</h2><p class="text-blue-100 mb-10 max-w-2xl mx-auto text-lg">Join the Bay Area's leading law firms using LexiFlow.</p><div class="flex flex-col sm:flex-row justify-center gap-4"><button onclick="toggleModal('demoModal')" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition text-lg">Request a Demo</button></div><div class="mt-8 flex justify-center gap-4">
@@ -215,7 +238,7 @@
                         <p class="text-sm text-slate-500 mt-3 text-center font-medium">Intelligent Forms Builder</p>
                     </div>
                     <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 hover:shadow-lg transition">
-                        <img src="branding/product-graphics/meritscan-negligence-marker.svg" alt="MeritScan Negligence Detection" class="w-full rounded-xl border border-slate-200" loading="lazy">
+                        <img src="/branding/product-graphics/meritscan-negligence-marker.svg" alt="MeritScan Negligence Detection" class="w-full rounded-xl border border-slate-200" loading="lazy">
                         <p class="text-sm text-slate-500 mt-3 text-center font-medium">AI Negligence Marker Detection</p>
                     </div>
                 </div>
@@ -258,7 +281,7 @@
             </div>
         </div>
     </section>
-</main>
+
 
     <section style="padding: 40px 0;">
         <div class="max-w">
@@ -287,11 +310,7 @@
         </div>
     </section>
 
-<footer class="bg-white py-12 border-t border-slate-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:justify-between items-center space-y-6 md:flex-row md:space-y-0 text-slate-500 text-sm">
-<div class="flex items-center text-slate-900"><img src="branding/logo-main.svg" alt="LexiFlow" height="28" class="h-7 mr-2"><span class="font-bold tracking-tight">LexiFlow</span></div>
-<div class="flex space-x-8"><a href="cities/san-francisco" class="text-blue-600 font-medium">SF</a><a href="cities/austin" class="hover:text-blue-600">Austin</a><a href="cities/las-vegas" class="hover:text-blue-600">Vegas</a><a href="cities/charlotte" class="hover:text-blue-600">Charlotte</a></div>
-<div class="flex space-x-6"><a href="privacy.html" class="hover:text-blue-600">Privacy</a><a href="terms.html" class="hover:text-blue-600">Terms</a></div>
-<p>&copy; 2026 LexiFlow AI.</p></div></footer>
+
 <div id="demoModal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-[100]"><div class="modal-overlay absolute w-full h-full bg-slate-900 opacity-50"></div>
 <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto"><div class="modal-content py-4 text-left px-6">
 <div class="flex justify-between items-center pb-3"><p class="text-2xl font-bold">Request SF Demo</p><div class="modal-close cursor-pointer z-50" onclick="toggleModal('demoModal')"><i class="bi bi-x-lg"></i></div></div>
@@ -302,42 +321,63 @@
 <div><label class="block text-sm font-medium text-slate-700">Practice Area</label><select name="practice" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border"><option>Personal Injury</option><option>Family Law</option><option>Immigration</option><option>Criminal Defense</option><option>Other</option></select></div>
 <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition">Submit Request</button>
 </form></div></div></div>
-<script src="config.js"></script>
-<script>function toggleModal(m){document.querySelector('body').classList.toggle('modal-active');document.getElementById(m).classList.toggle('opacity-0');document.getElementById(m).classList.toggle('pointer-events-none');}document.getElementById('demoForm').addEventListener('submit',async e=>{e.preventDefault();const f=new FormData(e.target);try{const r=await fetch('/demo-request',{method:'POST',body:f});if(!r.ok)throw Error();const d=await r.json();if(d.status==='success'){alert('Thank you! Your SF demo request has been received.');toggleModal('demoModal');e.target.reset();}else alert('Error: '+(d.message||'Unknown'));}catch(e){alert('Error sending request.');}});</script>
 
-    <script src="widget.min.js"></script>
+
+
+    
     <link rel="stylesheet" href="widget.min.css">
-    <script>
-        window.LexiFlowConfig = {
-            firmSlug: 'san-francisco'
-        };
-    </script>
+    
     <!-- LexiFlow AI Chat Widget -->
-    <script>
-        (function() {
-            var widget = document.createElement('script');
-            widget.src = '/widget.min.js';
-            widget.async = true;
-            document.head.appendChild(widget);
-            var css = document.createElement('link');
-            css.rel = 'stylesheet';
-            css.href = '/widget.min.css';
-            document.head.appendChild(css);
-        })();
-    </script>
+    
 
-        <script>
-        // Mobile menu toggle helper
-        document.addEventListener('DOMContentLoaded', function() {
-            var toggle = document.querySelector('.nav-toggle');
-            var links = document.getElementById('navLinks');
-            if (toggle && links) {
-                toggle.addEventListener('click', function() {
-                    links.classList.toggle('active');
-                });
-            }
-        });
-        </script>
         
+        
+
+</main>
+<footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LexiFlow</a>
+        <p>Enterprise-grade AI for legal intake and lead qualification. Built for the modern attorney.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-intake-agent.html">LexiFlow Intake</a></li>
+          <li><a href="/voice-ai-receptionist.html">Voice AI</a></li>
+          <li><a href="/ai-medical-chronologies.html">Medical Review</a></li>
+          <li><a href="/auto-document-drafter.html">Doc Automation</a></li>
+          <li><a href="/depolens-ai.html">DepoLens AI</a></li>
+          <li><a href="/settlement-estimator.html">Settlement AI</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+          <li><a href="#">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Security</h4>
+        <div style="font-size: 24px; display: flex; gap: 16px;">
+          <i class="bi bi-shield-lock"></i>
+          <i class="bi bi-safe"></i>
+          <i class="bi bi-fingerprint"></i>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 LexiFlow AI. All rights reserved.
+    </div>
+  </footer>
+<script src="/config.js"></script>
+<script>
+    document.querySelector('.nav-toggle').addEventListener('click', function() {
+      document.getElementById('navLinks').classList.toggle('active');
+    });
+    function toggleConsultation(label) { alert('Demo request initiated: ' + label); }
+</script>
 </body>
 </html>
