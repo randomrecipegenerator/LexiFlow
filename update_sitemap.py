@@ -26,7 +26,7 @@ def generate_sitemap():
     if os.path.exists(city_dir):
         for filename in sorted(os.listdir(city_dir)):
             if filename.endswith(".html"):
-                loc = f"{BASE_URL}/usa-cities/{filename}"
+                loc = f"{BASE_URL}/locations/{filename}"
                 xml.append(f'   <url><loc>{loc}</loc><lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>')
     
     xml.append('</urlset>')

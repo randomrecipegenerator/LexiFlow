@@ -16,7 +16,7 @@ FOOTER = """    <footer class="py-20 bg-slate-50 border-t border-slate-200">
                         <li><a href="/features.html">Features</a></li>
                         <li><a href="/solutions.html">Solutions</a></li>
                         <li><a href="/roi-calculator.html">ROI Calculator</a></li>
-                        <li><a href="/usa-cities/">usa-cities</a></li>
+                        <li><a href="/locations/">usa-cities</a></li>
                     </ul>
                 </div>
                 <div>
@@ -54,7 +54,7 @@ FILES = [
     "privacy.html",
     "terms.html",
     "whitepaper.html",
-    "usa-cities.html",
+    "cities.html",
 ]
 
 # We don't want to mess up dashboard.html or portal.html which might have special footers
