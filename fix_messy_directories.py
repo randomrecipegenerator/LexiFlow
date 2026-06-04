@@ -108,7 +108,11 @@ STYLE = """
       .nav-toggle { display: block; }
       .btn-cta { display: none; }
       .hero h1 { font-size: 36px; }
-      .footer-container { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+      
+      .footer-container { grid-template-columns: 1fr; text-align: center; gap: 48px; }
+      .footer-logo { margin: 0 auto 20px; }
+      .footer-col div { justify-content: center; }
+      
       .city-grid { grid-template-columns: 1fr; }
     }
 """

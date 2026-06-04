@@ -107,6 +107,10 @@ STYLE = """
       .nav-toggle { display: block; }
       .hero h1 { font-size: 32px; }
       .cta-banner { padding: 40px 20px; border-radius: 0; }
+      
+      .footer-container { grid-template-columns: 1fr; text-align: center; gap: 48px; }
+      .footer-logo { margin: 0 auto 20px; }
+      .footer-col div { justify-content: center; }
     }
 """
 
