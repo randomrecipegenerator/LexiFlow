@@ -22,6 +22,52 @@
             "offers": { "@type": "Offer", "price": "69.00", "priceCurrency": "USD", "description": "LexiFlow Suite monthly subscription" }
         }
     </script>
+    <style>
+    /* Mobile-Friendly Adjustments */
+    @media (max-width: 768px) {
+        .container, .nav-container, .max-w-screen, .max-w, .hero-container, .footer-container { 
+            padding-left: 20px !important; 
+            padding-right: 20px !important; 
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        .grid, .highlight-grid, .faq-grid, .pricing-grid, .assoc-grid, .city-grid { 
+            grid-template-columns: 1fr !important; 
+            display: grid !important;
+            gap: 20px !important;
+        }
+        .hero-container, .footer-container, .section-header { 
+            grid-template-columns: 1fr !important; 
+            text-align: center !important; 
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+        .hero-text, .hero-image, .footer-col {
+            width: 100% !important;
+            margin-bottom: 30px !important;
+        }
+        h1 { font-size: 28px !important; line-height: 1.2 !important; }
+        h2 { font-size: 24px !important; }
+        h3 { font-size: 20px !important; }
+        
+        /* Nav adjustments */
+        nav, .nav { height: auto !important; padding: 10px 0 !important; min-height: 60px; }
+        .nav-container, .nav .container { flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; padding: 10px 20px !important; }
+        .nav-links { flex-direction: column !important; align-items: center !important; gap: 10px !important; display: none !important; width: 100% !important; order: 3; padding: 20px 0 !important; }
+        .nav-links.active { display: flex !important; }
+        .nav-toggle { display: block !important; background: #1a3a5c; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 20px; order: 2; }
+        .btn-cta, .btn-primary { padding: 8px 16px !important; font-size: 13px !important; }
+        
+        /* Card and Feature adjustments */
+        .card, .pricing-card, .highlight-item, .faq-item, .assoc-card, .city-link { 
+            margin-bottom: 20px !important; 
+            width: 100% !important;
+            min-width: 0 !important;
+        }
+        .pricing-card.featured { transform: none !important; margin: 20px 0 !important; }
+    }
+        </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
     <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
@@ -60,5 +106,19 @@
         </div></section>
     <section class="py-12 bg-white"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl font-bold mb-6">Medical Malpractice Intake by City</h2><div class="grid grid-cols-2 md:grid-cols-4 gap-4"><a href="../../locations/west-virginia/athens.html" class="text-blue-600 hover:underline">Athens</a><a href="../../locations/west-virginia/augusta.html" class="text-blue-600 hover:underline">Augusta</a><a href="../../locations/west-virginia/aurora.html" class="text-blue-600 hover:underline">Aurora</a><a href="../../locations/west-virginia/bridgeport.html" class="text-blue-600 hover:underline">Bridgeport</a><a href="../../locations/west-virginia/cleveland.html" class="text-blue-600 hover:underline">Cleveland</a><a href="../../locations/west-virginia/dallas.html" class="text-blue-600 hover:underline">Dallas</a><a href="../../locations/west-virginia/elizabeth.html" class="text-blue-600 hover:underline">Elizabeth</a><a href="../../locations/west-virginia/fayetteville.html" class="text-blue-600 hover:underline">Fayetteville</a><a href="../../locations/west-virginia/gilbert.html" class="text-blue-600 hover:underline">Gilbert</a><a href="../../locations/west-virginia/hartford.html" class="text-blue-600 hover:underline">Hartford</a><a href="../../locations/west-virginia/henderson.html" class="text-blue-600 hover:underline">Henderson</a><a href="../../locations/west-virginia/madison.html" class="text-blue-600 hover:underline">Madison</a><a href="../../locations/west-virginia/miami.html" class="text-blue-600 hover:underline">Miami</a><a href="../../locations/west-virginia/montgomery.html" class="text-blue-600 hover:underline">Montgomery</a><a href="../../locations/west-virginia/new-haven.html" class="text-blue-600 hover:underline">New Haven</a><a href="../../locations/west-virginia/orlando.html" class="text-blue-600 hover:underline">Orlando</a><a href="../../locations/west-virginia/raleigh.html" class="text-blue-600 hover:underline">Raleigh</a><a href="../../locations/west-virginia/salem.html" class="text-blue-600 hover:underline">Salem</a><a href="../../locations/west-virginia/springfield.html" class="text-blue-600 hover:underline">Springfield</a><a href="../../locations/west-virginia/washington.html" class="text-blue-600 hover:underline">Washington</a></div></div></section><section class="py-12 bg-white"><div class="container"><h2 style="font-size:24px;margin-bottom:20px;">Local MedMal Intake by City</h2><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;"><a href="../../locations/west-virginia/athens.html" style="color:#2563eb;text-decoration:none;">Athens</a><a href="../../locations/west-virginia/augusta.html" style="color:#2563eb;text-decoration:none;">Augusta</a><a href="../../locations/west-virginia/aurora.html" style="color:#2563eb;text-decoration:none;">Aurora</a><a href="../../locations/west-virginia/bridgeport.html" style="color:#2563eb;text-decoration:none;">Bridgeport</a><a href="../../locations/west-virginia/cleveland.html" style="color:#2563eb;text-decoration:none;">Cleveland</a><a href="../../locations/west-virginia/dallas.html" style="color:#2563eb;text-decoration:none;">Dallas</a><a href="../../locations/west-virginia/elizabeth.html" style="color:#2563eb;text-decoration:none;">Elizabeth</a><a href="../../locations/west-virginia/fayetteville.html" style="color:#2563eb;text-decoration:none;">Fayetteville</a><a href="../../locations/west-virginia/gilbert.html" style="color:#2563eb;text-decoration:none;">Gilbert</a><a href="../../locations/west-virginia/hartford.html" style="color:#2563eb;text-decoration:none;">Hartford</a><a href="../../locations/west-virginia/henderson.html" style="color:#2563eb;text-decoration:none;">Henderson</a><a href="../../locations/west-virginia/madison.html" style="color:#2563eb;text-decoration:none;">Madison</a><a href="../../locations/west-virginia/miami.html" style="color:#2563eb;text-decoration:none;">Miami</a><a href="../../locations/west-virginia/montgomery.html" style="color:#2563eb;text-decoration:none;">Montgomery</a><a href="../../locations/west-virginia/new-haven.html" style="color:#2563eb;text-decoration:none;">New Haven</a><a href="../../locations/west-virginia/orlando.html" style="color:#2563eb;text-decoration:none;">Orlando</a><a href="../../locations/west-virginia/raleigh.html" style="color:#2563eb;text-decoration:none;">Raleigh</a><a href="../../locations/west-virginia/salem.html" style="color:#2563eb;text-decoration:none;">Salem</a><a href="../../locations/west-virginia/springfield.html" style="color:#2563eb;text-decoration:none;">Springfield</a><a href="../../locations/west-virginia/washington.html" style="color:#2563eb;text-decoration:none;">Washington</a></div></div></section></main>
     <footer class="text-center py-8 text-slate-500 text-sm border-t"><p>&copy; 2026 LexiFlow Legal Suite. All rights reserved.</p></footer>
+
+        <script>
+        // Mobile menu toggle helper
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', function() {
+                    links.classList.toggle('active');
+                });
+            }
+        });
+        </script>
+        
 </body>
 </html>

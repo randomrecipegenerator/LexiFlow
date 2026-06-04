@@ -25,6 +25,25 @@
     .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; }
     .nav-links a:hover { color: var(--navy); }
     .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
+    
+    /* Mobile Nav */
+    .nav-toggle { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--navy); }
+    @media (max-width: 768px) {
+      .nav-container { padding: 0 20px; }
+      .nav-links { display: none; position: absolute; top: 80px; left: 0; width: 100%; background: #fff; flex-direction: column; padding: 20px; gap: 20px; border-bottom: 1px solid var(--slate-200); box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
+      .nav-links.active { display: flex; }
+      .nav-toggle { display: block; }
+      .btn-cta { display: none; }
+      .hero { padding: 120px 0 60px; }
+      .hero-container { grid-template-columns: 1fr; gap: 40px; text-align: center; padding: 0 20px; }
+      .hero-text h1 { font-size: 36px; }
+      .hero-text p { margin: 0 auto 32px; }
+      .hero-text .badges { justify-content: center; }
+      .grid { grid-template-columns: 1fr; padding: 0 20px; }
+      .section-header { padding: 0 20px; text-align: center; }
+      .section-header h2 { font-size: 28px; }
+      .footer-container { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    }
 
     /* Hero with Live Widget */
     .hero { padding: 180px 0 100px; background: var(--navy); color: #fff; position: relative; overflow: hidden; }
@@ -111,19 +130,66 @@
       .hero-text h1 { font-size: 36px; }
       .footer-container { grid-template-columns: 1fr; gap: 40px; }
     }
-  </style>
+  
+    /* Mobile-Friendly Adjustments */
+    @media (max-width: 768px) {
+        .container, .nav-container, .max-w-screen, .max-w, .hero-container, .footer-container { 
+            padding-left: 20px !important; 
+            padding-right: 20px !important; 
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        .grid, .highlight-grid, .faq-grid, .pricing-grid, .assoc-grid, .city-grid { 
+            grid-template-columns: 1fr !important; 
+            display: grid !important;
+            gap: 20px !important;
+        }
+        .hero-container, .footer-container, .section-header { 
+            grid-template-columns: 1fr !important; 
+            text-align: center !important; 
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+        .hero-text, .hero-image, .footer-col {
+            width: 100% !important;
+            margin-bottom: 30px !important;
+        }
+        h1 { font-size: 32px !important; line-height: 1.2 !important; }
+        h2 { font-size: 26px !important; }
+        h3 { font-size: 22px !important; }
+        
+        /* Nav adjustments */
+        nav, .nav { height: auto !important; padding: 10px 0 !important; min-height: 60px; }
+        .nav-container, .nav .container { flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; padding: 10px 20px !important; }
+        .nav-links { flex-direction: column !important; align-items: center !important; gap: 10px !important; display: none !important; width: 100% !important; order: 3; padding: 20px 0 !important; }
+        .nav-links.active { display: flex !important; }
+        .nav-toggle { display: block !important; background: #1a3a5c; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 20px; order: 2; }
+        .btn-cta, .btn-primary { padding: 8px 16px !important; font-size: 13px !important; }
+        
+        /* Card and Feature adjustments */
+        .card, .pricing-card, .highlight-item, .faq-item, .assoc-card { 
+            margin-bottom: 20px !important; 
+            width: 100% !important;
+            min-width: 0 !important;
+        }
+        .pricing-card.featured { transform: none !important; margin: 20px 0 !important; }
+    }
+    
+    </style>
 </head>
 <body>
 
 <nav><div class="nav-container">
   <a href="/" class="logo"><span>LF</span> LexiFlow</a>
-  <ul class="nav-links">
+  <ul class="nav-links" id="navLinks">
     <li><a href="dashboard.html">Dashboard</a></li>
     <li><a href="pricing.html">Pricing</a></li>
     <li><a href="blog.html">Blog</a></li>
     <li><a href="cities.html">Areas We Serve</a></li>
     <li><a href="pricing.html" class="btn-cta">Get Started</a></li>
   </ul>
+  <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')">☰</button>
 </div></nav>
 
 <section class="hero">
@@ -296,5 +362,19 @@ function demoTick() {
   setTimeout(demoTick, msg.role === 'bot' ? 1800 : 1200);
 }
 </script>
+
+        <script>
+        // Mobile menu toggle helper
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', function() {
+                    links.classList.toggle('active');
+                });
+            }
+        });
+        </script>
+        
 </body>
 </html>

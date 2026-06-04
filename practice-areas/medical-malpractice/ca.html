@@ -22,6 +22,52 @@
             "offers": { "@type": "Offer", "price": "69.00", "priceCurrency": "USD", "description": "LexiFlow Suite monthly subscription" }
         }
     </script>
+    <style>
+    /* Mobile-Friendly Adjustments */
+    @media (max-width: 768px) {
+        .container, .nav-container, .max-w-screen, .max-w, .hero-container, .footer-container { 
+            padding-left: 20px !important; 
+            padding-right: 20px !important; 
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        .grid, .highlight-grid, .faq-grid, .pricing-grid, .assoc-grid, .city-grid { 
+            grid-template-columns: 1fr !important; 
+            display: grid !important;
+            gap: 20px !important;
+        }
+        .hero-container, .footer-container, .section-header { 
+            grid-template-columns: 1fr !important; 
+            text-align: center !important; 
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+        .hero-text, .hero-image, .footer-col {
+            width: 100% !important;
+            margin-bottom: 30px !important;
+        }
+        h1 { font-size: 28px !important; line-height: 1.2 !important; }
+        h2 { font-size: 24px !important; }
+        h3 { font-size: 20px !important; }
+        
+        /* Nav adjustments */
+        nav, .nav { height: auto !important; padding: 10px 0 !important; min-height: 60px; }
+        .nav-container, .nav .container { flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; padding: 10px 20px !important; }
+        .nav-links { flex-direction: column !important; align-items: center !important; gap: 10px !important; display: none !important; width: 100% !important; order: 3; padding: 20px 0 !important; }
+        .nav-links.active { display: flex !important; }
+        .nav-toggle { display: block !important; background: #1a3a5c; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 20px; order: 2; }
+        .btn-cta, .btn-primary { padding: 8px 16px !important; font-size: 13px !important; }
+        
+        /* Card and Feature adjustments */
+        .card, .pricing-card, .highlight-item, .faq-item, .assoc-card, .city-link { 
+            margin-bottom: 20px !important; 
+            width: 100% !important;
+            min-width: 0 !important;
+        }
+        .pricing-card.featured { transform: none !important; margin: 20px 0 !important; }
+    }
+        </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
     <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
@@ -60,5 +106,19 @@
         </div></section>
     <section class="py-12 bg-white"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl font-bold mb-6">Medical Malpractice Intake by City</h2><div class="grid grid-cols-2 md:grid-cols-4 gap-4"><a href="../../locations/california/anaheim.html" class="text-blue-600 hover:underline">Anaheim</a><a href="../../locations/california/chula-vista.html" class="text-blue-600 hover:underline">Chula Vista</a><a href="../../locations/california/elk-grove.html" class="text-blue-600 hover:underline">Elk Grove</a><a href="../../locations/california/escondido.html" class="text-blue-600 hover:underline">Escondido</a><a href="../../locations/california/huntington-beach.html" class="text-blue-600 hover:underline">Huntington Beach</a><a href="../../locations/california/la.html" class="text-blue-600 hover:underline">La</a><a href="../../locations/california/los-angeles.html" class="text-blue-600 hover:underline">Los Angeles</a><a href="../../locations/california/medmal-la.html" class="text-blue-600 hover:underline">Medmal La</a><a href="../../locations/california/moreno-valley.html" class="text-blue-600 hover:underline">Moreno Valley</a><a href="../../locations/california/oxnard.html" class="text-blue-600 hover:underline">Oxnard</a><a href="../../locations/california/rancho-cucamonga.html" class="text-blue-600 hover:underline">Rancho Cucamonga</a><a href="../../locations/california/san-bernardino.html" class="text-blue-600 hover:underline">San Bernardino</a><a href="../../locations/california/san-francisco.html" class="text-blue-600 hover:underline">San Francisco</a><a href="../../locations/california/santa-ana.html" class="text-blue-600 hover:underline">Santa Ana</a><a href="../../locations/california/santa-clarita.html" class="text-blue-600 hover:underline">Santa Clarita</a><a href="../../locations/california/simi-valley.html" class="text-blue-600 hover:underline">Simi Valley</a><a href="../../locations/california/thousand-oaks.html" class="text-blue-600 hover:underline">Thousand Oaks</a><a href="../../locations/california/visalia.html" class="text-blue-600 hover:underline">Visalia</a></div></div></section><section class="py-12 bg-white"><div class="container"><h2 style="font-size:24px;margin-bottom:20px;">Local MedMal Intake by City</h2><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;"><a href="../../locations/california/anaheim.html" style="color:#2563eb;text-decoration:none;">Anaheim</a><a href="../../locations/california/bakersfield.html" style="color:#2563eb;text-decoration:none;">Bakersfield</a><a href="../../locations/california/brownsville.html" style="color:#2563eb;text-decoration:none;">Brownsville</a><a href="../../locations/california/chula-vista.html" style="color:#2563eb;text-decoration:none;">Chula Vista</a><a href="../../locations/california/corona.html" style="color:#2563eb;text-decoration:none;">Corona</a><a href="../../locations/california/durham.html" style="color:#2563eb;text-decoration:none;">Durham</a><a href="../../locations/california/elk-grove.html" style="color:#2563eb;text-decoration:none;">Elk Grove</a><a href="../../locations/california/escondido.html" style="color:#2563eb;text-decoration:none;">Escondido</a><a href="../../locations/california/fontana.html" style="color:#2563eb;text-decoration:none;">Fontana</a><a href="../../locations/california/fremont.html" style="color:#2563eb;text-decoration:none;">Fremont</a><a href="../../locations/california/fresno.html" style="color:#2563eb;text-decoration:none;">Fresno</a><a href="../../locations/california/fullerton.html" style="color:#2563eb;text-decoration:none;">Fullerton</a><a href="../../locations/california/garden-grove.html" style="color:#2563eb;text-decoration:none;">Garden Grove</a><a href="../../locations/california/hayward.html" style="color:#2563eb;text-decoration:none;">Hayward</a><a href="../../locations/california/huntington-beach.html" style="color:#2563eb;text-decoration:none;">Huntington Beach</a><a href="../../locations/california/irvine.html" style="color:#2563eb;text-decoration:none;">Irvine</a><a href="../../locations/california/la.html" style="color:#2563eb;text-decoration:none;">La</a><a href="../../locations/california/lakewood.html" style="color:#2563eb;text-decoration:none;">Lakewood</a><a href="../../locations/california/lancaster.html" style="color:#2563eb;text-decoration:none;">Lancaster</a><a href="../../locations/california/long-beach.html" style="color:#2563eb;text-decoration:none;">Long Beach</a><a href="../../locations/california/los-angeles.html" style="color:#2563eb;text-decoration:none;">Los Angeles</a><a href="../../locations/california/medmal-la.html" style="color:#2563eb;text-decoration:none;">Medmal La</a><a href="../../locations/california/modesto.html" style="color:#2563eb;text-decoration:none;">Modesto</a><a href="../../locations/california/moreno-valley.html" style="color:#2563eb;text-decoration:none;">Moreno Valley</a><a href="../../locations/california/oceanside.html" style="color:#2563eb;text-decoration:none;">Oceanside</a><a href="../../locations/california/ontario.html" style="color:#2563eb;text-decoration:none;">Ontario</a><a href="../../locations/california/orange.html" style="color:#2563eb;text-decoration:none;">Orange</a><a href="../../locations/california/oxnard.html" style="color:#2563eb;text-decoration:none;">Oxnard</a><a href="../../locations/california/palmdale.html" style="color:#2563eb;text-decoration:none;">Palmdale</a><a href="../../locations/california/pasadena.html" style="color:#2563eb;text-decoration:none;">Pasadena</a><a href="../../locations/california/pomona.html" style="color:#2563eb;text-decoration:none;">Pomona</a><a href="../../locations/california/rancho-cucamonga.html" style="color:#2563eb;text-decoration:none;">Rancho Cucamonga</a><a href="../../locations/california/roseville.html" style="color:#2563eb;text-decoration:none;">Roseville</a><a href="../../locations/california/sacramento.html" style="color:#2563eb;text-decoration:none;">Sacramento</a><a href="../../locations/california/salinas.html" style="color:#2563eb;text-decoration:none;">Salinas</a><a href="../../locations/california/san-bernardino.html" style="color:#2563eb;text-decoration:none;">San Bernardino</a><a href="../../locations/california/san-diego.html" style="color:#2563eb;text-decoration:none;">San Diego</a><a href="../../locations/california/san-francisco.html" style="color:#2563eb;text-decoration:none;">San Francisco</a><a href="../../locations/california/san-jose.html" style="color:#2563eb;text-decoration:none;">San Jose</a><a href="../../locations/california/santa-ana.html" style="color:#2563eb;text-decoration:none;">Santa Ana</a><a href="../../locations/california/santa-clarita.html" style="color:#2563eb;text-decoration:none;">Santa Clarita</a><a href="../../locations/california/santa-rosa.html" style="color:#2563eb;text-decoration:none;">Santa Rosa</a><a href="../../locations/california/simi-valley.html" style="color:#2563eb;text-decoration:none;">Simi Valley</a><a href="../../locations/california/sunnyvale.html" style="color:#2563eb;text-decoration:none;">Sunnyvale</a><a href="../../locations/california/thousand-oaks.html" style="color:#2563eb;text-decoration:none;">Thousand Oaks</a><a href="../../locations/california/torrance.html" style="color:#2563eb;text-decoration:none;">Torrance</a><a href="../../locations/california/visalia.html" style="color:#2563eb;text-decoration:none;">Visalia</a></div></div></section></main>
     <footer class="text-center py-8 text-slate-500 text-sm border-t"><p>&copy; 2026 LexiFlow Legal Suite. All rights reserved.</p></footer>
+
+        <script>
+        // Mobile menu toggle helper
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', function() {
+                    links.classList.toggle('active');
+                });
+            }
+        });
+        </script>
+        
 </body>
 </html>

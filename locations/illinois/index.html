@@ -6,7 +6,53 @@
     <title>Law Firm Intake AI & Lead Qualification in Illinois | LexiFlow</title>
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');body{font-family:'Inter',sans-serif;}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;padding:40px 0;}.card{padding:20px;border:1px solid #e2e8f0;border-radius:12px;text-decoration:none;color:#1a3a5c;font-weight:600;text-align:center;transition:all 0.2s;}.card:hover{border-color:#c9a84c;transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.05);}</style>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');body{font-family:'Inter',sans-serif;}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;padding:40px 0;}.card{padding:20px;border:1px solid #e2e8f0;border-radius:12px;text-decoration:none;color:#1a3a5c;font-weight:600;text-align:center;transition:all 0.2s;}.card:hover{border-color:#c9a84c;transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.05);}
+    /* Mobile-Friendly Adjustments */
+    @media (max-width: 768px) {
+        .container, .nav-container, .max-w-screen, .max-w, .hero-container, .footer-container { 
+            padding-left: 20px !important; 
+            padding-right: 20px !important; 
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        .grid, .highlight-grid, .faq-grid, .pricing-grid, .assoc-grid, .city-grid { 
+            grid-template-columns: 1fr !important; 
+            display: grid !important;
+            gap: 20px !important;
+        }
+        .hero-container, .footer-container, .section-header { 
+            grid-template-columns: 1fr !important; 
+            text-align: center !important; 
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+        .hero-text, .hero-image, .footer-col {
+            width: 100% !important;
+            margin-bottom: 30px !important;
+        }
+        h1 { font-size: 28px !important; line-height: 1.2 !important; }
+        h2 { font-size: 24px !important; }
+        h3 { font-size: 20px !important; }
+        
+        /* Nav adjustments */
+        nav, .nav { height: auto !important; padding: 10px 0 !important; min-height: 60px; }
+        .nav-container, .nav .container { flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; padding: 10px 20px !important; }
+        .nav-links { flex-direction: column !important; align-items: center !important; gap: 10px !important; display: none !important; width: 100% !important; order: 3; padding: 20px 0 !important; }
+        .nav-links.active { display: flex !important; }
+        .nav-toggle { display: block !important; background: #1a3a5c; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 20px; order: 2; }
+        .btn-cta, .btn-primary { padding: 8px 16px !important; font-size: 13px !important; }
+        
+        /* Card and Feature adjustments */
+        .card, .pricing-card, .highlight-item, .faq-item, .assoc-card, .city-link { 
+            margin-bottom: 20px !important; 
+            width: 100% !important;
+            min-width: 0 !important;
+        }
+        .pricing-card.featured { transform: none !important; margin: 20px 0 !important; }
+    }
+    
+    </style>
     <link rel="canonical" href="https://lexiflow.co/locations/illinois/">
 
     <script type="application/ld+json">
@@ -105,5 +151,19 @@
         </div>
     </section>
 
+
+        <script>
+        // Mobile menu toggle helper
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', function() {
+                    links.classList.toggle('active');
+                });
+            }
+        });
+        </script>
+        
 </body>
 </html>

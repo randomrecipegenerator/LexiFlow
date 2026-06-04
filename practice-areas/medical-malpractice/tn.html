@@ -22,6 +22,52 @@
             "offers": { "@type": "Offer", "price": "69.00", "priceCurrency": "USD", "description": "LexiFlow Suite monthly subscription" }
         }
     </script>
+    <style>
+    /* Mobile-Friendly Adjustments */
+    @media (max-width: 768px) {
+        .container, .nav-container, .max-w-screen, .max-w, .hero-container, .footer-container { 
+            padding-left: 20px !important; 
+            padding-right: 20px !important; 
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        .grid, .highlight-grid, .faq-grid, .pricing-grid, .assoc-grid, .city-grid { 
+            grid-template-columns: 1fr !important; 
+            display: grid !important;
+            gap: 20px !important;
+        }
+        .hero-container, .footer-container, .section-header { 
+            grid-template-columns: 1fr !important; 
+            text-align: center !important; 
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+        .hero-text, .hero-image, .footer-col {
+            width: 100% !important;
+            margin-bottom: 30px !important;
+        }
+        h1 { font-size: 28px !important; line-height: 1.2 !important; }
+        h2 { font-size: 24px !important; }
+        h3 { font-size: 20px !important; }
+        
+        /* Nav adjustments */
+        nav, .nav { height: auto !important; padding: 10px 0 !important; min-height: 60px; }
+        .nav-container, .nav .container { flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; padding: 10px 20px !important; }
+        .nav-links { flex-direction: column !important; align-items: center !important; gap: 10px !important; display: none !important; width: 100% !important; order: 3; padding: 20px 0 !important; }
+        .nav-links.active { display: flex !important; }
+        .nav-toggle { display: block !important; background: #1a3a5c; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 20px; order: 2; }
+        .btn-cta, .btn-primary { padding: 8px 16px !important; font-size: 13px !important; }
+        
+        /* Card and Feature adjustments */
+        .card, .pricing-card, .highlight-item, .faq-item, .assoc-card, .city-link { 
+            margin-bottom: 20px !important; 
+            width: 100% !important;
+            min-width: 0 !important;
+        }
+        .pricing-card.featured { transform: none !important; margin: 20px 0 !important; }
+    }
+        </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
     <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
@@ -60,5 +106,19 @@
         </div></section>
     <section class="py-12 bg-white"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl font-bold mb-6">Medical Malpractice Intake by City</h2><div class="grid grid-cols-2 md:grid-cols-4 gap-4"><a href="../../locations/tennessee/chattanooga.html" class="text-blue-600 hover:underline">Chattanooga</a><a href="../../locations/tennessee/knoxville.html" class="text-blue-600 hover:underline">Knoxville</a><a href="../../locations/tennessee/lafayette.html" class="text-blue-600 hover:underline">Lafayette</a><a href="../../locations/tennessee/louisville.html" class="text-blue-600 hover:underline">Louisville</a><a href="../../locations/tennessee/nashville.html" class="text-blue-600 hover:underline">Nashville</a><a href="../../locations/tennessee/philadelphia.html" class="text-blue-600 hover:underline">Philadelphia</a><a href="../../locations/tennessee/savannah.html" class="text-blue-600 hover:underline">Savannah</a></div></div></section><section class="py-12 bg-white"><div class="container"><h2 style="font-size:24px;margin-bottom:20px;">Local MedMal Intake by City</h2><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;"><a href="../../locations/tennessee/chattanooga.html" style="color:#2563eb;text-decoration:none;">Chattanooga</a><a href="../../locations/tennessee/knoxville.html" style="color:#2563eb;text-decoration:none;">Knoxville</a><a href="../../locations/tennessee/lafayette.html" style="color:#2563eb;text-decoration:none;">Lafayette</a><a href="../../locations/tennessee/louisville.html" style="color:#2563eb;text-decoration:none;">Louisville</a><a href="../../locations/tennessee/nashville.html" style="color:#2563eb;text-decoration:none;">Nashville</a><a href="../../locations/tennessee/philadelphia.html" style="color:#2563eb;text-decoration:none;">Philadelphia</a><a href="../../locations/tennessee/savannah.html" style="color:#2563eb;text-decoration:none;">Savannah</a></div></div></section></main>
     <footer class="text-center py-8 text-slate-500 text-sm border-t"><p>&copy; 2026 LexiFlow Legal Suite. All rights reserved.</p></footer>
+
+        <script>
+        // Mobile menu toggle helper
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', function() {
+                    links.classList.toggle('active');
+                });
+            }
+        });
+        </script>
+        
 </body>
 </html>
