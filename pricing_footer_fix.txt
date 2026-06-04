@@ -1,0 +1,21 @@
+function calculateROI() {
+  var leads = parseInt(document.getElementById('roi-leads').value);
+  var rate = parseInt(document.getElementById('roi-rate').value);
+  document.getElementById('roi-leads-val').textContent = leads;
+  var manualCost = leads * 8 * rate;
+  var lexiflowCost = 69;
+  var savings = manualCost - lexiflowCost;
+  var manualStr = '$' + manualCost.toLocaleString();
+  var saveStr = '$' + savings.toLocaleString();
+  var yearStr = '$' + (savings * 12).toLocaleString();
+  document.getElementById('roi-manual').textContent = manualStr;
+  document.getElementById('roi-lexiflow').textContent = '$69';
+  document.getElementById('roi-save').textContent = saveStr;
+  var hours = leads * 8;
+  document.getElementById('roi-summary').innerHTML = 
+    'Your firm screens <strong>' + leads + '</strong> leads/month at <strong>' + rate + '/hr</strong>. ' +
+    'That is <strong>' + hours.toLocaleString() + ' hours</strong> of manual work vs. LexiFlow AI. ' +
+    'Save <strong>' + saveStr + '/mo</strong> - that is <strong>' + yearStr + '/year</strong>.';
+}
+calculateROI();
+</script>

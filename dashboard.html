@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/hardened.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <style>
     :root {
       --primary: #1a3a5c; --primary-light: #2a5a8c; --primary-dark: #0d1f33;
@@ -390,8 +391,24 @@
 
     </div>
 
-    <!-- Live Activity Feed -->
-    <div class="activity-section">
+    <!-- Analytics Section -->
+            <div class="analytics-section" style="margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+              <div class="chart-card" style="background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;">
+                <h4 style="font-size:0.95rem;color:var(--primary);margin-bottom:16px;display:flex;align-items:center;gap:8px;">📈 Lead Conversion Rate</h4>
+                <div style="height:220px;"><canvas id="chart-conversion"></canvas></div>
+              </div>
+              <div class="chart-card" style="background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;">
+                <h4 style="font-size:0.95rem;color:var(--primary);margin-bottom:16px;display:flex;align-items:center;gap:8px;">📊 Intake Volume by Channel</h4>
+                <div style="height:220px;"><canvas id="chart-channel"></canvas></div>
+              </div>
+            </div>
+            <div class="chart-card" style="margin-top:24px;background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;">
+              <h4 style="font-size:0.95rem;color:var(--primary);margin-bottom:16px;display:flex;align-items:center;gap:8px;">📋 Merit Review Scoring Distribution</h4>
+              <div style="height:200px;"><canvas id="chart-merit"></canvas></div>
+            </div>
+
+            <!-- Live Activity Feed -->
+            <div class="activity-section">
       <h3>📋 Live Lead Activity</h3>
       <div class="activity-list">
         <div class="activity-item">
@@ -454,5 +471,102 @@
   </div>
 </section>
 
-</body>
+<script>
+// Analytics Charts — Navy/Gold Brand Palette
+const NAVY = '#1a3a5c';
+const GOLD = '#c9a84c';
+const GREEN = '#16a34a';
+const SLATE_400 = '#94a3b8';
+
+// 1. Lead Conversion Rate (Line Chart)
+new Chart(document.getElementById('chart-conversion'), {
+  type: 'line',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+    datasets: [{
+      label: 'Conversion Rate %',
+      data: [2.1, 2.4, 2.8, 3.2, 3.5, 3.8],
+      borderColor: GOLD,
+      backgroundColor: GOLD + '20',
+      fill: true,
+      tension: 0.4,
+      pointBackgroundColor: GOLD,
+      pointBorderColor: '#fff',
+      pointBorderWidth: 2,
+      pointRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { backgroundColor: NAVY, titleColor: '#fff', bodyColor: GOLD }
+    },
+    scales: {
+      y: { beginAtZero: true, max: 5, grid: { color: '#f1f5f9' }, ticks: { color: SLATE_400, callback: v => v + '%' } },
+      x: { grid: { display: false }, ticks: { color: SLATE_400 } }
+    }
+  }
+});
+
+// 2. Intake Volume by Channel (Doughnut Chart)
+new Chart(document.getElementById('chart-channel'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Web Widget', 'Phone / Voice AI', 'Email', 'Chat'],
+    datasets: [{
+      data: [48, 32, 14, 6],
+      backgroundColor: [NAVY, GOLD, GREEN, SLATE_400],
+      borderWidth: 0,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '65%',
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { color: NAVY, font: { size: 11 }, padding: 12, usePointStyle: true }
+      },
+      tooltip: {
+        backgroundColor: NAVY,
+        titleColor: '#fff',
+        bodyColor: GOLD,
+        callbacks: {
+          label: ctx => ' ' + ctx.label + ': ' + ctx.parsed + '%'
+        }
+      }
+    }
+  }
+});
+
+// 3. Merit Review Score Distribution (Bar Chart)
+new Chart(document.getElementById('chart-merit'), {
+  type: 'bar',
+  data: {
+    labels: ['0–20', '21–40', '41–60', '61–80', '81–100'],
+    datasets: [{
+      label: 'Cases',
+      data: [18, 42, 87, 156, 224],
+      backgroundColor: [SLATE_400, '#60a5fa', GOLD, '#22c55e', NAVY],
+      borderRadius: 6,
+      borderSkipped: false,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { backgroundColor: NAVY, titleColor: '#fff', bodyColor: GOLD }
+    },
+    scales: {
+      y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { color: SLATE_400 } },
+      x: { grid: { display: false }, ticks: { color: NAVY, font: { size: 11 } } }
+    }
+  }
+});
+</script>
 </html>

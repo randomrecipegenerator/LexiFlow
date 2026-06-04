@@ -11,47 +11,68 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --navy: #0f172a;
-      --gold: #c9a84c;
-      --gold-light: #e2c96e;
-      --slate-50: #f8fafc;
-      --slate-200: #e2e8f0;
-      --slate-400: #94a3b8;
-      --slate-600: #475569;
-      --slate-900: #0f172a;
-      --max-width: 1200px;
+      --navy: #0f172a; --gold: #c9a84c; --gold-light: #e2c96e;
+      --slate-50: #f8fafc; --slate-200: #e2e8f0; --slate-400: #94a3b8; --slate-600: #475569;
+      --slate-900: #0f172a; --max-width: 1200px;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--slate-900); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-
-    /* Navigation */
+    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--slate-900); line-height: 1.6; }
     nav { position: fixed; top: 0; width: 100%; height: 80px; background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--slate-200); z-index: 1000; display: flex; align-items: center; }
     .nav-container { max-width: var(--max-width); margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
     .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--navy); text-decoration: none; display: flex; align-items: center; gap: 12px; }
     .logo span { background: var(--navy); color: var(--gold); padding: 4px 8px; border-radius: 4px; font-size: 18px; }
     .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; transition: color 0.2s; }
+    .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; }
     .nav-links a:hover { color: var(--navy); }
-    .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; transition: transform 0.2s, background 0.2s; }
-    .btn-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
 
-    /* Hero */
+    /* Hero with Live Widget */
     .hero { padding: 180px 0 100px; background: var(--navy); color: #fff; position: relative; overflow: hidden; }
-    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=2000') center/cover; opacity: 0.15; }
-    .hero-container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; position: relative; text-align: center; }
-    .hero h1 { font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 700; line-height: 1.1; margin-bottom: 24px; letter-spacing: -0.02em; }
-    .hero h1 span { color: var(--gold); font-style: italic; }
-    .hero p { font-size: 20px; color: var(--slate-400); max-width: 700px; margin: 0 auto 40px; font-weight: 300; }
+    .hero-container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .hero-text h1 { font-family: 'Playfair Display', serif; font-size: 52px; line-height: 1.1; margin-bottom: 20px; }
+    .hero-text h1 span { color: var(--gold); font-style: italic; }
+    .hero-text p { font-size: 18px; color: var(--slate-400); margin-bottom: 32px; max-width: 540px; }
+    .hero-text .badges { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+    .hero-text .badge { background: rgba(255,255,255,0.08); padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 600; }
 
-    /* Feature Grid */
+    /* Live Demo Widget */
+    .demo-widget { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 24px; backdrop-filter: blur(10px); }
+    .widget-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .widget-dot { width: 10px; height: 10px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .widget-header h3 { font-size: 16px; }
+    .widget-header span { font-size: 12px; color: var(--slate-400); }
+    .widget-chat { min-height: 320px; display: flex; flex-direction: column; gap: 12px; }
+    .msg { display: flex; gap: 10px; align-items: flex-start; animation: fadeUp 0.3s ease; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+    .msg-avatar { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+    .msg-avatar.bot { background: var(--gold); color: var(--navy); }
+    .msg-avatar.user { background: rgba(255,255,255,0.15); color: #fff; }
+    .msg-bubble { padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.5; max-width: 85%; }
+    .msg-bubble.bot { background: rgba(255,255,255,0.1); color: #f1f5f9; }
+    .msg-bubble.user { background: rgba(201,168,76,0.15); color: var(--gold); }
+    .msg-bubble .label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--slate-400); margin-bottom: 4px; }
+    .msg-bubble .score { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-top: 8px; }
+    .msg-bubble .score.high { background: rgba(34,197,94,0.2); color: #22c55e; }
+    .msg-bubble .score.med { background: rgba(234,179,8,0.2); color: #eab308; }
+
+    .widget-input { display: flex; gap: 8px; margin-top: 12px; }
+    .widget-input input { flex: 1; padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: #fff; font-family: inherit; font-size: 13px; outline: none; }
+    .widget-input input::placeholder { color: var(--slate-400); }
+    .widget-input input:focus { border-color: var(--gold); }
+    .widget-input button { background: var(--gold); color: var(--navy); border: none; padding: 10px 18px; border-radius: 10px; font-weight: 600; font-size: 13px; cursor: pointer; white-space: nowrap; }
+    .widget-options { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+    .widget-options button { padding: 6px 12px; border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; background: transparent; color: var(--slate-400); font-size: 11px; cursor: pointer; }
+    .widget-options button:hover { border-color: var(--gold); color: var(--gold); }
+    .widget-footer { margin-top: 12px; display: flex; justify-content: space-between; font-size: 11px; color: var(--slate-400); }
+
+    /* Features */
     .features { padding: 100px 0; background: var(--slate-50); }
     .section-header { max-width: var(--max-width); margin: 0 auto 60px; padding: 0 40px; }
     .section-header h2 { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--navy); margin-bottom: 16px; }
     .section-header p { color: var(--slate-600); font-size: 18px; max-width: 600px; }
-
     .grid { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-    .card { background: #fff; padding: 40px; border-radius: 12px; border: 1px solid var(--slate-200); transition: all 0.3s; position: relative; }
+    .card { background: #fff; padding: 40px; border-radius: 12px; border: 1px solid var(--slate-200); transition: all 0.3s; }
     .card:hover { border-color: var(--gold); box-shadow: 0 20px 40px rgba(0,0,0,0.05); transform: translateY(-4px); }
     .icon-box { width: 48px; height: 48px; border: 1px solid var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content:center; margin-bottom: 24px; color: var(--gold); font-size: 20px; }
     .card h3 { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 12px; color: var(--navy); }
@@ -59,130 +80,221 @@
     .card-link { color: var(--navy); text-decoration: none; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; border-top: 1px solid var(--slate-200); padding-top: 20px; }
     .card-link:hover { color: var(--gold); }
 
-    /* Footer */
+    /* Industry Associations */
+    .associations { padding: 80px 0; background: var(--navy); color: #fff; text-align: center; }
+    .associations h2 { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 12px; }
+    .associations h2 span { color: var(--gold); }
+    .associations p { color: var(--slate-400); font-size: 15px; max-width: 600px; margin: 0 auto 40px; }
+    .assoc-grid { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; max-width: 900px; margin: 0 auto; }
+    .assoc-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 24px 28px; min-width: 160px; transition: all 0.25s; text-decoration: none; color: #fff; }
+    .assoc-card:hover { background: rgba(255,255,255,0.1); border-color: var(--gold); transform: translateY(-3px); }
+    .assoc-card .icon { font-size: 28px; margin-bottom: 10px; }
+    .assoc-card .name { font-weight: 700; font-size: 13px; }
+    .assoc-card .tag { font-size: 11px; color: var(--slate-400); margin-top: 4px; }
+
     footer { background: var(--navy); color: var(--slate-400); padding: 80px 0 40px; }
     .footer-container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; }
     .footer-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; margin-bottom: 20px; display: block; }
     .footer-col h4 { color: #fff; margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; }
     .footer-col ul { list-style: none; }
     .footer-col ul li { margin-bottom: 12px; }
-    .footer-col ul a { color: var(--slate-400); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+    .footer-col ul a { color: var(--slate-400); text-decoration: none; font-size: 14px; }
     .footer-col ul a:hover { color: var(--gold); }
     .footer-bottom { max-width: var(--max-width); margin: 60px auto 0; padding: 40px 40px 0; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; text-align: center; }
 
-    @media (max-width: 1024px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 1024px) {
+      .hero-container { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 768px) {
       .grid { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 40px; }
+      .hero-text h1 { font-size: 36px; }
       .footer-container { grid-template-columns: 1fr; gap: 40px; }
     }
   </style>
 </head>
 <body>
 
-
-<nav style="position: fixed; top: 0; width: 100%; height: 80px; background: rgba(255,255,255,0.98); border-bottom: 1px solid #e2e8f0; z-index: 1000; display: flex; align-items: center; font-family: 'Inter', sans-serif;">
-  <div style="max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center;">
-    <a href="/index.html" style="font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: #0f172a; text-decoration: none; display: flex; align-items: center; gap: 12px;">
-      <span style="background: #0f172a; color: #c9a84c; padding: 4px 8px; border-radius: 4px; font-size: 18px;">LF</span> LexiFlow
-    </a>
-    <ul style="display: flex; gap: 32px; list-style: none; margin: 0; padding: 0;">
-      <li><a href="/dashboard.html" style="text-decoration: none; color: #475569; font-weight: 500; font-size: 15px;">Attorney Portal</a></li>
-      <li><a href="/pricing.html" style="text-decoration: none; color: #475569; font-weight: 500; font-size: 15px;">Capabilities</a></li>
-      <li><a href="/blog.html" style="text-decoration: none; color: #475569; font-weight: 500; font-size: 15px;">Insights</a></li>
-      <li><a href="/cities.html" style="text-decoration: none; color: #475569; font-weight: 500; font-size: 15px;">Areas We Serve</a></li>
-    </ul>
-    <a href="/pricing.html" style="background: #c9a84c; color: #0f172a; padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px;">Request Access</a>
-  </div>
-</nav>
-<div style="height: 80px;"></div>
-
+<nav><div class="nav-container">
+  <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+  <ul class="nav-links">
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="cities.html">Areas We Serve</a></li>
+    <li><a href="pricing.html" class="btn-cta">Get Started</a></li>
+  </ul>
+</div></nav>
 
 <section class="hero">
   <div class="hero-container">
-    <h1>Orchestrating the <span>Future of Law</span></h1>
-    <p>Enterprise-grade AI built for high-stakes litigation, medical merit review, and high-volume lead qualification.</p>
-    <div style="display: flex; gap: 16px; justify-content: center;">
-        <a href="/pricing.html" class="btn-cta" style="padding: 16px 40px; font-size: 16px;">Explore the Suite</a>
+    <div class="hero-text">
+      <div class="badges">
+        <span class="badge">🤖 Reasoning AI</span>
+        <span class="badge">⚡ &lt;5s Response</span>
+        <span class="badge">🔒 HIPAA Compliant</span>
+      </div>
+      <h1>Turn Every Lead Into a <span>Signed Retainer</span></h1>
+      <p>LexiFlow's Reasoning AI qualifies leads, screens medical records, and drafts documents — with the nuance of a senior attorney, at machine speed.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="pricing.html" class="btn-cta" style="display:inline-block;">See Plans — $69/mo</a>
+        <a href="mailto:leads@lexiflow.co" style="display:inline-block;border:1px solid var(--gold);color:var(--gold);padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;">Talk to Sales</a>
+      </div>
+    </div>
+
+    <!-- Live Demo Intake Widget -->
+    <div class="demo-widget" id="demo-widget">
+      <div class="widget-header">
+        <span class="widget-dot"></span>
+        <div><h3>LexiFlow AI Intake</h3><span>Online · Ready to assist</span></div>
+      </div>
+      <div class="widget-chat" id="widget-chat">
+        <div class="msg">
+          <div class="msg-avatar bot">🤖</div>
+          <div class="msg-bubble bot">
+            <div class="label">AI Intake Assistant</div>
+            Hi there! I'm Alex from LexiFlow. I can help qualify your potential case. Ready to get started?
+          </div>
+        </div>
+      </div>
+      <div class="widget-options" id="widget-options">
+        <button onclick="startDemo()">▶ Auto-Play Demo</button>
+        <button onclick="userSays('I was in a car accident.')">🚗 Car Accident</button>
+        <button onclick="userSays('I slipped and fell.')">🏪 Slip &amp; Fall</button>
+        <button onclick="userSays('Medical malpractice.')">🏥 Medical Malpractice</button>
+      </div>
+      <div class="widget-input">
+        <input type="text" id="widget-input" placeholder="Describe your case..." onkeydown="if(event.key==='Enter')sendMsg()">
+        <button onclick="sendMsg()"><span>Send</span></button>
+      </div>
+      <div class="widget-footer">
+        <span>🔒 HIPAA Compliant</span>
+        <span id="widget-score" style="font-weight:700;color:var(--gold);">Score: —</span>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="features">
   <div class="section-header">
-    <h2>The Legal Suite</h2>
-    <p>Six specialized modules engineered to automate critical law firm operations without compromising precision.</p>
+    <h2>Six Modules. One Platform.</h2>
+    <p>Everything your firm needs to capture, qualify, and convert more cases — powered by Reasoning AI.</p>
   </div>
   <div class="grid">
-    <div class="card">
-      <div class="icon-box">⚖️</div>
-      <h3>AI Intake Intelligence</h3>
-      <p>Qualified leads 24/7 with the nuance of a senior partner. Automate screening and routing instantly.</p>
-      <a href="/ai-intake-agent.html" class="card-link">View Capability →</a>
-    </div>
-    <div class="card">
-      <div class="icon-box">📞</div>
-      <h3>Voice AI Reception</h3>
-      <p>Natural language voice interfaces for handling high-volume inquiry waves with empathy and accuracy.</p>
-      <a href="/voice-ai-receptionist.html" class="card-link">View Capability →</a>
-    </div>
-    <div class="card">
-      <div class="icon-box">📊</div>
-      <h3>Medical Chronologies</h3>
-      <p>Transform 5,000+ pages of medical records into trial-ready, searchable chronologies in minutes.</p>
-      <a href="/ai-medical-chronologies.html" class="card-link">View Capability →</a>
-    </div>
-    <div class="card">
-      <div class="icon-box">📜</div>
-      <h3>Automated Drafting</h3>
-      <p>Generate demand letters, filings, and narrative syntheses directly from evidentiary case data.</p>
-      <a href="/auto-document-drafter.html" class="card-link">View Capability →</a>
-    </div>
-    <div class="card">
-      <div class="icon-box">🔍</div>
-      <h3>DepoLens AI</h3>
-      <p>Advanced deposition intelligence to detect inconsistencies and prepare cross-examination strategies.</p>
-      <a href="/depolens-ai.html" class="card-link">View Capability →</a>
-    </div>
-    <div class="card">
-      <div class="icon-box">🏛️</div>
-      <h3>Settlement Estimator</h3>
-      <p>Data-driven valuation models based on historical precedents to maximize settlement outcomes.</p>
-      <a href="/settlement-estimator.html" class="card-link">View Capability →</a>
+    <div class="card"><div class="icon-box">🤖</div><h3>AI Intake Agent</h3><p>Capture and qualify leads 24/7 with AI that thinks like a senior attorney.</p><a href="ai-intake-agent.html" class="card-link">Learn More →</a></div>
+    <div class="card"><div class="icon-box">🎙️</div><h3>Voice AI Receptionist</h3><p>Never miss an after-hours call. Natural voice AI with empathy and precision.</p><a href="voice-ai-receptionist.html" class="card-link">Learn More →</a></div>
+    <div class="card"><div class="icon-box">📅</div><h3>AI Medical Chronologies</h3><p>From 5,000 pages to trial-ready chronologies in minutes.</p><a href="ai-medical-chronologies.html" class="card-link">Learn More →</a></div>
+    <div class="card"><div class="icon-box">✍️</div><h3>Auto-Document Drafter</h3><p>Draft demand letters and filings in seconds, not hours.</p><a href="auto-document-drafter.html" class="card-link">Learn More →</a></div>
+    <div class="card"><div class="icon-box">🎯</div><h3>DepoLens AI</h3><p>Deposition intelligence that prepares you for cross-examination.</p><a href="depolens-ai.html" class="card-link">Learn More →</a></div>
+    <div class="card"><div class="icon-box">💰</div><h3>Settlement Estimator</h3><p>Predict case value with historical precision from 50K+ analyzed cases.</p><a href="settlement-estimator.html" class="card-link">Learn More →</a></div>
+  </div>
+</section>
+
+<!-- Industry Associations -->
+<section class="associations">
+  <div class="container" style="max-width:var(--max-width);margin:0 auto;padding:0 40px;">
+    <h2>Trusted by <span>Trial Lawyers</span> Nationwide</h2>
+    <p>LexiFlow is proud to support the legal community through partnerships with leading trial lawyer associations.</p>
+    <div class="assoc-grid">
+      <a href="#" class="assoc-card"><div class="icon">⚖️</div><div class="name">AAJ</div><div class="tag">American Assoc. for Justice</div></a>
+      <a href="#" class="assoc-card"><div class="icon">🏛️</div><div class="name">PAJ</div><div class="tag">Pennsylvania Assoc. for Justice</div></a>
+      <a href="#" class="assoc-card"><div class="icon">🌵</div><div class="name">ITLA</div><div class="tag">Illinois Trial Lawyers Assoc.</div></a>
+      <a href="#" class="assoc-card"><div class="icon">🗽</div><div class="name">NYSTLA</div><div class="tag">New York State Trial Lawyers</div></a>
+      <a href="#" class="assoc-card"><div class="icon">🍑</div><div class="name">MATA</div><div class="tag">Missouri Assoc. of Trial Attorneys</div></a>
+      <a href="#" class="assoc-card"><div class="icon">🐪</div><div class="name">Arizona Trial</div><div class="tag">Arizona Trial Lawyers Assoc.</div></a>
+      <a href="#" class="assoc-card"><div class="icon">🌴</div><div class="name">FJA</div><div class="tag">Florida Justice Assoc.</div></a>
+      <a href="#" class="assoc-card"><div class="icon">⭐</div><div class="name">CAOC</div><div class="tag">Consumer Attorneys of California</div></a>
     </div>
   </div>
 </section>
 
+<footer><div class="footer-container">
+  <div><a href="/" class="footer-logo">LexiFlow</a><p style="font-size:14px;line-height:1.6;">Enterprise Legal Intelligence. Empowering the next generation of top-tier law firms.</p></div>
+  <div class="footer-col"><h4>Platform</h4><ul><li><a href="pricing.html">Pricing</a></li><li><a href="dashboard.html">Dashboard</a></li><li><a href="blog.html">Blog</a></li><li><a href="cities.html">Areas We Serve</a></li></ul></div>
+  <div class="footer-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-of-service.html">Terms of Service</a></li><li><a href="hipaa-baa.html">HIPAA BAA</a></li></ul></div>
+  <div class="footer-col"><h4>Contact</h4><ul><li><a href="mailto:leads@lexiflow.co">leads@lexiflow.co</a></li><li><a href="admin/index.html">Admin Login</a></li></ul></div>
+</div><div class="footer-bottom">&copy; 2026 LexiFlow Legal Suite. All rights reserved.</div></footer>
 
-<footer style="background: #0f172a; color: #94a3b8; padding: 80px 0 40px; font-family: 'Inter', sans-serif;">
-  <div style="max-width: 1200px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px;">
-    <div>
-      <a href="/index.html" style="font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; margin-bottom: 20px; display: block;">LexiFlow</a>
-      <p style="font-size: 14px; line-height: 1.6;">Enterprise Legal Intelligence. Empowering the next generation of top-tier law firms.</p>
-    </div>
-    <div>
-      <h4 style="color: #fff; margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em;">Platform</h4>
-      <ul style="list-style: none; padding: 0;">
-        <li style="margin-bottom: 12px;"><a href="/pricing.html" style="color: #94a3b8; text-decoration: none; font-size: 14px;">Pricing</a></li>
-        <li style="margin-bottom: 12px;"><a href="/dashboard.html" style="color: #94a3b8; text-decoration: none; font-size: 14px;">Attorney Portal</a></li>
-        <li style="margin-bottom: 12px;"><a href="/blog.html" style="color: #94a3b8; text-decoration: none; font-size: 14px;">Legal Insights</a></li>
-        <li style="margin-bottom: 12px;"><a href="/cities.html" style="color: #94a3b8; text-decoration: none; font-size: 14px;">Areas We Serve</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4 style="color: #fff; margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em;">Support</h4>
-      <ul style="list-style: none; padding: 0;">
-        <li style="margin-bottom: 12px;"><a href="#" style="color: #94a3b8; text-decoration: none; font-size: 14px;">Privacy Policy</a></li>
-        <li style="margin-bottom: 12px;"><a href="/terms.html" style="color: #94a3b8; text-decoration: none; font-size: 14px;">Terms of Service</a></li>
-        <li style="margin-bottom: 12px;"><a href="mailto:leads@lexiflow.co" style="color: #94a3b8; text-decoration: none; font-size: 14px;">Contact Relations</a></li>
-      </ul>
-    </div>
-  </div>
-  <div style="max-width: 1200px; margin: 60px auto 0; padding: 40px 40px 0; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; text-align: center;">
-    &copy; 2026 LexiFlow Legal Suite. All Rights Reserved.
-  </div>
-</footer>
+<script>
+// Live Demo Intake Widget — Interactive AI Qualification Simulation
+let step = 0;
+let isPlaying = false;
+let score = 0;
 
+const DEMO = [
+  { role: 'bot', text: 'Great! Let me ask a few quick questions to evaluate your potential case.' },
+  { role: 'user', text: 'Okay, sounds good.' },
+  { role: 'bot', text: 'Were you injured in the incident?', score: 10 },
+  { role: 'user', text: 'Yes, I went to the ER. Neck and back pain.' },
+  { role: 'bot', text: 'I\'m sorry to hear that. Were you wearing a seatbelt?', score: 20 },
+  { role: 'user', text: 'Yes, I was wearing my seatbelt.' },
+  { role: 'bot', text: 'Good — that helps establish proper restraint. Was a police report filed? Any citations?', score: 35 },
+  { role: 'user', text: 'Police came. The other driver got a ticket for running a red light.' },
+  { role: 'bot', text: 'Excellent — a citation for a moving violation strengthens liability significantly.', score: 55 },
+  { role: 'user', text: 'I\'m still in pain. My doctor mentioned physical therapy.' },
+  { role: 'bot', text: 'Ongoing treatment and prescribed PT are strong damage indicators. Let me compile my assessment.', score: 70 },
+  { role: 'bot', text: 'Based on everything you\'ve shared, here\'s your preliminary case score:', score: 87 }
+];
 
+function addMsg(role, text, scoreVal) {
+  const chat = document.getElementById('widget-chat');
+  const d = document.createElement('div');
+  d.className = 'msg';
+  const avatar = role === 'bot' ? '🤖' : '👤';
+  const bubbleClass = role === 'bot' ? 'bot' : 'user';
+  const label = role === 'bot' ? 'AI Intake Assistant' : 'You';
+  let scoreHtml = '';
+  if (scoreVal !== undefined && scoreVal !== null) {
+    const cls = scoreVal >= 70 ? 'high' : scoreVal >= 40 ? 'med' : '';
+    scoreHtml = `<div class="score ${cls}">Score: ${scoreVal}/100</div>`;
+    document.getElementById('widget-score').textContent = `Score: ${scoreVal}/100`;
+    score = scoreVal;
+  }
+  d.innerHTML = `<div class="msg-avatar ${bubbleClass}">${avatar}</div><div class="msg-bubble ${bubbleClass}"><div class="label">${label}</div>${text}${scoreHtml}</div>`;
+  chat.appendChild(d);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function botReply(text, scoreVal) {
+  setTimeout(() => addMsg('bot', text, scoreVal), 1200 + Math.random() * 800);
+}
+
+function userSays(text) {
+  addMsg('user', text);
+  const matches = { 'car accident': 20, 'slipped': 10, 'fell': 10, 'malpractice': 15, 'medical': 15 };
+  let s = 5;
+  for (const [k, v] of Object.entries(matches)) { if (text.toLowerCase().includes(k)) { s = v; break; } }
+  botReply('Thanks for sharing that. Let me ask a few follow-up questions.', s);
+}
+
+function sendMsg() {
+  const input = document.getElementById('widget-input');
+  const text = input.value.trim();
+  if (!text) return;
+  addMsg('user', text);
+  input.value = '';
+  const responses = ['That\'s helpful context. Can you tell me more?', 'I see. A few more details will help me assess your case.', 'Thank you. Let me process that information.'];
+  botReply(responses[Math.floor(Math.random() * responses.length)], Math.floor(Math.random() * 30) + 20);
+}
+
+function startDemo() {
+  if (isPlaying) return;
+  isPlaying = true;
+  step = 0;
+  score = 0;
+  document.getElementById('widget-chat').innerHTML = `
+    <div class="msg"><div class="msg-avatar bot">🤖</div><div class="msg-bubble bot"><div class="label">AI Intake Assistant</div>Hi there! I'm Alex from LexiFlow. I can help qualify your potential case. Ready to get started?</div></div>`;
+  document.getElementById('widget-score').textContent = 'Score: —';
+  demoTick();
+}
+
+function demoTick() {
+  if (step >= DEMO.length) { isPlaying = false; return; }
+  const msg = DEMO[step];
+  addMsg(msg.role, msg.text, msg.score);
+  step++;
+  setTimeout(demoTick, msg.role === 'bot' ? 1800 : 1200);
+}
+</script>
 </body>
 </html>

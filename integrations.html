@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LexiFlow — Integrations Dashboard</title>
+  <meta name="description" content="Connect your CRM to LexiFlow. Clio, Filevine, Needles, and TrialWorks integrations." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <style>
+    :root { --primary: #1a3a5c; --primary-light: #2a5a8c; --primary-dark: #0d1f33; --accent: #c9a84c; --accent-light: #e2c96e; --accent-dark: #a88a30; --text-dark: #1a1a2e; --text-muted: #6b7280; --text-light: #f8fafc; --bg-light: #f8fafc; --bg-white: #ffffff; --bg-dark: #0d1f33; --border: #e2e8f0; --green: #16a34a; --red: #ef4444; --shadow: 0 4px 6px -1px rgba(0,0,0,0.1); --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1); --radius: 8px; --radius-lg: 16px; --max-width: 1100px; --font-sans: 'Inter',-apple-system,sans-serif; --font-serif: 'Playfair Display',Georgia,serif; }
+    *,*::before,*::after { box-sizing: border-box; margin:0; padding:0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-sans); color: var(--text-dark); line-height: 1.6; background: var(--bg-light); }
+    .container { max-width: var(--max-width); margin:0 auto; padding:0 24px; }
+
+    .nav { position:fixed; top:0; width:100%; z-index:100; background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); }
+    .nav .container { display:flex; align-items:center; justify-content:space-between; height:68px; }
+    .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
+    .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:800; }
+    .nav-links { display:flex; gap:28px; list-style:none; }
+    .nav-links a { font-size:0.88rem; font-weight:500; color:var(--text-muted); text-decoration:none; transition:color 0.2s; }
+    .nav-links a:hover { color:var(--primary); }
+    .nav-links .active { color:var(--primary); font-weight:600; }
+
+    .page-header { padding:110px 0 30px; background:linear-gradient(135deg,var(--primary-dark),var(--primary)); color:white; }
+    .page-header h1 { font-family:var(--font-serif); font-size:2.2rem; margin-bottom:8px; }
+    .page-header h1 span { color:var(--accent); }
+    .page-header p { color:rgba(255,255,255,0.8); font-size:1rem; max-width:600px; }
+
+    .status-bar { background:var(--bg-white); border-bottom:1px solid var(--border); padding:14px 0; }
+    .status-bar .container { display:flex; align-items:center; gap:28px; flex-wrap:wrap; font-size:0.85rem; }
+    .status-dot { width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:6px; }
+    .dot-green { background:var(--green); }
+    .dot-yellow { background:#eab308; }
+    .dot-red { background:var(--red); }
+
+    .integrations-section { padding:40px 0 60px; }
+    .integration-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    @media (max-width:800px) { .integration-grid { grid-template-columns:1fr; } }
+
+    .int-card { background:var(--bg-white); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; transition:all 0.25s; }
+    .int-card:hover { border-color:var(--accent); box-shadow:var(--shadow-lg); transform:translateY(-2px); }
+    .int-card-head { display:flex; align-items:center; gap:16px; padding:24px 24px 0; }
+    .int-icon { width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0; }
+    .int-icon.clio { background:#e0f2fe; color:#0284c7; }
+    .int-icon.filevine { background:#f0fdf4; color:#16a34a; }
+    .int-icon.needles { background:#fef3c7; color:#b45309; }
+    .int-icon.trialworks { background:#f3e8ff; color:#7e22ce; }
+    .int-card-head h3 { font-size:1.15rem; color:var(--primary); }
+    .int-status { margin-left:auto; padding:4px 12px; border-radius:100px; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; }
+    .int-status.connected { background:rgba(22,163,74,0.1); color:var(--green); }
+    .int-status.disconnected { background:rgba(239,68,68,0.1); color:var(--red); }
+    .int-status.configuring { background:rgba(234,179,8,0.12); color:#b45309; }
+
+    .int-card-body { padding:16px 24px 24px; }
+    .int-meta { display:flex; gap:24px; font-size:0.82rem; color:var(--text-muted); margin-bottom:16px; flex-wrap:wrap; }
+    .int-meta strong { color:var(--text-dark); }
+
+    .int-field { margin-bottom:14px; }
+    .int-field label { display:block; font-size:0.78rem; font-weight:600; color:var(--primary); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.04em; }
+    .int-field input { width:100%; padding:10px 14px; border:1px solid var(--border); border-radius:var(--radius); font-size:0.9rem; font-family:inherit; transition:border-color 0.2s; background:var(--bg-light); }
+    .int-field input:focus { outline:none; border-color:var(--accent); background:var(--bg-white); }
+    .int-field .helper { font-size:0.75rem; color:var(--text-muted); margin-top:4px; }
+
+    .int-actions { display:flex; gap:10px; margin-top:18px; flex-wrap:wrap; }
+    .btn { padding:9px 20px; border-radius:var(--radius); font-size:0.82rem; font-weight:600; border:none; cursor:pointer; transition:all 0.2s; text-decoration:none; display:inline-flex; align-items:center; gap:6px; font-family:inherit; }
+    .btn-primary { background:var(--accent); color:var(--primary-dark); }
+    .btn-primary:hover { background:var(--accent-light); transform:translateY(-1px); }
+    .btn-outline { background:transparent; border:1.5px solid var(--border); color:var(--text-muted); }
+    .btn-outline:hover { border-color:var(--primary); color:var(--primary); }
+    .btn-danger { background:transparent; border:1.5px solid rgba(239,68,68,0.3); color:var(--red); }
+    .btn-danger:hover { border-color:var(--red); background:rgba(239,68,68,0.05); }
+    .btn-test { background:var(--primary); color:white; }
+    .btn-test:hover { background:var(--primary-dark); transform:translateY(-1px); }
+    .btn-connect { background:var(--green); color:white; }
+    .btn-connect:hover { background:#15803d; transform:translateY(-1px); }
+    .btn:disabled { opacity:0.5; cursor:not-allowed; transform:none !important; }
+
+    .test-result { margin-top:12px; padding:10px 14px; border-radius:var(--radius); font-size:0.82rem; display:none; }
+    .test-result.success { display:block; background:rgba(22,163,74,0.08); color:var(--green); border:1px solid rgba(22,163,74,0.15); }
+    .test-result.fail { display:block; background:rgba(239,68,68,0.06); color:var(--red); border:1px solid rgba(239,68,68,0.12); }
+    .test-result i { margin-right:6px; }
+
+    .activity-section { background:var(--bg-white); border:1px solid var(--border); border-radius:var(--radius-lg); margin-top:40px; }
+    .activity-section h3 { padding:20px 24px; font-size:1rem; color:var(--primary); border-bottom:1px solid var(--border); display:flex; align-items:center; gap:8px; }
+    .activity-list { padding:0 24px; }
+    .activity-item { display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid #f3f4f6; font-size:0.85rem; }
+    .activity-item:last-child { border-bottom:none; }
+    .activity-avatar { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.8rem; flex-shrink:0; }
+    .activity-avatar.green { background:rgba(22,163,74,0.1); color:var(--green); }
+    .activity-avatar.red { background:rgba(239,68,68,0.1); color:var(--red); }
+    .activity-avatar.blue { background:rgba(37,99,235,0.1); color:#2563eb; }
+    .activity-info { flex:1; }
+    .activity-info strong { color:var(--primary); }
+    .activity-info .detail { color:var(--text-muted); font-size:0.8rem; }
+    .activity-time { font-size:0.75rem; color:var(--text-muted); white-space:nowrap; }
+
+    .footer { background:var(--bg-dark); color:rgba(255,255,255,0.6); padding:36px 0; text-align:center; font-size:0.82rem; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo"><span class="nav-logo-icon">LF</span> LexiFlow</a>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="integrations.html" class="active">Integrations</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html">Blog</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <h1>🔗 <span>Integrations</span> Dashboard</h1>
+    <p>Connect your firm's CRM tools to LexiFlow. Leads, chronologies, and documents sync automatically.</p>
+  </div>
+</section>
+
+<section class="status-bar">
+  <div class="container">
+    <span><span class="status-dot dot-green"></span> API Gateway: <strong>Online</strong></span>
+    <span><span class="status-dot dot-green"></span> Webhook Receiver: <strong>Active</strong></span>
+    <span><span class="status-dot dot-yellow"></span> Active Connections: <strong>2/4</strong></span>
+    <span>📊 Leads Synced Today: <strong>142</strong></span>
+  </div>
+</section>
+
+<section class="integrations-section">
+  <div class="container">
+    <div class="integration-grid">
+
+      <!-- 1. Clio (OAuth Flow) -->
+      <div class="int-card" id="card-clio">
+        <div class="int-card-head">
+          <div class="int-icon clio"><i class="bi bi-building"></i></div>
+          <h3>Clio Manage &amp; Grow</h3>
+          <span class="int-status connected" id="status-clio">Connected</span>
+        </div>
+        <div class="int-card-body">
+          <div class="int-meta">
+            <span>Last Sync: <strong id="sync-clio">Today, 2:34 PM</strong></span>
+            <span>Leads Synced: <strong>1,024</strong></span>
+          </div>
+          <div class="int-field">
+            <label>OAuth 2.0 Client ID</label>
+            <input type="text" id="clio-client-id" placeholder="e.g. clio_grow_client_..." value="clio_live_8a3f..." />
+          </div>
+          <div class="int-field">
+            <label>Client Secret</label>
+            <input type="password" id="clio-secret" placeholder="Enter your Clio client secret" value="••••••••••••" />
+            <div class="helper">OAuth 2.0 flow — redirect URI: https://lexiflow.co/oauth/clio/callback</div>
+          </div>
+          <div class="int-actions">
+            <button class="btn btn-test" onclick="testConnection('clio')"><i class="bi bi-plug"></i> Test Connection</button>
+            <button class="btn btn-primary"><i class="bi bi-arrow-repeat"></i> Re-authenticate</button>
+            <button class="btn btn-danger" onclick="disconnect('clio')"><i class="bi bi-unlink"></i> Disconnect</button>
+          </div>
+          <div class="test-result" id="test-clio"></div>
+        </div>
+      </div>
+
+      <!-- 2. Filevine (API Key/Secret) -->
+      <div class="int-card" id="card-filevine">
+        <div class="int-card-head">
+          <div class="int-icon filevine"><i class="bi bi-diagram-3"></i></div>
+          <h3>Filevine</h3>
+          <span class="int-status connected" id="status-filevine">Connected</span>
+        </div>
+        <div class="int-card-body">
+          <div class="int-meta">
+            <span>Last Sync: <strong id="sync-filevine">Today, 2:28 PM</strong></span>
+            <span>Cases Synced: <strong>847</strong></span>
+          </div>
+          <div class="int-field">
+            <label>API Key</label>
+            <input type="text" id="filevine-api-key" placeholder="Enter your Filevine API key" value="fv_api_live_9b2d..." />
+          </div>
+          <div class="int-field">
+            <label>API Secret</label>
+            <input type="password" id="filevine-secret" placeholder="Enter your Filevine API secret" value="••••••••••••" />
+            <div class="helper">API Key + Secret for server-to-server auth. Store securely.</div>
+          </div>
+          <div class="int-actions">
+            <button class="btn btn-test" onclick="testConnection('filevine')"><i class="bi bi-plug"></i> Test Connection</button>
+            <button class="btn btn-primary"><i class="bi bi-save"></i> Save &amp; Sync</button>
+            <button class="btn btn-danger" onclick="disconnect('filevine')"><i class="bi bi-unlink"></i> Disconnect</button>
+          </div>
+          <div class="test-result" id="test-filevine"></div>
+        </div>
+      </div>
+
+      <!-- 3. Needles (Polling + API Key) -->
+      <div class="int-card" id="card-needles">
+        <div class="int-card-head">
+          <div class="int-icon needles"><i class="bi bi-database"></i></div>
+          <h3>Needles</h3>
+          <span class="int-status disconnected" id="status-needles">Not Connected</span>
+        </div>
+        <div class="int-card-body">
+          <div class="int-meta">
+            <span>Last Sync: <strong id="sync-needles">Never</strong></span>
+            <span>Polling Interval: <strong>15 min</strong></span>
+          </div>
+          <div class="int-field">
+            <label>API Key</label>
+            <input type="text" id="needles-key" placeholder="Enter your Needles API key" />
+          </div>
+          <div class="int-field" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div>
+              <label>Base URL</label>
+              <input type="text" id="needles-url" placeholder="https://yourfirm.needles.com" />
+            </div>
+            <div>
+              <label>Poll Interval (min)</label>
+              <select id="needles-poll" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;font-family:inherit;background:var(--bg-light);">
+                <option value="5">5 min</option>
+                <option value="15" selected>15 min</option>
+                <option value="30">30 min</option>
+                <option value="60">60 min</option>
+              </select>
+            </div>
+          </div>
+          <div class="int-actions">
+            <button class="btn btn-connect" onclick="testConnection('needles')"><i class="bi bi-link-45deg"></i> Connect</button>
+            <button class="btn btn-outline"><i class="bi bi-gear"></i> Configure Fields</button>
+          </div>
+          <div class="test-result" id="test-needles"></div>
+        </div>
+      </div>
+
+      <!-- 4. TrialWorks (OAuth + Webhook) -->
+      <div class="int-card" id="card-trialworks">
+        <div class="int-card-head">
+          <div class="int-icon trialworks"><i class="bi bi-hdd-stack"></i></div>
+          <h3>TrialWorks</h3>
+          <span class="int-status configuring" id="status-trialworks">Configure</span>
+        </div>
+        <div class="int-card-body">
+          <div class="int-meta">
+            <span>Last Sync: <strong id="sync-trialworks">Never</strong></span>
+            <span>Webhook: <strong>Not configured</strong></span>
+          </div>
+          <div class="int-field">
+            <label>API Endpoint</label>
+            <input type="text" id="trialworks-url" placeholder="https://api.trialworks.com/v2/" />
+          </div>
+          <div class="int-field">
+            <label>API Token</label>
+            <input type="password" id="trialworks-token" placeholder="Enter your TrialWorks API token" />
+            <div class="helper">Webhook URL: https://lexiflow.co/webhooks/trialworks — configure in TrialWorks settings.</div>
+          </div>
+          <div class="int-actions">
+            <button class="btn btn-connect" onclick="testConnection('trialworks')"><i class="bi bi-link-45deg"></i> Connect</button>
+            <button class="btn btn-outline"><i class="bi bi-webhook"></i> View Webhooks</button>
+          </div>
+          <div class="test-result" id="test-trialworks"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Activity Feed -->
+    <div class="activity-section">
+      <h3>📋 Recent Integration Activity</h3>
+      <div class="activity-list">
+        <div class="activity-item">
+          <div class="activity-avatar green">✓</div>
+          <div class="activity-info"><strong>Lead Synced to Clio</strong><div class="detail">James Morrison — Auto Accident case qualified at 87/100</div></div>
+          <span class="activity-time">2 min ago</span>
+        </div>
+        <div class="activity-item">
+          <div class="activity-avatar green">✓</div>
+          <div class="activity-info"><strong>Medical Chronology Attached to Filevine</strong><div class="detail">Smith v. Pacific Medical — 1,247 pages processed in 47s</div></div>
+          <span class="activity-time">12 min ago</span>
+        </div>
+        <div class="activity-item">
+          <div class="activity-avatar blue">↻</div>
+          <div class="activity-info"><strong>Needles Poll Cycle</strong><div class="detail">Checked for new leads — 0 new, 2 updated</div></div>
+          <span class="activity-time">25 min ago</span>
+        </div>
+        <div class="activity-item">
+          <div class="activity-avatar green">✓</div>
+          <div class="activity-info"><strong>Lead Synced to Clio</strong><div class="detail">Sofia Garcia — MedMal case qualified at 92/100</div></div>
+          <span class="activity-time">48 min ago</span>
+        </div>
+        <div class="activity-item">
+          <div class="activity-avatar red">✗</div>
+          <div class="activity-info"><strong>Filevine Sync Failed — Retrying</strong><div class="detail">Timeout on case #4452 — auto-retry in 5 min</div></div>
+          <span class="activity-time">1 hr ago</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">&copy; 2026 LexiFlow Legal Suite. <a href="mailto:leads@lexiflow.co" style="color:var(--accent);text-decoration:none;">leads@lexiflow.co</a></div>
+</footer>
+
+<script>
+function testConnection(crm) {
+  var btn = document.querySelector('#card-' + crm + ' .btn-test');
+  var result = document.getElementById('test-' + crm);
+  var originalText = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<i class="bi bi-arrow-repeat"></i> Testing...';
+  result.className = 'test-result';
+  result.style.display = 'none';
+
+  setTimeout(function() {
+    // Simulate test result
+    var success = Math.random() > 0.2;
+    var connected = ['clio', 'filevine'].indexOf(crm) >= 0;
+    if (success || connected) {
+      result.className = 'test-result success';
+      result.innerHTML = '<i class="bi bi-check-circle"></i> Connection successful! API responded in 0.4s.';
+      document.getElementById('status-' + crm).className = 'int-status connected';
+      document.getElementById('status-' + crm).textContent = 'Connected';
+    } else {
+      result.className = 'test-result fail';
+      result.innerHTML = '<i class="bi bi-exclamation-circle"></i> Connection failed: Could not reach API endpoint. Check your credentials.';
+      document.getElementById('status-' + crm).className = 'int-status disconnected';
+      document.getElementById('status-' + crm).textContent = 'Error';
+    }
+    result.style.display = 'block';
+    btn.disabled = false;
+    btn.innerHTML = originalText;
+  }, crm === 'needles' || crm === 'trialworks' ? 2000 : 1200);
+}
+
+function disconnect(crm) {
+  var confirmed = confirm('Disconnect ' + crm.charAt(0).toUpperCase() + crm.slice(1) + '? Leads will stop syncing.');
+  if (!confirmed) return;
+  document.getElementById('status-' + crm).className = 'int-status disconnected';
+  document.getElementById('status-' + crm).textContent = 'Disconnected';
+  document.getElementById('sync-' + crm).textContent = 'Never';
+  document.getElementById('test-' + crm).className = 'test-result fail';
+  document.getElementById('test-' + crm).innerHTML = '<i class="bi bi-unlink"></i> Disconnected. Reconnect to resume syncing.';
+  document.getElementById('test-' + crm).style.display = 'block';
+}
+</script>
+</body>
+</html>
