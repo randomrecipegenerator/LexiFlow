@@ -1,64 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="description" content="LexiFlow Nationwide Legal AI Directory. Connecting law firms with advanced Reasoning AI for 24/7 intake across every major US market."><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nationwide Legal AI Directory | LexiFlow</title>
-    <link rel="stylesheet" href="/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <style>
-    /* Mobile-Friendly Adjustments */
-    @media (max-width: 768px) {
-        .container, .nav-container, .max-w-screen, .max-w, .hero-container, .footer-container { 
-            padding-left: 20px !important; 
-            padding-right: 20px !important; 
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-        .grid, .highlight-grid, .faq-grid, .pricing-grid, .assoc-grid, .city-grid { 
-            grid-template-columns: 1fr !important; 
-            display: grid !important;
-            gap: 20px !important;
-        }
-        .hero-container, .footer-container, .section-header { 
-            grid-template-columns: 1fr !important; 
-            text-align: center !important; 
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-        }
-        .hero-text, .hero-image, .footer-col {
-            width: 100% !important;
-            margin-bottom: 30px !important;
-        }
-        h1 { font-size: 28px !important; line-height: 1.2 !important; }
-        h2 { font-size: 24px !important; }
-        h3 { font-size: 20px !important; }
-        
-        /* Nav adjustments */
-        nav, .nav { height: auto !important; padding: 10px 0 !important; min-height: 60px; position: fixed; top: 0; width: 100%; background: #fff; z-index: 1000; border-bottom: 1px solid #e2e8f0; }
-        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; height: 80px; }
-        .nav-links { flex-direction: column !important; align-items: center !important; gap: 10px !important; display: none !important; width: 100% !important; order: 3; padding: 20px 0 !important; position: absolute; top: 80px; left: 0; background: #fff; }
-        .nav-links.active { display: flex !important; }
-        .nav-toggle { display: block !important; background: none; border: none; font-size: 24px; cursor: pointer; color: #0f172a; }
-        .btn-cta, .btn-primary { padding: 8px 16px !important; font-size: 13px !important; }
-        
-        /* Card and Feature adjustments */
-        .card, .pricing-card, .highlight-item, .faq-item, .assoc-card, .city-link { 
-            margin-bottom: 20px !important; 
-            width: 100% !important;
-            min-width: 0 !important;
-        }
-    }
-    
-    /* Internal Page Styles */
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>National AI Legal Directory | LexiFlow</title>
+  <meta name="description" content="Nationwide directory of LexiFlow AI legal intake solutions. Explore state-specific jurisdictional AI tuning for US law firms." />
+  <link rel="icon" type="image/svg+xml" href="/branding/logo-icon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
     :root {
       --navy: #0f172a; --gold: #c9a84c; --gold-light: #e2c96e;
       --slate-50: #f8fafc; --slate-100: #f1f5f9; --slate-200: #e2e8f0; --slate-400: #94a3b8; --slate-600: #475569;
       --slate-900: #0f172a; --max-width: 1200px;
     }
-    body { margin: 0; padding-top: 80px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--slate-900); line-height: 1.6; padding-top: 80px; }
+    
     nav { position: fixed; top: 0; width: 100%; height: 80px; background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--slate-200); z-index: 1000; display: flex; align-items: center; }
     .nav-container { max-width: var(--max-width); margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
     .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--navy); text-decoration: none; display: flex; align-items: center; gap: 12px; }
@@ -67,52 +25,48 @@
     .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; }
     .nav-links a:hover { color: var(--navy); }
     .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
-    .nav-toggle { display: none; }
+    .nav-toggle { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--navy); }
 
-    footer { background: var(--navy); color: var(--slate-400); padding: 80px 0 40px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .hero { padding: 100px 0 60px; background: radial-gradient(40% 40% at 50% 0%, rgba(201, 168, 76, 0.05) 0%, transparent 100%); text-align: center; }
+    .max-w-screen { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 24px; line-height: 1.1; color: var(--navy); }
+    .hero h1 span { color: var(--gold); }
+    .hero p { font-size: 20px; color: var(--slate-600); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+
+    .city-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; padding: 40px 0; }
+    .city-link { display: block; padding: 16px; background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 12px; font-weight: 600; text-decoration: none; color: var(--navy); transition: all 0.2s ease; text-align: center; font-size: 14px; }
+    .city-link:hover { border-color: var(--gold); background: white; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); transform: translateY(-3px); color: var(--gold); }
+
+    .ethics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 32px; }
+    .ethics-card { display: block; padding: 32px; background: white; border: 1px solid var(--slate-200); border-radius: 24px; text-decoration: none; transition: all 0.2s; }
+    .ethics-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); }
+    .ethics-card h4 { color: var(--navy); font-size: 20px; margin-bottom: 12px; font-family: 'Playfair Display', serif; }
+    .ethics-card p { color: var(--slate-600); font-size: 15px; line-height: 1.6; }
+
+    footer { background: var(--navy); color: var(--slate-400); padding: 80px 0 40px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 100px; }
     .footer-container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
     .footer-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; margin-bottom: 20px; display: block; }
     .footer-col h4 { color: #fff; margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; }
-    .footer-col ul { list-style: none; padding: 0; }
+    .footer-col ul { list-style: none; }
     .footer-col ul li { margin-bottom: 12px; }
     .footer-col ul a { color: var(--slate-400); text-decoration: none; font-size: 14px; }
     .footer-col ul a:hover { color: var(--gold); }
     .footer-bottom { max-width: var(--max-width); margin: 60px auto 0; padding: 40px 40px 0; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; text-align: center; }
+
+    @media (max-width: 768px) {
+      .nav-container { padding: 0 20px; }
+      .nav-links { display: none; position: absolute; top: 80px; left: 0; width: 100%; background: #fff; flex-direction: column; padding: 20px; gap: 20px; border-bottom: 1px solid var(--slate-200); box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
+      .nav-links.active { display: flex; }
+      .nav-toggle { display: block; }
+      .btn-cta { display: none; }
+      .hero h1 { font-size: 36px; }
+      .footer-container { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+      .city-grid { grid-template-columns: 1fr; }
+    }
 </style>
-    <link rel="canonical" href="https://lexiflow.co/locations/">
-
-    
-
-    
-
-    
-
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LegalService",
-  "name": "LexiFlow AI - Nationwide Law Firm Intake Solutions",
-  "description": "LexiFlow Nationwide Legal AI Directory. Connecting law firms with advanced Reasoning AI for 24/7 intake across every major US market.",
-  "url": "https://lexiflow.co/locations/",
-  "address": {
-    "@type": "PostalAddress",
-    "addressCountry": "US"
-  },
-  "serviceArea": {
-    "@type": "Country",
-    "name": "US"
-  },
-  "knowsAbout": [
-    "Personal Injury Attorney",
-    "Law Firm Intake Automation",
-    "Lead Qualification AI"
-  ]
-}
-    </script>
-
 </head>
-<body class="bg-slate-50 text-slate-900">
-<nav><div class="nav-container">
+<body>
+  <nav><div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/dashboard.html">Dashboard</a></li>
@@ -123,38 +77,129 @@
     </ul>
     <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')">☰</button>
   </div></nav>
-<main>
+  <header class="hero">
+    <div class="max-w-screen">
+      <div style="display: inline-block; padding: 8px 16px; background: rgba(201, 168, 76, 0.1); color: var(--gold); border-radius: 100px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px;">Nationwide Network</div>
+      <h1>Legal AI <span>State Directory</span></h1>
+      <p>LexiFlow provides jurisdiction-specific AI intake across all 50 states. Select your state to see local compliance and performance metrics.</p>
+    </div>
+  </header>
 
-    
-    <section class="region-section"><h2>Northeast</h2><div class="grid"><a href="/locations/connecticut/" class="card">Connecticut</a><a href="/locations/massachusetts/" class="card">Massachusetts</a><a href="/locations/new-jersey/" class="card">New Jersey</a><a href="/locations/new-york/" class="card">New York</a><a href="/locations/pennsylvania/" class="card">Pennsylvania</a><a href="/locations/vermont/" class="card">Vermont</a></div></section><section class="region-section"><h2>Midwest</h2><div class="grid"><a href="/locations/illinois/" class="card">Illinois</a><a href="/locations/indiana/" class="card">Indiana</a><a href="/locations/iowa/" class="card">Iowa</a><a href="/locations/kansas/" class="card">Kansas</a><a href="/locations/michigan/" class="card">Michigan</a><a href="/locations/missouri/" class="card">Missouri</a><a href="/locations/nebraska/" class="card">Nebraska</a><a href="/locations/ohio/" class="card">Ohio</a><a href="/locations/south-dakota/" class="card">South Dakota</a><a href="/locations/wisconsin/" class="card">Wisconsin</a></div></section><section class="region-section"><h2>South</h2><div class="grid"><a href="/locations/alabama/" class="card">Alabama</a><a href="/locations/arkansas/" class="card">Arkansas</a><a href="/locations/district-of-columbia/" class="card">District of Columbia</a><a href="/locations/florida/" class="card">Florida</a><a href="/locations/georgia/" class="card">Georgia</a><a href="/locations/kentucky/" class="card">Kentucky</a><a href="/locations/louisiana/" class="card">Louisiana</a><a href="/locations/maryland/" class="card">Maryland</a><a href="/locations/north-carolina/" class="card">North Carolina</a><a href="/locations/oklahoma/" class="card">Oklahoma</a><a href="/locations/tennessee/" class="card">Tennessee</a><a href="/locations/texas/" class="card">Texas</a><a href="/locations/virginia/" class="card">Virginia</a><a href="/locations/west-virginia/" class="card">West Virginia</a></div></section><section class="region-section"><h2>West</h2><div class="grid"><a href="/locations/alaska/" class="card">Alaska</a><a href="/locations/arizona/" class="card">Arizona</a><a href="/locations/california/" class="card">California</a><a href="/locations/colorado/" class="card">Colorado</a><a href="/locations/hawaii/" class="card">Hawaii</a><a href="/locations/idaho/" class="card">Idaho</a><a href="/locations/montana/" class="card">Montana</a><a href="/locations/nevada/" class="card">Nevada</a><a href="/locations/new-mexico/" class="card">New Mexico</a><a href="/locations/oregon/" class="card">Oregon</a><a href="/locations/puerto-rico/" class="card">Puerto Rico</a><a href="/locations/utah/" class="card">Utah</a><a href="/locations/washington/" class="card">Washington</a></div></section>
-    
-    <section style="background: #f8fafc; padding: 60px 0; border-top: 1px solid #e2e8f0;">
-        <div class="max-w" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-            <h3 style="margin-bottom: 24px; font-family: 'Playfair Display', serif; font-size: 1.5rem;">Legal AI Ethics & Compliance Resources</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
-                <a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake.html" style="display: block; padding: 24px; background: white; border: 1px solid #e2e8f0; border-radius: 16px; text-decoration: none; color: inherit; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-                    <h4 style="margin: 0 0 10px 0; color: #1a3a5c; font-weight: 700;">Pennsylvania AI Ethics Guide</h4>
-                    <p style="margin: 0; font-size: 14px; color: #64748b; line-height: 1.6;">A practical framework for PA trial lawyers adopting AI in legal intake and merit review.</p>
-                </a>
-                <a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake.html" style="display: block; padding: 24px; background: white; border: 1px solid #e2e8f0; border-radius: 16px; text-decoration: none; color: inherit; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-                    <h4 style="margin: 0 0 10px 0; color: #1a3a5c; font-weight: 700;">Illinois AI Ethics Guide</h4>
-                    <p style="margin: 0; font-size: 14px; color: #64748b; line-height: 1.6;">Ethics and Section 2-622 compliance for Illinois firm AI adoption and automated screening.</p>
-                </a>
-                <a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake.html" style="display: block; padding: 24px; background: white; border: 1px solid #e2e8f0; border-radius: 16px; text-decoration: none; color: inherit; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-                    <h4 style="margin: 0 0 10px 0; color: #1a3a5c; font-weight: 700;">New York AI Ethics Guide</h4>
-                    <p style="margin: 0; font-size: 14px; color: #64748b; line-height: 1.6;">Navigating 22 NYCRR Part 1200 and AI in New York Medical Malpractice intake.</p>
-                </a>
-            </div>
+  <section class="max-w-screen">
+
+    <div style="margin-top: 64px;">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+            <span style="width: 32px; height: 2px; background: var(--gold);"></span> Northeast
+        </h2>
+        <div class="city-grid" style="padding-top: 16px;">
+        <a href="/locations/connecticut/" class="city-link">Connecticut</a>
+        <a href="/locations/district-of-columbia/" class="city-link">District Of Columbia</a>
+        <a href="/locations/maryland/" class="city-link">Maryland</a>
+        <a href="/locations/massachusetts/" class="city-link">Massachusetts</a>
+        <a href="/locations/new-jersey/" class="city-link">New Jersey</a>
+        <a href="/locations/new-york/" class="city-link">New York</a>
+        <a href="/locations/pennsylvania/" class="city-link">Pennsylvania</a>
+        <a href="/locations/vermont/" class="city-link">Vermont</a>
+
         </div>
-    </section>
+    </div>
+    <div style="margin-top: 64px;">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+            <span style="width: 32px; height: 2px; background: var(--gold);"></span> Midwest
+        </h2>
+        <div class="city-grid" style="padding-top: 16px;">
+        <a href="/locations/illinois/" class="city-link">Illinois</a>
+        <a href="/locations/indiana/" class="city-link">Indiana</a>
+        <a href="/locations/iowa/" class="city-link">Iowa</a>
+        <a href="/locations/kansas/" class="city-link">Kansas</a>
+        <a href="/locations/michigan/" class="city-link">Michigan</a>
+        <a href="/locations/minnesota/" class="city-link">Minnesota</a>
+        <a href="/locations/missouri/" class="city-link">Missouri</a>
+        <a href="/locations/nebraska/" class="city-link">Nebraska</a>
+        <a href="/locations/north-dakota/" class="city-link">North Dakota</a>
+        <a href="/locations/ohio/" class="city-link">Ohio</a>
+        <a href="/locations/south-dakota/" class="city-link">South Dakota</a>
+        <a href="/locations/wisconsin/" class="city-link">Wisconsin</a>
+
+        </div>
+    </div>
+    <div style="margin-top: 64px;">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+            <span style="width: 32px; height: 2px; background: var(--gold);"></span> South
+        </h2>
+        <div class="city-grid" style="padding-top: 16px;">
+        <a href="/locations/alabama/" class="city-link">Alabama</a>
+        <a href="/locations/arkansas/" class="city-link">Arkansas</a>
+        <a href="/locations/florida/" class="city-link">Florida</a>
+        <a href="/locations/georgia/" class="city-link">Georgia</a>
+        <a href="/locations/kentucky/" class="city-link">Kentucky</a>
+        <a href="/locations/louisiana/" class="city-link">Louisiana</a>
+        <a href="/locations/north-carolina/" class="city-link">North Carolina</a>
+        <a href="/locations/oklahoma/" class="city-link">Oklahoma</a>
+        <a href="/locations/south-carolina/" class="city-link">South Carolina</a>
+        <a href="/locations/tennessee/" class="city-link">Tennessee</a>
+        <a href="/locations/texas/" class="city-link">Texas</a>
+        <a href="/locations/virginia/" class="city-link">Virginia</a>
+        <a href="/locations/west-virginia/" class="city-link">West Virginia</a>
+
+        </div>
+    </div>
+    <div style="margin-top: 64px;">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+            <span style="width: 32px; height: 2px; background: var(--gold);"></span> West
+        </h2>
+        <div class="city-grid" style="padding-top: 16px;">
+        <a href="/locations/alaska/" class="city-link">Alaska</a>
+        <a href="/locations/arizona/" class="city-link">Arizona</a>
+        <a href="/locations/california/" class="city-link">California</a>
+        <a href="/locations/colorado/" class="city-link">Colorado</a>
+        <a href="/locations/hawaii/" class="city-link">Hawaii</a>
+        <a href="/locations/idaho/" class="city-link">Idaho</a>
+        <a href="/locations/montana/" class="city-link">Montana</a>
+        <a href="/locations/nevada/" class="city-link">Nevada</a>
+        <a href="/locations/new-mexico/" class="city-link">New Mexico</a>
+        <a href="/locations/oregon/" class="city-link">Oregon</a>
+        <a href="/locations/utah/" class="city-link">Utah</a>
+        <a href="/locations/washington/" class="city-link">Washington</a>
+        <a href="/locations/wyoming/" class="city-link">Wyoming</a>
+
+        </div>
+    </div>
+    <div style="margin-top: 64px;">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+            <span style="width: 32px; height: 2px; background: var(--gold);"></span> Territories
+        </h2>
+        <div class="city-grid" style="padding-top: 16px;">
+        <a href="/locations/puerto-rico/" class="city-link">Puerto Rico</a>
+
+        </div>
+    </div>
+  </section>
+
+  
+<section style="background: var(--slate-50); padding: 80px 0; border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200); margin: 80px 0;">
+    <div class="max-w-screen">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; color: var(--navy); margin-bottom: 8px;">Legal AI Ethics & Compliance Resources</h2>
+        <p style="color: var(--slate-600); margin-bottom: 32px;">Regulatory frameworks and adoption guides for modern law firms.</p>
+        <div class="ethics-grid">
+            <a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake.html" class="ethics-card">
+                <h4>Pennsylvania AI Ethics Guide</h4>
+                <p>A practical framework for PA trial lawyers adopting AI in legal intake and merit review.</p>
+            </a>
+            <a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake.html" class="ethics-card">
+                <h4>Illinois AI Ethics Guide</h4>
+                <p>Ethics and Section 2-622 compliance for Illinois firm AI adoption and automated screening.</p>
+            </a>
+            <a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake.html" class="ethics-card">
+                <h4>New York AI Ethics Guide</h4>
+                <p>Navigating 22 NYCRR Part 1200 and AI in New York Medical Malpractice intake.</p>
+            </a>
+        </div>
+    </div>
+</section>
 
 
-
-        
-        
-
-</main>
-<footer>
+  <footer>
     <div class="footer-container">
       <div class="footer-col">
         <a href="/" class="footer-logo">LexiFlow</a>
@@ -192,12 +237,10 @@
       &copy; 2026 LexiFlow AI. All rights reserved.
     </div>
   </footer>
-<script src="/config.js"></script>
-<script>
+  <script>
     document.querySelector('.nav-toggle').addEventListener('click', function() {
       document.getElementById('navLinks').classList.toggle('active');
     });
-    function toggleConsultation(label) { alert('Demo request initiated: ' + label); }
-</script>
+  </script>
 </body>
 </html>

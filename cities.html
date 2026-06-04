@@ -3,13 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="google-site-verification" content="SdZcqCNhIJHLlfx2BU22unsBd6smFsTf7o6pv-np5Zk" />
-  <title>LexiFlow AI | Service Areas - Local AI Legal Intake</title>
-  <meta name="description" content="LexiFlow provides enterprise-grade AI legal intake across the United States. Explore our local service areas and see how we help firms in your city." />
+  <title>LexiFlow AI | Service Areas - National Legal AI Network</title>
+  <meta name="description" content="LexiFlow provides enterprise-grade AI legal intake across 200+ US cities. Explore our local service areas and high-merit MedMal review markets." />
   <link rel="icon" type="image/svg+xml" href="/branding/logo-icon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <style>
     :root {
@@ -30,22 +27,23 @@
     .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
     .nav-toggle { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--navy); }
 
-    .hero { padding: 100px 0 60px; background: radial-gradient(40% 40% at 50% 0%, rgba(37, 99, 235, 0.03) 0%, transparent 100%); text-align: center; }
+    .hero { padding: 100px 0 60px; background: radial-gradient(40% 40% at 50% 0%, rgba(201, 168, 76, 0.05) 0%, transparent 100%); text-align: center; }
     .max-w-screen { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; }
     .hero h1 { font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 24px; line-height: 1.1; color: var(--navy); }
+    .hero h1 span { color: var(--gold); }
     .hero p { font-size: 20px; color: var(--slate-600); max-width: 700px; margin: 0 auto; line-height: 1.6; }
 
-    .city-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; padding: 64px 0; }
-    .city-link { display: block; padding: 20px; background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 12px; font-weight: 600; text-decoration: none; color: var(--navy); transition: all 0.2s ease; text-align: center; font-size: 15px; }
+    .city-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; padding: 40px 0; }
+    .city-link { display: block; padding: 16px; background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 12px; font-weight: 600; text-decoration: none; color: var(--navy); transition: all 0.2s ease; text-align: center; font-size: 14px; }
     .city-link:hover { border-color: var(--gold); background: white; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); transform: translateY(-3px); color: var(--gold); }
 
-    .cta-section { background: var(--navy); color: white; border-radius: 32px; padding: 80px; text-align: center; margin: 40px 0 80px; }
-    .cta-section h2 { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 800; margin-bottom: 24px; letter-spacing: -0.02em; }
-    .cta-section p { font-size: 18px; color: var(--slate-400); margin-bottom: 40px; }
-    .btn-primary { background: var(--gold); color: var(--navy); padding: 16px 32px; border-radius: 8px; font-weight: 600; font-size: 16px; text-decoration: none; display: inline-block; transition: all 0.2s; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+    .ethics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 32px; }
+    .ethics-card { display: block; padding: 32px; background: white; border: 1px solid var(--slate-200); border-radius: 24px; text-decoration: none; transition: all 0.2s; }
+    .ethics-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); }
+    .ethics-card h4 { color: var(--navy); font-size: 20px; margin-bottom: 12px; font-family: 'Playfair Display', serif; }
+    .ethics-card p { color: var(--slate-600); font-size: 15px; line-height: 1.6; }
 
-    footer { background: var(--navy); color: var(--slate-400); padding: 80px 0 40px; border-top: 1px solid rgba(255,255,255,0.1); }
+    footer { background: var(--navy); color: var(--slate-400); padding: 80px 0 40px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 100px; }
     .footer-container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
     .footer-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; margin-bottom: 20px; display: block; }
     .footer-col h4 { color: #fff; margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; }
@@ -64,9 +62,8 @@
       .hero h1 { font-size: 36px; }
       .footer-container { grid-template-columns: 1fr; gap: 40px; text-align: center; }
       .city-grid { grid-template-columns: 1fr; }
-      .cta-section { padding: 40px 20px; border-radius: 0; }
     }
-  </style>
+</style>
 </head>
 <body>
   <nav><div class="nav-container">
@@ -80,38 +77,37 @@
     </ul>
     <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')">☰</button>
   </div></nav>
-
   <header class="hero">
     <div class="max-w-screen">
       <div style="display: inline-block; padding: 8px 16px; background: rgba(201, 168, 76, 0.1); color: var(--gold); border-radius: 100px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px;">National Service Network</div>
-      <h1>Local Reach. <span>National Scale.</span></h1>
-      <p>LexiFlow's Reasoning AI is transforming intake for law firms across the United States. Select your market to see how we drive conversion.</p>
+      <h1>Local Intelligence. <span>National Scale.</span></h1>
+      <p>LexiFlow's Reasoning AI is transforming intake for law firms across the United States. Select your market to see our impact.</p>
     </div>
   </header>
 
   <section class="max-w-screen">
-    
-    <div style="margin-top: 40px; padding: 40px; background: #fff; border: 1px solid #e2e8f0; border-radius: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
-        <h2 style="font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 12px; color: #0f172a;">AI Medical Merit Review Markets</h2>
-        <p style="color: #64748b; margin-bottom: 32px;">Specialized MeritScan™ intake for high-stakes Medical Malpractice and Surgical Error litigation.</p>
+    <div style="margin-top: 40px; padding: 48px; background: #fff; border: 1px solid var(--slate-200); border-radius: 32px; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 12px; color: var(--navy);">AI Medical Merit Review Markets</h2>
+        <p style="color: var(--slate-600); margin-bottom: 32px;">Specialized MeritScan™ intake for high-stakes Medical Malpractice and Surgical Error litigation.</p>
         <div class="city-grid" style="padding: 0; margin-bottom: 0;">
-            <a href="/locations/georgia/medmal-atlanta.html" class="city-link" style="border-color: #ef4444; background: #fef2f2;">Atlanta (MedMal)</a>
-            <a href="/locations/massachusetts/medmal-boston.html" class="city-link" style="border-color: #ef4444; background: #fef2f2;">Boston (MedMal)</a>
-            <a href="/locations/north-carolina/medmal-charlotte.html" class="city-link" style="border-color: #ef4444; background: #fef2f2;">Charlotte (MedMal)</a>
-            <a href="/locations/illinois/medmal-chicago.html" class="city-link" style="border-color: #ef4444; background: #fef2f2;">Chicago (MedMal)</a>
-            <a href="/locations/california/medmal-la.html" class="city-link" style="border-color: #ef4444; background: #fef2f2;">Los Angeles (MedMal)</a>
-            <a href="/locations/florida/medmal-miami.html" class="city-link" style="border-color: #ef4444; background: #fef2f2;">Miami (MedMal)</a>
-            <a href="/locations/new-york/medmal-nyc.html" class="city-link" style="border-color: #ef4444; background: #fef2f2;">New York City (MedMal)</a>
-            <a href="/locations/florida/medmal-orlando.html" class="city-link" style="border-color: #ef4444; background: #fef2f2;">Orlando (MedMal)</a>
-            <a href="/locations/pennsylvania/medmal-philadelphia.html" class="city-link" style="border-color: #ef4444; background: #fef2f2;">Philadelphia (MedMal)</a>
-            <a href="/locations/arizona/medmal-phoenix.html" class="city-link" style="border-color: #ef4444; background: #fef2f2;">Phoenix (MedMal)</a>
-            <a href="/locations/oregon/medmal-portland.html" class="city-link" style="border-color: #ef4444; background: #fef2f2;">Portland (MedMal)</a>
+            <a href="/locations/georgia/medmal-atlanta.html" class="city-link" style="border-color: #ef4444; background: #fef2f2; color: #b91c1c;">Atlanta (MedMal)</a>
+            <a href="/locations/massachusetts/medmal-boston.html" class="city-link" style="border-color: #ef4444; background: #fef2f2; color: #b91c1c;">Boston (MedMal)</a>
+            <a href="/locations/north-carolina/medmal-charlotte.html" class="city-link" style="border-color: #ef4444; background: #fef2f2; color: #b91c1c;">Charlotte (MedMal)</a>
+            <a href="/locations/illinois/medmal-chicago.html" class="city-link" style="border-color: #ef4444; background: #fef2f2; color: #b91c1c;">Chicago (MedMal)</a>
+            <a href="/locations/california/medmal-la.html" class="city-link" style="border-color: #ef4444; background: #fef2f2; color: #b91c1c;">Los Angeles (MedMal)</a>
+            <a href="/locations/florida/medmal-miami.html" class="city-link" style="border-color: #ef4444; background: #fef2f2; color: #b91c1c;">Miami (MedMal)</a>
+            <a href="/locations/new-york/medmal-nyc.html" class="city-link" style="border-color: #ef4444; background: #fef2f2; color: #b91c1c;">New York City (MedMal)</a>
+            <a href="/locations/florida/medmal-orlando.html" class="city-link" style="border-color: #ef4444; background: #fef2f2; color: #b91c1c;">Orlando (MedMal)</a>
+            <a href="/locations/pennsylvania/medmal-philadelphia.html" class="city-link" style="border-color: #ef4444; background: #fef2f2; color: #b91c1c;">Philadelphia (MedMal)</a>
+            <a href="/locations/arizona/medmal-phoenix.html" class="city-link" style="border-color: #ef4444; background: #fef2f2; color: #b91c1c;">Phoenix (MedMal)</a>
+            <a href="/locations/oregon/medmal-portland.html" class="city-link" style="border-color: #ef4444; background: #fef2f2; color: #b91c1c;">Portland (MedMal)</a>
 
         </div>
     </div>
     
-    <h2 style="font-family: 'Playfair Display', serif; font-size: 28px; margin-top: 64px; margin-bottom: 12px; color: #0f172a;">National Personal Injury Intake Network</h2>
-<div class="city-grid">
+    <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; margin-top: 80px; margin-bottom: 12px; color: var(--navy);">National Personal Injury Network</h2>
+    <p style="color: var(--slate-600); margin-bottom: 40px;">Localized AI intake solutions for personal injury firms in every major jurisdiction.</p>
+    <div class="city-grid">
             <a href="/locations/ohio/akron.html" class="city-link">Akron</a>
             <a href="/locations/new-mexico/albuquerque.html" class="city-link">Albuquerque</a>
             <a href="/locations/virginia/alexandria.html" class="city-link">Alexandria</a>
@@ -185,7 +181,6 @@
             <a href="/locations/california/hayward.html" class="city-link">Hayward</a>
             <a href="/locations/nevada/henderson.html" class="city-link">Henderson</a>
             <a href="/locations/south-carolina/hollywood.html" class="city-link">Hollywood</a>
-            <a href="/locations/alabama/hollywood.html" class="city-link">Hollywood</a>
             <a href="/locations/hawaii/honolulu.html" class="city-link">Honolulu</a>
             <a href="/locations/texas/houston.html" class="city-link">Houston</a>
             <a href="/locations/california/huntington-beach.html" class="city-link">Huntington Beach</a>
@@ -198,10 +193,8 @@
             <a href="/locations/illinois/joliet.html" class="city-link">Joliet</a>
             <a href="/locations/missouri/kansas-city.html" class="city-link">Kansas City</a>
             <a href="/locations/washington/kent.html" class="city-link">Kent</a>
-            <a href="/locations/alabama/kent.html" class="city-link">Kent</a>
             <a href="/locations/texas/killeen.html" class="city-link">Killeen</a>
             <a href="/locations/tennessee/knoxville.html" class="city-link">Knoxville</a>
-            <a href="/locations/california/la.html" class="city-link">La</a>
             <a href="/locations/louisiana/lafayette.html" class="city-link">Lafayette</a>
             <a href="/locations/california/lakewood.html" class="city-link">Lakewood</a>
             <a href="/locations/california/lancaster.html" class="city-link">Lancaster</a>
@@ -211,22 +204,11 @@
             <a href="/locations/nebraska/lincoln.html" class="city-link">Lincoln</a>
             <a href="/locations/arkansas/little-rock.html" class="city-link">Little Rock</a>
             <a href="/locations/california/long-beach.html" class="city-link">Long Beach</a>
-            <a href="/locations/california/los-angeles.html" class="city-link">Los Angeles</a>
+            <a href="/locations/california/la.html" class="city-link">Los Angeles</a>
             <a href="/locations/kentucky/louisville.html" class="city-link">Louisville</a>
             <a href="/locations/texas/lubbock.html" class="city-link">Lubbock</a>
             <a href="/locations/wisconsin/madison.html" class="city-link">Madison</a>
             <a href="/locations/texas/mcallen.html" class="city-link">Mcallen</a>
-            <a href="/locations/georgia/medmal-atlanta.html" class="city-link">Medical Malpractice Atlanta</a>
-            <a href="/locations/massachusetts/medmal-boston.html" class="city-link">Medical Malpractice Boston</a>
-            <a href="/locations/north-carolina/medmal-charlotte.html" class="city-link">Medical Malpractice Charlotte</a>
-            <a href="/locations/illinois/medmal-chicago.html" class="city-link">Medical Malpractice Chicago</a>
-            <a href="/locations/california/medmal-la.html" class="city-link">Medical Malpractice La</a>
-            <a href="/locations/florida/medmal-miami.html" class="city-link">Medical Malpractice Miami</a>
-            <a href="/locations/new-york/medmal-nyc.html" class="city-link">Medical Malpractice Nyc</a>
-            <a href="/locations/florida/medmal-orlando.html" class="city-link">Medical Malpractice Orlando</a>
-            <a href="/locations/pennsylvania/medmal-philadelphia.html" class="city-link">Medical Malpractice Philadelphia</a>
-            <a href="/locations/arizona/medmal-phoenix.html" class="city-link">Medical Malpractice Phoenix</a>
-            <a href="/locations/oregon/medmal-portland.html" class="city-link">Medical Malpractice Portland</a>
             <a href="/locations/tennessee/memphis.html" class="city-link">Memphis</a>
             <a href="/locations/arizona/mesa.html" class="city-link">Mesa</a>
             <a href="/locations/texas/mesquite.html" class="city-link">Mesquite</a>
@@ -242,11 +224,11 @@
             <a href="/locations/connecticut/new-haven.html" class="city-link">New Haven</a>
             <a href="/locations/louisiana/new-orleans.html" class="city-link">New Orleans</a>
             <a href="/locations/new-york/new-york.html" class="city-link">New York</a>
+            <a href="/locations/new-york/nyc.html" class="city-link">New York City</a>
             <a href="/locations/new-jersey/newark.html" class="city-link">Newark</a>
             <a href="/locations/virginia/newport-news.html" class="city-link">Newport News</a>
             <a href="/locations/virginia/norfolk.html" class="city-link">Norfolk</a>
             <a href="/locations/nevada/north-las-vegas.html" class="city-link">North Las Vegas</a>
-            <a href="/locations/new-york/nyc.html" class="city-link">Nyc</a>
             <a href="/locations/california/oakland.html" class="city-link">Oakland</a>
             <a href="/locations/california/oceanside.html" class="city-link">Oceanside</a>
             <a href="/locations/oklahoma/oklahoma-city.html" class="city-link">Oklahoma City</a>
@@ -268,10 +250,8 @@
             <a href="/locations/texas/plano.html" class="city-link">Plano</a>
             <a href="/locations/california/pomona.html" class="city-link">Pomona</a>
             <a href="/locations/north-dakota/portal.html" class="city-link">Portal</a>
-            <a href="/locations/georgia/portal.html" class="city-link">Portal</a>
             <a href="/locations/oregon/portland.html" class="city-link">Portland</a>
             <a href="/locations/utah/providence.html" class="city-link">Providence</a>
-            <a href="/locations/kentucky/providence.html" class="city-link">Providence</a>
             <a href="/locations/north-carolina/raleigh.html" class="city-link">Raleigh</a>
             <a href="/locations/california/rancho-cucamonga.html" class="city-link">Rancho Cucamonga</a>
             <a href="/locations/nevada/reno.html" class="city-link">Reno</a>
@@ -320,19 +300,42 @@
             <a href="/locations/texas/waco.html" class="city-link">Waco</a>
             <a href="/locations/michigan/warren.html" class="city-link">Warren</a>
             <a href="/locations/district-of-columbia/washington.html" class="city-link">Washington</a>
-            <a href="/locations/district-of-columbia/washington-dc.html" class="city-link">Washington Dc</a>
+            <a href="/locations/district-of-columbia/washington-dc.html" class="city-link">Washington, D.C.</a>
             <a href="/locations/kansas/wichita.html" class="city-link">Wichita</a>
             <a href="/locations/north-carolina/winston-salem.html" class="city-link">Winston Salem</a>
             <a href="/locations/massachusetts/worcester.html" class="city-link">Worcester</a>
             <a href="/locations/new-york/yonkers.html" class="city-link">Yonkers</a>
 
     </div>
+  </section>
 
-    <div class="cta-section">
-      <h2>Don't see your city?</h2>
-      <p>LexiFlow can be deployed for any firm, anywhere in the United States. Schedule a custom market analysis today.</p>
-      <a href="/roi-calculator.html" class="btn-primary">Get Started Now</a>
+  
+<section style="background: var(--slate-50); padding: 80px 0; border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200); margin: 80px 0;">
+    <div class="max-w-screen">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; color: var(--navy); margin-bottom: 8px;">Legal AI Ethics & Compliance Resources</h2>
+        <p style="color: var(--slate-600); margin-bottom: 32px;">Regulatory frameworks and adoption guides for modern law firms.</p>
+        <div class="ethics-grid">
+            <a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake.html" class="ethics-card">
+                <h4>Pennsylvania AI Ethics Guide</h4>
+                <p>A practical framework for PA trial lawyers adopting AI in legal intake and merit review.</p>
+            </a>
+            <a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake.html" class="ethics-card">
+                <h4>Illinois AI Ethics Guide</h4>
+                <p>Ethics and Section 2-622 compliance for Illinois firm AI adoption and automated screening.</p>
+            </a>
+            <a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake.html" class="ethics-card">
+                <h4>New York AI Ethics Guide</h4>
+                <p>Navigating 22 NYCRR Part 1200 and AI in New York Medical Malpractice intake.</p>
+            </a>
+        </div>
     </div>
+</section>
+
+
+  <section class="max-w-screen" style="text-align: center; padding: 40px 0;">
+    <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; color: var(--navy); margin-bottom: 24px;">Don't see your city?</h2>
+    <p style="color: var(--slate-600); max-width: 600px; margin: 0 auto 32px;">LexiFlow can be deployed for any firm, anywhere in the United States. We support custom jurisdiction tuning for all 50 states.</p>
+    <a href="/pricing.html" class="btn-cta" style="display: inline-block;">Start 24/7 AI Intake</a>
   </section>
 
   <footer>
@@ -373,9 +376,7 @@
       &copy; 2026 LexiFlow AI. All rights reserved.
     </div>
   </footer>
-
   <script>
-    // Simple toggle for mobile nav
     document.querySelector('.nav-toggle').addEventListener('click', function() {
       document.getElementById('navLinks').classList.toggle('active');
     });
