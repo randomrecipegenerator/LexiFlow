@@ -1,618 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LexiFlow Dashboard — Your Product Suite at a Glance</title>
-  <meta name="description" content="Live LexiFlow product dashboard showing all 6 AI modules for law firms: Intake Agent, Voice AI, Medical Chronologies, Document Drafter, DepoLens, Settlement Estimator." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/hardened.css" />
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
-  <style>
-    :root {
-      --primary: #1a3a5c; --primary-light: #2a5a8c; --primary-dark: #0d1f33;
-      --accent: #c9a84c; --accent-light: #e2c96e; --accent-dark: #a88a30;
-      --text-dark: #1a1a2e; --text-muted: #6b7280; --text-light: #f8fafc;
-      --bg-light: #f8fafc; --bg-white: #ffffff; --bg-dark: #0d1f33;
-      --border: #e2e8f0; --green: #16a34a;
-      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
-      --radius: 8px; --radius-lg: 16px;
-      --font-sans: 'Inter',-apple-system,sans-serif;
-      --font-serif: 'Playfair Display',Georgia,serif;
-    }
-    * { box-sizing: border-box; margin:0; padding:0; }
-    body { font-family: var(--font-sans); background: var(--bg-light); color: var(--text-dark); }
-
-    /* Nav */
-    .nav { position:fixed; top:0; width:100%; z-index:100; background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); }
-    .nav .container { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; height:68px; }
-    .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
-    .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; }
-    .nav-links { display:flex; gap:22px; list-style:none; align-items:center; }
-    .nav-links a { font-size:0.88rem; font-weight:500; color:var(--text-muted); text-decoration:none; }
-    .nav-links a:hover { color:var(--primary); }
-    .nav-cta { padding:8px 20px!important; background:var(--accent)!important; color:var(--primary-dark)!important; font-weight:600!important; border-radius:8px!important; text-decoration:none!important; }
-    .nav-cta:hover { background:var(--accent-light)!important; }
-
-    /* Dashboard Header */
-    .dash-header {
-      padding: 110px 0 40px;
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-      color: white;
-    }
-    .dash-header .container { max-width:1200px; margin:0 auto; padding:0 24px; }
-    .dash-header h1 { font-family: var(--font-serif); font-size: 2.2rem; margin-bottom: 8px; }
-    .dash-header h1 span { color: var(--accent); }
-    .dash-header p { color: rgba(255,255,255,0.8); font-size: 1rem; max-width: 600px; }
-
-    /* Status bar */
-    .status-bar {
-      background: var(--bg-white);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 0;
-    }
-    .status-bar .container { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; align-items:center; gap:32px; flex-wrap:wrap; }
-    .status-item { display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text-muted); }
-    .status-dot { width:8px; height:8px; border-radius:50%; display:inline-block; }
-    .dot-green { background:var(--green); }
-    .status-item strong { color:var(--primary); }
-
-    /* Dashboard Grid */
-    .dash-grid {
-      padding: 40px 0 60px;
-    }
-    .dash-grid .container { max-width:1200px; margin:0 auto; padding:0 24px; }
-
-    .module-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .module-card {
-      background: var(--bg-white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      transition: all 0.3s;
-    }
-    .module-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-      border-color: var(--accent);
-    }
-    .module-card-head {
-      padding: 20px 24px 12px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      border-bottom: 1px solid #f3f4f6;
-    }
-    .module-card-head .icon { font-size: 2rem; }
-    .module-card-head h3 { font-size: 1.05rem; font-weight:700; color:var(--primary); }
-    .module-status {
-      margin-left: auto;
-      padding: 3px 10px;
-      border-radius: 100px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
-    .status-live { background: rgba(22,163,74,0.1); color: var(--green); }
-    .status-beta { background: rgba(201,168,76,0.12); color: var(--accent-dark); }
-
-    .module-card-body {
-      padding: 16px 24px 20px;
-    }
-    .module-card-body .tagline {
-      font-size: 0.85rem;
-      font-style: italic;
-      color: var(--accent-dark);
-      margin-bottom: 10px;
-    }
-    .module-card-body .desc {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 14px;
-    }
-    .module-card-body .metric {
-      display: flex;
-      justify-content: space-between;
-      padding: 6px 0;
-      font-size: 0.78rem;
-      border-bottom: 1px solid #f9fafb;
-    }
-    .module-card-body .metric:last-child { border-bottom: none; }
-    .module-card-body .metric-label { color: var(--text-muted); }
-    .module-card-body .metric-value { font-weight: 600; color: var(--primary); }
-
-    .module-card-foot {
-      padding: 12px 24px;
-      border-top: 1px solid #f3f4f6;
-      display: flex;
-      gap: 12px;
-    }
-    .module-card-foot a {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--primary);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      text-decoration: none;
-    }
-    .module-card-foot a:hover { color: var(--accent); }
-    .module-card-foot .magnet-tag {
-      margin-left: auto;
-      font-size: 0.7rem;
-      padding: 2px 8px;
-      background: rgba(22,163,74,0.08);
-      color: var(--green);
-      border-radius: 4px;
-      font-weight: 600;
-    }
-
-    /* Lead Activity Feed */
-    .activity-section {
-      margin-top: 40px;
-      background: var(--bg-white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-    }
-    .activity-section h3 {
-      padding: 20px 24px;
-      font-size: 1rem;
-      color: var(--primary);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .activity-list { padding: 0 24px; }
-    .activity-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 12px 0;
-      border-bottom: 1px solid #f3f4f6;
-      font-size: 0.85rem;
-    }
-    .activity-item:last-child { border-bottom: none; }
-    .activity-avatar {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      background: var(--primary);
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 0.8rem;
-      flex-shrink: 0;
-    }
-    .activity-info { flex:1; }
-    .activity-info strong { color: var(--primary); }
-    .activity-info .detail { color: var(--text-muted); font-size:0.8rem; }
-    .activity-score {
-      padding: 2px 10px;
-      border-radius: 100px;
-      font-size: 0.78rem;
-      font-weight: 700;
-    }
-    .score-high { background: rgba(22,163,74,0.1); color: var(--green); }
-    .score-medium { background: rgba(250,204,21,0.15); color: #b8860b; }
-    .activity-source {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      background: var(--bg-light);
-      padding: 2px 8px;
-      border-radius: 4px;
-    }
-
-    /* Footer */
-    .footer { background: var(--bg-dark); color: rgba(255,255,255,0.6); padding: 36px 0; text-align: center; font-size:0.82rem; }
-    .footer a { color: rgba(255,255,255,0.6); text-decoration:none; margin:0 12px; }
-
-    @media (max-width: 900px) {
-      .module-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 600px) {
-      .module-grid { grid-template-columns: 1fr; }
-      .dash-header h1 { font-size: 1.6rem; }
-    }
-  
-    /* Mobile-Friendly Adjustments */
-    @media (max-width: 768px) {
-        .container, .nav-container, .max-w-screen, .max-w, .hero-container, .footer-container { 
-            padding-left: 20px !important; 
-            padding-right: 20px !important; 
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-        .grid, .highlight-grid, .faq-grid, .pricing-grid, .assoc-grid, .city-grid { 
-            grid-template-columns: 1fr !important; 
-            display: grid !important;
-            gap: 20px !important;
-        }
-        .hero-container, .footer-container, .section-header { 
-            grid-template-columns: 1fr !important; 
-            text-align: center !important; 
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-        }
-        .hero-text, .hero-image, .footer-col {
-            width: 100% !important;
-            margin-bottom: 30px !important;
-        }
-        h1 { font-size: 28px !important; line-height: 1.2 !important; }
-        h2 { font-size: 24px !important; }
-        h3 { font-size: 20px !important; }
-        
-        /* Nav adjustments */
-        nav, .nav { height: auto !important; padding: 10px 0 !important; min-height: 60px; }
-        .nav-container, .nav .container { flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; padding: 10px 20px !important; }
-        .nav-links { flex-direction: column !important; align-items: center !important; gap: 10px !important; display: none !important; width: 100% !important; order: 3; padding: 20px 0 !important; }
-        .nav-links.active { display: flex !important; }
-        .nav-toggle { display: block !important; background: #1a3a5c; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 20px; order: 2; }
-        .btn-cta, .btn-primary { padding: 8px 16px !important; font-size: 13px !important; }
-        
-        /* Card and Feature adjustments */
-        .card, .pricing-card, .highlight-item, .faq-item, .assoc-card, .city-link { 
-            margin-bottom: 20px !important; 
-            width: 100% !important;
-            min-width: 0 !important;
-        }
-        .pricing-card.featured { transform: none !important; margin: 20px 0 !important; }
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexiFlow Dashboard — Your Product Suite at a Glance</title>
+    <meta name="description" content="Live LexiFlow product dashboard showing all 6 AI modules for law firms: Intake Agent, Voice AI, Medical Chronologies, Document Drafter, DepoLens, Settlement Estimator.">
     
+    <link rel="icon" type="image/svg+xml" href="/branding/logo-icon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    
+    <style>
+        :root {
+            --navy: #0f172a; --gold: #c9a84c; --gold-light: #e2c96e;
+            --slate-50: #f8fafc; --slate-100: #f1f5f9; --slate-200: #e2e8f0; --slate-400: #94a3b8; --slate-600: #475569;
+            --slate-900: #0f172a; --max-width: 1200px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--slate-50); color: var(--slate-900); line-height: 1.6; padding-top: 80px; }
+        
+        nav { position: fixed; top: 0; width: 100%; height: 80px; background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--slate-200); z-index: 1000; display: flex; align-items: center; }
+        .nav-container { max-width: var(--max-width); margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--navy); text-decoration: none; display: flex; align-items: center; gap: 12px; }
+        .logo span { background: var(--navy); color: var(--gold); padding: 4px 8px; border-radius: 4px; font-size: 18px; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; }
+        .nav-links a:hover { color: var(--navy); }
+        .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; border: none; cursor: pointer; }
+        .nav-toggle { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--navy); }
+
+        .dash-header { padding: 64px 0; background: var(--navy); color: white; }
+        .max-w-screen { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; }
+        .dash-header h1 { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 800; margin-bottom: 16px; }
+        .dash-header h1 span { color: var(--gold); }
+        .dash-header p { font-size: 18px; color: var(--slate-400); max-width: 700px; }
+
+        .status-bar { background: white; border-bottom: 1px solid var(--slate-200); padding: 16px 0; }
+        .status-items { display: flex; gap: 32px; flex-wrap: wrap; }
+        .status-item { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--slate-600); }
+        .status-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; }
+        .status-item b { color: var(--navy); }
+
+        .module-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; margin: 48px 0; }
+        .module-card { background: white; border: 1px solid var(--slate-200); border-radius: 24px; overflow: hidden; transition: all 0.3s; }
+        .module-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); border-color: var(--gold); }
+        
+        .card-head { padding: 24px; display: flex; align-items: center; gap: 16px; border-bottom: 1px solid var(--slate-100); }
+        .card-head i { font-size: 24px; color: var(--gold); }
+        .card-head h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); }
+        .module-badge { margin-left: auto; font-size: 10px; font-weight: 800; background: var(--slate-50); color: var(--slate-600); padding: 4px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .badge-live { background: rgba(34, 197, 94, 0.1); color: #16a34a; }
+
+        .card-body { padding: 24px; }
+        .card-tagline { font-size: 12px; font-weight: 700; color: var(--gold); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .card-desc { font-size: 14px; color: var(--slate-600); margin-bottom: 20px; }
+        
+        .metric-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--slate-50); font-size: 13px; }
+        .metric-row:last-child { border-bottom: none; }
+        .metric-label { color: var(--slate-400); }
+        .metric-val { font-weight: 700; color: var(--navy); }
+
+        .analytics-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 48px; }
+        .chart-box { background: white; padding: 32px; border-radius: 24px; border: 1px solid var(--slate-200); }
+        .chart-box h4 { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--navy); margin-bottom: 24px; }
+
+        .activity-feed { background: white; border: 1px solid var(--slate-200); border-radius: 24px; overflow: hidden; }
+        .activity-feed h4 { padding: 24px; border-bottom: 1px solid var(--slate-100); font-family: 'Playfair Display', serif; color: var(--navy); }
+        .activity-item { padding: 16px 24px; display: flex; align-items: center; gap: 16px; border-bottom: 1px solid var(--slate-50); }
+        .activity-item:last-child { border-bottom: none; }
+        .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--navy); color: var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+        .act-info { flex: 1; }
+        .act-info b { font-size: 14px; color: var(--navy); display: block; }
+        .act-info span { font-size: 12px; color: var(--slate-400); }
+        .act-score { font-weight: 800; color: #16a34a; font-size: 15px; }
+
+        footer { background: var(--navy); color: var(--slate-400); padding: 80px 0 40px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .footer-container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; margin-bottom: 20px; display: block; }
+        .footer-col h4 { color: #fff; margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul a { color: var(--slate-400); text-decoration: none; font-size: 14px; }
+        .footer-col ul a:hover { color: var(--gold); }
+        .footer-bottom { max-width: var(--max-width); margin: 60px auto 0; padding: 40px 40px 0; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; text-align: center; }
+
+        @media (max-width: 968px) {
+            .analytics-row { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: absolute; top: 80px; left: 0; width: 100%; background: #fff; flex-direction: column; padding: 20px; gap: 20px; border-bottom: 1px solid var(--slate-200); }
+            .nav-links.active { display: flex; }
+            .nav-toggle { display: block; }
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
+            .footer-logo { margin: 0 auto 20px; }
+        }
     </style>
 </head>
 <body>
+    <nav><div class="nav-container">
+        <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="/dashboard.html">Dashboard</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/blog.html">Blog</a></li>
+          <li><a href="/cities.html">Areas We Serve</a></li>
+          <li><a href="/pricing.html" class="btn-cta">Get Started</a></li>
+        </ul>
+        <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')">☰</button>
+    </div></nav>
 
-<nav class="nav">
-  <div class="container">
-    <a href="index.html" class="nav-logo"><span class="nav-logo-icon">LF</span> LexiFlow</a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="dashboard.html" style="font-weight:600;color:var(--primary);">Dashboard</a></li>
-      <li><a href="index.html">Products</a></li>
-      <li><a href="pricing.html">Pricing</a></li><li><a href="cities.html">Areas We Serve</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="pricing.html" class="nav-cta">Get Started →</a></li>
-    </ul>
-  </div>
-</nav>
+    <header class="dash-header">
+        <div class="max-w-screen">
+            <h1>⚡ LexiFlow <span>Product Dashboard</span></h1>
+            <p>Monitor your firm's AI engine performance, track lead activity, and access your 6 core automation modules.</p>
+        </div>
+    </header>
 
-<section class="dash-header">
-  <div class="container">
-    <h1>⚡ LexiFlow <span>Product Dashboard</span></h1>
-    <p>All 6 AI modules live and ready. Track lead activity, monitor qualification scores, and access each product's landing page.</p>
-  </div>
-</section>
-
-<section class="status-bar">
-  <div class="container">
-    <div class="status-item"><span class="status-dot dot-green"></span> <strong>All Systems Operational</strong></div>
-    <div class="status-item">🤖 AI Engine: <strong>Online</strong></div>
-    <div class="status-item">🔗 CRM Sync: <strong>Connected</strong></div>
-    <div class="status-item">📊 Leads Today: <strong>142</strong></div>
-    <div class="status-item">📈 Conversion Rate: <strong>3.2×</strong></div>
-  </div>
-</section>
-
-<section class="dash-grid">
-  <div class="container">
-
-    <div class="module-grid">
-
-      <!-- 1. AI Intake Agent -->
-      <div class="module-card">
-        <div class="module-card-head">
-          <span class="icon">🤖</span>
-          <h3>AI Intake Agent</h3>
-          <span class="module-status status-live">LIVE</span>
-        </div>
-        <div class="module-card-body">
-          <div class="tagline">"The 24/7 Gatekeeper that never sleeps."</div>
-          <div class="desc">Capture, qualify, and route leads automatically with Reasoning AI.</div>
-          <div class="metric"><span class="metric-label">Leads Today</span><span class="metric-value">142</span></div>
-          <div class="metric"><span class="metric-label">Avg. Score</span><span class="metric-value">76%</span></div>
-          <div class="metric"><span class="metric-label">Qualified Rate</span><span class="metric-value">68%</span></div>
-          <div class="metric"><span class="metric-label">Response Time</span><span class="metric-value">&lt; 5 sec</span></div>
-        </div>
-        <div class="module-card-foot">
-          <a href="ai-intake-agent.html">View Product →</a>
-          <span class="magnet-tag">🎁 Intake Leakage Audit</span>
-        </div>
-      </div>
-
-      <!-- 2. Voice AI Receptionist -->
-      <div class="module-card">
-        <div class="module-card-head">
-          <span class="icon">🎙️</span>
-          <h3>Voice AI Receptionist</h3>
-          <span class="module-status status-live">LIVE</span>
-        </div>
-        <div class="module-card-body">
-          <div class="tagline">"Your high-volume receptionist with empathy and precision."</div>
-          <div class="desc">Answer every call 24/7 with natural voice AI. Capture structured intake over the phone.</div>
-          <div class="metric"><span class="metric-label">Calls Today</span><span class="metric-value">48</span></div>
-          <div class="metric"><span class="metric-label">After-Hours</span><span class="metric-value">22</span></div>
-          <div class="metric"><span class="metric-label">Avg. Duration</span><span class="metric-value">3:42</span></div>
-          <div class="metric"><span class="metric-label">Satisfaction</span><span class="metric-value">92%</span></div>
-        </div>
-        <div class="module-card-foot">
-          <a href="voice-ai-receptionist.html">View Product →</a>
-          <span class="magnet-tag">🎁 Missed Call Report</span>
-        </div>
-      </div>
-
-      <!-- 3. AI Medical Chronologies -->
-      <div class="module-card">
-        <div class="module-card-head">
-          <span class="icon">📅</span>
-          <h3>AI Medical Chronologies</h3>
-          <span class="module-status status-live">LIVE</span>
-        </div>
-        <div class="module-card-body">
-          <div class="tagline">"From 5,000 pages to trial-ready chronologies in minutes."</div>
-          <div class="desc">Auto-generate comprehensive medical timelines from uploaded records.</div>
-          <div class="metric"><span class="metric-label">Docs Processed</span><span class="metric-value">1,247</span></div>
-          <div class="metric"><span class="metric-label">Avg. Pages/Doc</span><span class="metric-value">312</span></div>
-          <div class="metric"><span class="metric-label">Processing Time</span><span class="metric-value">47 sec</span></div>
-          <div class="metric"><span class="metric-label">Accuracy Rate</span><span class="metric-value">99.2%</span></div>
-        </div>
-        <div class="module-card-foot">
-          <a href="ai-medical-chronologies.html">View Product →</a>
-          <span class="magnet-tag">🎁 Sample Chronology</span>
-        </div>
-      </div>
-
-      <!-- 4. Auto-Document Drafter -->
-      <div class="module-card">
-        <div class="module-card-head">
-          <span class="icon">✍️</span>
-          <h3>Auto-Document Drafter</h3>
-          <span class="module-status status-beta">BETA</span>
-        </div>
-        <div class="module-card-body">
-          <div class="tagline">"Draft demand letters and filings in seconds, not hours."</div>
-          <div class="desc">Generate polished legal documents from case data instantly.</div>
-          <div class="metric"><span class="metric-label">Docs Drafted</span><span class="metric-value">384</span></div>
-          <div class="metric"><span class="metric-label">Avg. Draft Time</span><span class="metric-value">3 min</span></div>
-          <div class="metric"><span class="metric-label">Manual Equivalent</span><span class="metric-value">4.5 hrs</span></div>
-          <div class="metric"><span class="metric-label">Style Templates</span><span class="metric-value">12</span></div>
-        </div>
-        <div class="module-card-foot">
-          <a href="auto-document-drafter.html">View Product →</a>
-          <span class="magnet-tag">🎁 Template Pack</span>
-        </div>
-      </div>
-
-      <!-- 5. DepoLens AI -->
-      <div class="module-card">
-        <div class="module-card-head">
-          <span class="icon">🎯</span>
-          <h3>DepoLens AI</h3>
-          <span class="module-status status-live">LIVE</span>
-        </div>
-        <div class="module-card-body">
-          <div class="tagline">"Deposition intelligence that prepares you for cross-examination."</div>
-          <div class="desc">Analyze transcripts for admissions, inconsistencies, and credibility signals.</div>
-          <div class="metric"><span class="metric-label">Depositions</span><span class="metric-value">215</span></div>
-          <div class="metric"><span class="metric-label">Admissions Found</span><span class="metric-value">847</span></div>
-          <div class="metric"><span class="metric-label">Inconsistencies</span><span class="metric-value">312</span></div>
-          <div class="metric"><span class="metric-label">Avg. Transcript</span><span class="metric-value">187 pg</span></div>
-        </div>
-        <div class="module-card-foot">
-          <a href="depolens-ai.html">View Product →</a>
-          <span class="magnet-tag">🎁 Prep Checklist</span>
-        </div>
-      </div>
-
-      <!-- 6. Settlement Estimator -->
-      <div class="module-card">
-        <div class="module-card-head">
-          <span class="icon">💰</span>
-          <h3>Settlement Estimator</h3>
-          <span class="module-status status-live">LIVE</span>
-        </div>
-        <div class="module-card-body">
-          <div class="tagline">"Predict case value with historical precision."</div>
-          <div class="desc">AI-powered case valuation based on 50,000+ analyzed PI cases.</div>
-          <div class="metric"><span class="metric-label">Estimates Run</span><span class="metric-value">3,891</span></div>
-          <div class="metric"><span class="metric-label">Avg. Case Value</span><span class="metric-value">$187K</span></div>
-          <div class="metric"><span class="metric-label">Accuracy Rate</span><span class="metric-value">94%</span></div>
-          <div class="metric"><span class="metric-label">Avg. Calc Time</span><span class="metric-value">42 sec</span></div>
-        </div>
-        <div class="module-card-foot">
-          <a href="settlement-estimator.html">View Product →</a>
-          <span class="magnet-tag">🎁 Valuation Cheat Sheet</span>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Analytics Section -->
-            <div class="analytics-section" style="margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
-              <div class="chart-card" style="background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;">
-                <h4 style="font-size:0.95rem;color:var(--primary);margin-bottom:16px;display:flex;align-items:center;gap:8px;">📈 Lead Conversion Rate</h4>
-                <div style="height:220px;"><canvas id="chart-conversion"></canvas></div>
-              </div>
-              <div class="chart-card" style="background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;">
-                <h4 style="font-size:0.95rem;color:var(--primary);margin-bottom:16px;display:flex;align-items:center;gap:8px;">📊 Intake Volume by Channel</h4>
-                <div style="height:220px;"><canvas id="chart-channel"></canvas></div>
-              </div>
+    <section class="status-bar">
+        <div class="max-w-screen">
+            <div class="status-items">
+                <div class="status-item"><div class="status-dot"></div> Systems: <b>All Operational</b></div>
+                <div class="status-item"><i class="bi bi-cpu"></i> AI Engine: <b>Online</b></div>
+                <div class="status-item"><i class="bi bi-link-45deg"></i> CRM Sync: <b>Active</b></div>
+                <div class="status-item"><i class="bi bi-graph-up-arrow"></i> Leads Today: <b>142</b></div>
+                <div class="status-item"><i class="bi bi-lightning-charge"></i> Conversion: <b>3.2× Lift</b></div>
             </div>
-            <div class="chart-card" style="margin-top:24px;background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;">
-              <h4 style="font-size:0.95rem;color:var(--primary);margin-bottom:16px;display:flex;align-items:center;gap:8px;">📋 Merit Review Scoring Distribution</h4>
-              <div style="height:200px;"><canvas id="chart-merit"></canvas></div>
+        </div>
+    </section>
+
+    <main class="max-w-screen">
+        <div class="module-grid">
+            <!-- 1 -->
+            <div class="module-card">
+                <div class="card-head">
+                    <i class="bi bi-robot"></i>
+                    <h3>AI Intake Agent</h3>
+                    <span class="module-badge badge-live">Live</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-tagline">Gatekeeper Pro</div>
+                    <p class="card-desc">24/7 lead capture and reasoning-based qualification.</p>
+                    <div class="metric-row"><span class="metric-label">Leads Today</span><span class="metric-val">142</span></div>
+                    <div class="metric-row"><span class="metric-label">Qualified Rate</span><span class="metric-val">68%</span></div>
+                    <div class="metric-row"><span class="metric-label">Response Time</span><span class="metric-val">&lt; 5 sec</span></div>
+                </div>
             </div>
-
-            <!-- Live Activity Feed -->
-            <div class="activity-section">
-      <h3>📋 Live Lead Activity</h3>
-      <div class="activity-list">
-        <div class="activity-item">
-          <div class="activity-avatar">JM</div>
-          <div class="activity-info">
-            <strong>James Morrison</strong>
-            <div class="detail">Auto Accident · AI Intake Agent</div>
-          </div>
-          <span class="activity-score score-high">92%</span>
-          <span class="activity-source">Widget</span>
+            <!-- 2 -->
+            <div class="module-card">
+                <div class="card-head">
+                    <i class="bi bi-mic"></i>
+                    <h3>Voice AI Receptionist</h3>
+                    <span class="module-badge badge-live">Live</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-tagline">Natural Response</div>
+                    <p class="card-desc">Empathy-driven phone intake for after-hours calls.</p>
+                    <div class="metric-row"><span class="metric-label">Calls Today</span><span class="metric-val">48</span></div>
+                    <div class="metric-row"><span class="metric-label">After-Hours</span><span class="metric-val">22</span></div>
+                    <div class="metric-row"><span class="metric-label">Avg. Duration</span><span class="metric-val">3:42</span></div>
+                </div>
+            </div>
+            <!-- 3 -->
+            <div class="module-card">
+                <div class="card-head">
+                    <i class="bi bi-calendar-event"></i>
+                    <h3>AI Medical Chronologies</h3>
+                    <span class="module-badge badge-live">Live</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-tagline">MeritScan™</div>
+                    <p class="card-desc">Auto-generate timelines from 1,000+ page medical sets.</p>
+                    <div class="metric-row"><span class="metric-label">Docs Processed</span><span class="metric-val">1,247</span></div>
+                    <div class="metric-row"><span class="metric-label">Avg. Set Size</span><span class="metric-val">312 pg</span></div>
+                    <div class="metric-row"><span class="metric-label">Processing Time</span><span class="metric-val">47 sec</span></div>
+                </div>
+            </div>
         </div>
-        <div class="activity-item">
-          <div class="activity-avatar">SG</div>
-          <div class="activity-info">
-            <strong>Sofia Garcia</strong>
-            <div class="detail">Medical Malpractice · Voice AI Receptionist</div>
-          </div>
-          <span class="activity-score score-high">87%</span>
-          <span class="activity-source">Phone</span>
+
+        <div class="analytics-row">
+            <div class="chart-box">
+                <h4>📈 Lead Conversion Trend</h4>
+                <div style="height: 250px;"><canvas id="chart-conversion"></canvas></div>
+            </div>
+            <div class="chart-box">
+                <h4>📊 Volume by Channel</h4>
+                <div style="height: 250px;"><canvas id="chart-channel"></canvas></div>
+            </div>
         </div>
-        <div class="activity-item">
-          <div class="activity-avatar">MR</div>
-          <div class="activity-info">
-            <strong>Michael Reyes</strong>
-            <div class="detail">Slip &amp; Fall · AI Intake Agent</div>
-          </div>
-          <span class="activity-score score-medium">64%</span>
-          <span class="activity-source">Widget</span>
+
+        <div class="activity-feed" style="margin-bottom: 80px;">
+            <h4>📋 Live Lead Activity</h4>
+            <div class="activity-item">
+                <div class="avatar">JM</div>
+                <div class="act-info"><b>James Morrison</b><span>Auto Accident · AI Intake Agent</span></div>
+                <div class="act-score">92% Match</div>
+            </div>
+            <div class="activity-item">
+                <div class="avatar">SG</div>
+                <div class="act-info"><b>Sofia Garcia</b><span>Medical Malpractice · Voice AI</span></div>
+                <div class="act-score">87% Match</div>
+            </div>
+            <div class="activity-item">
+                <div class="avatar">MR</div>
+                <div class="act-info"><b>Michael Reyes</b><span>Slip & Fall · AI Intake Agent</span></div>
+                <div class="act-score" style="color: #b8860b;">64% Match</div>
+            </div>
         </div>
-        <div class="activity-item">
-          <div class="activity-avatar">AL</div>
-          <div class="activity-info">
-            <strong>Amanda Lewis</strong>
-            <div class="detail">Auto Accident · Settlement Estimator</div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+          <div class="footer-col">
+            <a href="/" class="footer-logo">LexiFlow</a>
+            <p>Enterprise-grade AI for legal intake and lead qualification. Built for the modern attorney.</p>
           </div>
-          <span class="activity-score score-high">88%</span>
-          <span class="activity-source">Web</span>
-        </div>
-        <div class="activity-item">
-          <div class="activity-avatar">DT</div>
-          <div class="activity-info">
-            <strong>David Tran</strong>
-            <div class="detail">Workers' Comp · Voice AI Receptionist</div>
+          <div class="footer-col">
+            <h4>Products</h4>
+            <ul>
+              <li><a href="/ai-intake-agent.html">LexiFlow Intake</a></li>
+              <li><a href="/voice-ai-receptionist.html">Voice AI</a></li>
+              <li><a href="/ai-medical-chronologies.html">Medical Review</a></li>
+              <li><a href="/auto-document-drafter.html">Doc Automation</a></li>
+              <li><a href="/depolens-ai.html">DepoLens AI</a></li>
+              <li><a href="/settlement-estimator.html">Settlement AI</a></li>
+            </ul>
           </div>
-          <span class="activity-score score-medium">71%</span>
-          <span class="activity-source">Phone</span>
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="/privacy.html">Privacy Policy</a></li>
+              <li><a href="/terms.html">Terms of Service</a></li>
+              <li><a href="#">SOC2 Compliance</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Security</h4>
+            <div style="font-size: 24px; display: flex; gap: 16px;">
+              <i class="bi bi-shield-lock"></i>
+              <i class="bi bi-safe"></i>
+              <i class="bi bi-fingerprint"></i>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+        <div class="footer-bottom">
+          &copy; 2026 LexiFlow AI. All rights reserved.
+        </div>
+      </footer>
 
-  </div>
-</section>
+    <script>
+        const NAVY = '#0f172a';
+        const GOLD = '#c9a84c';
+        
+        new Chart(document.getElementById('chart-conversion'), {
+            type: 'line',
+            data: {
+                labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+                datasets: [{
+                    label: 'Conversion Rate %',
+                    data: [2.1, 2.4, 2.8, 3.2, 3.5, 3.8],
+                    borderColor: GOLD,
+                    backgroundColor: GOLD + '20',
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: GOLD
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
 
-<section class="footer">
-  <div class="container">
-    <span>&copy; 2025 LexiFlow Legal Suite</span>
-    <a href="pricing.html">Pricing</a>
-    <a href="blog.html">Blog</a>
-    <a href="mailto:leads@lexiflow.co">Contact</a>
-  </div>
-</section>
+        new Chart(document.getElementById('chart-channel'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Web Widget', 'Voice AI', 'Email', 'Other'],
+                datasets: [{
+                    data: [48, 32, 14, 6],
+                    backgroundColor: [NAVY, GOLD, '#16a34a', '#94a3b8'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 11 } } }
+                }
+            }
+        });
 
-<script>
-// Analytics Charts — Navy/Gold Brand Palette
-const NAVY = '#1a3a5c';
-const GOLD = '#c9a84c';
-const GREEN = '#16a34a';
-const SLATE_400 = '#94a3b8';
-
-// 1. Lead Conversion Rate (Line Chart)
-new Chart(document.getElementById('chart-conversion'), {
-  type: 'line',
-  data: {
-    labels: ['Jan','Feb','Mar','Apr','May','Jun'],
-    datasets: [{
-      label: 'Conversion Rate %',
-      data: [2.1, 2.4, 2.8, 3.2, 3.5, 3.8],
-      borderColor: GOLD,
-      backgroundColor: GOLD + '20',
-      fill: true,
-      tension: 0.4,
-      pointBackgroundColor: GOLD,
-      pointBorderColor: '#fff',
-      pointBorderWidth: 2,
-      pointRadius: 4,
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false },
-      tooltip: { backgroundColor: NAVY, titleColor: '#fff', bodyColor: GOLD }
-    },
-    scales: {
-      y: { beginAtZero: true, max: 5, grid: { color: '#f1f5f9' }, ticks: { color: SLATE_400, callback: v => v + '%' } },
-      x: { grid: { display: false }, ticks: { color: SLATE_400 } }
-    }
-  }
-});
-
-// 2. Intake Volume by Channel (Doughnut Chart)
-new Chart(document.getElementById('chart-channel'), {
-  type: 'doughnut',
-  data: {
-    labels: ['Web Widget', 'Phone / Voice AI', 'Email', 'Chat'],
-    datasets: [{
-      data: [48, 32, 14, 6],
-      backgroundColor: [NAVY, GOLD, GREEN, SLATE_400],
-      borderWidth: 0,
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    cutout: '65%',
-    plugins: {
-      legend: {
-        position: 'bottom',
-        labels: { color: NAVY, font: { size: 11 }, padding: 12, usePointStyle: true }
-      },
-      tooltip: {
-        backgroundColor: NAVY,
-        titleColor: '#fff',
-        bodyColor: GOLD,
-        callbacks: {
-          label: ctx => ' ' + ctx.label + ': ' + ctx.parsed + '%'
-        }
-      }
-    }
-  }
-});
-
-// 3. Merit Review Score Distribution (Bar Chart)
-new Chart(document.getElementById('chart-merit'), {
-  type: 'bar',
-  data: {
-    labels: ['0–20', '21–40', '41–60', '61–80', '81–100'],
-    datasets: [{
-      label: 'Cases',
-      data: [18, 42, 87, 156, 224],
-      backgroundColor: [SLATE_400, '#60a5fa', GOLD, '#22c55e', NAVY],
-      borderRadius: 6,
-      borderSkipped: false,
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false },
-      tooltip: { backgroundColor: NAVY, titleColor: '#fff', bodyColor: GOLD }
-    },
-    scales: {
-      y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { color: SLATE_400 } },
-      x: { grid: { display: false }, ticks: { color: NAVY, font: { size: 11 } } }
-    }
-  }
-});
-</script>
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+    </script>
+</body>
 </html>
