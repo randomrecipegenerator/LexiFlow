@@ -25,62 +25,22 @@
     body { font-family: 'Inter', sans-serif; background: var(--slate-50); color: var(--navy); margin: 0; padding: 0; line-height: 1.8; }
     nav { height: 80px; background: #fff; border-bottom: 1px solid var(--slate-200); display: flex; align-items: center; position: sticky; top: 0; z-index: 100; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; width: 100%; box-sizing: border-box; }
-    .content-container { max-width: var(--max-width); margin: 0 auto; padding: 80px 40px; background: #fff; border-radius: 12px; margin-top: 40px; margin-bottom: 80px; border: 1px solid var(--slate-200); box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+    .content-container { max-width: 900px; margin: 0 auto; padding: 80px 60px; background: #fff; border-radius: 12px; margin-top: 40px; margin-bottom: 80px; border: 1px solid var(--slate-200); box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
     .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--navy); text-decoration: none; }
     h1 { font-family: 'Playfair Display', serif; font-size: 42px; margin-bottom: 32px; color: var(--navy); text-align: center; }
-    h2 { font-family: 'Playfair Display', serif; font-size: 24px; margin-top: 40px; margin-bottom: 16px; color: var(--navy); border-bottom: 1px solid var(--slate-200); padding-bottom: 8px; }
-    p { margin-bottom: 24px; color: var(--slate-600); }
+    h2 { font-family: 'Playfair Display', serif; font-size: 22px; margin-top: 40px; margin-bottom: 16px; color: var(--navy); border-bottom: 1px solid var(--slate-200); padding-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+    p { margin-bottom: 24px; color: var(--slate-600); font-size: 15px; }
     ul { margin-bottom: 24px; padding-left: 24px; }
-    li { margin-bottom: 12px; color: var(--slate-600); }
+    li { margin-bottom: 12px; color: var(--slate-600); font-size: 14px; }
     .effective-date { font-weight: 600; color: var(--gold); text-align: center; display: block; margin-bottom: 40px; }
+    .legal-heavy { font-weight: 700; color: #000; text-transform: uppercase; }
     footer { padding: 40px 0; background: var(--navy); text-align: center; color: var(--slate-400); font-size: 14px; }
     footer a { color: #fff; text-decoration: none; margin: 0 15px; }
   
-    /* Mobile-Friendly Adjustments */
     @media (max-width: 768px) {
-        .container, .nav-container, .max-w-screen, .max-w, .hero-container, .footer-container { 
-            padding-left: 20px !important; 
-            padding-right: 20px !important; 
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-        .grid, .highlight-grid, .faq-grid, .pricing-grid, .assoc-grid, .city-grid { 
-            grid-template-columns: 1fr !important; 
-            display: grid !important;
-            gap: 20px !important;
-        }
-        .hero-container, .footer-container, .section-header { 
-            grid-template-columns: 1fr !important; 
-            text-align: center !important; 
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-        }
-        .hero-text, .hero-image, .footer-col {
-            width: 100% !important;
-            margin-bottom: 30px !important;
-        }
-        h1 { font-size: 28px !important; line-height: 1.2 !important; }
-        h2 { font-size: 24px !important; }
-        h3 { font-size: 20px !important; }
-        
-        /* Nav adjustments */
-        nav, .nav { height: auto !important; padding: 10px 0 !important; min-height: 60px; }
-        .nav-container, .nav .container { flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; padding: 10px 20px !important; }
-        .nav-links { flex-direction: column !important; align-items: center !important; gap: 10px !important; display: none !important; width: 100% !important; order: 3; padding: 20px 0 !important; }
-        .nav-links.active { display: flex !important; }
-        .nav-toggle { display: block !important; background: #1a3a5c; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 20px; order: 2; }
-        .btn-cta, .btn-primary { padding: 8px 16px !important; font-size: 13px !important; }
-        
-        /* Card and Feature adjustments */
-        .card, .pricing-card, .highlight-item, .faq-item, .assoc-card, .city-link { 
-            margin-bottom: 20px !important; 
-            width: 100% !important;
-            min-width: 0 !important;
-        }
-        .pricing-card.featured { transform: none !important; margin: 20px 0 !important; }
+        .content-container { padding: 40px 20px; margin: 20px; }
+        h1 { font-size: 32px; }
     }
-    
     </style>
 </head>
 <body>
@@ -91,61 +51,48 @@
   </nav>
   <div class="content-container">
     <h1>Privacy Policy</h1>
-    <span class="effective-date">Effective Date: May 24, 2026</span>
+    <span class="effective-date">Last Updated: June 4, 2026</span>
     
     <section>
-        <h2>1. Introduction</h2>
-        <p>LexiFlow ("we," "our," or "us") provides an enterprise AI-powered legal intelligence platform. We are committed to maintaining the highest standards of data protection and confidentiality for law firms and their clients.</p>
+        <h2>1. Scope of Policy</h2>
+        <p>This Privacy Policy describes how LexiFlow ("we," "us," or "our") collects, uses, and handles information when you use our website and AI-driven legal tools. By using the Service, you acknowledge that you have read and understood this Policy.</p>
     </section>
 
     <section>
-        <h2>2. Data Collection</h2>
-        <p>We collect information necessary to provide high-stakes legal automation:</p>
-        <ul>
-            <li><strong>Law Firm Data:</strong> Contact details, credentials, and billing information for firm administration.</li>
-            <li><strong>Lead Intelligence:</strong> Case narratives, personal identifiers, and evidentiary details processed during intake.</li>
-            <li><strong>Operational Data:</strong> Usage logs and technical metrics to ensure platform integrity and security.</li>
-        </ul>
+        <h2>2. Information Collection & Disclaimer</h2>
+        <p>We collect Law Firm Data, Lead Intelligence, and Operational Metrics as required to provide the Service. While we implement enterprise-grade security measures, <span class="legal-heavy">NO METHOD OF ELECTRONIC TRANSMISSION OR STORAGE IS 100% SECURE.</span></p>
+        <p class="legal-heavy">LEXIFLOW DOES NOT GUARANTEE THE ABSOLUTE SECURITY OF YOUR DATA. BY USING THE SERVICE, YOU ASSUME ALL RISKS ASSOCIATED WITH DATA BREACHES, SYSTEM FAILURES, OR UNAUTHORIZED THIRD-PARTY ACCESS.</p>
     </section>
 
     <section>
-        <h2>3. Data Usage</h2>
-        <p>Your data is processed exclusively for:</p>
-        <ul>
-            <li>Executing AI-driven lead qualification and document drafting.</li>
-            <li>Facilitating seamless CRM integration (Filevine, LeadDock, etc.).</li>
-            <li>Continuous security monitoring and platform optimization.</li>
-        </ul>
+        <h2>3. Use of AI and Data Processing</h2>
+        <p>The Service utilizes Reasoning AI to process sensitive legal documentation. This data is used solely to provide the Service to the User. However, <span class="legal-heavy">LexiFlow is not liable for any misinterpretation, misclassification, or erroneous processing of data by its AI models.</span> The User is solely responsible for auditing all data handled by the AI.</p>
     </section>
 
     <section>
-        <h2>4. Data Protection & Security</h2>
-        <p>LexiFlow employs enterprise-grade encryption (AES-256) and follows strict SOC 2 Type II compliance protocols to safeguard all legal documentation and personal information.</p>
+        <h2>4. Third-Party Integrations</h2>
+        <p>LexiFlow facilitates data synchronization with third-party CRMs (e.g., Filevine, Clio). <span class="legal-heavy">WE ARE NOT RESPONSIBLE FOR THE PRIVACY PRACTICES, DATA HANDLING, OR SECURITY VULNERABILITIES OF ANY THIRD-PARTY SERVICES.</span> Any data transferred to a third-party CRM is subject to that provider's privacy policy.</p>
     </section>
 
     <section>
-        <h2>5. Contact</h2>
-        <p>For questions regarding our privacy practices, contact our Data Privacy Officer at <a href="mailto:leads@lexiflow.co" style="color: var(--gold);">leads@lexiflow.co</a>.</p>
+        <h2>5. Absolute Limitation of Liability for Privacy Issues</h2>
+        <p class="legal-heavy">TO THE MAXIMUM EXTENT PERMITTED BY LAW, LEXIFLOW SHALL NOT BE LIABLE FOR ANY DAMAGES ARISING FROM LOSS OF DATA, UNAUTHORIZED DISCLOSURE OF CONFIDENTIAL INFORMATION, OR PRIVACY VIOLATIONS CAUSED BY EXTERNAL ACTORS, HACKERS, OR TECHNICAL ERRORS.</p>
+    </section>
+
+    <section>
+        <h2>6. Changes to this Policy</h2>
+        <p>We reserve the right to update this Privacy Policy at any time. Continued use of the Service following any changes constitutes acceptance of the revised Policy.</p>
+    </section>
+
+    <section>
+        <h2>7. Contact</h2>
+        <p>Requests for data clarification or deletion should be sent to <a href="mailto:leads@lexiflow.co" style="color: var(--gold);">leads@lexiflow.co</a>.</p>
     </section>
   </div>
   <footer>
     <div class="container">
-      <p>&copy; 2026 LexiFlow Legal Suite. <a href="index.html">Home</a> <a href="pricing.html">Capabilities</a></p>
+      <p>&copy; 2026 LexiFlow Legal Suite. <a href="index.html">Home</a> <a href="terms.html">Terms of Service</a></p>
     </div>
   </footer>
-
-        <script>
-        // Mobile menu toggle helper
-        document.addEventListener('DOMContentLoaded', function() {
-            var toggle = document.querySelector('.nav-toggle');
-            var links = document.getElementById('navLinks');
-            if (toggle && links) {
-                toggle.addEventListener('click', function() {
-                    links.classList.toggle('active');
-                });
-            }
-        });
-        </script>
-        
 </body>
 </html>

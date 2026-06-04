@@ -25,62 +25,23 @@
     body { font-family: 'Inter', sans-serif; background: var(--slate-50); color: var(--navy); margin: 0; padding: 0; line-height: 1.8; }
     nav { height: 80px; background: #fff; border-bottom: 1px solid var(--slate-200); display: flex; align-items: center; position: sticky; top: 0; z-index: 100; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; width: 100%; box-sizing: border-box; }
-    .content-container { max-width: var(--max-width); margin: 0 auto; padding: 80px 40px; background: #fff; border-radius: 12px; margin-top: 40px; margin-bottom: 80px; border: 1px solid var(--slate-200); box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+    .content-container { max-width: 900px; margin: 0 auto; padding: 80px 60px; background: #fff; border-radius: 12px; margin-top: 40px; margin-bottom: 80px; border: 1px solid var(--slate-200); box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
     .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--navy); text-decoration: none; }
     h1 { font-family: 'Playfair Display', serif; font-size: 42px; margin-bottom: 32px; color: var(--navy); text-align: center; }
-    h2 { font-family: 'Playfair Display', serif; font-size: 24px; margin-top: 40px; margin-bottom: 16px; color: var(--navy); border-bottom: 1px solid var(--slate-200); padding-bottom: 8px; }
-    p { margin-bottom: 24px; color: var(--slate-600); }
+    h2 { font-family: 'Playfair Display', serif; font-size: 22px; margin-top: 40px; margin-bottom: 16px; color: var(--navy); border-bottom: 1px solid var(--slate-200); padding-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+    h3 { font-size: 18px; margin-top: 24px; margin-bottom: 12px; color: var(--navy); font-weight: 700; }
+    p { margin-bottom: 24px; color: var(--slate-600); font-size: 15px; }
     ul { margin-bottom: 24px; padding-left: 24px; }
-    li { margin-bottom: 12px; color: var(--slate-600); }
+    li { margin-bottom: 12px; color: var(--slate-600); font-size: 14px; }
     .effective-date { font-weight: 600; color: var(--gold); text-align: center; display: block; margin-bottom: 40px; }
+    .legal-heavy { font-weight: 700; color: #000; text-transform: uppercase; }
     footer { padding: 40px 0; background: var(--navy); text-align: center; color: var(--slate-400); font-size: 14px; }
     footer a { color: #fff; text-decoration: none; margin: 0 15px; }
   
-    /* Mobile-Friendly Adjustments */
     @media (max-width: 768px) {
-        .container, .nav-container, .max-w-screen, .max-w, .hero-container, .footer-container { 
-            padding-left: 20px !important; 
-            padding-right: 20px !important; 
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-        .grid, .highlight-grid, .faq-grid, .pricing-grid, .assoc-grid, .city-grid { 
-            grid-template-columns: 1fr !important; 
-            display: grid !important;
-            gap: 20px !important;
-        }
-        .hero-container, .footer-container, .section-header { 
-            grid-template-columns: 1fr !important; 
-            text-align: center !important; 
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-        }
-        .hero-text, .hero-image, .footer-col {
-            width: 100% !important;
-            margin-bottom: 30px !important;
-        }
-        h1 { font-size: 28px !important; line-height: 1.2 !important; }
-        h2 { font-size: 24px !important; }
-        h3 { font-size: 20px !important; }
-        
-        /* Nav adjustments */
-        nav, .nav { height: auto !important; padding: 10px 0 !important; min-height: 60px; }
-        .nav-container, .nav .container { flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; padding: 10px 20px !important; }
-        .nav-links { flex-direction: column !important; align-items: center !important; gap: 10px !important; display: none !important; width: 100% !important; order: 3; padding: 20px 0 !important; }
-        .nav-links.active { display: flex !important; }
-        .nav-toggle { display: block !important; background: #1a3a5c; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 20px; order: 2; }
-        .btn-cta, .btn-primary { padding: 8px 16px !important; font-size: 13px !important; }
-        
-        /* Card and Feature adjustments */
-        .card, .pricing-card, .highlight-item, .faq-item, .assoc-card, .city-link { 
-            margin-bottom: 20px !important; 
-            width: 100% !important;
-            min-width: 0 !important;
-        }
-        .pricing-card.featured { transform: none !important; margin: 20px 0 !important; }
+        .content-container { padding: 40px 20px; margin: 20px; }
+        h1 { font-size: 32px; }
     }
-    
     </style>
 </head>
 <body>
@@ -91,46 +52,57 @@
   </nav>
   <div class="content-container">
     <h1>Terms of Service</h1>
-    <span class="effective-date">Last Updated: May 24, 2026</span>
+    <span class="effective-date">Last Updated: June 4, 2026</span>
     
+    <p class="legal-heavy">PLEASE READ THESE TERMS OF SERVICE CAREFULLY. THIS AGREEMENT CONTAINS A MANDATORY ARBITRATION PROVISION AND A CLASS ACTION WAIVER THAT REQUIRE THE USE OF ARBITRATION ON AN INDIVIDUAL BASIS TO RESOLVE DISPUTES, RATHER THAN JURY TRIALS OR CLASS ACTIONS.</p>
+
     <section>
-        <h2>1. Service Agreement</h2>
-        <p>By accessing the LexiFlow Enterprise Legal Suite, your law firm agrees to abide by these terms. Our software is provided to licensed legal professionals to enhance intake efficiency and document automation.</p>
+        <h2>1. Acceptance of Terms</h2>
+        <p>By accessing or using the LexiFlow Legal Suite (the "Service"), you ("User," "Firm," or "Subscriber") agree to be bound by these Terms of Service. If you do not agree to all of these terms, do not use the Service. Usage of the Service constitutes an absolute and irrevocable acceptance of these terms.</p>
     </section>
 
     <section>
-        <h2>2. Professional Responsibility</h2>
-        <p>While LexiFlow provides advanced AI-driven drafting and chronology generation, all outputs must be reviewed by a licensed attorney. LexiFlow does not provide legal advice and does not replace the professional judgment of qualified legal counsel.</p>
+        <h2>2. No Legal Advice & Attorney Responsibility</h2>
+        <p class="legal-heavy">LEXIFLOW IS NOT A LAW FIRM. THE SERVICE DOES NOT PROVIDE LEGAL ADVICE. THE AI-GENERATED OUTPUTS, INCLUDING BUT NOT LIMITED TO MEDICAL CHRONOLOGIES, DEMAND LETTERS, AND LEAD QUALIFICATIONS, ARE TOOLS FOR ASSISTING LICENSED LEGAL PROFESSIONALS.</p>
+        <p>User acknowledges that all AI outputs may contain inaccuracies, hallucinations, or omissions. <span class="legal-heavy">The User assumes 100% responsibility</span> for verifying the accuracy of all information generated by LexiFlow before using it in any legal capacity. Use of LexiFlow does not create an attorney-client relationship between LexiFlow and any person.</p>
     </section>
 
     <section>
-        <h2>3. Data Confidentiality</h2>
-        <p>We maintain strict attorney-client privilege standards. LexiFlow will never share, sell, or disclose evidentiary data to third parties, except as required for CRM synchronization explicitly authorized by the user.</p>
+        <h2>3. Absolute Disclaimer of Warranties</h2>
+        <p class="legal-heavy">THE SERVICE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. TO THE MAXIMUM EXTENT PERMITTED BY LAW, LEXIFLOW DISCLAIMS ALL WARRANTIES, INCLUDING BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
+        <p>We do not warrant that the Service will be uninterrupted, error-free, or that the results obtained from the use of the Service will be accurate or reliable. Use of the Service is at User's sole risk.</p>
     </section>
 
     <section>
-        <h2>4. Platform Access</h2>
-        <p>The standard enterprise rate is $69/month per seat, granting full access to all six modules. Usage-based fees may apply for high-volume OCR and Medical Chronology processing.</p>
+        <h2>4. Maximum Limitation of Liability</h2>
+        <p class="legal-heavy">TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL LEXIFLOW, ITS AFFILIATES, AGENTS, OR EMPLOYEES BE LIABLE FOR ANY DIRECT, INDIRECT, PUNITIVE, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR EXEMPLARY DAMAGES, INCLUDING WITHOUT LIMITATION DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA, OR OTHER INTANGIBLE LOSSES, ARISING OUT OF OR RELATING TO THE USE OF, OR INABILITY TO USE, THIS SERVICE.</p>
+        <p class="legal-heavy">UNDER NO CIRCUMSTANCES WILL LEXIFLOW BE RESPONSIBLE FOR ANY DAMAGE, LOSS, OR INJURY RESULTING FROM HACKING, TAMPERING, OR OTHER UNAUTHORIZED ACCESS OR USE OF THE SERVICE OR YOUR ACCOUNT. LEXIFLOW'S TOTAL AGGREGATE LIABILITY TO YOU FOR ANY AND ALL CLAIMS SHALL NOT EXCEED THE TOTAL AMOUNT PAID BY YOU TO LEXIFLOW IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM.</p>
+    </section>
+
+    <section>
+        <h2>5. Indemnification</h2>
+        <p>User agrees to defend, indemnify, and hold harmless LexiFlow and its employees, contractors, officers, and directors from and against any and all claims, damages, obligations, losses, liabilities, costs, or debt, and expenses (including but not limited to attorney's fees) arising from: (i) your use of and access to the Service; (ii) your violation of any term of these Terms; or (iii) any claim that your use of the Service caused damage to a third party.</p>
+    </section>
+
+    <section>
+        <h2>6. Mandatory Arbitration & Class Action Waiver</h2>
+        <p>Any dispute arising out of or relating to these Terms or the Service shall be settled by binding arbitration administered by the American Arbitration Association in accordance with its Commercial Arbitration Rules. <span class="legal-heavy">YOU AGREE THAT BY ENTERING INTO THESE TERMS, YOU AND LEXIFLOW ARE EACH WAIVING THE RIGHT TO A TRIAL BY JURY OR TO PARTICIPATE IN A CLASS ACTION.</span></p>
+    </section>
+
+    <section>
+        <h2>7. Governing Law</h2>
+        <p>These Terms shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict of law provisions.</p>
+    </section>
+
+    <section>
+        <h2>8. Modifications to Service</h2>
+        <p>LexiFlow reserves the right to modify or discontinue, temporarily or permanently, the Service (or any part thereof) with or without notice. You agree that LexiFlow shall not be liable to you or to any third party for any modification, suspension, or discontinuance of the Service.</p>
     </section>
   </div>
   <footer>
     <div class="container">
-      <p>&copy; 2026 LexiFlow Legal Suite. <a href="index.html">Home</a> <a href="pricing.html">Capabilities</a></p>
+      <p>&copy; 2026 LexiFlow Legal Suite. <a href="index.html">Home</a> <a href="privacy.html">Privacy Policy</a></p>
     </div>
   </footer>
-
-        <script>
-        // Mobile menu toggle helper
-        document.addEventListener('DOMContentLoaded', function() {
-            var toggle = document.querySelector('.nav-toggle');
-            var links = document.getElementById('navLinks');
-            if (toggle && links) {
-                toggle.addEventListener('click', function() {
-                    links.classList.toggle('active');
-                });
-            }
-        });
-        </script>
-        
 </body>
 </html>
