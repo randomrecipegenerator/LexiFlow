@@ -1,0 +1,278 @@
+import os
+import glob
+import re
+
+base_dir = '/home/team/shared/LexiFlow-Final'
+locations_dir = os.path.join(base_dir, 'locations')
+
+# GLOBAL CONSTANTS
+HEADER = """<nav><div class="nav-container">
+    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/dashboard.html">Dashboard</a></li>
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/cities.html">Areas We Serve</a></li>
+      <li><a href="/pricing.html" class="btn-cta">Get Started</a></li>
+    </ul>
+    <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')">☰</button>
+  </div></nav>"""
+
+FOOTER = """<footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LexiFlow</a>
+        <p>Enterprise-grade AI for legal intake and lead qualification. Built for the modern attorney.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-intake-agent.html">LexiFlow Intake</a></li>
+          <li><a href="/voice-ai-receptionist.html">Voice AI</a></li>
+          <li><a href="/ai-medical-chronologies.html">Medical Review</a></li>
+          <li><a href="/auto-document-drafter.html">Doc Automation</a></li>
+          <li><a href="/depolens-ai.html">DepoLens AI</a></li>
+          <li><a href="/settlement-estimator.html">Settlement AI</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+          <li><a href="#">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Security</h4>
+        <div style="font-size: 24px; display: flex; gap: 16px;">
+          <i class="bi bi-shield-lock"></i>
+          <i class="bi bi-safe"></i>
+          <i class="bi bi-fingerprint"></i>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 LexiFlow AI. All rights reserved.
+    </div>
+  </footer>"""
+
+STYLE = """
+    :root {
+      --navy: #0f172a; --gold: #c9a84c; --gold-light: #e2c96e;
+      --slate-50: #f8fafc; --slate-100: #f1f5f9; --slate-200: #e2e8f0; --slate-400: #94a3b8; --slate-600: #475569;
+      --slate-900: #0f172a; --max-width: 1200px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--slate-900); line-height: 1.6; padding-top: 80px; }
+    
+    nav { position: fixed; top: 0; width: 100%; height: 80px; background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--slate-200); z-index: 1000; display: flex; align-items: center; }
+    .nav-container { max-width: var(--max-width); margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--navy); text-decoration: none; display: flex; align-items: center; gap: 12px; }
+    .logo span { background: var(--navy); color: var(--gold); padding: 4px 8px; border-radius: 4px; font-size: 18px; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; }
+    .nav-links a:hover { color: var(--navy); }
+    .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
+    .nav-toggle { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--navy); }
+
+    .hero { padding: 80px 0; background: radial-gradient(40% 40% at 50% 0%, rgba(201, 168, 76, 0.05) 0%, transparent 100%); text-align: center; }
+    .hero-medmal { background: radial-gradient(40% 40% at 50% 0%, rgba(239, 68, 68, 0.05) 0%, transparent 100%); }
+    .max-w-screen { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 24px; line-height: 1.2; color: var(--navy); }
+    .hero h1 span { color: var(--gold); }
+    .hero p { font-size: 18px; color: var(--slate-600); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin: 64px 0; }
+    .feature-card { padding: 32px; background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 24px; transition: all 0.2s; }
+    .feature-card:hover { transform: translateY(-4px); border-color: var(--gold); background: white; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); }
+    .feature-card i { font-size: 32px; color: var(--gold); margin-bottom: 20px; display: block; }
+    .feature-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 12px; color: var(--navy); }
+    .feature-card p { font-size: 15px; color: var(--slate-600); }
+
+    .ethics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 32px; }
+    .ethics-card { display: block; padding: 32px; background: white; border: 1px solid var(--slate-200); border-radius: 24px; text-decoration: none; transition: all 0.2s; }
+    .ethics-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); }
+    .ethics-card h4 { color: var(--navy); font-size: 20px; margin-bottom: 12px; font-family: 'Playfair Display', serif; }
+    .ethics-card p { color: var(--slate-600); font-size: 14px; line-height: 1.6; }
+
+    .cta-banner { background: var(--navy); color: white; border-radius: 32px; padding: 64px; text-align: center; margin: 80px 0; position: relative; overflow: hidden; }
+    .cta-banner h2 { font-family: 'Playfair Display', serif; font-size: 36px; margin-bottom: 16px; }
+    .cta-banner p { color: var(--slate-400); margin-bottom: 32px; font-size: 18px; }
+
+    @media (max-width: 768px) {
+      .nav-container { padding: 0 20px; }
+      .nav-links { display: none; position: absolute; top: 80px; left: 0; width: 100%; background: #fff; flex-direction: column; padding: 20px; gap: 20px; border-bottom: 1px solid var(--slate-200); }
+      .nav-links.active { display: flex; }
+      .nav-toggle { display: block; }
+      .hero h1 { font-size: 32px; }
+      .cta-banner { padding: 40px 20px; border-radius: 0; }
+    }
+"""
+
+ETHICS_SECTION = """
+<section style="background: var(--slate-50); padding: 80px 0; border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200); margin: 80px 0;">
+    <div class="max-w-screen">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; color: var(--navy); margin-bottom: 8px;">Legal AI Ethics & Compliance Resources</h2>
+        <p style="color: var(--slate-600); margin-bottom: 32px;">Regulatory frameworks and adoption guides for modern law firms.</p>
+        <div class="ethics-grid">
+            <a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake.html" class="ethics-card">
+                <h4>Pennsylvania AI Ethics Guide</h4>
+                <p>A practical framework for PA trial lawyers adopting AI in legal intake and merit review.</p>
+            </a>
+            <a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake.html" class="ethics-card">
+                <h4>Illinois AI Ethics Guide</h4>
+                <p>Ethics and Section 2-622 compliance for Illinois firm AI adoption and automated screening.</p>
+            </a>
+            <a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake.html" class="ethics-card">
+                <h4>New York AI Ethics Guide</h4>
+                <p>Navigating 22 NYCRR Part 1200 and AI in New York Medical Malpractice intake.</p>
+            </a>
+        </div>
+    </div>
+</section>
+"""
+
+def clean_place_name(filename):
+    # e.g. "medmal-philadelphia.html" -> "Philadelphia"
+    # e.g. "index.html" in /texas/ -> "Texas" (handled by caller)
+    name = filename.replace('.html', '').replace('-', ' ').replace('medmal ', '').title()
+    if name == 'Nyc': return 'New York City'
+    if name == 'La': return 'Los Angeles'
+    if name == 'Washington Dc': return 'Washington, D.C.'
+    return name
+
+def harden_page(filepath):
+    with open(filepath, 'r') as f:
+        content = f.read()
+    
+    filename = os.path.basename(filepath)
+    is_medmal = 'medmal-' in filename
+    is_state = filename == 'index.html'
+    
+    # Identify Place Name
+    if is_state:
+        # parent directory name is the state
+        place_name = os.path.basename(os.path.dirname(filepath)).replace('-', ' ').title()
+    else:
+        place_name = clean_place_name(filename)
+
+    # 1. Extract SEO Tags
+    def extract_tag(pattern, text, default=""):
+        match = re.search(pattern, text, re.DOTALL | re.IGNORECASE)
+        return match.group(1).strip() if match else default
+
+    title = extract_tag(r'<title>(.*?)</title>', content, f"Legal AI Intake in {place_name} | LexiFlow")
+    description = extract_tag(r'<meta name="description" content="(.*?)"', content, f"LexiFlow provides advanced law firm intake AI and personal injury lead qualification in {place_name}. Automate your intake 24/7.")
+    canonical = extract_tag(r'<link rel="canonical" href="(.*?)"', content, f"https://lexiflow.co/locations/{os.path.relpath(filepath, locations_dir).replace(os.sep, '/')}")
+    
+    # Extract JSON-LD scripts
+    json_lds = re.findall(r'<script type="application/ld\+json">(.*?)</script>', content, re.DOTALL)
+    json_ld_blocks = "".join([f'<script type="application/ld+json">{j}</script>' for j in json_lds])
+
+    # 2. Page Specific Copy
+    if is_medmal:
+        hero_tag = '<div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px;"><i class="bi bi-exclamation-triangle"></i> Specialized Medical Merit Review</div>'
+        hero_title = f"Medical Malpractice AI Intake <span>in {place_name}</span>"
+        hero_desc = f"Screen high-stakes surgical error and negligence cases in minutes. LexiFlow's MeritScan™ technology identifies deviations from standard of care for {place_name} trial lawyers."
+        cta_text = f"Is your {place_name} MedMal firm losing leads?"
+        feature_1_title = "MeritScan™ Analysis"
+        feature_1_desc = f"Identify negligence markers and deviations from standard of care specific to {place_name} medical standards."
+    else:
+        hero_tag = f'<div style="display: inline-block; padding: 8px 16px; background: rgba(201, 168, 76, 0.1); color: var(--gold); border-radius: 100px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px;">Now Serving {place_name}</div>'
+        hero_title = f"Law Firm Intake AI & Lead Qualification <span>in {place_name}</span>"
+        hero_desc = f"LexiFlow helps {place_name} firms capture more high-value cases with 24/7 Reasoning AI. Convert every inbound inquiry with attorney-level precision."
+        cta_text = f"Is your {place_name} firm losing leads?"
+        feature_1_title = "Local Precision"
+        feature_1_desc = f"Our AI is tuned for {place_name} legal standards, ensuring every lead is qualified with the right jurisdictional context."
+
+    # 3. Assemble New Content
+    new_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    <meta name="description" content="{description}">
+    <link rel="canonical" href="{canonical}">
+    <link rel="icon" type="image/svg+xml" href="/branding/logo-icon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>{STYLE}</style>
+    {json_ld_blocks}
+</head>
+<body>
+    {HEADER}
+
+    <main>
+        <section class="hero {'hero-medmal' if is_medmal else ''}">
+            <div class="max-w-screen">
+                {hero_tag}
+                <h1>{hero_title}</h1>
+                <p>{hero_desc}</p>
+                <div style="margin-top: 40px; display: flex; gap: 16px; justify-content: center;">
+                    <a href="/pricing.html" class="btn-cta">Get Started</a>
+                    <a href="/roi-calculator.html" class="city-link" style="background: white;">Calculate ROI</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-screen">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="bi bi-geo-alt"></i>
+                    <h3>{feature_1_title}</h3>
+                    <p>{feature_1_desc}</p>
+                </div>
+                <div class="feature-card">
+                    <i class="bi bi-clock-history"></i>
+                    <h3>24/7 Engagement</h3>
+                    <p>Don't let {place_name} competitors take your leads. LexiFlow responds in seconds, even during nights and weekends.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="bi bi-sync"></i>
+                    <h3>Seamless CRM Sync</h3>
+                    <p>Direct integration with Filevine, Clio, and LeadDock. Push qualified {place_name} leads directly into your workflow.</p>
+                </div>
+            </div>
+
+            <div class="cta-banner">
+                <h2>{cta_text}</h2>
+                <p>Stop wasting billable hours on unqualified calls. Deploy Reasoning AI today.</p>
+                <a href="/pricing.html" class="btn-cta" style="background: white; color: var(--navy);">View Pricing & Plans</a>
+            </div>
+            
+            <div style="padding: 40px 0; border-top: 1px solid var(--slate-100);">
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 16px;">Automated Lead Qualification in {place_name}</h2>
+                <p style="color: var(--slate-600); font-size: 16px; max-width: 800px;">
+                    For law firms in {place_name}, responsiveness is the key to conversion. LexiFlow provides a 24/7 <strong>AI intake agent</strong> that qualifies leads, performs medical merit reviews, and schedules consultations. Whether you handle personal injury, medical malpractice, or mass torts, our platform ensures your firm remains competitive in the {place_name} market.
+                </p>
+            </div>
+        </section>
+
+        {ETHICS_SECTION}
+    </main>
+
+    {FOOTER}
+
+    <script>
+        document.querySelector('.nav-toggle').addEventListener('click', function() {{
+            document.getElementById('navLinks').classList.toggle('active');
+        }});
+        function toggleConsultation(label) {{ alert('Request initiated: ' + label); }}
+    </script>
+</body>
+</html>"""
+
+    with open(filepath, 'w') as f:
+        f.write(new_html)
+
+# Execute crawl
+count = 0
+for root, dirs, files in os.walk(locations_dir):
+    for file in files:
+        if file.endswith('.html'):
+            harden_page(os.path.join(root, file))
+            count += 1
+
+print(f"Successfully hardened {count} location pages with Premium Template.")
