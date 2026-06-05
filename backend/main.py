@@ -9,6 +9,7 @@ import httpx
 import json
 
 import models, database, ai_engine, esign_engine, integration_engine, reception_engine, utils, reports
+import enterprise_api
 from database import engine, get_db
 
 def create_audit_log(db: Session, action: str, lead_id: int = None, details: str = None, firm_id: int = None):
@@ -48,6 +49,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include routers from other modules
+app.include_router(enterprise_api.router)
 
 # Indentation fix
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
