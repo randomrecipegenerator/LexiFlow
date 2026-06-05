@@ -13,52 +13,89 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   
   <script type="application/ld+json">
-    {
-      "@context": "https://schema.org/",
-      "@type": "Product",
-      "name": "LexiFlow Legal Suite",
-      "image": [
-        "https://lexiflow.co/branding/logo-icon.svg"
-       ],
-      "description": "LexiFlow automates law firm intake and lead qualification using Reasoning AI. Replaces fragmented legal tech tools with one integrated platform.",
-      "sku": "LF-SUITE-001",
-      "brand": {
-        "@type": "Brand",
-        "name": "LexiFlow"
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "LexiFlow Legal Suite",
+  "image": [
+    "https://lexiflow.co/branding/logo-main.png"
+  ],
+  "description": "LexiFlow automates law firm intake and lead qualification using Reasoning AI. Replaces fragmented legal tech tools with one integrated platform.",
+  "sku": "LF-SUITE-001",
+  "brand": {
+    "@type": "Brand",
+    "name": "LexiFlow"
+  },
+  "offers": {
+    "@type": "AggregateOffer",
+    "url": "https://lexiflow.co/pricing.html",
+    "priceCurrency": "USD",
+    "lowPrice": "69",
+    "highPrice": "199",
+    "offerCount": "2",
+    "availability": "https://schema.org/InStock",
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "applicableCountry": "US",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnPeriod",
+      "merchantReturnDays": 14,
+      "returnMethod": "https://schema.org/ReturnByMail",
+      "returnFees": "https://schema.org/FreeReturn"
+    },
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingRate": {
+        "@type": "MonetaryAmount",
+        "value": "0",
+        "currency": "USD"
       },
-      "offers": {
-        "@type": "AggregateOffer",
-        "url": "https://lexiflow.co/pricing.html",
-        "priceCurrency": "USD",
-        "lowPrice": "69",
-        "highPrice": "199",
-        "offerCount": "2",
-        "availability": "https://schema.org/InStock"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "bestRating": "5",
-        "worstRating": "1",
-        "ratingCount": "42"
-      },
-      "review": [
+      "shippingDestination": [
         {
-          "@type": "Review",
-          "reviewRating": {
-            "@type": "Rating",
-            "ratingValue": "5",
-            "bestRating": "5"
-          },
-          "author": {
-            "@type": "Person",
-            "name": "Robert Clifford"
-          },
-          "reviewBody": "LexiFlow transformed our intake process. The AI medical merit review is a game changer for plaintiff firms."
+          "@type": "DefinedRegion",
+          "addressCountry": "US"
         }
-      ]
+      ],
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 0,
+          "maxValue": 0,
+          "unitCode": "DAY"
+        },
+        "transitTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 0,
+          "maxValue": 0,
+          "unitCode": "DAY"
+        }
+      }
     }
-  </script>
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "42"
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Robert Clifford"
+      },
+      "reviewBody": "LexiFlow transformed our intake process. The AI medical merit review is a game changer for plaintiff firms."
+    }
+  ]
+}
+</script>
 
   <style>
     :root {

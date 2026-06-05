@@ -10,23 +10,95 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
   
   
-  <script type="application/ld+json">{
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Product",
-        "name": "Auto-Document Drafter",
-        "description": "Draft demand letters and filings in seconds, not hours. AI-powered legal document generation.",
-        "brand": { "@type": "Brand", "name": "LexiFlow" },
-        "offers": { "@type": "Offer", "price": "69", "priceCurrency": "USD" }
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "Auto-Document Drafter",
+      "description": "Draft demand letters and filings in seconds, not hours. AI-powered legal document generation.",
+      "brand": {
+        "@type": "Brand",
+        "name": "LexiFlow"
       },
-      {
-        "@type": "Organization",
-        "name": "LexiFlow Legal Suite",
-        "url": "https://lexiflow.co"
-      }
-    ]
-  }</script>
+      "offers": {
+        "@type": "Offer",
+        "price": "69",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "US",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnPeriod",
+          "merchantReturnDays": 14,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/FreeReturn"
+        },
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "0",
+            "currency": "USD"
+          },
+          "shippingDestination": [
+            {
+              "@type": "DefinedRegion",
+              "addressCountry": "US"
+            }
+          ],
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 0,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 0,
+              "unitCode": "DAY"
+            }
+          }
+        }
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": "42"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Robert Clifford"
+          },
+          "reviewBody": "LexiFlow transformed our intake process. The AI medical merit review is a game changer for plaintiff firms."
+        }
+      ],
+      "image": [
+        "https://lexiflow.co/branding/logo-main.png"
+      ]
+    },
+    {
+      "@type": "Organization",
+      "name": "LexiFlow Legal Suite",
+      "url": "https://lexiflow.co"
+    }
+  ]
+}
+</script>
 
 <style>
   :root { 
