@@ -1,0 +1,31 @@
+      <nav><div class="nav-container">
+    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/blog/index.html">Blog</a></li>
+      <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+      <li><a href="/cities.html">Areas We Serve</a></li>
+      <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
+    </ul>
+    <button class="nav-toggle">☰</button>
+  </div></nav>
+  
+    
+  
+  
+  
+
+
+    <main>
+        <section class="hero ">
+            <div class="max-w-screen">
+                <div style="display: inline-block; padding: 8px 16px; background: rgba(201, 168, 76, 0.1); color: var(--gold); border-radius: 100px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px;">Now Serving Phoenix</div>
+                <h1>Law Firm Intake AI & Lead Qualification <span>in Phoenix</span></h1>
+                <p>LexiFlow helps Phoenix firms capture more high-value cases with 24/7 Reasoning AI. Convert every inbound inquiry with attorney-level precision.</p>
+                <div style="margin-top: 40px; display: flex; gap: 16px; justify-content: center;">
+                    <a href="/pricing.html" class="btn-cta">Get Started</a>
+                    <a href="/roi-calculator.html" class="city-link" style="background: white;">Calculate ROI</a>
+                </div>
+            </div>
+        </section>
+
