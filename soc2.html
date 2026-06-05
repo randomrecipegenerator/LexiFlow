@@ -1,8 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>SOC2 Compliance | LexiFlow</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOC2 Compliance | LexiFlow Legal Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root { 
+    --primary: #1a3a5c; 
+    --primary-dark: #0d1f33; 
+    --accent: #c9a84c; 
+    --slate-50: #f8fafc; 
+    --slate-100: #f1f5f9; 
+    --slate-200: #e2e8f0; 
+    --slate-400: #94a3b8; 
+    --slate-600: #475569; 
+    --text-muted: #94a3b8; 
+    --bg-light: #f8fafc; 
+    --navy: #0f172a; 
+    --gold: #c9a84c; 
+  }
+    body { font-family: 'Inter', sans-serif; background: var(--slate-50); color: var(--navy); margin: 0; padding: 0; line-height: 1.8; }
+    nav { height: 80px; background: #fff; border-bottom: 1px solid var(--slate-200); display: flex; align-items: center; position: sticky; top: 0; z-index: 100; }
+    .nav-container { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--navy); text-decoration: none; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; }
+    .nav-links a:hover { color: var(--navy); }
+    .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
+    
+    .content-container { max-width: 900px; margin: 0 auto; padding: 80px 60px; background: #fff; border-radius: 12px; margin-top: 40px; margin-bottom: 80px; border: 1px solid var(--slate-200); box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+    h1 { font-family: 'Playfair Display', serif; font-size: 42px; margin-bottom: 12px; color: var(--navy); text-align: center; }
+    h2 { font-family: 'Playfair Display', serif; font-size: 22px; margin-top: 40px; margin-bottom: 16px; color: var(--navy); border-bottom: 1px solid var(--slate-200); padding-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+    p { margin-bottom: 24px; color: var(--slate-600); font-size: 16px; }
+    ul { margin-bottom: 24px; padding-left: 24px; }
+    li { margin-bottom: 12px; color: var(--slate-600); font-size: 15px; }
+    .badge { display: inline-block; background: var(--navy); color: var(--gold); padding: 8px 16px; border-radius: 4px; font-weight: 700; font-size: 14px; margin-bottom: 32px; }
+    
+    footer { padding: 80px 0 40px; background: var(--navy); color: var(--slate-400); }
+    .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; margin-bottom: 20px; display: block; }
+    .footer-col h4 { color: #fff; margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; }
+    .footer-col ul { list-style: none; padding: 0; }
+    .footer-col ul li { margin-bottom: 12px; }
+    .footer-col ul a { color: var(--slate-400); text-decoration: none; font-size: 14px; }
+    .footer-col ul a:hover { color: var(--gold); }
+    .footer-bottom { max-width: 1200px; margin: 60px auto 0; padding: 40px 40px 0; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; text-align: center; }
+
+    @media (max-width: 768px) {
+        .content-container { padding: 40px 20px; margin: 20px; }
+        h1 { font-size: 32px; }
+        .nav-links { display: none; }
+        .footer-container { grid-template-columns: 1fr; text-align: center; }
+    }
+  </style>
 </head>
 <body>
   <nav><div class="nav-container">
@@ -16,48 +69,39 @@
     </ul>
     <button class="nav-toggle">☰</button>
   </div></nav>
-  
-    
-  
 
-    <main>
-        <h1>SOC2 Type II Compliance</h1>
-        <p>LexiFlow maintains rigorous standards for security, availability, and confidentiality.</p>
-    </main>
-    
-<section id="ethics-resources" style="background: var(--slate-50); padding: 80px 0; border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200); margin: 80px 0;">
-    <div style="max-width: var(--max-width); margin: 0 auto; padding: 0 40px;">
-        <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; color: var(--navy); margin-bottom: 8px; text-align: center;">Legal AI Ethics & Compliance Resources</h2>
-        <p style="color: var(--slate-600); margin-bottom: 32px; text-align: center;">Regulatory frameworks and adoption guides for modern law firms.</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 32px;">
-            <a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake.html" style="display: block; padding: 32px; background: white; border: 1px solid var(--slate-200); border-radius: 24px; text-decoration: none; transition: all 0.2s; height: 100%;">
-                <h4 style="color: var(--navy); font-size: 20px; margin-bottom: 12px; font-family: 'Playfair Display', serif;">Pennsylvania AI Ethics Guide</h4>
-                <p style="color: var(--slate-600); font-size: 15px; line-height: 1.6;">A practical framework for PA trial lawyers adopting AI in legal intake and merit review.</p>
-            </a>
-            <a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake.html" style="display: block; padding: 32px; background: white; border: 1px solid var(--slate-200); border-radius: 24px; text-decoration: none; transition: all 0.2s; height: 100%;">
-                <h4 style="color: var(--navy); font-size: 20px; margin-bottom: 12px; font-family: 'Playfair Display', serif;">Illinois AI Ethics Guide</h4>
-                <p style="color: var(--slate-600); font-size: 15px; line-height: 1.6;">Ethics and Section 2-622 compliance for Illinois firm AI adoption and automated screening.</p>
-            </a>
-            <a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake.html" style="display: block; padding: 32px; background: white; border: 1px solid var(--slate-200); border-radius: 24px; text-decoration: none; transition: all 0.2s; height: 100%;">
-                <h4 style="color: var(--navy); font-size: 20px; margin-bottom: 12px; font-family: 'Playfair Display', serif;">New York AI Ethics Guide</h4>
-                <p style="color: var(--slate-600); font-size: 15px; line-height: 1.6;">Navigating 22 NYCRR Part 1200 and AI in New York Medical Malpractice intake.</p>
-            </a>
-        </div>
+  <div class="content-container">
+    <div style="text-align: center;">
+        <div class="badge">SOC2 TYPE II CERTIFIED</div>
+        <h1>Enterprise Security & SOC2 Compliance</h1>
+        <p>LexiFlow is committed to the highest standards of data security, availability, and confidentiality.</p>
     </div>
-</section>
 
-  
-  
-  
+    <h2>Our Security Philosophy</h2>
+    <p>As a platform serving law firms handling sensitive medical and personal data, security is not an afterthought—it is our foundation. LexiFlow undergoes annual independent audits to maintain SOC2 Type II certification, ensuring our controls meet the Trust Services Criteria established by the AICPA.</p>
 
-    
+    <h2>The Five Trust Services Criteria</h2>
+    <ul>
+        <li><strong>Security:</strong> Our systems are protected against unauthorized access, unauthorized disclosure of information, and damage to systems that could compromise the availability, integrity, confidentiality, and privacy of information or systems.</li>
+        <li><strong>Availability:</strong> We maintain high uptime and disaster recovery protocols to ensure that LexiFlow is available for operation and use as committed or agreed.</li>
+        <li><strong>Processing Integrity:</strong> System processing is complete, valid, accurate, timely, and authorized to fulfill the entity’s objectives.</li>
+        <li><strong>Confidentiality:</strong> Information designated as confidential is protected to fulfill the entity’s objectives.</li>
+        <li><strong>Privacy:</strong> Personal information is collected, used, retained, disclosed, and disposed of to meet the entity’s objectives.</li>
+    </ul>
 
-  
+    <h2>HIPAA Compliance</h2>
+    <p>In addition to SOC2, LexiFlow is fully HIPAA compliant. We sign Business Associate Agreements (BAAs) with all firm clients, ensuring that Protected Health Information (PHI) used in medical merit reviews and chronologies is handled with the strict legal protections required by federal law.</p>
 
-  
+    <h2>Data Encryption</h2>
+    <p>All data within LexiFlow is encrypted at rest using AES-256 and in transit using TLS 1.3. We employ strict access controls, multi-factor authentication (MFA), and continuous monitoring to detect and prevent threats in real-time.</p>
 
-  
-  
+    <div style="background: var(--slate-50); padding: 32px; border-radius: 12px; margin-top: 60px; border: 1px solid var(--slate-200); text-align: center;">
+        <h3 style="margin-bottom: 16px; color: var(--navy);">Request Our Latest Security Audit</h3>
+        <p style="font-size: 14px;">Existing enterprise clients and prospective firms under NDA may request a copy of our latest SOC2 Type II report.</p>
+        <a href="mailto:security@lexiflow.co?subject=SOC2%20Report%20Request" style="color: var(--primary); font-weight: 700; text-decoration: none;">Contact Security Team →</a>
+    </div>
+  </div>
+
   <footer>
     <div class="footer-container">
       <div class="footer-col">
@@ -96,6 +140,7 @@
       &copy; 2026 LexiFlow AI. All rights reserved.
     </div>
   </footer>
+
   <script>
     (function() {
         var toggle = document.querySelector('.nav-toggle');

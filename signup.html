@@ -1,64 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Started — LexiFlow Legal Suite</title>
-    <meta name="description" content="Start your 14-day free trial of LexiFlow. Replace your legal intake stack with Reasoning AI.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Started | LexiFlow Legal Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root { 
+    --primary: #1a3a5c; 
+    --primary-dark: #0d1f33; 
+    --accent: #c9a84c; 
+    --slate-50: #f8fafc; 
+    --slate-100: #f1f5f9; 
+    --slate-200: #e2e8f0; 
+    --slate-400: #94a3b8; 
+    --slate-600: #475569; 
+    --text-muted: #94a3b8; 
+    --bg-light: #f8fafc; 
+    --navy: #0f172a; 
+    --gold: #c9a84c; 
+  }
+    body { font-family: 'Inter', sans-serif; background: var(--slate-50); color: var(--navy); margin: 0; padding: 0; line-height: 1.8; }
+    nav { height: 80px; background: #fff; border-bottom: 1px solid var(--slate-200); display: flex; align-items: center; position: sticky; top: 0; z-index: 100; }
+    .nav-container { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--navy); text-decoration: none; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; }
+    .nav-links a:hover { color: var(--navy); }
+    .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
     
-    <link rel="icon" type="image/svg+xml" href="/branding/logo-icon.svg">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    .hero { padding: 100px 0; text-align: center; background: var(--navy); color: white; }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 40px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 48px; margin-bottom: 24px; }
+    p { font-size: 18px; color: var(--slate-400); margin-bottom: 40px; }
     
-    <style>
-        :root {
-            --navy: #0f172a; --gold: #c9a84c; --gold-light: #e2c96e;
-            --slate-50: #f8fafc; --slate-100: #f1f5f9; --slate-200: #e2e8f0; --slate-400: #94a3b8; --slate-600: #475569;
-            --slate-900: #0f172a; --max-width: 1200px;
+    .signup-card { background: white; padding: 60px; border-radius: 24px; border: 1px solid var(--slate-200); margin-top: -60px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); text-align: center; }
+    .signup-card h2 { color: var(--navy); margin-bottom: 16px; font-family: 'Playfair Display', serif; }
+    .signup-card p { color: var(--slate-600); font-size: 16px; margin-bottom: 32px; }
+    .btn-large { display: inline-block; background: var(--gold); color: var(--navy); padding: 18px 48px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 18px; transition: all 0.2s; }
+    .btn-large:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(201, 168, 76, 0.2); }
+
+    footer { padding: 80px 0 40px; background: var(--navy); color: var(--slate-400); }
+    .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; margin-bottom: 20px; display: block; }
+    .footer-col h4 { color: #fff; margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; }
+    .footer-col ul { list-style: none; padding: 0; }
+    .footer-col ul li { margin-bottom: 12px; }
+    .footer-col ul a { color: var(--slate-400); text-decoration: none; font-size: 14px; }
+    .footer-col ul a:hover { color: var(--gold); }
+    .footer-bottom { max-width: 1200px; margin: 60px auto 0; padding: 40px 40px 0; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; text-align: center; }
+
+    @media (max-width: 768px) {
+        .signup-card { padding: 40px 20px; margin: 0 20px; }
+        h1 { font-size: 32px; }
+        .nav-links { display: none; }
+        .footer-container { grid-template-columns: 1fr; text-align: center; }
+    }
+  
+    /* Mobile-Friendly Adjustments */
+    @media (max-width: 768px) {
+        .container, .nav-container, .max-w-screen, .max-w, .hero-container, .footer-container { 
+            padding-left: 20px !important; 
+            padding-right: 20px !important; 
+            width: 100% !important;
+            max-width: 100% !important;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--slate-50); color: var(--slate-900); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
-        
-        .signup-container { max-width: 1000px; margin: 60px auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; background: white; border-radius: 32px; overflow: hidden; box-shadow: 0 40px 100px -20px rgba(0,0,0,0.1); border: 1px solid var(--slate-200); }
-        
-        .signup-info { background: var(--navy); color: white; padding: 60px; display: flex; flex-direction: column; justify-content: center; }
-        .signup-form-col { padding: 60px; }
-        
-        .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: white; text-decoration: none; display: flex; align-items: center; gap: 12px; margin-bottom: 40px; }
-        .logo span { background: white; color: var(--navy); padding: 4px 8px; border-radius: 4px; font-size: 18px; }
-        
-        .signup-info h1 { font-family: 'Playfair Display', serif; font-size: 36px; line-height: 1.2; margin-bottom: 24px; }
-        .signup-info p { color: var(--slate-400); font-size: 18px; margin-bottom: 40px; }
-        
-        .feature-item { display: flex; gap: 16px; margin-bottom: 24px; align-items: start; }
-        .feature-item i { color: var(--gold); font-size: 20px; }
-        .feature-item div h4 { font-size: 15px; margin-bottom: 4px; }
-        .feature-item div p { font-size: 13px; color: var(--slate-400); margin-bottom: 0; }
-        
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--slate-600); margin-bottom: 8px; }
-        .form-group input, .form-group select { width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--slate-200); background: var(--slate-50); font-family: inherit; font-size: 15px; outline: none; transition: all 0.2s; }
-        .form-group input:focus { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.1); }
-        
-        .btn-submit { display: block; width: 100%; padding: 16px; background: var(--navy); color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.2s; margin-top: 32px; }
-        .btn-submit:hover { background: #1e293b; transform: translateY(-2px); }
-        
-        .social-signup { display: flex; gap: 12px; margin-bottom: 32px; }
-        .btn-social { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border: 1px solid var(--slate-200); border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; color: var(--navy); transition: all 0.2s; }
-        .btn-social:hover { background: var(--slate-50); }
-        
-        .divider { display: flex; align-items: center; gap: 12px; color: var(--slate-400); font-size: 12px; margin-bottom: 32px; }
-        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--slate-200); }
-        
-        @media (max-width: 868px) {
-            .signup-container { grid-template-columns: 1fr; margin: 0; border-radius: 0; height: auto; }
-            .signup-info { padding: 40px; }
-            .signup-form-col { padding: 40px; }
+        .grid, .highlight-grid, .faq-grid, .pricing-grid, .assoc-grid, .city-grid { 
+            grid-template-columns: 1fr !important; 
+            display: grid !important;
+            gap: 20px !important;
         }
+        .hero-container, .footer-container, .section-header { 
+            grid-template-columns: 1fr !important; 
+            text-align: center !important; 
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+        .hero-text, .hero-image, .footer-col {
+            width: 100% !important;
+            margin-bottom: 30px !important;
+        }
+        h1 { font-size: 28px !important; line-height: 1.2 !important; }
+        h2 { font-size: 24px !important; }
+        h3 { font-size: 20px !important; }
+        
+        /* Nav adjustments */
+        nav, .nav { height: auto !important; padding: 10px 0 !important; min-height: 60px; }
+        .nav-container, .nav .container { flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; padding: 10px 20px !important; }
+        .nav-links { flex-direction: column !important; align-items: center !important; gap: 10px !important; display: none !important; width: 100% !important; order: 3; padding: 20px 0 !important; }
+        .nav-links.active { display: flex !important; }
+        .nav-toggle { display: block !important; background: #1a3a5c; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 20px; order: 2; }
+        .btn-cta, .btn-primary { padding: 8px 16px !important; font-size: 13px !important; }
+        
+        /* Card and Feature adjustments */
+        .card, .pricing-card, .highlight-item, .faq-item, .assoc-card, .city-link { 
+            margin-bottom: 20px !important; 
+            width: 100% !important;
+            min-width: 0 !important;
+        }
+        .pricing-card.featured { transform: none !important; margin: 20px 0 !important; }
+    }
+    
     </style>
 </head>
 <body>
-  <nav><div class="nav-container">
+    <nav><div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing.html">Pricing</a></li>
@@ -69,96 +118,26 @@
     </ul>
     <button class="nav-toggle">☰</button>
   </div></nav>
-  
-    <div class="signup-container">
-        <div class="signup-info">
-            <a href="/" class="logo"><span>LF</span> LexiFlow</a>
-            <h1>Start your 14-day free trial.</h1>
-            <p>Join the future of legal intelligence. Replace manual workflows with Reasoning AI.</p>
-            
-            <div class="feature-item">
-                <i class="bi bi-shield-check"></i>
-                <div>
-                    <h4>Enterprise-Grade Security</h4>
-                    <p>HIPAA compliant, SOC2 certified, and encrypted end-to-end.</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <i class="bi bi-lightning-charge"></i>
-                <div>
-                    <h4>Instant Setup</h4>
-                    <p>Integrate with Clio or Filevine in under 5 minutes.</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <i class="bi bi-graph-up"></i>
-                <div>
-                    <h4>Measurable ROI</h4>
-                    <p>Typical firms reduce intake costs by 60% in the first 30 days.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="signup-form-col">
-            <div class="social-signup">
-                <a href="#" class="btn-social"><i class="bi bi-google"></i> Google</a>
-                <a href="#" class="btn-social"><i class="bi bi-microsoft"></i> Microsoft</a>
-            </div>
-            
-            <div class="divider">or continue with email</div>
-            
-            <form action="/dashboard.html" method="GET">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                    <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" placeholder="John" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" placeholder="Doe" required>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Work Email</label>
-                    <input type="email" placeholder="john@firm.com" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Firm Name</label>
-                    <input type="text" placeholder="Doe & Associates" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Practice Area</label>
-                    <select required>
-                        <option value="">Select an area...</option>
-                        <option>Personal Injury</option>
-                        <option>Medical Malpractice</option>
-                        <option>Mass Tort</option>
-                        <option>Family Law</option>
-                        <option>Other</option>
-                    </select>
-                </div>
-                
-                <div class="form-group" style="margin-top: 10px;">
-                    <label style="display: flex; align-items: center; gap: 10px; font-weight: 400; color: var(--slate-400);">
-                        <input type="checkbox" style="width: auto;" required>
-                        I agree to the Terms of Service and Privacy Policy.
-                    </label>
-                </div>
-                
-                <button type="submit" class="btn-submit">Start Free Trial</button>
-            </form>
-            
-            <p style="text-align: center; font-size: 13px; color: var(--slate-400); margin-top: 32px;">
-                Already have an account? <a href="/dashboard.html" style="color: var(--navy); font-weight: 600; text-decoration: none;">Log in</a>
-            </p>
+
+  <header class="hero">
+    <div class="container">
+        <h1>Transform Your Firm with AI</h1>
+        <p>Join 200+ plaintiff-side firms using LexiFlow to automate intake and medical merit review.</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="signup-card">
+        <h2>Start Your 14-Day Free Trial</h2>
+        <p>Experience the full power of LexiFlow. No credit card required to start. Standard suite pricing just <strong>$69/month</strong> after trial.</p>
+        <a href="mailto:leads@lexiflow.co?subject=LexiFlow%20Free%20Trial%20Request&body=Hello%2C%20we're%20interested%20in%20starting%20a%2014-day%20free%20trial%20for%20LexiFlow.%20Firm%20Name%3A" class="btn-large">Request Access via Email →</a>
+        <div style="margin-top: 24px; font-size: 14px; color: var(--slate-400);">
+            <i class="bi bi-shield-check"></i> HIPAA Compliant & SOC2 Certified
         </div>
     </div>
-  
-  
-  <footer>
+  </div>
+
+    <footer>
     <div class="footer-container">
       <div class="footer-col">
         <a href="/" class="footer-logo">LexiFlow</a>
