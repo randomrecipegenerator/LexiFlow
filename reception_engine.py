@@ -183,7 +183,7 @@ async def handle_postmark_inbound(payload: dict, db: Session):
                 if template:
                     # Comprehensive variable replacement
                     first_name = from_name.split()[0] if from_name else "there"
-                    intake_url = f"https://lexiflow.co/demo?lead_id={lead.id}" # Base URL could be config-driven later
+                    intake_url = f"https://lexiflow.co/demo.html?lead_id={lead.id}" # Base URL could be config-driven later
                     tracking_id = str(lead.id)
                     
                     reply_body = template

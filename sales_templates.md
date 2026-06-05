@@ -2,7 +2,7 @@
 ## Target: Boutique Personal Injury & Family Law Firms
 ## Focus: Solving "Wasted Billable Hours" with Reasoning AI
 
-**Strategy:** Each email in this 4-part sequence builds on the previous one, escalating the value prop while always driving to the same CTA: **Try the Live Demo at [lexiflow.co/demo](https://lexiflow.co/demo)**.
+**Strategy:** Each email in this 4-part sequence builds on the previous one, escalating the value prop while always driving to the same CTA: **Try the Live Demo at [lexiflow.co/demo.html](https://lexiflow.co/demo.html)**.
 
 **Best send times:** Tuesday–Thursday, 8:00–10:00 AM local time (firm's timezone).
 **Gap between emails:** 3 business days.
@@ -27,7 +27,7 @@ We built **LexiFlow** to automate that "first mile" — using Reasoning AI that 
 
 **The result:** Firms recapture ~2.5 hours per intake. At 20 cases/month, that's a full paralegal week reclaimed.
 
-See it in action: **[lexiflow.co/demo →](https://lexiflow.co/demo)**
+See it in action: **[lexiflow.co/demo.html →](https://lexiflow.co/demo.html)**
 
 No meeting required — the 2-minute demo shows you the full flow: chatbot → AI scoring → attorney dashboard.
 
@@ -62,7 +62,7 @@ $468/year vs. $60,000+ for a single staff member. With better results.
 
 **The math:** For a firm handling 20 inquiries/month, the 2.5 hours saved per case = ~$12,000/month in recovered billable partner time.
 
-See exactly how it works: **[lexiflow.co/demo →](https://lexiflow.co/demo)**
+See exactly how it works: **[lexiflow.co/demo.html →](https://lexiflow.co/demo.html)**
 
 The live demo takes 90 seconds. No form to fill, no sales call required.
 
@@ -98,7 +98,7 @@ LexiFlow's **Reasoning AI** handles the complexity:
 
 **The result:** 100% capture rate for required intake information. Zero missed cases due to rigid forms.
 
-See the difference for yourself: **[lexiflow.co/demo →](https://lexiflow.co/demo)**
+See the difference for yourself: **[lexiflow.co/demo.html →](https://lexiflow.co/demo.html)**
 
 Best regards,
 
@@ -129,7 +129,7 @@ Here's what you get:
 ✅ **The attorney dashboard** — real-time view of every incoming case with AI-generated summaries  
 ✅ **CRM sync** — pushes directly into Clio, MyCase, Filevine, or Litify  
 
-**Start here:** **[lexiflow.co/demo →](https://lexiflow.co/demo)** — the demo is the first step. From there, we can activate your trial in under an hour.
+**Start here:** **[lexiflow.co/demo.html →](https://lexiflow.co/demo.html)** — the demo is the first step. From there, we can activate your trial in under an hour.
 
 No implementation headaches. No CRM overhaul. Just better intake starting today.
 
@@ -162,7 +162,7 @@ Sales Representative
 
 - **{{Firm Name}}**: Replace with the firm's full legal name
 - **{{Attorney Name}}**: Replace with the managing partner's name
-- **CTA Links**: All point to `https://lexiflow.co/demo` — the interactive live demo
+- **CTA Links**: All point to `https://lexiflow.co/demo.html` — the interactive live demo
 - **Send Cadence**: Email 1 → Day 1, Email 2 → Day 4, Email 3 → Day 8, Email 4 → Day 14
 - **Stop sequence** if prospect clicks the demo link, replies, or requests a call
 
