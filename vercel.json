@@ -42,10 +42,6 @@
     {
       "source": "/dashboard",
       "destination": "/dashboard.html"
-    },
-    {
-      "source": "/(api/.*)",
-      "destination": "/$1"
     }
   ]
 }
