@@ -18,6 +18,8 @@ from typing import Any, Dict, List, Optional
 
 from fastapi import APIRouter, HTTPException, Query
 
+import damage_caps as damage_caps_utils
+
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/enterprise", tags=["Enterprise Modules"])
 
@@ -201,6 +203,55 @@ async def get_settlement_case(case_id: str):
         if case["id"] == case_id:
             return case
     raise HTTPException(404, detail=f"Settlement case {case_id} not found")
+
+
+# =========================================================================
+# MedMal Damage Caps — Jurisdiction-Aware Settlement Adjustments
+# =========================================================================
+
+@router.get("/settlement/caps")
+async def get_all_damage_caps():
+    """Get medical malpractice damage caps for all 50 states + DC."""
+    return damage_caps_utils.get_all_damage_caps()
+
+
+@router.get("/settlement/caps/{state_code}")
+async def get_state_damage_cap(state_code: str):
+    """Get damage cap details for a specific state (e.g. 'CA', 'TX')."""
+    cap = damage_caps_utils.get_damage_cap(state_code.upper())
+    if not cap:
+        raise HTTPException(404, detail=f"State '{state_code}' not found. Use 2-letter state code.")
+    return cap.to_dict()
+
+
+@router.post("/settlement/calculate-cap")
+async def calculate_capped_payout(
+    state_code: str,
+    non_economic: float = 0.0,
+    economic: float = 0.0,
+):
+    """
+    Calculate maximum potential payout considering state damage caps.
+    
+    - state_code: Two-letter state abbreviation (e.g. 'CA', 'TX', 'NY')
+    - non_economic: Estimated non-economic damages (pain & suffering)
+    - economic: Estimated economic damages (medical bills, lost wages)
+    
+    Returns original vs. capped values with detailed breakdown.
+    """
+    return damage_caps_utils.calculate_capped_value(state_code.upper(), non_economic, economic)
+
+
+@router.get("/settlement/caps/no-cap-states")
+async def get_states_without_caps():
+    """Get list of states with no effective damage caps (most favorable for plaintiffs)."""
+    return damage_caps_utils.get_states_without_caps()
+
+
+@router.get("/settlement/caps/cap-states")
+async def get_states_with_caps():
+    """Get list of states with active damage caps and their limits."""
+    return damage_caps_utils.get_states_with_caps()
 
 
 # =========================================================================
