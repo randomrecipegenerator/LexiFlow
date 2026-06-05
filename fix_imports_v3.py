@@ -46,7 +46,7 @@ except (ImportError, ValueError):
 
 # For reception_engine.py
 reception_replacements = [
-    ("""from backend try: from . import models
+    ("""from try: from . import models
 except (ImportError, ValueError): import models, ai_engine, integration_engine, utils""",
     """try:
     from . import models, ai_engine, integration_engine, utils

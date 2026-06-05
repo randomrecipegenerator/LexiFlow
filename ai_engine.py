@@ -125,7 +125,7 @@ def extract_text_from_pdf(file_path):
         text = "[System Note: PDF extraction failed or not supported in this environment. Manual review required.]"
     return text
 
-def get_ai_response(messages):
+def get_ai_response(messages, context=None):
     """
     Get a response from the AI for the intake chatbot.
     """
@@ -146,11 +146,13 @@ def get_ai_response(messages):
     if not client:
         return get_mock_response(messages)
 
+    kb_info = f"\n\nFirm-Specific Knowledge Base:\n{context}" if context else ""
+
     try:
         response = client.chat.completions.create(
             model=model_name,
             messages=[
-                {"role": "system", "content": "You are Lexi, the LexiFlow AI Assistant. You are professional, empathetic, and expert in legal intake. Your goal is to help potential clients understand how LexiFlow can help their firm, answer general questions about the platform, or begin a case intake.\n\nKey LexiFlow Facts:\n- 391% conversion boost for law firms.\n- Recaptures $12,000+ in billable hours per month.\n- 24/7 availability for lead capture and qualification.\n- Uses Reasoning AI (LLMs) instead of legacy Decision Trees to understand case nuances.\n- Direct sync to Clio, MyCase, and Filevine.\n- LexiFlow is NOT a law firm and does NOT provide legal advice.\n\nIf a user wants to start an intake, guide them through it. If they want a demo, suggest clicking the 'Request Demo' button."},
+                {"role": "system", "content": "You are Lexi, the LexiFlow AI Assistant. You are professional, empathetic, and expert in legal intake. Your goal is to help potential clients understand how LexiFlow can help their firm, answer general questions about the platform, or begin a case intake.\n\nKey LexiFlow Facts:\n- 391% conversion boost for law firms.\n- Recaptures $12,000+ in billable hours per month.\n- 24/7 availability for lead capture and qualification.\n- Uses Reasoning AI (LLMs) instead of legacy Decision Trees to understand case nuances.\n- Direct sync to Clio, MyCase, and Filevine.\n- LexiFlow is NOT a law firm and does NOT provide legal advice.\n- You are multilingual and can converse fluently in Spanish, French, and other languages if the user initiates.\n\nIf a user wants to start an intake, guide them through it. If they want a demo, suggest clicking the 'Request Demo' button." + kb_info},
                 *messages
             ]
         )
@@ -258,8 +260,9 @@ def analyze_document_text(text, filename):
 
     prompt = f"""
     Analyze the following text extracted from a document named '{filename}'.
-    Identify the document type (e.g., Driver's License, Insurance Card, Police Report, Medical Record).
-    Extract key information such as names, dates, policy numbers, or ID numbers.
+    Identify the document type (e.g., Driver's License, Insurance Card, Police Report, Medical Record, NTSB Report, Technical Manual).
+    Extract key information such as names, dates, policy numbers, ID numbers, or critical safety/incident facts.
+    If it's a technical or medical report, provide a structured summary of the most legally significant findings.
     
     Text:
     {text[:4000]} 
@@ -399,3 +402,90 @@ def generate_qualification_rules(firm_name, criteria_text):
         rules += f"- This set of rules was automatically generated via LexiFlow heuristic analysis for {firm_name}."
         
         return rules
+
+def analyze_transcript(text):
+    """
+    Main entry point for DepoLens AI analysis.
+    Uses mock if no client.
+    """
+    if not client:
+        witnesses = ["John Smith", "Jane Doe"]
+        if "SMITH" in text.upper(): witnesses[0] = "John Smith"
+        
+        return {
+            "chronology": [
+                {"Witness Name": witnesses[0], "Date and Time": "May 26, 2026, 10:00 PM", "Event Description": "Claimed to be at home sleeping during the incident.", "Page Reference": 4},
+                {"Witness Name": witnesses[1], "Date and Time": "May 26, 2026, 10:00 PM", "Event Description": "Observed John Smith at 'The Rusty Anchor' bar.", "Page Reference": 12}
+            ],
+            "conflicts": [
+                {
+                    "Witness A": witnesses[0],
+                    "Witness B": witnesses[1],
+                    "Conflict Description": "Contradiction regarding location at time of incident.",
+                    "Reasoning": f"{witnesses[0]} claims he was at home, while {witnesses[1]} testifies seeing him at a bar.",
+                    "Severity": "High"
+                }
+            ],
+            "summary": {
+                "admissions": "John Smith admitted he never goes to that bar, creating a firm denial that can be tested.\nJane Doe admitted she was at the bar for several hours.",
+                "risks": "The direct contradiction between the two primary witnesses creates a significant credibility issue for the defense.",
+                "executive_summary": "The deposition reveals a critical conflict regarding the whereabouts of the defendant. (LexiFlow Suite Analysis)"
+            }
+        }
+
+    # Real AI logic (Simplified version of DepoLens logic)
+    prompt = f"""
+    Analyze the following deposition transcript.
+    1. Extract a structured Fact Chronology.
+    2. Identify conflicts between witnesses.
+    3. Provide an Executive Summary.
+
+    Return JSON with keys: "chronology", "conflicts", "summary".
+    
+    Transcript:
+    {text[:10000]}
+    """
+    try:
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=[{"role": "user", "content": prompt}],
+            response_format={ "type": "json_object" }
+        )
+        return json.loads(response.choices[0].message.content)
+    except Exception as e:
+        print(f"AI Analysis Error: {e}")
+        return {"error": str(e)}
+
+def generate_merit_report(text):
+    """
+    Generate a full merit review report from medical record text.
+    """
+    if not client:
+        return {
+            "executive_summary": "[DEMO MODE] Case shows significant merit due to delayed diagnosis of sepsis. Patient presented with classic symptoms that were ignored for 14 hours.",
+            "chronology": "[DEMO MODE] 2026-05-10 14:00: Admitted with high fever. 2026-05-11 04:00: Vital signs unstable. 2026-05-11 06:00: Sepsis confirmed.",
+            "negligence_markers": "[DEMO MODE] 1. Failure to monitor vitals at required intervals. 2. 6-hour delay in ordering blood cultures.",
+            "standard_of_care_analysis": "[DEMO MODE] Standard of Care requires SIRS screening within 1 hour of presentation. The facility failed this benchmark by 13 hours."
+        }
+    
+    prompt = f"Analyze the following medical record text and generate a comprehensive merit review report for a potential medical malpractice claim. Structure the report with the following sections: 1. Executive Summary, 2. Chronology, 3. Negligence Markers, 4. Standard of Care Analysis. Return the response as a JSON object with keys: executive_summary, chronology, negligence_markers, standard_of_care_analysis. Medical Record Text: {text[:4000]}"
+    
+    messages = [
+        {"role": "system", "content": "You are a senior medical-legal expert consultant. Always return JSON."},
+        {"role": "user", "content": prompt}
+    ]
+    
+    try:
+        response_text = get_ai_response(messages)
+        import re
+        json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
+        if json_match:
+            return json.loads(json_match.group(0))
+        return {
+            "executive_summary": response_text,
+            "chronology": "Extracted from summary",
+            "negligence_markers": "Extracted from summary",
+            "standard_of_care_analysis": "Extracted from summary"
+        }
+    except Exception as e:
+        return {"error": str(e)}

@@ -6,8 +6,8 @@ from sqlalchemy.orm import Session
 # Add the project root to the python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from backend import models
-from backend.database import SessionLocal
+import models
+from database import SessionLocal
 
 def apply_branding(slug, config_path):
     if not os.path.exists(config_path):

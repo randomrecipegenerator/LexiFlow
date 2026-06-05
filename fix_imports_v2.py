@@ -32,7 +32,7 @@ for filename in os.listdir(backend_dir):
     
     content = "".join(new_lines)
     # Fix the garbage I might have introduced before
-    content = content.replace('from backend try: from . import models', 'try: from . import models')
+    content = content.replace('from try: from . import models', 'try: from . import models')
     
     with open(filepath, 'w') as f:
         f.write(content)

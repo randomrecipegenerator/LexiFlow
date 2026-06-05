@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from . import models
+import models
 import datetime
 
 def log_usage(db: Session, firm_id: int, usage_type: str, quantity: float = 1.0, details: str = None):

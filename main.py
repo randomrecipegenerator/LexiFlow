@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, Form, Header
+from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, Form, Header, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List
@@ -8,8 +8,9 @@ import uuid
 import httpx
 import json
 
-from . import models, database, ai_engine, esign_engine, integration_engine, reception_engine, utils
-from .database import engine, get_db
+import models, database, ai_engine, esign_engine, integration_engine, reception_engine, utils, reports
+import enterprise_api
+from database import engine, get_db
 
 def create_audit_log(db: Session, action: str, lead_id: int = None, details: str = None, firm_id: int = None):
     log = models.AuditLog(lead_id=lead_id, action=action, details=details, firm_id=firm_id)
@@ -49,6 +50,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Include routers from other modules
+app.include_router(enterprise_api.router)
+
 # Indentation fix
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 if os.getenv("VERCEL"):
@@ -75,12 +79,62 @@ def start_chat(firm_slug: str = None, db: Session = Depends(get_db)):
     return {"lead_id": lead.id}
 
 @app.post("/demo-request")
-def demo_request(name: str = Form(...), email: str = Form(...), firm: str = Form(None), db: Session = Depends(get_db)):
+async def demo_request(name: str = Form(...), email: str = Form(...), firm: str = Form(None), db: Session = Depends(get_db)):
     demo_req = models.DemoRequest(name=name, email=email, firm=firm)
     db.add(demo_req)
     db.commit()
+    
+    # Send notification email to the sales team
+    subject = f"New Consultation Request: {name}"
+    body = f"""
+    You have a new consultation request from the LexiFlow website.
+    
+    Name: {name}
+    Email: {email}
+    Law Firm: {firm or 'Not provided'}
+    
+    Timestamp: {demo_req.created_at}
+    """
+    
+    try:
+        await integration_engine.integration_engine.send_postmark_email(
+            to_email="leads@lexiflow.co",
+            subject=subject,
+            body=body
+        )
+    except Exception as e:
+        # Log error but don't block the user's request
+        print(f"Failed to send demo request notification: {e}")
+
     create_audit_log(db, "demo_request", details=f"Name: {name}, Email: {email}, Firm: {firm}")
     return {"status": "success", "message": "Demo request received"}
+
+@app.post("/integrations/github/push")
+async def github_push(
+    repo: str = Form(...),
+    branch: str = Form("main"),
+    path: str = Form(...),
+    content: str = Form(...),
+    commit_message: str = Form("LexiFlow Export"),
+    db: Session = Depends(get_db),
+    current_firm: models.Firm = Depends(get_current_firm)
+):
+    if not current_firm:
+        raise HTTPException(status_code=401, detail="Authentication required")
+        
+    result = await integration_engine.integration_engine.push_to_github(
+        firm=current_firm,
+        repo_full_name=repo,
+        branch=branch,
+        file_path=path,
+        content=content,
+        commit_message=commit_message
+    )
+    
+    if result["status"] == "success":
+        create_audit_log(db, "github_export", details=f"Repo: {repo}, Path: {path}", firm_id=current_firm.id)
+        
+    return result
 
 @app.post("/demo/seed")
 def seed_demo_leads(firm_slug: str = Form("general"), db: Session = Depends(get_db)):
@@ -117,6 +171,18 @@ def seed_demo_leads(firm_slug: str = Form("general"), db: Session = Depends(get_
                 qualification_score=94.2,
                 status="High Priority",
                 ai_summary="High-stakes trucking accident. Logbook violations suspected. Strong liability against the carrier.",
+                is_demo=1
+            ),
+            models.Lead(
+                firm_id=firm.id,
+                full_name="Maria Rodriguez (Spanish Intake)",
+                email="m.rodriguez@example.com",
+                phone="312-555-2233",
+                case_type="Medical Malpractice / Birth Injury",
+                description="Negligencia médica durante el parto en el Hospital San Lucas. El bebé tiene parálisis cerebral.",
+                qualification_score=99.0,
+                status="High Priority",
+                ai_summary="Spanish language intake. Severe birth injury case (Cerebral Palsy). High emotional and legal stakes. Smith LaCien's multilingual support is critical here.",
                 is_demo=1
             )
         ]
@@ -176,6 +242,23 @@ def seed_demo_leads(firm_slug: str = Form("general"), db: Session = Depends(get_
     db.commit()
     return {"status": "success", "message": f"Demo leads seeded for {firm.name}"}
 
+@app.get("/reports/stats")
+def get_report_stats(db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    if not current_firm:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    return reports.get_weekly_stats(db, current_firm.id)
+
+@app.post("/reports/trigger")
+async def trigger_report(db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    if not current_firm:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    
+    result = await reports.generate_and_send_report(db, current_firm)
+    
+    create_audit_log(db, "report_triggered", details=f"Recipient: {result.get('recipient')}", firm_id=current_firm.id)
+    
+    return result
+
 @app.get("/demo/firms")
 def get_demo_firms(db: Session = Depends(get_db)):
     firms = db.query(models.Firm).all()
@@ -206,6 +289,101 @@ def get_current_firm_details(current_firm: models.Firm = Depends(get_current_fir
         "active_hours": json.loads(current_firm.active_hours_json) if current_firm.active_hours_json else {},
         "production_sync_enabled": current_firm.production_sync_enabled,
         "api_config": json.loads(current_firm.api_config_json) if current_firm.api_config_json else {}
+    }
+
+@app.get("/firm/onboarding")
+def get_onboarding_status(db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    if not current_firm:
+        # For demo purposes, if no firm is logged in
+        return {
+            "checklist": [
+                {
+                    "id": "branding",
+                    "title": "Customize Branding",
+                    "description": "Upload your firm logo and set your primary brand colors.",
+                    "status": "pending",
+                    "action_text": "Configure",
+                    "action_link": "settings"
+                }
+            ],
+            "overall_progress": 0
+        }
+    
+    # 1. Branding
+    branding_complete = bool(current_firm.branding_logo and current_firm.branding_colors)
+    
+    # 2. Integrations
+    api_config = {}
+    if current_firm.api_config_json:
+        try:
+            api_config = json.loads(current_firm.api_config_json)
+        except:
+            pass
+    
+    github_connected = bool(api_config.get("github_token"))
+    postmark_connected = bool(api_config.get("postmark_api_key"))
+    
+    # 3. Domain (Placeholder/Mock)
+    domain_verified = api_config.get("domain_verified", False)
+    
+    # 4. Activity
+    lead_count = db.query(models.Lead).filter(models.Lead.firm_id == current_firm.id).count()
+    doc_count = db.query(models.Document).join(models.Lead).filter(models.Lead.firm_id == current_firm.id).count()
+    
+    checklist = [
+        {
+            "id": "branding",
+            "title": "Customize Branding",
+            "description": "Upload your firm logo and set your primary brand colors.",
+            "status": "completed" if branding_complete else "pending",
+            "action_text": "Update Branding" if branding_complete else "Go to Settings",
+            "action_link": "settings"
+        },
+        {
+            "id": "github",
+            "title": "Configure GitHub Export",
+            "description": "Connect your GitHub repository to export case summaries automatically.",
+            "status": "completed" if github_connected else "pending",
+            "action_text": "Connect GitHub",
+            "action_link": "settings"
+        },
+        {
+            "id": "postmark",
+            "title": "Verify Email Notifications",
+            "description": "Set up Postmark to receive instant email alerts for new leads.",
+            "status": "completed" if postmark_connected else "pending",
+            "action_text": "Configure Postmark",
+            "action_link": "settings"
+        },
+        {
+            "id": "domain",
+            "title": "Verify Website Domain",
+            "description": "Add our snippet to your website to start capturing leads 24/7.",
+            "status": "completed" if domain_verified else "pending",
+            "action_text": "Get Snippet",
+            "action_link": "front-desk"
+        },
+        {
+            "id": "test-lead",
+            "title": "Capture First Lead",
+            "description": "Generate a test lead using the AI Chat or Voice assistant.",
+            "status": "completed" if lead_count > 0 else "pending",
+            "action_text": "Try AI Chat",
+            "action_link": "leads"
+        },
+        {
+            "id": "test-doc",
+            "title": "Analyze Medical Record",
+            "description": "Upload a medical record to test the AI document analysis engine.",
+            "status": "completed" if doc_count > 0 else "pending",
+            "action_text": "Upload Document",
+            "action_link": "leads"
+        }
+    ]
+    
+    return {
+        "checklist": checklist,
+        "overall_progress": int((sum(1 for item in checklist if item["status"] == "completed") / len(checklist)) * 100)
     }
 
 @app.post("/firm/settings")
@@ -279,8 +457,18 @@ def send_message(lead_id: int, content: str = Form(...), db: Session = Depends(g
     messages = db.query(models.Message).filter(models.Message.lead_id == lead_id).order_by(models.Message.timestamp.asc()).all()
     history = [{"role": m.role, "content": m.content} for m in messages]
     
+    # Fetch Knowledge Base context
+    lead = db.query(models.Lead).filter(models.Lead.id == lead_id).first()
+    kb_context = ""
+    if lead:
+        kb_entries = db.query(models.KnowledgeBase).filter(models.KnowledgeBase.is_active == 1)
+        if lead.firm_id:
+            kb_entries = kb_entries.filter(models.KnowledgeBase.firm_id == lead.firm_id)
+        kb_entries = kb_entries.all()
+        kb_context = "\n".join([f"KB - {k.title}: {k.content}" for k in kb_entries])
+    
     # Get AI response
-    ai_content = ai_engine.get_ai_response(history)
+    ai_content = ai_engine.get_ai_response(history, context=kb_context)
     
     # Save AI message
     ai_msg = models.Message(lead_id=lead_id, role="assistant", content=ai_content)
@@ -393,6 +581,15 @@ def complete_chat(lead_id: int, db: Session = Depends(get_db)):
     db.commit()
     
     create_audit_log(db, "lead_qualified", lead_id, f"Score: {score}, Status: {status}")
+    
+    # Auto-sync to configured CRMs based on qualification score
+    try:
+        import asyncio
+        sync_result = asyncio.run(integration_engine.integration_engine.sync_lead_auto(lead, db=db))
+        if sync_result.get("targets"):
+            create_audit_log(db, "lead_auto_sync", lead_id, f"Score: {score}, Targets: {sync_result['targets']}, Results: {sync_result['results']}")
+    except Exception as e:
+        print(f"Auto-sync failed for lead {lead_id}: {str(e)}")
     
     return {"status": status, "score": score}
 
@@ -568,10 +765,11 @@ def submit_form(form_id: int, answers_json: str = Form(...), db: Session = Depen
         else:
             context += f"{q_id}: {answer}\n\n"
             
-    score, status, summary = ai_engine.qualify_lead(context, context=form.qualification_rules)
+    score, status, summary, client_info, case_value = ai_engine.qualify_lead(context, context=form.qualification_rules)
     lead.qualification_score = score
     lead.status = status
     lead.ai_summary = summary
+    lead.case_value_estimate = case_value
     
     if form.firm_id:
         utils.log_usage(db, form.firm_id, "form_intake", quantity=1.0, details=f"Form ID: {form_id}, Lead ID: {lead.id}")
@@ -611,10 +809,19 @@ async def reception_webhook(
     kb_entries = kb_entries.all()
     kb_context = "\n".join([f"KB - {k.title}: {k.content}" for k in kb_entries])
     
-    score, status, summary = ai_engine.qualify_lead(f"Receptionist Notes: {notes}", context=kb_context)
+    score, status, summary, client_info, case_value = ai_engine.qualify_lead(f"Receptionist Notes: {notes}", context=kb_context)
     lead.qualification_score = score
     lead.status = status
     lead.ai_summary = summary
+    lead.case_value_estimate = case_value
+    
+    if client_info:
+        if not lead.full_name and client_info.get("full_name"):
+            lead.full_name = client_info.get("full_name")
+        if not lead.email and client_info.get("email"):
+            lead.email = client_info.get("email")
+        if not lead.phone and client_info.get("phone"):
+            lead.phone = client_info.get("phone")
     
     if lead.firm_id:
         utils.log_usage(db, lead.firm_id, "receptionist_intake", quantity=1.0, details=f"Source: {source}, Lead ID: {lead.id}")
@@ -973,6 +1180,147 @@ def get_medical_chronology(lead_id: int, db: Session = Depends(get_db), current_
     
     return {"chronology": chronology}
 
+# --- MeritScan Logic ---
+def process_meritscan_task(record_id: int, db_session: Session):
+    try:
+        record = db_session.query(models.MedicalRecord).filter(models.MedicalRecord.id == record_id).first()
+        if not record: return
+        record.status = "processing"
+        db_session.commit()
+        
+        # Load file content
+        with open(record.file_path, "r", errors="ignore") as f:
+            text = f.read()
+            
+        report_data = ai_engine.generate_merit_report(text)
+        
+        report = models.MeritReport(
+            record_id=record.id,
+            chronology=report_data.get("chronology", ""),
+            negligence_markers=report_data.get("negligence_markers", ""),
+            standard_of_care_analysis=report_data.get("standard_of_care_analysis", ""),
+            executive_summary=report_data.get("executive_summary", "")
+        )
+        db_session.add(report)
+        record.status = "completed"
+        db_session.commit()
+    except Exception as e:
+        print(f"MeritScan Processing Error: {e}")
+        if record:
+            record.status = "error"
+            db_session.commit()
+
+@app.post("/meritscan/upload")
+async def meritscan_upload(
+    background_tasks: BackgroundTasks,
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db)
+):
+    file_extension = os.path.splitext(file.filename)[1]
+    unique_filename = f"merit_{uuid.uuid4()}{file_extension}"
+    file_path = os.path.join(UPLOAD_DIR, unique_filename)
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+    record = models.MedicalRecord(filename=file.filename, file_path=file_path)
+    db.add(record)
+    db.commit()
+    db.refresh(record)
+    background_tasks.add_task(process_meritscan_task, record.id, db)
+    return {"id": record.id, "filename": record.filename, "status": record.status}
+
+@app.get("/meritscan/reports")
+def list_merit_reports(db: Session = Depends(get_db)):
+    return db.query(models.MedicalRecord).all()
+
+@app.get("/meritscan/reports/{id}")
+def get_merit_report(id: int, db: Session = Depends(get_db)):
+    record = db.query(models.MedicalRecord).filter(models.MedicalRecord.id == id).first()
+    if not record: raise HTTPException(status_code=404, detail="Record not found")
+    report = db.query(models.MeritReport).filter(models.MeritReport.record_id == id).first()
+    return {"record": record, "report": report}
+# --- End MeritScan ---
+
+# --- DepoLens Endpoints ---
+def process_transcript_task(transcript_id: int, db: Session):
+    transcript = db.query(models.Transcript).filter(models.Transcript.id == transcript_id).first()
+    if not transcript: return
+    try:
+        transcript.status = "processing"
+        db.commit()
+        text = ""
+        if transcript.filename.lower().endswith(".pdf"):
+            text = ai_engine.extract_text_from_pdf(transcript.file_path)
+        else:
+            with open(transcript.file_path, "r") as f:
+                text = f.read()
+        analysis = ai_engine.analyze_transcript(text)
+        for f in analysis.get("chronology", []):
+            fact = models.Fact(
+                transcript_id=transcript_id,
+                witness_name=f.get("Witness Name") or f.get("witness_name"),
+                date_time=f.get("Date and Time") or f.get("date_time"),
+                event_description=f.get("Event Description") or f.get("event_description"),
+                page_reference=f.get("Page Reference") or f.get("page_reference")
+            )
+            db.add(fact)
+        for c in analysis.get("conflicts", []):
+            conflict = models.Conflict(
+                transcript_id=transcript_id,
+                witness_a=c.get("Witness A") or c.get("witness_a"),
+                witness_b=c.get("Witness B") or c.get("witness_b"),
+                description=c.get("Conflict Description") or c.get("description"),
+                reasoning=c.get("Reasoning") or c.get("reasoning"),
+                severity=c.get("Severity") or c.get("severity")
+            )
+            db.add(conflict)
+        s = analysis.get("summary", {})
+        summary = models.Summary(
+            transcript_id=transcript_id,
+            admissions=s.get("admissions"),
+            risks=s.get("risks"),
+            executive_summary=s.get("executive_summary")
+        )
+        db.add(summary)
+        transcript.status = "completed"
+        db.commit()
+    except Exception as e:
+        print(f"DepoLens Processing Error: {e}")
+        transcript.status = "error"
+        db.commit()
+
+@app.post("/depolens/upload")
+async def depolens_upload(
+    background_tasks: BackgroundTasks, 
+    file: UploadFile = File(...), 
+    db: Session = Depends(get_db)
+):
+    file_extension = os.path.splitext(file.filename)[1]
+    unique_filename = f"{uuid.uuid4()}{file_extension}"
+    file_path = os.path.join(UPLOAD_DIR, unique_filename)
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+    transcript = models.Transcript(filename=file.filename, file_path=file_path)
+    db.add(transcript)
+    db.commit()
+    db.refresh(transcript)
+    from fastapi import BackgroundTasks
+    background_tasks.add_task(process_transcript_task, transcript.id, db)
+    return {"id": transcript.id, "filename": transcript.filename, "status": transcript.status}
+
+@app.get("/depolens/transcripts")
+def list_transcripts(db: Session = Depends(get_db)):
+    return db.query(models.Transcript).all()
+
+@app.get("/depolens/transcripts/{id}")
+def get_transcript(id: int, db: Session = Depends(get_db)):
+    transcript = db.query(models.Transcript).filter(models.Transcript.id == id).first()
+    if not transcript: raise HTTPException(status_code=404, detail="Transcript not found")
+    facts = db.query(models.Fact).filter(models.Fact.transcript_id == id).all()
+    conflicts = db.query(models.Conflict).filter(models.Conflict.transcript_id == id).all()
+    summary = db.query(models.Summary).filter(models.Summary.transcript_id == id).first()
+    return {"transcript": transcript, "facts": facts, "conflicts": conflicts, "summary": summary}
+# --- End DepoLens ---
+
 @app.get("/leads/{lead_id}/conflict-check")
 def run_conflict_check(lead_id: int, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
     query = db.query(models.Lead).filter(models.Lead.id == lead_id)
@@ -1055,11 +1403,28 @@ def get_audit_logs(limit: int = 100, db: Session = Depends(get_db), current_firm
 # For local development and sandbox serving
 if not os.getenv("VERCEL"):
     from fastapi.staticfiles import StaticFiles
-    # The root directory is the parent of the backend directory
-    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    from fastapi.responses import FileResponse
+    # The root directory is the current directory
+    root_dir = os.path.dirname(os.path.abspath(__file__))
     
     api_app = app
     app = FastAPI()
+    
+    @app.get("/cities/{city}")
+    async def serve_city(city: str):
+        city_file = os.path.join(root_dir, "cities", f"{city}.html")
+        if os.path.exists(city_file):
+            return FileResponse(city_file)
+        raise HTTPException(status_code=404)
+
+    @app.api_route("/meritscan", methods=["GET", "HEAD"])
+    async def serve_meritscan():
+        return FileResponse(os.path.join(root_dir, "meritscan.html"))
+
+    @app.api_route("/depolens", methods=["GET", "HEAD"])
+    async def serve_depolens():
+        return FileResponse(os.path.join(root_dir, "depolens.html"))
+
     app.mount("/api", api_app)
     app.mount("/", StaticFiles(directory=root_dir, html=True), name="static")
 

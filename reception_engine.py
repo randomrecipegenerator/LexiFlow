@@ -1,7 +1,7 @@
 import json
 import logging
 from sqlalchemy.orm import Session
-from . import models, ai_engine, integration_engine, utils
+import models, ai_engine, integration_engine, utils
 
 logger = logging.getLogger(__name__)
 

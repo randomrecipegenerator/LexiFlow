@@ -3,10 +3,10 @@ backend_path = os.path.join(os.getcwd(), "backend")
 sys.path.append(backend_path)
 print(f"sys.path appended: {backend_path}")
 try:
-    import backend.models as bm
+    import models as bm
     print("Imported backend.models")
 except ImportError as e:
-    print(f"Failed to import backend.models: {e}")
+    print(f"Failed to import models: {e}")
 
 try:
     import models as m

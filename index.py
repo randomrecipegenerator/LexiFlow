@@ -11,7 +11,7 @@ if root_dir not in sys.path:
 
 # Initialize the main app from backend
 try:
-    from backend.main import app as backend_app
+    from main import app as backend_app
 except Exception as e:
     # If backend fails to import (e.g. database error), provide a fallback app
     backend_app = FastAPI()

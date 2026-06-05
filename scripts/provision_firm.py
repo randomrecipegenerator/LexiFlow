@@ -7,8 +7,8 @@ from sqlalchemy.orm import Session
 # Add the project root to the python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from backend import models, database, ai_engine
-from backend.database import SessionLocal, engine
+import models, database, ai_engine
+from database import SessionLocal, engine
 
 def provision_firm(name: str, slug: str, email: str, password: str, branding_json_path: str = None, criteria_text: str = None, criteria_url: str = None):
     db = SessionLocal()

@@ -10,6 +10,16 @@ if not db_url:
     # Check if we are in a Vercel environment
     if os.getenv("VERCEL") or os.getenv("NOW_REGION"):
         db_url = "sqlite:////tmp/lexiflow.db"
+        # Seed the /tmp database from the repository file if it doesn't exist
+        import shutil
+        if not os.path.exists("/tmp/lexiflow.db"):
+            repo_db = os.path.join(os.path.dirname(os.path.abspath(__file__)), "lexiflow.db")
+            if os.path.exists(repo_db):
+                try:
+                    shutil.copy2(repo_db, "/tmp/lexiflow.db")
+                    print("Seeded /tmp/lexiflow.db from repository")
+                except Exception as e:
+                    print(f"Failed to seed /tmp/lexiflow.db: {e}")
     else:
         db_url = "sqlite:///./lexiflow.db"
 
