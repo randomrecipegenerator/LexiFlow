@@ -8,9 +8,9 @@ import uuid
 import httpx
 import json
 
-import models, database, ai_engine, esign_engine, integration_engine, reception_engine, utils, reports
-import enterprise_api
-from database import engine, get_db
+from . import models, database, ai_engine, esign_engine, integration_engine, reception_engine, utils, reports
+from . import enterprise_api
+from .database import engine, get_db
 
 def create_audit_log(db: Session, action: str, lead_id: int = None, details: str = None, firm_id: int = None):
     log = models.AuditLog(lead_id=lead_id, action=action, details=details, firm_id=firm_id)
