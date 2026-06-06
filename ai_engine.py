@@ -35,6 +35,67 @@ if api_key:
     except Exception as e:
         print(f"Failed to initialize OpenAI client: {e}")
 
+
+# ===================== USAGE METERING INTEGRATION =====================
+
+from usage_tracker import usage_tracker, UsageLimitExceeded
+from database import SessionLocal as _usage_db_session
+
+
+def check_document_processing_limit(firm_id=None) -> dict:
+    """
+    Check if a firm has remaining document processing quota.
+    If firm_id is None, returns unlimited (no check).
+    
+    Returns {'ok': True} or raises UsageLimitExceeded with billing info.
+    For non-DB mode, always returns unlimited.
+    """
+    if firm_id is None:
+        return {"ok": True, "note": "no firm_id — unlimited"}
+    
+    try:
+        db = _usage_db_session()
+        try:
+            result = usage_tracker.check_usage_limit(firm_id, db=db)
+            if not result.get("can_process", True):
+                raise UsageLimitExceeded(
+                    firm_id=firm_id,
+                    tier=result.get("tier", "standard"),
+                    current_count=result.get("current_usage", 0),
+                    limit=result.get("monthly_limit", 0),
+                    billing_period=result.get("billing_period", "")
+                )
+            return {"ok": True, "remaining": result.get("remaining", 0)}
+        finally:
+            db.close()
+    except UsageLimitExceeded:
+        raise
+    except Exception as e:
+        # If DB isn't available (e.g. demo mode), allow processing
+        logger = __import__('logging').getLogger(__name__)
+        logger.warning(f"Usage check skipped (DB unavailable): {e}")
+        return {"ok": True, "note": f"check skipped: {e}"}
+
+
+def record_document_processing(firm_id=None, doc_type="document_review",
+                                doc_name="", pages=0, tokens=0, db=None):
+    """Record a document processing event for billing."""
+    if firm_id is None:
+        return {"status": "skipped", "note": "no firm_id"}
+    try:
+        s = db or (_usage_db_session() if not db else None)
+        return usage_tracker.record_usage(
+            firm_id=firm_id, doc_type=doc_type, doc_name=doc_name,
+            pages=pages, tokens=tokens, db=s
+        )
+    except Exception as e:
+        logger = __import__('logging').getLogger(__name__)
+        logger.warning(f"Usage recording skipped: {e}")
+        return {"status": "skipped", "note": str(e)}
+
+
+# ===================== END USAGE METERING INTEGRATION =====================
+
 def get_ai_response(messages):
     """
     Unified AI response handler with fallback to Mock Mode.
@@ -54,10 +115,13 @@ def get_ai_response(messages):
 
 import base64
 
-def analyze_document_image(file_path, filename):
+def analyze_document_image(file_path, filename, firm_id=None):
     """
     Use AI Vision to extract key legal data from a document image.
+    Checks usage limits if firm_id is provided.
     """
+    check_document_processing_limit(firm_id)
+
     if not client:
         return {"document_type": "Unknown", "extracted_fields": {"note": "AI Client not configured"}}
 
@@ -251,10 +315,13 @@ def draft_demand_letter(transcript, firm_name="LexiFlow Legal"):
     except Exception as e:
         return f"Error drafting demand letter: {str(e)}"
 
-def analyze_document_text(text, filename):
+def analyze_document_text(text, filename, firm_id=None):
     """
     Use AI to extract key legal data from document text.
+    Checks usage limits if firm_id is provided.
     """
+    check_document_processing_limit(firm_id)
+
     if not client:
         return {"document_type": "Unknown", "extracted_fields": {"note": "AI Client not configured"}}
 
@@ -292,10 +359,13 @@ def analyze_document_text(text, filename):
         print(f"Error analyzing document: {e}")
         return {"error": str(e)}
 
-def generate_medical_chronology(transcript):
+def generate_medical_chronology(transcript, firm_id=None):
     """
     Generate a structured medical chronology from a legal intake transcript.
+    Checks usage limits if firm_id is provided.
     """
+    check_document_processing_limit(firm_id)
+
     if not client:
         return [
             {"date": "2024-05-10", "event": "Motor Vehicle Accident", "details": "High-impact rear-end collision reported by client. [MOCK]"},
