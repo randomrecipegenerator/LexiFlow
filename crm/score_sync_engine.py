@@ -244,7 +244,7 @@ class ScoreTriggeredSyncEngine:
             "description": lead.get("description", ""),
             "custom_field_values": {
                 "lead_score": str(lead.get("qualificationScore", 0)),
-                "source": "LexiFlow AI Intake"
+                "source": "LexiFlow Technologies Inc Intake"
             }
         }
         if action.priority == "high":

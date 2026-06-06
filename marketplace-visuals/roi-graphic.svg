@@ -19,7 +19,7 @@
 
   <g transform="translate(40, 40)">
     <text x="0" y="20" font-family="'Inter', system-ui, sans-serif" font-size="22" font-weight="800" fill="#e2e8f0">📉 The Intake Efficiency Gap</text>
-    <text x="0" y="46" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="400" fill="#64748b">Manual intake vs. LexiFlow AI automated intake</text>
+    <text x="0" y="46" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="400" fill="#64748b">Manual intake vs. LexiFlow Technologies Inc automated intake</text>
 
     <!-- BEFORE -->
     <g transform="translate(0, 80)">
@@ -31,7 +31,7 @@
 
     <!-- AFTER -->
     <g transform="translate(0, 130)">
-      <text x="0" y="0" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="600" fill="#16a34a">⬤ With LexiFlow AI</text>
+      <text x="0" y="0" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="600" fill="#16a34a">⬤ With LexiFlow Technologies Inc</text>
       <rect x="0" y="14" width="320" height="28" rx="6" fill="#16a34a" opacity="0.12"/>
       <rect x="0" y="14" width="160" height="28" rx="6" fill="#16a34a"/>
       <text x="340" y="32" font-family="'Inter', system-ui, sans-serif" font-size="16" font-weight="700" fill="#16a34a" dominant-baseline="central">40 hrs/week</text>
@@ -64,7 +64,7 @@
 
     <g transform="translate(400, 50)">
       <rect x="0" y="0" width="260" height="80" rx="10" fill="#16a34a" opacity="0.08"/>
-      <text x="130" y="22" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="500" fill="#86efac" text-anchor="middle">With LexiFlow AI</text>
+      <text x="130" y="22" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="500" fill="#86efac" text-anchor="middle">With LexiFlow Technologies Inc</text>
       <text x="130" y="50" font-family="'Inter', system-ui, sans-serif" font-size="24" font-weight="800" fill="#16a34a" text-anchor="middle">$78,000/yr</text>
     </g>
   </g>

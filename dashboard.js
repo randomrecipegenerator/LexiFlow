@@ -583,7 +583,7 @@ async function loadFrontDeskSettings() {
         document.querySelectorAll('.voice-card').forEach(card => card.classList.toggle('selected', card.dataset.voiceId === voiceId));
         document.getElementById('emailToggle').checked = firm.email_enabled === 1;
         document.getElementById('fd-email-address').innerText = `intake+${firm.slug}@lexiflow.co`;
-        document.getElementById('emailAutoReply').value = firm.email_config.template || "Thank you for reaching out. We have received your inquiry and will review it shortly.\n\nThis is an automated response from LexiFlow AI.";
+        document.getElementById('emailAutoReply').value = firm.email_config.template || "Thank you for reaching out. We have received your inquiry and will review it shortly.\n\nThis is an automated response from LexiFlow Technologies Inc.";
         renderActiveHours(firm.active_hours);
         updateFrontDeskAnalytics();
     } catch (e) { console.error("Error loading Front Desk settings", e); }
