@@ -255,7 +255,7 @@ async function viewLead(id) {
         
         document.getElementById('modal-transcript').innerHTML = lead.messages.map(m => `
             <div class="mb-3 d-flex flex-column ${m.role === 'user' ? 'align-items-end' : 'align-items-start'}">
-                <div class="small fw-bold text-muted mb-1 mx-2" style="font-size: 0.7rem;">${m.role === 'user' ? 'CLIENT' : 'LEXIFLOW AI'}</div>
+                <div class="small fw-bold text-muted mb-1 mx-2" style="font-size: 0.7rem;">${m.role === 'user' ? 'CLIENT' : 'LexiFlow Technologies Inc'}</div>
                 <div class="p-3 rounded-4 shadow-sm ${m.role === 'user' ? 'bg-primary text-white' : 'bg-white border text-dark'}" style="max-width: 85%; border-radius: 15px !important;">
                     ${m.content}
                 </div>
