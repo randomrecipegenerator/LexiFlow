@@ -14,7 +14,9 @@ files_to_update = [
     "cities.html",
     "index.html",
     "signup.html",
-    "demo.html"
+    "demo.html",
+    "depolens-app.html",
+    "medical-chronologies-app.html"
 ]
 
 # Normalize path to root
