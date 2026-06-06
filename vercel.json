@@ -2,32 +2,16 @@
   "version": 2,
   "builds": [
     {
+      "src": "**/*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "**/*.{xml,txt,png,svg,ico,js,css}",
+      "use": "@vercel/static"
+    },
+    {
       "src": "api/index.py",
       "use": "@vercel/python"
-    },
-    {
-      "src": "*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "locations/**/*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "practice-areas/**/*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.js",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.css",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "branding/*",
-      "use": "@vercel/static"
     }
   ],
   "rewrites": [
