@@ -145,4 +145,4 @@ The choice is straightforward.
 
 ---
 
-**Ready to stop losing 40% of your leads?** [Email our team →](mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io) for a free intake audit. We'll analyze your current lead flow and show you exactly how much revenue AI intake can recover for your firm. The full LexiFlow Suite from just **$69/month**.
+**Ready to stop losing 40% of your leads?** [Email our team →](mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io) for a free intake audit. We'll analyze your current lead flow and show you exactly how much revenue AI intake can recover for your firm. The Suite from **$69/month** (3 tiers available).

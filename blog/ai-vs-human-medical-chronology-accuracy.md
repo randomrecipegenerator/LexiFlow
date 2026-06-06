@@ -157,4 +157,4 @@ For firms handling complex medical malpractice cases with large record volumes, 
 
 ---
 
-**Ready to see the accuracy difference for yourself?** [Email our team →](mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io) for a free comparison report. We'll process a sample of your records through both manual review and LexiFlow Technologies Inc, and show you exactly what the accuracy gap means for your cases. The full LexiFlow Suite from just **$69/month**.
+**Ready to see the accuracy difference for yourself?** [Email our team →](mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io) for a free comparison report. We'll process a sample of your records through both manual review and LexiFlow Technologies Inc, and show you exactly what the accuracy gap means for your cases. The Suite from **$69/month** (3 tiers available).

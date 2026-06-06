@@ -19,7 +19,7 @@ But there's a bigger problem hiding in those numbers. Studies consistently show 
 
 Enter AI medical merit review: a technology that doesn't just speed up the process — it fundamentally changes the economics of case screening.
 
-> **LexiFlow's approach:** Our AI engine, MeritScan, processes medical records using an LLM trained on medical-legal standards. It extracts diagnoses, treatments, dates, and timestamps; cross-references them against standard-of-care guidelines; and produces a citation-backed preliminary merit report — all in under 3 minutes. And MeritScan is part of the full LexiFlow Suite — all six AI-powered modules for just **$69/month**. [Learn more about MeritScan →](https://lexiflow.co/meritscan)
+> **LexiFlow's approach:** Our AI engine, MeritScan, processes medical records using an LLM trained on medical-legal standards. It extracts diagnoses, treatments, dates, and timestamps; cross-references them against standard-of-care guidelines; and produces a citation-backed preliminary merit report — all in under 3 minutes. And MeritScan is part of the full LexiFlow Suite — plans from **$69/month** (3 tiers: Standard, Professional, Enterprise). [Learn more about MeritScan →](https://lexiflow.co/meritscan)
 
 ## Why Traditional Medical Record Review Falls Short
 

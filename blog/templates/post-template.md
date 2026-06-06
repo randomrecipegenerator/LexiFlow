@@ -21,7 +21,7 @@
 
 {{SOLUTION_EXPLANATION}}
 
-> **LexiFlow's approach:** {{LEXIFLOW_ANGLE}} The full LexiFlow Suite — all six AI-powered modules — is available for just **$69/month**. [Learn more →]({{PRODUCT_URL}})
+> **LexiFlow's approach:** {{LEXIFLOW_ANGLE}} The LexiFlow Suite is available in three tiers: **Standard ($69/mo)**, **Professional ($199/mo)**, and **Enterprise ($299/mo)**. [Learn more →]({{PRODUCT_URL}})
 
 ## Step-by-Step Guide
 

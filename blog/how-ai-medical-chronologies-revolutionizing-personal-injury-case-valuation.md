@@ -21,7 +21,7 @@ A missed appointment date. A misattributed diagnosis. A treatment that's listed 
 
 This is why medical chronology software powered by AI is one of the most transformative tools available to plaintiff-side firms today. It doesn't just save time. It changes the quality — and the value — of every case it touches.
 
-> **LexiFlow's approach:** Our Medical Chronologies module extracts every clinical event from uploaded records — dates, diagnoses, treatments, medications, labs, imaging — and organizes them into a structured, citation-backed timeline in under 60 seconds. Every entry references the source document and page number. And it's part of the full LexiFlow Suite — all six AI modules for just **$69/month**. [Learn more about Medical Chronologies →](https://lexiflow.co/medical-chronologies)
+> **LexiFlow's approach:** Our Medical Chronologies module extracts every clinical event from uploaded records — dates, diagnoses, treatments, medications, labs, imaging — and organizes them into a structured, citation-backed timeline in under 60 seconds. Every entry references the source document and page number. And it's part of the full LexiFlow Suite — plans from **$69/month** (3 tiers: Standard, Professional, Enterprise). [Learn more about Medical Chronologies →](https://lexiflow.co/medical-chronologies)
 
 ## Why Chronology Quality Directly Impacts Case Value
 

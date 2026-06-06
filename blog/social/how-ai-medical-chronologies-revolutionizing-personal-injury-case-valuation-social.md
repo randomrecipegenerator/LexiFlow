@@ -16,7 +16,7 @@ Email for a free sample chronology: lexiflow-legal-suite-88a6f8e9@ctomail.io
 1/ 12 hours per medical chronology. At $175/hr, that's $2,100 in labor for ONE case. AI changes everything. 🧵
 2/ AI chronology software: 3 minutes. >99% accuracy. Every event citation-backed.
 3/ Case study: Smith & Lacien — 32 hrs/week saved, +16% settlement rate, ROI in under 1 month.
-4/ LexiFlow Suite: all 6 AI modules for $69/month. Including Medical Chronologies.
+4/ LexiFlow Suite: plans from $69/month (3 tiers available). Including Medical Chronologies.
 5/ Full breakdown → https://lexiflow.co/blog/how-ai-medical-chronologies-revolutionizing-personal-injury-case-valuation
 
 ## Email Newsletter

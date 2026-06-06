@@ -8,7 +8,7 @@ Every plaintiff-side attorney knows the drill: medical records, paralegal at $17
 
 Manual review misses up to 60% of meritorious cases. AI medical merit review changes this: upload records, get a citation-backed report in 3 minutes. $75/case. HIPAA compliant.
 
-Part of the LexiFlow Suite — all 6 modules for $69/month.
+Part of the LexiFlow Suite — plans from $69/month (3 tiers available).
 
 Read the full post → https://lexiflow.co/blog/how-ai-medical-merit-review-cuts-case-screening
 

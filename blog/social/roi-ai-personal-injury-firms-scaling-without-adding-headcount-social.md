@@ -17,7 +17,7 @@ Email for a free ROI analysis: lexiflow-legal-suite-88a6f8e9@ctomail.io
 ## X/Twitter (Thread)
 1/ $126K for one paralegal. $828/year for AI that does the work of two. The math is not close. 🧵
 2/ Smith & Lacien case study: 32 hrs/week saved, $54K/year saved, +16% settlement rate.
-3/ LexiFlow Suite: all 6 modules for $69/month. No per-lead fees. No usage caps.
+3/ LexiFlow Suite: plans from $69/month (3 tiers available). No per-lead fees. No usage caps.
 4/ Cost of inaction: $285K+/year in lost leads, turnover, and delays.
 5/ Full breakdown → https://lexiflow.co/blog/roi-ai-personal-injury-firms-scaling-without-adding-headcount
 

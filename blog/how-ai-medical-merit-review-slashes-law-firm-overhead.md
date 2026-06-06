@@ -26,7 +26,7 @@ And that's just the obvious cost. The hidden costs are where the real damage hid
 
 AI medical merit review changes this cost structure entirely.
 
-> **LexiFlow's approach:** MeritScan by LexiFlow processes medical records, extracts chronologies, analyzes standard of care, and produces citation-backed merit reports — all in under 3 minutes. Cost: $75–$150 per case. And it's part of the full LexiFlow Suite — all six AI modules for just **$69/month**. [Learn more about MeritScan →](https://lexiflow.co/meritscan)
+> **LexiFlow's approach:** MeritScan by LexiFlow processes medical records, extracts chronologies, analyzes standard of care, and produces citation-backed merit reports — all in under 3 minutes. Cost: $75–$150 per case. And it's part of the full LexiFlow Suite — plans from **$69/month** (3 tiers: Standard, Professional, Enterprise). [Learn more about MeritScan →](https://lexiflow.co/meritscan)
 
 ## The True Cost of Manual Medical Record Review
 
@@ -92,4 +92,4 @@ The firms that continue relying on manual review aren't just spending more — t
 
 ---
 
-**Ready to see the ROI for your firm?** [Email our team →](mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io) for a free cost analysis and sample MeritScan report. The full LexiFlow Suite from just **$69/month**.
+**Ready to see the ROI for your firm?** [Email our team →](mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io) for a free cost analysis and sample MeritScan report. The Suite from **$69/month** (3 tiers available).

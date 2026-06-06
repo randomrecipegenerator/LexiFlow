@@ -8,7 +8,7 @@ The economics are not close. Manual medical record review costs $1,200-$1,800 pe
 
 Plus: 3-5x more identified viable cases, 24/7 intake, and zero burnout.
 
-All six LexiFlow modules for $69/month.
+Plans from $69/month (Standard, Professional, Enterprise).
 
 Read the full ROI breakdown → https://lexiflow.co/blog/how-ai-medical-merit-review-slashes-law-firm-overhead
 
@@ -17,7 +17,7 @@ Email for a free cost analysis: lexiflow-legal-suite-88a6f8e9@ctomail.io
 ## X/Twitter (Thread)
 1/ Manual medical record review: $70K/month for 40 cases. AI review: $3K/month. The math speaks for itself.
 2/ 93-95% cost reduction. 3-minute turnaround vs 8-12 hours. 3-5x more identified cases.
-3/ LexiFlow Suite: all 6 AI modules for $69/month. Including MeritScan AI review.
+3/ LexiFlow Suite: plans from $69/month (3 tiers available). Including MeritScan AI review.
 4/ Full ROI breakdown → https://lexiflow.co/blog/how-ai-medical-merit-review-slashes-law-firm-overhead
 
 ## Email Newsletter
