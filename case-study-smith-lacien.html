@@ -52,9 +52,10 @@
         .pricing-card.featured { transform: none !important; margin: 20px 0 !important; }
     }
         </style>
+<link rel="stylesheet" href="/shared-layout.css">
 </head>
 <body class="bg-slate-50 text-slate-900 py-20">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <nav><div class="nav-container">
+<nav><div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing.html">Pricing</a></li>
@@ -66,6 +67,7 @@
     </ul>
     <button class="nav-toggle">☰</button>
   </div></nav>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
   
     <div class="max-w-3xl mx-auto px-4 bg-white p-12 rounded-3xl shadow-sm border border-slate-200">
         <a href="/" class="text-blue-600 hover:underline mb-8 inline-block">← Back to Home</a>
@@ -130,7 +132,21 @@
 
   
   
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <footer>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+  <script>
+    (function() {
+        var toggle = document.querySelector('.nav-toggle');
+        var navLinks = document.getElementById('navLinks');
+        if (toggle && navLinks) {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.classList.toggle('active');
+            });
+        }
+    })();
+  </script>
+
+<footer>
     <div class="footer-container">
       <div class="footer-col">
         <a href="/" class="footer-logo">LexiFlow</a>
@@ -178,17 +194,6 @@
       &copy; 2026 LexiFlow AI. All rights reserved.
     </div>
   </footer>
-  <script>
-    (function() {
-        var toggle = document.querySelector('.nav-toggle');
-        var navLinks = document.getElementById('navLinks');
-        if (toggle && navLinks) {
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                navLinks.classList.toggle('active');
-            });
-        }
-    })();
-  </script>
+<script src="/shared-layout.js"></script>
 </body>
 </html>

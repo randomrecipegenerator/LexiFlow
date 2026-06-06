@@ -90,9 +90,10 @@
       "description": "24/7 AI-driven lead qualification and intake for attorneys in Miramar."
     }
     </script>
+<link rel="stylesheet" href="/shared-layout.css">
 </head>
 <body>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <nav><div class="nav-container">
+<nav><div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing.html">Pricing</a></li>
@@ -104,6 +105,7 @@
     </ul>
     <button class="nav-toggle">☰</button>
   </div></nav>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
   
 
 <div class="max-w">
@@ -203,7 +205,21 @@
 
   
   
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <footer>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+  <script>
+    (function() {
+        var toggle = document.querySelector('.nav-toggle');
+        var navLinks = document.getElementById('navLinks');
+        if (toggle && navLinks) {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.classList.toggle('active');
+            });
+        }
+    })();
+  </script>
+
+<footer>
     <div class="footer-container">
       <div class="footer-col">
         <a href="/" class="footer-logo">LexiFlow</a>
@@ -251,17 +267,6 @@
       &copy; 2026 LexiFlow AI. All rights reserved.
     </div>
   </footer>
-  <script>
-    (function() {
-        var toggle = document.querySelector('.nav-toggle');
-        var navLinks = document.getElementById('navLinks');
-        if (toggle && navLinks) {
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                navLinks.classList.toggle('active');
-            });
-        }
-    })();
-  </script>
+<script src="/shared-layout.js"></script>
 </body>
 </html>

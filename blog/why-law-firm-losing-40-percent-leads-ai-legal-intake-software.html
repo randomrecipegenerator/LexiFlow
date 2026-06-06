@@ -141,8 +141,10 @@
       .nav-toggle { display: block; }
     }
 \n    </style>
+<link rel="stylesheet" href="/shared-layout.css">
 </head>
-<body>\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <nav><div class="nav-container">
+<body>
+<nav><div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing.html">Pricing</a></li>
@@ -153,7 +155,7 @@
       <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
     </ul>
     <button class="nav-toggle">☰</button>
-  </div></nav>
+  </div></nav>\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
     <header class="blog-header">
         <div class="container">
             <h1>Why Your Law Firm Is Losing 40% of Leads (And How AI Legal Intake Software Fixes It)</h1>
@@ -246,12 +248,7 @@
         </div>
     </main>
 
-    <footer class="blog-footer">
-        <div class="container">
-            <p>&copy; 2026 LexiFlow Legal Suite. All rights reserved.</p>
-            <p><a href="https://lexiflow.co">Home</a> &middot; <a href="https://lexiflow.co/blog">Blog</a> &middot; <a href="mailto:leads@lexiflow.co">Contact</a></p>
-        </div>
-    </footer>
+    
   <script>
     (function() {
         var toggle = document.querySelector('.nav-toggle');
@@ -264,7 +261,21 @@
         }
     })();
   </script>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <footer>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+  <script>
+    (function() {
+        var toggle = document.querySelector('.nav-toggle');
+        var navLinks = document.getElementById('navLinks');
+        if (toggle && navLinks) {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.classList.toggle('active');
+            });
+        }
+    })();
+  </script>
+
+<footer>
     <div class="footer-container">
       <div class="footer-col">
         <a href="/" class="footer-logo">LexiFlow</a>
@@ -312,17 +323,6 @@
       &copy; 2026 LexiFlow AI. All rights reserved.
     </div>
   </footer>
-  <script>
-    (function() {
-        var toggle = document.querySelector('.nav-toggle');
-        var navLinks = document.getElementById('navLinks');
-        if (toggle && navLinks) {
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                navLinks.classList.toggle('active');
-            });
-        }
-    })();
-  </script>
+<script src="/shared-layout.js"></script>
 </body>
 </html>
