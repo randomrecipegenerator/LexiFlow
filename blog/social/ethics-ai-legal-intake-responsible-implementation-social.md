@@ -10,7 +10,7 @@ Our latest post breaks down the 5 ethical pillars every firm must address, plus 
 
 Read the full guide: https://lexiflow.co/blog/ethics-ai-legal-intake-responsible-implementation
 
-Email us for a free ethics review: leads@lexiflow.co
+Email us for a free ethics review: lexiflow-legal-suite-88a6f8e9@ctomail.io
 
 ## X/Twitter (Thread)
 1/ AI is transforming legal intake. But with great power comes ethical responsibility. 🧵

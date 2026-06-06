@@ -199,4 +199,4 @@ The firms that will thrive in the AI era are not the ones that avoid the technol
 
 ---
 
-**Ready to implement AI responsibly in your firm?** [Email our team →](mailto:leads@lexiflow.co) for a free ethics review and intake audit. The full LexiFlow Suite — HIPAA-compliant, transparent AI, and attorney-supervised by design — from just **$69/month**.
+**Ready to implement AI responsibly in your firm?** [Email our team →](mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io) for a free ethics review and intake audit. The full LexiFlow Suite — HIPAA-compliant, transparent AI, and attorney-supervised by design — from just **$69/month**.

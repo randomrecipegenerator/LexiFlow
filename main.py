@@ -98,7 +98,7 @@ async def demo_request(name: str = Form(...), email: str = Form(...), firm: str 
     
     try:
         await integration_engine.integration_engine.send_postmark_email(
-            to_email="leads@lexiflow.co",
+            to_email="lexiflow-legal-suite-88a6f8e9@ctomail.io",
             subject=subject,
             body=body
         )

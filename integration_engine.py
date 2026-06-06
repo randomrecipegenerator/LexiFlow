@@ -365,7 +365,7 @@ class IntegrationEngine:
         if not api_key:
             api_key = os.getenv("POSTMARK_SERVER_TOKEN")
 
-        from_email = os.getenv("POSTMARK_FROM_EMAIL", "leads@lexiflow.co")
+        from_email = os.getenv("POSTMARK_FROM_EMAIL", "lexiflow-legal-suite-88a6f8e9@ctomail.io")
         
         if not api_key or "placeholder" in api_key.lower():
             logger.info(f"SIMULATED EMAIL to {to_email}: {subject}")

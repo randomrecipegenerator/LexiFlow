@@ -12,7 +12,7 @@ All six LexiFlow modules for $69/month.
 
 Read the full ROI breakdown → https://lexiflow.co/blog/how-ai-medical-merit-review-slashes-law-firm-overhead
 
-Email for a free cost analysis: leads@lexiflow.co
+Email for a free cost analysis: lexiflow-legal-suite-88a6f8e9@ctomail.io
 
 ## X/Twitter (Thread)
 1/ Manual medical record review: $70K/month for 40 cases. AI review: $3K/month. The math speaks for itself.
@@ -27,4 +27,4 @@ Email for a free cost analysis: leads@lexiflow.co
 
 Read more: https://lexiflow.co/blog/how-ai-medical-merit-review-slashes-law-firm-overhead
 
-Reply for a free cost analysis: leads@lexiflow.co
+Reply for a free cost analysis: lexiflow-legal-suite-88a6f8e9@ctomail.io

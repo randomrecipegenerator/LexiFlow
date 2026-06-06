@@ -141,7 +141,7 @@ const ConsultationModal = {
             }
         } catch (error) {
             console.error('Consultation Request Error:', error);
-            alert('Something went wrong. Please try again or email leads@lexiflow.co directly.');
+            alert('Something went wrong. Please try again or email lexiflow-legal-suite-88a6f8e9@ctomail.io directly.');
             
             // Reset button
             submitBtn.disabled = false;

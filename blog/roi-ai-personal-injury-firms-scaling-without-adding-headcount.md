@@ -169,7 +169,7 @@ Firms that continue scaling by adding headcount aren't just spending more. They'
 
 ---
 
-**Ready to scale without adding headcount?** [Email our team →](mailto:leads@lexiflow.co) for a free ROI analysis tailored to your firm. We'll show you exactly how much LexiFlow can save. The full Suite from just **$69/month**.
+**Ready to scale without adding headcount?** [Email our team →](mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io) for a free ROI analysis tailored to your firm. We'll show you exactly how much LexiFlow can save. The full Suite from just **$69/month**.
 
 ---
 

@@ -92,4 +92,4 @@ The firms that continue relying on manual review aren't just spending more — t
 
 ---
 
-**Ready to see the ROI for your firm?** [Email our team →](mailto:leads@lexiflow.co) for a free cost analysis and sample MeritScan report. The full LexiFlow Suite from just **$69/month**.
+**Ready to see the ROI for your firm?** [Email our team →](mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io) for a free cost analysis and sample MeritScan report. The full LexiFlow Suite from just **$69/month**.

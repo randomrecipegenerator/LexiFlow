@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 class PostmarkConfig:
     """Postmark API configuration."""
     server_token: str = ""
-    from_email: str = "leads@lexiflow.co"
+    from_email: str = "lexiflow-legal-suite-88a6f8e9@ctomail.io"
     from_name: str = "LexiFlow Legal Suite"
     api_base_url: str = "https://api.postmarkapp.com"
     message_stream: str = "outbound"
@@ -397,7 +397,7 @@ def create_from_config(config_dict: Dict[str, Any]) -> PostmarkClient:
     """Create a PostmarkClient from a config dict (e.g. from Firm.api_config_json)."""
     cfg = PostmarkConfig(
         server_token=config_dict.get("postmark_api_key", ""),
-        from_email=config_dict.get("postmark_from_email", "leads@lexiflow.co"),
+        from_email=config_dict.get("postmark_from_email", "lexiflow-legal-suite-88a6f8e9@ctomail.io"),
         from_name=config_dict.get("postmark_from_name", "LexiFlow Legal Suite"),
     )
     return PostmarkClient(cfg)

@@ -89,4 +89,4 @@ The question isn't whether AI medical record review will become standard practic
 
 ---
 
-**Ready to see what MeritScan can do with a real case?** [Email our team →](mailto:leads@lexiflow.co) for your free sample report. No commitment, no credit card.
+**Ready to see what MeritScan can do with a real case?** [Email our team →](mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io) for your free sample report. No commitment, no credit card.

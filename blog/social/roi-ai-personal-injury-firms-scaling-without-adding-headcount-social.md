@@ -12,7 +12,7 @@ Smith & Lacien saved 32 hrs/week and $54K in year one. They cancelled plans to h
 
 Read the full ROI breakdown: https://lexiflow.co/blog/roi-ai-personal-injury-firms-scaling-without-adding-headcount
 
-Email for a free ROI analysis: leads@lexiflow.co
+Email for a free ROI analysis: lexiflow-legal-suite-88a6f8e9@ctomail.io
 
 ## X/Twitter (Thread)
 1/ $126K for one paralegal. $828/year for AI that does the work of two. The math is not close. 🧵
