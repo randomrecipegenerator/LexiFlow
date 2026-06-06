@@ -18,7 +18,7 @@ from typing import Any, Dict, List, Optional
 
 from fastapi import APIRouter, HTTPException, Query
 
-from . import damage_caps as damage_caps_utils
+import damage_caps as damage_caps_utils
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/enterprise", tags=["Enterprise Modules"])
