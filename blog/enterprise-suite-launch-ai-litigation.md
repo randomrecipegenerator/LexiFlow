@@ -132,4 +132,4 @@ The LexiFlow Enterprise Suite is available now. No setup fees. No long-term cont
 
 ---
 
-*LexiFlow Legal Suite — $299/month Enterprise • $199/month Professional • $69/month Standard. [leads@lexiflow.co](mailto:leads@lexiflow.co)*
+*LexiFlow Technologies Inc — $299/month Enterprise • $199/month Professional • $69/month Standard. [leads@lexiflow.co](mailto:leads@lexiflow.co)*
