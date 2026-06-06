@@ -32,18 +32,18 @@
   </script>
 </head>
 <body>
-<nav class="nav" id="navbar">
-  <div class="container">
-    <a href="" class="nav-logo"><span class="nav-logo-icon">LF</span> LexiFlow</a>
-    <ul class="nav-links">
-      <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="pricing.html" class="nav-cta">Get Started →</a></li>
+<nav><div class="nav-container">
+    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/dashboard.html">Dashboard</a></li>
+      <li><a href="/blog/index.html">Blog</a></li>
+      <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+      <li><a href="/cities.html">Areas We Serve</a></li>
+      <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
     </ul>
-  </div>
-</nav>
+    <button class="nav-toggle">☰</button>
+  </div></nav>
 
 <section class="hero">
   <div class="container">
@@ -120,7 +120,54 @@
   <div class="container"><h2>Stop Missing Qualified Leads</h2><p>Your first intake leakage audit is free. Discover how many cases you're leaving on the table.</p><div class="cta-actions"><a href="mailto:leads@lexiflow.co?subject=AI%20Intake%20Agent%20Inquiry" class="btn btn-primary">Get My Intake Leakage Audit →</a><a href="#features" class="btn btn-secondary">See Features</a></div></div>
 </section>
 
-<footer class="footer"><div class="container"><span class="footer-copy">&copy; 2025 LexiFlow Legal Suite</span><ul class="footer-links"><li><a href="pricing.html">Pricing</a></li><li><a href="#">Privacy</a></li><li><a href="mailto:leads@lexiflow.co">Contact</a></li></ul></div></footer>
-<script>window.addEventListener('scroll',function(){document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20);});</script>
+    <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo"><span>LF</span> LexiFlow</a>
+        <p style="color: var(--slate-400); font-size: 14px;">The orchestration layer for high-stakes litigation. Reasoning AI for high-growth firms.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-intake-agent.html">LexiFlow Intake</a></li>
+          <li><a href="/ai-medical-chronologies.html">Medical Review</a></li>
+          <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
+          <li><a href="/depolens-ai.html">DepoLens™ AI</a></li>
+          <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Top Markets</h4>
+        <ul>
+          <li><a href="/locations/california/medmal-la.html">Los Angeles (MedMal)</a></li>
+          <li><a href="/locations/california/medmal-san-francisco.html">San Francisco (MedMal)</a></li>
+          <li><a href="/locations/new-york/medmal-nyc.html">New York City (MedMal)</a></li>
+          <li><a href="/locations/illinois/medmal-chicago.html">Chicago (MedMal)</a></li>
+          <li><a href="/cities.html">View All Cities</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+          <li><a href="/soc2.html">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Security</h4>
+        <div style="font-size: 24px; display: flex; gap: 16px;">
+          <i class="bi bi-shield-lock"></i>
+          <i class="bi bi-safe"></i>
+          <i class="bi bi-fingerprint"></i>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 LexiFlow AI. All rights reserved.
+    </div>
+  </footer>
+<script src="/shared-layout.js"></script><script>window.addEventListener('scroll',function(){document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20);});</script>
 </body>
 </html>
