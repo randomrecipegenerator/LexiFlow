@@ -128,8 +128,8 @@ Settlement data is anonymized and aggregated. No personally identifiable informa
 
 The LexiFlow Enterprise Suite is available now. No setup fees. No long-term contracts. No deployment headaches.
 
-**Email us for a personalized walkthrough:** [lexiflow-legal-suite-88a6f8e9@ctomail.io](mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io)
+**Email us for a personalized walkthrough:** [leads@lexiflow.co](mailto:leads@lexiflow.co)
 
 ---
 
-*LexiFlow Legal Suite — $299/month Enterprise • $199/month Professional • $69/month Standard. [lexiflow-legal-suite-88a6f8e9@ctomail.io](mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io)*
+*LexiFlow Legal Suite — $299/month Enterprise • $199/month Professional • $69/month Standard. [leads@lexiflow.co](mailto:leads@lexiflow.co)*
