@@ -318,7 +318,7 @@ class FilevineClient:
                 "contactEmail": lead_data.get("email", ""),
                 "contactPhone": lead_data.get("phone", ""),
                 "caseDescription": lead_data.get("description", ""),
-                "leadSource": lead_data.get("source", "LexiFlow Technologies Inc"),
+                "leadSource": lead_data.get("source", "LexiFlow AI"),
                 "aiScore": str(lead_data.get("qualificationScore", 0)),
                 "caseValue": str(lead_data.get("caseValue", 0)),
                 "aiSummary": lead_data.get("aiSummary", "")

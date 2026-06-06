@@ -59,7 +59,7 @@ These costs compound. A firm losing 12 cases per year to slow response is also l
 
 LexiFlow's full Suite costs **$69/month** — or **$828 per year**. That's less than the cost of a single hour of paralegal time in most markets.
 
-| Cost Factor | Additional FTE (1 Paralegal) | LexiFlow Technologies Inc Suite |
+| Cost Factor | Additional FTE (1 Paralegal) | LexiFlow AI Suite |
 |------------|------------------------------|-------------------|
 | Annual salary | $75,000 | $0 |
 | Benefits & overhead (30%) | $22,500 | $0 |

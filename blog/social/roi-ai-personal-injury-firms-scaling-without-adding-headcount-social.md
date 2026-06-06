@@ -24,4 +24,4 @@ Email for a free ROI analysis: lexiflow-legal-suite-88a6f8e9@ctomail.io
 ## Email Newsletter
 **Subject:** $126K vs $828: The math of scaling your PI firm
 **Preview:** How one firm saved $54K and avoided hiring a fourth paralegal with AI
-**Body:** Our latest post compares the cost of an additional FTE ($126K/year) against the LexiFlow Technologies Inc Suite ($828/year), with real ROI data from Smith & Lacien. Read more: https://lexiflow.co/blog/roi-ai-personal-injury-firms-scaling-without-adding-headcount. Reply for a free ROI analysis.
+**Body:** Our latest post compares the cost of an additional FTE ($126K/year) against the LexiFlow AI Suite ($828/year), with real ROI data from Smith & Lacien. Read more: https://lexiflow.co/blog/roi-ai-personal-injury-firms-scaling-without-adding-headcount. Reply for a free ROI analysis.

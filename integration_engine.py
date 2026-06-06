@@ -171,7 +171,7 @@ class UniversalLeadMapper:
         first_name = name_parts[0]
         last_name = name_parts[1] if len(name_parts) > 1 else "Lead"
         
-        summary = lead.ai_summary or "Synced from LexiFlow Technologies Inc"
+        summary = lead.ai_summary or "Synced from LexiFlow AI"
         
         if target_system == "clio":
             return {
@@ -180,7 +180,7 @@ class UniversalLeadMapper:
                 "from_email": lead.email,
                 "from_phone": lead.phone,
                 "from_message": summary,
-                "referring_url": "LexiFlow Technologies Inc"
+                "referring_url": "LexiFlow AI"
             }
         elif target_system == "filevine":
             return {
@@ -189,7 +189,7 @@ class UniversalLeadMapper:
                 "email": lead.email,
                 "phone": lead.phone,
                 "summary": summary,
-                "source": "LexiFlow Technologies Inc",
+                "source": "LexiFlow AI",
                 "projectName": f"{first_name} {last_name} - {lead.case_type or 'Intake'}",
                 "referenceNumber": f"LEX-{lead.id}",
                 "description": summary
@@ -202,7 +202,7 @@ class UniversalLeadMapper:
                 "phone": lead.phone or "",
                 "caseType": lead.case_type or "General Intake",
                 "description": lead.description or summary,
-                "source": "LexiFlow Technologies Inc",
+                "source": "LexiFlow AI",
                 "score": lead.qualification_score or 0,
                 "caseValue": lead.case_value_estimate or 0,
                 "notes": f"AI Summary: {summary}",
@@ -215,7 +215,7 @@ class UniversalLeadMapper:
                 "email": lead.email,
                 "phone": lead.phone,
                 "case_description": summary,
-                "lead_source": "LexiFlow Technologies Inc"
+                "lead_source": "LexiFlow AI"
             }
         return {}
 

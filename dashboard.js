@@ -255,7 +255,7 @@ async function viewLead(id) {
         
         document.getElementById('modal-transcript').innerHTML = lead.messages.map(m => `
             <div class="mb-3 d-flex flex-column ${m.role === 'user' ? 'align-items-end' : 'align-items-start'}">
-                <div class="small fw-bold text-muted mb-1 mx-2" style="font-size: 0.7rem;">${m.role === 'user' ? 'CLIENT' : 'LexiFlow Technologies Inc'}</div>
+                <div class="small fw-bold text-muted mb-1 mx-2" style="font-size: 0.7rem;">${m.role === 'user' ? 'CLIENT' : 'LEXIFLOW AI'}</div>
                 <div class="p-3 rounded-4 shadow-sm ${m.role === 'user' ? 'bg-primary text-white' : 'bg-white border text-dark'}" style="max-width: 85%; border-radius: 15px !important;">
                     ${m.content}
                 </div>
@@ -583,7 +583,7 @@ async function loadFrontDeskSettings() {
         document.querySelectorAll('.voice-card').forEach(card => card.classList.toggle('selected', card.dataset.voiceId === voiceId));
         document.getElementById('emailToggle').checked = firm.email_enabled === 1;
         document.getElementById('fd-email-address').innerText = `intake+${firm.slug}@lexiflow.co`;
-        document.getElementById('emailAutoReply').value = firm.email_config.template || "Thank you for reaching out. We have received your inquiry and will review it shortly.\n\nThis is an automated response from LexiFlow Technologies Inc.";
+        document.getElementById('emailAutoReply').value = firm.email_config.template || "Thank you for reaching out. We have received your inquiry and will review it shortly.\n\nThis is an automated response from LexiFlow AI.";
         renderActiveHours(firm.active_hours);
         updateFrontDeskAnalytics();
     } catch (e) { console.error("Error loading Front Desk settings", e); }

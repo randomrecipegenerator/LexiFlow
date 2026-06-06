@@ -283,7 +283,7 @@ class ClioGrowClient:
             "from_last": last,
             "from_email": lead_data.get("email", ""),
             "from_phone": lead_data.get("phone", ""),
-            "from_message": summary[:500] if summary else "Synced from LexiFlow Technologies Inc",
+            "from_message": summary[:500] if summary else "Synced from LexiFlow AI",
             "referring_url": f"https://lexiflow.co?source={lead_data.get('source', 'api')}",
             "custom_fields": {
                 "ai_qualification_score": str(lead_data.get("qualificationScore", 0)),

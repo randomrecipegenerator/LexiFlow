@@ -1,6 +1,6 @@
-# LexiFlow Technologies Inc Legal Suite - Manual Handover & Deployment Guide
+# LexiFlow AI Legal Suite - Manual Handover & Deployment Guide
 
-This document provides instructions for manually deploying the LexiFlow Technologies Inc Suite using the provided ZIP archive. This is a fallback method while GitHub push access is being resolved.
+This document provides instructions for manually deploying the LexiFlow AI Suite using the provided ZIP archive. This is a fallback method while GitHub push access is being resolved.
 
 ## 1. Handover Artifacts
 The latest and most complete codebase is located at:
@@ -67,4 +67,4 @@ Once your environment variables are set:
 - **Lead Intake**: Embed the intake form (found in the dashboard settings) on the firm's website.
 
 ---
-*Created by the LexiFlow Technologies Inc Engineering Team - May 26, 2026*
+*Created by the LexiFlow AI Engineering Team - May 26, 2026*

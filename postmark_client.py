@@ -22,7 +22,7 @@ class PostmarkConfig:
     """Postmark API configuration."""
     server_token: str = ""
     from_email: str = "lexiflow-legal-suite-88a6f8e9@ctomail.io"
-    from_name: str = "LexiFlow Technologies Inc"
+    from_name: str = "LexiFlow Legal Suite"
     api_base_url: str = "https://api.postmarkapp.com"
     message_stream: str = "outbound"
     track_opens: bool = True
@@ -256,7 +256,7 @@ class PostmarkClient:
     async def send_dispatch(
         self,
         dispatch_rows: List[Dict[str, Any]],
-        from_firm_name: str = "LexiFlow Technologies Inc",
+        from_firm_name: str = "LexiFlow Legal Suite",
     ) -> List[Dict[str, Any]]:
         """
         Send personalized outreach emails from a dispatch sheet.
@@ -398,7 +398,7 @@ def create_from_config(config_dict: Dict[str, Any]) -> PostmarkClient:
     cfg = PostmarkConfig(
         server_token=config_dict.get("postmark_api_key", ""),
         from_email=config_dict.get("postmark_from_email", "lexiflow-legal-suite-88a6f8e9@ctomail.io"),
-        from_name=config_dict.get("postmark_from_name", "LexiFlow Technologies Inc"),
+        from_name=config_dict.get("postmark_from_name", "LexiFlow Legal Suite"),
     )
     return PostmarkClient(cfg)
 

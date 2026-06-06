@@ -1,6 +1,6 @@
-# Changelog: LexiFlow Technologies Inc Suite Evolution
+# Changelog: LexiFlow AI Suite Evolution
 
-All notable changes to the LexiFlow Technologies Inc project will be documented in this file.
+All notable changes to the LexiFlow AI project will be documented in this file.
 
 ## [2026-05-26] - Professional Pivot & MeritScan Launch
 
