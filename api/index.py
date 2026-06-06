@@ -16,7 +16,7 @@ if backend_dir not in sys.path:
 
 # Import and expose the FastAPI app
 try:
-    from backend.main import app
+    from main import app
     # Vercel's Python runtime searches for a variable named 'app' or 'handler'
     handler = app
 except ImportError as e:

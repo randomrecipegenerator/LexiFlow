@@ -1404,8 +1404,8 @@ def get_audit_logs(limit: int = 100, db: Session = Depends(get_db), current_firm
 if not os.getenv("VERCEL"):
     from fastapi.staticfiles import StaticFiles
     from fastapi.responses import FileResponse
-    # The root directory is the parent of the backend directory
-    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # The root directory is the current directory of main.py
+    root_dir = os.path.dirname(os.path.abspath(__file__))
     
     api_app = app
     app = FastAPI()
