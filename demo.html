@@ -4,7 +4,7 @@
     <meta name="google-site-verification" content="SdZcqCNhIJHLlfx2BU22unsBd6smFsTf7o6pv-np5Zk" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Demo | LexiFlow AI</title>
+    <title>Live Demo | LexiFlow Technologies Inc</title>
     <link rel="icon" type="image/svg+xml" href="/branding/favicon.svg">
     <link rel="icon" type="image/png" href="/branding/favicon.png" sizes="32x32">
     
@@ -103,7 +103,7 @@
             </div>
             
             <div class="mt-4 flex justify-between items-center">
-                <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Secured by LexiFlow AI</p>
+                <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Secured by LexiFlow Technologies Inc</p>
                 <button id="complete-btn" class="text-xs font-bold text-blue-600 hover:bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200 transition">Finish Intake & View Score</button>
             </div>
         </div>
@@ -143,7 +143,7 @@
                     const firms = await response.json();
                     const firm = firms.find(f => f.slug === firmSlug);
                     if (firm) {
-                        document.title = `${firm.name} | LexiFlow AI Intake`;
+                        document.title = `${firm.name} | LexiFlow Technologies Inc Intake`;
                         document.getElementById('firm-name-display').textContent = `${firm.name} Intake`;
                         document.getElementById('ai-welcome-text').innerHTML = `Hello! I'm Lexi, the AI assistant for <strong>${firm.name}</strong>. I'm here to help gather some initial details about your legal inquiry.`;
                     }
@@ -420,7 +420,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      &copy; 2026 LexiFlow AI. All rights reserved.
+      &copy; 2026 LexiFlow Technologies Inc. All rights reserved.
     </div>
   </footer>
 <script src="/shared-layout.js"></script>
