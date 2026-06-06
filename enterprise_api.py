@@ -18,7 +18,7 @@ from typing import Any, Dict, List, Optional
 
 from fastapi import APIRouter, HTTPException, Query
 
-import damage_caps as damage_caps_utils
+from . import damage_caps as damage_caps_utils
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/enterprise", tags=["Enterprise Modules"])
@@ -198,11 +198,67 @@ async def get_settlement_overview():
 
 @router.get("/settlement/case/{case_id}")
 async def get_settlement_case(case_id: str):
-    """Get detailed settlement prediction for a specific case."""
+    """Get detailed settlement prediction for a specific case, including damage cap analysis."""
     for case in MOCK_SETTLEMENT_CASES:
         if case["id"] == case_id:
-            return case
+            # Extract state code from jurisdiction (e.g. "California, Los Angeles County" -> "CA")
+            state_code = _extract_state_code(case["jurisdiction"])
+            damage_cap_analysis = None
+            if state_code:
+                cap_data = damage_caps_utils.get_damage_cap(state_code)
+                if cap_data:
+                    # Calculate what the estimated trial value would be capped at
+                    ne_portion = min(case["estimated_trial_value"] * 0.6, case["demand_amount"] * 0.5)
+                    econ_portion = case["estimated_trial_value"] - ne_portion
+                    capped = damage_caps_utils.calculate_capped_value(state_code, ne_portion, econ_portion)
+                    damage_cap_analysis = {
+                        "state_code": state_code,
+                        "state_name": cap_data.state,
+                        "non_economic_cap": cap_data.non_economic_cap,
+                        "total_cap": cap_data.total_cap,
+                        "max_payout_without_caps": round(case["estimated_trial_value"], 2),
+                        "max_payout_with_caps": round(max(capped["capped_total"], capped["capped_total"]), 2),
+                        "reduction_due_to_caps": round(capped["reduction_amount"], 2),
+                        "cap_applies": capped["cap_applied"],
+                        "cap_details": capped["cap_details"],
+                        "citation": cap_data.citation,
+                    }
+            return {
+                **case,
+                "damage_cap_analysis": damage_cap_analysis,
+            }
     raise HTTPException(404, detail=f"Settlement case {case_id} not found")
+
+
+def _extract_state_code(jurisdiction: str) -> str:
+    """Extract state code from a jurisdiction string like 'California, Los Angeles County'."""
+    if not jurisdiction:
+        return None
+    # Look up the state name in our caps data
+    jurisdiction_lower = jurisdiction.lower()
+    for code, cap in damage_caps_utils.STATE_DAMAGE_CAPS.items():
+        if cap.state.lower() in jurisdiction_lower:
+            return code
+    # Fallback: try common state name mapping
+    state_map = {
+        "california": "CA", "new york": "NY", "texas": "TX", "florida": "FL",
+        "illinois": "IL", "pennsylvania": "PA", "ohio": "OH", "georgia": "GA",
+        "michigan": "MI", "new jersey": "NJ", "virginia": "VA", "washington": "WA",
+        "arizona": "AZ", "massachusetts": "MA", "tennessee": "TN", "indiana": "IN",
+        "missouri": "MO", "maryland": "MD", "wisconsin": "WI", "colorado": "CO",
+        "minnesota": "MN", "south carolina": "SC", "alabama": "AL", "louisiana": "LA",
+        "kentucky": "KY", "oregon": "OR", "oklahoma": "OK", "connecticut": "CT",
+        "iowa": "IA", "mississippi": "MS", "arkansas": "AR", "kansas": "KS",
+        "utah": "UT", "nevada": "NV", "new mexico": "NM", "nebraska": "NE",
+        "west virginia": "WV", "idaho": "ID", "hawaii": "HI", "new hampshire": "NH",
+        "maine": "ME", "montana": "MT", "rhode island": "RI", "delaware": "DE",
+        "south dakota": "SD", "north dakota": "ND", "alaska": "AK", "vermont": "VT",
+        "wyoming": "WY", "north carolina": "NC",
+    }
+    for state_name, code in state_map.items():
+        if state_name in jurisdiction_lower:
+            return code
+    return None
 
 
 # =========================================================================

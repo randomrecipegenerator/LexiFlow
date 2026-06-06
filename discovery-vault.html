@@ -35,9 +35,10 @@
   .feature-list li { display: flex; gap: 12px; align-items: start; font-size: 16px; color: var(--navy); margin-bottom: 20px; }
   .feature-list li i { color: var(--gold); font-size: 20px; }
 </style>
+<link rel="stylesheet" href="/shared-layout.css">
 </head>
 <body>
-                                    <nav><div class="nav-container">
+<nav><div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing.html">Pricing</a></li>
@@ -49,6 +50,7 @@
     </ul>
     <button class="nav-toggle">☰</button>
   </div></nav>
+                                    
 
     <header class="hero">
         <div class="container">
@@ -90,7 +92,20 @@
         </div>
     </main>
 
-                                    <footer>
+                                      <script>
+    (function() {
+        var toggle = document.querySelector('.nav-toggle');
+        var navLinks = document.getElementById('navLinks');
+        if (toggle && navLinks) {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.classList.toggle('active');
+            });
+        }
+    })();
+  </script>
+
+<footer>
     <div class="footer-container">
       <div class="footer-col">
         <a href="/" class="footer-logo">LexiFlow</a>
@@ -137,17 +152,7 @@
     <div class="footer-bottom">
       &copy; 2026 LexiFlow AI. All rights reserved.
     </div>
-  </footer>  <script>
-    (function() {
-        var toggle = document.querySelector('.nav-toggle');
-        var navLinks = document.getElementById('navLinks');
-        if (toggle && navLinks) {
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                navLinks.classList.toggle('active');
-            });
-        }
-    })();
-  </script>
+  </footer>
+<script src="/shared-layout.js"></script>
 </body>
 </html>

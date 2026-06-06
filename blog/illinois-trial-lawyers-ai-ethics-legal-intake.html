@@ -3,30 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Illinois AI Ethics & Section 2-622 Compliance | LexiFlow</title>
-    
+    <title>AI Ethics in Legal Intake: A Practical Framework for Illinois Trial Lawyers | LexiFlow Blog</title>
+    <meta name="description" content="A guide to ethical AI adoption for Illinois trial lawyers. Covers Section 2-622 affidavit, 4-year repose, and IL Rules of Professional Conduct.">
+    <link rel="canonical" href="https://lexiflow.co/blog/illinois-trial-lawyers-ai-ethics-legal-intake.html">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://lexiflow.co/blog/illinois-trial-lawyers-ai-ethics-legal-intake.html">
+    <meta property="og:title" content="AI Ethics in Legal Intake: A Practical Framework for Illinois Trial Lawyers">
+    <meta property="og:description" content="A guide to ethical AI adoption for Illinois trial lawyers.">
+    <meta property="og:image" content="https://lexiflow.co/blog/images/ethics-illinois-hero.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "AI Ethics in Legal Intake: A Practical Framework for Illinois Trial Lawyers",
+        "description": "A guide to ethical AI adoption for Illinois trial lawyers.",
+        "author": {"@type": "Organization", "name": "LexiFlow Legal Suite", "url": "https://lexiflow.co"},
+        "datePublished": "2026-07-10",
+        "dateModified": "2026-07-10",
+        "about": {"@type": "Thing", "name": "AI ethics Illinois"}
+    }
+    </script>
     <style>
-        :root {
-            --navy: #0f172a; --gold: #c9a84c; --gold-light: #e2c96e;
-            --slate-50: #f8fafc; --slate-200: #e2e8f0; --slate-400: #94a3b8; --slate-600: #475569;
-            --slate-900: #0f172a; --max-width: 1200px;
-        }
-        body { font-family: 'Inter', sans-serif; color: var(--slate-900); line-height: 1.6; background: #fff; padding-top: 0 !important; }
-        .ethics-hero { background: var(--navy); color: white; padding: 120px 0 80px; text-align: center; }
-        .ethics-hero h1 { font-family: 'Playfair Display', serif; font-size: 48px; margin-bottom: 24px; max-width: 800px; margin-left: auto; margin-right: auto; }
-        .ethics-hero .badge { background: var(--gold); color: var(--navy); padding: 8px 16px; border-radius: 100px; font-weight: 700; font-size: 14px; text-transform: uppercase; margin-bottom: 24px; display: inline-block; }
-        
-        .ethics-main { max-width: 800px; margin: -60px auto 100px; background: white; padding: 60px; border-radius: 24px; border: 1px solid var(--slate-200); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); }
-        .ethics-content h2 { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--navy); margin-bottom: 24px; }
-        .ethics-content p { font-size: 18px; color: var(--slate-600); margin-bottom: 32px; }
-        .ethics-point { margin-top: 48px; padding-top: 48px; border-top: 1px solid var(--slate-200); }
-        .ethics-point h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); margin-bottom: 16px; }
-        .ethics-point p { font-size: 16px; margin-bottom: 0; }
-        
-        @media (max-width: 768px) {
-            .ethics-main { margin: 0; padding: 30px; border-radius: 0; border: none; }
-            .ethics-hero h1 { font-size: 32px; padding: 0 20px; }
-        }
+        :root { --primary: #1a3a5c; --primary-dark: #0f1f3a; --accent: #c9a84c; --text: #1e293b; --text-muted: #64748b; --bg: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text); background: var(--bg); line-height: 1.75; font-size: 1.0625rem; }
+        .container { max-width: 780px; margin: 0 auto; padding: 0 24px; }
+        .blog-header { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); color: white; padding: 48px 0 56px; }
+        .blog-header h1 { font-size: 2.25rem; font-weight: 700; margin-bottom: 16px; }
+        .blog-header .meta { font-size: 0.9rem; color: rgba(255,255,255,0.7); }
+        .blog-content { padding: 48px 0 64px; }
+        .blog-content h2 { font-size: 1.5rem; color: var(--primary); margin: 40px 0 16px; border-bottom: 2px solid var(--accent); }
+        .blog-content p { margin-bottom: 18px; }
+        .blog-content ul, .blog-content ol { margin-bottom: 18px; padding-left: 24px; }
+        .blog-content li { margin-bottom: 8px; }
+        .blog-content strong { color: var(--primary); }
+        .blog-content a { color: var(--primary); }
+        .blog-content blockquote { border-left: 4px solid var(--accent); padding: 16px 20px; margin: 24px 0; background: #f8fafc; border-radius: 0 8px 8px 0; font-style: italic; }
+        .cta-box { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); color: white; padding: 32px; border-radius: 12px; margin: 40px 0; text-align: center; }
+        .cta-box a { display: inline-block; background: var(--accent); color: var(--primary-dark); padding: 14px 32px; border-radius: 8px; font-weight: 600; text-decoration: none; margin-top: 16px; }
+        .price-badge { display: inline-block; background: var(--accent); color: var(--primary-dark); padding: 3px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 700; }
+        .blog-footer { text-align: center; padding: 40px 0; border-top: 1px solid #e2e8f0; color: var(--text-muted); font-size: 0.9rem; }
     
     /* Mobile-Friendly Adjustments */
     @media (max-width: 768px) {
@@ -74,13 +91,10 @@
     }
     
     </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
-
+<link rel="stylesheet" href="/shared-layout.css">
 </head>
 <body>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <nav><div class="nav-container">
+<nav><div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing.html">Pricing</a></li>
@@ -92,38 +106,41 @@
     </ul>
     <button class="nav-toggle">☰</button>
   </div></nav>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
   
+    <header class="blog-header"><div class="container">
+        <h1>AI Ethics in Legal Intake: A Practical Framework for Illinois Trial Lawyers</h1>
+        <div class="meta"><span>&#x1F4C5; July 10, 2026</span><span>&#x23F1; 8 min read</span><span>&#x1F3F7; AI ethics Illinois</span><span class="price-badge">$69/mo Suite</span></div>
+    </div></header>
+    <main class="blog-content"><div class="container">
+
+<p>Illinois trial lawyers face a uniquely demanding environment: a 2-year SOL, strict 4-year repose, and Section 2-622 affidavit requirements (735 ILCS 5/2-622). AI-powered intake must be guided by the Illinois Rules of Professional Conduct.</p>
+
+<blockquote><strong>LexiFlow's approach:</strong> AI-powered intake configured for Illinois law. All 6 modules for <strong>$69/month</strong>. <a href="https://lexiflow.co">Learn more &rarr;</a></blockquote>
+
+<h2>1. Client Confidentiality (Ill.R.P.C. 1.6)</h2>
+<p>Illinois firms must ensure AI platforms use encryption, prohibit client-data training, and provide signed BAAs for medical records containing PHI.</p>
+
+<h2>2. Competence (Ill.R.P.C. 1.1)</h2>
+<p>Attorneys must understand AI capabilities and limitations, verify AI-generated findings, and train their teams on proper AI use.</p>
+
+<h2>3. The Section 2-622 Advantage</h2>
+<p>AI-generated merit reports with citation-backed findings can provide the evidentiary foundation for a timely affidavit — potentially saving firms days or weeks of manual review.</p>
+
+<h2>4. Short Repose Period Compliance</h2>
+<p>Illinois's 4-year repose means every day of delay in case identification risks losing the claim. AI-powered 24/7 intake ensures cases are identified immediately.</p>
+
+<h2>5. Supervision (Ill.R.P.C. 5.3)</h2>
+<p>Establish written AI policies, quality controls, and attorney accountability for all AI-assisted work product.</p>
+
+<div class="cta-box"><h3>Ethical AI for Your Illinois Firm</h3><p>From <strong>$69/month</strong>. All 6 modules included.</p><a href="mailto:leads@lexiflow.co">Email Our Team &rarr;</a></div>
+
+    </div></main>
     
+
   
 
-    <header class="ethics-hero">
-        <div class="badge">Illinois Compliance</div>
-        <h1>Illinois AI Ethics & Section 2-622 Compliance</h1>
-    </header>
-    <main class="ethics-main">
-        
-            <section class="ethics-content">
-                <h2>Navigating Illinois Intake Rules and Merit Reviews</h2>
-                <p>For Illinois personal injury and medical malpractice firms, AI adoption must account for the state's specific procedural requirements, including the Section 2-622 Affidavit of Merit.</p>
-                
-                <div class="ethics-point">
-                    <h3>Section 2-622 and AI Medical Reviews</h3>
-                    <p>While LexiFlow can generate instant medical chronologies and merit summaries, these documents serve as a preliminary screening tool. In Illinois, the formal 2-622 affidavit still requires a review by a licensed healthcare professional. LexiFlow helps by organizing records so the reviewing physician can work 10x faster.</p>
-                </div>
-
-                <div class="ethics-point">
-                    <h3>IL Rule 1.1: Ethical Oversight</h3>
-                    <p>The Illinois Supreme Court Rules emphasize the lawyer's responsibility for non-lawyer assistance, which includes AI systems. Firms must perform due diligence on AI vendors to ensure data integrity and unbiased lead processing.</p>
-                </div>
-
-                <div class="ethics-point">
-                    <h3>Lead Qualification and UPL</h3>
-                    <p>To avoid the Unauthorized Practice of Law (UPL) by an AI, LexiFlow's intake scripts are designed to gather facts and provide information, rather than giving specific legal advice to prospective claimants during the automated chat process.</p>
-                </div>
-            </section>
-        
-    </main>
-    
+  
 <section id="ethics-resources" style="background: var(--slate-50); padding: 80px 0; border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200); margin: 80px 0;">
     <div style="max-width: var(--max-width); margin: 0 auto; padding: 0 40px;">
         <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; color: var(--navy); margin-bottom: 8px; text-align: center;">Legal AI Ethics & Compliance Resources</h2>
@@ -149,7 +166,26 @@
   
   
 
-  
+
+        <script>
+        // Mobile menu toggle helper
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', function() {
+                    links.classList.toggle('active');
+                });
+            }
+        });
+        </script>
+        
+
+    
+
+    
+
+    
 
   
 
@@ -157,7 +193,21 @@
 
   
   
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <footer>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+  <script>
+    (function() {
+        var toggle = document.querySelector('.nav-toggle');
+        var navLinks = document.getElementById('navLinks');
+        if (toggle && navLinks) {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.classList.toggle('active');
+            });
+        }
+    })();
+  </script>
+
+<footer>
     <div class="footer-container">
       <div class="footer-col">
         <a href="/" class="footer-logo">LexiFlow</a>
@@ -205,17 +255,6 @@
       &copy; 2026 LexiFlow AI. All rights reserved.
     </div>
   </footer>
-  <script>
-    (function() {
-        var toggle = document.querySelector('.nav-toggle');
-        var navLinks = document.getElementById('navLinks');
-        if (toggle && navLinks) {
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                navLinks.classList.toggle('active');
-            });
-        }
-    })();
-  </script>
+<script src="/shared-layout.js"></script>
 </body>
 </html>

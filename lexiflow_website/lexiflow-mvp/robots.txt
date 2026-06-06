@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://lexiflow.co/sitemap.xml

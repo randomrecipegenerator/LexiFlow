@@ -81,9 +81,10 @@
     @media (max-width:900px) { .pricing-grid { grid-template-columns:1fr; max-width:420px; margin:0 auto; } .pricing-card.featured { transform:none; } .modules-grid { grid-template-columns:1fr; } }
     @media (max-width:768px) { .hero h1 { font-size:1.9rem; } .faq-grid { grid-template-columns:1fr; } }
   </style>
+<link rel="stylesheet" href="/shared-layout.css">
 </head>
 <body>
-                  <nav><div class="nav-container">
+<nav><div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing.html">Pricing</a></li>
@@ -95,16 +96,8 @@
     </ul>
     <button class="nav-toggle">☰</button>
   </div></nav>
-<nav class="nav"><div class="container">
-  <a href="index.html" class="nav-logo"><span class="nav-logo-icon">LF</span> LexiFlow</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="#pricing" style="font-weight:600;color:var(--primary);">Pricing</a></li>
-    <li><a href="dashboard.html">Dashboard</a></li>
-    <li><a href="admin/index.html">Admin</a></li>
-    <li><a href="mailto:leads@lexiflow.co">Get Started →</a></li>
-  </ul>
-</div></nav>
+                  
+
 
 <section class="hero">
   <div class="container">
@@ -233,10 +226,22 @@
   </div>
 </section>
 
-<footer class="footer">
-  <div class="container">&copy; 2026 LexiFlow Legal Suite. <a href="privacy-policy.html">Privacy</a> · <a href="terms-of-service.html">Terms</a> · <a href="hipaa-baa.html">HIPAA BAA</a></div>
-</footer>
-                  <footer>
+
+                  
+  <script>
+    (function() {
+        var toggle = document.querySelector('.nav-toggle');
+        var navLinks = document.getElementById('navLinks');
+        if (toggle && navLinks) {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.classList.toggle('active');
+            });
+        }
+    })();
+  </script>
+
+<footer>
     <div class="footer-container">
       <div class="footer-col">
         <a href="/" class="footer-logo">LexiFlow</a>
@@ -284,17 +289,6 @@
       &copy; 2026 LexiFlow AI. All rights reserved.
     </div>
   </footer>
-  <script>
-    (function() {
-        var toggle = document.querySelector('.nav-toggle');
-        var navLinks = document.getElementById('navLinks');
-        if (toggle && navLinks) {
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                navLinks.classList.toggle('active');
-            });
-        }
-    })();
-  </script>
+<script src="/shared-layout.js"></script>
 </body>
 </html>
