@@ -3,274 +3,296 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DepoLens™ | AI Deposition Intelligence & Real-Time Transcript Analysis</title>
-  <meta name="description" content="AI deposition intelligence and real-time transcript analysis. Detect witness conflicts and key admissions instantly with LexiFlow Enterprise Legal AI." />
+  <title>DepoLens™ — Enterprise Deposition Intelligence | LexiFlow</title>
+  <meta name="description" content="AI-powered deposition analysis with conflict detection, credibility scoring, and cross-examination generation. Enterprise-grade deposition intelligence." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/product-base.css" />
-  <link rel="stylesheet" href="/shared-layout.css">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" /></noscript>
+  <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" /></noscript>
+  <style>
+    :root { --primary:#1a3a5c; --primary-light:#2a5a8c; --primary-dark:#0d1f33; --accent:#c9a84c; --accent-light:#e2c96e; --accent-dark:#a88a30; --text-dark:#1a1a2e; --text-muted:#6b7280; --text-light:#f8fafc; --bg-light:#f8fafc; --bg-white:#ffffff; --bg-dark:#0d1f33; --border:#e2e8f0; --green:#16a34a; --red:#ef4444; --shadow:0 4px 6px -1px rgba(0,0,0,0.1); --shadow-lg:0 10px 15px -3px rgba(0,0,0,0.1); --shadow-xl:0 20px 25px -5px rgba(0,0,0,0.1); --radius:8px; --radius-lg:16px; --max-width:1200px; --font-sans:'Inter',-apple-system,sans-serif; --font-serif:'Playfair Display',Georgia,serif; }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior: smooth; }
+    body { font-family:var(--font-sans); color:var(--text-dark); background:var(--bg-light); line-height:1.6; }
+    .container { max-width:var(--max-width); margin:0 auto; padding:0 24px; }
+    .nav { position:fixed; top:0; width:100%; z-index:100; background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); }
+    .nav .container { display:flex; align-items:center; justify-content:space-between; height:68px; }
+    .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
+    .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:800; }
+    .hero { padding:100px 0 40px; background:linear-gradient(135deg,var(--primary-dark),var(--primary),var(--primary-light)); color:#fff; }
+    .hero h1 { font-family:var(--font-serif); font-size:2.5rem; }
+    .hero h1 span { color:var(--accent); }
+    .hero p { color:rgba(255,255,255,0.85); }
+    .badge { display:inline-block; padding:5px 14px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.18); border-radius:100px; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; }
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:12px 24px; border-radius:var(--radius); font-weight:600; font-size:0.9rem; border:none; cursor:pointer; transition:all 0.2s; text-decoration:none; }
+    .btn-primary { background:var(--accent); color:var(--primary-dark); }
+    .btn-primary:hover { background:var(--accent-light); transform:translateY(-2px); box-shadow:var(--shadow-lg); }
+    .btn-outline { background:transparent; border:2px solid rgba(255,255,255,0.3); color:#fff; }
+    .btn-outline:hover { border-color:var(--accent); color:var(--accent); }
+    .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:24px 0; }
+    .stat-card { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:var(--radius); padding:16px; text-align:center; }
+    .stat-card .num { font-family:var(--font-serif); font-size:1.5rem; font-weight:800; color:var(--accent); }
+    .stat-card .label { font-size:0.72rem; color:rgba(255,255,255,0.7); text-transform:uppercase; letter-spacing:0.05em; }
+    .section { padding:40px 0; }
+    .card { background:var(--bg-white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:24px; }
+    .card h3 { font-size:1.05rem; color:var(--primary); margin-bottom:12px; font-weight:700; }
+    .usage-meter { background:var(--bg-light); border:1px solid var(--border); border-radius:var(--radius); padding:16px; margin-bottom:24px; }
+    .usage-bar { height:8px; background:var(--border); border-radius:4px; overflow:hidden; margin:8px 0; }
+    .usage-fill { height:100%; border-radius:4px; background:linear-gradient(90deg,var(--accent),var(--accent-light)); transition:width 0.5s; }
+    .usage-text { display:flex; justify-content:space-between; font-size:0.82rem; color:var(--text-muted); }
+    .card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; margin-top:20px; }
+    .depo-card { background:var(--bg-white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px; cursor:pointer; transition:all 0.2s; }
+    .depo-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-lg); border-color:var(--accent); }
+    .depo-card h4 { font-size:0.95rem; color:var(--primary); margin-bottom:4px; }
+    .depo-card .meta { font-size:0.78rem; color:var(--text-muted); }
+    .flex-row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .result-grid { display:grid; grid-template-columns:1fr 2fr; gap:24px; }
+    .result-sidebar { display:flex; flex-direction:column; gap:16px; }
+    .result-main { display:flex; flex-direction:column; gap:16px; }
+    .conflict-card { padding:14px; border-left:3px solid var(--red); background:rgba(239,68,68,0.03); border-radius:0 var(--radius) var(--radius) 0; margin-bottom:10px; }
+    .conflict-card .sev-high { border-left-color:var(--red); }
+    .admission-card { padding:14px; border-left:3px solid var(--green); background:rgba(22,163,74,0.03); border-radius:0 var(--radius) var(--radius) 0; margin-bottom:10px; }
+    .fact-table { width:100%; font-size:0.82rem; }
+    .fact-table th { text-align:left; padding:10px 12px; font-size:0.72rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; border-bottom:2px solid var(--border); }
+    .fact-table td { padding:10px 12px; border-bottom:1px solid var(--border); }
+    .modal-overlay { position:fixed; inset:0; background:rgba(13,31,51,0.8); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; z-index:2000; }
+    .modal-box { background:var(--bg-white); border-radius:var(--radius-lg); padding:36px; max-width:480px; width:90%; }
+    .modal-box h2 { font-family:var(--font-serif); font-size:1.3rem; color:var(--primary); margin-bottom:24px; }
+    .modal-box .drop-zone { border:2px dashed var(--border); border-radius:var(--radius); padding:40px; text-align:center; cursor:pointer; transition:all 0.2s; }
+    .modal-box .drop-zone:hover { border-color:var(--accent); }
+    .modal-box .file-info { background:var(--bg-light); border-radius:var(--radius); padding:12px 16px; margin:12px 0; font-size:0.88rem; }
+    .modal-footer { display:flex; gap:12px; margin-top:20px; }
+    .hidden { display:none; }
+    .footer { background:var(--bg-dark); color:rgba(255,255,255,0.6); padding:36px 0; text-align:center; font-size:0.82rem; margin-top:40px; }
+    .footer a { color:rgba(255,255,255,0.6); text-decoration:none; }
+    .footer a:hover { color:var(--accent); }
+    @media (max-width:900px) { .stats-row { grid-template-columns:repeat(2,1fr); } .result-grid { grid-template-columns:1fr; } }
+    @media (max-width:768px) { .hero h1 { font-size:1.8rem; } }
+  </style>
 </head>
 <body>
-<nav><div class="nav-container">
-    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="/pricing.html">Pricing</a></li>
-      <li><a href="/dashboard.html">Dashboard</a></li>
-      <li><a href="/blog/index.html">Blog</a></li>
-      <li><a href="/roi-calculator.html">ROI Calculator</a></li>
-      <li><a href="/cities.html">Areas We Serve</a></li>
-      <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
-    </ul>
-    <button class="nav-toggle">☰</button>
-  </div></nav>
+<nav class="nav"><div class="container">
+  <a href="index.html" class="nav-logo"><span class="nav-logo-icon">LF</span> LexiFlow</a>
+</div></nav>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-badges">
-          <span class="hero-badge">🎙️ Deposition Analysis</span>
-          <span class="hero-badge">🔍 Pattern Detection</span>
-          <span class="hero-badge">⚡ 100× Faster Review</span>
-        </div>
-        <h1>Find Every<br /><span class="highlight">Critical Admission</span> in Seconds</h1>
-        <p class="subtitle">DepoLens analyzes deposition transcripts using AI to surface inconsistencies, credibility issues, and key admissions — so you walk into every hearing fully prepared.</p>
-        <div class="hero-actions">
-          <a href="#lead-magnet" class="btn btn-primary">Free Sample Analysis →</a>
-          <a href="#features" class="btn btn-secondary">See Features</a>
-        </div>
+<section class="hero"><div class="container">
+  <div class="flex-row" style="justify-content:space-between;">
+    <div>
+      <span class="badge">🎯 Enterprise Deposition Intelligence</span>
+      <h1>DepoLens™ <span>AI</span></h1>
+      <p>AI-powered deposition analysis with conflict detection, credibility scoring, and cross-examination generation.</p>
+    </div>
+    <button id="upload-btn" class="btn btn-primary"><i class="bi bi-plus-lg"></i> New Analysis</button>
+  </div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="num">312</div><div class="label">Depos Analyzed</div></div>
+    <div class="stat-card"><div class="num">1,847</div><div class="label">Conflicts Found</div></div>
+    <div class="stat-card"><div class="num">87%</div><div class="label">Accuracy</div></div>
+    <div class="stat-card"><div class="num">156</div><div class="label">Hours Saved</div></div>
+  </div>
+</div></section>
+
+<section class="section"><div class="container">
+  <!-- Usage Indicator -->
+  <div class="usage-meter">
+    <div style="display:flex;justify-content:space-between;font-size:0.85rem;font-weight:600;color:var(--primary);">
+      <span>📊 Enterprise Usage — Current Billing Period</span>
+      <span>Enterprise Tier</span>
+    </div>
+    <div class="usage-bar"><div class="usage-fill" style="width:47%" id="usageFill"></div></div>
+    <div class="usage-text">
+      <span><strong id="usageCurrent">47</strong> documents processed</span>
+      <span>Limit: <strong id="usageLimit">500</strong> docs/mo</span>
+      <span id="usageOverage" style="color:var(--red);font-weight:600;">0 overage</span>
+    </div>
+  </div>
+
+  <!-- Transcript List -->
+  <div id="transcript-list-section">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <h3 style="font-family:var(--font-serif);font-size:1.3rem;color:var(--primary);">Your Deposition Analyses</h3>
+    </div>
+    <div id="transcript-grid" class="card-grid">
+      <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);">
+        <i class="bi bi-file-text" style="font-size:3rem;display:block;margin-bottom:12px;"></i>
+        <p>Upload a deposition transcript to begin analysis.</p>
       </div>
-      <div class="hero-visual">
-        <div class="hero-card">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.1);">
-            <span style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.9);">🎯 Deposition Summary — Auto-Generated</span>
+    </div>
+  </div>
+
+  <!-- Result View -->
+  <div id="result-section" class="hidden">
+    <button id="back-to-list" class="btn btn-outline" style="border-color:var(--border);color:var(--primary);margin-bottom:20px;">
+      <i class="bi bi-arrow-left"></i> Back to Dashboard
+    </button>
+    <div class="result-grid">
+      <div class="result-sidebar">
+        <div class="card"><h3>📋 Executive Summary</h3><p id="summary-text" class="text-muted" style="font-size:0.85rem;"></p></div>
+        <div class="card" style="border-color:rgba(239,68,68,0.2);"><h3 style="color:var(--red);">⚠️ Key Risks</h3><ul id="risks-list" style="font-size:0.85rem;color:var(--red);list-style:disc;padding-left:18px;"></ul></div>
+        <div class="card" style="border-color:rgba(22,163,74,0.2);"><h3 style="color:var(--green);">✅ Critical Admissions</h3><ul id="admissions-list" style="font-size:0.85rem;color:var(--green);list-style:disc;padding-left:18px;"></ul></div>
+      </div>
+      <div class="result-main">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <h3 style="margin:0;">⚡ Conflict Detection</h3>
+            <span id="conflict-count" class="badge" style="background:rgba(239,68,68,0.1);color:var(--red);border-color:rgba(239,68,68,0.2);">0 Conflicts</span>
           </div>
-          <div style="padding:10px;background:rgba(255,255,255,0.05);border-radius:8px;">
-            <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
-              <span style="font-size:0.75rem;color:rgba(255,255,255,0.5);">WITNESS</span>
-              <span style="font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.9);">Dr. Susan Park</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.06);">
-              <span style="font-size:0.75rem;color:rgba(255,255,255,0.5);">KEY ADMISSIONS</span>
-              <span style="font-size:0.75rem;font-weight:600;color:#ef4444;">4 found</span>
-            </div>
-            <div style="font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:8px;">
-              • Admitted records were "not reviewed" before testimony<br />
-              • Confirmed alternative diagnosis was not ruled out<br />
-              • Acknowledged deviation from standard protocol
-            </div>
-            <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);">
-              <span style="font-size:0.75rem;color:rgba(255,255,255,0.5);">CREDIBILITY SCORE</span>
-              <span style="font-size:0.75rem;font-weight:600;color:#facc15;">Moderate</span>
-            </div>
-          </div>
+          <div id="conflicts-container"></div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Stats -->
-  <section style="background:var(--primary);">
-    <div class="container">
-      <div class="stats-bar">
-        <div class="stat"><h4>100×</h4><p>Faster Deposition Review</p></div>
-        <div class="stat"><h4>97%</h4><p>Inconsistency Detection Rate</p></div>
-        <div class="stat"><h4>500+</h4><p>Pages per Minute</p></div>
-        <div class="stat"><h4>89%</h4><p>Time Saved on Prep</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features -->
-  <section class="section" id="features">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Features</span>
-        <h2>Deposition Analysis That Sees What Others Miss</h2>
-        <p>DepoLens runs advanced pattern recognition on every page of testimony — surfacing what matters for your case strategy.</p>
-      </div>
-      <div class="features-grid-2">
-        <div class="feature-card">
-          <div class="feature-icon">🎯</div>
-          <h3>Key Admission Detection</h3>
-          <p>AI identifies critical admissions, contradictions, and concessions that strengthen your case or undermine the opposition.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">⚠️</div>
-          <h3>Inconsistency Mapping</h3>
-          <p>Cross-references testimony against medical records, prior statements, and expert reports. Flags every inconsistency automatically.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">📊</div>
-          <h3>Credibility Scoring</h3>
-          <p>Analyzes witness demeanor patterns, hesitation markers, and response quality to generate a credibility assessment.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🔗</div>
-          <h3>Topic Clustering</h3>
-          <p>Automatically groups testimony by topic — liability, damages, causation, credibility — so you can jump to what matters.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">📄</div>
-          <h3>Timeline Extraction</h3>
-          <p>Builds a chronological timeline of events from testimony, cross-referenced with documentary evidence.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">💡</div>
-          <h3>Cross-Examination Prep</h3>
-          <p>Generates suggested cross-examination questions based on identified weaknesses and admissions in the testimony.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- How It Works -->
-  <section class="section section-alt" id="how-it-works">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">How It Works</span>
-        <h2>From Transcript to Strategy in One Click</h2>
-        <p>Stop spending entire weekends reading deposition transcripts. Let DepoLens do the heavy lifting.</p>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;text-align:center;">
-        <div>
-          <div style="width:64px;height:64px;border-radius:50%;background:var(--primary);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;margin:0 auto 16px;border:4px solid var(--bg-light);">1</div>
-          <h3 style="font-size:1.05rem;color:var(--primary);margin-bottom:8px;">Upload Transcript</h3>
-          <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.6;">Upload any deposition transcript in PDF, DOCX, or TXT format. DepoLens supports 100+ page documents.</p>
-        </div>
-        <div>
-          <div style="width:64px;height:64px;border-radius:50%;background:var(--primary);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;margin:0 auto 16px;border:4px solid var(--bg-light);">2</div>
-          <h3 style="font-size:1.05rem;color:var(--primary);margin-bottom:8px;">AI Analyzes</h3>
-          <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.6;">Our engine processes every page, identifying admissions, inconsistencies, credibility signals, and key testimony.</p>
-        </div>
-        <div>
-          <div style="width:64px;height:64px;border-radius:50%;background:var(--primary);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;margin:0 auto 16px;border:4px solid var(--bg-light);">3</div>
-          <h3 style="font-size:1.05rem;color:var(--primary);margin-bottom:8px;">Get Your Brief</h3>
-          <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.6;">Receive a comprehensive analysis with key findings, suggested questions, and a credibility assessment.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Lead Magnet -->
-  <section class="section" id="lead-magnet">
-    <div class="container">
-      <div class="lead-magnet">
-        <h3>🎙️ Free Sample Analysis</h3>
-        <p>Upload a deposition transcript and we'll send you a full DepoLens analysis — key admissions, inconsistencies, credibility score, and cross-exam questions. Free.</p>
-        <form class="lead-magnet-form">
-          <input type="email" placeholder="Your work email" required />
-          <input type="text" placeholder="Firm name" required />
-          <button type="submit" class="btn btn-primary">Get Sample Analysis →</button>
-        </form>
-        <p style="font-size:0.78rem;color:var(--text-muted);margin-top:12px;">We'll process one deposition at no charge. See the power of AI-assisted deposition review.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonial -->
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Testimonial</span>
-        <h2>Loved by Litigation Teams</h2>
-      </div>
-      <div class="testimonial" style="max-width:650px;margin:0 auto;">
-        <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-text">"DepoLens found an inconsistency in a 200-page deposition that our entire team missed. It saved us from a major surprise at trial. We don't prep for hearings without it anymore."</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">JM</div>
-          <div>
-            <div class="testimonial-name">Jonathan Marks, Esq.</div>
-            <div class="testimonial-role">Partner, Marks &amp; Harrison Litigation</div>
+        <div class="card">
+          <h3>📅 Fact Chronology</h3>
+          <div style="overflow-x:auto;">
+            <table class="fact-table"><thead><tr><th>Witness</th><th>Date/Time</th><th>Event</th><th>Page</th></tr></thead>
+              <tbody id="chronology-body"></tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</div></section>
 
-  <!-- CTA -->
-  <section class="cta-section">
-    <div class="container">
-      <h2>Walk Into Every Hearing Prepared</h2>
-      <p>Try DepoLens with a free sample analysis. Upload one deposition and see what you've been missing.</p>
-      <div class="cta-actions">
-        <a href="#lead-magnet" class="btn btn-primary">Get Free Analysis →</a>
-        <a href="#features" class="btn btn-secondary">See Features</a>
-      </div>
+<!-- Upload Modal -->
+<div id="upload-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <h2>📄 Upload Deposition Transcript</h2>
+    <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:20px;">AI-powered analysis for PDF or TXT deposition files. Supports up to 500 pages per upload.</p>
+    <div class="drop-zone" id="drop-zone">
+      <i class="bi bi-file-earmark-pdf" style="font-size:3rem;color:var(--text-muted);display:block;margin-bottom:8px;"></i>
+      <p style="font-size:0.85rem;color:var(--text-muted);">Drag & drop or click to browse</p>
+      <input type="file" id="file-input" accept=".pdf,.txt" style="display:none;" />
     </div>
-  </section>
+    <div id="file-info" class="file-info hidden">
+      <i class="bi bi-file-text"></i> <span id="filename-display"></span>
+    </div>
+    <div class="modal-footer">
+      <button id="cancel-upload" class="btn" style="border:1px solid var(--border);background:var(--bg-white);flex:1;justify-content:center;">Cancel</button>
+      <button id="confirm-upload" class="btn btn-primary" style="flex:1;justify-content:center;" disabled>Analyze <i class="bi bi-arrow-right"></i></button>
+    </div>
+  </div>
+</div>
 
-<section id="ethics-resources" style="background: var(--slate-50); padding: 80px 0; border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200); margin: 80px 0;">
-    <div style="max-width: var(--max-width); margin: 0 auto; padding: 0 40px;">
-        <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; color: var(--navy); margin-bottom: 8px; text-align: center;">Legal AI Ethics & Compliance Resources</h2>
-        <p style="color: var(--slate-600); margin-bottom: 32px; text-align: center;">Regulatory frameworks and adoption guides for modern law firms.</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 32px;">
-            <a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake.html" style="display: block; padding: 32px; background: white; border: 1px solid var(--slate-200); border-radius: 24px; text-decoration: none; transition: all 0.2s; height: 100%;">
-                <h4 style="color: var(--navy); font-size: 20px; margin-bottom: 12px; font-family: 'Playfair Display', serif;">Pennsylvania AI Ethics Guide</h4>
-                <p style="color: var(--slate-600); font-size: 15px; line-height: 1.6;">A practical framework for PA trial lawyers adopting AI in legal intake and merit review.</p>
-            </a>
-            <a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake.html" style="display: block; padding: 32px; background: white; border: 1px solid var(--slate-200); border-radius: 24px; text-decoration: none; transition: all 0.2s; height: 100%;">
-                <h4 style="color: var(--navy); font-size: 20px; margin-bottom: 12px; font-family: 'Playfair Display', serif;">Illinois AI Ethics Guide</h4>
-                <p style="color: var(--slate-600); font-size: 15px; line-height: 1.6;">Ethics and Section 2-622 compliance for Illinois firm AI adoption and automated screening.</p>
-            </a>
-            <a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake.html" style="display: block; padding: 32px; background: white; border: 1px solid var(--slate-200); border-radius: 24px; text-decoration: none; transition: all 0.2s; height: 100%;">
-                <h4 style="color: var(--navy); font-size: 20px; margin-bottom: 12px; font-family: 'Playfair Display', serif;">New York AI Ethics Guide</h4>
-                <p style="color: var(--slate-600); font-size: 15px; line-height: 1.6;">Navigating 22 NYCRR Part 1200 and AI in New York Medical Malpractice intake.</p>
-            </a>
-        </div>
-    </div>
-</section>
+<footer class="footer"><div class="container">
+  &copy; 2026 LexiFlow Technologies Inc · <a href="privacy-policy.html">Privacy</a> · <a href="terms-of-service.html">Terms</a> · <a href="hipaa-baa.html">HIPAA BAA</a>
+</div></footer>
 
-        <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-col">
-        <a href="/" class="footer-logo"><span>LF</span> LexiFlow</a>
-        <p style="color: var(--slate-400); font-size: 14px;">The orchestration layer for high-stakes litigation. Reasoning AI for high-growth firms.</p>
+<script>
+// DepoLens App — Enterprise Edition
+const DEPO_API_PREFIX = '/depolens';
+const uploadBtn = document.getElementById('upload-btn');
+const uploadModal = document.getElementById('upload-modal');
+const cancelUpload = document.getElementById('cancel-upload');
+const confirmUpload = document.getElementById('confirm-upload');
+const fileInput = document.getElementById('file-input');
+const dropZone = document.getElementById('drop-zone');
+const fileInfo = document.getElementById('file-info');
+const filenameDisplay = document.getElementById('filename-display');
+const transcriptGrid = document.getElementById('transcript-grid');
+const transcriptListSection = document.getElementById('transcript-list-section');
+const resultSection = document.getElementById('result-section');
+const backToList = document.getElementById('back-to-list');
+
+let selectedFile = null;
+
+// Usage indicator data
+const usageCurrent = 47;
+const usageLimit = 500;
+document.getElementById('usageCurrent').textContent = usageCurrent;
+document.getElementById('usageLimit').textContent = usageLimit;
+document.getElementById('usageFill').style.width = Math.min((usageCurrent/usageLimit)*100, 100) + '%';
+const overage = Math.max(0, usageCurrent - usageLimit);
+document.getElementById('usageOverage').textContent = overage > 0 ? overage + ' overage' : '0 overage';
+
+async function init() { loadTranscripts(); }
+
+if (uploadBtn) uploadBtn.addEventListener('click', () => uploadModal.classList.remove('hidden'));
+if (cancelUpload) cancelUpload.addEventListener('click', () => { uploadModal.classList.add('hidden'); resetUpload(); });
+if (dropZone) dropZone.addEventListener('click', () => fileInput.click());
+if (fileInput) fileInput.addEventListener('change', handleFileSelect);
+if (dropZone) {
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.style.borderColor = 'var(--accent)'; });
+  dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = ''; });
+  dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.style.borderColor = ''; if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); });
+}
+if (confirmUpload) confirmUpload.addEventListener('click', uploadTranscript);
+if (backToList) backToList.addEventListener('click', () => { resultSection.classList.add('hidden'); transcriptListSection.classList.remove('hidden'); loadTranscripts(); });
+
+function handleFileSelect(e) { if (e.target.files.length) handleFile(e.target.files[0]); }
+function handleFile(file) { selectedFile = file; filenameDisplay.innerText = file.name; fileInfo.classList.remove('hidden'); confirmUpload.disabled = false; }
+function resetUpload() { selectedFile = null; if (fileInput) fileInput.value = ''; fileInfo.classList.add('hidden'); confirmUpload.disabled = true; }
+
+async function loadTranscripts() {
+  transcriptGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted);"><i class="bi bi-arrow-repeat" style="font-size:2rem;display:block;margin-bottom:8px;animation:spin 1s linear infinite;"></i><p>Loading analyses...</p></div>';
+  try {
+    const res = await fetch(DEPO_API_PREFIX + '/transcripts');
+    const data = await res.json();
+    const transcripts = Array.isArray(data) ? data : data.transcripts || [];
+    if (!transcripts.length) {
+      transcriptGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);"><i class="bi bi-file-text" style="font-size:3rem;display:block;margin-bottom:12px;"></i><p>No deposition analyses yet. Upload a transcript to get started.</p></div>';
+      return;
+    }
+    transcriptGrid.innerHTML = transcripts.map(t => `
+      <div class="depo-card" onclick="loadTranscript('${t.id}')">
+        <h4>${t.filename || 'Untitled Transcript'}</h4>
+        <div class="meta">${t.status || 'Uploaded'} · ${new Date(t.upload_date || Date.now()).toLocaleDateString()}</div>
       </div>
-      <div class="footer-col">
-        <h4>Products</h4>
-        <ul>
-          <li><a href="/ai-intake-agent.html">LexiFlow Intake</a></li>
-          <li><a href="/ai-medical-chronologies.html">Medical Review</a></li>
-          <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
-          <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
-          <li><a href="/depolens-ai.html">DepoLens™ AI</a></li>
-          <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
-        </ul>
+    `).join('');
+  } catch(e) {
+    transcriptGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);"><i class="bi bi-exclamation-circle" style="font-size:2rem;display:block;margin-bottom:8px;"></i><p>Unable to load analyses. API endpoint may be unavailable.</p></div>';
+  }
+}
+
+async function uploadTranscript() {
+  if (!selectedFile) return;
+  confirmUpload.disabled = true; confirmUpload.innerHTML = 'Analyzing... <i class="bi bi-arrow-repeat" style="animation:spin 1s linear infinite;"></i>';
+  const formData = new FormData(); formData.append('file', selectedFile);
+  try {
+    const res = await fetch(DEPO_API_PREFIX + '/upload', { method: 'POST', body: formData });
+    const result = await res.json();
+    uploadModal.classList.add('hidden'); resetUpload();
+    transcriptListSection.classList.add('hidden'); resultSection.classList.remove('hidden');
+    loadTranscript(result.id);
+  } catch(e) {
+    alert('Upload failed. The API endpoint may be unavailable.');
+    confirmUpload.disabled = false; confirmUpload.innerHTML = 'Analyze <i class="bi bi-arrow-right"></i>';
+  }
+}
+
+async function loadTranscript(id) {
+  try {
+    const res = await fetch(DEPO_API_PREFIX + '/transcripts/' + id);
+    const data = await res.json();
+    const summary = data.summary || {};
+    const conflicts = data.conflicts || [];
+    const facts = data.facts || [];
+
+    document.getElementById('summary-text').textContent = summary.executive_summary || 'Analysis complete. Review the facts and conflicts below.';
+    document.getElementById('risks-list').innerHTML = (summary.risks || 'No significant risks identified.').split('\n').map(r => `<li>${r}</li>`).join('');
+    document.getElementById('admissions-list').innerHTML = (summary.admissions || 'No admissions recorded.').split('\n').map(a => `<li>${a}</li>`).join('');
+    document.getElementById('conflict-count').textContent = conflicts.length + ' Conflicts';
+    document.getElementById('conflicts-container').innerHTML = conflicts.map(c => `
+      <div class="conflict-card">
+        <strong style="font-size:0.85rem;">${c.witness_a || 'Witness A'} vs ${c.witness_b || 'Witness B'}</strong>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-top:4px;">${c.description || c.reasoning || 'Conflict detected'}</p>
+        <span class="badge" style="background:rgba(239,68,68,0.1);color:var(--red);margin-top:6px;">${c.severity || 'Medium'} Severity</span>
       </div>
-      <div class="footer-col">
-        <h4>Top Markets</h4>
-        <ul>
-          <li><a href="/locations/california/medmal-la.html">Los Angeles (MedMal)</a></li>
-          <li><a href="/locations/california/medmal-san-francisco.html">San Francisco (MedMal)</a></li>
-          <li><a href="/locations/new-york/medmal-nyc.html">New York City (MedMal)</a></li>
-          <li><a href="/locations/illinois/medmal-chicago.html">Chicago (MedMal)</a></li>
-          <li><a href="/cities.html">View All Cities</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="/privacy.html">Privacy Policy</a></li>
-          <li><a href="/terms.html">Terms of Service</a></li>
-          <li><a href="/soc2.html">SOC2 Compliance</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Security</h4>
-        <div style="font-size: 24px; display: flex; gap: 16px;">
-          <i class="bi bi-shield-lock"></i>
-          <i class="bi bi-safe"></i>
-          <i class="bi bi-fingerprint"></i>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      &copy; 2026 LexiFlow Technologies Inc. All rights reserved.
-    </div>
-  </footer>
-<script src="/shared-layout.js"></script>
+    `).join('<div style="text-align:center;padding:40px;color:var(--text-muted);font-size:0.85rem;">No conflicts detected in this transcript.</div>');
+    document.getElementById('chronology-body').innerHTML = facts.map(f => `
+      <tr><td>${f.witness_name || '—'}</td><td>${f.date_time || '—'}</td><td>${f.event_description || '—'}</td><td>${f.page_reference || '—'}</td></tr>
+    `).join('') || '<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--text-muted);">No chronology entries found.</td></tr>';
+
+    transcriptListSection.classList.add('hidden'); resultSection.classList.remove('hidden');
+  } catch(e) {
+    alert('Failed to load transcript analysis.');
+  }
+}
+
+init();
+</script>
+<style>@keyframes spin { to { transform:rotate(360deg); } }</style>
 </body>
 </html>
