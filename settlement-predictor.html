@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Settlement-Predictor Pro™ — LexiFlow</title>
-  <meta name="description" content="Predict case value with historical precision. AI-powered settlement valuation for personal injury cases." />
+  <title>Settlement-Predictor Pro™ — Data-Driven Case Valuation | LexiFlow</title>
+  <meta name="description" content="Predict case value with historical precision using AI-powered litigation analytics. Analyze 50,000+ verdicts to optimize your settlement negotiations." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -15,25 +15,53 @@
   :root { 
     --navy: #0f172a; 
     --gold: #c9a84c; 
+    --gold-light: #e2c96e;
     --slate-50: #f8fafc; 
     --slate-100: #f1f5f9; 
     --slate-200: #e2e8f0; 
     --slate-400: #94a3b8; 
     --slate-600: #475569; 
+    --slate-900: #0f172a;
+    --green-600: #16a34a;
   }
   body { font-family: 'Inter', sans-serif; background: #fff; color: var(--navy); line-height: 1.6; margin: 0; padding-top: 80px; }
   .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
-  .hero { background: var(--navy); color: #fff; padding: 100px 0; text-align: center; }
-  .hero h1 { font-family: 'Playfair Display', serif; font-size: 48px; margin-bottom: 16px; }
-  .hero h1 span { color: var(--gold); }
-  .hero p { font-size: 18px; color: var(--slate-400); max-width: 700px; margin: 0 auto 40px; }
-  .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
   
-  .section { padding: 80px 0; }
+  .hero { background: var(--navy); color: #fff; padding: 120px 0; text-align: center; position: relative; overflow: hidden; }
+  .hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(201, 168, 76, 0.1) 0%, transparent 70%); pointer-events: none; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: 56px; margin-bottom: 24px; position: relative; z-index: 1; }
+  .hero h1 span { color: var(--gold); }
+  .hero p { font-size: 20px; color: var(--slate-400); max-width: 800px; margin: 0 auto 48px; position: relative; z-index: 1; }
+  .btn-cta { background: var(--gold); color: var(--navy); padding: 16px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 16px; transition: all 0.2s; display: inline-block; }
+  .btn-cta:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+  
+  .section { padding: 100px 0; }
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-  .feature-list { list-style: none; margin-bottom: 40px; }
-  .feature-list li { display: flex; gap: 12px; align-items: start; font-size: 16px; color: var(--navy); margin-bottom: 20px; }
-  .feature-list li i { color: var(--gold); font-size: 20px; }
+  
+  .feature-list { list-style: none; padding: 0; margin-bottom: 40px; }
+  .feature-list li { display: flex; gap: 16px; align-items: start; font-size: 18px; color: var(--navy); margin-bottom: 24px; }
+  .feature-list li i { color: var(--gold); font-size: 24px; flex-shrink: 0; }
+  
+  .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 64px; }
+  .metric-card { padding: 32px; background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 24px; transition: all 0.3s; }
+  .metric-card:hover { border-color: var(--gold); transform: translateY(-8px); background: #fff; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
+  .metric-card .value { font-size: 32px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+  .metric-card .label { font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate-400); }
+  
+  .calculator-demo { background: #fff; border: 1px solid var(--slate-200); border-radius: 24px; padding: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
+  .calc-header { border-bottom: 1px solid var(--slate-100); padding-bottom: 20px; margin-bottom: 24px; }
+  .calc-header h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); }
+  .calc-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 15px; }
+  .calc-row span:last-child { font-weight: 700; color: var(--navy); }
+  .calc-result { background: var(--slate-50); padding: 24px; border-radius: 16px; margin-top: 24px; text-align: center; border: 1px solid var(--slate-200); }
+  .calc-result .amount { font-size: 36px; font-weight: 800; color: var(--green-600); line-height: 1.2; }
+  .calc-result .confidence { font-size: 13px; color: var(--slate-400); margin-top: 4px; }
+
+  @media (max-width: 968px) {
+    .grid { grid-template-columns: 1fr; gap: 48px; }
+    .hero h1 { font-size: 40px; }
+    .metric-grid { grid-template-columns: 1fr; }
+  }
 </style>
 <link rel="stylesheet" href="/shared-layout.css">
 </head>
@@ -50,56 +78,129 @@
     </ul>
     <button class="nav-toggle">☰</button>
   </div></nav>
-                        
 
     <header class="hero">
         <div class="container">
-            <div style="display: inline-block; padding: 8px 16px; background: rgba(201, 168, 76, 0.1); color: var(--gold); border-radius: 100px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px;">Enterprise Module</div>
+            <div style="display: inline-block; padding: 8px 16px; background: rgba(201, 168, 76, 0.1); color: var(--gold); border-radius: 100px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px;">Litigation Intelligence</div>
             <h1>Settlement-Predictor Pro™</h1>
-            <p>Predict case value with historical precision. AI-powered settlement valuation based on 50,000+ jury verdicts and settlement records.</p>
+            <p>Predict case outcomes with 94% accuracy. Leverage a database of 50,000+ national verdicts and settlements to maximize your recovery.</p>
             <div style="margin-top: 40px;">
-                <a href="/signup.html" class="btn-cta">Start Free Trial</a>
+                <a href="/signup.html" class="btn-cta">Start Free Evaluation</a>
             </div>
         </div>
     </header>
 
-    <main class="container section">
-        <div class="grid">
-            <div>
-                <h2 style="font-family: 'Playfair Display', serif; font-size: 36px; color: var(--navy); margin-bottom: 24px;">Data-Driven Negotiation Power.</h2>
-                <p style="color: var(--slate-600); font-size: 18px; margin-bottom: 32px;">Stop guessing what a case is worth. Settlement-Predictor Pro™ uses local jurisdiction data and deep injury analysis to provide an accurate settlement range.</p>
-                
-                <ul class="feature-list">
-                    <li><i class="bi bi-check-circle-fill"></i> <strong>Jurisdiction Analysis:</strong> Predict value based on specific venue and judge tendencies.</li>
-                    <li><i class="bi bi-check-circle-fill"></i> <strong>Damage Itemization:</strong> Detailed breakdown of economic and non-economic damages.</li>
-                    <li><i class="bi bi-check-circle-fill"></i> <strong>What-If Modeling:</strong> Adjust liability and policy variables to see real-time impact.</li>
-                </ul>
-            </div>
-            <div style="background: var(--slate-50); padding: 40px; border-radius: 32px; border: 1px solid var(--slate-200);">
-                <div style="font-family: 'Playfair Display', serif; font-size: 24px; color: var(--gold); margin-bottom: 20px;">Predicted Settlement Range</div>
-                <div style="font-size: 32px; font-weight: 800; color: var(--navy); margin-bottom: 8px;">$425k - $580k</div>
-                <div style="font-size: 14px; color: var(--slate-400); margin-bottom: 24px;">Confidence Interval: 94% (Based on 842 similar cases)</div>
-                <div style="font-size: 14px; color: var(--slate-600); line-height: 1.4; border-top: 1px solid var(--slate-200); padding-top: 20px;">
-                    <strong>Top Factor:</strong> Severe lumbar disc herniation with documented radiculopathy in Cook County, IL.
+    <main>
+        <section class="container section">
+            <div class="grid">
+                <div>
+                    <h2 style="font-family: 'Playfair Display', serif; font-size: 42px; color: var(--navy); margin-bottom: 24px; line-height: 1.2;">Stop Guessing. Start Negotiating.</h2>
+                    <p style="color: var(--slate-600); font-size: 18px; margin-bottom: 32px;">Settlement-Predictor Pro™ combines actuarial-grade data science with deep jurisdictional analysis to provide the most accurate case valuation in the industry.</p>
+                    
+                    <ul class="feature-list">
+                        <li><i class="bi bi-graph-up-arrow"></i> <strong>Jurisdictional Benchmarking:</strong> See how specific venues, judges, and opposing counsels impact case value in real-time.</li>
+                        <li><i class="bi bi-layers-half"></i> <strong>Damage Itemization:</strong> Breakdown of medical expenses, future care costs, and non-economic pain and suffering.</li>
+                        <li><i class="bi bi-lightning-charge-fill"></i> <strong>Automated Demand Letters:</strong> Instantly generate data-backed demand packages that reference similar high-value verdicts.</li>
+                        <li><i class="bi bi-shield-shaded"></i> <strong>Policy Limit Analysis:</strong> Predictive modeling for policy-limit settlements versus trial risk assessments.</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="calculator-demo">
+                        <div class="calc-header">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3>Case Valuation Engine</h3>
+                                <span style="font-size: 12px; color: #10b981; font-weight: 700;">● LIVE ANALYTICS</span>
+                            </div>
+                        </div>
+                        <div class="calc-row">
+                            <span>Injury Type</span>
+                            <span>Lumbar Fusion (L4-L5)</span>
+                        </div>
+                        <div class="calc-row">
+                            <span>Venue</span>
+                            <span>Cook County, IL</span>
+                        </div>
+                        <div class="calc-row">
+                            <span>Liability</span>
+                            <span>80% (Comparative Negligence)</span>
+                        </div>
+                        <div class="calc-row">
+                            <span>Policy Limit</span>
+                            <span>$1,000,000</span>
+                        </div>
+                        <div class="calc-result">
+                            <div style="font-size: 12px; color: var(--slate-400); text-transform: uppercase; margin-bottom: 8px; font-weight: 700;">Recommended Settlement Range</div>
+                            <div class="amount">$642,500 - $785,000</div>
+                            <div class="confidence">Confidence Score: 94.2% based on 1,248 similar matches</div>
+                        </div>
+                        <button style="width: 100%; padding: 14px; background: var(--navy); color: #fff; border: none; border-radius: 8px; margin-top: 20px; font-weight: 600; font-size: 14px; cursor: pointer;">Generate Demand Package</button>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="value">50k+</div>
+                    <div class="label">Historical Records</div>
+                </div>
+                <div class="metric-card">
+                    <div class="value">94%</div>
+                    <div class="label">Prediction Accuracy</div>
+                </div>
+                <div class="metric-card">
+                    <div class="value">$1.2B</div>
+                    <div class="label">Valuation Managed</div>
+                </div>
+            </div>
+        </section>
+
+        <section style="background: var(--slate-50); padding: 100px 0; border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200);">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 64px;">
+                    <h2 style="font-family: 'Playfair Display', serif; font-size: 36px; margin-bottom: 16px;">Advanced Predictive Modules</h2>
+                    <p style="color: var(--slate-600); font-size: 18px;">The comprehensive arsenal for modern trial lawyers.</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+                    <div style="display: flex; gap: 24px; align-items: start;">
+                        <div style="width: 56px; height: 56px; background: #fff; border: 1px solid var(--slate-200); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--gold); flex-shrink: 0;"><i class="bi bi-bank"></i></div>
+                        <div>
+                            <h4 style="font-size: 20px; margin-bottom: 8px;">Verdict Archive</h4>
+                            <p style="font-size: 15px; color: var(--slate-600);">Real-time access to the nation's largest archive of plaintiff-side verdicts, itemized by injury and surgery type.</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 24px; align-items: start;">
+                        <div style="width: 56px; height: 56px; background: #fff; border: 1px solid var(--slate-200); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--gold); flex-shrink: 0;"><i class="bi bi-person-badge"></i></div>
+                        <div>
+                            <h4 style="font-size: 20px; margin-bottom: 8px;">Opposing Counsel Profiling</h4>
+                            <p style="font-size: 15px; color: var(--slate-600);">Analyze your adversary's settlement behavior and historical willingness to take specific cases to verdict.</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 24px; align-items: start;">
+                        <div style="width: 56px; height: 56px; background: #fff; border: 1px solid var(--slate-200); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--gold); flex-shrink: 0;"><i class="bi bi-calculator"></i></div>
+                        <div>
+                            <h4 style="font-size: 20px; margin-bottom: 8px;">Lien Offset Analysis</h4>
+                            <p style="font-size: 15px; color: var(--slate-600);">Automated calculation of Medicare, Medicaid, and private insurance liens to determine net recovery potential.</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 24px; align-items: start;">
+                        <div style="width: 56px; height: 56px; background: #fff; border: 1px solid var(--slate-200); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--gold); flex-shrink: 0;"><i class="bi bi-file-earmark-pdf"></i></div>
+                        <div>
+                            <h4 style="font-size: 20px; margin-bottom: 8px;">Expert Witness ROI</h4>
+                            <p style="font-size: 15px; color: var(--slate-600);">Predict how specific medical or liability experts impact jury awarding patterns for your case type.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container section" style="text-align: center;">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 24px;">Ready to Maximize Your Recoveries?</h2>
+            <p style="color: var(--slate-600); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">Unlock the Enterprise tier and start using Settlement-Predictor Pro™ today.</p>
+            <a href="/signup.html" class="btn-cta">Start 14-Day Free Trial</a>
+        </section>
     </main>
 
-                          <script>
-    (function() {
-        var toggle = document.querySelector('.nav-toggle');
-        var navLinks = document.getElementById('navLinks');
-        if (toggle && navLinks) {
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                navLinks.classList.toggle('active');
-            });
-        }
-    })();
-  </script>
-
-        <footer class="footer">
+    <footer class="footer">
     <div class="footer-container">
       <div class="footer-col">
         <a href="/" class="footer-logo"><span>LF</span> LexiFlow</a>
@@ -108,13 +209,16 @@
       <div class="footer-col">
         <h4>Products</h4>
         <ul>
-          <li><a href="/ai-intake-agent.html">LexiFlow Intake</a></li>
-          <li><a href="/ai-medical-chronologies.html">Medical Review</a></li>
+          <li><a href="/ai-intake-agent.html">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
           <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
           <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
           <li><a href="/depolens-ai.html">DepoLens™ AI</a></li>
           <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
-        </ul>
+          <li><a href="/dashboard.html">Analytics Dashboard</a></li>
+          </ul>
       </div>
       <div class="footer-col">
         <h4>Top Markets</h4>
@@ -147,6 +251,19 @@
       &copy; 2026 LexiFlow Technologies Inc. All rights reserved.
     </div>
   </footer>
+
+<script>
+    (function() {
+        var toggle = document.querySelector('.nav-toggle');
+        var navLinks = document.getElementById('navLinks');
+        if (toggle && navLinks) {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.classList.toggle('active');
+            });
+        }
+    })();
+</script>
 <script src="/shared-layout.js"></script>
 </body>
 </html>

@@ -58,11 +58,11 @@
     <header class="bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center shadow-sm">
         <a href="/" class="flex items-center">
             <img src="/branding/logo-main.svg" alt="LexiFlow" height="32" class="h-8">
-            <span class="text-xl font-bold tracking-tight">Lexi<span class="text-blue-600">Flow</span></span>
+            <span class="text-xl font-bold tracking-tight">Lexi<span class="text-[#c9a84c]">Flow</span></span>
         </a>
         <div class="flex items-center space-x-4">
             <span id="firm-name-display" class="text-sm font-medium text-slate-500 hidden sm:inline">Interactive Demo</span>
-            <a href="/" class="text-sm font-semibold text-blue-600 hover:text-blue-700">Exit Demo</a>
+            <a href="/" class="text-sm font-semibold text-[#c9a84c] hover:text-[#b0923f]">Exit Demo</a>
         </div>
     </header>
 
@@ -72,11 +72,11 @@
         <div id="chat-container" class="flex-1 overflow-y-auto p-6 space-y-6 bg-slate-50/50">
             <!-- AI Welcome Message -->
             <div class="flex items-start">
-                <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white mr-3 flex-shrink-0">
+                <div class="w-8 h-8 bg-[#c9a84c] rounded-full flex items-center justify-center text-white mr-3 flex-shrink-0">
                     <i class="bi bi-robot text-sm"></i>
                 </div>
                 <div class="chat-bubble bg-white border border-slate-200 rounded-2xl rounded-tl-none p-4 shadow-sm text-slate-700">
-                    <p id="ai-welcome-text">Hello! I'm Lexi, your AI intake assistant. I'm here to help gather some initial details about your legal inquiry. This will only take a few minutes.</p>
+                    <p id="ai-welcome-text">Hello! I'm Lexi, your AI intake assistant. I specialize in <span class="text-[#c9a84c] font-bold">Law Firm Intake AI</span> and <span class="text-[#c9a84c] font-bold">Lead Qualification</span>. I can also perform specialized <span class="text-[#c9a84c] font-bold">Medical Malpractice AI Intake</span> for firms. This will only take a few minutes.</p>
                     <p class="mt-2 font-medium">To get started, could you briefly describe what happened?</p>
                 </div>
             </div>
@@ -84,19 +84,19 @@
 
         <!-- Input Area -->
         <div class="p-4 border-t border-slate-200 bg-white">
-            <div id="upload-preview" class="hidden mb-3 p-2 bg-blue-50 border border-blue-100 rounded-lg flex items-center justify-between">
-                <span class="text-xs text-blue-700 font-medium truncate" id="file-name"></span>
-                <button onclick="clearFile()" class="text-blue-700 hover:text-blue-900"><i class="bi bi-x-circle"></i></button>
+            <div id="upload-preview" class="hidden mb-3 p-2 bg-[#fcf9f0] border border-[#f3e9c9] rounded-lg flex items-center justify-between">
+                <span class="text-xs text-[#b0923f] font-medium truncate" id="file-name"></span>
+                <button onclick="clearFile()" class="text-[#b0923f] hover:text-blue-900"><i class="bi bi-x-circle"></i></button>
             </div>
             
             <div class="flex items-center space-x-3">
-                <label class="cursor-pointer text-slate-400 hover:text-blue-600 transition p-2">
+                <label class="cursor-pointer text-slate-400 hover:text-[#c9a84c] transition p-2">
                     <i class="bi bi-paperclip text-xl"></i>
                     <input type="file" id="file-input" class="hidden" onchange="handleFileSelect(this)">
                 </label>
                 <div class="flex-1 relative">
-                    <input type="text" id="user-input" placeholder="Type your response..." class="w-full pl-4 pr-12 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition">
-                    <button id="send-btn" class="absolute right-2 top-1.5 p-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                    <input type="text" id="user-input" placeholder="Type your response..." class="w-full pl-4 pr-12 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#c9a84c] focus:border-transparent outline-none transition">
+                    <button id="send-btn" class="absolute right-2 top-1.5 p-1.5 bg-[#c9a84c] text-white rounded-lg hover:bg-[#b0923f] transition">
                         <i class="bi bi-send-fill"></i>
                     </button>
                 </div>
@@ -104,7 +104,7 @@
             
             <div class="mt-4 flex justify-between items-center">
                 <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Secured by LexiFlow Technologies Inc</p>
-                <button id="complete-btn" class="text-xs font-bold text-blue-600 hover:bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200 transition">Finish Intake & View Score</button>
+                <button id="complete-btn" class="text-xs font-bold text-[#c9a84c] hover:bg-[#fcf9f0] px-3 py-1.5 rounded-lg border border-[#e2c96e] transition">Finish Intake & View Score</button>
             </div>
         </div>
     </main>
@@ -120,12 +120,12 @@
             
             <div class="bg-slate-50 rounded-2xl p-6 mb-8 border border-slate-100">
                 <div class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-1">Qualification Score</div>
-                <div id="finalScore" class="text-5xl font-black text-blue-600">--</div>
-                <div id="finalStatus" class="mt-2 inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold uppercase">Processing</div>
+                <div id="finalScore" class="text-5xl font-black text-[#c9a84c]">--</div>
+                <div id="finalStatus" class="mt-2 inline-block px-3 py-1 bg-[#f3e9c9] text-[#b0923f] rounded-full text-xs font-bold uppercase">Processing</div>
             </div>
 
             <div class="space-y-3">
-                <a href="/dashboard.html" class="block w-full bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition">View Attorney Dashboard</a>
+                <a href="/dashboard.html" class="block w-full bg-[#c9a84c] text-white font-bold py-4 rounded-xl hover:bg-[#b0923f] transition">View Attorney Dashboard</a>
                 <a href="/" class="block w-full text-slate-500 font-semibold py-2 hover:text-slate-700 transition">Return to Homepage</a>
             </div>
         </div>
@@ -145,7 +145,7 @@
                     if (firm) {
                         document.title = `${firm.name} | LexiFlow Technologies Inc Intake`;
                         document.getElementById('firm-name-display').textContent = `${firm.name} Intake`;
-                        document.getElementById('ai-welcome-text').innerHTML = `Hello! I'm Lexi, the AI assistant for <strong>${firm.name}</strong>. I'm here to help gather some initial details about your legal inquiry.`;
+                        document.getElementById('ai-welcome-text').innerHTML = `Hello! I'm Lexi, the AI assistant for <strong>${firm.name}</strong>. I specialize in <span class="text-[#c9a84c] font-bold">Law Firm Intake AI</span> and <span class="text-[#c9a84c] font-bold">Lead Qualification</span> for your practice.`;
                     }
                 } catch (e) { console.error("Error branding page", e); }
             }
@@ -218,7 +218,7 @@
             wrapper.id = typingId;
             wrapper.className = 'flex items-start';
             wrapper.innerHTML = `
-                <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white mr-3 flex-shrink-0">
+                <div class="w-8 h-8 bg-[#c9a84c] rounded-full flex items-center justify-center text-white mr-3 flex-shrink-0">
                     <i class="bi bi-robot text-sm"></i>
                 </div>
                 <div class="chat-bubble bg-white border border-slate-200 rounded-2xl rounded-tl-none p-4 shadow-sm text-slate-700">
@@ -277,7 +277,7 @@
 
             if (role === 'ai') {
                 wrapper.innerHTML = `
-                    <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white mr-3 flex-shrink-0">
+                    <div class="w-8 h-8 bg-[#c9a84c] rounded-full flex items-center justify-center text-white mr-3 flex-shrink-0">
                         <i class="bi bi-robot text-sm"></i>
                     </div>
                     <div class="chat-bubble bg-white border border-slate-200 rounded-2xl rounded-tl-none p-4 shadow-sm text-slate-700">
@@ -286,7 +286,7 @@
                 `;
             } else {
                 wrapper.innerHTML = `
-                    <div class="chat-bubble bg-blue-600 text-white rounded-2xl rounded-tr-none p-4 shadow-lg">
+                    <div class="chat-bubble bg-[#c9a84c] text-white rounded-2xl rounded-tr-none p-4 shadow-lg">
                         ${content}
                     </div>
                 `;
@@ -384,13 +384,16 @@
       <div class="footer-col">
         <h4>Products</h4>
         <ul>
-          <li><a href="/ai-intake-agent.html">LexiFlow Intake</a></li>
-          <li><a href="/ai-medical-chronologies.html">Medical Review</a></li>
+          <li><a href="/ai-intake-agent.html">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
           <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
           <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
           <li><a href="/depolens-ai.html">DepoLens™ AI</a></li>
           <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
-        </ul>
+          <li><a href="/dashboard.html">Analytics Dashboard</a></li>
+          </ul>
       </div>
       <div class="footer-col">
         <h4>Top Markets</h4>
