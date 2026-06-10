@@ -18,11 +18,11 @@
     *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
     body { font-family:var(--font-sans); color:#1a1a2e; line-height:1.6; background:var(--bg-light); }
     .container { max-width:var(--max-width); margin:0 auto; padding:0 24px; }
-    .nav { position:fixed; top:0; width:100%; z-index:100; background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); }
+    /* Local nav style removed */
     .nav .container { display:flex; align-items:center; justify-content:space-between; height:68px; }
     .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
     .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:800; }
-    .nav-links { display:flex; gap:24px; list-style:none; align-items:center; }
+    /* Local nav style removed */
     .nav-links a { font-size:0.85rem; font-weight:500; color:var(--text-muted); text-decoration:none; }
     .nav-links a:hover, .nav-links a.active { color:var(--primary); font-weight:600; }
     .resources-dropdown { position:relative; }
@@ -71,9 +71,9 @@
     @media (max-width:900px) { .grid-2,.grid-3,.grid-4 { grid-template-columns:1fr; } .stats-grid { grid-template-columns:1fr; } }
     @media (max-width:768px) { .hero h1 { font-size:2rem; } .faq-grid { grid-template-columns:1fr; } }
   </style>
+<link rel="stylesheet" href="./shared-layout.css">
 </head>
-<body>
-<nav><div class="nav-container">
+<body><nav><div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing.html">Pricing</a></li>
@@ -91,7 +91,7 @@
       <li><a href="/cities.html">Areas We Serve</a></li>
       <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
     </ul>
-    <button class="nav-toggle">☰</button>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
   </div></nav>
 
 <section class="hero"><div class="container">
@@ -154,33 +154,33 @@
   <a href="#book-demo" class="btn btn-primary">Book Your Demo →</a>
 </div></section>
 
-            <footer class="footer">
+            <footer>
     <div class="footer-container">
       <div class="footer-col">
-        <a href="/" class="footer-logo"><span>LF</span> LexiFlow</a>
-        <p style="color: var(--slate-400); font-size: 14px;">The orchestration layer for high-stakes litigation. Reasoning AI for high-growth firms.</p>
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
       </div>
       <div class="footer-col">
         <h4>Products</h4>
         <ul>
-          <li><a href="/ai-intake-agent.html">AI Intake Agent</a></li>
+          <li><a href="/ai-legal-intake-software.html">AI Intake Agent</a></li>
           <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
-          <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
-          <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
+          <li><a href="/medical-chronologies.html">Medical Chronologies</a></li>
+          <li><a href="/auto-doc-drafter.html">Auto-Doc Drafter</a></li>
           <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
           <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
           <li><a href="/depolens-ai.html">DepoLens™ AI</a></li>
           <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
-          <li><a href="/dashboard.html">Analytics Dashboard</a></li>
+          <li><a href="/analytics-dashboard.html">Analytics Dashboard</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Top Markets</h4>
         <ul>
-          <li><a href="/locations/california/medmal-la.html">Los Angeles (MedMal)</a></li>
-          <li><a href="/locations/california/medmal-san-francisco.html">San Francisco (MedMal)</a></li>
-          <li><a href="/locations/new-york/medmal-nyc.html">New York City (MedMal)</a></li>
-          <li><a href="/locations/illinois/medmal-chicago.html">Chicago (MedMal)</a></li>
+          <li><a href="/locations/california/los-angeles.html">Los Angeles (MedMal)</a></li>
+          <li><a href="/locations/california/san-francisco.html">San Francisco (MedMal)</a></li>
+          <li><a href="/locations/new-york/new-york-city.html">New York City (MedMal)</a></li>
+          <li><a href="/locations/illinois/chicago.html">Chicago (MedMal)</a></li>
           <li><a href="/cities.html">View All Cities</a></li>
         </ul>
       </div>
@@ -192,18 +192,11 @@
           <li><a href="/soc2.html">SOC2 Compliance</a></li>
         </ul>
       </div>
-      <div class="footer-col">
-        <h4>Security</h4>
-        <div style="font-size: 24px; display: flex; gap: 16px;">
-          <i class="bi bi-shield-lock"></i>
-          <i class="bi bi-safe"></i>
-          <i class="bi bi-fingerprint"></i>
-        </div>
-      </div>
     </div>
     <div class="footer-bottom">
-      &copy; 2026 LexiFlow Technologies Inc. All rights reserved.
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
     </div>
   </footer>
-<script src="/shared-layout.js"></script></body>
+<script src="./shared-layout.js"></script>
+</body>
 </html>

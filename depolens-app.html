@@ -13,14 +13,14 @@
   <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" media="print" onload="this.media='all'" />
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" /></noscript>
-  <link rel="stylesheet" href="/shared-layout.css">
+  <link rel="stylesheet" href="./shared-layout.css">
   <style>
     :root { --primary:#1a3a5c; --primary-light:#2a5a8c; --primary-dark:#0d1f33; --accent:#c9a84c; --accent-light:#e2c96e; --accent-dark:#a88a30; --text-dark:#1a1a2e; --text-muted:#6b7280; --text-light:#f8fafc; --bg-light:#f8fafc; --bg-white:#ffffff; --bg-dark:#0d1f33; --border:#e2e8f0; --green:#16a34a; --red:#ef4444; --shadow:0 4px 6px -1px rgba(0,0,0,0.1); --shadow-lg:0 10px 15px -3px rgba(0,0,0,0.1); --shadow-xl:0 20px 25px -5px rgba(0,0,0,0.1); --radius:8px; --radius-lg:16px; --max-width:1200px; --font-sans:'Inter',-apple-system,sans-serif; --font-serif:'Playfair Display',Georgia,serif; }
     *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
     html { scroll-behavior: smooth; }
     body { font-family:var(--font-sans); color:var(--text-dark); background:var(--bg-light); line-height:1.6; }
     .container { max-width:var(--max-width); margin:0 auto; padding:0 24px; }
-    .nav { position:fixed; top:0; width:100%; z-index:100; background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); }
+    /* Local nav style removed */
     .nav .container { display:flex; align-items:center; justify-content:space-between; height:68px; }
     .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
     .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:800; }
@@ -75,8 +75,7 @@
     @media (max-width:768px) { .hero h1 { font-size:1.8rem; } }
   </style>
 </head>
-<body>
-<nav><div class="nav-container">
+<body><nav><div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing.html">Pricing</a></li>
@@ -94,7 +93,7 @@
       <li><a href="/cities.html">Areas We Serve</a></li>
       <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
     </ul>
-    <button class="nav-toggle">☰</button>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
   </div></nav>
 
 <section class="hero"><div class="container">
@@ -194,33 +193,33 @@
   </div>
 </div>
 
-            <footer class="footer">
+            <footer>
     <div class="footer-container">
       <div class="footer-col">
-        <a href="/" class="footer-logo"><span>LF</span> LexiFlow</a>
-        <p style="color: var(--slate-400); font-size: 14px;">The orchestration layer for high-stakes litigation. Reasoning AI for high-growth firms.</p>
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
       </div>
       <div class="footer-col">
         <h4>Products</h4>
         <ul>
-          <li><a href="/ai-intake-agent.html">AI Intake Agent</a></li>
+          <li><a href="/ai-legal-intake-software.html">AI Intake Agent</a></li>
           <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
-          <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
-          <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
+          <li><a href="/medical-chronologies.html">Medical Chronologies</a></li>
+          <li><a href="/auto-doc-drafter.html">Auto-Doc Drafter</a></li>
           <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
           <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
           <li><a href="/depolens-ai.html">DepoLens™ AI</a></li>
           <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
-          <li><a href="/dashboard.html">Analytics Dashboard</a></li>
+          <li><a href="/analytics-dashboard.html">Analytics Dashboard</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Top Markets</h4>
         <ul>
-          <li><a href="/locations/california/medmal-la.html">Los Angeles (MedMal)</a></li>
-          <li><a href="/locations/california/medmal-san-francisco.html">San Francisco (MedMal)</a></li>
-          <li><a href="/locations/new-york/medmal-nyc.html">New York City (MedMal)</a></li>
-          <li><a href="/locations/illinois/medmal-chicago.html">Chicago (MedMal)</a></li>
+          <li><a href="/locations/california/los-angeles.html">Los Angeles (MedMal)</a></li>
+          <li><a href="/locations/california/san-francisco.html">San Francisco (MedMal)</a></li>
+          <li><a href="/locations/new-york/new-york-city.html">New York City (MedMal)</a></li>
+          <li><a href="/locations/illinois/chicago.html">Chicago (MedMal)</a></li>
           <li><a href="/cities.html">View All Cities</a></li>
         </ul>
       </div>
@@ -232,146 +231,11 @@
           <li><a href="/soc2.html">SOC2 Compliance</a></li>
         </ul>
       </div>
-      <div class="footer-col">
-        <h4>Security</h4>
-        <div style="font-size: 24px; display: flex; gap: 16px;">
-          <i class="bi bi-shield-lock"></i>
-          <i class="bi bi-safe"></i>
-          <i class="bi bi-fingerprint"></i>
-        </div>
-      </div>
     </div>
     <div class="footer-bottom">
-      &copy; 2026 LexiFlow Technologies Inc. All rights reserved.
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
     </div>
   </footer>
-<script src="/shared-layout.js"></script><script src="/config.js"></script>
-<script src="/shared-layout.js"></script>
-<script>
-// DepoLens App — Enterprise Edition
-const DEPO_API_PREFIX = '/depolens';
-const uploadBtn = document.getElementById('upload-btn');
-const uploadModal = document.getElementById('upload-modal');
-const cancelUpload = document.getElementById('cancel-upload');
-const confirmUpload = document.getElementById('confirm-upload');
-const fileInput = document.getElementById('file-input');
-const dropZone = document.getElementById('drop-zone');
-const fileInfo = document.getElementById('file-info');
-const filenameDisplay = document.getElementById('filename-display');
-const transcriptGrid = document.getElementById('transcript-grid');
-const transcriptListSection = document.getElementById('transcript-list-section');
-const resultSection = document.getElementById('result-section');
-const backToList = document.getElementById('back-to-list');
-
-let selectedFile = null;
-
-// Usage indicator data
-const usageCurrent = 47;
-const usageLimit = 500;
-document.getElementById('usageCurrent').textContent = usageCurrent;
-document.getElementById('usageLimit').textContent = usageLimit;
-document.getElementById('usageFill').style.width = Math.min((usageCurrent/usageLimit)*100, 100) + '%';
-const overage = Math.max(0, usageCurrent - usageLimit);
-document.getElementById('usageOverage').textContent = overage > 0 ? overage + ' overage' : '0 overage';
-
-async function init() { loadTranscripts(); }
-
-if (uploadBtn) uploadBtn.addEventListener('click', () => uploadModal.classList.remove('hidden'));
-if (cancelUpload) cancelUpload.addEventListener('click', () => { uploadModal.classList.add('hidden'); resetUpload(); });
-if (dropZone) dropZone.addEventListener('click', () => fileInput.click());
-if (fileInput) fileInput.addEventListener('change', handleFileSelect);
-if (dropZone) {
-  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.style.borderColor = 'var(--accent)'; });
-  dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = ''; });
-  dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.style.borderColor = ''; if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); });
-}
-if (confirmUpload) confirmUpload.addEventListener('click', uploadTranscript);
-if (backToList) backToList.addEventListener('click', () => { resultSection.classList.add('hidden'); transcriptListSection.classList.remove('hidden'); loadTranscripts(); });
-
-function handleFileSelect(e) { if (e.target.files.length) handleFile(e.target.files[0]); }
-function handleFile(file) { selectedFile = file; filenameDisplay.innerText = file.name; fileInfo.classList.remove('hidden'); confirmUpload.disabled = false; }
-function resetUpload() { selectedFile = null; if (fileInput) fileInput.value = ''; fileInfo.classList.add('hidden'); confirmUpload.disabled = true; }
-
-async function loadTranscripts() {
-  transcriptGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted);"><i class="bi bi-arrow-repeat" style="font-size:2rem;display:block;margin-bottom:8px;animation:spin 1s linear infinite;"></i><p>Loading analyses...</p></div>';
-  try {
-    const res = await apiFetch(DEPO_API_PREFIX + '/transcripts');
-    const data = await res.json();
-    const transcripts = Array.isArray(data) ? data : data.transcripts || [];
-    if (!transcripts.length) {
-      transcriptGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);"><i class="bi bi-file-text" style="font-size:3rem;display:block;margin-bottom:12px;"></i><p>No deposition analyses yet. Upload a transcript to get started.</p></div>';
-      return;
-    }
-    transcriptGrid.innerHTML = transcripts.map(t => `
-      <div class="depo-card" onclick="loadTranscript('${t.id}')">
-        <h4>${t.filename || 'Untitled Transcript'}</h4>
-        <div class="meta">${t.status || 'Uploaded'} · ${new Date(t.upload_date || Date.now()).toLocaleDateString()}</div>
-      </div>
-    `).join('');
-  } catch(e) {
-    transcriptGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);"><i class="bi bi-exclamation-circle" style="font-size:2rem;display:block;margin-bottom:8px;"></i><p>Unable to load analyses. API endpoint may be unavailable.</p></div>';
-  }
-}
-
-async function uploadTranscript() {
-  if (!selectedFile) return;
-  confirmUpload.disabled = true; confirmUpload.innerHTML = 'Analyzing... <i class="bi bi-arrow-repeat" style="animation:spin 1s linear infinite;"></i>';
-  const formData = new FormData(); formData.append('file', selectedFile);
-  try {
-    const res = await apiFetch(DEPO_API_PREFIX + '/upload', { method: 'POST', body: formData });
-    const result = await res.json();
-    uploadModal.classList.add('hidden'); resetUpload();
-    transcriptListSection.classList.add('hidden'); resultSection.classList.remove('hidden');
-    loadTranscript(result.id);
-  } catch(e) {
-    alert('Upload failed. The API endpoint may be unavailable.');
-    confirmUpload.disabled = false; confirmUpload.innerHTML = 'Analyze <i class="bi bi-arrow-right"></i>';
-  }
-}
-
-async function loadTranscript(id) {
-  try {
-    const res = await apiFetch(DEPO_API_PREFIX + '/transcripts/' + id);
-    const data = await res.json();
-    
-    if (data.transcript && data.transcript.status === 'processing') {
-      document.getElementById('summary-text').textContent = 'Analysis in progress... please wait.';
-      transcriptListSection.classList.add('hidden'); resultSection.classList.remove('hidden');
-      setTimeout(() => loadTranscript(id), 3000);
-      return;
-    }
-
-    const summary = data.summary || {};
-    const conflicts = data.conflicts || [];
-    const facts = data.facts || [];
-
-    document.getElementById('summary-text').textContent = summary.executive_summary || 'Analysis complete. Review the facts and conflicts below.';
-    document.getElementById('risks-list').innerHTML = (summary.risks || 'No significant risks identified.').split('\n').map(r => `<li>${r}</li>`).join('');
-    document.getElementById('admissions-list').innerHTML = (summary.admissions || 'No admissions recorded.').split('\n').map(a => `<li>${a}</li>`).join('');
-    document.getElementById('conflict-count').textContent = conflicts.length + ' Conflicts';
-    if (conflicts.length === 0) {
-      document.getElementById('conflicts-container').innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);font-size:0.85rem;">No conflicts detected in this transcript.</div>';
-    } else {
-      document.getElementById('conflicts-container').innerHTML = conflicts.map(c => `
-        <div class="conflict-card">
-          <strong style="font-size:0.85rem;">${c.witness_a || 'Witness A'} vs ${c.witness_b || 'Witness B'}</strong>
-          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:4px;">${c.description || c.reasoning || 'Conflict detected'}</p>
-          <span class="badge" style="background:rgba(239,68,68,0.1);color:var(--red);margin-top:6px;">${c.severity || 'Medium'} Severity</span>
-        </div>
-      `).join('');
-    }
-    document.getElementById('chronology-body').innerHTML = facts.map(f => `
-      <tr><td>${f.witness_name || '—'}</td><td>${f.date_time || '—'}</td><td>${f.event_description || '—'}</td><td>${f.page_reference || '—'}</td></tr>
-    `).join('') || '<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--text-muted);">No chronology entries found.</td></tr>';
-
-    transcriptListSection.classList.add('hidden'); resultSection.classList.remove('hidden');
-  } catch(e) {
-    alert('Failed to load transcript analysis.');
-  }
-}
-
-init();
-</script>
-<style>@keyframes spin { to { transform:rotate(360deg); } }</style>
+<script src="./shared-layout.js"></script>
 </body>
 </html>

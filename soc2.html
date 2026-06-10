@@ -8,29 +8,29 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <style>
-    :root { 
-    --primary: #1a3a5c; 
-    --primary-dark: #0d1f33; 
-    --accent: #c9a84c; 
-    --slate-50: #f8fafc; 
-    --slate-100: #f1f5f9; 
-    --slate-200: #e2e8f0; 
-    --slate-400: #94a3b8; 
-    --slate-600: #475569; 
-    --text-muted: #94a3b8; 
-    --bg-light: #f8fafc; 
-    --navy: #0f172a; 
-    --gold: #c9a84c; 
+    :root {
+    --primary: #1a3a5c;
+    --primary-dark: #0d1f33;
+    --accent: #c9a84c;
+    --slate-50: #f8fafc;
+    --slate-100: #f1f5f9;
+    --slate-200: #e2e8f0;
+    --slate-400: #94a3b8;
+    --slate-600: #475569;
+    --text-muted: #94a3b8;
+    --bg-light: #f8fafc;
+    --navy: #0f172a;
+    --gold: #c9a84c;
   }
     body { font-family: 'Inter', sans-serif; background: var(--slate-50); color: var(--navy); margin: 0; padding: 0; line-height: 1.8; }
     nav { height: 80px; background: #fff; border-bottom: 1px solid var(--slate-200); display: flex; align-items: center; position: sticky; top: 0; z-index: 100; }
     .nav-container { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
     .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--navy); text-decoration: none; }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
+    /* Local nav style removed */
     .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; }
     .nav-links a:hover { color: var(--navy); }
     .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
-    
+
     .content-container { max-width: 900px; margin: 0 auto; padding: 80px 60px; background: #fff; border-radius: 12px; margin-top: 40px; margin-bottom: 80px; border: 1px solid var(--slate-200); box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
     h1 { font-family: 'Playfair Display', serif; font-size: 42px; margin-bottom: 12px; color: var(--navy); text-align: center; }
     h2 { font-family: 'Playfair Display', serif; font-size: 22px; margin-top: 40px; margin-bottom: 16px; color: var(--navy); border-bottom: 1px solid var(--slate-200); padding-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
@@ -38,7 +38,7 @@
     ul { margin-bottom: 24px; padding-left: 24px; }
     li { margin-bottom: 12px; color: var(--slate-600); font-size: 15px; }
     .badge { display: inline-block; background: var(--navy); color: var(--gold); padding: 8px 16px; border-radius: 4px; font-weight: 700; font-size: 14px; margin-bottom: 32px; }
-    
+
     footer { padding: 80px 0 40px; background: var(--navy); color: var(--slate-400); }
     .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr repeat(4, 1fr); gap: 40px; }
     .footer-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; margin-bottom: 20px; display: block; }
@@ -52,26 +52,33 @@
     @media (max-width: 768px) {
         .content-container { padding: 40px 20px; margin: 20px; }
         h1 { font-size: 32px; }
-        .nav-links { display: none; }
+        /* Local nav style removed */
         .footer-container { grid-template-columns: 1fr; text-align: center; }
     }
   </style>
-<link rel="stylesheet" href="/shared-layout.css">
+<link rel="stylesheet" href="./shared-layout.css">
 </head>
-<body>
-<nav><div class="nav-container">
+<body><nav><div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing.html">Pricing</a></li>
       <li><a href="/dashboard.html">Dashboard</a></li>
       <li><a href="/blog/index.html">Blog</a></li>
+      <li class="resources-dropdown">
+        <a href="#">Resources ▾</a>
+        <div class="resources-menu">
+          <a href="/resources/medical-chronology-template.html">Medical Chronology Template</a>
+          <a href="/resources/medical-chronology-sample.html">Medical Chronology Sample</a>
+          <a href="/resources/medical-record-review-checklist.html">Record Review Checklist</a>
+        </div>
+      </li>
       <li><a href="/roi-calculator.html">ROI Calculator</a></li>
       <li><a href="/cities.html">Areas We Serve</a></li>
       <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
     </ul>
-    <button class="nav-toggle">☰</button>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
   </div></nav>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+
 
   <div class="content-container">
     <div style="text-align: center;">
@@ -105,48 +112,37 @@
     </div>
   </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 
-  <script>
-    (function() {
-        var toggle = document.querySelector('.nav-toggle');
-        var navLinks = document.getElementById('navLinks');
-        if (toggle && navLinks) {
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                navLinks.classList.toggle('active');
-            });
-        }
-    })();
-  </script>
+
+
 
 <footer>
     <div class="footer-container">
       <div class="footer-col">
-        <a href="/" class="footer-logo">LexiFlow</a>
-        <p>Enterprise-grade AI for legal intake and lead qualification. Built for the modern attorney.</p>
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
       </div>
       <div class="footer-col">
         <h4>Products</h4>
         <ul>
-          <li><a href="/ai-intake-agent.html">AI Intake Agent</a></li>
+          <li><a href="/ai-legal-intake-software.html">AI Intake Agent</a></li>
           <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
-          <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
-          <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
+          <li><a href="/medical-chronologies.html">Medical Chronologies</a></li>
+          <li><a href="/auto-doc-drafter.html">Auto-Doc Drafter</a></li>
           <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
           <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
           <li><a href="/depolens-ai.html">DepoLens™ AI</a></li>
           <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
-          <li><a href="/dashboard.html">Analytics Dashboard</a></li>
-          </ul>
+          <li><a href="/analytics-dashboard.html">Analytics Dashboard</a></li>
+        </ul>
       </div>
       <div class="footer-col">
         <h4>Top Markets</h4>
         <ul>
-          <li><a href="/locations/california/medmal-la.html">Los Angeles (MedMal)</a></li>
-          <li><a href="/locations/california/medmal-san-francisco.html">San Francisco (MedMal)</a></li>
-          <li><a href="/locations/new-york/medmal-nyc.html">New York City (MedMal)</a></li>
-          <li><a href="/locations/illinois/medmal-chicago.html">Chicago (MedMal)</a></li>
+          <li><a href="/locations/california/los-angeles.html">Los Angeles (MedMal)</a></li>
+          <li><a href="/locations/california/san-francisco.html">San Francisco (MedMal)</a></li>
+          <li><a href="/locations/new-york/new-york-city.html">New York City (MedMal)</a></li>
+          <li><a href="/locations/illinois/chicago.html">Chicago (MedMal)</a></li>
           <li><a href="/cities.html">View All Cities</a></li>
         </ul>
       </div>
@@ -158,19 +154,11 @@
           <li><a href="/soc2.html">SOC2 Compliance</a></li>
         </ul>
       </div>
-      <div class="footer-col">
-        <h4>Security</h4>
-        <div style="font-size: 24px; display: flex; gap: 16px;">
-          <i class="bi bi-shield-lock"></i>
-          <i class="bi bi-safe"></i>
-          <i class="bi bi-fingerprint"></i>
-        </div>
-      </div>
     </div>
     <div class="footer-bottom">
-      &copy; 2026 LexiFlow Technologies Inc. All rights reserved.
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
     </div>
   </footer>
-<script src="/shared-layout.js"></script>
+<script src="./shared-layout.js"></script>
 </body>
 </html>

@@ -12,20 +12,20 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 
 <style>
-  :root { 
-    --navy: #0f172a; 
-    --gold: #c9a84c; 
+  :root {
+    --navy: #0f172a;
+    --gold: #c9a84c;
     --gold-light: #e2c96e;
-    --slate-50: #f8fafc; 
-    --slate-100: #f1f5f9; 
-    --slate-200: #e2e8f0; 
-    --slate-400: #94a3b8; 
-    --slate-600: #475569; 
+    --slate-50: #f8fafc;
+    --slate-100: #f1f5f9;
+    --slate-200: #e2e8f0;
+    --slate-400: #94a3b8;
+    --slate-600: #475569;
     --slate-900: #0f172a;
   }
   body { font-family: 'Inter', sans-serif; background: #fff; color: var(--navy); line-height: 1.6; margin: 0; padding-top: 80px; }
   .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
-  
+
   .hero { background: var(--navy); color: #fff; padding: 120px 0; text-align: center; position: relative; overflow: hidden; }
   .hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(201, 168, 76, 0.1) 0%, transparent 70%); pointer-events: none; }
   .hero h1 { font-family: 'Playfair Display', serif; font-size: 56px; margin-bottom: 24px; position: relative; z-index: 1; }
@@ -33,21 +33,21 @@
   .hero p { font-size: 20px; color: var(--slate-400); max-width: 800px; margin: 0 auto 48px; position: relative; z-index: 1; }
   .btn-cta { background: var(--gold); color: var(--navy); padding: 16px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 16px; transition: all 0.2s; display: inline-block; }
   .btn-cta:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-  
+
   .section { padding: 100px 0; }
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-  
+
   .feature-list { list-style: none; padding: 0; margin-bottom: 40px; }
   .feature-list li { display: flex; gap: 16px; align-items: start; font-size: 18px; color: var(--navy); margin-bottom: 24px; }
   .feature-list li i { color: var(--gold); font-size: 24px; flex-shrink: 0; }
-  
+
   .spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 64px; }
   .spec-card { padding: 32px; background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 24px; transition: all 0.3s; }
   .spec-card:hover { border-color: var(--gold); transform: translateY(-8px); background: #fff; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
   .spec-card i { font-size: 32px; color: var(--gold); margin-bottom: 20px; display: block; }
   .spec-card h3 { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 12px; }
   .spec-card p { font-size: 15px; color: var(--slate-600); }
-  
+
   .audit-demo { background: #1e293b; color: #94a3b8; font-family: 'Courier New', Courier, monospace; padding: 32px; border-radius: 16px; font-size: 13px; line-height: 1.8; border: 1px solid #334155; }
   .audit-demo span { color: #38bdf8; }
   .audit-demo .highlight { color: #facc15; }
@@ -59,10 +59,9 @@
     .spec-grid { grid-template-columns: 1fr; }
   }
 </style>
-<link rel="stylesheet" href="/shared-layout.css">
+<link rel="stylesheet" href="./shared-layout.css">
 </head>
-<body>
-<nav><div class="nav-container">
+<body><nav><div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing.html">Pricing</a></li>
@@ -80,7 +79,7 @@
       <li><a href="/cities.html">Areas We Serve</a></li>
       <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
     </ul>
-    <button class="nav-toggle">☰</button>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
   </div></nav>
 
     <header class="hero">
@@ -100,7 +99,7 @@
                 <div>
                     <h2 style="font-family: 'Playfair Display', serif; font-size: 42px; color: var(--navy); margin-bottom: 24px; line-height: 1.2;">Security Without Sacrifice.</h2>
                     <p style="color: var(--slate-600); font-size: 18px; margin-bottom: 32px;">In high-volume personal injury and mass tort litigation, a single data breach can end a firm. Compliance-Shield™ integrates directly into your AI workflow to ensure every record is handled with military-grade precision.</p>
-                    
+
                     <ul class="feature-list">
                         <li><i class="bi bi-shield-lock-fill"></i> <strong>Automated PHI Redaction:</strong> AI-powered engine identifies and suppresses Patient Health Information (PHI) and PII in milliseconds.</li>
                         <li><i class="bi bi-journal-check"></i> <strong>SOC 2 Immutable Logs:</strong> Every document view, AI query, and download is recorded in a cryptographically signed audit trail.</li>
@@ -174,33 +173,33 @@
         </section>
     </main>
 
-                <footer class="footer">
+                <footer>
     <div class="footer-container">
       <div class="footer-col">
-        <a href="/" class="footer-logo"><span>LF</span> LexiFlow</a>
-        <p style="color: var(--slate-400); font-size: 14px;">The orchestration layer for high-stakes litigation. Reasoning AI for high-growth firms.</p>
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
       </div>
       <div class="footer-col">
         <h4>Products</h4>
         <ul>
-          <li><a href="/ai-intake-agent.html">AI Intake Agent</a></li>
+          <li><a href="/ai-legal-intake-software.html">AI Intake Agent</a></li>
           <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
-          <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
-          <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
+          <li><a href="/medical-chronologies.html">Medical Chronologies</a></li>
+          <li><a href="/auto-doc-drafter.html">Auto-Doc Drafter</a></li>
           <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
           <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
           <li><a href="/depolens-ai.html">DepoLens™ AI</a></li>
           <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
-          <li><a href="/dashboard.html">Analytics Dashboard</a></li>
+          <li><a href="/analytics-dashboard.html">Analytics Dashboard</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Top Markets</h4>
         <ul>
-          <li><a href="/locations/california/medmal-la.html">Los Angeles (MedMal)</a></li>
-          <li><a href="/locations/california/medmal-san-francisco.html">San Francisco (MedMal)</a></li>
-          <li><a href="/locations/new-york/medmal-nyc.html">New York City (MedMal)</a></li>
-          <li><a href="/locations/illinois/medmal-chicago.html">Chicago (MedMal)</a></li>
+          <li><a href="/locations/california/los-angeles.html">Los Angeles (MedMal)</a></li>
+          <li><a href="/locations/california/san-francisco.html">San Francisco (MedMal)</a></li>
+          <li><a href="/locations/new-york/new-york-city.html">New York City (MedMal)</a></li>
+          <li><a href="/locations/illinois/chicago.html">Chicago (MedMal)</a></li>
           <li><a href="/cities.html">View All Cities</a></li>
         </ul>
       </div>
@@ -212,31 +211,11 @@
           <li><a href="/soc2.html">SOC2 Compliance</a></li>
         </ul>
       </div>
-      <div class="footer-col">
-        <h4>Security</h4>
-        <div style="font-size: 24px; display: flex; gap: 16px;">
-          <i class="bi bi-shield-lock"></i>
-          <i class="bi bi-safe"></i>
-          <i class="bi bi-fingerprint"></i>
-        </div>
-      </div>
     </div>
     <div class="footer-bottom">
-      &copy; 2026 LexiFlow Technologies Inc. All rights reserved.
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
     </div>
   </footer>
-<script src="/shared-layout.js"></script><script>
-    (function() {
-        var toggle = document.querySelector('.nav-toggle');
-        var navLinks = document.getElementById('navLinks');
-        if (toggle && navLinks) {
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                navLinks.classList.toggle('active');
-            });
-        }
-    })();
-</script>
-<script src="/shared-layout.js"></script>
+<script src="./shared-layout.js"></script>
 </body>
 </html>
