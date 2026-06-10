@@ -29,7 +29,7 @@ branding/
         └── roi-report-template.html
 
 downloads/                       ← Public Lead Magnets & Templates
-├── lexiflow-medical-chronology-template.docx
+├── lexiflow-medical-chronology-template.pdf
 ├── lexiflow-medical-chronology-sample.pdf
 └── lexiflow-record-review-checklist.pdf
 ```

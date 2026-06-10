@@ -1,0 +1,51 @@
+LEXIFLOW TECHNOLOGIES INC - MEDICAL CHRONOLOGY TEMPLATE
+==================================================
+[LAW FIRM NAME]
+[CASE NAME / MATTER ID]
+
+1. PATIENT / PLAINTIFF INFORMATION
+----------------------------------
+Name: [Full Name]
+DOB: [MM/DD/YYYY]
+SSN (Last 4): [XXXX]
+Date of Incident: [MM/DD/YYYY]
+
+2. PROVIDER DIRECTORY
+---------------------
+Name                   | Type                | Date Range
+-----------------------|---------------------|----------------------
+[Facility Name]        | [e.g. Hospital]     | [Start] - [End]
+[Physician Name]       | [e.g. Orthopedic]   | [Start] - [End]
+
+3. CHRONOLOGICAL TIMELINE
+-------------------------
+DATE       | PROVIDER              | CLINICAL SUMMARY & FINDINGS
+-----------|-----------------------|----------------------------------------------------
+[Date]     | [Facility/Dr]         | [Subjective complaints, Objective findings, Assessment]
+[Date]     | [Facility/Dr]         | [Imaging results, Lab findings, Surgical notes]
+
+4. DIAGNOSIS LIST
+-----------------
+- [Diagnosis 1] (ICD-10: [Code])
+- [Diagnosis 2] (ICD-10: [Code])
+
+5. KEY FINDINGS / DEVIATIONS
+----------------------------
+- [Highlight 1: e.g. Positive MRI finding of herniated disc]
+- [Highlight 2: e.g. Failure to diagnose in ER setting]
+
+6. MEDICAL EXPENSES TRACKER
+---------------------------
+PROVIDER            | SERVICE DATE | CHARGES    | PAID/ADJ | BALANCE
+--------------------|--------------|------------|----------|----------
+[Provider 1]        | [Date]       | $[0.00]    | $[0.00]  | $[0.00]
+TOTAL               |              | $[0.00]    | $[0.00]  | $[0.00]
+
+7. GAPS IN TREATMENT / RED FLAGS
+--------------------------------
+- [Note any treatment gaps exceeding 30 days]
+- [Note pre-existing conditions mentioned in records]
+
+---
+Generated via LexiFlow AI - HIPAA Compliant Legal Intelligence
+(c) 2026 LexiFlow Technologies Inc.
