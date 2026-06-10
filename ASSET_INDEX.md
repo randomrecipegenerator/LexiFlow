@@ -27,6 +27,11 @@ branding/
     │   └── intake-chatbot-widget.png
     └── report/                  ← ROI Report Template
         └── roi-report-template.html
+
+downloads/                       ← Public Lead Magnets & Templates
+├── lexiflow-medical-chronology-template.docx
+├── lexiflow-medical-chronology-sample.pdf
+└── lexiflow-record-review-checklist.pdf
 ```
 
 ---

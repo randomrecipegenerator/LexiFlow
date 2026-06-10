@@ -172,17 +172,21 @@
       &copy; 2026 LexiFlow Technologies Inc. All rights reserved.
     </div>
   </footer>
-<script src="/shared-layout.js"></script><div class="modal-overlay" id="leadModal">
+<script src="/shared-layout.js"></script>
+<div class="modal-overlay" id="leadModal">
   <div class="modal-box">
     <div style="text-align:right;"><button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">&times;</button></div>
-    <h3>📥 Download Record Review Checklist</h3>
-    <p>Enter your details to receive the checklist.</p>
-    <form action="mailto:leads@lexiflow.co" method="post" enctype="text/plain">
+    <h3>📥 Download Medical Record Review Checklist</h3>
+    <p>Enter your details to receive the resource instantly.</p>
+    <form id="downloadForm" data-file="../downloads/lexiflow-record-review-checklist.pdf">
       <input type="text" name="name" placeholder="Full Name" required />
       <input type="email" name="email" placeholder="Work Email" required />
       <input type="text" name="firm" placeholder="Law Firm Name" required />
-      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">📥 Send Me the Checklist →</button>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" id="submitBtn">📥 Download Now →</button>
     </form>
+    <div id="successMsg" class="hidden" style="margin-top:20px; padding:15px; background:rgba(22, 163, 74, 0.1); border:1px solid #16a34a; color:#16a34a; border-radius:8px; font-size:0.9rem; text-align:center;">
+      <strong>Success!</strong> Your download should start automatically. If not, <a href="../downloads/lexiflow-record-review-checklist.pdf" download style="color:#16a34a; text-decoration:underline;">click here</a>.
+    </div>
   </div>
 </div>
 
@@ -190,6 +194,30 @@
 function openModal() { document.getElementById('leadModal').classList.add('active'); }
 function closeModal() { document.getElementById('leadModal').classList.remove('active'); }
 document.getElementById('leadModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+
+document.getElementById('downloadForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const msg = document.getElementById('successMsg');
+  const fileUrl = this.getAttribute('data-file');
+  
+  btn.disabled = true;
+  btn.innerText = 'Processing...';
+  
+  // Create download link immediately but hidden
+  const link = document.createElement('a');
+  link.href = fileUrl;
+  link.download = fileUrl.split('/').pop();
+  document.body.appendChild(link);
+  
+  setTimeout(() => {
+    btn.classList.add('hidden');
+    msg.classList.remove('hidden');
+    link.click();
+    document.body.removeChild(link);
+  }, 500);
+});
 </script>
+
 </body>
 </html>
