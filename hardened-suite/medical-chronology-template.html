@@ -178,14 +178,14 @@
     <div style="text-align:right;"><button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">&times;</button></div>
     <h3>📥 Download Medical Chronology Template</h3>
     <p>Enter your details to receive the resource instantly.</p>
-    <form id="downloadForm" data-file="../downloads/lexiflow-medical-chronology-template.pdf">
+    <form id="downloadForm" data-file="/downloads/lexiflow-medical-chronology-template.pdf">
       <input type="text" name="name" placeholder="Full Name" required />
       <input type="email" name="email" placeholder="Work Email" required />
       <input type="text" name="firm" placeholder="Law Firm Name" required />
       <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" id="submitBtn">📥 Download Now →</button>
     </form>
     <div id="successMsg" class="hidden" style="margin-top:20px; padding:15px; background:rgba(22, 163, 74, 0.1); border:1px solid #16a34a; color:#16a34a; border-radius:8px; font-size:0.9rem; text-align:center;">
-      <strong>Success!</strong> Your download should start automatically. If not, <a href="../downloads/lexiflow-medical-chronology-template.pdf" download style="color:#16a34a; text-decoration:underline;">click here</a>.
+      <strong>Success!</strong> Your download should start automatically. If not, <a href="/downloads/lexiflow-medical-chronology-template.pdf" download style="color:#16a34a; text-decoration:underline;">click here</a>.
     </div>
   </div>
 </div>
@@ -199,19 +199,16 @@ document.getElementById('downloadForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const btn = document.getElementById('submitBtn');
   const msg = document.getElementById('successMsg');
-  const fileUrl = this.getAttribute('data-file');
+  const fileLink = msg.querySelector('a');
 
   // Update UI immediately
   btn.disabled = true;
   btn.innerText = 'Processing...';
 
-  // Trigger download SYNCHRONOUSLY to avoid browser blocking
-  const link = document.createElement('a');
-  link.href = fileUrl;
-  link.download = fileUrl.split('/').pop();
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  // Trigger download from the existing link in the success message
+  if (fileLink) {
+    fileLink.click();
+  }
 
   // Show success message and hide button after a short delay for visual feedback
   setTimeout(() => {
