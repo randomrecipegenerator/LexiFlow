@@ -16,7 +16,10 @@ files_to_update = [
     "signup.html",
     "demo.html",
     "depolens-app.html",
-    "medical-chronologies-app.html"
+    "medical-chronologies-app.html",
+    "ai-legal-intake-software.html",
+    "medical-chronology-software.html",
+    "personal-injury-software.html"
 ]
 
 # Normalize path to root
@@ -28,12 +31,26 @@ if os.path.exists(blog_dir):
         if filename.endswith(".html"):
             files_to_update.append(os.path.join("blog", filename))
 
+resources_dir = os.path.join(base_path, "resources")
+if os.path.exists(resources_dir):
+    for filename in os.listdir(resources_dir):
+        if filename.endswith(".html"):
+            files_to_update.append(os.path.join("resources", filename))
+
 header = """<nav><div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing.html">Pricing</a></li>
       <li><a href="/dashboard.html">Dashboard</a></li>
       <li><a href="/blog/index.html">Blog</a></li>
+      <li class="resources-dropdown">
+        <a href="#">Resources ▾</a>
+        <div class="resources-menu">
+          <a href="/resources/medical-chronology-template.html">Medical Chronology Template</a>
+          <a href="/resources/medical-chronology-sample.html">Medical Chronology Sample</a>
+          <a href="/resources/medical-record-review-checklist.html">Record Review Checklist</a>
+        </div>
+      </li>
       <li><a href="/roi-calculator.html">ROI Calculator</a></li>
       <li><a href="/cities.html">Areas We Serve</a></li>
       <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
@@ -102,13 +119,25 @@ for filename in files_to_update:
     
     # Replace Nav
     new_content = re.sub(r'<nav.*?>.*?</nav>', header, content, flags=re.DOTALL)
-    if new_content == content and filename.startswith("blog"):
-        # For blog pages that use <header> instead of <nav>
-        new_content = header + "\n" + content
+    if new_content == content and (filename.startswith("blog") or filename.startswith("resources")):
+        # For blog pages that might use <header> instead of <nav> for navigation
+        if '<header class="blog-header">' in content:
+             new_content = re.sub(r'(<body.*?>)', r'\1\n' + header, content, flags=re.DOTALL)
+        elif '<nav class="nav">' in content:
+             new_content = re.sub(r'<nav class="nav">.*?</nav>', header, content, flags=re.DOTALL)
+        else:
+             new_content = header + "\n" + content
     
     # Replace Footer
     new_content = re.sub(r'<footer.*?>.*?</footer>\s*(<script src="/shared-layout.js"></script>)?', footer, new_content, flags=re.DOTALL)
     
+    # Fix canonicals and links if in blog
+    if filename.startswith("blog"):
+        # Ensure canonical uses .html
+        new_content = re.sub(r'<link rel="canonical" href="https://lexiflow.co/blog/(.*?)">', r'<link rel="canonical" href="https://lexiflow.co/blog/\1.html">', new_content)
+        # Ensure email is unified
+        new_content = re.sub(r'mailto:.*?@.*?\..*?"', 'mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io"', new_content)
+
     with open(filepath, 'w') as f:
         f.write(new_content)
     print(f"Updated {filename}")

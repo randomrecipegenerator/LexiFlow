@@ -22,6 +22,14 @@
     .nav .container { display:flex; align-items:center; justify-content:space-between; height:68px; }
     .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
     .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:800; }
+    .nav-links { display:flex; gap:24px; list-style:none; align-items:center; }
+    .nav-links a { font-size:0.85rem; font-weight:500; color:var(--text-muted); text-decoration:none; }
+    .nav-links a:hover, .nav-links a.active { color:var(--primary); font-weight:600; }
+    .resources-dropdown { position:relative; }
+    .resources-menu { display:none; position:absolute; top:100%; left:0; background:#fff; border:1px solid var(--border); border-radius:var(--radius); box-shadow:0 10px 30px rgba(0,0,0,0.1); min-width:240px; z-index:200; padding:8px 0; }
+    .resources-menu a { display:block; padding:10px 20px; font-size:0.85rem; color:var(--text-muted); white-space:nowrap; }
+    .resources-menu a:hover { background:var(--bg-light); color:var(--primary); }
+    .resources-dropdown:hover .resources-menu { display:block; }
     .btn { display:inline-flex; align-items:center; gap:8px; padding:14px 32px; border-radius:var(--radius); font-weight:700; text-decoration:none; transition:all 0.2s; }
     .btn-primary { background:var(--accent); color:#0d1f33; }
     .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(201,168,76,0.3); }
@@ -67,6 +75,19 @@
 <body>
 <nav class="nav"><div class="container">
   <a href="index.html" class="nav-logo"><span class="nav-logo-icon">LF</span> LexiFlow</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li class="resources-dropdown">
+      <a href="#">Resources ▾</a>
+      <div class="resources-menu">
+        <a href="medical-chronology-template.html">Medical Chronology Template</a>
+        <a href="medical-chronology-sample.html">Medical Chronology Sample</a>
+        <a href="medical-record-review-checklist.html">Record Review Checklist</a>
+      </div>
+    </li>
+    <li><a href="mailto:leads@lexiflow.co">Get Started</a></li>
+  </ul>
 </div></nav>
 
 <section class="hero"><div class="container">

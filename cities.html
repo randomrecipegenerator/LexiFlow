@@ -60,20 +60,26 @@
   <link rel="stylesheet" href="/shared-layout.css">
 </head>
 <body>
-  <nav>
-    <div class="nav-container">
-      <a href="/" class="logo"><span>LF</span> LexiFlow</a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="/pricing.html">Pricing</a></li>
-        <li><a href="/dashboard.html">Dashboard</a></li>
-        <li><a href="/blog/index.html">Blog</a></li>
-        <li><a href="/roi-calculator.html">ROI Calculator</a></li>
-        <li><a href="/cities.html">Areas We Serve</a></li>
-        <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
-      </ul>
-      <button class="nav-toggle">☰</button>
-    </div>
-  </nav>
+  <nav><div class="nav-container">
+    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/dashboard.html">Dashboard</a></li>
+      <li><a href="/blog/index.html">Blog</a></li>
+      <li class="resources-dropdown">
+        <a href="#">Resources ▾</a>
+        <div class="resources-menu">
+          <a href="/resources/medical-chronology-template.html">Medical Chronology Template</a>
+          <a href="/resources/medical-chronology-sample.html">Medical Chronology Sample</a>
+          <a href="/resources/medical-record-review-checklist.html">Record Review Checklist</a>
+        </div>
+      </li>
+      <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+      <li><a href="/cities.html">Areas We Serve</a></li>
+      <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
+    </ul>
+    <button class="nav-toggle">☰</button>
+  </div></nav>
   <header class="hero">
     <div class="max-w-screen">
       <div style="display: inline-block; padding: 8px 16px; background: rgba(201, 168, 76, 0.1); color: var(--gold); border-radius: 100px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px;">National Service Network</div>
@@ -598,7 +604,7 @@
         </div>
     </div>
   </section>
-  <footer class="footer">
+    <footer class="footer">
     <div class="footer-container">
       <div class="footer-col">
         <a href="/" class="footer-logo"><span>LF</span> LexiFlow</a>
@@ -607,15 +613,12 @@
       <div class="footer-col">
         <h4>Products</h4>
         <ul>
-          <li><a href="/ai-intake-agent.html">AI Intake Agent</a></li>
-          <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
-          <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
-          <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
-          <li><a href="/discovery-vault.html">Discovery-Vault&trade;</a></li>
-          <li><a href="/settlement-predictor.html">Settlement-Predictor Pro&trade;</a></li>
-          <li><a href="/depolens-ai.html">DepoLens&trade; AI</a></li>
-          <li><a href="/compliance-shield.html">Compliance-Shield&trade;</a></li>
-          <li><a href="/dashboard.html">Analytics Dashboard</a></li>
+          <li><a href="/ai-intake-agent.html">LexiFlow Intake</a></li>
+          <li><a href="/ai-medical-chronologies.html">Medical Review</a></li>
+          <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
+          <li><a href="/depolens-ai.html">DepoLens™ AI</a></li>
+          <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -646,10 +649,10 @@
       </div>
     </div>
     <div class="footer-bottom">
-      &copy; 2026 LexiFlow Technologies Inc. All rights reserved.
+      &copy; 2026 LexiFlow AI. All rights reserved.
     </div>
   </footer>
-  <script>
+<script src="/shared-layout.js"></script><script>
     (function() {
         var toggle = document.querySelector('.nav-toggle');
         var navLinks = document.getElementById('navLinks');

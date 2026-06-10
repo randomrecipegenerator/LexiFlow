@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medical Chronology Software — AI-Powered Record Review for Law Firms | LexiFlow</title>
+  <meta name="description" content="AI-powered medical chronology software for personal injury and medical malpractice law firms. Turn 5,000 pages into trial-ready timelines in under 60 seconds. Download a free sample chronology." />
+  <meta name="keywords" content="medical chronology software, AI medical chronology, automated medical chronology, medical record review software for law firms, legal medical chronology software" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" /></noscript>
+  <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" /></noscript>
+  <style>
+    :root { --primary:#1a3a5c; --primary-light:#2a5a8c; --primary-dark:#0d1f33; --accent:#c9a84c; --accent-light:#e2c96e; --accent-dark:#a88a30; --text-dark:#1a1a2e; --text-muted:#6b7280; --border:#e2e8f0; --bg-light:#f8fafc; --radius:8px; --radius-lg:16px; --max-width:1100px; --font-sans:'Inter',sans-serif; --font-serif:'Playfair Display',Georgia,serif; }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:var(--font-sans); color:var(--text-dark); line-height:1.6; background:var(--bg-light); }
+    .container { max-width:var(--max-width); margin:0 auto; padding:0 24px; }
+    .nav { position:fixed; top:0; width:100%; z-index:100; background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); }
+    .nav .container { display:flex; align-items:center; justify-content:space-between; height:68px; }
+    .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
+    .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:800; }
+    .nav-links { display:flex; gap:28px; list-style:none; }
+    .nav-links a { font-size:0.88rem; font-weight:500; color:var(--text-muted); text-decoration:none; }
+    .nav-links a:hover { color:var(--primary); }
+    .nav-cta { padding:8px 20px; background:var(--accent); color:var(--primary-dark)!important; border-radius:var(--radius); font-weight:600!important; }
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:var(--radius); font-weight:700; font-size:1rem; text-decoration:none; transition:all 0.2s; cursor:pointer; border:none; }
+    .btn-primary { background:var(--accent); color:var(--primary-dark); }
+    .btn-primary:hover { background:var(--accent-light); transform:translateY(-2px); box-shadow:0 8px 20px rgba(201,168,76,0.3); }
+    .hero { padding:120px 0 60px; background:linear-gradient(135deg,var(--primary-dark),var(--primary),var(--primary-light)); color:#fff; text-align:center; }
+    .hero h1 { font-family:var(--font-serif); font-size:2.8rem; margin-bottom:16px; }
+    .hero h1 span { color:var(--accent); }
+    .hero p { font-size:1.1rem; color:rgba(255,255,255,0.85); max-width:700px; margin:0 auto 28px; }
+    .hero .badge { display:inline-block; padding:6px 16px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.18); border-radius:100px; font-size:0.82rem; margin-bottom:20px; }
+    .section { padding:60px 0; }
+    .section-alt { background:#fff; }
+    .section h2 { font-family:var(--font-serif); font-size:2rem; color:var(--primary); text-align:center; margin-bottom:12px; }
+    .section .subtitle { text-align:center; color:var(--text-muted); font-size:0.95rem; max-width:600px; margin:0 auto 40px; }
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+    .card { background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); padding:28px; }
+    .card h3 { font-size:1rem; color:var(--primary); margin-bottom:6px; }
+    .card p { font-size:0.85rem; color:var(--text-muted); }
+    .lead-magnet { background:linear-gradient(135deg,var(--primary-dark),var(--primary)); border-radius:var(--radius-lg); padding:48px; text-align:center; color:#fff; max-width:700px; margin:0 auto; }
+    .lead-magnet h3 { font-family:var(--font-serif); font-size:1.5rem; margin-bottom:10px; }
+    .lead-magnet p { color:rgba(255,255,255,0.85); margin-bottom:24px; }
+    .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:30px 0; }
+    .stat-card { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:var(--radius); padding:16px; }
+    .stat-card .num { font-family:var(--font-serif); font-size:1.8rem; font-weight:800; color:var(--accent); }
+    .stat-card .label { font-size:0.72rem; color:rgba(255,255,255,0.7); text-transform:uppercase; }
+    .faq-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; max-width:800px; margin:0 auto; }
+    .faq-item { padding:16px; border:1px solid var(--border); border-radius:var(--radius); }
+    .faq-item h4 { font-size:0.9rem; color:var(--primary); margin-bottom:4px; }
+    .faq-item p { font-size:0.82rem; color:var(--text-muted); }
+    .footer { background:var(--primary-dark); color:rgba(255,255,255,0.6); padding:36px 0; text-align:center; font-size:0.82rem; }
+    .footer a { color:rgba(255,255,255,0.6); }
+    .modal-overlay { position:fixed; inset:0; background:rgba(13,31,51,0.85); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; z-index:2000; }
+    .modal-overlay.active { display:flex; }
+    .modal-box { background:#fff; border-radius:var(--radius-lg); padding:40px; max-width:480px; width:90%; }
+    .modal-box h3 { font-family:var(--font-serif); font-size:1.3rem; color:var(--primary); margin-bottom:8px; }
+    .modal-box p { color:var(--text-muted); font-size:0.88rem; margin-bottom:24px; }
+    .modal-box input { width:100%; padding:12px 16px; border:1px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.9rem; margin-bottom:14px; }
+    @media (max-width:900px) { .grid-2,.grid-3 { grid-template-columns:1fr; } .stats-row { grid-template-columns:repeat(2,1fr); } }
+    @media (max-width:768px) { .hero h1 { font-size:1.8rem; } .faq-grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+<nav><div class="nav-container">
+    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/dashboard.html">Dashboard</a></li>
+      <li><a href="/blog/index.html">Blog</a></li>
+      <li class="resources-dropdown">
+        <a href="#">Resources ▾</a>
+        <div class="resources-menu">
+          <a href="/resources/medical-chronology-template.html">Medical Chronology Template</a>
+          <a href="/resources/medical-chronology-sample.html">Medical Chronology Sample</a>
+          <a href="/resources/medical-record-review-checklist.html">Record Review Checklist</a>
+        </div>
+      </li>
+      <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+      <li><a href="/cities.html">Areas We Serve</a></li>
+      <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
+    </ul>
+    <button class="nav-toggle">☰</button>
+  </div></nav>
+
+<section class="hero"><div class="container">
+  <span class="badge">📅 AI Medical Chronology Software</span>
+  <h1>Medical Chronology Software<br><span>Powered by Reasoning AI</span></h1>
+  <p>The industry's leading AI-powered medical chronology software for personal injury, medical malpractice, and mass tort law firms. Turn 5,000 pages into trial-ready timelines in under 60 seconds — with 99% key finding capture rate.</p>
+  <button class="btn btn-primary" onclick="openModal()">📥 Download Free Sample Chronology</button>
+  <div class="stats-row">
+    <div class="stat-card"><div class="num">60s</div><div class="label">Avg. Processing</div></div>
+    <div class="stat-card"><div class="num">99%</div><div class="label">Key Finding Capture</div></div>
+    <div class="stat-card"><div class="num">15x</div><div class="label">Faster Than Manual</div></div>
+    <div class="stat-card"><div class="num">500+</div><div class="label">Pages per Minute</div></div>
+  </div>
+</div></section>
+
+<section class="section section-alt"><div class="container">
+  <h2>What Is AI Medical Chronology Software?</h2>
+  <p class="subtitle">Automated medical record review that delivers trial-ready chronologies in seconds — not weeks.</p>
+  <div class="grid-3">
+    <div class="card"><h3>📅 Automated Timeline</h3><p>Every medical event is extracted and organized by date — from ER visits to surgeries, follow-ups, and therapy sessions — with automatic date normalization.</p></div>
+    <div class="card"><h3>🔍 Key Finding Detection</h3><p>AI identifies and highlights critical findings: diagnoses, imaging results, specialist referrals, disability determinations, and deviations from standard of care.</p></div>
+    <div class="card"><h3>💰 Expense Tracking</h3><p>Auto-extracts billing codes, charges, payments, and insurance adjustments. Builds a complete medical specials list for demand letters.</p></div>
+    <div class="card"><h3>📊 Treatment Summary</h3><p>Generates a high-level summary: total visits, procedures performed, medications prescribed, providers seen, and gaps in care.</p></div>
+    <div class="card"><h3>📄 Multi-Format Export</h3><p>Export chronologies as PDF, Word, or CSV. Direct import into Filevine, Clio Manage, or LeadDock with one click.</p></div>
+    <div class="card"><h3>🔐 HIPAA Compliant</h3><p>AES-256 encryption, SOC 2 compliant infrastructure, TLS 1.3 in transit. Full audit trail for every document processed.</p></div>
+  </div>
+</div></section>
+
+<section class="section"><div class="container">
+  <h2>Why Law Firms Choose LexiFlow</h2>
+  <p class="subtitle">Medical chronology software that paralegals actually want to use.</p>
+  <div class="grid-2">
+    <div class="card" style="text-align:left;"><h3>⏱️ 60-Second Chronologies</h3><p>What takes 6-8 hours manually is done in under 60 seconds. Upload 500+ pages and get a complete, organized chronology with key findings and expense tracking.</p></div>
+    <div class="card" style="text-align:left;"><h3>🎯 99% Accuracy</h3><p>Our AI extracts dates, diagnoses, treatments, and billing with 99% accuracy — catching details human reviewers routinely miss.</p></div>
+    <div class="card" style="text-align:left;"><h3>💰 $69/mo — Not $1,500/Report</h3><p>Traditional medical chronologies cost $1,000–$1,500 per report. LexiFlow's medical chronology software does the same job for a flat $69/month.</p></div>
+    <div class="card" style="text-align:left;"><h3>📊 Integration-Ready</h3><p>Direct export to Filevine, Clio Manage, and LeadDock. No manual data entry. Your chronologies are attached to the right case instantly.</p></div>
+  </div>
+</div></section>
+
+<section class="section section-alt"><div class="container">
+  <div class="lead-magnet">
+    <h3>📋 Get a Free Sample AI Chronology</h3>
+    <p>Upload a set of medical records and we'll generate a full AI chronology — complete timeline, key findings, and expense summary. See the quality before you commit.</p>
+    <button class="btn btn-primary" onclick="openModal()">📥 Download Free Sample Chronology →</button>
+    <p style="font-size:0.78rem;margin-top:16px;opacity:0.7;">We'll process up to 200 pages at no charge. No credit card required.</p>
+  </div>
+</div></section>
+
+<section class="section"><div class="container">
+  <h2>FAQs About Medical Chronology Software</h2>
+  <div class="faq-grid">
+    <div class="faq-item"><h4>How many pages can the software handle?</h4><p>Our AI processes sets of 500+ pages. Enterprise plans have no page limits. Average processing time is under 60 seconds.</p></div>
+    <div class="faq-item"><h4>What file formats are supported?</h4><p>PDF, DOCX, TIFF, PNG, and JPG. Scanned documents are handled automatically via OCR.</p></div>
+    <div class="faq-item"><h4>Is my data secure?</h4><p>AES-256 encryption at rest, TLS 1.3 in transit, SOC 2 compliant. HIPAA BAA available on Enterprise plans.</p></div>
+    <div class="faq-item"><h4>Can I export to my case management software?</h4><p>Yes. Direct export to Filevine, Clio Manage, and LeadDock. CSV export for other systems.</p></div>
+    <div class="faq-item"><h4>Does it work for mass torts?</h4><p>Yes. Our medical chronology software handles high-volume document sets for mass tort and MDL cases.</p></div>
+    <div class="faq-item"><h4>What's included in the chronology?</h4><p>Timeline, key findings, treatment summary, expense tracking, provider list, and gap analysis.</p></div>
+  </div>
+</div></section>
+
+<section class="section" style="background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff;text-align:center;padding:60px 0;">
+  <div class="container">
+    <h2 style="font-family:var(--font-serif);font-size:2.2rem;margin-bottom:10px;">Stop Building Chronologies by Hand</h2>
+    <p style="color:rgba(255,255,255,0.8);max-width:500px;margin:0 auto 24px;">Download a free sample AI chronology and see the future of medical record review.</p>
+    <button class="btn btn-primary" onclick="openModal()">📥 Download Free Sample →</button>
+  </div>
+</section>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo"><span>LF</span> LexiFlow</a>
+        <p style="color: var(--slate-400); font-size: 14px;">The orchestration layer for high-stakes litigation. Reasoning AI for high-growth firms.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-intake-agent.html">LexiFlow Intake</a></li>
+          <li><a href="/ai-medical-chronologies.html">Medical Review</a></li>
+          <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
+          <li><a href="/depolens-ai.html">DepoLens™ AI</a></li>
+          <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Top Markets</h4>
+        <ul>
+          <li><a href="/locations/california/medmal-la.html">Los Angeles (MedMal)</a></li>
+          <li><a href="/locations/california/medmal-san-francisco.html">San Francisco (MedMal)</a></li>
+          <li><a href="/locations/new-york/medmal-nyc.html">New York City (MedMal)</a></li>
+          <li><a href="/locations/illinois/medmal-chicago.html">Chicago (MedMal)</a></li>
+          <li><a href="/cities.html">View All Cities</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+          <li><a href="/soc2.html">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Security</h4>
+        <div style="font-size: 24px; display: flex; gap: 16px;">
+          <i class="bi bi-shield-lock"></i>
+          <i class="bi bi-safe"></i>
+          <i class="bi bi-fingerprint"></i>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 LexiFlow AI. All rights reserved.
+    </div>
+  </footer>
+<script src="/shared-layout.js"></script><!-- Lead Capture Modal -->
+<div class="modal-overlay" id="leadModal">
+  <div class="modal-box">
+    <div style="text-align:right;"><button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text-muted);">&times;</button></div>
+    <h3>📥 Download Free Sample Chronology</h3>
+    <p>Enter your details below and we'll send you a link to download a sample AI-generated medical chronology.</p>
+    <form action="mailto:leads@lexiflow.co" method="post" enctype="text/plain">
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="email" name="email" placeholder="Work Email" required />
+      <input type="text" name="firm" placeholder="Law Firm Name" required />
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">📥 Send Me the Free Sample →</button>
+    </form>
+    <p style="font-size:0.75rem;color:var(--text-muted);margin-top:12px;">We respect your privacy. Unsubscribe anytime.</p>
+  </div>
+</div>
+
+<script>
+function openModal() { document.getElementById('leadModal').classList.add('active'); }
+function closeModal() { document.getElementById('leadModal').classList.remove('active'); }
+document.getElementById('leadModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+</script>
+</body>
+</html>

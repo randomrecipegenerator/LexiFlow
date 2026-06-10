@@ -26,6 +26,11 @@
     .nav-links { display:flex; gap:28px; list-style:none; }
     .nav-links a { font-size:0.88rem; font-weight:500; color:var(--text-muted); text-decoration:none; }
     .nav-links a:hover { color:var(--primary); }
+    .resources-dropdown { position:relative; }
+    .resources-menu { display:none; position:absolute; top:100%; left:0; background:#fff; border:1px solid var(--border); border-radius:var(--radius); box-shadow:0 10px 30px rgba(0,0,0,0.1); min-width:240px; z-index:200; padding:8px 0; }
+    .resources-menu a { display:block; padding:10px 20px; font-size:0.85rem; color:var(--text-muted); white-space:nowrap; }
+    .resources-menu a:hover { background:var(--bg-light); color:var(--primary); }
+    .resources-dropdown:hover .resources-menu { display:block; }
     .nav-cta { padding:8px 20px; background:var(--accent); color:var(--primary-dark) !important; border-radius:var(--radius); font-weight:600 !important; }
     .hero { padding:120px 0 50px; background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 50%,var(--primary-light) 100%); color:var(--text-light); text-align:center; position:relative; overflow:hidden; }
     .hero::before { content:''; position:absolute; top:-30%; right:-10%; width:60%; height:160%; background:radial-gradient(ellipse,rgba(201,168,76,0.07) 0%,transparent 70%); pointer-events:none; }
@@ -102,6 +107,14 @@
     <li><a href="index.html">Home</a></li>
     <li><a href="pricing.html">Pricing</a></li>
     <li><a href="dashboard.html">Dashboard</a></li>
+    <li class="resources-dropdown">
+      <a href="#">Resources ▾</a>
+      <div class="resources-menu">
+        <a href="medical-chronology-template.html">Medical Chronology Template</a>
+        <a href="medical-chronology-sample.html">Medical Chronology Sample</a>
+        <a href="medical-record-review-checklist.html">Record Review Checklist</a>
+      </div>
+    </li>
     <li><a href="admin/index.html">Admin</a></li>
     <li><a href="mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io" class="nav-cta">Get Started</a></li>
   </ul>
