@@ -37,6 +37,18 @@ if os.path.exists(resources_dir):
         if filename.endswith(".html"):
             files_to_update.append(os.path.join("resources", filename))
 
+hardened_dir = os.path.join(base_path, "hardened-suite")
+if os.path.exists(hardened_dir):
+    for filename in os.listdir(hardened_dir):
+        if filename.endswith(".html"):
+            files_to_update.append(os.path.join("hardened-suite", filename))
+    
+    hardened_resources_dir = os.path.join(hardened_dir, "resources")
+    if os.path.exists(hardened_resources_dir):
+        for filename in os.listdir(hardened_resources_dir):
+            if filename.endswith(".html"):
+                files_to_update.append(os.path.join("hardened-suite", "resources", filename))
+
 header = """<nav><div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
