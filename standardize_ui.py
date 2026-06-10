@@ -117,19 +117,23 @@ for filename in files_to_update:
     with open(filepath, 'r') as f:
         content = f.read()
     
+    # First, remove any existing injected nav if it's at the very top (fix previous run)
+    content = content.replace(header + "\n", "")
+    content = content.replace(header, "")
+
     # Replace Nav
-    new_content = re.sub(r'<nav.*?>.*?</nav>', header, content, flags=re.DOTALL)
-    if new_content == content and (filename.startswith("blog") or filename.startswith("resources")):
-        # For blog pages that might use <header> instead of <nav> for navigation
-        if '<header class="blog-header">' in content:
-             new_content = re.sub(r'(<body.*?>)', r'\1\n' + header, content, flags=re.DOTALL)
-        elif '<nav class="nav">' in content:
-             new_content = re.sub(r'<nav class="nav">.*?</nav>', header, content, flags=re.DOTALL)
-        else:
-             new_content = header + "\n" + content
+    if '<nav' in content:
+        new_content = re.sub(r'<nav.*?>.*?</nav>', header, content, flags=re.DOTALL)
+    else:
+        # If no nav, insert after body
+        new_content = re.sub(r'(<body.*?>)', r'\1\n' + header, content, flags=re.DOTALL)
     
     # Replace Footer
-    new_content = re.sub(r'<footer.*?>.*?</footer>\s*(<script src="/shared-layout.js"></script>)?', footer, new_content, flags=re.DOTALL)
+    if '<footer' in content:
+        new_content = re.sub(r'<footer.*?>.*?</footer>\s*(<script src="/shared-layout.js"></script>)?', footer, new_content, flags=re.DOTALL)
+    else:
+        # If no footer, insert before </body>
+        new_content = re.sub(r'(</body>)', footer + r'\n\1', new_content, flags=re.DOTALL)
     
     # Fix canonicals and links if in blog
     if filename.startswith("blog"):
