@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LexiFlow Enterprise Suite: AI-Powered Litigation Modules for Plaintiff Firms | LexiFlow Blog</title>
     <meta name="description" content="LexiFlow unveils its Enterprise Suite with four advanced litigation modules — Discovery-Vault, Settlement-Predictor Pro, DepoLens, and Compliance-Shield — at $299/month. No setup fees.">
-    <link rel="canonical" href="https://lexiflow.co/blog/enterprise-suite-launch-ai-litigation">
+    <link rel="canonical" href="https://lexiflow.co/blog/enterprise-suite-launch-ai-litigation.html">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://lexiflow.co/blog/enterprise-suite-launch-ai-litigation">
+    <meta property="og:url" content="https://lexiflow.co/blog/enterprise-suite-launch-ai-litigation.html">
     <meta property="og:title" content="LexiFlow Launches Enterprise Suite: AI-Powered Litigation Modules for Plaintiff Firms">
     <meta property="og:description" content="LexiFlow unveils its Enterprise Suite with four advanced litigation modules — Discovery-Vault, Settlement-Predictor Pro, DepoLens, and Compliance-Shield — at $299/month. No setup fees.">
     <meta property="og:image" content="https://lexiflow.co/blog/images/enterprise-suite-launch-ai-litigation-hero.png">
@@ -26,7 +26,7 @@
         "datePublished": "2026-06-22",
         "dateModified": "2026-06-22",
         "publisher": { "@type": "Organization", "name": "LexiFlow" },
-        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://lexiflow.co/blog/enterprise-suite-launch-ai-litigation" },
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://lexiflow.co/blog/enterprise-suite-launch-ai-litigation.html" },
         "keywords": "AI litigation software law firms, legal discovery automation, settlement prediction AI, deposition analysis tool, legal compliance software, enterprise legal tech",
         "articleSection": "Legal Tech & AI Innovation",
         "about": { "@type": "Thing", "name": "AI litigation software law firms" }
@@ -103,8 +103,24 @@
         .blog-footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; }
         @media (max-width: 640px) { .blog-header h1 { font-size: 1.6rem; } .blog-content table { font-size: 0.85rem; } }
     </style>
+    <link rel="stylesheet" href="/shared-layout.css">
 </head>
 <body>
+    <nav><div class="nav-container">
+        <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/dashboard.html">Dashboard</a></li>
+          <li><a href="/blog/index.html">Blog</a></li>
+          <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+          <li><a href="/cities.html">Areas We Serve</a></li>
+          <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
+        </ul>
+        <button class="nav-toggle">☰</button>
+      </div></nav>
+
+    
+
     <header class="blog-header">
         <div class="container">
             <h1>LexiFlow Launches Enterprise Suite: AI-Powered Litigation Modules for Plaintiff Firms</h1>
@@ -236,5 +252,10 @@
             <p style="margin-top:8px;"><a href="https://lexiflow.co">Home</a> · <a href="mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io">lexiflow-legal-suite-88a6f8e9@ctomail.io</a></p>
         </div>
     </footer>
+    <script>
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+    </script>
 </body>
 </html>

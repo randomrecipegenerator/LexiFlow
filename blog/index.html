@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog | LexiFlow Legal Suite — AI for Law Firm Intake & Medical Review</title>
     <meta name="description" content="Expert insights on AI medical merit review, legal intake automation, deposition analysis, and legal tech for plaintiff-side law firms.">
-    <link rel="canonical" href="https://lexiflow.com/blog">
+    <link rel="canonical" href="https://lexiflow.co/blog/index.html">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Blog | LexiFlow Legal Suite">
     <meta property="og:description" content="Expert insights on AI medical merit review, legal intake automation, deposition analysis, and legal tech for plaintiff-side law firms.">
 
+    <link rel="stylesheet" href="/shared-layout.css">
     <style>
         :root { --primary: #1a3a5c; --primary-dark: #0f1f3a; --accent: #c9a84c; --text: #1e293b; --text-muted: #64748b; --bg: #ffffff; --border: #e2e8f0; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,69 +30,179 @@
         .post-card .meta { font-size: 0.82rem; color: var(--text-muted); }
         .post-card .meta span { margin-right: 16px; }
         footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted); }
+        @media (max-width: 768px) {
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: white; padding: 20px; border-bottom: 1px solid var(--border); z-index: 10; }
+            .nav-links.active { display: flex; }
+            .nav-toggle { display: block; }
+        }
         @media (max-width: 640px) { header h1 { font-size: 1.5rem; } }
     </style>
 </head>
 <body>
+    <nav><div class="nav-container">
+        <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/dashboard.html">Dashboard</a></li>
+          <li><a href="/blog/index.html">Blog</a></li>
+          <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+          <li><a href="/cities.html">Areas We Serve</a></li>
+          <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
+        </ul>
+        <button class="nav-toggle">☰</button>
+      </div></nav>
+
+    
+
+    
     <header>
         <div class="container">
             <h1>LexiFlow Blog</h1>
             <p>Expert insights on AI-powered legal intake, medical merit review, deposition analysis, and legal tech for plaintiff-side law firms. Three tiers from just <strong>$69/month</strong>: Standard (Intake Suite), Professional ($199/mo), and Enterprise ($299/mo with litigation modules).</p>
         </div>
     </header>
-    <main class="blog-list">
-        <div class="container">
-            <article class="post-card">
-                <div class="category">Medical Merit</div>
-                <h2><a href="/blog/how-ai-medical-merit-review-cuts-case-screening">How AI Medical Merit Review Cuts Case Screening from 8 Hours to 3 Minutes</a></h2>
-                <p class="excerpt">Learn how AI medical merit review screens medical malpractice cases in minutes instead of hours. Includes cost comparison, step-by-step workflow, and expert insights for plaintiff firms.</p>
+    <main class="blog-list"><div class="container">            <article class="post-card">
+                <div class="category">Medical Chronology</div>
+                <h2><a href="/blog/ai-vs-human-medical-chronology-accuracy.html">The Accuracy Gap: Why Reasoning AI Outperforms Traditional OCR for Medical Chronologies</a></h2>
+                <p class="excerpt">Compare AI medical chronology accuracy (99%+) against traditional OCR tools and manual human review.</p>
                 <div class="meta">
-                    <span>📅 June 1, 2026</span>
-                    <span>⏱ 11 min read</span>
-                    <span>🏷 AI medical merit review</span>
+                    <span>📅 July 13, 2026</span>
+                    <span>⏱ 10 min read</span>
+                    <span>🏷 medical chronology</span>
                     <span>🔒 HIPAA Compliant</span>
                 </div>
             </article>
             <article class="post-card">
-                <div class="category">Legal Ethics & Technology</div>
-                <h2><a href="/blog/ethics-ai-legal-intake-responsible-implementation">The Ethics of AI in Legal Intake: A Responsible Implementation Guide for Law Firms</a></h2>
-                <p class="excerpt">Explore the ethical considerations of using AI in legal intake, including client confidentiality, bias, informed consent, and HIPAA compliance. A guide for responsible law firm implementation.</p>
+                <div class="category">Legal Tech</div>
+                <h2><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake.html">AI Ethics in Legal Intake: A Practical Framework for Illinois Trial Lawyers</a></h2>
+                <p class="excerpt">A guide to ethical AI adoption for Illinois trial lawyers.</p>
                 <div class="meta">
-                    <span>📅 June 8, 2026</span>
-                    <span>⏱ 12 min read</span>
-                    <span>🏷 AI ethics legal intake</span>
+                    <span>📅 July 10, 2026</span>
+                    <span>⏱ 10 min read</span>
+                    <span>🏷 legal tech</span>
+                    <span>🔒 HIPAA Compliant</span>
+                </div>
+            </article>
+            <article class="post-card">
+                <div class="category">Legal Tech</div>
+                <h2><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake.html">AI Ethics in Legal Intake: A Practical Framework for New York Trial Lawyers</a></h2>
+                <p class="excerpt">A guide to ethical AI adoption for New York trial lawyers. Covers Lavern's Law, 30-month SOL, no damage caps, and NY Rules of Professional Conduct.</p>
+                <div class="meta">
+                    <span>📅 July 10, 2026</span>
+                    <span>⏱ 10 min read</span>
+                    <span>🏷 legal tech</span>
+                    <span>🔒 HIPAA Compliant</span>
+                </div>
+            </article>
+            <article class="post-card">
+                <div class="category">Legal Tech</div>
+                <h2><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake.html">AI Ethics in Legal Intake: A Practical Framework for Pennsylvania Trial Lawyers</a></h2>
+                <p class="excerpt">A guide to ethical AI adoption for Pennsylvania trial lawyers.</p>
+                <div class="meta">
+                    <span>📅 July 10, 2026</span>
+                    <span>⏱ 10 min read</span>
+                    <span>🏷 legal tech</span>
+                    <span>🔒 HIPAA Compliant</span>
+                </div>
+            </article>
+            <article class="post-card">
+                <div class="category">Legal Intake Automation</div>
+                <h2><a href="/blog/roi-ai-personal-injury-firms-scaling-without-adding-headcount.html">The ROI of AI: How Personal Injury Firms Are Scaling Without Adding Headcount</a></h2>
+                <p class="excerpt">Compare the $69/month LexiFlow Suite against the cost of hiring an additional FTE. Real ROI data from PI firms including the Smith & Lacien case study.</p>
+                <div class="meta">
+                    <span>📅 July 06, 2026</span>
+                    <span>⏱ 10 min read</span>
+                    <span>🏷 legal intake automation</span>
+                    <span>🔒 HIPAA Compliant</span>
+                </div>
+            </article>
+            <article class="post-card">
+                <div class="category">Medical Chronology</div>
+                <h2><a href="/blog/how-ai-medical-chronologies-revolutionizing-personal-injury-case-valuation.html">How AI Medical Chronologies Are Revolutionizing Personal Injury Case Valuation</a></h2>
+                <p class="excerpt">See how AI-powered medical chronology software cuts timeline creation from 12 hours to 60 seconds, improves settlement accuracy, and transforms PI case valuation.</p>
+                <div class="meta">
+                    <span>📅 June 29, 2026</span>
+                    <span>⏱ 10 min read</span>
+                    <span>🏷 medical chronology</span>
+                    <span>🔒 HIPAA Compliant</span>
+                </div>
+            </article>
+            <article class="post-card">
+                <div class="category">Medical Merit Review</div>
+                <h2><a href="/blog/how-ai-medical-merit-review-slashes-law-firm-overhead.html">How AI Medical Merit Review Slashes Law Firm Overhead: An ROI Breakdown</a></h2>
+                <p class="excerpt">See the detailed ROI of AI medical merit review for plaintiff firms. Includes hard cost comparisons and time savings.</p>
+                <div class="meta">
+                    <span>📅 June 22, 2026</span>
+                    <span>⏱ 10 min read</span>
+                    <span>🏷 medical merit review</span>
                     <span>🔒 HIPAA Compliant</span>
                 </div>
             </article>
             <article class="post-card">
                 <div class="category">Legal Tech & AI Innovation</div>
-                <h2><a href="/blog/enterprise-suite-launch-ai-litigation">LexiFlow Launches Enterprise Suite: AI-Powered Litigation Modules for Plaintiff Firms</a></h2>
+                <h2><a href="/blog/enterprise-suite-launch-ai-litigation.html">LexiFlow Launches Enterprise Suite: AI-Powered Litigation Modules for Plaintiff Firms</a></h2>
                 <p class="excerpt">LexiFlow unveils its Enterprise Suite with four advanced litigation modules — Discovery-Vault, Settlement-Predictor Pro, DepoLens, and Compliance-Shield — at $299/month. No setup fees.</p>
                 <div class="meta">
                     <span>📅 June 22, 2026</span>
                     <span>⏱ 8 min read</span>
-                    <span>🏷 AI litigation software law firms</span>
+                    <span>🏷 legal tech & ai innovation</span>
+                    <span>🔒 HIPAA Compliant</span>
+                </div>
+            </article>
+            <article class="post-card">
+                <div class="category">Legal Intake Automation</div>
+                <h2><a href="/blog/why-law-firm-losing-40-percent-leads-ai-legal-intake-software.html">Why Your Law Firm Is Losing 40% of Leads (And How AI Legal Intake Software Fixes It)</a></h2>
+                <p class="excerpt">Discover how AI legal intake software captures and qualifies leads 24/7, slashes response times from hours to seconds, and recaptures 40%+ of lost opportunities for plaintiff-side law firms.</p>
+                <div class="meta">
+                    <span>📅 June 15, 2026</span>
+                    <span>⏱ 10 min read</span>
+                    <span>🏷 legal intake automation</span>
                     <span>🔒 HIPAA Compliant</span>
                 </div>
             </article>
             <article class="post-card">
                 <div class="category">Deposition Analysis</div>
-                <h2><a href="/blog/digesting-deposition-ai-transcript-analysis">Digesting a Deposition: How AI Is Revolutionizing Transcript Analysis for Trial Lawyers</a></h2>
+                <h2><a href="/blog/digesting-deposition-ai-transcript-analysis.html">Digesting a Deposition: How AI Is Revolutionizing Transcript Analysis for Trial Lawyers</a></h2>
                 <p class="excerpt">Learn how AI deposition analysis tools digest depositions in minutes — flagging contradictions, cross-referencing medical records, and surfacing key testimony for trial strategy.</p>
                 <div class="meta">
                     <span>📅 June 15, 2026</span>
                     <span>⏱ 10 min read</span>
-                    <span>🏷 digesting a deposition</span>
+                    <span>🏷 deposition analysis</span>
                     <span>🔒 HIPAA Compliant</span>
                 </div>
             </article>
-            <!-- More posts added weekly -->
-        </div>
-    </main>
+            <article class="post-card">
+                <div class="category">Legal Ethics & Technology</div>
+                <h2><a href="/blog/ethics-ai-legal-intake-responsible-implementation.html">The Ethics of AI in Legal Intake: A Responsible Implementation Guide for Law Firms</a></h2>
+                <p class="excerpt">Explore the ethical considerations of using AI in legal intake, including client confidentiality, bias, informed consent, and HIPAA compliance. A guide for responsible law firm implementation.</p>
+                <div class="meta">
+                    <span>📅 June 08, 2026</span>
+                    <span>⏱ 10 min read</span>
+                    <span>🏷 legal ethics & technology</span>
+                    <span>🔒 HIPAA Compliant</span>
+                </div>
+            </article>
+            <article class="post-card">
+                <div class="category">Medical Merit Review</div>
+                <h2><a href="/blog/how-ai-medical-merit-review-cuts-case-screening.html">How AI Medical Merit Review Cuts Case Screening from 8 Hours to 3 Minutes</a></h2>
+                <p class="excerpt">Learn how AI medical merit review screens medical malpractice cases in minutes instead of hours. Includes cost comparison, step-by-step workflow, and expert insights for plaintiff firms.</p>
+                <div class="meta">
+                    <span>📅 June 01, 2026</span>
+                    <span>⏱ 11 min read</span>
+                    <span>🏷 medical merit review</span>
+                    <span>🔒 HIPAA Compliant</span>
+                </div>
+            </article>
+</div></main>
     <footer>
         <div class="container">
-            <p>© 2026 LexiFlow Legal Suite. All rights reserved. | <a href="https://lexiflow.com">Home</a> · <a href="mailto:leads@lexiflow.ai">Contact Us</a></p>
+            <p>© 2026 LexiFlow Legal Suite. All rights reserved. | <a href="https://lexiflow.co">Home</a> · <a href="mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io">Contact Us</a></p>
         </div>
     </footer>
+    <script>
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
