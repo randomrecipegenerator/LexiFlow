@@ -121,7 +121,7 @@
   </div>
 </div></section>
 
-        <footer class="footer">
+            <footer class="footer">
     <div class="footer-container">
       <div class="footer-col">
         <a href="/" class="footer-logo"><span>LF</span> LexiFlow</a>
@@ -130,12 +130,15 @@
       <div class="footer-col">
         <h4>Products</h4>
         <ul>
-          <li><a href="/ai-intake-agent.html">LexiFlow Intake</a></li>
-          <li><a href="/ai-medical-chronologies.html">Medical Review</a></li>
+          <li><a href="/ai-intake-agent.html">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
           <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
           <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
           <li><a href="/depolens-ai.html">DepoLens™ AI</a></li>
           <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
+          <li><a href="/dashboard.html">Analytics Dashboard</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -166,7 +169,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      &copy; 2026 LexiFlow AI. All rights reserved.
+      &copy; 2026 LexiFlow Technologies Inc. All rights reserved.
     </div>
   </footer>
 <script src="/shared-layout.js"></script><div class="modal-overlay" id="leadModal">
@@ -174,12 +177,15 @@
     <div style="text-align:right;"><button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">&times;</button></div>
     <h3>📥 Download Record Review Checklist</h3>
     <p>Enter your details to receive the checklist.</p>
-    <form action="mailto:leads@lexiflow.co" method="post" enctype="text/plain">
+    <form id="downloadForm" data-file="/downloads/lexiflow-record-review-checklist.pdf">
       <input type="text" name="name" placeholder="Full Name" required />
       <input type="email" name="email" placeholder="Work Email" required />
       <input type="text" name="firm" placeholder="Law Firm Name" required />
-      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">📥 Send Me the Checklist →</button>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" id="submitBtn">📥 Send Me the Checklist →</button>
     </form>
+    <div id="successMsg" class="hidden" style="margin-top:20px; padding:15px; background:rgba(22, 163, 74, 0.1); border:1px solid #16a34a; color:#16a34a; border-radius:8px; font-size:0.9rem; text-align:center;">
+      <strong>Success!</strong> Your download should start automatically. If not, <a href="/downloads/lexiflow-record-review-checklist.pdf" download style="color:#16a34a; text-decoration:underline;">click here</a>.
+    </div>
   </div>
 </div>
 
@@ -187,6 +193,29 @@
 function openModal() { document.getElementById('leadModal').classList.add('active'); }
 function closeModal() { document.getElementById('leadModal').classList.remove('active'); }
 document.getElementById('leadModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+
+document.getElementById('downloadForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const msg = document.getElementById('successMsg');
+  const fileUrl = this.getAttribute('data-file');
+  
+  btn.disabled = true;
+  btn.innerText = 'Processing...';
+  
+  setTimeout(() => {
+    btn.classList.add('hidden');
+    msg.classList.remove('hidden');
+    
+    // Trigger download
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    link.download = fileUrl.split('/').pop();
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }, 1000);
+});
 </script>
 </body>
 </html>

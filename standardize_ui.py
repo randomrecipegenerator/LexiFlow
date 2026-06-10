@@ -79,12 +79,15 @@ footer = """  <footer class="footer">
       <div class="footer-col">
         <h4>Products</h4>
         <ul>
-          <li><a href="/ai-intake-agent.html">LexiFlow Intake</a></li>
-          <li><a href="/ai-medical-chronologies.html">Medical Review</a></li>
+          <li><a href="/ai-intake-agent.html">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
           <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
           <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
           <li><a href="/depolens-ai.html">DepoLens™ AI</a></li>
           <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
+          <li><a href="/dashboard.html">Analytics Dashboard</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -115,7 +118,7 @@ footer = """  <footer class="footer">
       </div>
     </div>
     <div class="footer-bottom">
-      &copy; 2026 LexiFlow AI. All rights reserved.
+      &copy; 2026 LexiFlow Technologies Inc. All rights reserved.
     </div>
   </footer>
 <script src="/shared-layout.js"></script>"""
