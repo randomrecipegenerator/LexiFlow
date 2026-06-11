@@ -12,6 +12,7 @@ class Firm(Base):
     branding_logo = Column(String, nullable=True)
     branding_colors = Column(Text, nullable=True)
     api_config_json = Column(Text, nullable=True)
+    desktop_api_key = Column(String, nullable=True, index=True)
     voice_enabled = Column(Integer, default=1)
     voice_config_json = Column(Text, nullable=True)
     email_enabled = Column(Integer, default=1)
@@ -268,3 +269,65 @@ class MeritReport(Base):
     standard_of_care_analysis = Column(Text)
     executive_summary = Column(Text)
     record = relationship("MedicalRecord", back_populates="reports")
+
+
+class DesktopFolder(Base):
+    """Registered local folders for Desktop app sync."""
+    __tablename__ = "desktop_folders"
+
+    id = Column(Integer, primary_key=True, index=True)
+    firm_id = Column(Integer, ForeignKey("firms.id"), nullable=False)
+    folder_uuid = Column(String, unique=True, index=True)
+    local_path = Column(String)
+    label = Column(String, nullable=True)
+    case_name = Column(String, nullable=True)
+    case_id = Column(String, nullable=True)
+    watch_subfolders = Column(Integer, default=1)
+    file_extensions = Column(Text, nullable=True)  # JSON list
+    status = Column(String, default="registered")
+    total_files = Column(Integer, default=0)
+    synced_files = Column(Integer, default=0)
+    registered_at = Column(DateTime, default=datetime.datetime.utcnow)
+    last_synced_at = Column(DateTime, nullable=True)
+
+    firm = relationship("Firm")
+
+
+class DesktopSyncJob(Base):
+    """Sync job records for desktop-to-cloud document synchronization."""
+    __tablename__ = "desktop_sync_jobs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    firm_id = Column(Integer, ForeignKey("firms.id"), nullable=False)
+    folder_uuid = Column(String, ForeignKey("desktop_folders.folder_uuid"), nullable=True)
+    job_type = Column(String, default="scan")  # "scan", "sync", "redact"
+    status = Column(String, default="pending")
+    total_files = Column(Integer, default=0)
+    processed_files = Column(Integer, default=0)
+    failed_files = Column(Integer, default=0)
+    error_message = Column(Text, nullable=True)
+    started_at = Column(DateTime, nullable=True)
+    completed_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+    firm = relationship("Firm")
+
+
+class DesktopDocument(Base):
+    """Document metadata synced from Desktop app."""
+    __tablename__ = "desktop_documents"
+
+    id = Column(Integer, primary_key=True, index=True)
+    firm_id = Column(Integer, ForeignKey("firms.id"), nullable=False)
+    folder_uuid = Column(String, nullable=True)
+    file_name = Column(String, index=True)
+    file_path = Column(String)
+    file_size_bytes = Column(Integer, default=0)
+    file_hash = Column(String, nullable=True)
+    mime_type = Column(String, nullable=True)
+    case_id = Column(String, nullable=True)
+    tags = Column(Text, nullable=True)  # JSON list
+    redaction_status = Column(String, default="pending")  # "pending", "completed", "skipped"
+    synced_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+    firm = relationship("Firm")

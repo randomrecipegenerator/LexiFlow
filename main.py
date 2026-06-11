@@ -9,7 +9,7 @@ import httpx
 import json
 
 import models, database, ai_engine, esign_engine, integration_engine, reception_engine, utils, reports
-import enterprise_api
+import enterprise_api, desktop_api
 from database import engine, get_db
 
 def create_audit_log(db: Session, action: str, lead_id: int = None, details: str = None, firm_id: int = None):
@@ -52,6 +52,14 @@ app.add_middleware(
 
 # Include routers from other modules
 app.include_router(enterprise_api.router)
+app.include_router(desktop_api.router)
+
+# Include usage API router if available
+try:
+    from usage_api import router as usage_router
+    app.include_router(usage_router)
+except ImportError:
+    pass  # Usage API optional for now
 
 # Indentation fix
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

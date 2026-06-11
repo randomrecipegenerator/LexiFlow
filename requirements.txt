@@ -10,3 +10,5 @@ httpx
 google-generativeai
 pymupdf
 sqlalchemy-libsql
+python-jose
+passlib[bcrypt]
