@@ -1,79 +1,35 @@
 {
   "name": "lexiflow-desktop",
   "version": "1.0.0",
-  "description": "LexiFlow Desktop — AI-Powered Legal Intake & Discovery Suite for Attorneys",
+  "description": "LexiFlow Desktop App — Local Discovery-Vault Sync & PII/PHI Redaction",
   "main": "main.js",
-  "author": "LexiFlow Technologies Inc",
-  "license": "MIT",
-  "homepage": "https://lexiflow.co",
   "scripts": {
     "start": "electron .",
-    "dev": "NODE_ENV=development electron .",
-    "build:win": "electron-builder --win --x64",
-    "build:mac": "electron-builder --mac --x64",
-    "build:linux": "electron-builder --linux --x64",
-    "build:all": "electron-builder --win --mac --linux --x64"
+    "dev": "ELECTRON_DEV=true electron .",
+    "build": "electron-builder build"
+  },
+  "dependencies": {
+    "electron-store": "^8.1.0",
+    "chokidar": "^3.6.0",
+    "crypto-js": "^4.2.0",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.0"
   },
   "build": {
-    "appId": "com.lexiflow.desktop",
-    "productName": "LexiFlow",
-    "directories": {
-      "output": "dist"
-    },
+    "appId": "co.lexiflow.desktop",
+    "productName": "LexiFlow Desktop",
     "files": [
       "main.js",
       "preload.js",
-      "tray.js",
-      "app-icon.png",
-      "../dashboard.html",
-      "../shared-layout.css",
-      "../config.js",
-      "../config.min.js",
-      "../app.js",
-      "../assets/**/*",
-      "../admin/**/*",
-      "../resources/**/*",
-      "../blog/**/*"
+      "sync-engine.js",
+      "redact-utils.js",
+      "renderer/**/*"
     ],
-    "extraResources": [
-      {
-        "from": "../branding/",
-        "to": "branding",
-        "filter": ["**/*"]
-      }
-    ],
-    "win": {
-      "target": ["nsis"],
-      "icon": "app-icon.png",
-      "artifactName": "LexiFlow-Setup-${version}.${ext}"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "shortcutName": "LexiFlow Legal Suite",
-      "runAfterFinish": true
-    },
-    "mac": {
-      "target": ["dmg"],
-      "icon": "app-icon.png",
-      "artifactName": "LexiFlow-${version}-mac.${ext}",
-      "category": "public.app-category.productivity"
-    },
-    "dmg": {
-      "title": "LexiFlow ${version}",
-      "background": null
-    },
-    "linux": {
-      "target": ["AppImage"],
-      "icon": "app-icon.png",
-      "category": "Office"
-    },
-    "publish": null
-  },
-  "devDependencies": {
-    "electron": "^33.2.1",
-    "electron-builder": "^25.1.8"
+    "directories": {
+      "output": "dist"
+    }
   }
 }
