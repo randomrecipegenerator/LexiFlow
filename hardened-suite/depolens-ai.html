@@ -76,22 +76,22 @@
 <link rel="stylesheet" href="../shared-layout.css">
 </head>
 <body><nav><div class="nav-container">
-    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+    <a href="./" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="/pricing.html">Pricing</a></li>
-      <li><a href="/dashboard.html">Dashboard</a></li>
-      <li><a href="/blog/index.html">Blog</a></li>
+      <li><a href="./pricing.html">Pricing</a></li>
+      <li><a href="./dashboard.html">Dashboard</a></li>
+      <li><a href="./blog/index.html">Blog</a></li>
       <li class="resources-dropdown">
         <a href="#">Resources ▾</a>
         <div class="resources-menu">
-          <a href="/resources/medical-chronology-template.html">Medical Chronology Template</a>
-          <a href="/resources/medical-chronology-sample.html">Medical Chronology Sample</a>
-          <a href="/resources/medical-record-review-checklist.html">Record Review Checklist</a>
+          <a href="./resources/medical-chronology-template.html">Medical Chronology Template</a>
+          <a href="./resources/medical-chronology-sample.html">Medical Chronology Sample</a>
+          <a href="./resources/medical-record-review-checklist.html">Record Review Checklist</a>
         </div>
       </li>
-      <li><a href="/roi-calculator.html">ROI Calculator</a></li>
-      <li><a href="/cities.html">Areas We Serve</a></li>
-      <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
+      <li><a href="./roi-calculator.html">ROI Calculator</a></li>
+      <li><a href="./cities.html">Areas We Serve</a></li>
+      <li><a href="./signup.html" class="btn-cta">Get Started</a></li>
     </ul>
     <button class="nav-toggle" aria-label="Menu">☰</button>
   </div></nav>
@@ -193,42 +193,102 @@
   </div>
 </div>
 
-      <footer>
+      <!-- Lead Magnet Section -->
+  <section class="section" id="magnet" style="background: var(--bg-white); padding: 80px 0; border-top: 1px solid var(--border);">
+    <div class="container" style="max-width: 800px; margin: 0 auto; text-align: center;">
+      <div style="background: var(--bg-light); padding: 60px; border-radius: 32px; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.05);">
+        <div style="display: inline-block; padding: 8px 16px; background: rgba(201, 168, 76, 0.1); color: var(--accent-dark); border-radius: 100px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px;">Free Resource</div>
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; color: var(--primary); margin-bottom: 16px;">Download the Medical Chronology Template</h2>
+        <p style="color: var(--text-muted); margin-bottom: 32px; font-size: 18px;">Get our professional template for building trial-ready medical timelines for deposition and trial.</p>
+        <button class="btn btn-primary" onclick="openModal()" style="padding: 16px 40px; font-size: 16px;">📥 Download Template →</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal-overlay hidden" id="leadModal">
+    <div class="modal-box">
+      <div style="text-align:right;"><button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--primary);">&times;</button></div>
+      <h3 style="color:var(--primary);margin-bottom:12px;">📥 Download Chronology Template</h3>
+      <p style="color:var(--text-muted);margin-bottom:24px;">Enter your details to receive the template instantly.</p>
+      <form id="downloadForm" data-file="../downloads/lexiflow-medical-chronology-template.pdf">
+        <input type="text" name="name" placeholder="Full Name" required style="width:100%; padding:12px; border:1px solid var(--border); border-radius:8px; margin-bottom:14px;" />
+        <input type="email" name="email" placeholder="Work Email" required style="width:100%; padding:12px; border:1px solid var(--border); border-radius:8px; margin-bottom:14px;" />
+        <input type="text" name="firm" placeholder="Law Firm Name" required style="width:100%; padding:12px; border:1px solid var(--border); border-radius:8px; margin-bottom:14px;" />
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" id="submitBtn">📥 Download Now →</button>
+      </form>
+      <div id="successMsg" class="hidden" style="margin-top:20px; padding:15px; background:rgba(22, 163, 74, 0.1); border:1px solid #16a34a; color:#16a34a; border-radius:8px; font-size:0.9rem; text-align:center;">
+        <strong>Success!</strong> Your download should start automatically. If not, <a href="../downloads/lexiflow-medical-chronology-template.pdf" download style="color:#16a34a; text-decoration:underline;">click here</a>.
+      </div>
+    </div>
+  </div>
+
+  <script>
+  function openModal() { document.getElementById('leadModal').classList.remove('hidden'); }
+  function closeModal() { document.getElementById('leadModal').classList.add('hidden'); }
+  document.getElementById('leadModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+
+  document.getElementById('downloadForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const msg = document.getElementById('successMsg');
+    const fileLink = msg.querySelector('a');
+
+    btn.disabled = true;
+    btn.innerText = 'Processing...';
+
+    if (fileLink) {
+      fileLink.click();
+    }
+
+    setTimeout(() => {
+      btn.classList.add('hidden');
+      msg.classList.remove('hidden');
+    }, 500);
+  });
+  </script>
+
+  <style>
+  .modal-overlay { position:fixed; inset:0; background:rgba(13,31,51,0.85); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; z-index:2000; }
+  .modal-box { background:#fff; border-radius:24px; padding:40px; max-width:480px; width:90%; color: var(--text-dark); }
+  .hidden { display: none !important; }
+  </style>
+
+  <footer>
     <div class="footer-container">
       <div class="footer-col">
-        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <a href="./" class="footer-logo">LF LexiFlow</a>
         <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
       </div>
       <div class="footer-col">
         <h4>Products</h4>
         <ul>
-          <li><a href="/ai-legal-intake-software.html">AI Intake Agent</a></li>
-          <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
-          <li><a href="/medical-chronologies.html">Medical Chronologies</a></li>
-          <li><a href="/auto-doc-drafter.html">Auto-Doc Drafter</a></li>
-          <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
-          <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
-          <li><a href="/depolens-ai.html">DepoLens™ AI</a></li>
-          <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
-          <li><a href="/analytics-dashboard.html">Analytics Dashboard</a></li>
+          <li><a href="./ai-legal-intake-software.html">AI Intake Agent</a></li>
+          <li><a href="./voice-ai-receptionist.html">Voice AI Receptionist</a></li>
+          <li><a href="./ai-medical-chronologies.html">Medical Chronologies</a></li>
+          <li><a href="./auto-document-drafter.html">Auto-Doc Drafter</a></li>
+          <li><a href="./discovery-vault.html">Discovery-Vault™</a></li>
+          <li><a href="./settlement-predictor.html">Settlement-Predictor Pro™</a></li>
+          <li><a href="./depolens-ai.html">DepoLens™ AI</a></li>
+          <li><a href="./compliance-shield.html">Compliance-Shield™</a></li>
+          <li><a href="./dashboard.html">Analytics Dashboard</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Top Markets</h4>
         <ul>
-          <li><a href="/locations/california/los-angeles.html">Los Angeles (MedMal)</a></li>
-          <li><a href="/locations/california/san-francisco.html">San Francisco (MedMal)</a></li>
-          <li><a href="/locations/new-york/new-york-city.html">New York City (MedMal)</a></li>
-          <li><a href="/locations/illinois/chicago.html">Chicago (MedMal)</a></li>
-          <li><a href="/cities.html">View All Cities</a></li>
+          <li><a href="./locations/california/los-angeles.html">Los Angeles (MedMal)</a></li>
+          <li><a href="./locations/california/san-francisco.html">San Francisco (MedMal)</a></li>
+          <li><a href="./locations/new-york/nyc.html">New York City (MedMal)</a></li>
+          <li><a href="./locations/illinois/chicago.html">Chicago (MedMal)</a></li>
+          <li><a href="./cities.html">View All Cities</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Legal</h4>
         <ul>
-          <li><a href="/privacy.html">Privacy Policy</a></li>
-          <li><a href="/terms.html">Terms of Service</a></li>
-          <li><a href="/soc2.html">SOC2 Compliance</a></li>
+          <li><a href="./privacy.html">Privacy Policy</a></li>
+          <li><a href="./terms.html">Terms of Service</a></li>
+          <li><a href="./soc2.html">SOC2 Compliance</a></li>
         </ul>
       </div>
     </div>

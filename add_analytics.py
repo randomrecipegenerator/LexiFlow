@@ -3,7 +3,7 @@ import re
 
 files_to_update = [
     "ai-intake-agent.html",
-    "ai-medical-chronologies.html",
+    "ai-ai-medical-chronologies.html",
     "depolens-app.html",
     "medical-chronologies-app.html"
 ]
