@@ -6,7 +6,7 @@
   <title>Security & Data Protection | LexiFlow Technologies Inc</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #1a3a5c;
@@ -20,43 +20,43 @@
       --navy: #0f172a;
       --gold: #c9a84c;
     }
-    body { font-family: 'Inter', sans-serif; background: var(--slate-50); color: var(--navy); margin: 0; padding: 0; line-height: 1.8; }
-    nav { height: 80px; background: #fff; border-bottom: 1px solid var(--slate-200); display: flex; align-items: center; position: sticky; top: 0; z-index: 100; }
-    .nav-container { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--navy); text-decoration: none; }
-    .nav-links { display: flex; list-style: none; gap: 32px; align-items: center; margin: 0; padding: 0; }
-    .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--navy); }
-    .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
-
-    .hero { background: var(--navy); color: #fff; padding: 100px 0 60px; text-align: center; }
-    .hero h1 { font-family: 'Playfair Display', serif; font-size: 48px; margin: 0 0 16px; }
-    .hero p { font-size: 18px; color: var(--slate-400); max-width: 700px; margin: 0 auto; }
-
-    .content-container { max-width: 1000px; margin: 0 auto; padding: 80px 40px; }
-    .security-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 60px; }
-    .security-card { background: #fff; padding: 40px; border-radius: 16px; border: 1px solid var(--slate-200); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-    .security-card h3 { font-family: 'Playfair Display', serif; font-size: 24px; margin-top: 0; color: var(--primary); }
-    .security-card p { color: var(--slate-600); font-size: 15px; margin-bottom: 0; }
-
-    h2 { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--navy); text-align: center; margin-bottom: 48px; }
     
-    .compliance-banner { background: #fff; border: 1px solid var(--slate-200); border-radius: 12px; padding: 40px; display: flex; align-items: center; gap: 40px; margin-top: 80px; }
-    .compliance-text { flex: 1; }
-    .compliance-text h3 { font-family: 'Playfair Display', serif; font-size: 24px; margin-top: 0; }
-    .compliance-links { display: flex; gap: 20px; margin-top: 20px; }
-    .compliance-link { color: var(--primary); font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
+    .security-hero { background: var(--navy); color: #fff; padding: 120px 0 80px; text-align: center; position: relative; overflow: hidden; }
+    .security-hero h1 { font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 800; margin-bottom: 24px; letter-spacing: -0.02em; }
+    .security-hero p { font-size: 20px; color: var(--slate-400); max-width: 800px; margin: 0 auto; line-height: 1.6; }
+    
+    .content-section { padding: 100px 0; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    
+    .security-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; }
+    .security-card { background: #fff; padding: 48px; border-radius: 24px; border: 1px solid var(--slate-200); transition: all 0.3s; }
+    .security-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
+    .security-card h3 { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: var(--navy); }
+    .security-card p { color: var(--slate-600); font-size: 15px; line-height: 1.7; margin-bottom: 0; }
+    
+    .compliance-shield-feature { background: var(--slate-50); border-radius: 32px; padding: 80px; margin-top: 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; border: 1px solid var(--slate-200); }
+    .compliance-shield-text h2 { font-family: 'Playfair Display', serif; font-size: 42px; color: var(--navy); margin-bottom: 24px; text-align: left; }
+    .compliance-shield-text p { color: var(--slate-600); font-size: 18px; margin-bottom: 32px; }
+    .feature-list { list-style: none; padding: 0; }
+    .feature-list li { display: flex; gap: 16px; margin-bottom: 20px; font-weight: 500; color: var(--navy); align-items: flex-start; }
+    .feature-list li::before { content: "✓"; color: var(--gold); font-weight: 900; font-size: 20px; margin-top: -2px; }
 
-    .audit-box { background: var(--navy); color: #fff; padding: 60px; border-radius: 24px; text-align: center; margin-top: 80px; }
-    .audit-box h3 { font-family: 'Playfair Display', serif; font-size: 32px; margin-top: 0; }
-    .audit-box p { color: var(--slate-400); max-width: 600px; margin: 0 auto 32px; }
-    .btn-white { background: #fff; color: var(--navy); padding: 16px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block; }
+    .trust-badges { display: flex; justify-content: center; gap: 60px; margin-top: 80px; flex-wrap: wrap; }
+    .trust-badge { text-align: center; max-width: 200px; }
+    .trust-badge h4 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate-400); margin-bottom: 12px; }
+    .trust-badge p { font-weight: 700; color: var(--navy); font-size: 18px; }
+
+    .audit-cta { background: var(--gold); border-radius: 24px; padding: 60px; text-align: center; margin-top: 100px; color: var(--navy); }
+    .audit-cta h2 { font-family: 'Playfair Display', serif; font-size: 36px; margin-bottom: 16px; border: none; padding: 0; text-transform: none; }
+    .audit-cta p { font-size: 18px; margin-bottom: 32px; color: rgba(15, 23, 42, 0.8); }
+    .btn-navy { background: var(--navy); color: #fff; padding: 18px 36px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block; transition: all 0.2s; }
+    .btn-navy:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
 
     @media (max-width: 768px) {
-      .hero h1 { font-size: 32px; }
-      .nav-links { display: none; }
-      .compliance-banner { flex-direction: column; text-align: center; }
-      .audit-box { padding: 40px 20px; }
+      .security-hero h1 { font-size: 36px; }
+      .security-grid { grid-template-columns: 1fr; }
+      .compliance-shield-feature { grid-template-columns: 1fr; padding: 40px; gap: 40px; }
+      .trust-badges { gap: 30px; }
     }
   </style>
   <link rel="stylesheet" href="../shared-layout.css">
@@ -78,87 +78,95 @@
           </div>
         </li>
         <li><a href="../roi-calculator.html">ROI Calculator</a></li>
+        <li><a href="../cities.html">Areas We Serve</a></li>
         <li><a href="../signup.html" class="btn-cta">Get Started</a></li>
       </ul>
       <button class="nav-toggle" aria-label="Menu">☰</button>
     </div>
   </nav>
 
-  <section class="hero">
-    <div class="content-container" style="padding-top: 0; padding-bottom: 0;">
-      <h1>Security & Data Protection</h1>
-      <p>LexiFlow provides enterprise-grade security architecture designed to protect sensitive legal documents and HIPAA-regulated health information.</p>
-    </div>
-  </section>
-
-  <div class="content-container">
-    <h2>Built on a Foundation of Trust</h2>
-    
-    <div class="security-grid">
-      <div class="security-card">
-        <h3>Data Encryption</h3>
-        <p>All data is encrypted at rest using AES-256 and in transit using TLS 1.3. We utilize industry-standard key management services to ensure only authorized processes can access sensitive data.</p>
-      </div>
-      <div class="security-card">
-        <h3>Infrastructure Security</h3>
-        <p>LexiFlow is hosted on SOC2-compliant AWS infrastructure. We employ Virtual Private Clouds (VPC), Web Application Firewalls (WAF), and automated DDoS protection to secure our network perimeter.</p>
-      </div>
-      <div class="security-card">
-        <h3>Access Controls</h3>
-        <p>We enforce strict Role-Based Access Control (RBAC) and Multi-Factor Authentication (MFA) for all internal systems. Access to client data is limited to the minimum necessary for service delivery and audit purposes.</p>
-      </div>
-      <div class="security-card">
-        <h3>Safe Reasoning AI</h3>
-        <p>Our AI engines operate with zero-retention policies. We do not use client data or Protected Health Information (PHI) to train our models. Your proprietary firm data remains yours alone.</p>
-      </div>
-      <div class="security-card">
-        <h3>Continuous Monitoring</h3>
-        <p>Our systems are monitored 24/7 for security anomalies. We conduct regular vulnerability scans and annual third-party penetration tests to identify and remediate potential risks.</p>
-      </div>
-      <div class="security-card">
-        <h3>Incident Response</h3>
-        <p>We maintain a rigorous incident response plan. In the event of a suspected data breach, we commit to notifying affected clients within 48 hours, providing full transparency and mitigation steps.</p>
-      </div>
-    </div>
-
-    <div class="compliance-banner">
-      <div class="compliance-text">
-        <h3>Compliance & Certifications</h3>
-        <p>LexiFlow undergoes rigorous independent audits to ensure we meet the highest legal and regulatory standards for data handling.</p>
-        <div class="compliance-links">
-          <a href="../soc2.html" class="compliance-link">View SOC2 Details →</a>
-          <a href="../hipaa-baa.html" class="compliance-link">View HIPAA Compliance →</a>
+  <header class="security-hero">
+    <div class="container">
+      <h1>Enterprise Security Architecture</h1>
+      <p>LexiFlow is engineered for high-stakes litigation. We provide a fortified environment for Protected Health Information (PHI) and proprietary legal work product.</p>
+      
+      <div class="trust-badges">
+        <div class="trust-badge">
+          <h4>Certification</h4>
+          <p>SOC2 Type II</p>
+        </div>
+        <div class="trust-badge">
+          <h4>Compliance</h4>
+          <p>HIPAA Certified</p>
+        </div>
+        <div class="trust-badge">
+          <h4>Encryption</h4>
+          <p>AES-256 / TLS 1.3</p>
+        </div>
+        <div class="trust-badge">
+          <h4>AI Retention</h4>
+          <p>Zero-Data Training</p>
         </div>
       </div>
     </div>
+  </header>
 
-    <section id="ethics-resources" style="background: var(--slate-50); padding: 60px 0; border: 1px solid var(--slate-200); border-radius: 24px; margin-top: 80px;">
-        <div style="max-width: var(--max-width); margin: 0 auto; padding: 0 40px;">
-            <h2 style="font-size: 28px; margin-bottom: 8px;">State-Specific AI Ethics Guides</h2>
-            <p style="color: var(--slate-600); margin-bottom: 32px; text-align: center;">Frameworks for trial lawyers adopting AI in their practice.</p>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                <a href="../blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake.html" style="padding: 24px; background: white; border: 1px solid var(--slate-200); border-radius: 16px; text-decoration: none; transition: transform 0.2s;">
-                    <h4 style="color: var(--navy); margin-bottom: 8px;">Pennsylvania Guide</h4>
-                    <p style="color: var(--slate-600); font-size: 14px;">Ethics for PA lawyers in intake and merit review.</p>
-                </a>
-                <a href="../blog/illinois-trial-lawyers-ai-ethics-legal-intake.html" style="padding: 24px; background: white; border: 1px solid var(--slate-200); border-radius: 16px; text-decoration: none; transition: transform 0.2s;">
-                    <h4 style="color: var(--navy); margin-bottom: 8px;">Illinois Guide</h4>
-                    <p style="color: var(--slate-600); font-size: 14px;">Section 2-622 compliance and AI screening.</p>
-                </a>
-                <a href="../blog/new-york-trial-lawyers-ai-ethics-legal-intake.html" style="padding: 24px; background: white; border: 1px solid var(--slate-200); border-radius: 16px; text-decoration: none; transition: transform 0.2s;">
-                    <h4 style="color: var(--navy); margin-bottom: 8px;">New York Guide</h4>
-                    <p style="color: var(--slate-600); font-size: 14px;">Navigating 22 NYCRR Part 1200 for NY MedMal.</p>
-                </a>
-            </div>
+  <main class="content-section">
+    <div class="container">
+      <div class="security-grid">
+        <div class="security-card">
+          <h3>Data Sovereignty</h3>
+          <p>Your data belongs to your firm. LexiFlow never uses your case files, client communications, or medical records to train our AI models. All reasoning is performed in isolated environments with immediate data purging upon task completion.</p>
         </div>
-    </section>
+        <div class="security-card">
+          <h3>Fortified Infrastructure</h3>
+          <p>Our platform runs on dedicated AWS instances with Virtual Private Cloud (VPC) isolation. We implement advanced Web Application Firewalls (WAF) and real-time DDoS protection to ensure 99.99% availability and perimeter security.</p>
+        </div>
+        <div class="security-card">
+          <h3>Strict Access Controls</h3>
+          <p>We enforce the principle of least privilege. Access to sensitive systems requires Multi-Factor Authentication (MFA) and is restricted to authorized personnel only. All access events are logged in an immutable audit trail.</p>
+        </div>
+        <div class="security-card">
+          <h3>Encryption Everywhere</h3>
+          <p>Data is protected at every stage. We use AES-256 encryption for data at rest and TLS 1.3 for data in transit. Our database architecture utilizes field-level encryption for the most sensitive client identifiers.</p>
+        </div>
+        <div class="security-card">
+          <h3>Continuous Auditing</h3>
+          <p>Security is a continuous process. We perform weekly automated vulnerability scans and conduct annual third-party penetration tests. Our SOC2 Type II status is maintained through rigorous annual audits of our security controls.</p>
+        </div>
+        <div class="security-card">
+          <h3>Incident Readiness</h3>
+          <p>We maintain a comprehensive incident response plan. In the event of a suspected vulnerability or breach, our team is equipped to respond instantly, with client notification protocols starting within 48 hours.</p>
+        </div>
+      </div>
 
-    <div class="audit-box">
-      <h3>Request a Security Package</h3>
-      <p>Qualified law firms may request our full security documentation, including our SOC2 Type II report and third-party penetration test summaries.</p>
-      <a href="mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io?subject=Security%20Package%20Request" class="btn-white">Contact Security Team</a>
+      <section class="compliance-shield-feature">
+        <div class="compliance-shield-text">
+          <h2>Compliance-Shield™</h2>
+          <p>Integrated directly into the LexiFlow Legal Suite, Compliance-Shield™ automates the regulatory burden of handling medical data.</p>
+          <ul class="feature-list">
+            <li>Automatic PII/PHI redaction for non-medical staff</li>
+            <li>Instant HIPAA Business Associate Agreement (BAA) execution</li>
+            <li>Audit-ready activity logs for every document interaction</li>
+            <li>Secure sharing links with expiring access and granular permissions</li>
+          </ul>
+          <div style="margin-top: 40px; display: flex; gap: 20px;">
+            <a href="../soc2.html" style="color: var(--primary); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--gold);">Explore SOC2 →</a>
+            <a href="../hipaa-baa.html" style="color: var(--primary); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--gold);">HIPAA BAA Details →</a>
+          </div>
+        </div>
+        <div class="compliance-shield-image">
+          <img src="../assets/security-shield-icon.svg" alt="Compliance Shield" style="width: 100%; max-width: 400px; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.1));" onerror="this.src='https://img.icons8.com/fluency/240/shield.png'">
+        </div>
+      </section>
+
+      <div class="audit-cta">
+        <h2>Request our Security Package</h2>
+        <p>Prospective firm partners can request our full security documentation, including the latest SOC2 report and pen-test summaries.</p>
+        <a href="mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io?subject=Security%20Package%20Request" class="btn-navy">Contact Security Team</a>
+      </div>
     </div>
-  </div>
+  </main>
 
   <footer class="site-footer">
     <div class="footer-container">
