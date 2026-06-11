@@ -1,51 +1,84 @@
-LEXIFLOW TECHNOLOGIES INC - MEDICAL CHRONOLOGY TEMPLATE
-==================================================
-[LAW FIRM NAME]
-[CASE NAME / MATTER ID]
-
-1. PATIENT / PLAINTIFF INFORMATION
-----------------------------------
-Name: [Full Name]
-DOB: [MM/DD/YYYY]
-SSN (Last 4): [XXXX]
-Date of Incident: [MM/DD/YYYY]
-
-2. PROVIDER DIRECTORY
----------------------
-Name                   | Type                | Date Range
------------------------|---------------------|----------------------
-[Facility Name]        | [e.g. Hospital]     | [Start] - [End]
-[Physician Name]       | [e.g. Orthopedic]   | [Start] - [End]
-
-3. CHRONOLOGICAL TIMELINE
--------------------------
-DATE       | PROVIDER              | CLINICAL SUMMARY & FINDINGS
------------|-----------------------|----------------------------------------------------
-[Date]     | [Facility/Dr]         | [Subjective complaints, Objective findings, Assessment]
-[Date]     | [Facility/Dr]         | [Imaging results, Lab findings, Surgical notes]
-
-4. DIAGNOSIS LIST
------------------
-- [Diagnosis 1] (ICD-10: [Code])
-- [Diagnosis 2] (ICD-10: [Code])
-
-5. KEY FINDINGS / DEVIATIONS
-----------------------------
-- [Highlight 1: e.g. Positive MRI finding of herniated disc]
-- [Highlight 2: e.g. Failure to diagnose in ER setting]
-
-6. MEDICAL EXPENSES TRACKER
----------------------------
-PROVIDER            | SERVICE DATE | CHARGES    | PAID/ADJ | BALANCE
---------------------|--------------|------------|----------|----------
-[Provider 1]        | [Date]       | $[0.00]    | $[0.00]  | $[0.00]
-TOTAL               |              | $[0.00]    | $[0.00]  | $[0.00]
-
-7. GAPS IN TREATMENT / RED FLAGS
---------------------------------
-- [Note any treatment gaps exceeding 30 days]
-- [Note pre-existing conditions mentioned in records]
-
----
-Generated via LexiFlow AI - HIPAA Compliant Legal Intelligence
-(c) 2026 LexiFlow Technologies Inc.
+%PDF-1.3
+%ÈÎÒø
+1 0 obj
+<<
+/Count 1
+/Kids [3 0 R]
+/MediaBox [0 0 595.28 841.89]
+/Type /Pages
+>>
+endobj
+2 0 obj
+<<
+/OpenAction [3 0 R /FitH null]
+/PageLayout /OneColumn
+/Pages 1 0 R
+/Type /Catalog
+>>
+endobj
+3 0 obj
+<<
+/Contents 4 0 R
+/Parent 1 0 R
+/Resources 7 0 R
+/Type /Page
+>>
+endobj
+4 0 obj
+<<
+/Filter /FlateDecode
+/Length 434
+>>
+stream
+xú•SMO¨0›˚+ÓR‘Ü∑c†h¶t4f‚ÇHG1L`^û&¸¯Wòè¯∏ÚnzJŒ9˜4˜b¿›Fñ.ñÆCtabTüLÈp\2êDó±, ó|˛[€‘Õ∂y˝!´›6ﬂÀ+ÔGŸuhÄnÃ9ÈˆË¥éºGè!Òb˙¸E}§™√uMi¿|/ˇñßI•7O h|yÇNeÿD6eæó—_∞éozÿë√√¸à—DÙ|'p,d‚Q§K≈THCX2.ng¯ÍΩÆ5Ú5M¡b±ÑÇ∫Lπ¶Åú≈¡{pÌ·ûß,†\¡ê%Kn2ßûàáå=$©†Ÿ‘I_ ü∫jZØùkû‘	DÃ—	ÜÍ·\Û˙âáÂbdÿ?Ùp‘^∫?Ù r»yŸ*é=˛4è%w+Œh6;À4OÀøfu'€=lÀnÕvmYÂÌ'îı˚Ô∂î‰uEôø÷Mßno≤ï”ï∞∞Ö„#\âß_Ü™÷:ôB\aÎü ≠|i™J÷Eæ/õ∫ÉM€TPQ˘±Súˇb¸≥˛Ò,
+endstream
+endobj
+5 0 obj
+<<
+/BaseFont /Helvetica-Bold
+/Encoding /WinAnsiEncoding
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+6 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+7 0 obj
+<<
+/Font <</F1 5 0 R
+/F2 6 0 R>>
+/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
+>>
+endobj
+8 0 obj
+<<
+/CreationDate (D:20260611115442Z)
+>>
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000015 00000 n 
+0000000102 00000 n 
+0000000205 00000 n 
+0000000285 00000 n 
+0000000791 00000 n 
+0000000893 00000 n 
+0000000990 00000 n 
+0000001087 00000 n 
+trailer
+<<
+/Size 9
+/Root 2 0 R
+/Info 8 0 R
+/ID [<28FD498B5F33A065380632940E2733EE><28FD498B5F33A065380632940E2733EE>]
+>>
+startxref
+1142
+%%EOF

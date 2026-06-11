@@ -31,7 +31,12 @@ branding/
 downloads/                       ← Public Lead Magnets & Templates
 ├── lexiflow-medical-chronology-template.pdf
 ├── lexiflow-medical-chronology-sample.pdf
-└── lexiflow-record-review-checklist.pdf
+├── lexiflow-record-review-checklist.pdf
+├── florida-medmal-ai-intake.pdf
+├── texas-medmal-ai-intake.pdf
+├── california-medmal-ai-intake.pdf
+├── new-york-medmal-ai-intake.pdf
+└── illinois-medmal-ai-intake.pdf
 ```
 
 ---
