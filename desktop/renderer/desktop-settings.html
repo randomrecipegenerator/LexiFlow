@@ -257,6 +257,15 @@
         <div class="tab-content" id="tab-general">
             <div class="card">
                 <h3>⚙️ Application Settings</h3>
+                <div class="form-group">
+                    <label for="api-key-input">Desktop API Key</label>
+                    <div style="display:flex;gap:0.5rem;">
+                        <input type="password" id="api-key-input" placeholder="lf_desktop_...">
+                        <button class="btn btn-sm" onclick="saveApiKey()" id="btn-save-api-key">Save</button>
+                    </div>
+                    <p id="api-key-status" style="font-size:0.75rem;margin-top:0.25rem;display:none;"></p>
+                    <p class="form-hint">Paste your Desktop API key here to enable cloud sync. You can find this in your Firm Settings on the LexiFlow dashboard.</p>
+                </div>
                 <div class="card-row"><span class="label">Launch on Startup</span>
                     <label class="toggle"><input type="checkbox" id="launch-startup"><span class="slider"></span></label></div>
                 <div class="card-row"><span class="label">Minimize to Tray</span>
@@ -347,7 +356,7 @@
                         </div>
                         <div class="actions">
                             <span class="badge badge-neutral">${f.total_files || 0} files</span>
-                            <button class="btn btn-danger-outline btn-sm" onclick="handleRemoveFolder('${f.id}')">Remove</button>
+                            <button class="btn btn-danger-outline btn-sm" onclick="handleRemoveFolder('${f.folder_id}')">Remove</button>
                         </div>
                     </div>
                 `).join('');
@@ -562,6 +571,48 @@
                     addLogEntry('info', `Launch on startup ${e.target.checked ? 'enabled' : 'disabled'}`);
                 }
             });
+
+            // Load API Key
+            if (window.lexiflow.getApiKey) {
+                const key = await window.lexiflow.getApiKey();
+                if (key) {
+                    document.getElementById('api-key-input').value = key;
+                }
+            }
+        }
+
+        async function saveApiKey() {
+            if (!window.lexiflow) return;
+            const input = document.getElementById('api-key-input');
+            const btn = document.getElementById('btn-save-api-key');
+            const status = document.getElementById('api-key-status');
+            const key = input.value.trim();
+            
+            try {
+                btn.disabled = true;
+                btn.textContent = 'Saving...';
+                await window.lexiflow.setApiKey(key);
+                
+                status.textContent = '✓ API Key saved successfully';
+                status.style.color = '#22c55e';
+                status.style.display = 'block';
+                
+                addLogEntry('success', 'API key updated');
+                await checkConnection();
+                await loadFolders();
+                
+                setTimeout(() => {
+                    status.style.display = 'none';
+                }, 3000);
+            } catch (e) {
+                status.textContent = `✗ Error: ${e.message}`;
+                status.style.color = '#ef4444';
+                status.style.display = 'block';
+                addLogEntry('error', `Failed to save API key: ${e.message}`);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Save';
+            }
         }
 
         // =========================================================================

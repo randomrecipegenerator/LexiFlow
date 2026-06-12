@@ -21,7 +21,10 @@ if not db_url:
                 except Exception as e:
                     print(f"Failed to seed /tmp/lexiflow.db: {e}")
     else:
-        db_url = "sqlite:///./lexiflow.db"
+        # Use absolute path to avoid directory confusion
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        db_path = os.path.join(base_dir, "lexiflow.db")
+        db_url = f"sqlite:///{db_path}"
 
 SQLALCHEMY_DATABASE_URL = db_url
 
