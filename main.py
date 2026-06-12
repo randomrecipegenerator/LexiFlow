@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, Form, Header, BackgroundTasks
+from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, Form, Header, BackgroundTasks, Request
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List
@@ -32,6 +32,17 @@ def find_firm_by_slug(db: Session, slug: str):
     return db.query(models.Firm).filter(models.Firm.slug == slug).first()
 
 app = FastAPI(title="LexiFlow API")
+
+@app.middleware("http")
+async def standardize_path(request: Request, call_next):
+    path = request.url.path
+    if path.startswith("/api/"):
+        scope = request.scope.copy()
+        scope["path"] = path[4:]
+        from starlette.requests import Request as StarletteRequest
+        request = StarletteRequest(scope, receive=request.receive)
+    response = await call_next(request)
+    return response
 
 # Create database tables on startup
 @app.on_event("startup")

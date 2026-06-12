@@ -4,7 +4,6 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 # Add root directory to sys.path
-# This file is in api/index.py, so root is one level up
 current_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(current_dir)
 if root_dir not in sys.path:
@@ -14,7 +13,7 @@ if root_dir not in sys.path:
 try:
     from main import app as backend_app
 except Exception as e:
-    # If backend fails to import (e.g. database error), provide a fallback app
+    # If backend fails to import, provide a fallback app
     backend_app = FastAPI()
     @backend_app.all("/{path:path}")
     async def fallback(path: str):
@@ -23,44 +22,7 @@ except Exception as e:
             content={"error": "Backend initialization failed", "details": str(e)}
         )
 
-app = FastAPI()
-
-@app.get("/api/health")
-@app.get("/health")
-async def health(request: Request):
-    return {
-        "status": "healthy",
-        "environment": "vercel" if os.getenv("VERCEL") else "local",
-        "path": request.url.path,
-        "query_params": str(request.query_params),
-        "ai_configured": os.getenv("AI_API_KEY") is not None
-    }
-
-# Standardize the path by removing /api prefix if present
-# This makes the app resilient to whether the rewrite stripped the prefix or not
-@app.middleware("http")
-async def standardize_path(request: Request, call_next):
-    path = request.url.path
-    # If the path starts with /api/, we strip it because the mounted backend_app 
-    # expects routes starting from root (e.g. /chat/start)
-    if path.startswith("/api/"):
-        scope = request.scope.copy()
-        # Strip '/api' but keep the rest
-        # /api/health -> /health
-        # /api/chat/start -> /chat/start
-        scope["path"] = path[4:] 
-        
-        from starlette.requests import Request as StarletteRequest
-        request = StarletteRequest(scope, receive=request.receive)
-    elif path == "/api":
-        scope = request.scope.copy()
-        scope["path"] = "/"
-        from starlette.requests import Request as StarletteRequest
-        request = StarletteRequest(scope, receive=request.receive)
-        
-    response = await call_next(request)
-    return response
-
-# Mount the backend app at the root
-# The middleware above ensures it sees paths without "/api"
-app.mount("/", backend_app)
+# In Vercel, this file is the entry point.
+# We use the backend_app directly.
+# The middleware in main.py will handle stripping /api if needed.
+app = backend_app
