@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | LexiFlow Technologies Inc</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a3a5c;
+      --primary-dark: #0d1f33;
+      --accent: #c9a84c;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-600: #475569;
+      --text-muted: #94a3b8;
+      --bg-light: #f8fafc;
+      --navy: #0f172a;
+      --gold: #c9a84c;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--slate-50); color: var(--navy); margin: 0; padding: 0; line-height: 1.8; }
+    nav { height: 80px; background: #fff; border-bottom: 1px solid var(--slate-200); display: flex; align-items: center; position: sticky; top: 0; z-index: 100; }
+    .nav-container { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--navy); text-decoration: none; }
+    .nav-links { list-style: none; display: flex; gap: 32px; align-items: center; padding: 0; margin: 0; }
+    .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; }
+    .nav-links a:hover { color: var(--navy); }
+    .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
+
+    .login-container { max-width: 450px; margin: 100px auto; padding: 0 20px; }
+    .login-card { background: white; padding: 48px; border-radius: 24px; border: 1px solid var(--slate-200); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); }
+    .login-card h1 { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 12px; color: var(--navy); text-align: center; }
+    .login-card p { color: var(--slate-600); font-size: 16px; margin-bottom: 32px; text-align: center; }
+    
+    .form-group { margin-bottom: 24px; }
+    .form-group label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 8px; color: var(--navy); }
+    .form-group input { width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--slate-200); font-family: inherit; font-size: 16px; box-sizing: border-box; }
+    .form-group input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1); }
+    
+    .btn-login { display: block; width: 100%; background: var(--navy); color: white; padding: 14px; border: none; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer; transition: all 0.2s; }
+    .btn-login:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    
+    .login-footer { margin-top: 24px; text-align: center; font-size: 14px; color: var(--slate-600); }
+    .login-footer a { color: var(--gold); text-decoration: none; font-weight: 600; }
+    .login-footer a:hover { text-decoration: underline; }
+
+    #error-message { color: #ef4444; background: #fee2e2; padding: 12px; border-radius: 8px; margin-bottom: 24px; font-size: 14px; display: none; text-align: center; }
+
+    footer { padding: 40px 0; background: var(--navy); color: var(--slate-400); text-align: center; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="./" class="logo"><span>LF</span> LexiFlow</a>
+      <ul class="nav-links">
+        <li><a href="./pricing.html">Pricing</a></li>
+        <li><a href="./dashboard.html">Dashboard</a></li>
+        <li><a href="./signup.html" class="btn-cta">Get Started</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="login-container">
+    <div class="login-card">
+      <h1>Welcome Back</h1>
+      <p>Log in to your attorney dashboard</p>
+      
+      <div id="error-message"></div>
+      
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required placeholder="attorney@firm.com">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn-login" id="login-btn">Log In</button>
+      </form>
+      
+      <div class="login-footer">
+        <p>Don't have an account? <a href="./signup.html">Request access</a></p>
+        <p style="margin-top: 8px;"><a href="#">Forgot password?</a></p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const btn = document.getElementById('login-btn');
+      const errorMsg = document.getElementById('error-message');
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      errorMsg.style.display = 'none';
+      btn.textContent = 'Logging in...';
+      btn.disabled = true;
+      
+      try {
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('password', password);
+        
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          // Success! Save token and redirect
+          localStorage.setItem('lexiflow_token', data.access_token);
+          localStorage.setItem('lexiflow_user', JSON.stringify(data.user));
+          
+          // Redirect to dashboard
+          window.location.href = './dashboard.html';
+        } else {
+          // Error
+          errorMsg.textContent = data.detail || 'Login failed. Please check your credentials.';
+          errorMsg.style.display = 'block';
+          btn.textContent = 'Log In';
+          btn.disabled = false;
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        errorMsg.textContent = 'A connection error occurred. Please try again.';
+        errorMsg.style.display = 'block';
+        btn.textContent = 'Log In';
+        btn.disabled = false;
+      }
+    });
+
+    // Check for SSO error parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    if (error) {
+      const errorMsg = document.getElementById('error-message');
+      if (error === 'sso_token_expired') {
+        errorMsg.textContent = 'Your session has expired. Please log in again.';
+      } else if (error === 'invalid_sso_token') {
+        errorMsg.textContent = 'Invalid security token.';
+      } else {
+        errorMsg.textContent = 'Authentication error. Please log in with your credentials.';
+      }
+      errorMsg.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

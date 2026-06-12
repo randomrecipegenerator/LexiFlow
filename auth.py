@@ -7,7 +7,7 @@ import logging
 from datetime import datetime, timedelta
 from typing import Optional
 
-from fastapi import Depends, HTTPException, Header, status, APIRouter
+from fastapi import Depends, HTTPException, Header, status, APIRouter, Form
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from jose import JWTError, jwt
@@ -23,7 +23,7 @@ SECRET_KEY = os.getenv("JWT_SECRET_KEY", "lexiflow-desktop-secret-key-change-in-
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("JWT_EXPIRE_MINUTES", "1440"))  # 24 hours
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["sha256_crypt"], deprecated="auto")
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
@@ -70,10 +70,18 @@ def get_current_user(
     
     # Fallback: X-API-Key header (for desktop client auth)
     if not token and x_api_key:
-        # Look up desktop API key
-        firm = db.query(Firm).filter(Firm.api_config_json.contains(x_api_key)).first()
+        # Look up desktop API key in both dedicated field and JSON config
+        firm = db.query(Firm).filter(
+            (Firm.desktop_api_key == x_api_key) | 
+            (Firm.api_config_json.contains(x_api_key))
+        ).first()
         if firm:
-            # Create a virtual user context for API key auth
+            # For prototype, link API key auth to the first user in the firm
+            user = db.query(User).filter(User.firm_id == firm.id).first()
+            if user:
+                return user
+            
+            # Fallback if no user exists (original behavior)
             return type("DesktopUser", (), {
                 "id": None, "firm_id": firm.id, "email": f"desktop@{firm.slug}.local",
                 "full_name": f"Desktop Client - {firm.name}", "role": "desktop",
@@ -131,13 +139,49 @@ def generate_api_key() -> str:
 
 
 # =========================================================================
-# SSO Login Route — Desktop-to-Web Authentication
+# Standard Login & SSO Routes
 # =========================================================================
 
-sso_router = APIRouter(tags=["SSO Authentication"])
+auth_router = APIRouter(tags=["Authentication"])
 
 
-@sso_router.get("/api/auth/sso-login")
+@auth_router.post("/auth/login")
+async def login(email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
+    """Standard username/password login endpoint."""
+    user = db.query(User).filter(User.email == email).first()
+    if not user or not verify_password(password, user.hashed_password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect email or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    if not user.is_active:
+        raise HTTPException(status_code=403, detail="Account deactivated")
+    
+    # Update last login
+    user.last_login_at = datetime.utcnow()
+    db.commit()
+    
+    access_token = create_access_token(
+        data={"sub": str(user.id), "firm_id": user.firm_id, "role": user.role},
+        expires_delta=timedelta(hours=24),
+    )
+    
+    return {
+        "access_token": access_token,
+        "token_type": "bearer",
+        "user": {
+            "id": user.id,
+            "email": user.email,
+            "full_name": user.full_name,
+            "role": user.role,
+            "firm_id": user.firm_id
+        }
+    }
+
+
+@auth_router.get("/auth/sso-login")
 async def sso_login(token: str, db: Session = Depends(get_db)):
     """
     SSO login endpoint for Desktop-to-Web seamless authentication.

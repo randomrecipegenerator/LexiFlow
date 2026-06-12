@@ -23,9 +23,14 @@ async function apiFetch(endpoint, options = {}) {
     // Merge headers
     const headers = options.headers || {};
     const firmSlug = LexiContext.getFirmSlug();
+    const token = localStorage.getItem('lexiflow_token');
     
     if (firmSlug) {
         headers['X-Firm-Slug'] = firmSlug;
+    }
+    
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
     }
     
     options.headers = headers;
