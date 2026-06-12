@@ -9,7 +9,7 @@ import httpx
 import json
 
 import models, database, ai_engine, esign_engine, integration_engine, reception_engine, utils, reports
-import enterprise_api, desktop_api
+import enterprise_api, desktop_api, admin_api
 from auth import auth_router
 from database import engine, get_db
 
@@ -66,6 +66,7 @@ app.add_middleware(
 app.include_router(enterprise_api.router)
 app.include_router(desktop_api.router)
 app.include_router(auth_router)
+app.include_router(admin_api.router)
 
 # Include usage API router if available
 try:
@@ -1422,7 +1423,8 @@ def get_audit_logs(limit: int = 100, db: Session = Depends(get_db), current_firm
     return logs
 
 # For local development and sandbox serving
-if not os.getenv("VERCEL"):
+if not os.getenv("VERCEL") and __name__ == "__main__":
+    import uvicorn
     from fastapi.staticfiles import StaticFiles
     from fastapi.responses import FileResponse
     # The root directory is the current directory
@@ -1448,4 +1450,6 @@ if not os.getenv("VERCEL"):
 
     app.mount("/api", api_app)
     app.mount("/", StaticFiles(directory=root_dir, html=True), name="static")
+    
+    uvicorn.run(app, host="0.0.0.0", port=8000)
 
