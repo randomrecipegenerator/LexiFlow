@@ -7,13 +7,14 @@ import logging
 from datetime import datetime, timedelta
 from typing import Optional
 
-from fastapi import Depends, HTTPException, Header, status
+from fastapi import Depends, HTTPException, Header, status, APIRouter
+from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
 from database import get_db
-from models import User, Firm
+from models import User, Firm, SSOToken
 
 logger = logging.getLogger(__name__)
 
@@ -74,7 +75,7 @@ def get_current_user(
         if firm:
             # Create a virtual user context for API key auth
             return type("DesktopUser", (), {
-                "id": 0, "firm_id": firm.id, "email": f"desktop@{firm.slug}.local",
+                "id": None, "firm_id": firm.id, "email": f"desktop@{firm.slug}.local",
                 "full_name": f"Desktop Client - {firm.name}", "role": "desktop",
                 "is_active": 1, "firm": firm
             })()
@@ -127,3 +128,86 @@ def generate_api_key() -> str:
     """Generate a secure API key for desktop client authentication."""
     import secrets
     return f"lf_desktop_{secrets.token_hex(32)}"
+
+
+# =========================================================================
+# SSO Login Route — Desktop-to-Web Authentication
+# =========================================================================
+
+sso_router = APIRouter(tags=["SSO Authentication"])
+
+
+@sso_router.get("/api/auth/sso-login")
+async def sso_login(token: str, db: Session = Depends(get_db)):
+    """
+    SSO login endpoint for Desktop-to-Web seamless authentication.
+    
+    The Desktop app calls POST /api/desktop/auth/sso-token to get a token,
+    then opens a browser to this endpoint.
+    
+    Steps:
+    1. Validate the token from the SSOToken table
+    2. Check it hasn't expired (>5 min) and isn't already used
+    3. Mark it as used
+    4. Create a JWT for the user
+    5. Redirect to the web dashboard with the JWT as a query param
+    """
+    from fastapi.responses import RedirectResponse
+    
+    # Look up the token
+    sso_record = db.query(SSOToken).filter(
+        SSOToken.token == token,
+        SSOToken.is_active == 1,
+    ).first()
+    
+    if not sso_record:
+        return RedirectResponse(
+            url="/login.html?error=invalid_sso_token",
+            status_code=303,
+        )
+    
+    # Check expiration
+    now = datetime.utcnow()
+    if sso_record.expires_at < now:
+        sso_record.is_active = 0
+        db.commit()
+        return RedirectResponse(
+            url="/login.html?error=sso_token_expired",
+            status_code=303,
+        )
+    
+    # Check if already used (single-use)
+    if sso_record.used_at is not None:
+        return RedirectResponse(
+            url="/login.html?error=sso_token_already_used",
+            status_code=303,
+        )
+    
+    # Mark as used
+    sso_record.used_at = now
+    sso_record.is_active = 0
+    db.commit()
+    
+    # Look up the user
+    user = db.query(User).filter(User.id == sso_record.user_id).first()
+    if not user:
+        return RedirectResponse(
+            url="/login.html?error=user_not_found",
+            status_code=303,
+        )
+    
+    # Create a JWT for the user
+    access_token = create_access_token(
+        data={"sub": str(user.id), "firm_id": user.firm_id, "role": user.role},
+        expires_delta=timedelta(hours=24),
+    )
+    
+    # Log the SSO login
+    log_entry = logging.getLogger("auth.sso")
+    log_entry.info(f"SSO login successful for user {user.id} (firm {user.firm_id})")
+    
+    # Redirect to dashboard with JWT
+    return RedirectResponse(
+        url=f"/dashboard.html?token={access_token}",
+        status_code=303,
+    )

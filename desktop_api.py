@@ -6,12 +6,14 @@ Provides endpoints for the LexiFlow Desktop (Electron) application to:
 2. Sync local folder metadata with cloud
 3. Coordinate PII/PHI redaction
 4. Manage discovery vault sync jobs
+5. SSO flow for Desktop-to-Web seamless login
 
 All endpoints secured with JWT authentication (Bearer token) or X-API-Key.
 """
 import logging
 import os
 import uuid
+import json
 from datetime import datetime
 from typing import List, Optional
 
@@ -20,7 +22,7 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel
 
 from database import get_db
-from models import Firm, User, AuditLog, Lead as LeadModel
+from models import Firm, User, AuditLog, Lead as LeadModel, DesktopFolder, DesktopDocument, SSOToken
 from auth import get_current_user, get_current_firm, generate_api_key
 
 logger = logging.getLogger(__name__)
@@ -74,15 +76,6 @@ class DocumentMetadata(BaseModel):
 
 
 # =========================================================================
-# In-Memory Store (for demo/prototype — move to DB in production)
-# =========================================================================
-
-# Simulated folder registrations (keyed by folder_id)
-_registered_folders: dict = {}
-_desktop_clients: dict = {}
-
-
-# =========================================================================
 # Auth Endpoints
 # =========================================================================
 
@@ -101,17 +94,33 @@ async def register_desktop_client(
     api_key = generate_api_key()
     client_id = str(uuid.uuid4())
     
-    _desktop_clients[client_id] = {
-        "client_id": client_id,
-        "firm_id": user.firm_id,
-        "device_name": device_name,
-        "device_id": device_id,
-        "os_info": os_info,
-        "api_key": api_key,
-        "registered_at": datetime.utcnow().isoformat(),
-        "last_seen": datetime.utcnow().isoformat(),
-        "is_active": True,
-    }
+    # In production, save to a DesktopClient table.
+    # For now, we update the Firm's api_config_json to include this key.
+    firm = db.query(Firm).filter(Firm.id == user.firm_id).first()
+    if firm:
+        config = {}
+        if firm.api_config_json:
+            try:
+                config = json.loads(firm.api_config_json)
+            except:
+                pass
+        
+        # Add or update desktop keys
+        if "desktop_keys" not in config:
+            config["desktop_keys"] = []
+        
+        config["desktop_keys"].append({
+            "client_id": client_id,
+            "api_key": api_key,
+            "device_name": device_name,
+            "registered_at": datetime.utcnow().isoformat()
+        })
+        
+        # Also set it as the primary desktop key for easier lookup in auth.py
+        config["desktop_api_key"] = api_key
+        
+        firm.api_config_json = json.dumps(config)
+        db.add(firm)
     
     # Log the registration
     log = AuditLog(
@@ -134,14 +143,75 @@ async def register_desktop_client(
 @router.get("/auth/clients")
 async def list_desktop_clients(
     user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
 ):
     """List all registered desktop clients for the firm."""
-    firm_clients = [
-        {k: v for k, v in info.items() if k != "api_key"}  # Never expose API keys
-        for cid, info in _desktop_clients.items()
-        if info["firm_id"] == user.firm_id
-    ]
-    return {"clients": firm_clients, "total": len(firm_clients)}
+    firm = db.query(Firm).filter(Firm.id == user.firm_id).first()
+    if not firm or not firm.api_config_json:
+        return {"clients": [], "total": 0}
+        
+    try:
+        config = json.loads(firm.api_config_json)
+        clients = config.get("desktop_keys", [])
+        # Hide actual API keys
+        safe_clients = [{k: v for k, v in c.items() if k != "api_key"} for c in clients]
+        return {"clients": safe_clients, "total": len(safe_clients)}
+    except:
+        return {"clients": [], "total": 0}
+
+
+# =========================================================================
+# SSO Flow — Desktop-to-Web Seamless Login
+# =========================================================================
+
+@router.post("/auth/sso-token")
+async def create_sso_token(
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """
+    Create a short-lived SSO token for Desktop-to-Web login.
+    
+    The Desktop app calls this with its API key to get a token,
+    then opens a browser to /api/auth/sso-login?token=XYZ
+    which validates the token, sets a session, and redirects to the dashboard.
+    
+    Token expires in 5 minutes and is single-use.
+    """
+    import secrets
+    from datetime import timedelta
+    
+    # Generate a secure random token
+    token = secrets.token_urlsafe(48)
+    expires_at = datetime.utcnow() + timedelta(minutes=5)
+    
+    # Persist to database
+    sso = SSOToken(
+        firm_id=user.firm_id,
+        user_id=user.id,
+        token=token,
+        expires_at=expires_at,
+    )
+    db.add(sso)
+    db.commit()
+    
+    # Log the SSO token creation
+    log = AuditLog(
+        firm_id=user.firm_id, user_id=user.id,
+        action="sso_token_created",
+        category="auth",
+        details=f"SSO token created, expires at {expires_at.isoformat()}",
+    )
+    db.add(log)
+    db.commit()
+    
+    return {
+        "token": token,
+        "expires_at": expires_at.isoformat(),
+        "login_url": f"/api/auth/sso-login?token={token}",
+        "note": "This token is single-use and expires in 5 minutes. "
+                "Open the login_url in a browser to complete SSO login.",
+    }
 
 
 # =========================================================================
@@ -158,24 +228,20 @@ async def register_folder(
     Register a local folder for Discovery-Vault sync.
     The desktop app calls this when a user selects a folder to watch.
     """
-    folder_id = str(uuid.uuid4())
-    now = datetime.utcnow().isoformat()
+    folder_uuid = str(uuid.uuid4())
     
-    _registered_folders[folder_id] = {
-        "folder_id": folder_id,
-        "firm_id": user.firm_id,
-        "local_path": folder.local_path,
-        "label": folder.label or folder.local_path.split("/")[-1] or folder.local_path.split("\\")[-1],
-        "case_name": folder.case_name,
-        "case_id": folder.case_id,
-        "watch_subfolders": folder.watch_subfolders,
-        "file_extensions": folder.file_extensions,
-        "status": "registered",
-        "total_files": 0,
-        "synced_files": 0,
-        "registered_at": now,
-        "last_synced_at": None,
-    }
+    db_folder = DesktopFolder(
+        firm_id=user.firm_id,
+        folder_uuid=folder_uuid,
+        local_path=folder.local_path,
+        label=folder.label or folder.local_path.split("/")[-1] or folder.local_path.split("\\")[-1],
+        case_name=folder.case_name,
+        case_id=folder.case_id,
+        watch_subfolders=1 if folder.watch_subfolders else 0,
+        file_extensions=json.dumps(folder.file_extensions),
+        status="registered"
+    )
+    db.add(db_folder)
     
     # Audit log
     log = AuditLog(
@@ -189,35 +255,58 @@ async def register_folder(
     
     return {
         "status": "registered",
-        "folder_id": folder_id,
-        "label": _registered_folders[folder_id]["label"],
+        "folder_id": folder_uuid,
+        "label": db_folder.label,
     }
 
 
 @router.get("/folders")
 async def list_folders(
     user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
 ):
     """List all registered sync folders for the firm."""
-    folders = [
-        info for info in _registered_folders.values()
-        if info["firm_id"] == user.firm_id
-    ]
-    return {"folders": folders, "total": len(folders)}
+    folders = db.query(DesktopFolder).filter(DesktopFolder.firm_id == user.firm_id).all()
+    
+    result = []
+    for f in folders:
+        result.append({
+            "folder_id": f.folder_uuid,
+            "local_path": f.local_path,
+            "label": f.label,
+            "case_name": f.case_name,
+            "status": f.status,
+            "total_files": f.total_files,
+            "synced_files": f.synced_files,
+            "registered_at": f.registered_at.isoformat() if f.registered_at else None,
+            "last_synced_at": f.last_synced_at.isoformat() if f.last_synced_at else None,
+        })
+        
+    return {"folders": result, "total": len(result)}
 
 
 @router.get("/folders/{folder_id}")
 async def get_folder_status(
     folder_id: str,
     user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
 ):
     """Get sync status for a specific folder."""
-    folder = _registered_folders.get(folder_id)
+    folder = db.query(DesktopFolder).filter(
+        DesktopFolder.folder_uuid == folder_id,
+        DesktopFolder.firm_id == user.firm_id
+    ).first()
+    
     if not folder:
         raise HTTPException(404, detail="Folder not found")
-    if folder["firm_id"] != user.firm_id:
-        raise HTTPException(403, detail="Access denied")
-    return folder
+        
+    return {
+        "folder_id": folder.folder_uuid,
+        "status": folder.status,
+        "total_files": folder.total_files,
+        "synced_files": folder.synced_files,
+        "last_synced_at": folder.last_synced_at.isoformat() if folder.last_synced_at else None,
+    }
 
 
 @router.put("/folders/{folder_id}/sync-status")
@@ -225,23 +314,25 @@ async def update_folder_sync_status(
     folder_id: str,
     status_update: FolderSyncStatus,
     user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
 ):
     """Update sync status for a folder (called by desktop client)."""
-    folder = _registered_folders.get(folder_id)
+    folder = db.query(DesktopFolder).filter(
+        DesktopFolder.folder_uuid == folder_id,
+        DesktopFolder.firm_id == user.firm_id
+    ).first()
+    
     if not folder:
         raise HTTPException(404, detail="Folder not found")
-    if folder["firm_id"] != user.firm_id:
-        raise HTTPException(403, detail="Access denied")
     
-    folder["status"] = status_update.status
-    folder["total_files"] = status_update.total_files
-    folder["synced_files"] = status_update.synced_files
-    folder["pending_files"] = status_update.pending_files
-    if status_update.error_message:
-        folder["error_message"] = status_update.error_message
+    folder.status = status_update.status
+    folder.total_files = status_update.total_files
+    folder.synced_files = status_update.synced_files
+    
     if status_update.status == "idle":
-        folder["last_synced_at"] = datetime.utcnow().isoformat()
+        folder.last_synced_at = datetime.utcnow()
     
+    db.commit()
     return {"status": "updated", "folder_id": folder_id}
 
 
@@ -259,29 +350,42 @@ async def sync_document_metadata(
     Sync document metadata from the desktop client to the cloud.
     The desktop app sends metadata for files it finds during folder scanning.
     """
-    synced_count = len(documents)
+    for doc in documents:
+        # Check if document already exists
+        existing = db.query(DesktopDocument).filter(
+            DesktopDocument.file_hash == doc.file_hash,
+            DesktopDocument.firm_id == user.firm_id
+        ).first()
+        
+        if not existing:
+            new_doc = DesktopDocument(
+                firm_id=user.firm_id,
+                folder_uuid=doc.folder_id,
+                file_name=doc.file_name,
+                file_path=doc.file_path,
+                file_size_bytes=doc.file_size_bytes,
+                file_hash=doc.file_hash,
+                mime_type=doc.mime_type,
+                case_id=doc.case_id,
+                tags=json.dumps(doc.tags)
+            )
+            db.add(new_doc)
+    
+    db.commit()
     
     # Audit log for batch sync
     log = AuditLog(
         firm_id=user.firm_id, user_id=user.id,
         action="documents_synced",
         category="desktop",
-        details=f"Synced {synced_count} documents from desktop client",
+        details=f"Synced {len(documents)} documents from desktop client",
     )
     db.add(log)
     db.commit()
     
     return {
         "status": "synced",
-        "count": synced_count,
-        "documents": [
-            {
-                "file_name": d.file_name,
-                "folder_id": d.folder_id,
-                "sync_status": "metadata_recorded",
-            }
-            for d in documents
-        ],
+        "count": len(documents)
     }
 
 

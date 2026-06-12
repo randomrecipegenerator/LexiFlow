@@ -10,6 +10,7 @@ import json
 
 import models, database, ai_engine, esign_engine, integration_engine, reception_engine, utils, reports
 import enterprise_api, desktop_api
+from auth import sso_router
 from database import engine, get_db
 
 def create_audit_log(db: Session, action: str, lead_id: int = None, details: str = None, firm_id: int = None):
@@ -53,6 +54,7 @@ app.add_middleware(
 # Include routers from other modules
 app.include_router(enterprise_api.router)
 app.include_router(desktop_api.router)
+app.include_router(sso_router)
 
 # Include usage API router if available
 try:

@@ -331,3 +331,20 @@ class DesktopDocument(Base):
     synced_at = Column(DateTime, default=datetime.datetime.utcnow)
 
     firm = relationship("Firm")
+
+
+class SSOToken(Base):
+    """Short-lived SSO tokens for Desktop-to-Web authentication."""
+    __tablename__ = "sso_tokens"
+
+    id = Column(Integer, primary_key=True, index=True)
+    firm_id = Column(Integer, ForeignKey("firms.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    token = Column(String, unique=True, index=True, nullable=False)
+    expires_at = Column(DateTime, nullable=False)
+    used_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    is_active = Column(Integer, default=1)
+
+    firm = relationship("Firm")
+    user = relationship("User")
