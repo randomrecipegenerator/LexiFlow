@@ -142,10 +142,10 @@ def generate_api_key() -> str:
 # Standard Login & SSO Routes
 # =========================================================================
 
-auth_router = APIRouter(tags=["Authentication"])
+auth_router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 
-@auth_router.post("/auth/login")
+@auth_router.post("/login")
 async def login(email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
     """Standard username/password login endpoint."""
     user = db.query(User).filter(User.email == email).first()
@@ -181,7 +181,7 @@ async def login(email: str = Form(...), password: str = Form(...), db: Session =
     }
 
 
-@auth_router.get("/auth/sso-login")
+@auth_router.get("/sso-login")
 async def sso_login(token: str, db: Session = Depends(get_db)):
     """
     SSO login endpoint for Desktop-to-Web seamless authentication.

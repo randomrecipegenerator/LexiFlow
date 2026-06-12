@@ -100,6 +100,7 @@
   <script>
     document.getElementById('login-form').addEventListener('submit', async (e) => {
       e.preventDefault();
+      console.log('Login attempt started');
       
       const btn = document.getElementById('login-btn');
       const errorMsg = document.getElementById('error-message');
@@ -111,6 +112,7 @@
       btn.disabled = true;
       
       try {
+        console.log('Sending request to /api/auth/login');
         const formData = new FormData();
         formData.append('email', email);
         formData.append('password', password);
@@ -120,24 +122,26 @@
           body: formData
         });
         
+        console.log('Response status:', response.status);
         const data = await response.json();
+        console.log('Response data:', data);
         
         if (response.ok) {
-          // Success! Save token and redirect
+          console.log('Login successful, saving token');
           localStorage.setItem('lexiflow_token', data.access_token);
           localStorage.setItem('lexiflow_user', JSON.stringify(data.user));
           
-          // Redirect to dashboard
+          console.log('Redirecting to dashboard.html');
           window.location.href = './dashboard.html';
         } else {
-          // Error
+          console.error('Login failed:', data.detail);
           errorMsg.textContent = data.detail || 'Login failed. Please check your credentials.';
           errorMsg.style.display = 'block';
           btn.textContent = 'Log In';
           btn.disabled = false;
         }
       } catch (error) {
-        console.error('Login error:', error);
+        console.error('Login error details:', error);
         errorMsg.textContent = 'A connection error occurred. Please try again.';
         errorMsg.style.display = 'block';
         btn.textContent = 'Log In';
