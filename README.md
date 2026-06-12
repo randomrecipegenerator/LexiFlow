@@ -53,3 +53,10 @@ The `branding-config.json` files map directly to the `Firm` model's expected fie
 - All logos are vector SVG — scalable and high-resolution.
 - Colors were extracted from each firm's live website by analyzing CSS and inline styles.
 - Both firms have a professional legal aesthetic compatible with LexiFlow's existing design framework.
+
+## Quick Start (Database Initialization)
+To initialize the LexiFlow database schema:
+```bash
+python create_tables.py
+```
+Refer to [DEPLOYMENT.md](DEPLOYMENT.md) for full production deployment instructions.

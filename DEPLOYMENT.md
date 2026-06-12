@@ -44,7 +44,7 @@ Before the first run, you must initialize the database schema.
    ```
 2. Run the initialization script:
    ```bash
-   python backend/scripts/init_db.py
+   python create_tables.py
    ```
 
 ## 4. Deploying to Vercel
