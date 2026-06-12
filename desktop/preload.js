@@ -42,6 +42,14 @@ contextBridge.exposeInMainWorld('lexiflow', {
     /** Force an immediate sync of all folders. */
     syncNow: () => ipcRenderer.invoke('sync-now'),
 
+    // ========== API Key Management ==========
+    
+    /** Get the current API key. */
+    getApiKey: () => ipcRenderer.invoke('get-api-key'),
+    
+    /** Set a new API key. */
+    setApiKey: (apiKey) => ipcRenderer.invoke('set-api-key', apiKey),
+
     // ========== PII/PHI Redaction ==========
     
     /** Scan a file for PII patterns and return findings. */
@@ -54,4 +62,9 @@ contextBridge.exposeInMainWorld('lexiflow', {
     
     /** Check if the cloud API is reachable. */
     checkCloudConnection: () => ipcRenderer.invoke('check-cloud-connection'),
+
+    // ========== SSO for Cloud Dashboard ==========
+
+    /** Get an SSO token to load the dashboard in an iframe. */
+    getSSOToken: () => ipcRenderer.invoke('get-sso-token'),
 });

@@ -11,8 +11,11 @@
 const { app, BrowserWindow, ipcMain, dialog, Menu, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const Store = require('electron-store');
 const { SyncEngine } = require('./sync-engine');
 const { RedactUtils } = require('./redact-utils');
+
+const config = new Store({ name: 'lexiflow-config' });
 
 // Prevent multiple instances
 const gotTheLock = app.requestSingleInstanceLock();
@@ -154,27 +157,40 @@ async function handlePickFolder() {
 // =========================================================================
 
 async function getApiKey() {
-    const store = require('electron-store');
-    const config = new store({ name: 'lexiflow-config' });
     let apiKey = config.get('apiKey');
 
     if (!apiKey) {
-        // Register this device with the cloud
-        const deviceId = require('crypto').randomUUID();
-        const response = await fetch(`${CLOUD_API_BASE}/auth/register-client`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                device_name: `LexiFlow Desktop - ${require('os').hostname()}`,
-                device_id: deviceId,
-                os_info: `${require('os').platform()} ${require('os').release()}`,
-            }),
-        });
+        try {
+            // Register this device with the cloud
+            const deviceId = require('crypto').randomUUID();
+            const response = await fetch(`${CLOUD_API_BASE}/auth/register-client`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    device_name: `LexiFlow Desktop - ${require('os').hostname()}`,
+                    device_id: deviceId,
+                    os_info: `${require('os').platform()} ${require('os').release()}`,
+                }),
+            });
 
-        const data = await response.json();
-        apiKey = data.api_key;
-        config.set('apiKey', apiKey);
-        config.set('clientId', data.client_id);
+            if (!response.ok) {
+                console.error(`[Main] Registration failed: ${response.status} ${response.statusText}`);
+                return null;
+            }
+
+            const data = await response.json();
+            apiKey = data.api_key;
+            
+            if (apiKey) {
+                config.set('apiKey', apiKey);
+            }
+            if (data.client_id) {
+                config.set('clientId', data.client_id);
+            }
+        } catch (err) {
+            console.error('[Main] Error during client registration:', err.message);
+            return null;
+        }
     }
 
     return apiKey;
@@ -193,11 +209,35 @@ function registerIpcHandlers() {
     });
 
     ipcMain.handle('get-folders', async () => {
-        const apiKey = await getApiKey();
-        const response = await fetch(`${CLOUD_API_BASE}/folders`, {
-            headers: { 'X-API-Key': apiKey },
-        });
-        return response.json();
+        try {
+            const apiKey = await getApiKey();
+            if (!apiKey) {
+                return { folders: [], total: 0, error: 'API key not configured' };
+            }
+            const response = await fetch(`${CLOUD_API_BASE}/folders`, {
+                headers: { 'X-API-Key': apiKey },
+            });
+            if (!response.ok) {
+                return { folders: [], total: 0, error: `Cloud API error: ${response.status}` };
+            }
+            return response.json();
+        } catch (err) {
+            return { folders: [], total: 0, error: err.message };
+        }
+    });
+
+    ipcMain.handle('get-api-key', async () => {
+        return config.get('apiKey');
+    });
+
+    ipcMain.handle('set-api-key', async (event, apiKey) => {
+        if (apiKey) {
+            config.set('apiKey', apiKey);
+            return { status: 'saved' };
+        } else {
+            config.delete('apiKey');
+            return { status: 'cleared' };
+        }
     });
 
     ipcMain.handle('remove-folder', async (event, folderId) => {
@@ -267,6 +307,35 @@ function registerIpcHandlers() {
             return { connected: true, data };
         } catch (err) {
             return { connected: false, error: err.message };
+        }
+    });
+
+    // -- SSO for Cloud Dashboard --
+
+    ipcMain.handle('get-sso-token', async () => {
+        try {
+            const apiKey = await getApiKey();
+            if (!apiKey) {
+                return { token: null, error: 'API key not configured' };
+            }
+            const response = await fetch(`${CLOUD_API_BASE}/auth/sso-token`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-API-Key': apiKey,
+                },
+                body: JSON.stringify({
+                    device_id: config.get('clientId'),
+                    redirect_to: '/dashboard',
+                }),
+            });
+            if (!response.ok) {
+                return { token: null, error: `SSO error: ${response.status}` };
+            }
+            const data = await response.json();
+            return { token: data.token, expires_at: data.expires_at };
+        } catch (err) {
+            return { token: null, error: err.message };
         }
     });
 }
