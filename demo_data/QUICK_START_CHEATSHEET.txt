@@ -1,0 +1,23 @@
+# LexiFlow Presenter Cheatsheet: NYC Bar Association Demo
+## 1. Credentials
+- URL: http://localhost:3000/login
+- Email: attorney@lexiflow.tech
+- Password: TestPass123!
+- Firm: lexiflow-tech
+
+## 2. Key Demo Data (Rodriguez Case)
+- High Priority Score: 87/100
+- Merit Review Score: 92/100
+- Trial Valuation: $4.2M (NY No-Cap State)
+- Critical Finding: 14-hour gap in ER antibiotics.
+
+## 3. Walkthrough Flow
+1. **Intake**: Show high-speed qualification of a complex sepsis complaint.
+2. **Settlement**: Show the $4.2M valuation based on New York jurisdictional rules.
+3. **Discovery**: Flag the 14-hour gap automatically.
+4. **CRM**: One-click sync to Filevine to show workflow integration.
+5. **DepoLens**: Generate cross-exam questions to impeach Dr. Miller on the protocol gap.
+
+## 4. Troubleshooting
+- If login fails: Ensure the server is running on port 3000 (`ss -tuln | grep 3000`).
+- If AI times out: The platform uses simulated responses for demo reliability if the Groq key is hitting limits.

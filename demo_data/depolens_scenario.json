@@ -1,0 +1,22 @@
+{
+  "module": "DepoLens™",
+  "case": "Rodriguez v. Mount Sinai",
+  "deposition_subject": "Dr. Alan Miller (ER Attending)",
+  "key_contradictions": [
+    {
+      "testimony": "I personally confirmed the start of the IV antibiotic protocol at 19:45.",
+      "evidence_contradiction": "The Medication Administration Record (MAR) shows zero antibiotic dosage entries until 10:15 the following morning.",
+      "impeachment_question": "Doctor, you testified that you 'personally confirmed' the start of antibiotics at 19:45. Can you explain why the hospital's own electronic MAR, which timestamped in real-time, shows no such administration occurred for the next 14 hours?"
+    },
+    {
+      "testimony": "The patient's condition was stable throughout the evening shift.",
+      "evidence_contradiction": "ER Triage record notes qSOFA score of 2 at 18:30, indicating high risk for poor outcome and need for immediate critical care escalation.",
+      "impeachment_question": "You characterize a qSOFA score of 2—which carries a 10% risk of in-hospital mortality—as 'stable'? Is that the standard definition of stability used at Mount Sinai?"
+    }
+  ],
+  "ai_generated_questions": [
+    "Does the hospital's Sepsis Protocol require the '3-Hour Bundle' implementation for patients meeting 2/3 qSOFA criteria?",
+    "If the '3-Hour Bundle' was not completed within 14 hours, would you agree that is a deviation from the hospital's internal safety guidelines?",
+    "Who was the nurse assigned to Bed 4 between the hours of 20:00 and 08:00?"
+  ]
+}

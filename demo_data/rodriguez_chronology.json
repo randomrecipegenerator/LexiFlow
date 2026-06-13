@@ -1,0 +1,46 @@
+{
+  "case_name": "Rodriguez v. Mount Sinai",
+  "patient_name": "Elena Rodriguez",
+  "merit_score": 92,
+  "priority_score": 87,
+  "events": [
+    {
+      "timestamp": "2026-05-10 18:30",
+      "event": "Admission to Mount Sinai ER",
+      "notes": "Patient presents with 103.2F fever, tachycardia (115 bpm), and localized pain in lower extremities. Vital signs meet 2/3 qSOFA criteria for sepsis.",
+      "evidence_ref": "ER_Triage_Page_1"
+    },
+    {
+      "timestamp": "2026-05-10 19:15",
+      "event": "Initial Assessment",
+      "notes": "ER Resident notes suspicion of infection. Orders blood cultures and broad-spectrum antibiotics (Vancomycin).",
+      "evidence_ref": "Physician_Notes_P4"
+    },
+    {
+      "timestamp": "2026-05-10 20:00 - 2026-05-11 09:30",
+      "event": "14-HOUR TREATMENT GAP",
+      "notes": "No administration of ordered antibiotics. No follow-up nursing notes for 13.5 hours. Vital signs not re-checked.",
+      "evidence_ref": "MAR_Table_3, Nursing_Logs_P8",
+      "flag": "CRITICAL DEVIATION"
+    },
+    {
+      "timestamp": "2026-05-11 10:00",
+      "event": "Emergency Code Blue",
+      "notes": "Patient found unresponsive, hypotensive (70/40), progressing to septic shock.",
+      "evidence_ref": "Code_Sheet_P1"
+    },
+    {
+      "timestamp": "2026-05-12",
+      "event": "Bilateral Lower Extremity Ischemia",
+      "notes": "Necrosis identified in both feet due to prolonged septic shock and vasopressor use.",
+      "evidence_ref": "Surgical_Consult_P2"
+    },
+    {
+      "timestamp": "2026-05-15",
+      "event": "Double Amputation",
+      "notes": "Bilateral below-knee amputation performed due to non-viable tissue.",
+      "evidence_ref": "Op_Report_May15"
+    }
+  ],
+  "summary": "The 14-hour delay in administering broad-spectrum antibiotics despite clear sepsis indicators at triage is a definitive deviation from the Standard of Care (Surviving Sepsis Campaign guidelines), directly resulting in septic shock and subsequent double amputation."
+}

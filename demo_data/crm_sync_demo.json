@@ -1,0 +1,32 @@
+{
+  "target_crm": "Filevine",
+  "firm_slug": "lexiflow-tech",
+  "lead_id": "LD_88293",
+  "sync_payload": {
+    "project_name": "Rodriguez - MedMal (Sepsis)",
+    "lead_source": "LexiFlow AI Intake",
+    "scores": {
+      "priority": 87,
+      "merit": 92
+    },
+    "estimated_value": "$4.2M",
+    "attachments": [
+      "rodriguez_merit_review.pdf",
+      "medical_chronology.csv",
+      "liability_markers.json"
+    ],
+    "filevine_mapped_fields": {
+      "IncidentDate": "2026-05-10",
+      "MedicalFacility": "Mount Sinai Hospital",
+      "PrimaryInjury": "Sepsis / Bilateral Amputation",
+      "LiabilityNote": "14-hour gap in antibiotic administration documented."
+    }
+  },
+  "sync_history": [
+    {"event": "Lead Capture", "time": "2026-06-12 14:02:00"},
+    {"event": "AI Merit Analysis", "time": "2026-06-12 14:06:12"},
+    {"event": "Valuation Generated", "time": "2026-06-12 14:06:45"},
+    {"event": "CRM Prep Complete", "time": "2026-06-12 14:07:00"},
+    {"event": "Synced to Filevine", "time": "2026-06-13 09:30:00", "status": "Success"}
+  ]
+}
