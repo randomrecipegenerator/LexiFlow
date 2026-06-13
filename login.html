@@ -100,7 +100,6 @@
   <script>
     document.getElementById('login-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-      console.log('Login attempt started');
       
       const btn = document.getElementById('login-btn');
       const errorMsg = document.getElementById('error-message');
@@ -108,48 +107,53 @@
       const password = document.getElementById('password').value;
       
       errorMsg.style.display = 'none';
-      btn.textContent = 'Logging in...';
+      errorMsg.textContent = '';
+      btn.innerHTML = 'Authenticating...';
       btn.disabled = true;
       
       try {
-        console.log('Sending request to /api/auth/login');
-        const formData = new FormData();
-        formData.append('email', email);
-        formData.append('password', password);
+        // Use URLSearchParams for application/x-www-form-urlencoded (matches FastAPI Form())
+        const params = new URLSearchParams();
+        params.append('email', email);
+        params.append('password', password);
         
         const response = await fetch('/api/auth/login', {
           method: 'POST',
-          body: formData
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: params.toString()
         });
         
-        console.log('Response status:', response.status);
         const data = await response.json();
-        console.log('Response data:', data);
         
         if (response.ok) {
-          console.log('Login successful, saving token');
           localStorage.setItem('lexiflow_token', data.access_token);
           localStorage.setItem('lexiflow_user', JSON.stringify(data.user));
           
           if (data.user && data.user.role === 'admin') {
-            console.log('Redirecting to admin dashboard');
-            window.location.href = './admin/index.html';
+            window.location.href = '/admin/index.html';
           } else {
-            console.log('Redirecting to dashboard.html');
-            window.location.href = './dashboard.html';
+            window.location.href = '/dashboard.html';
           }
         } else {
-          console.error('Login failed:', data.detail);
-          errorMsg.textContent = data.detail || 'Login failed. Please check your credentials.';
+          // Handle 401, 422, and other errors with API detail message
+          const detail = data.detail || 'Login failed. Please check your credentials.';
+          if (response.status === 401) {
+            errorMsg.textContent = 'Incorrect email or password. Please try again.';
+          } else if (response.status === 422) {
+            errorMsg.textContent = 'Validation error: ' + (typeof detail === 'string' ? detail : 'Invalid input format.');
+          } else if (response.status === 403) {
+            errorMsg.textContent = detail;
+          } else {
+            errorMsg.textContent = detail;
+          }
           errorMsg.style.display = 'block';
-          btn.textContent = 'Log In';
+          btn.innerHTML = 'Log In';
           btn.disabled = false;
         }
       } catch (error) {
-        console.error('Login error details:', error);
-        errorMsg.textContent = 'A connection error occurred. Please try again.';
+        errorMsg.textContent = 'A connection error occurred. Please check your network and try again.';
         errorMsg.style.display = 'block';
-        btn.textContent = 'Log In';
+        btn.innerHTML = 'Log In';
         btn.disabled = false;
       }
     });
