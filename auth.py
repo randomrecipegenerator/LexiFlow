@@ -157,7 +157,8 @@ auth_router = APIRouter(prefix="/auth", tags=["Authentication"])
 @auth_router.post("/login")
 async def login(email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
     """Standard username/password login endpoint."""
-    user = db.query(User).filter(User.email == email).first()
+    from sqlalchemy import func
+    user = db.query(User).filter(func.lower(User.email) == func.lower(email)).first()
     if not user or not verify_password(password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
