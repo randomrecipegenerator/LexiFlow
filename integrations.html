@@ -213,7 +213,7 @@
           </div>
           <div class="int-actions">
             <button class="btn btn-test" onclick="testConnection('clio')"><i class="bi bi-plug"></i> Test Connection</button>
-            <button class="btn btn-primary"><i class="bi bi-arrow-repeat"></i> Re-authenticate</button>
+            <button class="btn btn-primary" onclick="saveSync('clio')"><i class="bi bi-arrow-repeat"></i> Re-authenticate</button>
             <button class="btn btn-danger" onclick="disconnect('clio')"><i class="bi bi-unlink"></i> Disconnect</button>
           </div>
           <div class="test-result" id="test-clio"></div>
@@ -243,7 +243,7 @@
           </div>
           <div class="int-actions">
             <button class="btn btn-test" onclick="testConnection('filevine')"><i class="bi bi-plug"></i> Test Connection</button>
-            <button class="btn btn-primary"><i class="bi bi-save"></i> Save &amp; Sync</button>
+            <button class="btn btn-primary" onclick="saveSync('filevine')"><i class="bi bi-save"></i> Save &amp; Sync</button>
             <button class="btn btn-danger" onclick="disconnect('filevine')"><i class="bi bi-unlink"></i> Disconnect</button>
           </div>
           <div class="test-result" id="test-filevine"></div>
@@ -282,7 +282,7 @@
             </div>
           </div>
           <div class="int-actions">
-            <button class="btn btn-connect" onclick="testConnection('needles')"><i class="bi bi-link-45deg"></i> Connect</button>
+            <button class="btn btn-connect" onclick="saveSync('needles')"><i class="bi bi-link-45deg"></i> Connect</button>
             <button class="btn btn-outline"><i class="bi bi-gear"></i> Configure Fields</button>
           </div>
           <div class="test-result" id="test-needles"></div>
@@ -385,7 +385,9 @@
 
 
 <script>
-function testConnection(crm) {
+const CRM_API_BASE = '/api/crm';
+
+async function testConnection(crm) {
   var btn = document.querySelector('#card-' + crm + ' .btn-test');
   var result = document.getElementById('test-' + crm);
   var originalText = btn.innerHTML;
@@ -394,25 +396,105 @@ function testConnection(crm) {
   result.className = 'test-result';
   result.style.display = 'none';
 
-  setTimeout(function() {
-    // Simulate test result
-    var success = Math.random() > 0.2;
-    var connected = ['clio', 'filevine'].indexOf(crm) >= 0;
-    if (success || connected) {
+  try {
+    var resp = await fetch(CRM_API_BASE + '/config/test?system=' + encodeURIComponent(crm), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-firm-slug': localStorage.getItem('lexiflow_firm_slug') || 'general' },
+    });
+    var data = await resp.json();
+
+    if (data.status === 'ok') {
       result.className = 'test-result success';
-      result.innerHTML = '<i class="bi bi-check-circle"></i> Connection successful! API responded in 0.4s.';
+      result.innerHTML = '<i class="bi bi-check-circle"></i> Connection successful! ' + data.system + ' API responded.';
       document.getElementById('status-' + crm).className = 'int-status connected';
       document.getElementById('status-' + crm).textContent = 'Connected';
+    } else if (data.status === 'auth_failed' || data.status === 'needs_auth') {
+      result.className = 'test-result fail';
+      result.innerHTML = '<i class="bi bi-exclamation-circle"></i> Authentication failed. Check your credentials for ' + data.system + '.';
+      document.getElementById('status-' + crm).className = 'int-status disconnected';
+      document.getElementById('status-' + crm).textContent = 'Error';
+    } else if (data.status === 'not_configured') {
+      result.className = 'test-result fail';
+      result.innerHTML = '<i class="bi bi-exclamation-circle"></i> Not configured. Enter your API credentials first.';
+      document.getElementById('status-' + crm).className = 'int-status disconnected';
+      document.getElementById('status-' + crm).textContent = 'Not Configured';
     } else {
       result.className = 'test-result fail';
-      result.innerHTML = '<i class="bi bi-exclamation-circle"></i> Connection failed: Could not reach API endpoint. Check your credentials.';
+      result.innerHTML = '<i class="bi bi-exclamation-circle"></i> Connection failed: ' + (data.detail || 'Unknown error') + '.';
       document.getElementById('status-' + crm).className = 'int-status disconnected';
       document.getElementById('status-' + crm).textContent = 'Error';
     }
-    result.style.display = 'block';
-    btn.disabled = false;
-    btn.innerHTML = originalText;
-  }, crm === 'needles' || crm === 'trialworks' ? 2000 : 1200);
+  } catch (err) {
+    result.className = 'test-result fail';
+    result.innerHTML = '<i class="bi bi-exclamation-circle"></i> Request failed: ' + err.message;
+    document.getElementById('status-' + crm).className = 'int-status disconnected';
+    document.getElementById('status-' + crm).textContent = 'Error';
+  }
+
+  result.style.display = 'block';
+  btn.disabled = false;
+  btn.innerHTML = originalText;
+}
+
+async function saveSync(crm) {
+  var btn = document.querySelector('#card-' + crm + ' .btn-primary');
+  var result = document.getElementById('test-' + crm);
+  var originalText = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<i class="bi bi-arrow-repeat"></i> Saving...';
+  result.className = 'test-result';
+  result.style.display = 'none';
+
+  var configData = {};
+  if (crm === 'clio') {
+    configData = {
+      clio_client_id: document.getElementById('clio-client-id')?.value || '',
+      clio_client_secret: document.getElementById('clio-secret')?.value || '',
+    };
+  } else if (crm === 'filevine') {
+    configData = {
+      filevine_api_key: document.getElementById('filevine-api-key')?.value || '',
+      filevine_api_secret: document.getElementById('filevine-secret')?.value || '',
+    };
+  } else if (crm === 'needles') {
+    configData = {
+      needles_api_key: document.getElementById('needles-key')?.value || '',
+      needles_base_url: document.getElementById('needles-url')?.value || '',
+      needles_poll_interval: parseInt(document.getElementById('needles-poll')?.value || '15'),
+    };
+  } else if (crm === 'trialworks') {
+    configData = {
+      trialworks_endpoint: document.getElementById('trialworks-url')?.value || '',
+      trialworks_token: document.getElementById('trialworks-token')?.value || '',
+    };
+  }
+
+  try {
+    var resp = await fetch(CRM_API_BASE + '/config', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'x-firm-slug': localStorage.getItem('lexiflow_firm_slug') || 'general' },
+      body: JSON.stringify(configData),
+    });
+    var data = await resp.json();
+
+    if (resp.ok) {
+      result.className = 'test-result success';
+      result.innerHTML = '<i class="bi bi-check-circle"></i> Configuration saved. Systems: ' + (data.systems || []).join(', ');
+      document.getElementById('status-' + crm).className = 'int-status connected';
+      document.getElementById('status-' + crm).textContent = 'Configured';
+      document.getElementById('sync-' + crm).textContent = 'Just now';
+    } else {
+      result.className = 'test-result fail';
+      result.innerHTML = '<i class="bi bi-exclamation-circle"></i> Save failed: ' + (data.detail || 'Unknown error');
+    }
+  } catch (err) {
+    result.className = 'test-result fail';
+    result.innerHTML = '<i class="bi bi-exclamation-circle"></i> Request failed: ' + err.message;
+  }
+
+  result.style.display = 'block';
+  btn.disabled = false;
+  btn.innerHTML = originalText;
 }
 
 function disconnect(crm) {
