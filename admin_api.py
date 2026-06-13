@@ -297,8 +297,7 @@ async def get_current_firm_admin(
         "slug": firm.slug,
         "billing_tier": firm.plan_status,
         "document_count": firm.document_count,
-        "branding_colors": firm.branding_colors,
-        "estimated_overage": firm.estimated_overage
+        "branding_colors": firm.branding_colors
     }
 
 @router.post("/firms/register")

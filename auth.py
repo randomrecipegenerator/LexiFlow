@@ -4,6 +4,7 @@ Provides token creation, verification, and dependency injection for protected ro
 """
 import os
 import logging
+import bcrypt
 from datetime import datetime, timedelta
 from typing import Optional
 
@@ -11,7 +12,6 @@ from fastapi import Depends, HTTPException, Header, status, APIRouter, Form
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from jose import JWTError, jwt
-from passlib.context import CryptContext
 
 from database import get_db
 from models import User, Firm, SSOToken
@@ -23,17 +23,26 @@ SECRET_KEY = os.getenv("JWT_SECRET_KEY", "lexiflow-desktop-secret-key-change-in-
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("JWT_EXPIRE_MINUTES", "1440"))  # 24 hours
 
-pwd_context = CryptContext(schemes=["bcrypt", "sha256_crypt"], deprecated="auto")
-
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify a plain text password against a hashed password."""
-    return pwd_context.verify(plain_password, hashed_password)
+    try:
+        if isinstance(plain_password, str):
+            plain_password = plain_password.encode('utf-8')
+        if isinstance(hashed_password, str):
+            hashed_password = hashed_password.encode('utf-8')
+        return bcrypt.checkpw(plain_password, hashed_password)
+    except Exception as e:
+        logger.error(f"Password verification error: {e}")
+        return False
 
 
 def hash_password(password: str) -> str:
     """Hash a plain text password."""
-    return pwd_context.hash(password)
+    if isinstance(password, str):
+        password = password.encode('utf-8')
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(password, salt).decode('utf-8')
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
