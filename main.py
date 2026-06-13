@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, Form, Header, BackgroundTasks, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse, FileResponse
 from sqlalchemy.orm import Session
 from typing import List
 import os
@@ -7,6 +8,8 @@ import shutil
 import uuid
 import httpx
 import json
+import asyncio
+from datetime import datetime
 
 import models, database, ai_engine, esign_engine, integration_engine, reception_engine, utils, reports
 import enterprise_api, desktop_api, admin_api
@@ -33,14 +36,26 @@ def find_firm_by_slug(db: Session, slug: str):
 
 app = FastAPI(title="LexiFlow API")
 
+async def event_generator():
+    while True:
+        # Send a heartbeat every 15 seconds to keep the connection alive
+        # Some proxies (like E2B or Vercel) might close idle connections
+        yield f"data: {json.dumps({'type': 'heartbeat', 'timestamp': datetime.utcnow().isoformat()})}\n\n"
+        await asyncio.sleep(15)
+
+@app.get("/__engine/events")
+async def engine_events():
+    """
+    Real-time event stream for the LexiFlow Engine.
+    Used for live updates on document processing, lead qualification, and CRM sync.
+    """
+    return StreamingResponse(event_generator(), media_type="text/event-stream")
+
 @app.middleware("http")
 async def standardize_path(request: Request, call_next):
     path = request.url.path
     if path.startswith("/api/"):
-        scope = request.scope.copy()
-        scope["path"] = path[4:]
-        from starlette.requests import Request as StarletteRequest
-        request = StarletteRequest(scope, receive=request.receive)
+        request.scope["path"] = path[4:]
     response = await call_next(request)
     return response
 
