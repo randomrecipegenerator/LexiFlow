@@ -48,6 +48,12 @@ class FirmUpdate(BaseModel):
     name: Optional[str] = None
     branding_colors: Optional[str] = None
 
+class FirmRegister(BaseModel):
+    firm_name: str
+    admin_email: str
+    password: str
+    branding_colors: Optional[str] = None
+
 # =========================================================================
 # Authentication Endpoints
 # =========================================================================
@@ -275,6 +281,80 @@ async def deactivate_user(
     db.commit()
     
     return {"status": "success", "message": "User account deactivated"}
+
+@router.get("/firms/me")
+async def get_current_firm_admin(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get firm details for the currently authenticated admin."""
+    firm = db.query(Firm).filter(Firm.id == current_user.firm_id).first()
+    if not firm:
+        raise HTTPException(status_code=404, detail="Firm not found")
+    return {
+        "id": firm.id,
+        "name": firm.name,
+        "slug": firm.slug,
+        "billing_tier": firm.plan_status,
+        "document_count": firm.document_count,
+        "branding_colors": firm.branding_colors,
+        "estimated_overage": firm.estimated_overage
+    }
+
+@router.post("/firms/register")
+async def register_firm(
+    reg_data: FirmRegister,
+    db: Session = Depends(get_db)
+):
+    """Register a new firm and admin user."""
+    # Check if user exists
+    existing_user = db.query(User).filter(User.email == reg_data.admin_email).first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="User with this email already exists")
+    
+    # Create firm
+    from utils import slugify
+    new_firm = Firm(
+        name=reg_data.firm_name,
+        slug=slugify(reg_data.firm_name),
+        branding_colors=reg_data.branding_colors,
+        plan_status="standard"
+    )
+    db.add(new_firm)
+    db.flush()
+    
+    # Create admin user
+    from auth import hash_password
+    new_user = User(
+        email=reg_data.admin_email,
+        hashed_password=hash_password(reg_data.password),
+        role='admin',
+        firm_id=new_firm.id,
+        is_active=1
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    
+    # Create access token
+    access_token = create_access_token(
+        data={"sub": str(new_user.id), "firm_id": new_user.firm_id, "role": new_user.role}
+    )
+    
+    return {
+        "access_token": access_token,
+        "token_type": "bearer",
+        "user": {
+            "id": new_user.id,
+            "email": new_user.email,
+            "role": new_user.role
+        },
+        "firm": {
+            "id": new_firm.id,
+            "name": new_firm.name,
+            "slug": new_firm.slug
+        }
+    }
 
 @router.put("/firms/me")
 async def update_current_firm_admin(

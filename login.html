@@ -131,8 +131,13 @@
           localStorage.setItem('lexiflow_token', data.access_token);
           localStorage.setItem('lexiflow_user', JSON.stringify(data.user));
           
-          console.log('Redirecting to dashboard.html');
-          window.location.href = './dashboard.html';
+          if (data.user && data.user.role === 'admin') {
+            console.log('Redirecting to admin dashboard');
+            window.location.href = './admin/index.html';
+          } else {
+            console.log('Redirecting to dashboard.html');
+            window.location.href = './dashboard.html';
+          }
         } else {
           console.error('Login failed:', data.detail);
           errorMsg.textContent = data.detail || 'Login failed. Please check your credentials.';
