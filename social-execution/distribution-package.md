@@ -21,7 +21,7 @@ Part of the LexiFlow Suite — all 6 modules for $69/month.
 
 Read the full post → https://lexiflow.co/blog/how-ai-medical-merit-review-cuts-case-screening
 
-Or email us for a free sample report: lexiflow-legal-suite-88a6f8e9@ctomail.io
+Or email us for a private demonstration: lexiflow-legal-suite-88a6f8e9@ctomail.io
 
 ### X/Twitter Thread — Done (Publish Now)
 1/ Every PI attorney knows this pain: 500+ pages of medical records, 8-12 hours to screen, and you STILL might miss the case.
@@ -33,7 +33,7 @@ Or email us for a free sample report: lexiflow-legal-suite-88a6f8e9@ctomail.io
 ### Email Newsletter — Ready to Send
 **Subject:** 8 hours to 3 minutes: The new math of case screening
 **Preview:** How AI medical merit review is transforming case screening
-**Body:** The average firm spends 8-12 hours manually reviewing medical records. Our latest post breaks down how AI changes this — including cost comparisons, step-by-step workflow, and real ROI numbers. Read more: https://lexiflow.co/blog/how-ai-medical-merit-review-cuts-case-screening. Reply for a free sample report.
+**Body:** The average firm spends 8-12 hours manually reviewing medical records. Our latest post breaks down how AI changes this — including cost comparisons, step-by-step workflow, and real ROI numbers. Read more: https://lexiflow.co/blog/how-ai-medical-merit-review-cuts-case-screening. Reply for a private demonstration.
 
 ---
 

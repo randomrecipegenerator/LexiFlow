@@ -82,7 +82,7 @@ The $69/month flat fee covers the full LexiFlow Suite (all six modules) for unli
 LexiFlow can be deployed in under 2 hours. No installation, no IT involvement, no long-term contract. Most firms review real cases within the first day.
 
 ### Can I try it before committing?
-Yes. Email us for a free sample MeritScan report on a real case of your choice. No commitment, no credit card.
+Yes. Email us for a private demo MeritScan report on a real case of your choice. No commitment, no credit card.
 
 ## The Bottom Line
 

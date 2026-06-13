@@ -141,7 +141,7 @@ The strongest plaintiff practices maintain complete medical chronologies for eve
 
 [Download our Medical Chronology Template →](/resources/medical-chronology-template.html)
 
-[View a Sample Medical Chronology →](/resources/medical-chronology-sample.html)
+[Request a Private Demo →](/resources/medical-chronology-sample.html)
 
 **Part 1 of this series:** [How to Create a Medical Chronology: A Step-by-Step Guide](/blog/how-to-create-medical-chronology-step-by-step)
 

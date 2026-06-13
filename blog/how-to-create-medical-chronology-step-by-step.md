@@ -160,9 +160,9 @@ A well-constructed medical chronology can make or break a case. Whether you're b
 
 [Download our Medical Chronology Template →](/resources/medical-chronology-template.html)
 
-[View a Sample Medical Chronology →](/resources/medical-chronology-sample.html)
+[Request a Private Demo →](/resources/medical-chronology-sample.html)
 
-**Want to see AI medical chronology in action?** [Email our team →](mailto:leads@lexiflow.co) for a free sample chronology on a real case.
+**Want to see AI medical chronology in action?** [Email our team →](mailto:leads@lexiflow.co) for a Private Demo on a real case.
 
 ---
 

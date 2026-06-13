@@ -12,7 +12,7 @@ Part of the LexiFlow Suite — plans from $69/month (3 tiers available).
 
 Read the full post → https://lexiflow.co/blog/how-ai-medical-merit-review-cuts-case-screening
 
-Or email us for a free sample report: lexiflow-legal-suite-88a6f8e9@ctomail.io
+Or email us for a private demonstration: lexiflow-legal-suite-88a6f8e9@ctomail.io
 
 ## X/Twitter (Thread)
 1/ Every PI attorney knows this pain: 500+ pages of medical records, 8-12 hours to screen, and you STILL might miss the case.
@@ -28,4 +28,4 @@ Or email us for a free sample report: lexiflow-legal-suite-88a6f8e9@ctomail.io
 
 Read more: https://lexiflow.co/blog/how-ai-medical-merit-review-cuts-case-screening
 
-Reply for a free sample report.
+Reply for a private demonstration.
