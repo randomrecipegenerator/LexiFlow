@@ -5,10 +5,11 @@ import argparse
 from sqlalchemy.orm import Session
 
 # Add the project root to the python path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import models, database, ai_engine
 from database import SessionLocal, engine
+from auth import hash_password
 
 def provision_firm(name: str, slug: str, email: str, password: str, branding_json_path: str = None, criteria_text: str = None, criteria_url: str = None):
     db = SessionLocal()
@@ -55,7 +56,7 @@ def provision_firm(name: str, slug: str, email: str, password: str, branding_jso
         if not existing_user:
             user = models.User(
                 email=email,
-                hashed_password=password, # In a real app, hash this!
+                hashed_password=hash_password(password),  # Properly hashed with bcrypt
                 full_name=f"{name} Admin",
                 firm_id=firm.id,
                 role="admin"
