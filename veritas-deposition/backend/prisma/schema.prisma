@@ -1,0 +1,302 @@
+// ─────────────────────────────────────────────────────────────
+// Veritas Deposition™ — Prisma Schema (PostgreSQL)
+// Evidence Intelligence System — Data Models
+// ─────────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Matter / Case ───────────────────────────────────────────
+
+model Matter {
+  id             String   @id @default(uuid()) @map("id")
+  externalId     String?  @unique @map("external_id")    // CRM integration (Filevine/Clio matter ID)
+  title          String   @map("title")
+  caseNumber     String?  @map("case_number")
+  caseType       CaseType @default(MEDICAL_MALPRACTICE) @map("case_type")
+  jurisdiction   String?  @map("jurisdiction")
+  court          String?  @map("court")
+  judge          String?  @map("judge")
+  status         MatterStatus @default(ACTIVE) @map("status")
+  
+  // Metadata
+  plaintiffName  String?  @map("plaintiff_name")
+  defendantName  String?  @map("defendant_name")
+  firmId         String?  @map("firm_id")
+  attorneyId     String?  @map("attorney_id")
+  
+  // Timestamps
+  filedAt        DateTime?       @map("filed_at")
+  createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime        @updatedAt @map("updated_at")
+
+  // Relations
+  depositions    Deposition[]
+  evidence       Evidence[]
+  witnesses      Witness[]
+  contradictions Contradiction[]
+  documents      Document[]
+
+  @@index([firmId])
+  @@index([status])
+  @@map("matters")
+}
+
+// ─── Deposition ──────────────────────────────────────────────
+
+model Deposition {
+  id             String   @id @default(uuid()) @map("id")
+  matterId        String   @map("matter_id")
+  witnessName    String   @map("witness_name")
+  witnessRole    String?  @map("witness_role")
+  date            DateTime?       @map("date")
+  durationMinutes Int?     @map("duration_minutes")
+  transcriptPath String?  @map("transcript_path")    // S3/cloud storage path
+  transcriptText String?  @map("transcript_text")    // Full extracted text
+  audioPath      String?  @map("audio_path")
+  videoPath      String?  @map("video_path")
+  pageCount      Int?     @map("page_count")
+  wordCount      Int?     @map("word_count")
+  status         DepositionStatus @default(UPLOADED) @map("status")
+  aiProcessed    Boolean  @default(false) @map("ai_processed")
+  credibilityScore Float? @map("credibility_score")
+
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  matter         Matter   @relation(fields: [matterId], references: [id], onDelete: Cascade)
+  testimony      Testimony[]
+  contradictions Contradiction[]
+  documents      Document[]
+
+  @@index([matterId])
+  @@index([witnessName])
+  @@map("depositions")
+}
+
+// ─── Testimony (Structured Segments) ────────────────────────
+
+model Testimony {
+  id             String   @id @default(uuid()) @map("id")
+  depositionId   String   @map("deposition_id")
+  pageNumber     Int?     @map("page_number")
+  lineNumber     Int?     @map("line_number")
+  timestamp      String?  @map("timestamp")           // "00:42:15" format for video sync
+  speaker        String?  @map("speaker")              // "Q" (counsel) or "A" (witness)
+  text           String   @map("text")
+  topic          String?  @map("topic")                // AI-classified topic
+  sentiment      String?  @map("sentiment")            // "positive", "neutral", "defensive"
+  isKeyAdmission Boolean  @default(false) @map("is_key_admission")
+  isHighlighted  Boolean  @default(false) @map("is_highlighted")
+  embedding      Unsupported("vector(1536)")? @map("embedding")  // pgvector for RAG
+
+  order          Int      @default(0) @map("order")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  // Relations
+  deposition     Deposition @relation(fields: [depositionId], references: [id], onDelete: Cascade)
+
+  @@index([depositionId])
+  @@index([topic])
+  @@index([isKeyAdmission])
+  @@map("testimony")
+}
+
+// ─── Witness ─────────────────────────────────────────────────
+
+model Witness {
+  id             String   @id @default(uuid()) @map("id")
+  matterId        String   @map("matter_id")
+  name           String   @map("name")
+  role           String?  @map("role")                 // "Expert", "Fact", "Defendant", "Plaintiff"
+  specialty      String?  @map("specialty")            // For expert witnesses
+  credibilityScore Float? @map("credibility_score")
+  notes          String?  @map("notes")
+
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  matter         Matter   @relation(fields: [matterId], references: [id], onDelete: Cascade)
+
+  @@index([matterId])
+  @@map("witnesses")
+}
+
+// ─── Evidence ────────────────────────────────────────────────
+
+model Evidence {
+  id             String   @id @default(uuid()) @map("id")
+  matterId        String   @map("matter_id")
+  depositionId   String?  @map("deposition_id")       // Optional: evidence introduced in specific deposition
+  title          String   @map("title")
+  evidenceType   EvidenceType @default(OTHER) @map("evidence_type")
+  filePath       String?  @map("file_path")
+  fileHash       String?  @map("file_hash")
+  description    String?  @map("description")
+  source         String?  @map("source")
+  isProffered  Boolean  @default(false) @map("is_offered")
+  isAdmitted     Boolean  @default(false) @map("is_admitted")
+  exhibitNumber  String?  @map("exhibit_number")
+
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  matter         Matter   @relation(fields: [matterId], references: [id], onDelete: Cascade)
+  deposition     Deposition? @relation(fields: [depositionId], references: [id])
+  contradictions Contradiction[] @relation("EvidenceContradiction")
+
+  @@index([matterId])
+  @@index([evidenceType])
+  @@map("evidence")
+}
+
+// ─── Contradiction (AI-Detected) ────────────────────────────
+
+model Contradiction {
+  id                String   @id @default(uuid()) @map("id")
+  matterId           String   @map("matter_id")
+  depositionId      String   @map("deposition_id")
+  evidenceId        String?  @map("evidence_id")       // Conflicting evidence if applicable
+  type              ContradictionType @default(INTERNAL) @map("type")
+  severity          Severity @default(MEDIUM) @map("severity")
+  
+  // Testimony A
+  testimonyIdA      String   @map("testimony_id_a")
+  testimonyTextA    String   @map("testimony_text_a")
+  
+  // Testimony B or Evidence
+  testimonyIdB      String?  @map("testimony_id_b")
+  testimonyTextB    String?  @map("testimony_text_b")
+  
+  // AI Reasoning
+  reasoning         String   @map("reasoning")         // Why AI flagged this as contradictory
+  confidence        Float    @map("confidence")        // 0.0 - 1.0
+
+  createdAt         DateTime @default(now()) @map("created_at")
+  resolvedAt        DateTime? @map("resolved_at")      // When attorney marked as resolved
+  isResolved        Boolean  @default(false) @map("is_resolved")
+
+  // Relations
+  matter            Matter   @relation(fields: [matterId], references: [id], onDelete: Cascade)
+  deposition        Deposition @relation(fields: [depositionId], references: [id], onDelete: Cascade)
+  evidence          Evidence? @relation("EvidenceContradiction", fields: [evidenceId], references: [id])
+  testimonyA        Testimony @relation("ContradictionTestimonyA", fields: [testimonyIdA], references: [id])
+  testimonyB        Testimony? @relation("ContradictionTestimonyB", fields: [testimonyIdB], references: [id])
+
+  @@index([matterId])
+  @@index([depositionId])
+  @@index([type])
+  @@index([severity])
+  @@index([isResolved])
+  @@map("contradictions")
+}
+
+// ─── Document (Uploaded) ────────────────────────────────────
+
+model Document {
+  id              String   @id @default(uuid()) @map("id")
+  matterId         String   @map("matter_id")
+  depositionId    String?  @map("deposition_id")
+  filename        String   @map("filename")
+  filePath        String   @map("file_path")
+  fileSize        Int      @map("file_size")
+  mimeType        String   @map("mime_type")
+  extractedText   String?  @map("extracted_text")
+  isProcessed     Boolean  @default(false) @map("is_processed")
+  ocrStatus       String   @default("PENDING") @map("ocr_status")  // PENDING, PROCESSING, DONE, ERROR
+
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  matter          Matter   @relation(fields: [matterId], references: [id], onDelete: Cascade)
+  deposition      Deposition? @relation(fields: [depositionId], references: [id])
+
+  @@index([matterId])
+  @@index([filename])
+  @@index([ocrStatus])
+  @@map("documents")
+}
+
+// ─── AI Analysis Cache ──────────────────────────────────────
+
+model AiAnalysis {
+  id             String   @id @default(uuid()) @map("id")
+  depositionId   String   @unique @map("deposition_id")
+  contradictions Int      @default(0) @map("contradictions")
+  keyAdmissions  Int      @default(0) @map("key_admissions")
+  credibilityScore Float? @map("credibility_score")
+  summary        String?  @map("summary")
+  analysisJson   String?  @map("analysis_json")        // Full AI response as JSON
+  modelVersion   String?  @map("model_version")
+  processingTimeMs Int?   @map("processing_time_ms")
+
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("ai_analyses")
+}
+
+
+// ─── Enums ──────────────────────────────────────────────────
+
+enum CaseType {
+  PERSONAL_INJURY
+  MEDICAL_MALPRACTICE
+  PRODUCT_LIABILITY
+  NURSING_HOME_NEGLECT
+  WRONGFUL_DEATH
+  MASS_TORT
+  COMMERCIAL_LITIGATION
+  EMPLOYMENT
+  OTHER
+}
+
+enum MatterStatus {
+  ACTIVE
+  DISCOVERY
+  TRIAL
+  SETTLED
+  CLOSED
+  ARCHIVED
+}
+
+enum DepositionStatus {
+  UPLOADED
+  PROCESSING
+  ANALYZED
+  ERROR
+}
+
+enum EvidenceType {
+  MEDICAL_RECORD
+  EMAIL
+  CONTRACT
+  PHOTOGRAPH
+  VIDEO
+  AUDIO
+  REPORT
+  OTHER
+}
+
+enum ContradictionType {
+  INTERNAL          // Witness contradicts own earlier testimony
+  EXTERNAL          // Witness contradicts other witness
+  EVIDENCE          // Witness testimony contradicts documentary evidence
+  IMPOSSIBILITY     // Witness claims something physically impossible
+}
+
+enum Severity {
+  HIGH
+  MEDIUM
+  LOW
+}
