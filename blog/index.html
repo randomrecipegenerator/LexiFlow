@@ -235,7 +235,7 @@
             const grid = document.getElementById('blog-grid');
             try {
                 // Fetch articles.json
-                const response = await fetch('./articles.json');
+                const response = await fetch('/blog/articles.json');
                 if (!response.ok) throw new Error('Failed to load articles');
                 
                 const data = await response.json();

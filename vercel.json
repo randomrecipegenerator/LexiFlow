@@ -7,7 +7,7 @@
       "use": "@vercel/static"
     },
     {
-      "src": "**/*.{xml,txt,png,svg,ico,js,css}",
+      "src": "**/*.{xml,txt,png,svg,ico,js,css,json}",
       "use": "@vercel/static"
     },
     {
