@@ -1488,7 +1488,7 @@ def seed_voice_leads(db: Session = Depends(get_db), current_firm: models.Firm = 
         lead_id=voice_lead.id,
         vapi_call_id=f"vapi-{uuid.uuid4()}",
         phone_number="312-555-0982",
-        recording_url="https://lexiflow.co/assets/demo-recording.mp3",
+        recording_url="/assets/demo-recording.mp3",
         summary="Caller reports surgical error during appendectomy. High medical merit.",
         transcript="Assistant: Hello, how can I help you? Caller: I had surgery last week and they left a sponge inside me. Assistant: I'm so sorry to hear that...",
         duration_seconds=145,
