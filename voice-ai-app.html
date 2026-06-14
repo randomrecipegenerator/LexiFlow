@@ -39,7 +39,7 @@
                     <div class="text-xs text-gray-400 font-bold uppercase">System Status</div>
                     <div class="text-green-500 font-bold text-sm flex items-center"><i class="fas fa-circle text-[8px] mr-2"></i> ONLINE</div>
                 </div>
-                <button class="bg-navy text-gold px-6 py-2 rounded-lg font-bold" style="background: #0f172a; color: #c9a84c;">
+                <button onclick="openConfig()" class="bg-navy text-gold px-6 py-2 rounded-lg font-bold" style="background: #0f172a; color: #c9a84c;">
                     Configure Vapi
                 </button>
             </div>
@@ -54,22 +54,25 @@
                     <h3 class="font-bold mb-4">Phone Configuration</h3>
                     <div class="p-4 bg-slate-50 rounded-lg border mb-4">
                         <div class="text-xs text-gray-400 font-bold uppercase mb-1">Active Number</div>
-                        <div class="font-mono font-bold text-navy">+1 (212) 555-0198</div>
+                        <div class="font-mono font-bold text-navy" id="active-number">+1 (212) 555-0198</div>
                     </div>
                     <div class="space-y-3">
                         <div class="flex justify-between text-sm">
                             <span class="text-gray-500">Intake Mode</span>
-                            <span class="font-bold">Empathy-Reasoning</span>
+                            <span class="font-bold" id="intake-mode">Empathy-Reasoning</span>
                         </div>
                         <div class="flex justify-between text-sm">
                             <span class="text-gray-500">After-Hours</span>
-                            <span class="text-green-600 font-bold">Enabled</span>
+                            <span class="text-green-600 font-bold" id="after-hours-status">Enabled</span>
                         </div>
                         <div class="flex justify-between text-sm">
                             <span class="text-gray-500">CRM Sync</span>
                             <span class="text-green-600 font-bold">Real-time</span>
                         </div>
                     </div>
+                    <button onclick="seedDemoCall()" class="mt-6 w-full text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 py-2 rounded font-bold transition">
+                        Seed Demo Call (Testing)
+                    </button>
                 </div>
 
                 <div class="bg-navy text-white p-6 rounded-xl shadow-lg" style="background: #0f172a;">
@@ -131,6 +134,54 @@
         </div>
     </main>
 
+    <!-- Modal for Transcript -->
+    <div id="transcript-modal" class="fixed inset-0 bg-navy/50 backdrop-blur-sm hidden flex items-center justify-center z-[2000]">
+        <div class="bg-white rounded-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h3 class="font-bold text-xl">Call Transcript</h3>
+                <button onclick="closeTranscript()" class="text-gray-400 hover:text-navy"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="transcript-content" class="p-8 overflow-y-auto bg-slate-50 font-mono text-sm leading-relaxed whitespace-pre-wrap">
+                <!-- Transcript text here -->
+            </div>
+            <div class="p-4 border-t text-right">
+                <button onclick="closeTranscript()" class="px-6 py-2 bg-navy text-white rounded-lg font-bold">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Configuration -->
+    <div id="config-modal" class="fixed inset-0 bg-navy/50 backdrop-blur-sm hidden flex items-center justify-center z-[2000]">
+        <div class="bg-white rounded-2xl w-full max-w-lg overflow-hidden">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h3 class="font-bold text-xl">Vapi Configuration</h3>
+                <button onclick="closeConfig()" class="text-gray-400 hover:text-navy"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Phone Number</label>
+                    <input type="text" id="cfg-phone" class="w-full p-3 border rounded-lg" value="+1 (212) 555-0198">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Intake Mode</label>
+                    <select id="cfg-mode" class="w-full p-3 border rounded-lg">
+                        <option value="Empathy-Reasoning">Empathy-Reasoning</option>
+                        <option value="Aggressive-Filtering">Aggressive-Filtering</option>
+                        <option value="Simple-Forwarding">Simple-Forwarding</option>
+                    </select>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="checkbox" id="cfg-after-hours" checked>
+                    <label for="cfg-after-hours" class="text-sm font-bold">Enable After-Hours Mode</label>
+                </div>
+            </div>
+            <div class="p-6 border-t flex justify-end space-x-3">
+                <button onclick="closeConfig()" class="px-6 py-2 text-gray-500 font-bold">Cancel</button>
+                <button onclick="saveConfig()" class="px-6 py-2 bg-navy text-gold rounded-lg font-bold" style="background: #0f172a; color: #c9a84c;">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
     <script src="./config.js"></script>
     <script>
         // Real-time wave animation
@@ -143,8 +194,128 @@
         }, 200);
 
         async function loadCalls() {
-            // Future: Pull real voice logs from /reception/vapi/logs
+            try {
+                const response = await apiFetch('/voice/calls');
+                if (!response.ok) throw new Error('Failed to load calls');
+                const calls = await response.json();
+                renderCalls(calls);
+            } catch (err) {
+                console.error('Error loading calls:', err);
+            }
         }
+
+        async function loadConfig() {
+            try {
+                const response = await apiFetch('/voice/config');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.config) {
+                        document.getElementById('active-number').textContent = data.config.phone_number || '+1 (212) 555-0198';
+                        document.getElementById('intake-mode').textContent = data.config.mode || 'Empathy-Reasoning';
+                        document.getElementById('after-hours-status').textContent = data.config.after_hours ? 'Enabled' : 'Disabled';
+                    }
+                }
+            } catch (err) {
+                console.error('Error loading config:', err);
+            }
+        }
+
+        function renderCalls(calls) {
+            const container = document.getElementById('call-logs');
+            if (!Array.isArray(calls) || calls.length === 0) {
+                container.innerHTML = '<div class="p-8 text-center text-gray-400">No calls recorded yet.</div>';
+                return;
+            }
+
+            container.innerHTML = calls.map(call => {
+                if (!call) return '';
+                const score = Number(call.qualification_score || 0);
+                const duration = Number(call.duration || 0);
+                const min = Math.floor(duration/60);
+                const sec = (duration%60).toString().padStart(2, '0');
+
+                return `
+                <div class="p-6 bg-white rounded-xl border border-gray-200 call-card ${score >= 70 ? 'qualified' : ''} shadow-sm">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <div class="font-bold text-lg">${call.lead_name || 'Unknown Caller'}</div>
+                            <div class="text-xs text-gray-500">${call.phone_number || 'No Number'} · ${min}:${sec} duration</div>
+                        </div>
+                        <span class="${score >= 70 ? 'bg-gold/10 text-gold' : 'bg-slate-100 text-slate-500'} px-3 py-1 rounded-full text-xs font-bold" 
+                              style="${score >= 70 ? 'background: rgba(201,168,76,0.1); color: #c9a84c;' : ''}">
+                            ${score >= 70 ? score + '% MATCH' : 'NOT QUALIFIED'}
+                        </span>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg italic text-sm text-gray-600 mb-4">
+                        "${call.summary || 'Summary pending...'}"
+                    </div>
+                    <div class="flex space-x-4 text-xs font-bold text-navy">
+                        ${call.recording_url ? `<a href="${call.recording_url}" target="_blank" class="cursor-pointer hover:underline"><i class="fas fa-play mr-1"></i> Listen to Recording</a>` : '<span class="text-gray-300">No Recording</span>'}
+                        <span class="cursor-pointer hover:underline" onclick="viewTranscript('${call.id}', \`${(call.transcript || '').replace(/`/g, '\\`')}\`)"><i class="fas fa-file-alt mr-1"></i> View Transcript</span>
+                        <span class="text-gray-300">|</span>
+                        <span class="text-green-600">Synced to Clio</span>
+                    </div>
+                </div>
+            `;}).join('');
+        }
+
+        function viewTranscript(callId, transcript) {
+            document.getElementById('transcript-content').textContent = transcript || "No transcript available for this call.";
+            document.getElementById('transcript-modal').classList.remove('hidden');
+        }
+
+        function closeTranscript() {
+            document.getElementById('transcript-modal').classList.add('hidden');
+        }
+
+        // Config Modal Functions
+        function openConfig() {
+            document.getElementById('config-modal').classList.remove('hidden');
+        }
+
+        function closeConfig() {
+            document.getElementById('config-modal').classList.add('hidden');
+        }
+
+        async function saveConfig() {
+            const config = {
+                phone_number: document.getElementById('cfg-phone').value,
+                mode: document.getElementById('cfg-mode').value,
+                after_hours: document.getElementById('cfg-after-hours').checked
+            };
+
+            try {
+                const response = await apiFetch('/voice/config', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(config)
+                });
+                if (response.ok) {
+                    alert('Configuration saved successfully!');
+                    closeConfig();
+                    loadConfig();
+                }
+            } catch (err) {
+                console.error('Save failed:', err);
+            }
+        }
+
+        async function seedDemoCall() {
+            try {
+                const response = await apiFetch('/demo/seed-voice', { method: 'POST' });
+                if (response.ok) {
+                    alert("Demo Voice Call generated!");
+                    loadCalls();
+                }
+            } catch (err) {
+                console.error('Seed failed:', err);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCalls();
+            loadConfig();
+        });
     </script>
 </body>
 </html>

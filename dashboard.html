@@ -524,23 +524,25 @@ document.addEventListener('DOMContentLoaded', async function() {
   let leads = [];
   try {
       const response = await apiFetch('/leads');
-      leads = response.leads || [];
+      if (!response.ok) throw new Error('Failed to load leads');
+      leads = await response.json();
       updateDashboardStats(leads);
   } catch (err) {
       console.error('Stats loading failed', err);
   }
 
   function updateDashboardStats(leads) {
+      if (!Array.isArray(leads)) leads = [];
       const today = new Date().toISOString().split('T')[0];
-      const leadsToday = leads.filter(l => l.created_at.startsWith(today)).length;
-      const qualified = leads.filter(l => l.qualification_score >= 70).length;
+      const leadsToday = leads.filter(l => l && l.created_at && l.created_at.startsWith(today)).length;
+      const qualified = leads.filter(l => l && l.qualification_score >= 70).length;
       const qualRate = leads.length > 0 ? Math.round((qualified / leads.length) * 100) : 0;
 
       document.getElementById('val-leads-today').textContent = leadsToday || leads.length; // Fallback to total if 0 today
       document.getElementById('val-qualified-rate').textContent = qualRate + '%';
 
       // MeritScan Stats
-      const meritDocs = leads.reduce((sum, l) => sum + (l.documents ? l.documents.length : 0), 0);
+      const meritDocs = leads.reduce((sum, l) => sum + (l && l.documents ? l.documents.length : 0), 0);
       document.getElementById('val-docs-processed').textContent = (1240 + meritDocs).toLocaleString();
   }
 

@@ -86,7 +86,8 @@
         async function loadValuations() {
             try {
                 const response = await apiFetch('/leads');
-                const leads = response.leads || [];
+                if (!response.ok) throw new Error('Failed to load leads');
+                const leads = await response.json();
                 renderTable(leads);
                 updateSummary(leads);
             } catch (err) {
@@ -98,29 +99,33 @@
             const body = document.getElementById('valuation-body');
             body.innerHTML = '';
             
+            if (!Array.isArray(leads)) leads = [];
+
             // Sort by score
-            const sortedLeads = [...leads].sort((a, b) => b.qualification_score - a.qualification_score);
+            const sortedLeads = [...leads].sort((a, b) => (b.qualification_score || 0) - (a.qualification_score || 0));
 
             sortedLeads.forEach(lead => {
+                if (!lead) return;
                 const row = document.createElement('tr');
                 row.className = "hover:bg-gray-50 transition";
                 
                 // Mock value calculation if not in DB
-                const estValue = lead.case_value || (lead.qualification_score * 2500);
-                const confidence = lead.qualification_score + 10 > 99 ? 99 : lead.qualification_score + 5;
+                const score = Number(lead.qualification_score || 0);
+                const estValue = Number(lead.case_value || (score * 2500));
+                const confidence = score + 10 > 99 ? 99 : score + 5;
 
                 row.innerHTML = `
-                    <td class="px-6 py-4 font-bold text-gray-900">${lead.full_name}</td>
+                    <td class="px-6 py-4 font-bold text-gray-900">${lead.full_name || 'Unnamed Lead'}</td>
                     <td class="px-6 py-4 text-gray-600">${lead.case_type || 'TBD'}</td>
                     <td class="px-6 py-4">
                         <div class="flex items-center">
                             <div class="w-16 bg-gray-200 rounded-full h-1.5 mr-2">
-                                <div class="bg-navy h-1.5 rounded-full" style="width: ${lead.qualification_score}%; background: #0f172a;"></div>
+                                <div class="bg-navy h-1.5 rounded-full" style="width: ${score}%; background: #0f172a;"></div>
                             </div>
-                            <span class="text-xs font-bold">${lead.qualification_score}%</span>
+                            <span class="text-xs font-bold">${score}%</span>
                         </div>
                     </td>
-                    <td class="px-6 py-4 font-mono font-bold text-navy">$${estValue.toLocaleString()}</td>
+                    <td class="px-6 py-4 font-mono font-bold text-navy">${estValue.toLocaleString()}</td>
                     <td class="px-6 py-4 text-gray-500">${confidence}%</td>
                     <td class="px-6 py-4 text-right">
                         <a href="drafter-app.html" class="text-navy hover:underline font-bold text-sm">Draft Demand</a>
@@ -131,12 +136,17 @@
         }
 
         function updateSummary(leads) {
+            if (!Array.isArray(leads)) leads = [];
             document.getElementById('estimate-count').textContent = leads.length;
-            const highVal = leads.filter(l => l.qualification_score >= 80).length;
+            const highVal = leads.filter(l => l && l.qualification_score >= 80).length;
             document.getElementById('high-val-count').textContent = highVal;
             
-            const total = leads.reduce((sum, l) => sum + (l.case_value || (l.qualification_score * 2500)), 0);
-            document.getElementById('total-val').textContent = `$${(total / 1000000).toFixed(1)}M`;
+            const total = leads.reduce((sum, l) => {
+                const score = l ? Number(l.qualification_score || 0) : 0;
+                const val = l ? Number(l.case_value || (score * 2500)) : 0;
+                return sum + val;
+            }, 0);
+            document.getElementById('total-val').textContent = `${(total / 1000000).toFixed(1)}M`;
         }
 
         loadValuations();

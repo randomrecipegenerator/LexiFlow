@@ -123,7 +123,8 @@
         async function loadLeads() {
             try {
                 const response = await apiFetch('/leads');
-                leads = response.leads || [];
+                if (!response.ok) throw new Error('Failed to load leads');
+                leads = await response.json();
                 document.getElementById('lead-count').textContent = `${leads.length} leads`;
                 renderLeadList();
             } catch (err) {
@@ -136,28 +137,31 @@
             const list = document.getElementById('lead-list');
             list.innerHTML = '';
 
-            if (leads.length === 0) {
+            if (!Array.isArray(leads) || leads.length === 0) {
                 list.innerHTML = '<div class="p-4 bg-white rounded-lg border border-gray-200 text-gray-500 text-center">No active inquiries found.</div>';
                 return;
             }
 
             leads.forEach(lead => {
+                if (!lead) return;
                 const card = document.createElement('div');
-                card.className = `lead-card p-4 bg-white rounded-lg border border-gray-200 cursor-pointer hover:shadow-md ${lead.status.toLowerCase()}`;
+                card.className = `lead-card p-4 bg-white rounded-lg border border-gray-200 cursor-pointer hover:shadow-md ${String(lead.status || 'new').toLowerCase()}`;
                 card.onclick = () => showLead(lead.id);
 
-                const score = lead.qualification_score || 0;
+                const score = Number(lead.qualification_score || 0);
                 let scoreClass = 'score-low';
                 if (score >= 75) scoreClass = 'score-high';
                 else if (score >= 40) scoreClass = 'score-med';
 
+                const dateStr = lead.created_at ? new Date(lead.created_at).toLocaleDateString() : 'Pending';
+
                 card.innerHTML = `
                     <div class="flex justify-between items-start mb-1">
-                        <span class="font-bold text-gray-900">${lead.full_name}</span>
+                        <span class="font-bold text-gray-900">${lead.full_name || 'Unnamed Lead'}</span>
                         <span class="score-badge ${scoreClass}">${score}%</span>
                     </div>
                     <div class="text-xs text-gray-500 mb-2">${lead.case_type || 'General Inquiry'}</div>
-                    <div class="text-[10px] text-gray-400 uppercase tracking-wider">${new Date(lead.created_at).toLocaleDateString()}</div>
+                    <div class="text-[10px] text-gray-400 uppercase tracking-wider">${dateStr}</div>
                 `;
                 list.appendChild(card);
             });
@@ -169,7 +173,9 @@
             detail.classList.remove('hidden');
             
             try {
-                const lead = await apiFetch(`/leads/${id}`);
+                const response = await apiFetch(`/leads/${id}`);
+                if (!response.ok) throw new Error('Failed to load lead details');
+                const lead = await response.json();
                 
                 document.getElementById('detail-name').textContent = lead.full_name;
                 document.getElementById('detail-case-type').textContent = lead.case_type || 'Case evaluation pending...';

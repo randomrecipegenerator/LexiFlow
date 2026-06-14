@@ -95,12 +95,17 @@ MOCK_DISCOVERY_CASES = [
 
 @router.get("/discovery/overview")
 async def get_discovery_overview():
-    """Get overview of all Discovery-Vault™ cases."""
+    """Get overview of all Discovery-Vault™ cases with enhanced metrics."""
+    total_docs = sum(c["analyzed_documents"] for c in MOCK_DISCOVERY_CASES)
     return {
         "total_cases": len(MOCK_DISCOVERY_CASES),
-        "total_documents_processed": sum(c["analyzed_documents"] for c in MOCK_DISCOVERY_CASES),
+        "total_documents_processed": total_docs,
         "total_hours_saved": sum(c["review_hours_saved"] for c in MOCK_DISCOVERY_CASES),
         "critical_docs_found": sum(c["critical_docs"] for c in MOCK_DISCOVERY_CASES),
+        "storage_used_gb": round(total_docs * 0.05, 2), # Mock: 50MB per doc avg
+        "custodian_count": sum(random.randint(5, 20) for _ in MOCK_DISCOVERY_CASES),
+        "review_queue_count": sum(random.randint(50, 200) for _ in MOCK_DISCOVERY_CASES),
+        "production_count": sum(random.randint(1, 5) for _ in MOCK_DISCOVERY_CASES),
         "cases": MOCK_DISCOVERY_CASES,
     }
 

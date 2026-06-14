@@ -48,26 +48,52 @@
         const params = new URLSearchParams(window.location.search);
         const module = params.get('module') || 'discovery';
 
+        // Robust data handling helpers
+        const safeNum = (v) => {
+            const n = Number(v);
+            return isNaN(n) ? 0 : n;
+        };
+        const safeArr = (v) => Array.isArray(v) ? v : [];
+        const safeStr = (v, fallback = '') => (v === null || v === undefined) ? fallback : String(v);
+
         async function loadModule() {
             const titleEl = document.getElementById('module-title');
             const descEl = document.getElementById('module-desc');
             const contentEl = document.getElementById('content-area');
 
             try {
+                let endpoint = '';
                 if (module === 'discovery') {
                     titleEl.textContent = 'Discovery-Vault™';
                     descEl.textContent = 'AI-powered discovery document analysis and privilege logging.';
-                    const data = await apiFetch('/api/enterprise/discovery/overview');
-                    renderDiscovery(data, contentEl);
+                    endpoint = '/api/enterprise/discovery/overview';
                 } else if (module === 'settlement') {
                     titleEl.textContent = 'Settlement-Predictor Pro™';
                     descEl.textContent = 'Advanced case valuation and settlement probability modeling.';
-                    const data = await apiFetch('/api/enterprise/settlement/overview');
-                    renderSettlement(data, contentEl);
+                    endpoint = '/api/enterprise/settlement/overview';
                 } else if (module === 'compliance') {
                     titleEl.textContent = 'Compliance-Shield™';
                     descEl.textContent = 'Immutable audit trails and HIPAA/SOC2 regulatory monitoring.';
-                    const data = await apiFetch('/api/enterprise/compliance/overview');
+                    endpoint = '/api/enterprise/compliance/overview';
+                }
+
+                if (!endpoint) return;
+
+                const response = await apiFetch(endpoint);
+                console.log(`${module} API Response:`, response);
+
+                if (!response.ok) throw new Error(`${module} API failed with status ${response.status}`);
+                
+                const data = await response.json();
+                console.log(`${module} Data:`, data);
+
+                if (!data) throw new Error(`Empty data returned from ${module} API`);
+
+                if (module === 'discovery') {
+                    renderDiscovery(data, contentEl);
+                } else if (module === 'settlement') {
+                    renderSettlement(data, contentEl);
+                } else if (module === 'compliance') {
                     renderCompliance(data, contentEl);
                 }
             } catch (err) {
@@ -75,123 +101,171 @@
                 contentEl.innerHTML = `
                     <div class="enterprise-card bg-red-50 border-red-200">
                         <h3 class="text-red-800 font-bold">Connection Error</h3>
-                        <p class="text-red-600">This enterprise module is currently in Demo mode and requires the Enterprise API router to be active.</p>
+                        <p class="text-red-600">${err.message || 'This enterprise module is currently in Demo mode and requires the Enterprise API router to be active.'}</p>
                     </div>
                 `;
             }
         }
 
         function renderDiscovery(data, container) {
-            let html = `
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="enterprise-card">
-                        <span class="text-slate-400 text-xs font-bold uppercase">Docs Analyzed</span>
-                        <div class="text-2xl font-bold text-navy">${data.total_documents_processed.toLocaleString()}</div>
+            try {
+                const totalDocs = safeNum(data.total_documents_processed);
+                const hoursSaved = safeNum(data.total_hours_saved);
+                const criticalDocs = safeNum(data.critical_docs_found);
+                const storageUsed = safeNum(data.storage_used_gb);
+                const custodianCount = safeNum(data.custodian_count);
+                const reviewQueue = safeNum(data.review_queue_count);
+                const productionCount = safeNum(data.production_count);
+                const cases = safeArr(data.cases);
+
+                let html = `
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div class="enterprise-card">
+                            <span class="text-slate-400 text-xs font-bold uppercase">Docs Analyzed</span>
+                            <div class="text-2xl font-bold text-navy">${totalDocs.toLocaleString()}</div>
+                        </div>
+                        <div class="enterprise-card">
+                            <span class="text-slate-400 text-xs font-bold uppercase">Storage Used</span>
+                            <div class="text-2xl font-bold text-navy">${storageUsed} GB</div>
+                        </div>
+                        <div class="enterprise-card">
+                            <span class="text-slate-400 text-xs font-bold uppercase">Custodians</span>
+                            <div class="text-2xl font-bold text-navy">${custodianCount}</div>
+                        </div>
+                        <div class="enterprise-card">
+                            <span class="text-slate-400 text-xs font-bold uppercase">Critical Findings</span>
+                            <div class="text-2xl font-bold text-red-600">${criticalDocs}</div>
+                        </div>
                     </div>
-                    <div class="enterprise-card">
-                        <span class="text-slate-400 text-xs font-bold uppercase">Hours Saved</span>
-                        <div class="text-2xl font-bold text-navy">${data.total_hours_saved} hrs</div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                        <div class="enterprise-card">
+                            <span class="text-slate-400 text-xs font-bold uppercase">Hours Saved</span>
+                            <div class="text-2xl font-bold text-navy">${hoursSaved.toLocaleString()} hrs</div>
+                        </div>
+                        <div class="enterprise-card">
+                            <span class="text-slate-400 text-xs font-bold uppercase">Review Queue</span>
+                            <div class="text-2xl font-bold text-orange-600">${reviewQueue.toLocaleString()}</div>
+                        </div>
+                        <div class="enterprise-card">
+                            <span class="text-slate-400 text-xs font-bold uppercase">Productions</span>
+                            <div class="text-2xl font-bold text-navy">${productionCount}</div>
+                        </div>
                     </div>
-                    <div class="enterprise-card">
-                        <span class="text-slate-400 text-xs font-bold uppercase">Critical Findings</span>
-                        <div class="text-2xl font-bold text-red-600">${data.critical_docs_found}</div>
-                    </div>
-                </div>
-                <div class="enterprise-card mt-8">
-                    <h3 class="font-bold mb-6">Active Discovery Cases</h3>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead>
-                                <tr class="text-xs text-slate-400 border-b">
-                                    <th class="pb-3">Case Name</th>
-                                    <th class="pb-3">Type</th>
-                                    <th class="pb-3">Total Docs</th>
-                                    <th class="pb-3">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-            `;
-            data.cases.forEach(c => {
-                html += `
-                    <tr class="border-b last:border-0">
-                        <td class="py-4 font-bold text-navy">${c.case_name}</td>
-                        <td class="py-4 text-sm">${c.case_type}</td>
-                        <td class="py-4 text-sm">${c.total_documents.toLocaleString()}</td>
-                        <td class="py-4"><span class="gold-badge">${c.processing_status}</span></td>
-                    </tr>
+
+                    <div class="enterprise-card mt-8">
+                        <h3 class="font-bold mb-6">Active Discovery Cases</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left">
+                                <thead>
+                                    <tr class="text-xs text-slate-400 border-b">
+                                        <th class="pb-3">Case Name</th>
+                                        <th class="pb-3">Type</th>
+                                        <th class="pb-3">Total Docs</th>
+                                        <th class="pb-3">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                 `;
-            });
-            html += `</tbody></table></div></div>`;
-            container.innerHTML = html;
+                cases.forEach(c => {
+                    html += `
+                        <tr class="border-b last:border-0">
+                            <td class="py-4 font-bold text-navy">${safeStr(c.case_name, 'Unnamed Case')}</td>
+                            <td class="py-4 text-sm">${safeStr(c.case_type, 'Unknown')}</td>
+                            <td class="py-4 text-sm">${safeNum(c.total_documents).toLocaleString()}</td>
+                            <td class="py-4"><span class="gold-badge">${safeStr(c.processing_status, 'Pending')}</span></td>
+                        </tr>
+                    `;
+                });
+                html += `</tbody></table></div></div>`;
+                container.innerHTML = html;
+            } catch (err) {
+                console.error('Discovery render failed', err);
+                container.innerHTML = '<div class="enterprise-card">Error rendering Discovery data.</div>';
+            }
         }
 
         function renderSettlement(data, container) {
-            let html = `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="enterprise-card">
-                        <span class="text-slate-400 text-xs font-bold uppercase">Avg. Prediction Confidence</span>
-                        <div class="text-3xl font-bold text-navy">${data.average_confidence}%</div>
-                    </div>
-                    <div class="enterprise-card">
-                        <span class="text-slate-400 text-xs font-bold uppercase">Total Value Analyzed</span>
-                        <div class="text-3xl font-bold text-navy">$${(data.total_demand_amount / 1000000).toFixed(1)}M</div>
-                    </div>
-                </div>
-                <div class="enterprise-card mt-8">
-                    <h3 class="font-bold mb-6">Case Valuation Models</h3>
-                    <div class="space-y-4">
-            `;
-            data.cases.forEach(c => {
-                html += `
-                    <div class="p-4 border rounded-lg hover:border-gold transition cursor-pointer">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <div class="font-bold text-navy">${c.case_name}</div>
-                                <div class="text-xs text-slate-500">${c.case_type}</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="font-mono font-bold text-navy">$${c.demand_amount.toLocaleString()}</div>
-                                <div class="text-[10px] text-green-600 font-bold uppercase">${c.ai_confidence}% CONFIDENCE</div>
-                            </div>
+            try {
+                const avgConfidence = safeNum(data.average_confidence);
+                const totalValue = safeNum(data.total_demand_amount);
+                const cases = safeArr(data.cases);
+
+                let html = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="enterprise-card">
+                            <span class="text-slate-400 text-xs font-bold uppercase">Avg. Prediction Confidence</span>
+                            <div class="text-3xl font-bold text-navy">${avgConfidence}%</div>
+                        </div>
+                        <div class="enterprise-card">
+                            <span class="text-slate-400 text-xs font-bold uppercase">Total Value Analyzed</span>
+                            <div class="text-3xl font-bold text-navy">$${(totalValue / 1000000).toFixed(1)}M</div>
                         </div>
                     </div>
+                    <div class="enterprise-card mt-8">
+                        <h3 class="font-bold mb-6">Case Valuation Models</h3>
+                        <div class="space-y-4">
                 `;
-            });
-            html += `</div></div>`;
-            container.innerHTML = html;
+                cases.forEach(c => {
+                    html += `
+                        <div class="p-4 border rounded-lg hover:border-gold transition cursor-pointer">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <div class="font-bold text-navy">${safeStr(c.case_name, 'Unnamed Case')}</div>
+                                    <div class="text-xs text-slate-500">${safeStr(c.case_type, 'Unknown')}</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-mono font-bold text-navy">$${safeNum(c.demand_amount).toLocaleString()}</div>
+                                    <div class="text-[10px] text-green-600 font-bold uppercase">${safeNum(c.ai_confidence)}% CONFIDENCE</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `</div></div>`;
+                container.innerHTML = html;
+            } catch (err) {
+                console.error('Settlement render failed', err);
+                container.innerHTML = '<div class="enterprise-card">Error rendering Settlement data.</div>';
+            }
         }
 
         function renderCompliance(data, container) {
-            container.innerHTML = `
-                <div class="enterprise-card">
-                    <div class="flex items-center justify-between mb-8">
-                        <h3 class="font-bold text-xl">Firm Compliance Status</h3>
-                        <span class="bg-green-100 text-green-800 px-4 py-1 rounded-full font-bold text-sm">ACTIVE MONITORING</span>
+            try {
+                container.innerHTML = `
+                    <div class="enterprise-card">
+                        <div class="flex items-center justify-between mb-8">
+                            <h3 class="font-bold text-xl">Firm Compliance Status</h3>
+                            <span class="bg-green-100 text-green-800 px-4 py-1 rounded-full font-bold text-sm">ACTIVE MONITORING</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div class="text-center p-6 bg-slate-50 rounded-xl">
+                                <div class="text-sm text-slate-400 font-bold">Health Score</div>
+                                <div class="text-3xl font-bold text-navy">${safeNum(data.average_score)}%</div>
+                            </div>
+                            <div class="text-center p-6 bg-slate-50 rounded-xl">
+                                <div class="text-sm text-slate-400 font-bold">Compliant Firms</div>
+                                <div class="text-3xl font-bold text-green-600">${safeNum(data.compliant_firms)}</div>
+                            </div>
+                            <div class="text-center p-6 bg-slate-50 rounded-xl">
+                                <div class="text-sm text-slate-400 font-bold">Critical Findings</div>
+                                <div class="text-3xl font-bold text-red-600">${safeNum(data.critical_findings_total)}</div>
+                            </div>
+                            <div class="text-center p-6 bg-slate-50 rounded-xl">
+                                <div class="text-sm text-slate-400 font-bold">Monitored Firms</div>
+                                <div class="text-3xl font-bold text-navy">${safeNum(data.total_firms_monitored)}</div>
+                            </div>
+                        </div>
+                        <div class="mt-8 p-6 border-2 border-dashed border-slate-200 rounded-xl text-center">
+                            <p class="text-slate-500 mb-4">Enterprise Compliance Shield is managing all firm encryption keys and audit trails.</p>
+                            <button class="bg-navy text-gold px-6 py-2 rounded-lg font-bold">Download SOC2 Report</button>
+                        </div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                        <div class="text-center p-6 bg-slate-50 rounded-xl">
-                            <div class="text-sm text-slate-400 font-bold">Health Score</div>
-                            <div class="text-3xl font-bold text-navy">${data.average_score}%</div>
-                        </div>
-                        <div class="text-center p-6 bg-slate-50 rounded-xl">
-                            <div class="text-sm text-slate-400 font-bold">Compliant Firms</div>
-                            <div class="text-3xl font-bold text-green-600">${data.compliant_firms}</div>
-                        </div>
-                        <div class="text-center p-6 bg-slate-50 rounded-xl">
-                            <div class="text-sm text-slate-400 font-bold">Critical Findings</div>
-                            <div class="text-3xl font-bold text-red-600">${data.critical_findings_total}</div>
-                        </div>
-                        <div class="text-center p-6 bg-slate-50 rounded-xl">
-                            <div class="text-sm text-slate-400 font-bold">Monitored Firms</div>
-                            <div class="text-3xl font-bold text-navy">${data.total_firms_monitored}</div>
-                        </div>
-                    </div>
-                    <div class="mt-8 p-6 border-2 border-dashed border-slate-200 rounded-xl text-center">
-                        <p class="text-slate-500 mb-4">Enterprise Compliance Shield is managing all firm encryption keys and audit trails.</p>
-                        <button class="bg-navy text-gold px-6 py-2 rounded-lg font-bold">Download SOC2 Report</button>
-                    </div>
-                </div>
-            `;
+                `;
+            } catch (err) {
+                console.error('Compliance render failed', err);
+                container.innerHTML = '<div class="enterprise-card">Error rendering Compliance data.</div>';
+            }
         }
 
         loadModule();
