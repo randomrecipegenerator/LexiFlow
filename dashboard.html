@@ -154,50 +154,52 @@
     <main class="max-w-screen">
         <div class="module-grid">
             <!-- 1 -->
-            <div class="module-card">
-                <div class="card-head">
-                    <i class="bi bi-robot"></i>
-                    <h3>AI Intake Agent</h3>
-                    <span class="module-badge badge-live">Live</span>
-                </div>
-                <div class="card-body">
-                    <div class="card-tagline">Gatekeeper Pro</div>
-                    <p class="card-desc">24/7 lead capture and reasoning-based qualification.</p>
-                    <div class="metric-row"><span class="metric-label">Leads Today</span><span class="metric-val">142</span></div>
-                    <div class="metric-row"><span class="metric-label">Qualified Rate</span><span class="metric-val">68%</span></div>
-                    <div class="metric-row"><span class="metric-label">Response Time</span><span class="metric-val">&lt; 5 sec</span></div>
-                </div>
-            </div>
-            <!-- 2 -->
-            <div class="module-card">
-                <div class="card-head">
-                    <i class="bi bi-mic"></i>
-                    <h3>Voice AI Receptionist</h3>
-                    <span class="module-badge badge-live">Live</span>
-                </div>
-                <div class="card-body">
-                    <div class="card-tagline">Natural Response</div>
-                    <p class="card-desc">Empathy-driven phone intake for after-hours calls.</p>
-                    <div class="metric-row"><span class="metric-label">Calls Today</span><span class="metric-val">48</span></div>
-                    <div class="metric-row"><span class="metric-label">After-Hours</span><span class="metric-val">22</span></div>
-                    <div class="metric-row"><span class="metric-label">Avg. Duration</span><span class="metric-val">3:42</span></div>
-                </div>
-            </div>
-            <!-- 3 -->
-            <div class="module-card">
-                <div class="card-head">
-                    <i class="bi bi-calendar-event"></i>
-                    <h3>AI Medical Chronologies</h3>
-                    <span class="module-badge badge-live">Live</span>
-                </div>
-                <div class="card-body">
-                    <div class="card-tagline">MeritScan™</div>
-                    <p class="card-desc">Auto-generate timelines from 1,000+ page medical sets.</p>
-                    <div class="metric-row"><span class="metric-label">Docs Processed</span><span class="metric-val">1,247</span></div>
-                    <div class="metric-row"><span class="metric-label">Avg. Set Size</span><span class="metric-val">312 pg</span></div>
-                    <div class="metric-row"><span class="metric-label">Processing Time</span><span class="metric-val">47 sec</span></div>
-                    <a href="medical-chronologies-app.html" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--navy);color:var(--gold);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">View App →</a>
-                </div>
+                                    <div class="module-card">
+                                        <div class="card-head">
+                                            <i class="bi bi-robot"></i>
+                                            <h3>AI Intake Agent</h3>
+                                            <span class="module-badge badge-live">Live</span>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="card-tagline">Gatekeeper Pro</div>
+                                            <p class="card-desc">24/7 lead capture and reasoning-based qualification.</p>
+                                            <div class="metric-row"><span class="metric-label">Leads Today</span><span class="metric-val" id="val-leads-today">...</span></div>
+                                            <div class="metric-row"><span class="metric-label">Qualified Rate</span><span class="metric-val" id="val-qualified-rate">...</span></div>
+                                            <div class="metric-row"><span class="metric-label">Response Time</span><span class="metric-val">&lt; 5 sec</span></div>
+                                            <a href="intake-app.html" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--navy);color:var(--gold);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">Open Intake Agent →</a>
+                                        </div>
+                                    </div>
+                                    <!-- 2 -->
+                                    <div class="module-card">
+                                        <div class="card-head">
+                                            <i class="bi bi-mic"></i>
+                                            <h3>Voice AI Receptionist</h3>
+                                            <span class="module-badge badge-live">Live</span>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="card-tagline">Natural Response</div>
+                                            <p class="card-desc">Empathy-driven phone intake for after-hours calls.</p>
+                                            <div class="metric-row"><span class="metric-label">Calls Today</span><span class="metric-val">48</span></div>
+                                            <div class="metric-row"><span class="metric-label">After-Hours</span><span class="metric-val">22</span></div>
+                                            <div class="metric-row"><span class="metric-label">Avg. Duration</span><span class="metric-val">3:42</span></div>
+                                            <a href="voice-ai-app.html" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--navy);color:var(--gold);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">Configure Voice AI →</a>
+                                        </div>
+                                    </div>
+                                    <!-- 3 -->
+                                    <div class="module-card">
+                                        <div class="card-head">
+                                            <i class="bi bi-calendar-event"></i>
+                                            <h3>AI Medical Chronologies</h3>
+                                            <span class="module-badge badge-live">Live</span>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="card-tagline">MeritScan™</div>
+                                            <p class="card-desc">Auto-generate timelines from 1,000+ page medical sets.</p>
+                                            <div class="metric-row"><span class="metric-label">Docs Processed</span><span class="metric-val" id="val-docs-processed">...</span></div>
+                                            <div class="metric-row"><span class="metric-label">Avg. Set Size</span><span class="metric-val">312 pg</span></div>
+                                            <div class="metric-row"><span class="metric-label">Processing Time</span><span class="metric-val">47 sec</span></div>
+                                            <a href="medical-chronologies-app.html" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--navy);color:var(--gold);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">View App →</a>
+                                        </div>
                                     </div>
                                     <!-- 4 -->
                                     <div class="module-card">
@@ -212,6 +214,7 @@
                                             <div class="metric-row"><span class="metric-label">Docs Drafted</span><span class="metric-val">847</span></div>
                                             <div class="metric-row"><span class="metric-label">Avg. Time</span><span class="metric-val">3 min</span></div>
                                             <div class="metric-row"><span class="metric-label">Billable Saved</span><span class="metric-val">340 hrs</span></div>
+                                            <a href="drafter-app.html" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--navy);color:var(--gold);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">Open Drafter →</a>
                                         </div>
                                     </div>
                                     <!-- 5 -->
@@ -219,15 +222,15 @@
                                         <div class="card-head">
                                             <i class="bi bi-camera-reels"></i>
                                             <h3>DepoLens™</h3>
-                                                                                            <span class="module-badge badge-live">Live</span>
-                                                                                        </div>
-                                                                                        <div class="card-body">
-                                                                                            <div class="card-tagline">Deposition Intelligence</div>
-                                                                                            <p class="card-desc">Find contradictions, key testimony, and generate cross-exam outlines.</p>
-                                                                                            <div class="metric-row"><span class="metric-label">Depos Analyzed</span><span class="metric-val">312</span></div>
-                                                                                            <div class="metric-row"><span class="metric-label">Conflicts Found</span><span class="metric-val">1,847</span></div>
-                                                                                            <div class="metric-row"><span class="metric-label">Time Saved</span><span class="metric-val">156 hrs</span></div>
-                                                                                            <a href="depolens-app.html" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--navy);color:var(--gold);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">View App →</a>
+                                            <span class="module-badge badge-live">Live</span>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="card-tagline">Deposition Intelligence</div>
+                                            <p class="card-desc">Find contradictions, key testimony, and generate cross-exam outlines.</p>
+                                            <div class="metric-row"><span class="metric-label">Depos Analyzed</span><span class="metric-val">312</span></div>
+                                            <div class="metric-row"><span class="metric-label">Conflicts Found</span><span class="metric-val">1,847</span></div>
+                                            <div class="metric-row"><span class="metric-label">Time Saved</span><span class="metric-val">156 hrs</span></div>
+                                            <a href="depolens-app.html" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--navy);color:var(--gold);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">View App →</a>
                                         </div>
                                     </div>
                                     <!-- 6 -->
@@ -243,6 +246,7 @@
                                             <div class="metric-row"><span class="metric-label">Estimates Run</span><span class="metric-val">2,341</span></div>
                                             <div class="metric-row"><span class="metric-label">Avg. Value</span><span class="metric-val">$142,500</span></div>
                                             <div class="metric-row"><span class="metric-label">Accuracy</span><span class="metric-val">94.2%</span></div>
+                                            <a href="settlement-app.html" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--navy);color:var(--gold);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">Run Estimate →</a>
                                         </div>
                                     </div>
                                 </div>
@@ -261,6 +265,7 @@
                                             <div class="metric-row"><span class="metric-label">Docs Reviewed</span><span class="metric-val">47K</span></div>
                                             <div class="metric-row"><span class="metric-label">Privilege Logged</span><span class="metric-val">1,240</span></div>
                                             <div class="metric-row"><span class="metric-label">Cost Savings</span><span class="metric-val">$84K</span></div>
+                                            <a href="enterprise-app.html?module=discovery" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--gold);color:var(--navy);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">Launch Vault →</a>
                                         </div>
                                     </div>
                                     <!-- Enterprise 2 -->
@@ -276,6 +281,7 @@
                                             <div class="metric-row"><span class="metric-label">Verdict Database</span><span class="metric-val">50,000+</span></div>
                                             <div class="metric-row"><span class="metric-label">Avg. Prediction</span><span class="metric-val">$184K</span></div>
                                             <div class="metric-row"><span class="metric-label">Accuracy Rate</span><span class="metric-val">94.2%</span></div>
+                                            <a href="enterprise-app.html?module=settlement" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--gold);color:var(--navy);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">Open Predictor →</a>
                                         </div>
                                     </div>
                                     <!-- Enterprise 3 -->
@@ -307,8 +313,10 @@
                                             <div class="metric-row"><span class="metric-label">Audit Events</span><span class="metric-val">12,847</span></div>
                                             <div class="metric-row"><span class="metric-label">Compliance Score</span><span class="metric-val">99/100</span></div>
                                             <div class="metric-row"><span class="metric-label">BAAs Signed</span><span class="metric-val">487</span></div>
+                                            <a href="enterprise-app.html?module=compliance" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--gold);color:var(--navy);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">Shield Dashboard →</a>
                                         </div>
                                     </div>
+                                </div>
                                 </div>
 
         <div class="analytics-row">
@@ -506,31 +514,58 @@
       <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
     </div>
   </footer>
-<script src="./shared-layout.js"></script><script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const NAVY = '#0f172a', GOLD = '#c9a84c', GOLD_LIGHT = '#e2c96e';
-      new Chart(document.getElementById('chart-conversion'), {
-        type: 'line',
-        data: {
-          labels: ['Jan','Feb','Mar','Apr','May','Jun'],
-          datasets: [{
-            label: 'Conversion Rate %',
-            data: [2.1, 2.4, 2.8, 3.2, 3.5, 3.8],
-            borderColor: GOLD, backgroundColor: GOLD + '20', fill: true, tension: 0.4, pointBackgroundColor: GOLD
-          }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } } }
-      });
-      new Chart(document.getElementById('chart-channel'), {
-        type: 'doughnut',
-        data: {
-          labels: ['Web Widget', 'Voice AI', 'Email', 'Other'],
-          datasets: [{ data: [48, 32, 14, 6], backgroundColor: [NAVY, GOLD, '#16a34a', '#94a3b8'], borderWidth: 0 }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 11 } } } } }
-      });
-    });
-    </script>
+<script src="./shared-layout.js"></script>
+<script src="./config.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+  const NAVY = '#0f172a', GOLD = '#c9a84c', GOLD_LIGHT = '#e2c96e';
+
+  // Load Real Data
+  let leads = [];
+  try {
+      const response = await apiFetch('/leads');
+      leads = response.leads || [];
+      updateDashboardStats(leads);
+  } catch (err) {
+      console.error('Stats loading failed', err);
+  }
+
+  function updateDashboardStats(leads) {
+      const today = new Date().toISOString().split('T')[0];
+      const leadsToday = leads.filter(l => l.created_at.startsWith(today)).length;
+      const qualified = leads.filter(l => l.qualification_score >= 70).length;
+      const qualRate = leads.length > 0 ? Math.round((qualified / leads.length) * 100) : 0;
+
+      document.getElementById('val-leads-today').textContent = leadsToday || leads.length; // Fallback to total if 0 today
+      document.getElementById('val-qualified-rate').textContent = qualRate + '%';
+
+      // MeritScan Stats
+      const meritDocs = leads.reduce((sum, l) => sum + (l.documents ? l.documents.length : 0), 0);
+      document.getElementById('val-docs-processed').textContent = (1240 + meritDocs).toLocaleString();
+  }
+
+  new Chart(document.getElementById('chart-conversion'), {
+    type: 'line',
+    data: {
+      labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+      datasets: [{
+        label: 'Conversion Rate %',
+        data: [2.1, 2.4, 2.8, 3.2, 3.5, 3.8],
+        borderColor: GOLD, backgroundColor: GOLD + '20', fill: true, tension: 0.4, pointBackgroundColor: GOLD
+      }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } } }
+  });
+  new Chart(document.getElementById('chart-channel'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Web Widget', 'Voice AI', 'Email', 'Other'],
+      datasets: [{ data: [48, 32, 14, 6], backgroundColor: [NAVY, GOLD, '#16a34a', '#94a3b8'], borderWidth: 0 }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 11 } } } } }
+  });
+});
+</script>
 
 
 

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexiFlow | Auto-Document Drafter</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./shared-layout.css">
+    <style>
+        .mt-header { margin-top: 80px; }
+        .template-card { cursor: pointer; transition: all 0.2s; }
+        .template-card:hover { border-color: #c9a84c; background: #fffdf5; }
+        .doc-preview { font-family: 'Courier New', Courier, monospace; font-size: 13px; line-height: 1.5; padding: 40px; background: white; box-shadow: 0 0 20px rgba(0,0,0,0.05); min-height: 800px; border: 1px solid #e2e8f0; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <nav><div class="nav-container">
+        <a href="./" class="logo"><span>LF</span> LexiFlow</a>
+        <ul class="nav-links">
+            <li><a href="./dashboard.html">Dashboard</a></li>
+            <li><a href="./intake-app.html">Intake</a></li>
+            <li><a href="./drafter-app.html" class="active">Drafter</a></li>
+            <li><a href="./medical-chronologies-app.html">MeritScan</a></li>
+        </ul>
+    </div></nav>
+
+    <div class="mt-header bg-white border-b border-gray-200">
+        <div class="container mx-auto px-4 py-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="bg-navy p-2 rounded-lg" style="background: #0f172a; color: #c9a84c;">
+                    <i class="fas fa-file-invoice text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800">Auto-Document Drafter</h1>
+            </div>
+            <div class="flex space-x-3">
+                <select id="lead-selector" class="border border-gray-300 rounded-lg px-4 py-2 bg-white">
+                    <option value="">Select a Lead...</option>
+                </select>
+                <button id="generate-btn" class="bg-navy text-gold px-6 py-2 rounded-lg font-bold disabled:opacity-50" style="background: #0f172a; color: #c9a84c;" disabled>
+                    Generate Document
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar: Templates -->
+            <div class="lg:col-span-1 space-y-4">
+                <h2 class="text-lg font-bold mb-4">Templates</h2>
+                <div class="template-card p-4 bg-white rounded-lg border border-navy shadow-sm" data-type="demand">
+                    <div class="font-bold text-navy">Demand Letter</div>
+                    <p class="text-xs text-gray-500">Comprehensive demand based on AI merit analysis.</p>
+                </div>
+                <div class="template-card p-4 bg-white rounded-lg border border-gray-200 opacity-50 cursor-not-allowed">
+                    <div class="font-bold text-gray-400">Notice of Claim</div>
+                    <p class="text-xs text-gray-400">Automated tort claim notice generation.</p>
+                </div>
+                <div class="template-card p-4 bg-white rounded-lg border border-gray-200 opacity-50 cursor-not-allowed">
+                    <div class="font-bold text-gray-400">Complaint Draft</div>
+                    <p class="text-xs text-gray-400">Initial pleading based on fact pattern.</p>
+                </div>
+            </div>
+
+            <!-- Main: Editor/Preview -->
+            <div class="lg:col-span-3">
+                <div id="editor-placeholder" class="bg-white rounded-xl border border-gray-200 p-20 text-center">
+                    <i class="fas fa-file-alt text-5xl text-gray-200 mb-6"></i>
+                    <h3 class="text-xl font-bold text-gray-800">No Document Generated</h3>
+                    <p class="text-gray-500 max-w-sm mx-auto">Select a lead from the dropdown and click 'Generate Document' to start the AI drafting process.</p>
+                </div>
+
+                <div id="editor-view" class="hidden">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-sm font-medium text-gray-500 italic">AI Generated Draft · Review Recommended</span>
+                        <div class="flex space-x-2">
+                            <button class="text-sm bg-white border border-gray-300 px-3 py-1 rounded hover:bg-gray-50"><i class="fas fa-copy mr-1"></i> Copy</button>
+                            <button class="text-sm bg-white border border-gray-300 px-3 py-1 rounded hover:bg-gray-50"><i class="fas fa-download mr-1"></i> PDF</button>
+                            <button class="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">Save to Case</button>
+                        </div>
+                    </div>
+                    <div class="doc-preview" id="document-content">
+                        <!-- Content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./config.js"></script>
+    <script>
+        const leadSelector = document.getElementById('lead-selector');
+        const generateBtn = document.getElementById('generate-btn');
+        const docContent = document.getElementById('document-content');
+        const editorPlaceholder = document.getElementById('editor-placeholder');
+        const editorView = document.getElementById('editor-view');
+
+        async function init() {
+            try {
+                const response = await apiFetch('/leads');
+                const leads = response.leads || [];
+                leads.forEach(lead => {
+                    const opt = document.createElement('option');
+                    opt.value = lead.id;
+                    opt.textContent = `${lead.full_name} (${lead.case_type || 'General'})`;
+                    leadSelector.appendChild(opt);
+                });
+            } catch (err) {
+                console.error('Failed to load leads', err);
+            }
+        }
+
+        leadSelector.addEventListener('change', () => {
+            generateBtn.disabled = !leadSelector.value;
+        });
+
+        generateBtn.addEventListener('click', async () => {
+            const leadId = leadSelector.value;
+            if (!leadId) return;
+
+            generateBtn.disabled = true;
+            generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Drafting...';
+            
+            try {
+                // Endpoint defined in main.py: @app.post("/leads/{lead_id}/draft-demand")
+                const result = await apiFetch(`/leads/${leadId}/draft-demand`, { method: 'POST' });
+                
+                editorPlaceholder.classList.add('hidden');
+                editorView.classList.remove('hidden');
+                
+                docContent.innerHTML = result.draft.replace(/\n/g, '<br>');
+                
+            } catch (err) {
+                console.error('Drafting failed', err);
+                alert('Drafting failed. Ensure the lead has enough data for AI analysis.');
+            } finally {
+                generateBtn.disabled = false;
+                generateBtn.innerHTML = 'Generate Document';
+            }
+        });
+
+        init();
+    </script>
+</body>
+</html>

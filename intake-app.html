@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexiFlow | AI Intake Manager</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./shared-layout.css">
+    <style>
+        .mt-header { margin-top: 80px; }
+        .lead-card { transition: all 0.2s; border-left: 4px solid transparent; }
+        .lead-card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .lead-card.qualified { border-left-color: #16a34a; }
+        .lead-card.new { border-left-color: #3b82f6; }
+        .score-badge { padding: 2px 8px; border-radius: 9999px; font-size: 12px; font-weight: 700; }
+        .score-high { background: #dcfce7; color: #166534; }
+        .score-med { background: #fef9c3; color: #854d0e; }
+        .score-low { background: #fee2e2; color: #991b1b; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <nav><div class="nav-container">
+        <a href="./" class="logo"><span>LF</span> LexiFlow</a>
+        <ul class="nav-links">
+            <li><a href="./dashboard.html">Dashboard</a></li>
+            <li><a href="./intake-app.html" class="active">Intake</a></li>
+            <li><a href="./medical-chronologies-app.html">MeritScan</a></li>
+            <li><a href="./depolens-app.html">DepoLens</a></li>
+        </ul>
+    </div></nav>
+
+    <div class="mt-header bg-white border-b border-gray-200">
+        <div class="container mx-auto px-4 py-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="bg-navy p-2 rounded-lg" style="background: #0f172a; color: #c9a84c;">
+                    <i class="fas fa-robot text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800">AI Intake Agent Manager</h1>
+            </div>
+            <div class="flex space-x-3">
+                <button class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition">
+                    <i class="fas fa-cog mr-2"></i>Agent Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Sidebar: Lead List -->
+            <div class="lg:col-span-1 space-y-4">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-bold">Active Inquiries</h2>
+                    <span class="text-sm text-gray-500" id="lead-count">0 leads</span>
+                </div>
+                <div id="lead-list" class="space-y-3 overflow-y-auto" style="max-height: 700px;">
+                    <!-- Leads injected here -->
+                    <div class="p-4 bg-white rounded-lg border border-gray-200 animate-pulse">Loading leads...</div>
+                </div>
+            </div>
+
+            <!-- Main: Lead Detail & AI Interaction -->
+            <div class="lg:col-span-2">
+                <div id="no-selection" class="bg-white rounded-xl border border-gray-200 p-12 text-center">
+                    <i class="fas fa-mouse-pointer text-4xl text-gray-300 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-800">Select a lead to view analysis</h3>
+                    <p class="text-gray-500">Review real-time AI qualification and interaction logs.</p>
+                </div>
+
+                <div id="lead-detail" class="hidden space-y-6">
+                    <!-- Header Info -->
+                    <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <h2 class="text-2xl font-bold text-gray-900" id="detail-name">...</h2>
+                                <p class="text-gray-500" id="detail-case-type">...</p>
+                            </div>
+                            <div id="detail-score-pill">
+                                <!-- Score Pill -->
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-6">
+                            <div><span class="text-gray-400 block">Phone</span><span id="detail-phone">...</span></div>
+                            <div><span class="text-gray-400 block">Email</span><span id="detail-email">...</span></div>
+                            <div><span class="text-gray-400 block">Status</span><span id="detail-status" class="font-bold">...</span></div>
+                            <div><span class="text-gray-400 block">Jurisdiction</span><span id="detail-location">...</span></div>
+                        </div>
+
+                        <div class="flex space-x-3 border-t pt-6">
+                            <button class="flex-1 bg-navy text-gold py-2 rounded-lg font-bold" style="background: #0f172a; color: #c9a84c;">
+                                Accept Retainer
+                            </button>
+                            <button class="flex-1 border border-gray-300 py-2 rounded-lg font-bold hover:bg-gray-50">
+                                Send to Clio
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- AI Analysis Tabs -->
+                    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                        <div class="flex border-b">
+                            <button class="px-6 py-3 font-bold border-b-2 border-navy text-navy">AI Merit Analysis</button>
+                            <button class="px-6 py-3 font-medium text-gray-500 hover:text-navy">Chat Transcript</button>
+                            <button class="px-6 py-3 font-medium text-gray-500 hover:text-navy">Damage Estimate</button>
+                        </div>
+                        <div class="p-6">
+                            <div id="detail-analysis" class="prose max-w-none text-gray-700 whitespace-pre-line">
+                                <!-- AI Content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./config.js"></script>
+    <script>
+        let leads = [];
+
+        async function loadLeads() {
+            try {
+                const response = await apiFetch('/leads');
+                leads = response.leads || [];
+                document.getElementById('lead-count').textContent = `${leads.length} leads`;
+                renderLeadList();
+            } catch (err) {
+                console.error('Failed to load leads:', err);
+                document.getElementById('lead-list').innerHTML = '<div class="p-4 bg-red-50 text-red-600 rounded-lg">Failed to load leads. Please check your connection.</div>';
+            }
+        }
+
+        function renderLeadList() {
+            const list = document.getElementById('lead-list');
+            list.innerHTML = '';
+
+            if (leads.length === 0) {
+                list.innerHTML = '<div class="p-4 bg-white rounded-lg border border-gray-200 text-gray-500 text-center">No active inquiries found.</div>';
+                return;
+            }
+
+            leads.forEach(lead => {
+                const card = document.createElement('div');
+                card.className = `lead-card p-4 bg-white rounded-lg border border-gray-200 cursor-pointer hover:shadow-md ${lead.status.toLowerCase()}`;
+                card.onclick = () => showLead(lead.id);
+
+                const score = lead.qualification_score || 0;
+                let scoreClass = 'score-low';
+                if (score >= 75) scoreClass = 'score-high';
+                else if (score >= 40) scoreClass = 'score-med';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-1">
+                        <span class="font-bold text-gray-900">${lead.full_name}</span>
+                        <span class="score-badge ${scoreClass}">${score}%</span>
+                    </div>
+                    <div class="text-xs text-gray-500 mb-2">${lead.case_type || 'General Inquiry'}</div>
+                    <div class="text-[10px] text-gray-400 uppercase tracking-wider">${new Date(lead.created_at).toLocaleDateString()}</div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        async function showLead(id) {
+            document.getElementById('no-selection').classList.add('hidden');
+            const detail = document.getElementById('lead-detail');
+            detail.classList.remove('hidden');
+            
+            try {
+                const lead = await apiFetch(`/leads/${id}`);
+                
+                document.getElementById('detail-name').textContent = lead.full_name;
+                document.getElementById('detail-case-type').textContent = lead.case_type || 'Case evaluation pending...';
+                document.getElementById('detail-phone').textContent = lead.phone || 'N/A';
+                document.getElementById('detail-email').textContent = lead.email || 'N/A';
+                document.getElementById('detail-status').textContent = lead.status;
+                document.getElementById('detail-location').textContent = lead.state || 'N/A';
+                
+                const score = lead.qualification_score || 0;
+                let scoreClass = 'score-low';
+                if (score >= 75) scoreClass = 'score-high';
+                else if (score >= 40) scoreClass = 'score-med';
+                
+                document.getElementById('detail-score-pill').innerHTML = `<span class="score-badge ${scoreClass} text-base px-4 py-1">${score}% AI Match</span>`;
+                
+                document.getElementById('detail-analysis').textContent = lead.ai_analysis || "AI is finalizing the merit analysis for this lead...";
+                
+            } catch (err) {
+                console.error('Failed to load lead details:', err);
+            }
+        }
+
+        loadLeads();
+    </script>
+</body>
+</html>

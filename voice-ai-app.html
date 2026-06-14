@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexiFlow | Voice AI Receptionist</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./shared-layout.css">
+    <style>
+        .mt-header { margin-top: 80px; }
+        .call-card { transition: all 0.2s; border-left: 4px solid #94a3b8; }
+        .call-card:hover { transform: translateY(-1px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .call-card.qualified { border-left-color: #c9a84c; }
+        .recording-wave { display: flex; align-items: center; gap: 2px; height: 20px; }
+        .wave-bar { width: 3px; height: 100%; background: #c9a84c; border-radius: 1px; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <nav><div class="nav-container">
+        <a href="./" class="logo"><span>LF</span> LexiFlow</a>
+        <ul class="nav-links">
+            <li><a href="./dashboard.html">Dashboard</a></li>
+            <li><a href="./voice-ai-app.html" class="active">Voice AI</a></li>
+            <li><a href="./intake-app.html">Intake</a></li>
+        </ul>
+    </div></nav>
+
+    <div class="mt-header bg-white border-b border-gray-200">
+        <div class="container mx-auto px-4 py-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="bg-navy p-2 rounded-lg" style="background: #0f172a; color: #c9a84c;">
+                    <i class="fas fa-phone-alt text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800">Voice AI Receptionist</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="text-right">
+                    <div class="text-xs text-gray-400 font-bold uppercase">System Status</div>
+                    <div class="text-green-500 font-bold text-sm flex items-center"><i class="fas fa-circle text-[8px] mr-2"></i> ONLINE</div>
+                </div>
+                <button class="bg-navy text-gold px-6 py-2 rounded-lg font-bold" style="background: #0f172a; color: #c9a84c;">
+                    Configure Vapi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Stats -->
+            <div class="lg:col-span-1 space-y-6">
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h3 class="font-bold mb-4">Phone Configuration</h3>
+                    <div class="p-4 bg-slate-50 rounded-lg border mb-4">
+                        <div class="text-xs text-gray-400 font-bold uppercase mb-1">Active Number</div>
+                        <div class="font-mono font-bold text-navy">+1 (212) 555-0198</div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Intake Mode</span>
+                            <span class="font-bold">Empathy-Reasoning</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">After-Hours</span>
+                            <span class="text-green-600 font-bold">Enabled</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">CRM Sync</span>
+                            <span class="text-green-600 font-bold">Real-time</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-navy text-white p-6 rounded-xl shadow-lg" style="background: #0f172a;">
+                    <h3 class="font-bold text-gold mb-2" style="color: #c9a84c;">Voice Intelligence</h3>
+                    <p class="text-sm text-slate-400 mb-4">AI identifies medical merit within the first 30 seconds of a call.</p>
+                    <div class="recording-wave">
+                        <div class="wave-bar" style="height: 40%"></div>
+                        <div class="wave-bar" style="height: 80%"></div>
+                        <div class="wave-bar" style="height: 60%"></div>
+                        <div class="wave-bar" style="height: 100%"></div>
+                        <div class="wave-bar" style="height: 50%"></div>
+                        <div class="wave-bar" style="height: 90%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call Logs -->
+            <div class="lg:col-span-2 space-y-4">
+                <h2 class="text-xl font-bold mb-4">Recent Voice Intakes</h2>
+                <div id="call-logs" class="space-y-4">
+                    <!-- Call logs injected here -->
+                    <div class="p-6 bg-white rounded-xl border border-gray-200 call-card qualified shadow-sm">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <div class="font-bold text-lg">Sofia Garcia</div>
+                                <div class="text-xs text-gray-500">Medical Malpractice · 4:12 duration</div>
+                            </div>
+                            <span class="bg-gold/10 text-gold px-3 py-1 rounded-full text-xs font-bold" style="background: rgba(201,168,76,0.1); color: #c9a84c;">94% MATCH</span>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg italic text-sm text-gray-600 mb-4">
+                            "...the surgeon admitted they were understaffed that night. I've been in pain since the procedure at Mt. Sinai..."
+                        </div>
+                        <div class="flex space-x-4 text-xs font-bold text-navy">
+                            <span class="cursor-pointer hover:underline"><i class="fas fa-play mr-1"></i> Listen to Recording</span>
+                            <span class="cursor-pointer hover:underline"><i class="fas fa-file-alt mr-1"></i> View Transcript</span>
+                            <span class="text-gray-300">|</span>
+                            <span class="text-green-600">Synced to Clio</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-white rounded-xl border border-gray-200 call-card shadow-sm">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <div class="font-bold text-lg">David Chen</div>
+                                <div class="text-xs text-gray-500">Property Damage · 1:45 duration</div>
+                            </div>
+                            <span class="bg-slate-100 text-slate-500 px-3 py-1 rounded-full text-xs font-bold">NOT QUALIFIED</span>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg italic text-sm text-gray-600 mb-4">
+                            "...neighbor's tree branch fell on the fence. I'm just looking for someone to review the insurance policy..."
+                        </div>
+                        <div class="flex space-x-4 text-xs font-bold text-navy">
+                            <span class="cursor-pointer hover:underline"><i class="fas fa-play mr-1"></i> Listen to Recording</span>
+                            <span class="cursor-pointer hover:underline"><i class="fas fa-file-alt mr-1"></i> View Transcript</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./config.js"></script>
+    <script>
+        // Real-time wave animation
+        const bars = document.querySelectorAll('.wave-bar');
+        setInterval(() => {
+            bars.forEach(bar => {
+                const height = Math.random() * 100;
+                bar.style.height = height + '%';
+            });
+        }, 200);
+
+        async function loadCalls() {
+            // Future: Pull real voice logs from /reception/vapi/logs
+        }
+    </script>
+</body>
+</html>

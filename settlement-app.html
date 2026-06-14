@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexiFlow | Settlement Estimator</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./shared-layout.css">
+    <style>
+        .mt-header { margin-top: 80px; }
+        .valuation-card { border-top: 4px solid #c9a84c; }
+        .stat-card { background: white; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0; }
+        .stat-val { font-size: 28px; font-weight: 800; color: #0f172a; display: block; margin-top: 8px; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <nav><div class="nav-container">
+        <a href="./" class="logo"><span>LF</span> LexiFlow</a>
+        <ul class="nav-links">
+            <li><a href="./dashboard.html">Dashboard</a></li>
+            <li><a href="./intake-app.html">Intake</a></li>
+            <li><a href="./settlement-app.html" class="active">Estimator</a></li>
+            <li><a href="./medical-chronologies-app.html">MeritScan</a></li>
+        </ul>
+    </div></nav>
+
+    <div class="mt-header bg-white border-b border-gray-200">
+        <div class="container mx-auto px-4 py-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="bg-navy p-2 rounded-lg" style="background: #0f172a; color: #c9a84c;">
+                    <i class="fas fa-hand-holding-usd text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800">Settlement & Case Valuation</h1>
+            </div>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Dashboard Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+            <div class="stat-card">
+                <span class="text-gray-400 text-sm font-bold uppercase">Estimated Value</span>
+                <span class="stat-val" id="total-val">$1.2M</span>
+            </div>
+            <div class="stat-card">
+                <span class="text-gray-400 text-sm font-bold uppercase">Active Estimates</span>
+                <span class="stat-val" id="estimate-count">42</span>
+            </div>
+            <div class="stat-card">
+                <span class="text-gray-400 text-sm font-bold uppercase">Avg. Confidence</span>
+                <span class="stat-val">91%</span>
+            </div>
+            <div class="stat-card">
+                <span class="text-gray-400 text-sm font-bold uppercase">High-Value Leads</span>
+                <span class="stat-val" id="high-val-count">12</span>
+            </div>
+        </div>
+
+        <!-- Lead Valuation Table -->
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+            <div class="px-6 py-4 border-b bg-gray-50 flex justify-between items-center">
+                <h2 class="font-bold text-gray-800">Case Valuation Rankings</h2>
+                <div class="text-sm text-gray-500">Comparing leads against 50k+ historical verdicts</div>
+            </div>
+            <table class="w-full text-left">
+                <thead>
+                    <tr class="text-xs font-bold text-gray-400 uppercase tracking-wider bg-gray-50">
+                        <th class="px-6 py-4">Lead Name</th>
+                        <th class="px-6 py-4">Case Type</th>
+                        <th class="px-6 py-4">AI Score</th>
+                        <th class="px-6 py-4">Estimated Value</th>
+                        <th class="px-6 py-4">Confidence</th>
+                        <th class="px-6 py-4 text-right">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="valuation-body" class="divide-y divide-gray-100">
+                    <!-- Rows injected here -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="./config.js"></script>
+    <script>
+        async function loadValuations() {
+            try {
+                const response = await apiFetch('/leads');
+                const leads = response.leads || [];
+                renderTable(leads);
+                updateSummary(leads);
+            } catch (err) {
+                console.error('Failed to load valuations', err);
+            }
+        }
+
+        function renderTable(leads) {
+            const body = document.getElementById('valuation-body');
+            body.innerHTML = '';
+            
+            // Sort by score
+            const sortedLeads = [...leads].sort((a, b) => b.qualification_score - a.qualification_score);
+
+            sortedLeads.forEach(lead => {
+                const row = document.createElement('tr');
+                row.className = "hover:bg-gray-50 transition";
+                
+                // Mock value calculation if not in DB
+                const estValue = lead.case_value || (lead.qualification_score * 2500);
+                const confidence = lead.qualification_score + 10 > 99 ? 99 : lead.qualification_score + 5;
+
+                row.innerHTML = `
+                    <td class="px-6 py-4 font-bold text-gray-900">${lead.full_name}</td>
+                    <td class="px-6 py-4 text-gray-600">${lead.case_type || 'TBD'}</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-16 bg-gray-200 rounded-full h-1.5 mr-2">
+                                <div class="bg-navy h-1.5 rounded-full" style="width: ${lead.qualification_score}%; background: #0f172a;"></div>
+                            </div>
+                            <span class="text-xs font-bold">${lead.qualification_score}%</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 font-mono font-bold text-navy">$${estValue.toLocaleString()}</td>
+                    <td class="px-6 py-4 text-gray-500">${confidence}%</td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="drafter-app.html" class="text-navy hover:underline font-bold text-sm">Draft Demand</a>
+                    </td>
+                `;
+                body.appendChild(row);
+            });
+        }
+
+        function updateSummary(leads) {
+            document.getElementById('estimate-count').textContent = leads.length;
+            const highVal = leads.filter(l => l.qualification_score >= 80).length;
+            document.getElementById('high-val-count').textContent = highVal;
+            
+            const total = leads.reduce((sum, l) => sum + (l.case_value || (l.qualification_score * 2500)), 0);
+            document.getElementById('total-val').textContent = `$${(total / 1000000).toFixed(1)}M`;
+        }
+
+        loadValuations();
+    </script>
+</body>
+</html>
