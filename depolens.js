@@ -80,6 +80,8 @@ function resetUpload() {
 }
 
 async function uploadTranscript() {
+    if (!selectedFile) return;
+
     const formData = new FormData();
     formData.append('file', selectedFile);
 
@@ -93,14 +95,19 @@ async function uploadTranscript() {
             method: 'POST',
             body: formData
         });
+
+        if (!res.ok) throw new Error(`Upload failed with status ${res.status}`);
+
         const data = await res.json();
+        console.log('Upload Response:', data);
+
         if (uploadModal) uploadModal.classList.add('hidden');
         resetUpload();
         if (confirmUpload) confirmUpload.innerText = 'Start Analysis';
         loadTranscripts();
     } catch (err) {
-        console.error(err);
-        alert('Upload failed');
+        console.error('Upload Error:', err);
+        alert('Upload failed: ' + err.message);
         if (confirmUpload) {
             confirmUpload.innerText = 'Start Analysis';
             confirmUpload.disabled = false;
@@ -112,10 +119,22 @@ async function loadTranscripts() {
     if (!transcriptGrid) return;
     try {
         const res = await apiFetch(`${DEPO_API_PREFIX}/transcripts`);
+        if (!res.ok) throw new Error(`Failed to load transcripts: ${res.status}`);
+
         const transcripts = await res.json();
-        
+        if (!Array.isArray(transcripts)) {
+            console.error('Expected transcripts array, got:', transcripts);
+            return;
+        }
+
         transcriptGrid.innerHTML = '';
+        if (transcripts.length === 0) {
+            transcriptGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);"><i class="bi bi-file-text" style="font-size:3rem;display:block;margin-bottom:12px;"></i><p>No transcripts found.</p></div>';
+            return;
+        }
+
         transcripts.forEach(t => {
+            if (!t) return;
             const card = document.createElement('div');
             card.className = 'bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition cursor-pointer';
             card.innerHTML = `
@@ -123,10 +142,10 @@ async function loadTranscripts() {
                     <div class="p-3 bg-blue-100 text-blue-600 rounded-lg">
                         <i class="fas fa-file-alt text-xl"></i>
                     </div>
-                    <span class="text-xs font-bold uppercase px-2 py-1 rounded ${getStatusClass(t.status)}">${t.status}</span>
+                    <span class="text-xs font-bold uppercase px-2 py-1 rounded ${getStatusClass(t.status)}">${t.status || 'unknown'}</span>
                 </div>
-                <h3 class="font-bold text-lg mb-1 truncate" title="${t.filename}">${t.filename}</h3>
-                <p class="text-gray-500 text-sm mb-4">${new Date(t.upload_date).toLocaleDateString()}</p>
+                <h3 class="font-bold text-lg mb-1 truncate" title="${t.filename || 'Untitled'}">${t.filename || 'Untitled'}</h3>
+                <p class="text-gray-500 text-sm mb-4">${t.upload_date ? new Date(t.upload_date).toLocaleDateString() : 'N/A'}</p>
                 <div class="flex justify-end">
                     <button class="text-blue-600 font-semibold text-sm hover:underline" onclick="event.stopPropagation(); viewResult(${t.id})">View Analysis →</button>
                 </div>
@@ -135,26 +154,21 @@ async function loadTranscripts() {
             transcriptGrid.appendChild(card);
         });
     } catch (err) {
-        console.error(err);
-    }
-}
-
-function getStatusClass(status) {
-    switch (status) {
-        case 'completed': return 'bg-green-100 text-green-700';
-        case 'processing': return 'bg-yellow-100 text-yellow-700';
-        case 'error': return 'bg-red-100 text-red-700';
-        default: return 'bg-gray-100 text-gray-700';
+        console.error('Load Transcripts Error:', err);
     }
 }
 
 async function viewResult(id) {
+    if (!id) return;
     try {
         const res = await apiFetch(`${DEPO_API_PREFIX}/transcripts/${id}`);
+        if (!res.ok) throw new Error(`Failed to load result: ${res.status}`);
+
         const data = await res.json();
-        
+        if (!data || !data.transcript) throw new Error('Invalid data structure returned');
+
         if (data.transcript.status !== 'completed') {
-            alert('Analysis still in progress or failed. Status: ' + data.transcript.status);
+            alert('Analysis still in progress or failed. Status: ' + (data.transcript.status || 'unknown'));
             return;
         }
 
@@ -164,45 +178,59 @@ async function viewResult(id) {
         // Populate Summary
         const summaryEl = document.getElementById('summary-text');
         if (summaryEl) summaryEl.innerText = data.summary?.executive_summary || 'No summary available.';
-        
+
         const risksList = document.getElementById('risks-list');
-        if (risksList) risksList.innerHTML = (data.summary?.risks || '').split('\n').map(r => `<li>${r}</li>`).join('');
-        
+        if (risksList) risksList.innerHTML = (data.summary?.risks || '').split('\n').filter(r => r.trim()).map(r => `<li>${r}</li>`).join('') || '<li>No risks identified.</li>';
+
         const admissionsList = document.getElementById('admissions-list');
-        if (admissionsList) admissionsList.innerHTML = (data.summary?.admissions || '').split('\n').map(a => `<li>${a}</li>`).join('');
+        if (admissionsList) admissionsList.innerHTML = (data.summary?.admissions || '').split('\n').filter(a => a.trim()).map(a => `<li>${a}</li>`).join('') || '<li>No admissions found.</li>';
 
         // Populate Conflicts
         const conflictCountEl = document.getElementById('conflict-count');
-        if (conflictCountEl) conflictCountEl.innerText = `${data.conflicts.length} Conflicts`;
-        
+        const conflicts = Array.isArray(data.conflicts) ? data.conflicts : [];
+        if (conflictCountEl) conflictCountEl.innerText = `${conflicts.length} Conflicts`;
+
         const conflictsContainer = document.getElementById('conflicts-container');
-        if (conflictsContainer) conflictsContainer.innerHTML = data.conflicts.map(c => `
-            <div class="p-4 border border-red-100 bg-red-50 rounded-lg">
-                <div class="flex justify-between items-start mb-2">
-                    <h4 class="font-bold text-red-800">${c.witness_a} vs ${c.witness_b}</h4>
-                    <span class="text-xs font-bold px-2 py-1 rounded bg-red-200 text-red-900">${c.severity}</span>
-                </div>
-                <p class="text-sm text-gray-800 mb-2 font-medium">${c.description}</p>
-                <div class="text-xs text-gray-600 bg-white p-2 rounded border border-red-50">
-                    <strong>Reasoning:</strong> ${c.reasoning}
-                </div>
-            </div>
-        `).join('');
+        if (conflictsContainer) {
+            if (conflicts.length === 0) {
+                conflictsContainer.innerHTML = '<p class="text-sm text-gray-500 italic">No direct conflicts detected.</p>';
+            } else {
+                conflictsContainer.innerHTML = conflicts.map(c => `
+                    <div class="p-4 border border-red-100 bg-red-50 rounded-lg">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-red-800">${c.witness_a || 'Witness A'} vs ${c.witness_b || 'Witness B'}</h4>
+                            <span class="text-xs font-bold px-2 py-1 rounded bg-red-200 text-red-900">${c.severity || 'Medium'}</span>
+                        </div>
+                        <p class="text-sm text-gray-800 mb-2 font-medium">${c.description || 'Conflict detected in testimony.'}</p>
+                        <div class="text-xs text-gray-600 bg-white p-2 rounded border border-red-50">
+                            <strong>Reasoning:</strong> ${c.reasoning || 'N/A'}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
 
         // Populate Chronology
         const chronologyBody = document.getElementById('chronology-body');
-        if (chronologyBody) chronologyBody.innerHTML = data.facts.map(f => `
-            <tr>
-                <td class="px-4 py-3 text-sm font-medium text-gray-900">${f.witness_name}</td>
-                <td class="px-4 py-3 text-sm text-gray-500">${f.date_time}</td>
-                <td class="px-4 py-3 text-sm text-gray-700">${f.event_description}</td>
-                <td class="px-4 py-3 text-sm text-gray-500 italic">p.${f.page_reference}</td>
-            </tr>
-        `).join('');
+        const facts = Array.isArray(data.facts) ? data.facts : [];
+        if (chronologyBody) {
+            if (facts.length === 0) {
+                chronologyBody.innerHTML = '<tr><td colspan="4" class="px-4 py-8 text-center text-gray-500 italic">No facts extracted.</td></tr>';
+            } else {
+                chronologyBody.innerHTML = facts.map(f => `
+                    <tr>
+                        <td class="px-4 py-3 text-sm font-medium text-gray-900">${f.witness_name || 'Unknown'}</td>
+                        <td class="px-4 py-3 text-sm text-gray-500">${f.date_time || 'N/A'}</td>
+                        <td class="px-4 py-3 text-sm text-gray-700">${f.event_description || 'N/A'}</td>
+                        <td class="px-4 py-3 text-sm text-gray-500 italic">p.${f.page_reference || '?'}</td>
+                    </tr>
+                `).join('');
+            }
+        }
 
     } catch (err) {
-        console.error(err);
-        alert('Failed to load results');
+        console.error('View Result Error:', err);
+        alert('Failed to load results: ' + err.message);
     }
 }
 

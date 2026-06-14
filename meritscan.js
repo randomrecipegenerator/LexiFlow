@@ -71,28 +71,35 @@ function resetUpload() {
 
 async function startUpload() {
     if (!selectedFile) return;
-    
+
     confirmUpload.disabled = true;
     confirmUpload.innerText = 'Uploading...';
-    
+
     const formData = new FormData();
     formData.append('file', selectedFile);
-    
+
     try {
         const res = await apiFetch('/meritscan/upload', {
             method: 'POST',
             body: formData
         });
+
+        if (!res.ok) throw new Error(`Upload failed with status ${res.status}`);
+
         const data = await res.json();
-        uploadModal.classList.add('hidden');
+        console.log('Upload Success:', data);
+
+        if (uploadModal) uploadModal.classList.add('hidden');
         resetUpload();
-        confirmUpload.innerText = 'Start Analysis';
+        if (confirmUpload) confirmUpload.innerText = 'Start Analysis';
         loadRecords();
     } catch (err) {
-        console.error(err);
-        alert('Upload failed');
-        confirmUpload.disabled = false;
-        confirmUpload.innerText = 'Start Analysis';
+        console.error('Upload Error:', err);
+        alert('Upload failed: ' + err.message);
+        if (confirmUpload) {
+            confirmUpload.disabled = false;
+            confirmUpload.innerText = 'Start Analysis';
+        }
     }
 }
 
@@ -100,15 +107,22 @@ async function loadRecords() {
     if (!recordGrid) return;
     try {
         const res = await apiFetch('/meritscan/reports');
+        if (!res.ok) throw new Error(`Failed to load records: ${res.status}`);
+
         const records = await res.json();
+        if (!Array.isArray(records)) {
+            console.error('Expected records array, got:', records);
+            return;
+        }
+
         recordGrid.innerHTML = '';
-        
         if (records.length === 0) {
             recordGrid.innerHTML = '<div class="col-span-full text-center py-12 text-gray-500">No medical records uploaded yet.</div>';
             return;
         }
 
         records.forEach(r => {
+            if (!r) return;
             const card = document.createElement('div');
             card.className = 'bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition cursor-pointer';
             card.innerHTML = `
@@ -116,10 +130,10 @@ async function loadRecords() {
                     <div class="p-3 bg-blue-100 text-blue-600 rounded-lg">
                         <i class="fas fa-file-medical text-xl"></i>
                     </div>
-                    <span class="text-xs font-bold uppercase px-2 py-1 rounded ${getStatusClass(r.status)}">${r.status}</span>
+                    <span class="text-xs font-bold uppercase px-2 py-1 rounded ${getStatusClass(r.status)}">${r.status || 'unknown'}</span>
                 </div>
-                <h3 class="font-bold text-lg mb-1 truncate" title="${r.filename}">${r.filename}</h3>
-                <p class="text-gray-500 text-sm mb-4">${new Date(r.upload_date).toLocaleDateString()}</p>
+                <h3 class="font-bold text-lg mb-1 truncate" title="${r.filename || 'Untitled'}">${r.filename || 'Untitled'}</h3>
+                <p class="text-gray-500 text-sm mb-4">${r.upload_date ? new Date(r.upload_date).toLocaleDateString() : 'N/A'}</p>
                 <div class="flex justify-end">
                     <button class="text-blue-600 font-semibold text-sm hover:underline" onclick="event.stopPropagation(); viewResult(${r.id})">View Report →</button>
                 </div>
@@ -128,41 +142,43 @@ async function loadRecords() {
             recordGrid.appendChild(card);
         });
     } catch (err) {
-        console.error(err);
-    }
-}
-
-function getStatusClass(status) {
-    switch (status) {
-        case 'completed': return 'bg-green-100 text-green-700';
-        case 'processing': return 'bg-yellow-100 text-yellow-700';
-        case 'error': return 'bg-red-100 text-red-700';
-        default: return 'bg-gray-100 text-gray-700';
+        console.error('Load Records Error:', err);
     }
 }
 
 async function viewResult(id) {
+    if (!id) return;
     try {
         const res = await apiFetch(`/meritscan/reports/${id}`);
+        if (!res.ok) throw new Error(`Failed to load report: ${res.status}`);
+
         const data = await res.json();
-        
+        if (!data || !data.record) throw new Error('Invalid report data received');
+
         if (data.record.status !== 'completed') {
-            alert('Analysis still in progress or failed. Status: ' + data.record.status);
+            alert('Analysis still in progress or failed. Status: ' + (data.record.status || 'unknown'));
             return;
         }
-        
-        recordListSection.classList.add('hidden');
-        resultSection.classList.remove('hidden');
-        
+
+        if (recordListSection) recordListSection.classList.add('hidden');
+        if (resultSection) resultSection.classList.remove('hidden');
+
         // Populate Result
-        document.getElementById('summary-text').innerText = data.report?.executive_summary || 'No summary available.';
-        document.getElementById('chronology-text').innerText = data.report?.chronology || 'No chronology available.';
-        document.getElementById('negligence-text').innerText = data.report?.negligence_markers || 'No negligence markers identified.';
-        document.getElementById('soc-text').innerText = data.report?.standard_of_care_analysis || 'No standard of care analysis available.';
-        
+        const summaryEl = document.getElementById('summary-text');
+        if (summaryEl) summaryEl.innerText = data.report?.executive_summary || 'No summary available.';
+
+        const chronologyEl = document.getElementById('chronology-text');
+        if (chronologyEl) chronologyEl.innerText = data.report?.chronology || 'No chronology available.';
+
+        const negligenceEl = document.getElementById('negligence-text');
+        if (negligenceEl) negligenceEl.innerText = data.report?.negligence_markers || 'No negligence markers identified.';
+
+        const socEl = document.getElementById('soc-text');
+        if (socEl) socEl.innerText = data.report?.standard_of_care_analysis || 'No standard of care analysis available.';
+
     } catch (err) {
-        console.error(err);
-        alert('Failed to load results');
+        console.error('View Result Error:', err);
+        alert('Failed to load results: ' + err.message);
     }
 }
 
