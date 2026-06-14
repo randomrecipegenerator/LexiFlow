@@ -142,11 +142,74 @@
     <div class="signup-card">
         <h2>Start Your 14-Day Free Trial</h2>
         <p>Experience the full power of LexiFlow. No credit card required to start. 14-day trials available for all tiers: <strong>Standard ($69/mo)</strong>, <strong>Professional ($199/mo)</strong>, and <strong>Enterprise ($299/mo)</strong>.</p>
-        <a href="mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io?subject=LexiFlow%20Free%20Trial%20Request&body=Hello%2C%20we're%20interested%20in%20starting%20a%2014-day%20free%20trial%20for%20LexiFlow.%20Firm%20Name%3A" class="btn-large">Request Access via Email →</a>
+        
+        <form id="signupForm" style="max-width: 400px; margin: 0 auto; text-align: left;">
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Full Name</label>
+            <input type="text" id="signupName" name="name" style="width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px;" required />
+          </div>
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Work Email</label>
+            <input type="email" id="signupEmail" name="email" style="width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px;" required />
+          </div>
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Law Firm Name</label>
+            <input type="text" id="signupFirm" name="firm" style="width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px;" required />
+          </div>
+          <button type="submit" class="btn-large" id="signupSubmitBtn" style="width: 100%; border: none; cursor: pointer;">Start Free Trial →</button>
+        </form>
+        
+        <div id="signupStatus" style="margin-top: 20px; display: none; font-weight: 500;"></div>
+
         <div style="margin-top: 24px; font-size: 14px; color: var(--slate-400);">
             <i class="bi bi-shield-check"></i> HIPAA Compliant & SOC2 Certified
         </div>
     </div>
+
+<script>
+document.getElementById('signupForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('signupSubmitBtn');
+    const status = document.getElementById('signupStatus');
+    const name = document.getElementById('signupName').value;
+    const email = document.getElementById('signupEmail').value;
+    const firm = document.getElementById('signupFirm').value;
+
+    btn.disabled = true;
+    btn.innerHTML = 'Processing...';
+    status.style.display = 'block';
+    status.style.color = '#1a3a5c';
+    status.innerHTML = 'Setting up your trial...';
+
+    try {
+        const formData = new URLSearchParams();
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('firm', firm);
+        formData.append('tier', 'trial');
+
+        const response = await fetch('/api/demo-request', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: formData.toString()
+        });
+
+        if (response.ok) {
+            status.style.color = '#059669';
+            status.innerHTML = '✓ Success! Check your email for onboarding instructions.';
+            btn.innerHTML = 'Trial Requested';
+            document.getElementById('signupForm').reset();
+        } else {
+            throw new Error('Failed');
+        }
+    } catch (err) {
+        status.style.color = '#dc2626';
+        status.innerHTML = '✕ Error processing request. Please try again.';
+        btn.disabled = false;
+        btn.innerHTML = 'Start Free Trial →';
+    }
+});
+</script>
   </div>
 
 

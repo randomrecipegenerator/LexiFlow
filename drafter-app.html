@@ -99,7 +99,8 @@
         async function init() {
             try {
                 const response = await apiFetch('/leads');
-                const leads = response.leads || [];
+                if (!response.ok) throw new Error('Failed to load leads');
+                const leads = await response.json();
                 leads.forEach(lead => {
                     const opt = document.createElement('option');
                     opt.value = lead.id;
@@ -124,7 +125,9 @@
             
             try {
                 // Endpoint defined in main.py: @app.post("/leads/{lead_id}/draft-demand")
-                const result = await apiFetch(`/leads/${leadId}/draft-demand`, { method: 'POST' });
+                const response = await apiFetch(`/leads/${leadId}/draft-demand`, { method: 'POST' });
+                if (!response.ok) throw new Error('Drafting failed');
+                const result = await response.json();
                 
                 editorPlaceholder.classList.add('hidden');
                 editorView.classList.remove('hidden');

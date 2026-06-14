@@ -121,7 +121,7 @@ def start_chat(firm_slug: str = None, db: Session = Depends(get_db)):
     return {"lead_id": lead.id}
 
 @app.post("/demo-request")
-async def demo_request(name: str = Form(...), email: str = Form(...), firm: str = Form(None), db: Session = Depends(get_db)):
+async def demo_request(name: str = Form(...), email: str = Form(...), firm: str = Form(None), tier: str = Form(None), db: Session = Depends(get_db)):
     demo_req = models.DemoRequest(name=name, email=email, firm=firm)
     db.add(demo_req)
     db.commit()
@@ -134,21 +134,35 @@ async def demo_request(name: str = Form(...), email: str = Form(...), firm: str 
     Name: {name}
     Email: {email}
     Law Firm: {firm or 'Not provided'}
+    Plan Tier: {tier or 'Not specified'}
     
     Timestamp: {demo_req.created_at}
     """
     
+    # Also create a more professional HTML version
+    html_body = f"""
+    <h2>New LexiFlow Consultation Request</h2>
+    <p><strong>Name:</strong> {name}</p>
+    <p><strong>Email:</strong> {email}</p>
+    <p><strong>Law Firm:</strong> {firm or 'Not provided'}</p>
+    <p><strong>Plan Tier:</strong> {tier or 'Not specified'}</p>
+    <hr>
+    <p><small>Received at {demo_req.created_at}</small></p>
+    """
+    
     try:
-        await integration_engine.integration_engine.send_postmark_email(
+        from mail_service import mail_service
+        await mail_service.send_email(
             to_email="lexiflow-legal-suite-88a6f8e9@ctomail.io",
             subject=subject,
-            body=body
+            body=body,
+            html_body=html_body
         )
     except Exception as e:
         # Log error but don't block the user's request
-        print(f"Failed to send demo request notification: {e}")
+        logger.error(f"Failed to send demo request notification: {e}")
 
-    create_audit_log(db, "demo_request", details=f"Name: {name}, Email: {email}, Firm: {firm}")
+    create_audit_log(db, "demo_request", details=f"Name: {name}, Email: {email}, Firm: {firm}, Tier: {tier}")
     return {"status": "success", "message": "Demo request received"}
 
 @app.post("/integrations/github/push")
@@ -874,10 +888,63 @@ async def reception_webhook(
     
     return {"status": "success", "lead_id": lead.id}
 
+# --- Voice AI Endpoints ---
+
+@app.get("/voice/calls", response_model=List[dict])
+def get_voice_calls(db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    query = db.query(models.VoiceCall)
+    if current_firm:
+        query = query.filter(models.VoiceCall.firm_id == current_firm.id)
+    calls = query.order_by(models.VoiceCall.created_at.desc()).all()
+    
+    result = []
+    for c in calls:
+        result.append({
+            "id": c.id,
+            "lead_id": c.lead_id,
+            "phone_number": c.phone_number,
+            "recording_url": c.recording_url,
+            "summary": c.summary,
+            "transcript": c.transcript,
+            "duration": c.duration_seconds,
+            "status": c.status,
+            "created_at": c.created_at.isoformat(),
+            "lead_name": c.lead.full_name if c.lead else "Unknown",
+            "qualification_score": c.lead.qualification_score if c.lead else 0
+        })
+    return result
+
+@app.get("/voice/config")
+def get_voice_config(db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    if not current_firm:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    return {
+        "voice_enabled": current_firm.voice_enabled,
+        "config": json.loads(current_firm.voice_config_json) if current_firm.voice_config_json else {}
+    }
+
+@app.post("/voice/config")
+def update_voice_config(config: dict, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
+    if not current_firm:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    current_firm.voice_config_json = json.dumps(config)
+    db.commit()
+    return {"status": "success"}
+
+# --- End Voice AI Endpoints ---
+
 @app.post("/reception/vapi/brain")
 async def vapi_brain(payload: dict, db: Session = Depends(get_db)):
     """Vapi Server URL for Voice AI logic"""
-    return await reception_engine.handle_vapi_message(payload, db)
+    result = await reception_engine.handle_vapi_message(payload, db)
+    
+    # If lead was created, try auto-syncing to CRMs
+    if result.get("status") == "success" and result.get("lead_id"):
+        lead = db.query(models.Lead).filter(models.Lead.id == result["lead_id"]).first()
+        if lead and lead.qualification_score and lead.qualification_score >= 50:
+            await integration_engine.integration_engine.sync_lead_auto(lead, db)
+            
+    return result
 
 @app.post("/reception/postmark/inbound")
 async def postmark_inbound(payload: dict, db: Session = Depends(get_db)):
@@ -1407,30 +1474,27 @@ def seed_voice_leads(db: Session = Depends(get_db), current_firm: models.Firm = 
         case_type="Medical Malpractice",
         description="Incoming call from Sarah Miller regarding a surgical error at General Hospital. [VOICE AI INTAKE]",
         is_demo=1,
-        status="High Priority",
-        score=92.0,
-        case_value_estimate=150000.0,
-        source="Voice AI Receptionist"
+        source="Voice AI",
+        qualification_score=88,
+        status="Qualified",
+        ai_summary="Caller reports surgical error during appendectomy. High medical merit."
     )
     db.add(voice_lead)
-    db.commit()
-    db.refresh(voice_lead)
+    db.flush()
     
-    # Add simulated phone transcript
-    transcript = [
-        ("ai", "Hello, thank you for calling LexiFlow Legal. This is Lexi, how can I help you today?"),
-        ("user", "Yes, I'm calling about my surgery last month. Something went very wrong."),
-        ("ai", "I'm so sorry to hear that. I'm here to gather some details for our attorneys. Can you tell me which hospital this was at?"),
-        ("user", "It was at Chicago General. I went in for a routine gallbladder removal but they punctured my lung."),
-        ("ai", "That sounds extremely serious. When exactly did this happen?"),
-        ("user", "On April 12th. I've been in and out of the ICU since then."),
-        ("ai", "I understand. I'm going to flag this for immediate review by our senior partners. Could you provide your email address so we can send you some initial documents?")
-    ]
-    
-    for role, content in transcript:
-        msg = models.Message(lead_id=voice_lead.id, role=role, content=content)
-        db.add(msg)
-    
+    # Also seed a VoiceCall record
+    voice_call = models.VoiceCall(
+        firm_id=current_firm.id if current_firm else None,
+        lead_id=voice_lead.id,
+        vapi_call_id=f"vapi-{uuid.uuid4()}",
+        phone_number="312-555-0982",
+        recording_url="https://lexiflow.co/assets/demo-recording.mp3",
+        summary="Caller reports surgical error during appendectomy. High medical merit.",
+        transcript="Assistant: Hello, how can I help you? Caller: I had surgery last week and they left a sponge inside me. Assistant: I'm so sorry to hear that...",
+        duration_seconds=145,
+        status="completed"
+    )
+    db.add(voice_call)
     db.commit()
     return {"status": "success", "lead_id": voice_lead.id}
 

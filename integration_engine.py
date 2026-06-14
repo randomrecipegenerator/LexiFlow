@@ -5,6 +5,7 @@ import logging
 import asyncio
 from typing import Dict, Any, Optional
 from sqlalchemy.orm import Session
+from mail_service import mail_service
 
 logger = logging.getLogger(__name__)
 
@@ -353,47 +354,13 @@ class IntegrationEngine:
         }
 
     async def send_postmark_email(self, to_email: str, subject: str, body: str, firm=None) -> Dict[str, Any]:
-        """Send an outbound email via Postmark API."""
-        api_key = None
-        if firm and firm.api_config_json:
-            try:
-                config = json.loads(firm.api_config_json)
-                api_key = config.get("postmark_api_key")
-            except:
-                pass
-        
-        if not api_key:
-            api_key = os.getenv("POSTMARK_SERVER_TOKEN")
-
-        from_email = os.getenv("POSTMARK_FROM_EMAIL", "lexiflow-legal-suite-88a6f8e9@ctomail.io")
-        
-        if not api_key or "placeholder" in api_key.lower():
-            logger.info(f"SIMULATED EMAIL to {to_email}: {subject}")
-            return {"status": "success", "simulated": True}
-
-        payload = {
-            "From": from_email,
-            "To": to_email,
-            "Subject": subject,
-            "TextBody": body,
-            "MessageStream": "outbound"
-        }
-
-        async with httpx.AsyncClient() as client:
-            try:
-                res = await client.post(
-                    "https://api.postmarkapp.com/email",
-                    json=payload,
-                    headers={
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
-                        "X-Postmark-Server-Token": api_key
-                    }
-                )
-                return res.json()
-            except Exception as e:
-                logger.error(f"Postmark send failed: {str(e)}")
-                return {"status": "error", "message": str(e)}
+        """Send an outbound email via unified MailService."""
+        return await mail_service.send_email(
+            to_email=to_email,
+            subject=subject,
+            body=body,
+            firm=firm
+        )
 
     async def push_to_github(self, firm, repo_full_name: str, branch: str, file_path: str, content: str, commit_message: str) -> Dict[str, Any]:
         """

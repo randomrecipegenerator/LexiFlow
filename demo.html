@@ -125,19 +125,66 @@
   <div class="demo-form">
     <h3>📅 Book Your Enterprise Demo</h3>
     <p>Fill out the form below and we'll schedule a personalized walkthrough of the full Enterprise suite.</p>
-    <form action="mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io" method="post" enctype="text/plain">
-      <input type="text" name="name" placeholder="Full Name" required />
-      <input type="email" name="email" placeholder="Work Email" required />
-      <input type="text" name="firm" placeholder="Law Firm Name" required />
-      <select name="tier">
+    <form id="demoForm">
+      <input type="text" id="demoName" name="name" placeholder="Full Name" required />
+      <input type="email" id="demoEmail" name="email" placeholder="Work Email" required />
+      <input type="text" id="demoFirm" name="firm" placeholder="Law Firm Name" required />
+      <select id="demoTier" name="tier">
         <option value="enterprise">Enterprise — $299/mo (All Modules)</option>
         <option value="professional">Professional — $199/mo</option>
         <option value="standard">Standard — $69/mo</option>
       </select>
-      <button type="submit" class="btn btn-primary">Request Demo →</button>
+      <button type="submit" class="btn btn-primary" id="demoSubmitBtn">Request Demo →</button>
+      <div id="demoStatus" style="margin-top: 15px; display: none; text-align: center; font-weight: 500;"></div>
     </form>
   </div>
 </div></section>
+
+<script>
+document.getElementById('demoForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('demoSubmitBtn');
+    const status = document.getElementById('demoStatus');
+    const name = document.getElementById('demoName').value;
+    const email = document.getElementById('demoEmail').value;
+    const firm = document.getElementById('demoFirm').value;
+    const tier = document.getElementById('demoTier').value;
+
+    btn.disabled = true;
+    btn.innerHTML = 'Sending...';
+    status.style.display = 'block';
+    status.style.color = '#1a3a5c';
+    status.innerHTML = 'Processing your request...';
+
+    try {
+        const formData = new URLSearchParams();
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('firm', firm);
+        formData.append('tier', tier);
+
+        const response = await fetch('/api/demo-request', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: formData.toString()
+        });
+
+        if (response.ok) {
+            status.style.color = '#059669';
+            status.innerHTML = '✓ Success! Our team will contact you shortly.';
+            btn.innerHTML = 'Request Received';
+            document.getElementById('demoForm').reset();
+        } else {
+            throw new Error('Failed to send request');
+        }
+    } catch (err) {
+        status.style.color = '#dc2626';
+        status.innerHTML = '✕ Error sending request. Please try again or email us directly.';
+        btn.disabled = false;
+        btn.innerHTML = 'Request Demo →';
+    }
+});
+</script>
 
 <section class="section"><div class="container">
   <h2>Frequently Asked Questions</h2>

@@ -272,8 +272,47 @@ async def sso_login(token: str, db: Session = Depends(get_db)):
     log_entry = logging.getLogger("auth.sso")
     log_entry.info(f"SSO login successful for user {user.id} (firm {user.firm_id})")
     
-    # Redirect to dashboard with JWT
-    return RedirectResponse(
-        url=f"/dashboard.html?token={access_token}",
-        status_code=303,
+from mail_service import mail_service
+import secrets
+
+@auth_router.post("/forgot-password")
+async def forgot_password(email: str = Form(...), db: Session = Depends(get_db)):
+    user = db.query(User).filter(func.lower(User.email) == func.lower(email)).first()
+    if not user:
+        # Don't reveal if user exists for security
+        return {"message": "If an account exists with this email, a password reset link has been sent."}
+    
+    # Create token
+    token = secrets.token_urlsafe(32)
+    reset_token = PasswordResetToken(
+        user_id=user.id,
+        token=token,
+        expires_at=datetime.utcnow() + timedelta(hours=24)
     )
+    db.add(reset_token)
+    db.commit()
+    
+    # Send email
+    reset_url = f"https://lexiflow.co/reset-password.html?token={token}"
+    await mail_service.send_template_email(
+        to_email=user.email,
+        subject="LexiFlow Password Reset",
+        template_name="password_reset",
+        variables={"reset_url": reset_url}
+    )
+    
+    return {"message": "If an account exists with this email, a password reset link has been sent."}
+
+@auth_router.post("/verify-email/request")
+async def request_verification(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    token = secrets.token_urlsafe(32)
+    verify_token = EmailVerificationToken(
+        user_id=current_user.id,
+        token=token,
+        expires_at=datetime.utcnow() + timedelta(hours=24)
+    )
+    db.add(verify_token)
+    db.commit()
+    
+    # In a real app, send email here
+    return {"message": "Verification email sent.", "token_preview": token[:8]}

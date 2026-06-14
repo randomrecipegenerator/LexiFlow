@@ -96,6 +96,20 @@ async def handle_vapi_message(payload: dict, db: Session):
         db.add(lead)
         db.flush()
         
+        # Create VoiceCall record
+        voice_call = models.VoiceCall(
+            firm_id=firm_id,
+            lead_id=lead.id,
+            vapi_call_id=call_data.get("id"),
+            phone_number=call_data.get("customer", {}).get("number"),
+            recording_url=call_data.get("recordingUrl"),
+            transcript=transcript,
+            summary=summary,
+            duration_seconds=call_data.get("duration", 0),
+            status=call_data.get("status", "completed")
+        )
+        db.add(voice_call)
+
         # Log voice usage
         duration_seconds = call_data.get("duration", 0)
         minutes = duration_seconds / 60.0

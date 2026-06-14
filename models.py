@@ -348,3 +348,50 @@ class SSOToken(Base):
 
     firm = relationship("Firm")
     user = relationship("User")
+
+class VoiceCall(Base):
+    __tablename__ = "voice_calls"
+    id = Column(Integer, primary_key=True, index=True)
+    firm_id = Column(Integer, ForeignKey("firms.id"), nullable=True)
+    lead_id = Column(Integer, ForeignKey("leads.id"), nullable=True)
+    vapi_call_id = Column(String, index=True)
+    phone_number = Column(String, nullable=True)
+    recording_url = Column(String, nullable=True)
+    transcript = Column(Text, nullable=True)
+    summary = Column(Text, nullable=True)
+    duration_seconds = Column(Integer, default=0)
+    status = Column(String, default="completed")
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    
+    firm = relationship("Firm")
+    lead = relationship("Lead")
+
+class PasswordResetToken(Base):
+    __tablename__ = "password_reset_tokens"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    token = Column(String, unique=True, index=True)
+    expires_at = Column(DateTime)
+    used_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    user = relationship("User")
+
+class EmailVerificationToken(Base):
+    __tablename__ = "email_verification_tokens"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    token = Column(String, unique=True, index=True)
+    expires_at = Column(DateTime)
+    used_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    user = relationship("User")
+
+class EmailLog(Base):
+    __tablename__ = "email_logs"
+    id = Column(Integer, primary_key=True, index=True)
+    to_email = Column(String)
+    subject = Column(String)
+    provider = Column(String)
+    status = Column(String) # "success", "error"
+    error_message = Column(Text, nullable=True)
+    timestamp = Column(DateTime, default=datetime.datetime.utcnow)
