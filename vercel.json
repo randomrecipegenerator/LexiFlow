@@ -20,7 +20,7 @@
     },
     {
       "source": "/veritas",
-      "destination": "/veritas-deposition/frontend/dist/index.html"
+      "destination": "/veritas/index.html"
     }
   ]
 }
