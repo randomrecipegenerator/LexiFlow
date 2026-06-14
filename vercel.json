@@ -1,6 +1,20 @@
 {
   "version": 2,
   "cleanUrls": true,
+  "builds": [
+    {
+      "src": "**/*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "**/*.{xml,txt,png,svg,ico,js,css,json,svg}",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    }
+  ],
   "rewrites": [
     {
       "source": "/__engine/events",
@@ -20,7 +34,7 @@
     },
     {
       "source": "/veritas",
-      "destination": "/veritas/index.html"
+      "destination": "/public/veritas/index.html"
     }
   ]
 }
