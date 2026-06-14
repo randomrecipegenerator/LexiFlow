@@ -21,10 +21,8 @@ build/
 package-lock.json
 
 # Database
-lexiflow.db
 lexiflow.db.bak
 lexiflow.db-journal
-*.db
 *.sqlite
 
 # Logs
