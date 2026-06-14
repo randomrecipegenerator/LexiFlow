@@ -158,13 +158,25 @@ auth_router = APIRouter(prefix="/auth", tags=["Authentication"])
 async def login(email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
     """Standard username/password login endpoint."""
     from sqlalchemy import func
+    logger.error(f"AUTH_LOG: Login attempt for email: '{email}'")
     user = db.query(User).filter(func.lower(User.email) == func.lower(email)).first()
-    if not user or not verify_password(password, user.hashed_password):
+    if not user:
+        logger.error(f"AUTH_LOG: Login failed: User '{email}' not found")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect email or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
+    
+    if not verify_password(password, user.hashed_password):
+        logger.error(f"AUTH_LOG: Login failed: Incorrect password for user '{email}'")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect email or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    logger.error(f"AUTH_LOG: Login SUCCESS for user: '{email}'")
     
     if not user.is_active:
         raise HTTPException(status_code=403, detail="Account deactivated")

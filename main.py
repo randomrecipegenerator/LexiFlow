@@ -1,3 +1,7 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
 from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, Form, Header, BackgroundTasks, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse, FileResponse
@@ -56,6 +60,7 @@ async def standardize_path(request: Request, call_next):
     path = request.url.path
     if path.startswith("/api/"):
         request.scope["path"] = path[4:]
+        logger.error(f"MIDDLEWARE: Stripped /api/ from {path} -> {request.scope['path']}")
     response = await call_next(request)
     return response
 
