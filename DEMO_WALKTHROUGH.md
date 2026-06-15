@@ -15,7 +15,7 @@
 **Demo Data Files (pre-staged):**
 All in `/home/team/shared/LexiFlow-Final/demo_data/`:
 - `rodriguez_chronology.json` — Medical chronology with 14-hour treatment gap
-- `depolens_scenario.json` — Deposition contradictions & AI cross-exam questions
+- `veritas_scenario.json` — Deposition contradictions & AI cross-exam questions
 - `crm_sync_demo.json` — Filevine sync simulation log
 - `QUICK_START_CHEATSHEET.txt` — One-page reference for the presenter
 - `verify_demo.sh` — Post-demo API verification script
@@ -113,7 +113,7 @@ curl https://lexiflow.co/api/enterprise/settlement/caps/TX
 
 ---
 
-### Step 5: Veritas Deposition™ (DepoLens™) — Impeachment Preparation (1:00) → [/veritas]
+### Step 5: Veritas Deposition™ — Impeachment Preparation (1:00) → [/veritas]
 
 1. Navigate to **https://lexiflow.co/veritas** or click "Open Veritas™ Dashboard" from the main dashboard.
 2. Select the "Rodriguez v. Mount Sinai" matter.
@@ -133,7 +133,7 @@ curl https://lexiflow.co/api/enterprise/settlement/caps/TX
 3. "Who was the nurse assigned to Bed 4 between 20:00 and 08:00?"
 
 **Presenter script:**
-> "DepoLens scanned 94 pages of deposition testimony, found 7 contradictions with the medical records, and generated these cross-examination questions — all before the attorney has even finished reviewing the case."
+> "Veritas Deposition™ scanned 94 pages of deposition testimony, found 7 contradictions with the medical records, and generated these cross-examination questions — all before the attorney has even finished reviewing the case."
 
 ---
 
@@ -204,7 +204,7 @@ curl https://lexiflow.co/api/enterprise/discovery/overview
 | DEMO_WALKTHROUGH.md | `/home/team/shared/LexiFlow-Final/` | This file — step-by-step presenter guide |
 | QUICK_START_CHEATSHEET.txt | `demo_data/` | One-page reference card |
 | rodriguez_chronology.json | `demo_data/` | Medical chronology for Discovery-Vault |
-| depolens_scenario.json | `demo_data/` | DepoLens contradictions & AI questions |
+| veritas_scenario.json | `demo_data/` | Veritas contradictions & AI questions |
 | crm_sync_demo.json | `demo_data/` | Filevine sync simulation |
 | verify_demo.sh | `demo_data/` | Post-demo API verification |
 | nyc-bar-meeting-prep.md | `/home/team/shared/lexiflow-sales/outreach/` | Meeting prep materials |

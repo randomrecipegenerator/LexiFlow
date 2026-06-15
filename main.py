@@ -1349,7 +1349,7 @@ def get_merit_report(id: int, db: Session = Depends(get_db)):
     return {"record": record, "report": report}
 # --- End MeritScan ---
 
-# --- DepoLens Endpoints ---
+# --- Veritas Deposition™ (formerly DepoLens) Endpoints ---
 def process_transcript_task(transcript_id: int, db: Session):
     transcript = db.query(models.Transcript).filter(models.Transcript.id == transcript_id).first()
     if not transcript: return
@@ -1393,12 +1393,13 @@ def process_transcript_task(transcript_id: int, db: Session):
         transcript.status = "completed"
         db.commit()
     except Exception as e:
-        print(f"DepoLens Processing Error: {e}")
+        print(f"Veritas Deposition™ Processing Error: {e}")
         transcript.status = "error"
         db.commit()
 
+@app.post("/veritas/upload")
 @app.post("/depolens/upload")
-async def depolens_upload(
+async def veritas_upload(
     background_tasks: BackgroundTasks, 
     file: UploadFile = File(...), 
     db: Session = Depends(get_db)
@@ -1412,14 +1413,15 @@ async def depolens_upload(
     db.add(transcript)
     db.commit()
     db.refresh(transcript)
-    from fastapi import BackgroundTasks
     background_tasks.add_task(process_transcript_task, transcript.id, db)
     return {"id": transcript.id, "filename": transcript.filename, "status": transcript.status}
 
+@app.get("/veritas/transcripts")
 @app.get("/depolens/transcripts")
 def list_transcripts(db: Session = Depends(get_db)):
     return db.query(models.Transcript).all()
 
+@app.get("/veritas/transcripts/{id}")
 @app.get("/depolens/transcripts/{id}")
 def get_transcript(id: int, db: Session = Depends(get_db)):
     transcript = db.query(models.Transcript).filter(models.Transcript.id == id).first()
@@ -1428,7 +1430,7 @@ def get_transcript(id: int, db: Session = Depends(get_db)):
     conflicts = db.query(models.Conflict).filter(models.Conflict.transcript_id == id).all()
     summary = db.query(models.Summary).filter(models.Summary.transcript_id == id).first()
     return {"transcript": transcript, "facts": facts, "conflicts": conflicts, "summary": summary}
-# --- End DepoLens ---
+# --- End Veritas Deposition™ ---
 
 @app.get("/leads/{lead_id}/conflict-check")
 def run_conflict_check(lead_id: int, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
@@ -1530,7 +1532,11 @@ if not os.getenv("VERCEL") and __name__ == "__main__":
 
     @app.api_route("/depolens", methods=["GET", "HEAD"])
     async def serve_depolens():
-        return FileResponse(os.path.join(root_dir, "depolens.html"))
+        return FileResponse(os.path.join(root_dir, "veritas-app.html"))
+
+    @app.api_route("/veritas-app", methods=["GET", "HEAD"])
+    async def serve_veritas_legacy():
+        return FileResponse(os.path.join(root_dir, "veritas-app.html"))
 
     @app.api_route("/veritas", methods=["GET", "HEAD"])
     async def serve_veritas():

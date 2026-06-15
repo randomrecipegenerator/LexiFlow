@@ -33,8 +33,16 @@
       "destination": "/dashboard.html"
     },
     {
+      "source": "/veritas/assets/(.*)",
+      "destination": "/veritas-deposition/frontend/dist/assets/$1"
+    },
+    {
+      "source": "/veritas/(.*)",
+      "destination": "/veritas-deposition/frontend/dist/index.html"
+    },
+    {
       "source": "/veritas",
-      "destination": "/veritas-deposition/frontend/dist"
+      "destination": "/veritas-deposition/frontend/dist/index.html"
     }
   ]
 }

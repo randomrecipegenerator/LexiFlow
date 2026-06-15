@@ -43,8 +43,8 @@
     *   Attachments: Merit score, valuation data, and the full chronology are now inside the firm's CRM.
     *   Compliance: Full AI audit trail preserved.
 
-## 6. DepoLens™: The Litigator's Edge (Minute 7-8)
-*   **Action:** Open **DepoLens™**.
+## 6. Veritas Deposition™: The Litigator's Edge (Minute 7-8)
+*   **Action:** Open **Veritas Deposition™**.
 *   **Demo:** 
     *   AI-generated cross-examination questions specifically designed to impeach the defense medical expert based on the sepsis protocol timeline.
     *   *Closing Statement:* "This is the difference between a settlement and a victory."

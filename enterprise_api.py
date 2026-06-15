@@ -43,52 +43,20 @@ def _random_date(days_ago: int = 365) -> str:
 MOCK_DISCOVERY_CASES = [
     {
         "id": "dv-001",
-        "case_name": "Martinez v. St. Mary's Medical Center",
+        "case_name": "Rodriguez v. Mount Sinai",
         "case_type": "Medical Malpractice",
         "total_documents": 1247,
         "analyzed_documents": 1247,
         "processing_status": "complete",
         "key_findings": [
-            "17 nursing notes contradict shift change testimony",
-            "Surgical count discrepancy: sponge count off by 1",
-            "Consent form signed 2 hours AFTER procedure started",
-            "3 emails show internal concern about staffing ratios"
-        ],
-        "critical_docs": 23,
-        "review_hours_saved": 186,
-        "last_updated": "2026-06-04T14:30:00Z",
-    },
-    {
-        "id": "dv-002",
-        "case_name": "Johnson v. PharmaCare Inc.",
-        "case_type": "Product Liability",
-        "total_documents": 3421,
-        "analyzed_documents": 2890,
-        "processing_status": "processing",
-        "key_findings": [
-            "Internal memo acknowledges adverse event reporting lag",
-            "15 similar complaints flagged across 3 states",
-            "Marketing materials contradict FDA-approved labeling"
-        ],
-        "critical_docs": 41,
-        "review_hours_saved": 412,
-        "last_updated": "2026-06-05T09:15:00Z",
-    },
-    {
-        "id": "dv-003",
-        "case_name": "Estate of Williams v. Northside Nursing Home",
-        "case_type": "Nursing Home Neglect",
-        "total_documents": 856,
-        "analyzed_documents": 856,
-        "processing_status": "complete",
-        "key_findings": [
-            "Weight loss chart shows 18lb decrease over 6 weeks — undocumented",
-            "Pressure injury photos show Stage II → Stage IV progression",
-            "Staffing logs show below-minimum ratios on 42 of 60 days"
+            "MAR shows 14-hour gap in antibiotic administration (ordered 19:15, given 10:15)",
+            "qSOFA score of 2 documented at triage — sepsis protocol not followed",
+            "Nursing notes indicate 'patient stable' while vitals show escalating septic shock",
+            "Consent for amputation signed under distress — AI flags potential validity issue"
         ],
         "critical_docs": 17,
-        "review_hours_saved": 128,
-        "last_updated": "2026-06-03T16:45:00Z",
+        "review_hours_saved": 186,
+        "last_updated": "2026-06-14T14:30:00Z",
     },
 ]
 
@@ -140,21 +108,21 @@ async def get_discovery_case(case_id: str):
 MOCK_SETTLEMENT_CASES = [
     {
         "id": "sp-001",
-        "case_name": "Rodriguez v. County General Hospital",
-        "case_type": "Medical Malpractice – Surgical Error",
-        "jurisdiction": "California, Los Angeles County",
-        "demand_amount": 3500000.00,
-        "predicted_range": {"low": 1250000, "high": 2200000},
-        "ai_confidence": 87.4,
-        "comparable_settlements": 142,
+        "case_name": "Rodriguez v. Mount Sinai",
+        "case_type": "Medical Malpractice – Delayed Sepsis Diagnosis",
+        "jurisdiction": "New York, New York County",
+        "demand_amount": 5200000.00,
+        "predicted_range": {"low": 3500000, "high": 5200000},
+        "ai_confidence": 92.5,
+        "comparable_settlements": 84,
         "key_factors": [
-            {"factor": "Clear liability (sponge left in abdomen)", "impact": "positive", "weight": "high"},
-            {"factor": "Plaintiff age (42, working professional)", "impact": "positive", "weight": "medium"},
-            {"factor": "Prior medical history includes similar surgery", "impact": "negative", "weight": "medium"},
+            {"factor": "Clear liability (14-hour delay in antibiotics)", "impact": "positive", "weight": "high"},
+            {"factor": "Catastrophic damages (bilateral amputation)", "impact": "positive", "weight": "high"},
+            {"factor": "Strong jurisdiction (New York — no non-economic caps)", "impact": "positive", "weight": "medium"},
         ],
-        "recommended_strategy": "Mediate at $1.8M; strong liability case supports above-median recovery",
-        "estimated_trial_value": 3100000.00,
-        "probability_of_plaintiff_verdict": 72.3,
+        "recommended_strategy": "Demand $5.2M; proceed to trial if settlement below $3.8M due to jury potential in NY",
+        "estimated_trial_value": 4200000.00,
+        "probability_of_plaintiff_verdict": 78.4,
     },
     {
         "id": "sp-002",
@@ -316,7 +284,7 @@ async def get_states_with_caps():
 
 
 # =========================================================================
-# 3. DepoLens™ — Deposition Intelligence
+# 3. Veritas Deposition™ — Deposition Intelligence
 # =========================================================================
 
 MOCK_DEPOSITIONS = [
@@ -324,45 +292,25 @@ MOCK_DEPOSITIONS = [
         "id": "dp-001",
         "deponent": "Dr. Sarah Mitchell",
         "role": "Defense Expert – Orthopedic Surgeon",
-        "case_name": "Martinez v. St. Mary's Medical Center",
+        "case_name": "Rodriguez v. Mount Sinai",
         "duration_minutes": 187,
         "transcript_pages": 94,
         "key_admissions": [
             "Admitted post-op notes were completed 72 hours after surgery (violates hospital policy)",
-            "Acknowledged that standard of care requires sponge count before closing",
-            "Could not identify who performed the final sponge count",
+            "Acknowledged that standard of care requires sepsis protocol initiation upon qSOFA > 1",
+            "Could not identify who performed the antibiotic administration at 20:00",
         ],
         "contradictions_with_prior_testimony": 7,
         "credibility_score": 63.2,
         "critical_highlights": [
-            {"timestamp": "00:42:15", "text": "Q: Did you personally verify the sponge count? A: I relied on the nursing staff for that.", "severity": "high"},
-            {"timestamp": "01:15:30", "text": "Q: When did you first learn of the retained sponge? A: Approximately 48 hours post-op.", "severity": "high"},
+            {"timestamp": "00:42:15", "text": "Q: Did you personally verify the antibiotic administration? A: I relied on the nursing staff for that.", "severity": "high"},
+            {"timestamp": "01:15:30", "text": "Q: When did you first learn of the 14-hour gap? A: Approximately 48 hours post-op.", "severity": "high"},
             {"timestamp": "01:52:00", "text": "Q: Have you changed your surgical protocol since this incident? A: No.", "severity": "medium"},
         ],
         "ai_generated_questions": [
-            "If you relied on nursing staff for sponge count, what training did they receive?",
-            "Why were post-op notes delayed by 72 hours?",
-            "Have you reviewed the revised hospital policy on surgical counts?",
-        ],
-    },
-    {
-        "id": "dp-002",
-        "deponent": "Nurse Jennifer Walsh",
-        "role": "Defense Witness – OR Nurse",
-        "case_name": "Martinez v. St. Mary's Medical Center",
-        "duration_minutes": 145,
-        "transcript_pages": 72,
-        "key_admissions": [
-            "Admitted she was covering two ORs simultaneously during the procedure",
-            "Stated that the count sheet was not signed by a second nurse",
-        ],
-        "contradictions_with_prior_testimony": 3,
-        "credibility_score": 71.8,
-        "critical_highlights": [
-            {"timestamp": "00:28:40", "text": "Q: How many ORs were you assigned to? A: Two. That's normal for our shift.", "severity": "high"},
-        ],
-        "ai_generated_questions": [
-            "What is the maximum number of ORs a nurse should cover per hospital policy?",
+            "If you relied on nursing staff for administration, what training did they receive regarding the 3-hour sepsis bundle?",
+            "Why were post-op notes delayed by 72 hours in a septic shock case?",
+            "Have you reviewed the revised hospital policy on sepsis alerts?",
         ],
     },
 ]
