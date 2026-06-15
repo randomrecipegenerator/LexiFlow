@@ -34,7 +34,7 @@
     },
     {
       "source": "/veritas",
-      "destination": "/veritas/index.html"
+      "destination": "/veritas-deposition/frontend/dist/index.html"
     }
   ]
 }

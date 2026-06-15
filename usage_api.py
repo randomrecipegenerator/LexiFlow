@@ -23,7 +23,7 @@ from models import UsageRecord, Firm
 from usage_tracker import UsageTracker, UsageTier, TIER_CONFIGS, DocumentType, usage_tracker
 
 logger = logging.getLogger(__name__)
-router = APIRouter(prefix="/api/usage", tags=["Usage & Billing"])
+router = APIRouter(prefix="/usage", tags=["Usage & Billing"])
 
 
 @router.post("/record")

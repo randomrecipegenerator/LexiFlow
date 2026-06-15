@@ -27,7 +27,7 @@ from auth import get_current_user, get_current_firm, generate_api_key
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/api/desktop", tags=["Desktop Client"])
+router = APIRouter(prefix="/desktop", tags=["Desktop Client"])
 
 
 # =========================================================================
