@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Singleton protection to prevent duplicate initialization
+    if (window.lexiflowLayoutInitialized) {
+        console.warn('LexiFlow Layout: Duplicate initialization attempt blocked.');
+        return;
+    }
+    window.lexiflowLayoutInitialized = true;
+    
     console.log('LexiFlow Layout initialized');
     
     // Mobile Menu Toggle

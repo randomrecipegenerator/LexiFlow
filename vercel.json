@@ -7,7 +7,7 @@
       "use": "@vercel/static"
     },
     {
-      "src": "**/*.{xml,txt,png,svg,ico,js,css,json,svg}",
+      "src": "**/*.{xml,txt,png,svg,ico,js,css,json}",
       "use": "@vercel/static"
     },
     {
@@ -34,7 +34,7 @@
     },
     {
       "source": "/veritas",
-      "destination": "/public/veritas/index.html"
+      "destination": "/veritas/index.html"
     }
   ]
 }

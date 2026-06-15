@@ -1532,6 +1532,11 @@ if not os.getenv("VERCEL") and __name__ == "__main__":
     async def serve_depolens():
         return FileResponse(os.path.join(root_dir, "depolens.html"))
 
+    @app.api_route("/veritas", methods=["GET", "HEAD"])
+    async def serve_veritas():
+        # Serves the Veritas Deposition™ Evidence Intelligence SPA
+        return FileResponse(os.path.join(root_dir, "veritas-deposition/frontend/dist/index.html"))
+
     app.mount("/api", api_app)
     app.mount("/", StaticFiles(directory=root_dir, html=True), name="static")
     

@@ -113,10 +113,12 @@ curl https://lexiflow.co/api/enterprise/settlement/caps/TX
 
 ---
 
-### Step 5: DepoLens™ — Impeachment Preparation (1:00) → [/depolens or /enterprise]
+### Step 5: Veritas Deposition™ (DepoLens™) — Impeachment Preparation (1:00) → [/veritas]
 
-1. Click **"DepoLens™"** in the sidebar
-2. Select the "Dr. Alan Miller (ER Attending)" deposition
+1. Navigate to **https://lexiflow.co/veritas** or click "Open Veritas™ Dashboard" from the main dashboard.
+2. Select the "Rodriguez v. Mount Sinai" matter.
+3. Show the **Interactive Evidence Graph** highlighting the connection between the MAR (Medical Administration Record) and the doctor's testimony.
+4. Open the **Contradiction Review** side-by-side view.
 
 **Key Contradictions Flagged by AI:**
 
