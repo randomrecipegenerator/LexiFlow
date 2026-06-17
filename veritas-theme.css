@@ -26,13 +26,31 @@
 }
 
 body {
-    background-color: var(--navy-bg);
-    color: var(--text-primary);
+    background-color: var(--navy-bg) !important;
+    color: var(--text-primary) !important;
     font-family: var(--font-sans);
     margin: 0;
     padding: 0;
     line-height: 1.5;
 }
+
+/* Ensure all common text elements inherit the light color on dark backgrounds */
+h1, h2, h3, h4, h5, h6, p, span, div, li, td, th, label {
+    color: inherit;
+}
+
+h1, h2, h3, h4 {
+    color: var(--text-primary);
+}
+
+p, span, li, td, label {
+    color: var(--text-secondary);
+}
+
+.text-primary { color: var(--text-primary) !important; }
+.text-secondary { color: var(--text-secondary) !important; }
+.text-muted { color: var(--text-muted) !important; }
+.text-gold { color: var(--gold-accent) !important; }
 
 /* Dashboard Layout */
 .app-container {
