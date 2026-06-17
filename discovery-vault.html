@@ -3,276 +3,282 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mass Tort Discovery Automation & Intake Software | Discovery-Vault™</title>
+  <title>Discovery-Vault™ | Mass Tort Discovery Automation</title>
   <meta name="description" content="Discovery-Vault™ is the leading AI mass tort discovery and intake software. Index thousands of documents and automate lead qualification for high-volume litigation." />
   <link rel="canonical" href="https://lexiflow.co/discovery-vault.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all';this.onload=null" />
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" /></noscript>
-  <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" media="print" onload="this.media='all';this.onload=null" />
-  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" /></noscript>
-  <style>
-    :root { --primary:#1a3a5c; --primary-light:#2a5a8c; --primary-dark:#0d1f33; --accent:#c9a84c; --accent-light:#e2c96e; --accent-dark:#a88a30; --text-dark:#1a1a2e; --text-muted:#6b7280; --text-light:#f8fafc; --bg-light:#f8fafc; --bg-white:#ffffff; --bg-dark:#0d1f33; --border:#e2e8f0; --green:#16a34a; --red:#ef4444; --shadow:0 4px 6px -1px rgba(0,0,0,0.1); --shadow-lg:0 10px 15px -3px rgba(0,0,0,0.1); --shadow-xl:0 20px 25px -5px rgba(0,0,0,0.1); --radius:8px; --radius-lg:16px; --max-width:1200px; --font-sans:'Inter',-apple-system,sans-serif; --font-serif:'Playfair Display',Georgia,serif; }
-    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
-    html { scroll-behavior: smooth; }
-    body { font-family:var(--font-sans); color:var(--text-dark); background:var(--bg-light); line-height:1.6; }
-    .container { max-width:var(--max-width); margin:0 auto; padding:0 24px; }
-    /* Local nav style removed */
-    .nav .container { display:flex; align-items:center; justify-content:space-between; height:68px; }
-    .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
-    .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:800; }
-    /* Local nav style removed */
-    .nav-links a { font-size:0.88rem; font-weight:500; color:var(--text-muted); text-decoration:none; }
-    .nav-links a:hover { color:var(--primary); }
-    .nav-cta { padding:8px 20px; background:var(--accent); color:var(--primary-dark)!important; border-radius:var(--radius); font-weight:600!important; }
-    .hero { padding:100px 0 40px; background:linear-gradient(135deg,var(--primary-dark),var(--primary)); color:var(--text-light); }
-    .hero h1 { font-family:var(--font-serif); font-size:2.5rem; }
-    .hero h1 span { color:var(--accent); }
-    .hero p { color:rgba(255,255,255,0.8); max-width:650px; }
-    .stats-bar { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-top:32px; }
-    .stat-card { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:var(--radius); padding:20px; text-align:center; }
-    .stat-card .num { font-family:var(--font-serif); font-size:1.8rem; font-weight:800; color:var(--accent); }
-    .stat-card .label { font-size:0.75rem; color:rgba(255,255,255,0.7); text-transform:uppercase; letter-spacing:0.05em; }
-    .section { padding:40px 0; }
-    .section-alt { background:var(--bg-white); }
-    .section h2 { font-family:var(--font-serif); font-size:1.5rem; color:var(--primary); margin-bottom:20px; }
-    .case-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:16px; }
-    .case-card { background:var(--bg-white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px; transition:all 0.2s; cursor:pointer; }
-    .case-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-lg); border-color:var(--accent); }
-    .case-card .case-name { font-size:1rem; font-weight:700; color:var(--primary); margin-bottom:4px; }
-    .case-card .case-docket { font-size:0.72rem; color:var(--text-muted); margin-bottom:8px; }
-    .case-card .case-meta { display:flex; gap:12px; font-size:0.78rem; color:var(--text-muted); flex-wrap:wrap; }
-    .case-card .case-meta span { background:var(--bg-light); padding:2px 8px; border-radius:4px; }
-    .case-card .progress-bar { height:4px; background:var(--border); border-radius:2px; margin:10px 0; overflow:hidden; }
-    .case-card .progress-fill { height:100%; border-radius:2px; background:var(--accent); }
-    .case-card .status { font-size:0.72rem; font-weight:600; }
-    .fact-feed { max-height:500px; overflow-y:auto; }
-    .fact-item { padding:14px; border-bottom:1px solid var(--border); }
-    .fact-item:hover { background:var(--bg-light); }
-    .fact-item .fact-id { font-size:0.72rem; font-weight:700; color:var(--accent-dark); }
-    .fact-item .fact-date { font-size:0.72rem; color:var(--text-muted); }
-    .fact-item .fact-source { font-size:0.72rem; color:var(--primary); }
-    .fact-item .fact-snippet { font-size:0.85rem; color:var(--text-dark); margin-top:4px; line-height:1.5; }
-    .fact-item .fact-tags { display:flex; gap:4px; margin-top:6px; flex-wrap:wrap; }
-    .fact-item .fact-tags span { font-size:0.65rem; padding:2px 8px; background:rgba(201,168,76,0.1); color:var(--accent-dark); border-radius:4px; }
-    .layout-2col { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-    .card-box { background:var(--bg-white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:24px; }
-    .card-box h3 { font-family:var(--font-serif); font-size:1.2rem; color:var(--primary); margin-bottom:12px; }
-    .doc-table { width:100%; font-size:0.82rem; }
-    .doc-table th { text-align:left; padding:8px 12px; font-size:0.72rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; border-bottom:2px solid var(--border); }
-    .doc-table td { padding:8px 12px; border-bottom:1px solid var(--border); }
-    .badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:600; }
-    .badge-green { background:rgba(22,163,74,0.1); color:var(--green); }
-    .badge-gold { background:rgba(201,168,76,0.12); color:var(--accent-dark); }
-    .footer { background:var(--bg-dark); color:rgba(255,255,255,0.6); padding:40px 0 24px; margin-top:40px; }
-    .footer .container { display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px; }
-    .footer a { color:rgba(255,255,255,0.6); text-decoration:none; }
-    .footer a:hover { color:var(--accent); }
-    .footer-logo { font-family:var(--font-serif); font-size:1.3rem; color:#fff; }
-    @media (max-width:900px) { .stats-bar { grid-template-columns:repeat(2,1fr); } .layout-2col { grid-template-columns:1fr; } }
-    @media (max-width:768px) { .hero h1 { font-size:1.8rem; } .case-grid { grid-template-columns:1fr; } }
-  </style>
-<link rel="stylesheet" href="./shared-layout.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="./veritas-theme.css">
+  <link rel="stylesheet" href="./shared-layout.css">
 </head>
-<body><nav><div class="nav-container">
-    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="/pricing.html">Pricing</a></li>
-      <li><a href="/dashboard.html">Dashboard</a></li>
-      <li><a href="/blog">Blog</a></li>
-      <li class="resources-dropdown">
-        <a href="#">Resources ▾</a>
-        <div class="resources-menu">
-          <a href="/resources/medical-chronology-template.html">Medical Chronology Template</a>
-          <a href="/resources/medical-chronology-sample.html">Medical Chronology Sample</a>
-          <a href="/resources/medical-record-review-checklist.html">Record Review Checklist</a><a href="/ssd-disability-medical-chronology-software.html">SSD & Disability Chronologies</a>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="logo" style="text-decoration: none; color: white; display: flex; align-items: center; gap: 8px;">
+                    <span style="background: var(--gold-accent); color: var(--navy-bg); padding: 2px 6px; border-radius: 4px; font-weight: 800; font-size: 14px;">LF</span>
+                    <span style="font-family: var(--font-serif); font-weight: 700; font-size: 18px;">LexiFlow</span>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="/dashboard.html" class="nav-item">
+                    <i class="bi bi-speedometer2"></i>
+                    <span class="sidebar-text">Main Dashboard</span>
+                </a>
+                <a href="/discovery-vault.html" class="nav-item active">
+                    <i class="bi bi-safe2"></i>
+                    <span class="sidebar-text">Discovery-Vault™</span>
+                </a>
+                <a href="/veritas" class="nav-item">
+                    <i class="bi bi-shield-check"></i>
+                    <span class="sidebar-text">Veritas Deposition™</span>
+                </a>
+                <a href="/ai-medical-chronologies.html" class="nav-item">
+                    <i class="bi bi-file-medical"></i>
+                    <span class="sidebar-text">Medical AI</span>
+                </a>
+                <a href="/settlement-predictor.html" class="nav-item">
+                    <i class="bi bi-graph-up-arrow"></i>
+                    <span class="sidebar-text">Settlement-Predictor™</span>
+                </a>
+                <a href="/compliance-shield.html" class="nav-item">
+                    <i class="bi bi-lock"></i>
+                    <span class="sidebar-text">Compliance-Shield™</span>
+                </a>
+            </nav>
+            <div style="padding: 24px; border-top: 1px solid var(--navy-border);">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--navy-border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">JD</div>
+                    <div class="sidebar-text">
+                        <div style="font-size: 12px; font-weight: 600;">Partner Account</div>
+                        <div style="font-size: 10px; color: var(--text-secondary);">Enterprise Tier</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <header class="page-header">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h1>Discovery-Vault™</h1>
+                        <p>Mass Tort Document Intelligence & MDL Evidence Management</p>
+                    </div>
+                    <div style="display: flex; gap: 12px;">
+                        <button class="v-btn v-btn-outline"><i class="bi bi-upload"></i> Upload Docs</button>
+                        <button class="v-btn v-btn-primary">New MDL Case</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Metrics -->
+            <div class="grid-cols-4">
+                <div class="v-card metric-card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="metric-label">Documents Indexed</span>
+                        <i class="bi bi-files metric-icon"></i>
+                    </div>
+                    <div class="metric-value">12.4M</div>
+                    <div style="font-size: 12px; color: var(--success); margin-top: 4px;">
+                        <i class="bi bi-arrow-up"></i> 14% this month
+                    </div>
+                </div>
+                <div class="v-card metric-card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="metric-label">Active MDL Cases</span>
+                        <i class="bi bi-briefcase metric-icon"></i>
+                    </div>
+                    <div class="metric-value">12</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+                        3 Pending Review
+                    </div>
+                </div>
+                <div class="v-card metric-card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="metric-label">Critical Facts Identified</span>
+                        <i class="bi bi-lightning-charge metric-icon"></i>
+                    </div>
+                    <div class="metric-value">14,502</div>
+                    <div style="font-size: 12px; color: var(--gold-accent); margin-top: 4px;">
+                        High-confidence AI matches
+                    </div>
+                </div>
+                <div class="v-card metric-card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="metric-label">Discovery Speed</span>
+                        <i class="bi bi-cpu metric-icon"></i>
+                    </div>
+                    <div class="metric-value">840/hr</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+                        Pages per minute average
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Cases -->
+            <div class="v-card" style="margin-bottom: 32px;">
+                <div class="v-card-header">
+                    <h3 class="v-card-title">📋 Active Litigation Portfolio</h3>
+                    <div class="v-badge v-badge-gold">Live Processing</div>
+                </div>
+                <div class="grid-cols-4" id="caseGrid" style="margin-bottom: 0;">
+                    <!-- Cases rendered via JS -->
+                </div>
+            </div>
+
+            <div class="grid-2-1">
+                <!-- Document Breakdown -->
+                <div class="v-card">
+                    <div class="v-card-header">
+                        <h3 class="v-card-title">📄 Evidence Composition</h3>
+                    </div>
+                    <table class="v-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Count</th>
+                                <th>Integrity</th>
+                            </tr>
+                        </thead>
+                        <tbody id="docTable">
+                            <!-- Rendered via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Fact Feed -->
+                <div class="v-card">
+                    <div class="v-card-header">
+                        <h3 class="v-card-title">⚡ Critical Discovery Feed</h3>
+                    </div>
+                    <div id="factFeed" style="max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px;">
+                        <!-- Rendered via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail Table -->
+            <div class="v-card" style="margin-top: 32px;">
+                <div class="v-card-header">
+                    <h3 class="v-card-title">📊 Discovery Status by MDL Case</h3>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="v-table">
+                        <thead>
+                            <tr>
+                                <th>Case Name</th>
+                                <th>Documents</th>
+                                <th>Completion</th>
+                                <th>Facts Found</th>
+                                <th>AI Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="perCaseTable">
+                            <!-- Rendered via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Theme-compatible sidebar styling overrides for case cards -->
+    <style>
+        .case-card-v {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--navy-border);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            transition: all 0.2s;
+        }
+        .case-card-v:hover {
+            border-color: var(--gold-accent);
+            background: rgba(255,255,255,0.05);
+        }
+        .case-name-v { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+        .case-docket-v { font-size: 11px; color: var(--text-secondary); margin-bottom: 12px; }
+        
+        .fact-item-v {
+            padding: 12px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            border-left: 3px solid var(--gold-accent);
+        }
+        .fact-id-v { font-weight: 800; font-size: 10px; color: var(--gold-accent); text-transform: uppercase; }
+        .fact-snippet-v { font-size: 12px; margin-top: 4px; color: var(--text-primary); }
+    </style>
+
+    <script src="./shared-layout.js"></script>
+    <script>
+    const cases = [
+      {name:"Opioid MDL",docket:"MDL 2804 (N.D. Ohio)",docs:50.2,status:82,color:"#c9a84c",facts:8442},
+      {name:"PFAS Water",docket:"MDL 2873 (D.S.C.)",docs:12.0,status:76,color:"#c9a84c",facts:2891},
+      {name:"Roundup",docket:"MDL 2741 (N.D. Cal.)",docs:4.2,status:97,color:"#10b981",facts:1244},
+      {name:"J&J Talc",docket:"MDL 2738 (D.N.J.)",docs:3.5,status:88,color:"#c9a84c",facts:876}
+    ];
+
+    const criticalFacts = [
+      {id:"CF-001",date:"1978-03-14",source:"USMC Memo",snippet:"Water testing at Hadnot Point confirmed TCE levels at 1,400 ppb — 280x EPA limit."},
+      {id:"CF-101",date:"1997-02-11",source:"Internal",snippet:"Studies from 1983 show tumor formation in rats. Not submitted to EPA."},
+      {id:"CF-201",date:"1996-08-05",source:"Sales Deck",snippet:"OxyContin: Twice the potency of morphine with 'less than 1% risk of addiction.'"}
+    ];
+
+    const categories = [
+      {cat:"Military Records",count:"1,240,500",pct:"98%"},
+      {cat:"Medical Records",count:"892,400",pct:"91%"},
+      {cat:"Scientific Studies",count:"250,000",pct:"99%"}
+    ];
+
+    function render() {
+      const grid = document.getElementById('caseGrid');
+      grid.innerHTML = cases.map(c => `
+        <div class="case-card-v">
+          <div class="case-name-v">${c.name}</div>
+          <div class="case-docket-v">${c.docket}</div>
+          <div class="v-progress" style="margin-bottom: 12px;">
+            <div class="v-progress-bar" style="width:${c.status}%; background: ${c.color}"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 11px;">
+            <span style="color: var(--text-secondary)">${c.docs}M Docs</span>
+            <span style="color: ${c.color}; font-weight: 700;">${c.status}%</span>
+          </div>
         </div>
-      </li>
-      <li><a href="/roi-calculator.html">ROI Calculator</a></li>
-      <li></li>
-      <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
-    </ul>
-    <button class="nav-toggle" aria-label="Menu">☰</button>
-  </div></nav>
+      `).join('');
 
-<section class="hero"><div class="container">
-  <h1>AI <span>Mass Tort Intake</span> & Discovery Management</h1>
-  <p>AI-powered discovery management for mass torts and complex litigation. Automate document review, privilege logging, and production tracking across high-volume litigation.</p>
-  <div class="stats-bar">
-    <div class="stat-card"><div class="num">Millions</div><div class="label">Docs Processed</div></div>
-    <div class="stat-card"><div class="num">MDL</div><div class="label">Ready</div></div>
-    <div class="stat-card"><div class="num">High-Res</div><div class="label">AI Indexing</div></div>
-  </div>
-</div></section>
+      const table = document.getElementById('perCaseTable');
+      table.innerHTML = cases.map(c => `
+        <tr>
+          <td style="font-weight: 600;">${c.name}</td>
+          <td>${c.docs}M</td>
+          <td>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="v-progress" style="flex: 1; height: 4px;"><div class="v-progress-bar" style="width: ${c.status}%"></div></div>
+                <span style="font-size: 11px;">${c.status}%</span>
+            </div>
+          </td>
+          <td>${c.facts.toLocaleString()}</td>
+          <td><span class="v-badge ${c.status>=90?'v-badge-success':'v-badge-gold'}">${c.status>=90?'Optimized':'Processing'}</span></td>
+        </tr>
+      `).join('');
 
-<section class="section"><div class="container">
-  <h2>📋 Active Litigation Cases</h2>
-  <div class="case-grid" id="caseGrid"></div>
-</div></section>
+      const dt = document.getElementById('docTable');
+      dt.innerHTML = categories.map(d => `
+        <tr><td>${d.cat}</td><td>${d.count}</td><td><span class="v-badge v-badge-success">${d.pct}</span></td></tr>
+      `).join('');
 
-<section class="section section-alt"><div class="container">
-  <div class="layout-2col">
-    <div class="card-box">
-      <h3>📄 Document Breakdown</h3>
-      <table class="doc-table" id="docTable"></table>
-    </div>
-    <div class="card-box">
-      <h3>⚡ Critical Facts Feed</h3>
-      <div class="fact-feed" id="factFeed"></div>
-    </div>
-  </div>
-</div></section>
-
-<section class="section"><div class="container">
-  <div class="card-box">
-    <h3>📊 AI Discovery Status by Case</h3>
-    <div style="overflow-x:auto;">
-      <table class="doc-table">
-        <thead><tr><th>Case</th><th>Total Docs</th><th>Status</th><th>Critical Facts</th><th>Processing Speed</th></tr></thead>
-        <tbody id="perCaseTable"></tbody>
-      </table>
-    </div>
-  </div>
-</div></section>
-
-            
-  
-    <!-- SEO Inner Linking -->
-    <section class="max-w-screen" style="padding: 40px 0; border-top: 1px solid var(--slate-100); max-width: 1200px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
-        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-            <a href="./ai-legal-intake-software.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Intake Software →</a>
-            <a href="./ai-medical-chronologies.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Medical Chronology AI →</a>
-            <a href="/blog" style="color: #0f172a; text-decoration: none; font-weight: 600;">Legal AI Insights Blog →</a>
-            <a href="./roi-calculator.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Firm ROI Calculator →</a>
-            <a href="./compliance-shield.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">HIPAA & SOC2 Compliance →</a>
-            
+      const ff = document.getElementById('factFeed');
+      ff.innerHTML = criticalFacts.map(f => `
+        <div class="fact-item-v">
+          <div class="fact-id-v">${f.id} • ${f.source}</div>
+          <div class="fact-snippet-v">${f.snippet}</div>
         </div>
-    </section>
-  <footer>
-    <div class="footer-container">
-      <div class="footer-col">
-        <a href="/" class="footer-logo">LF LexiFlow</a>
-        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Products</h4>
-        <ul>
-          <li><a href="/ai-legal-intake-software.html">AI Intake Agent</a></li>
-          <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
-          <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
-          <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
-          <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
-          <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
-          <li><a href="//veritas">Veritas Deposition™ AI</a></li>
-          <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
-          <li><a href="/dashboard.html">Analytics Dashboard</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Top Markets</h4>
-        <ul>
-          <li><a href="/locations/california/los-angeles.html">Los Angeles (MedMal)</a></li>
-          <li><a href="/locations/california/san-francisco.html">San Francisco (MedMal)</a></li>
-          <li><a href="/locations/new-york/nyc.html">New York City (MedMal)</a></li>
-          <li><a href="/locations/illinois/chicago.html">Chicago (MedMal)</a></li>
-          <li></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="/privacy.html">Privacy Policy</a></li>
-          <li><a href="/terms.html">Terms of Service</a></li>
-          <li><a href="/soc2.html">SOC2 Compliance</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
-    </div>
-  </footer>
-<script src="./shared-layout.js"></script><script>
-const cases = [
-  {name:"Opioid MDL",docket:"MDL 2804 (N.D. Ohio)",docs:50200000,status:82,color:"#c9a84c",facts:8442,defendants:"J&J, Purdue, Teva, CVS, Walgreens"},
-  {name:"PFAS Water Contamination",docket:"MDL 2873 (D.S.C.)",docs:12000000,status:76,color:"#c9a84c",facts:2891,defendants:"3M, DuPont, Chemours"},
-  {name:"Roundup (Glyphosate)",docket:"MDL 2741 (N.D. Cal.)",docs:4211890,status:97,color:"#16a34a",facts:1244,defendants:"Monsanto/Bayer"},
-  {name:"J&J Talc/Ovarian Cancer",docket:"MDL 2738 (D.N.J.)",docs:3500000,status:88,color:"#c9a84c",facts:876,defendants:"Johnson & Johnson"},
-  {name:"Camp Lejeune Water",docket:"MDL 3001 (E.D.N.C.)",docs:2847631,status:94,color:"#16a34a",facts:532,defendants:"U.S. Government"},
-  {name:"NEC Baby Formula",docket:"MDL 3026 (N.D. Ill.)",docs:2500000,status:79,color:"#c9a84c",facts:401,defendants:"Abbott, Mead Johnson"},
-  {name:"Zantac (Ranitidine)",docket:"MDL 2924 (S.D. Fla.)",docs:2100000,status:93,color:"#16a34a",facts:267,defendants:"Sanofi, GSK, Boehringer"},
-  {name:"3M Combat Earplugs",docket:"MDL 2885 (N.D. Fla.)",docs:1850000,status:91,color:"#16a34a",facts:194,defendants:"3M/Aearo"},
-  {name:"Paraquat Parkinson's",docket:"MDL 3004 (S.D. Ill.)",docs:1200000,status:87,color:"#c9a84c",facts:87,defendants:"Syngenta, Chevron"},
-  {name:"Other Active Cases (2)",docket:"Various",docs:2000000,status:72,color:"#ef4444",facts:213,defendants:"Multiple"}
-];
-
-const criticalFacts = [
-  {id:"CF-001",date:"1978-03-14",source:"USMC Internal Memo",snippet:"Water testing at Hadnot Point confirmed TCE levels at 1,400 ppb — 280x EPA limit. No notification to base personnel.",tags:["contamination","concealment","military"]},
-  {id:"CF-101",date:"1997-02-11",source:"Monsanto Internal",snippet:"Question: Is glyphosate carcinogenic? Answer: Internal studies from 1983 show tumor formation in rats. Not submitted to EPA.",tags:["carcinogen","suppression","EPA"]},
-  {id:"CF-201",date:"1996-08-05",source:"Purdue Sales Deck",snippet:"OxyContin: Twice the potency of morphine with 'less than 1% risk of addiction.' No clinical data supports this claim.",tags:["opioid","misbranding","addiction"]},
-  {id:"CF-301",date:"2000-04-17",source:"3M Engineering Memo",snippet:"CAEv2 earplug design defect: stem length variation of ±2mm allows sound leakage. Remediation cost: $0.03/unit. No action taken.",tags:["defect","military","hearing"]},
-  {id:"CF-401",date:"1973-06-15",source:"J&J Research",snippet:"Study finds talc particles in 80% of ovarian tumor samples. Recommendation: further investigation before marketing.",tags:["talc","cancer","suppression"]},
-  {id:"CF-501",date:"1980-09-08",source:"GSK Stability Study",snippet:"Ranitidine forms NDMA carcinogen under normal storage. Levels increase with temperature. No labeling changes.",tags:["NDMA","carcinogen","FDA"]},
-  {id:"CF-601",date:"1961-05-22",source:"3M Toxicology Study",snippet:"PFOS accumulates in human blood. Half-life 8.7 years. No excretion pathway. Recommendation: limit production.",tags:["PFAS","toxicology","suppression"]},
-  {id:"CF-701",date:"1964-11-17",source:"ICI Research",snippet:"Animal studies confirm paraquat crosses blood-brain barrier. Dopaminergic neuron damage at occupational exposure levels.",tags:["parkinsons","herbicide","neurological"]},
-  {id:"CF-801",date:"1989-04-12",source:"Abbott Internal Study",snippet:"Preterm infants fed bovine-based formula have 6x higher NEC incidence vs. human milk. Finding suppressed.",tags:["NEC","infant","suppression"]}
-];
-
-const categories = [
-  {cat:"Military Service Records",count:"1,240,500",pct:"98%"},{cat:"Medical Records",count:"892,400",pct:"91%"},{cat:"EPA/ATSDR Reports",count:"47,231",pct:"100%"},
-  {cat:"Internal Correspondence",count:"128,500",pct:"89%"},{cat:"Legal Filings",count:"289,000",pct:"87%"},{cat:"Scientific Studies",count:"250,000",pct:"99%"}
-];
-
-function render() {
-  const grid = document.getElementById('caseGrid');
-  grid.innerHTML = cases.map(c => `
-    <div class="case-card">
-      <div class="case-name">${c.name}</div>
-      <div class="case-docket">${c.docket}</div>
-      <div class="progress-bar"><div class="progress-fill" style="width:${c.status}%;background:${c.color}"></div></div>
-      <div class="case-meta">
-        <span>📄 ${(c.docs/1000000).toFixed(1)}M docs</span>
-        <span class="status" style="color:${c.color}">${c.status}% Indexed</span>
-        <span>🔍 ${c.facts} facts</span>
-      </div>
-    </div>
-  `).join('');
-
-  const table = document.getElementById('perCaseTable');
-  table.innerHTML = cases.map(c => `
-    <tr>
-      <td><strong>${c.name}</strong></td>
-      <td>${(c.docs/1000000).toFixed(1)}M</td>
-      <td><span class="badge ${c.status>=90?'badge-green':'badge-gold'}">${c.status}%</span></td>
-      <td>${c.facts}</td>
-      <td>${c.status>=90?'🟢 Fast':'🟡 Normal'}</td>
-    </tr>
-  `).join('');
-
-  const dt = document.getElementById('docTable');
-  dt.innerHTML = categories.map(d => `
-    <tr><td>${d.cat}</td><td>${d.count}</td><td><span class="badge badge-green">${d.pct}</span></td></tr>
-  `).join('');
-
-  const ff = document.getElementById('factFeed');
-  ff.innerHTML = criticalFacts.map(f => `
-    <div class="fact-item">
-      <div><span class="fact-id">${f.id}</span> <span class="fact-date">${f.date}</span> <span class="fact-source">${f.source}</span></div>
-      <div class="fact-snippet">${f.snippet}</div>
-      <div class="fact-tags">${f.tags.map(t => `<span>${t}</span>`).join('')}</div>
-    </div>
-  `).join('');
-}
-render();
-</script>
-
-
-
-
-
-<script src="./shared-layout.js"></script>
+      `).join('');
+    }
+    render();
+    </script>
 </body>
 </html>

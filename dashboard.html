@@ -3,596 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LexiFlow Dashboard — Your Product Suite at a Glance</title>
-    <meta name="keywords" content="medical chronology software, law firm intake software, AI medical record review, personal injury law firm software, lead qualification AI, legal workflow automation, settlement demand software, AI medical chronology, automated medical record review, plaintiff law firm software">
-    <meta name="description" content="LexiFlow is the leading medical chronology software and law firm intake software. Live LexiFlow product dashboard showing all 6 AI modules for law firms: Intake Agent, Voice AI, Medical Chronologies, Document Drafter, Veritas Deposition, Settlement Estimator.">
-
+    <title>LexiFlow Dashboard | Enterprise Litigation Suite</title>
+    <meta name="description" content="LexiFlow product dashboard showing all AI modules: Intake Agent, Voice AI, Medical Chronologies, Document Drafter, Veritas Deposition, Settlement Estimator.">
     <link rel="icon" type="image/svg+xml" href="./branding/logo-icon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all';this.onload=null" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" /></noscript>
-    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" media="print" onload="this.media='all';this.onload=null" />
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" /></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+    <link rel="stylesheet" href="./veritas-theme.css">
+    <link rel="stylesheet" href="./shared-layout.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="logo" style="text-decoration: none; color: white; display: flex; align-items: center; gap: 8px;">
+                    <span style="background: var(--gold-accent); color: var(--navy-bg); padding: 2px 6px; border-radius: 4px; font-weight: 800; font-size: 14px;">LF</span>
+                    <span style="font-family: var(--font-serif); font-weight: 700; font-size: 18px;">LexiFlow</span>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="/dashboard.html" class="nav-item active">
+                    <i class="bi bi-speedometer2"></i>
+                    <span class="sidebar-text">Main Dashboard</span>
+                </a>
+                <a href="/discovery-vault.html" class="nav-item">
+                    <i class="bi bi-safe2"></i>
+                    <span class="sidebar-text">Discovery-Vault™</span>
+                </a>
+                <a href="/veritas" class="nav-item">
+                    <i class="bi bi-shield-check"></i>
+                    <span class="sidebar-text">Veritas Deposition™</span>
+                </a>
+                <a href="/ai-medical-chronologies.html" class="nav-item">
+                    <i class="bi bi-file-medical"></i>
+                    <span class="sidebar-text">Medical AI</span>
+                </a>
+                <a href="/settlement-predictor.html" class="nav-item">
+                    <i class="bi bi-graph-up-arrow"></i>
+                    <span class="sidebar-text">Settlement-Predictor™</span>
+                </a>
+                <a href="/compliance-shield.html" class="nav-item">
+                    <i class="bi bi-lock"></i>
+                    <span class="sidebar-text">Compliance-Shield™</span>
+                </a>
+            </nav>
+            <div style="padding: 24px; border-top: 1px solid var(--navy-border);">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--navy-border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">JD</div>
+                    <div class="sidebar-text">
+                        <div style="font-size: 12px; font-weight: 600;">Partner Account</div>
+                        <div style="font-size: 10px; color: var(--text-secondary);">Enterprise Tier</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <header class="page-header">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h1>Product Dashboard</h1>
+                        <p>Enterprise Litigation Suite Performance & Activity</p>
+                    </div>
+                    <div style="display: flex; gap: 12px;">
+                        <button class="v-btn v-btn-outline"><i class="bi bi-gear"></i> Suite Settings</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Metrics -->
+            <div class="grid-cols-4">
+                <div class="v-card metric-card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="metric-label">Total Leads</span>
+                        <i class="bi bi-graph-up-arrow metric-icon"></i>
+                    </div>
+                    <div class="metric-value" id="val-leads-today">1,240</div>
+                    <div style="font-size: 12px; color: var(--success); margin-top: 4px;">
+                        <i class="bi bi-arrow-up"></i> 12% vs last week
+                    </div>
+                </div>
+                <div class="v-card metric-card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="metric-label">Qualified Rate</span>
+                        <i class="bi bi-check-circle metric-icon"></i>
+                    </div>
+                    <div class="metric-value" id="val-qualified-rate">74%</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+                        AI Screened & Scored
+                    </div>
+                </div>
+                <div class="v-card metric-card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="metric-label">Docs Processed</span>
+                        <i class="bi bi-files metric-icon"></i>
+                    </div>
+                    <div class="metric-value" id="val-docs-processed">47.2k</div>
+                    <div style="font-size: 12px; color: var(--gold-accent); margin-top: 4px;">
+                        Medical & Discovery pages
+                    </div>
+                </div>
+                <div class="v-card metric-card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="metric-label">System Health</span>
+                        <i class="bi bi-cpu metric-icon"></i>
+                    </div>
+                    <div class="metric-value">99.9%</div>
+                    <div style="font-size: 12px; color: var(--success); margin-top: 4px;">
+                        All AI Engines Online
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2-1">
+                <!-- Analytics -->
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                    <div class="v-card">
+                        <div class="v-card-header">
+                            <h3 class="v-card-title">📈 Conversion Trend</h3>
+                        </div>
+                        <div style="height: 250px;"><canvas id="chart-conversion"></canvas></div>
+                    </div>
+                    
+                    <div class="v-card">
+                        <div class="v-card-header">
+                            <h3 class="v-card-title">📋 Live Activity Feed</h3>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 12px;" id="activityFeed">
+                            <div class="activity-item-v">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 700; font-size: 14px;">James Morrison</div>
+                                        <div style="font-size: 11px; color: var(--text-muted);">Auto Accident • AI Intake Agent</div>
+                                    </div>
+                                    <div class="v-badge v-badge-success">92% Match</div>
+                                </div>
+                            </div>
+                            <div class="activity-item-v">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 700; font-size: 14px;">Sofia Garcia</div>
+                                        <div style="font-size: 11px; color: var(--text-muted);">MedMal • Voice AI Receptionist</div>
+                                    </div>
+                                    <div class="v-badge v-badge-success">87% Match</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secondary Column -->
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                    <div class="v-card">
+                        <div class="v-card-header">
+                            <h3 class="v-card-title">📊 Channel Mix</h3>
+                        </div>
+                        <div style="height: 200px;"><canvas id="chart-channel"></canvas></div>
+                    </div>
+
+                    <div class="v-card">
+                        <div class="v-card-header">
+                            <h3 class="v-card-title">Ethics & Compliance</h3>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake" class="nav-item" style="padding: 10px; font-size: 12px;">
+                                <i class="bi bi-journal-text"></i> NY Ethics Guide
+                            </a>
+                            <a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake" class="nav-item" style="padding: 10px; font-size: 12px;">
+                                <i class="bi bi-journal-text"></i> IL Ethics Guide
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
     <style>
-        :root {
-            --navy: #0f172a; --gold: #c9a84c; --gold-light: #e2c96e;
-            --slate-50: #f8fafc; --slate-100: #f1f5f9; --slate-200: #e2e8f0; --slate-400: #94a3b8; --slate-600: #475569;
-            --slate-900: #0f172a; --max-width: 1200px;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--slate-50); color: var(--slate-900); line-height: 1.6; padding-top: 80px; }
-
-        nav { position: fixed; top: 0; width: 100%; height: 80px; background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--slate-200); z-index: 1000; display: flex; align-items: center; }
-        .nav-container { max-width: var(--max-width); margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--navy); text-decoration: none; display: flex; align-items: center; gap: 12px; }
-        .logo span { background: var(--navy); color: var(--gold); padding: 4px 8px; border-radius: 4px; font-size: 18px; }
-        /* Local nav style removed */
-        .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; }
-        .nav-links a:hover { color: var(--navy); }
-        .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; border: none; cursor: pointer; }
-        /* Local nav style removed */
-
-        .dash-header { padding: 64px 0; background: var(--navy); color: white; }
-        .max-w-screen { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; }
-        .dash-header h1 { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 800; margin-bottom: 16px; }
-        .dash-header h1 span { color: var(--gold); }
-        .dash-header p { font-size: 18px; color: var(--slate-400); max-width: 700px; }
-
-        .status-bar { background: white; border-bottom: 1px solid var(--slate-200); padding: 16px 0; }
-        .status-items { display: flex; gap: 32px; flex-wrap: wrap; }
-        .status-item { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--slate-600); }
-        .status-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; }
-        .status-item b { color: var(--navy); }
-
-        .module-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; margin: 48px 0; }
-        .module-card { background: white; border: 1px solid var(--slate-200); border-radius: 24px; overflow: hidden; transition: all 0.3s; }
-        .module-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); border-color: var(--gold); }
-
-        .card-head { padding: 24px; display: flex; align-items: center; gap: 16px; border-bottom: 1px solid var(--slate-100); }
-        .card-head i { font-size: 24px; color: var(--gold); }
-        .card-head h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); }
-        .module-badge { margin-left: auto; font-size: 10px; font-weight: 800; background: var(--slate-50); color: var(--slate-600); padding: 4px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.05em; }
-        .badge-live { background: rgba(34, 197, 94, 0.1); color: #16a34a; }
-
-        .card-body { padding: 24px; }
-        .card-tagline { font-size: 12px; font-weight: 700; color: var(--gold); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
-        .card-desc { font-size: 14px; color: var(--slate-600); margin-bottom: 20px; }
-
-        .metric-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--slate-50); font-size: 13px; }
-        .metric-row:last-child { border-bottom: none; }
-        .metric-label { color: var(--slate-400); }
-        .metric-val { font-weight: 700; color: var(--navy); }
-
-        .analytics-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 48px; }
-        .chart-box { background: white; padding: 32px; border-radius: 24px; border: 1px solid var(--slate-200); }
-        .chart-box h4 { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--navy); margin-bottom: 24px; }
-
-        .activity-feed { background: white; border: 1px solid var(--slate-200); border-radius: 24px; overflow: hidden; }
-        .activity-feed h4 { padding: 24px; border-bottom: 1px solid var(--slate-100); font-family: 'Playfair Display', serif; color: var(--navy); }
-        .activity-item { padding: 16px 24px; display: flex; align-items: center; gap: 16px; border-bottom: 1px solid var(--slate-50); }
-        .activity-item:last-child { border-bottom: none; }
-        .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--navy); color: var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
-        .act-info { flex: 1; }
-        .act-info b { font-size: 14px; color: var(--navy); display: block; }
-        .act-info span { font-size: 12px; color: var(--slate-400); }
-        .act-score { font-weight: 800; color: #16a34a; font-size: 15px; }
-
-        footer { background: var(--navy); color: var(--slate-400); padding: 80px 0 40px; border-top: 1px solid rgba(255,255,255,0.1); }
-        .footer-container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr repeat(4, 1fr); gap: 40px; }
-        .footer-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; margin-bottom: 20px; display: block; }
-        .footer-col h4 { color: #fff; margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 12px; }
-        .footer-col ul a { color: var(--slate-400); text-decoration: none; font-size: 14px; }
-        .footer-col ul a:hover { color: var(--gold); }
-        .footer-bottom { max-width: var(--max-width); margin: 60px auto 0; padding: 40px 40px 0; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; text-align: center; }
-
-        @media (max-width: 968px) {
-            .analytics-row { grid-template-columns: 1fr; }
-        }
-        /* Local mobile nav style removed */
-            /* Local nav style removed */
-            .footer-container { grid-template-columns: 1fr; text-align: center; }
-            .footer-logo { margin: 0 auto 20px; }
+        .activity-item-v {
+            padding: 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            border-left: 3px solid var(--gold-accent);
         }
     </style>
-<link rel="stylesheet" href="./shared-layout.css">
-</head>
-<body><nav><div class="nav-container">
-    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="/pricing.html">Pricing</a></li>
-      <li><a href="/dashboard.html">Dashboard</a></li>
-      <li><a href="/blog">Blog</a></li>
-      <li class="resources-dropdown">
-        <a href="#">Resources ▾</a>
-        <div class="resources-menu">
-          <a href="/resources/medical-chronology-template.html">Medical Chronology Template</a>
-          <a href="/resources/medical-chronology-sample.html">Medical Chronology Sample</a>
-          <a href="/resources/medical-record-review-checklist.html">Record Review Checklist</a><a href="/ssd-disability-medical-chronology-software.html">SSD & Disability Chronologies</a>
-        </div>
-      </li>
-      <li><a href="/roi-calculator.html">ROI Calculator</a></li>
-      <li></li>
-      <li><a href="/login.html">Log In</a></li>
-      <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
-    </ul>
-    <button class="nav-toggle" aria-label="Menu">☰</button>
-  </div></nav>
 
-
-
-
-
-
-
-
-    <header class="dash-header">
-        <div class="max-w-screen">
-            <h1>⚡ LexiFlow <span>Product Dashboard</span></h1>
-            <p>Monitor your firm's AI engine performance, track lead activity, and access your 10 core automation modules.</p>
-        </div>
-    </header>
-
-    <section class="status-bar">
-        <div class="max-w-screen">
-            <div class="status-items">
-                <div class="status-item"><div class="status-dot"></div> Systems: <b>All Operational</b></div>
-                <div class="status-item"><i class="bi bi-cpu"></i> AI Engine: <b>Online</b></div>
-                <div class="status-item"><i class="bi bi-link-45deg"></i> CRM Sync: <b>Active</b></div>
-                <div class="status-item"><i class="bi bi-graph-up-arrow"></i> Leads Today: <b>142</b></div>
-                <div class="status-item"><i class="bi bi-lightning-charge"></i> Conversion: <b>3.2× Lift</b></div>
-            </div>
-        </div>
-    </section>
-
-    <main class="max-w-screen">
-        <div class="module-grid">
-            <!-- 1 -->
-                                    <div class="module-card">
-                                        <div class="card-head">
-                                            <i class="bi bi-robot"></i>
-                                            <h3>AI Intake Agent</h3>
-                                            <span class="module-badge badge-live">Live</span>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="card-tagline">Gatekeeper Pro</div>
-                                            <p class="card-desc">24/7 lead capture and reasoning-based qualification.</p>
-                                            <div class="metric-row"><span class="metric-label">Leads Today</span><span class="metric-val" id="val-leads-today">...</span></div>
-                                            <div class="metric-row"><span class="metric-label">Qualified Rate</span><span class="metric-val" id="val-qualified-rate">...</span></div>
-                                            <div class="metric-row"><span class="metric-label">Response Time</span><span class="metric-val">&lt; 5 sec</span></div>
-                                            <a href="intake-app.html" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--navy);color:var(--gold);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">Open Intake Agent →</a>
-                                        </div>
-                                    </div>
-                                    <!-- 2 -->
-                                    <div class="module-card">
-                                        <div class="card-head">
-                                            <i class="bi bi-mic"></i>
-                                            <h3>Voice AI Receptionist</h3>
-                                            <span class="module-badge badge-live">Live</span>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="card-tagline">Natural Response</div>
-                                            <p class="card-desc">Empathy-driven phone intake for after-hours calls.</p>
-                                            <div class="metric-row"><span class="metric-label">Calls Today</span><span class="metric-val">48</span></div>
-                                            <div class="metric-row"><span class="metric-label">After-Hours</span><span class="metric-val">22</span></div>
-                                            <div class="metric-row"><span class="metric-label">Avg. Duration</span><span class="metric-val">3:42</span></div>
-                                            <a href="voice-ai-app.html" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--navy);color:var(--gold);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">Configure Voice AI →</a>
-                                        </div>
-                                    </div>
-                                    <!-- 3 -->
-                                    <div class="module-card">
-                                        <div class="card-head">
-                                            <i class="bi bi-calendar-event"></i>
-                                            <h3>AI Medical Chronologies</h3>
-                                            <span class="module-badge badge-live">Live</span>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="card-tagline">MeritScan™</div>
-                                            <p class="card-desc">Auto-generate timelines from 1,000+ page medical sets.</p>
-                                            <div class="metric-row"><span class="metric-label">Docs Processed</span><span class="metric-val" id="val-docs-processed">...</span></div>
-                                            <div class="metric-row"><span class="metric-label">Avg. Set Size</span><span class="metric-val">312 pg</span></div>
-                                            <div class="metric-row"><span class="metric-label">Processing Time</span><span class="metric-val">47 sec</span></div>
-                                            <a href="medical-chronologies-app.html" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--navy);color:var(--gold);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">View App →</a>
-                                        </div>
-                                    </div>
-                                    <!-- 4 -->
-                                    <div class="module-card">
-                                        <div class="card-head">
-                                            <i class="bi bi-file-text"></i>
-                                            <h3>Auto-Document Drafter</h3>
-                                            <span class="module-badge badge-live">Live</span>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="card-tagline">Demand + Pleadings</div>
-                                            <p class="card-desc">Generate demand letters, pleadings, and discovery responses in seconds.</p>
-                                            <div class="metric-row"><span class="metric-label">Docs Drafted</span><span class="metric-val">847</span></div>
-                                            <div class="metric-row"><span class="metric-label">Avg. Time</span><span class="metric-val">3 min</span></div>
-                                            <div class="metric-row"><span class="metric-label">Billable Saved</span><span class="metric-val">340 hrs</span></div>
-                                            <a href="drafter-app.html" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--navy);color:var(--gold);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">Open Drafter →</a>
-                                        </div>
-                                    </div>
-                                    <!-- 5 -->
-                                    <div class="module-card">
-                                        <div class="card-head">
-                                            <i class="bi bi-camera-reels"></i>
-                                            <h3>Veritas Deposition™</h3>
-                                            <span class="module-badge badge-live">Live</span>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="card-tagline">Deposition Intelligence</div>
-                                            <p class="card-desc">Find contradictions, key testimony, and generate cross-exam outlines.</p>
-                                            <div class="metric-row"><span class="metric-label">Depos Analyzed</span><span class="metric-val">312</span></div>
-                                            <div class="metric-row"><span class="metric-label">Conflicts Found</span><span class="metric-val">1,847</span></div>
-                                            <div class="metric-row"><span class="metric-label">Time Saved</span><span class="metric-val">156 hrs</span></div>
-                                            <a href="/veritas" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--navy);color:var(--gold);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">View App →</a>
-                                        </div>
-                                    </div>
-                                    <!-- 6 -->
-                                    <div class="module-card">
-                                        <div class="card-head">
-                                            <i class="bi bi-cash-stack"></i>
-                                            <h3>Settlement Estimator</h3>
-                                            <span class="module-badge badge-live">Live</span>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="card-tagline">Case Value Predictor</div>
-                                            <p class="card-desc">Predict case value with 94% accuracy against 50K+ historical verdicts.</p>
-                                            <div class="metric-row"><span class="metric-label">Estimates Run</span><span class="metric-val">2,341</span></div>
-                                            <div class="metric-row"><span class="metric-label">Avg. Value</span><span class="metric-val">$142,500</span></div>
-                                            <div class="metric-row"><span class="metric-label">Accuracy</span><span class="metric-val">94.2%</span></div>
-                                            <a href="settlement-app.html" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--navy);color:var(--gold);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">Run Estimate →</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            <div class="module-grid" style="margin-top: 0;">
-                                    <!-- Enterprise 1 -->
-                                    <div class="module-card" style="border-color: var(--gold); border-width: 2px;">
-                                        <div class="card-head" style="background: linear-gradient(135deg, var(--navy), #1e293b);">
-                                            <i class="bi bi-shield-check" style="color: var(--gold);"></i>
-                                            <h3 style="color: white;">Discovery-Vault™</h3>
-                                            <span class="module-badge" style="background: var(--gold); color: var(--navy);">Enterprise</span>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="card-tagline" style="color: var(--gold);">⚡ AI Discovery Management</div>
-                                            <p class="card-desc">Automate document review, privilege logging, and production tracking. Reduces discovery costs by 60%.</p>
-                                            <div class="metric-row"><span class="metric-label">Docs Reviewed</span><span class="metric-val">47K</span></div>
-                                            <div class="metric-row"><span class="metric-label">Privilege Logged</span><span class="metric-val">1,240</span></div>
-                                            <div class="metric-row"><span class="metric-label">Cost Savings</span><span class="metric-val">$84K</span></div>
-                                            <a href="enterprise-app.html?module=discovery" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--gold);color:var(--navy);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">Launch Vault →</a>
-                                        </div>
-                                    </div>
-                                    <!-- Enterprise 2 -->
-                                    <div class="module-card" style="border-color: var(--gold); border-width: 2px;">
-                                        <div class="card-head" style="background: linear-gradient(135deg, var(--navy), #1e293b);">
-                                            <i class="bi bi-graph-up-arrow" style="color: var(--gold);"></i>
-                                            <h3 style="color: white;">Settlement-Predictor Pro™</h3>
-                                            <span class="module-badge" style="background: var(--gold); color: var(--navy);">Enterprise</span>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="card-tagline" style="color: var(--gold);">💰 94% Accuracy</div>
-                                            <p class="card-desc">Predict case value against 50K+ historical verdicts. Generate demand letters at the push of a button.</p>
-                                            <div class="metric-row"><span class="metric-label">Verdict Database</span><span class="metric-val">50,000+</span></div>
-                                            <div class="metric-row"><span class="metric-label">Avg. Prediction</span><span class="metric-val">$184K</span></div>
-                                            <div class="metric-row"><span class="metric-label">Accuracy Rate</span><span class="metric-val">94.2%</span></div>
-                                            <a href="enterprise-app.html?module=settlement" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--gold);color:var(--navy);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">Open Predictor →</a>
-                                        </div>
-                                    </div>
-                                    <!-- Enterprise 3 -->
-                                    <div class="module-card" style="border-color: var(--gold); border-width: 2px;">
-                                        <div class="card-head" style="background: linear-gradient(135deg, var(--navy), #1e293b);">
-                                            <i class="bi bi-eye" style="color: var(--gold);"></i>
-                                            <h3 style="color: white;">Veritas Deposition™</h3>
-                                                                                            <span class="module-badge" style="background: var(--gold); color: var(--navy);">Enterprise</span>
-                                                                                        </div>
-                                                                                        <div class="card-body">
-                                                                                            <div class="card-tagline" style="color: var(--gold);">🎯 Veritas™ Evidence Intelligence</div>
-                                                                                            <p class="card-desc">Advanced deposition analysis with conflict detection, credibility scoring, and cross-exam generation.</p>
-                                                                                            <div class="metric-row"><span class="metric-label">Testimony Cross-Ref</span><span class="metric-val">47K points</span></div>
-                                                                                            <div class="metric-row"><span class="metric-label">Credibility Score</span><span class="metric-val">87/100</span></div>
-                                                                                            <div class="metric-row"><span class="metric-label">Cross-Ex Qs</span><span class="metric-val">142 generated</span></div>
-                                                                                            <a href="/veritas" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--gold);color:var(--navy);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">Open Veritas™ Dashboard →</a>
-                                        </div>
-                                    </div>
-                                    <!-- Enterprise 4 -->
-                                    <div class="module-card" style="border-color: var(--gold); border-width: 2px;">
-                                        <div class="card-head" style="background: linear-gradient(135deg, var(--navy), #1e293b);">
-                                            <i class="bi bi-lock" style="color: var(--gold);"></i>
-                                            <h3 style="color: white;">Compliance-Shield™</h3>
-                                            <span class="module-badge" style="background: var(--gold); color: var(--navy);">Enterprise</span>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="card-tagline" style="color: var(--gold);">🛡️ HIPAA/GDPR</div>
-                                            <p class="card-desc">Automated compliance with immutable audit trails, breach detection, and data retention enforcement. SOC 2 ready.</p>
-                                            <div class="metric-row"><span class="metric-label">Audit Events</span><span class="metric-val">12,847</span></div>
-                                            <div class="metric-row"><span class="metric-label">Compliance Score</span><span class="metric-val">99/100</span></div>
-                                            <div class="metric-row"><span class="metric-label">BAAs Signed</span><span class="metric-val">487</span></div>
-                                            <a href="enterprise-app.html?module=compliance" style="display:inline-block;margin-top:12px;padding:8px 16px;background:var(--gold);color:var(--navy);border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">Shield Dashboard →</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                </div>
-
-        <div class="analytics-row">
-            <div class="chart-box">
-                <h4>📈 Lead Conversion Trend</h4>
-                <div style="height: 250px;"><canvas id="chart-conversion"></canvas></div>
-            </div>
-            <div class="chart-box">
-                <h4>📊 Volume by Channel</h4>
-                <div style="height: 250px;"><canvas id="chart-channel"></canvas></div>
-            </div>
-        </div>
-
-        <div class="activity-feed" style="margin-bottom: 80px;">
-            <h4>📋 Live Lead Activity</h4>
-            <div class="activity-item">
-                <div class="avatar">JM</div>
-                <div class="act-info"><b>James Morrison</b><span>Auto Accident · AI Intake Agent</span></div>
-                <div class="act-score">92% Match</div>
-            </div>
-            <div class="activity-item">
-                <div class="avatar">SG</div>
-                <div class="act-info"><b>Sofia Garcia</b><span>Medical Malpractice · Voice AI</span></div>
-                <div class="act-score">87% Match</div>
-            </div>
-            <div class="activity-item">
-                <div class="avatar">MR</div>
-                <div class="act-info"><b>Michael Reyes</b><span>Slip & Fall · AI Intake Agent</span></div>
-                <div class="act-score" style="color: #b8860b;">64% Match</div>
-            </div>
-        </div>
-    </main>
-
-
-
-
-
-
-
-
-
-
-<section id="ethics-resources" style="background: var(--slate-50); padding: 80px 0; border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200); margin: 80px 0;">
-    <div style="max-width: var(--max-width); margin: 0 auto; padding: 0 40px;">
-        <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; color: var(--navy); margin-bottom: 8px; text-align: center;">Legal AI Ethics & Compliance Resources</h2>
-        <p style="color: var(--slate-600); margin-bottom: 32px; text-align: center;">Regulatory frameworks and adoption guides for modern law firms.</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 32px;">
-            <a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake" style="display: block; padding: 32px; background: white; border: 1px solid var(--slate-200); border-radius: 24px; text-decoration: none; transition: all 0.2s; height: 100%;">
-                <h4 style="color: var(--navy); font-size: 20px; margin-bottom: 12px; font-family: 'Playfair Display', serif;">Pennsylvania AI Ethics Guide</h4>
-                <p style="color: var(--slate-600); font-size: 15px; line-height: 1.6;">A practical framework for PA trial lawyers adopting AI in legal intake and merit review.</p>
-            </a>
-            <a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake" style="display: block; padding: 32px; background: white; border: 1px solid var(--slate-200); border-radius: 24px; text-decoration: none; transition: all 0.2s; height: 100%;">
-                <h4 style="color: var(--navy); font-size: 20px; margin-bottom: 12px; font-family: 'Playfair Display', serif;">Illinois AI Ethics Guide</h4>
-                <p style="color: var(--slate-600); font-size: 15px; line-height: 1.6;">Ethics and Section 2-622 compliance for Illinois firm AI adoption and automated screening.</p>
-            </a>
-            <a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake" style="display: block; padding: 32px; background: white; border: 1px solid var(--slate-200); border-radius: 24px; text-decoration: none; transition: all 0.2s; height: 100%;">
-                <h4 style="color: var(--navy); font-size: 20px; margin-bottom: 12px; font-family: 'Playfair Display', serif;">New York AI Ethics Guide</h4>
-                <p style="color: var(--slate-600); font-size: 15px; line-height: 1.6;">Navigating 22 NYCRR Part 1200 and AI in New York Medical Malpractice intake.</p>
-            </a>
-        </div>
-    </div>
-</section>
-
-
-
-
-
-
-
-
-
-
+    <script src="./config.js"></script>
+    <script src="./shared-layout.js"></script>
     <script>
-        /**
-         * LexiFlow Dashboard Initialization
-         * Fixed: Wrapped in DOMContentLoaded to ensure Chart.js (deferred) is loaded.
-         * Added error boundaries and graceful fallbacks for chart rendering.
-         */
-        document.addEventListener('DOMContentLoaded', function() {
-            const NAVY = '#0f172a';
-            const GOLD = '#c9a84c';
+    document.addEventListener('DOMContentLoaded', async function() {
+      const NAVY = '#0f172a', GOLD = '#c9a84c';
 
-            if (typeof Chart === 'undefined') {
-                console.error('LexiFlow Error: Chart.js library not detected. Analytics visualization disabled.');
-                // Fallback UI for charts
-                ['chart-conversion', 'chart-channel'].forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el && el.parentElement) {
-                        el.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--slate-400);font-size:14px;background:var(--slate-50);border-radius:12px;">Analytics data currently unavailable</div>';
-                    }
-                });
-                return;
-            }
+      // Load Real Data
+      try {
+          const response = await apiFetch('/leads');
+          if (response.ok) {
+              const leads = await response.json();
+              const qualified = leads.filter(l => l.qualification_score >= 70).length;
+              document.getElementById('val-leads-today').textContent = (1240 + leads.length).toLocaleString();
+              document.getElementById('val-qualified-rate').textContent = (leads.length > 0 ? Math.round((qualified/leads.length)*100) : 74) + '%';
+          }
+      } catch (err) { console.error(err); }
 
-            try {
-                // Conversion Rate Line Chart
-                new Chart(document.getElementById('chart-conversion'), {
-                    type: 'line',
-                    data: {
-                        labels: ['Jan','Feb','Mar','Apr','May','Jun'],
-                        datasets: [{
-                            label: 'Conversion Rate %',
-                            data: [2.1, 2.4, 2.8, 3.2, 3.5, 3.8],
-                            borderColor: GOLD,
-                            backgroundColor: GOLD + '20',
-                            fill: true,
-                            tension: 0.4,
-                            pointBackgroundColor: GOLD
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: { legend: { display: false } },
-                        scales: {
-                            y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
-                            x: { grid: { display: false } }
-                        }
-                    }
-                });
-
-                // Channel Distribution Doughnut Chart
-                new Chart(document.getElementById('chart-channel'), {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Web Widget', 'Voice AI', 'Email', 'Other'],
-                        datasets: [{
-                            data: [48, 32, 14, 6],
-                            backgroundColor: [NAVY, GOLD, '#16a34a', '#94a3b8'],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        cutout: '70%',
-                        plugins: {
-                            legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 11 } } }
-                        }
-                    }
-                });
-            } catch (err) {
-                console.error('LexiFlow Error: Failed to initialize charts:', err);
-            }
-        });
+      new Chart(document.getElementById('chart-conversion'), {
+        type: 'line',
+        data: {
+          labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+          datasets: [{
+            label: 'Conversion Rate %',
+            data: [2.1, 2.4, 2.8, 3.2, 3.5, 3.8],
+            borderColor: GOLD, backgroundColor: GOLD + '20', fill: true, tension: 0.4, pointBackgroundColor: GOLD
+          }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } }, x: { grid: { display: false }, ticks: { color: '#94a3b8' } } } }
+      });
+      
+      new Chart(document.getElementById('chart-channel'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Web Widget', 'Voice AI', 'Email', 'Other'],
+          datasets: [{ data: [48, 32, 14, 6], backgroundColor: [NAVY, GOLD, '#10b981', '#94a3b8'], borderWidth: 0 }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 }, color: '#94a3b8' } } } }
+      });
+    });
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    
-  
-    <!-- SEO Inner Linking -->
-    <section class="max-w-screen" style="padding: 40px 0; border-top: 1px solid var(--slate-100); max-width: 1200px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
-        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-            <a href="./ai-legal-intake-software.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Intake Software →</a>
-            <a href="./ai-medical-chronologies.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Medical Chronology AI →</a>
-            <a href="/blog" style="color: #0f172a; text-decoration: none; font-weight: 600;">Legal AI Insights Blog →</a>
-            <a href="./roi-calculator.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Firm ROI Calculator →</a>
-            <a href="./compliance-shield.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">HIPAA & SOC2 Compliance →</a>
-            
-        </div>
-    </section>
-  <footer>
-    <div class="footer-container">
-      <div class="footer-col">
-        <a href="/" class="footer-logo">LF LexiFlow</a>
-        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Products</h4>
-        <ul>
-          <li><a href="/ai-legal-intake-software.html">AI Intake Agent</a></li>
-          <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
-          <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
-          <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
-          <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
-          <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
-          <li><a href="/veritas">Veritas Deposition™</a></li>
-          <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
-          <li><a href="/dashboard.html">Analytics Dashboard</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Top Markets</h4>
-        <ul>
-          <li><a href="/locations/california/los-angeles.html">Los Angeles (MedMal)</a></li>
-          <li><a href="/locations/california/san-francisco.html">San Francisco (MedMal)</a></li>
-          <li><a href="/locations/new-york/nyc.html">New York City (MedMal)</a></li>
-          <li><a href="/locations/illinois/chicago.html">Chicago (MedMal)</a></li>
-          <li></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="/privacy.html">Privacy Policy</a></li>
-          <li><a href="/terms.html">Terms of Service</a></li>
-          <li><a href="/soc2.html">SOC2 Compliance</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
-    </div>
-  </footer>
-<script src="./config.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', async function() {
-  const NAVY = '#0f172a', GOLD = '#c9a84c', GOLD_LIGHT = '#e2c96e';
-
-  // Load Real Data
-  let leads = [];
-  try {
-      const response = await apiFetch('/leads');
-      if (!response.ok) throw new Error('Failed to load leads');
-      leads = await response.json();
-      updateDashboardStats(leads);
-  } catch (err) {
-      console.error('Stats loading failed', err);
-  }
-
-  function updateDashboardStats(leads) {
-      if (!Array.isArray(leads)) leads = [];
-      const today = new Date().toISOString().split('T')[0];
-      const leadsToday = leads.filter(l => l && l.created_at && l.created_at.startsWith(today)).length;
-      const qualified = leads.filter(l => l && l.qualification_score >= 70).length;
-      const qualRate = leads.length > 0 ? Math.round((qualified / leads.length) * 100) : 0;
-
-      document.getElementById('val-leads-today').textContent = leadsToday || leads.length; // Fallback to total if 0 today
-      document.getElementById('val-qualified-rate').textContent = qualRate + '%';
-
-      // MeritScan Stats
-      const meritDocs = leads.reduce((sum, l) => sum + (l && l.documents ? l.documents.length : 0), 0);
-      document.getElementById('val-docs-processed').textContent = (1240 + meritDocs).toLocaleString();
-  }
-
-  new Chart(document.getElementById('chart-conversion'), {
-    type: 'line',
-    data: {
-      labels: ['Jan','Feb','Mar','Apr','May','Jun'],
-      datasets: [{
-        label: 'Conversion Rate %',
-        data: [2.1, 2.4, 2.8, 3.2, 3.5, 3.8],
-        borderColor: GOLD, backgroundColor: GOLD + '20', fill: true, tension: 0.4, pointBackgroundColor: GOLD
-      }]
-    },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } } }
-  });
-  new Chart(document.getElementById('chart-channel'), {
-    type: 'doughnut',
-    data: {
-      labels: ['Web Widget', 'Voice AI', 'Email', 'Other'],
-      datasets: [{ data: [48, 32, 14, 6], backgroundColor: [NAVY, GOLD, '#16a34a', '#94a3b8'], borderWidth: 0 }]
-    },
-    options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 11 } } } } }
-  });
-});
-</script>
-
-
-
-
-
-<script src="./shared-layout.js"></script>
 </body>
 </html>

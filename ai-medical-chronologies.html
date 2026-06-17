@@ -3,281 +3,224 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Medical Chronology Software for Law Firms | LexiFlow</title>
-  <meta name="description" content="LexiFlow's AI medical chronology software transforms thousands of pages of records into trial-ready, indexed timelines in seconds. Automate your medical record reviews today." />
+  <title>Medical AI Chronologies | Enterprise Litigation Intelligence</title>
+  <meta name="description" content="LexiFlow's AI medical chronology software transforms thousands of pages of records into trial-ready, indexed timelines in seconds." />
   <link rel="canonical" href="https://lexiflow.co/ai-medical-chronologies.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all';this.onload=null" />
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" /></noscript>
-  <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" media="print" onload="this.media='all';this.onload=null" />
-  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" /></noscript>
-  <style>
-    :root { --primary:#1a3a5c; --primary-light:#2a5a8c; --primary-dark:#0d1f33; --accent:#c9a84c; --accent-light:#e2c96e; --accent-dark:#a88a30; --text-dark:#1a1a2e; --text-muted:#6b7280; --text-light:#f8fafc; --bg-light:#f8fafc; --bg-white:#ffffff; --bg-dark:#0d1f33; --border:#e2e8f0; --green:#16a34a; --shadow:0 4px 6px -1px rgba(0,0,0,0.1); --shadow-lg:0 10px 15px -3px rgba(0,0,0,0.1); --shadow-xl:0 20px 25px -5px rgba(0,0,0,0.1); --radius:8px; --radius-lg:16px; --max-width:1100px; --font-sans:'Inter',-apple-system,sans-serif; --font-serif:'Playfair Display',Georgia,serif; }
-    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
-    html { scroll-behavior: smooth; }
-    body { font-family:var(--font-sans); color:var(--text-dark); line-height:1.6; background:var(--bg-light); }
-    .container { max-width:var(--max-width); margin:0 auto; padding:0 24px; }
-    /* Local nav style removed */
-    .nav .container { display:flex; align-items:center; justify-content:space-between; height:68px; }
-    .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
-    .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:800; }
-    /* Local nav style removed */
-    .nav-links a { font-size:0.88rem; font-weight:500; color:var(--text-muted); text-decoration:none; }
-    .nav-links a:hover { color:var(--primary); }
-    .resources-dropdown { position:relative; }
-    .resources-menu { display:none; position:absolute; top:100%; left:0; background:#fff; border:1px solid var(--border); border-radius:var(--radius); box-shadow:0 10px 30px rgba(0,0,0,0.1); min-width:240px; z-index:200; padding:8px 0; }
-    .resources-menu a { display:block; padding:10px 20px; font-size:0.85rem; color:var(--text-muted); white-space:nowrap; }
-    .resources-menu a:hover { background:var(--bg-light); color:var(--primary); }
-    .resources-dropdown:hover .resources-menu { display:block; }
-    .nav-cta { padding:8px 20px; background:var(--accent); color:var(--primary-dark) !important; border-radius:var(--radius); font-weight:600 !important; }
-    .hero { padding:120px 0 50px; background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 50%,var(--primary-light) 100%); color:var(--text-light); text-align:center; position:relative; overflow:hidden; }
-    .hero::before { content:''; position:absolute; top:-30%; right:-10%; width:60%; height:160%; background:radial-gradient(ellipse,rgba(201,168,76,0.07) 0%,transparent 70%); pointer-events:none; }
-    .hero h1 { font-family:var(--font-serif); font-size:2.8rem; margin-bottom:12px; position:relative; z-index:1; }
-    .hero h1 span { color:var(--accent); }
-    .hero p { font-size:1.1rem; color:rgba(255,255,255,0.85); max-width:650px; margin:0 auto 28px; position:relative; z-index:1; }
-    .hero .badge { display:inline-block; padding:5px 14px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.18); border-radius:100px; font-size:0.8rem; margin-bottom:20px; }
-    .btn { display:inline-flex; align-items:center; gap:8px; padding:14px 32px; border-radius:var(--radius); font-weight:700; font-size:1rem; text-decoration:none; transition:all 0.2s; margin:4px; }
-    .btn-primary { background:var(--accent); color:var(--primary-dark); }
-    .btn-primary:hover { background:var(--accent-light); transform:translateY(-2px); box-shadow:var(--shadow-lg); }
-    .btn-outline { background:transparent; border:2px solid rgba(255,255,255,0.3); color:var(--text-light); }
-    .btn-outline:hover { border-color:var(--accent); color:var(--accent); }
-    .section { padding:60px 0; }
-    .section-alt { background:var(--bg-white); }
-    .section h2 { font-family:var(--font-serif); font-size:2rem; color:var(--primary); text-align:center; margin-bottom:12px; }
-    .section .subtitle { text-align:center; color:var(--text-muted); font-size:0.95rem; max-width:600px; margin:0 auto 40px; }
-    .section .label { display:inline-block; padding:4px 14px; background:rgba(201,168,76,0.12); color:var(--accent-dark); font-size:0.78rem; font-weight:600; border-radius:100px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px; }
-    .hero-card { max-width:500px; margin:24px auto 0; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:var(--radius-lg); padding:24px; text-align:left; }
-    .hero-card .entry { padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.06); font-size:0.82rem; }
-    .hero-card .entry:last-child { border-bottom:none; }
-    .hero-card .date { color:var(--accent); font-weight:600; font-size:0.72rem; }
-    .hero-card .title { color:rgba(255,255,255,0.9); font-weight:600; }
-    .hero-card .detail { color:rgba(255,255,255,0.55); font-size:0.72rem; }
-    .stats-bar { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; padding:32px 0; }
-    .stat-item { text-align:center; color:var(--text-light); }
-    .stat-item .num { font-family:var(--font-serif); font-size:2rem; font-weight:800; color:var(--accent); }
-    .stat-item .label { font-size:0.82rem; color:rgba(255,255,255,0.7); }
-    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
-    .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin-top:32px; }
-    .card { background:var(--bg-white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:28px; text-align:center; }
-    .card .icon { font-size:2rem; margin-bottom:12px; }
-    .card h3 { font-size:1.05rem; color:var(--primary); margin-bottom:6px; }
-    .card p { font-size:0.85rem; color:var(--text-muted); }
-    .card-left { text-align:left; }
-    .step-circle { width:56px; height:56px; border-radius:50%; background:var(--primary); color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:1.3rem; font-weight:800; margin:0 auto 12px; border:3px solid var(--bg-light); }
-    .magnet-box { background:var(--bg-white); border:2px solid var(--accent); border-radius:var(--radius-lg); padding:40px; text-align:center; max-width:600px; margin:0 auto; }
-    .magnet-box h3 { font-family:var(--font-serif); font-size:1.4rem; color:var(--primary); margin-bottom:12px; }
-    .magnet-box p { font-size:0.9rem; color:var(--text-muted); margin-bottom:20px; }
-    .magnet-box form { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
-    .magnet-box input { padding:12px 16px; border:1px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.9rem; flex:1; min-width:200px; }
-    .magnet-box .note { font-size:0.78rem; color:var(--text-muted); margin-top:12px; }
-    .testimonial-box { max-width:600px; margin:0 auto; text-align:center; }
-    .testimonial-box .stars { color:var(--accent); font-size:1.3rem; margin-bottom:12px; }
-    .testimonial-box .text { font-size:1rem; color:var(--text-muted); font-style:italic; line-height:1.7; margin-bottom:16px; }
-    .testimonial-box .author { display:flex; align-items:center; justify-content:center; gap:12px; }
-    .testimonial-box .avatar { width:40px; height:40px; border-radius:50%; background:var(--primary); color:var(--accent); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.85rem; }
-    .testimonial-box .name { font-weight:600; color:var(--primary); font-size:0.9rem; }
-    .testimonial-box .role { font-size:0.78rem; color:var(--text-muted); }
-    .cta-section { background:linear-gradient(135deg,var(--primary-dark),var(--primary)); color:var(--text-light); text-align:center; padding:60px 0; }
-    .cta-section h2 { font-family:var(--font-serif); font-size:2.2rem; margin-bottom:10px; }
-    .cta-section p { font-size:1rem; color:rgba(255,255,255,0.8); max-width:500px; margin:0 auto 24px; }
-    .faq-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; max-width:800px; margin:0 auto; }
-    .faq-item { padding:16px; border:1px solid var(--border); border-radius:var(--radius); }
-    .faq-item h4 { font-size:0.9rem; color:var(--primary); margin-bottom:4px; }
-    .faq-item p { font-size:0.82rem; color:var(--text-muted); }
-    .footer { background:var(--bg-dark); color:rgba(255,255,255,0.6); padding:48px 0 32px; }
-    .footer-grid { max-width:var(--max-width); margin:0 auto; padding:0 24px; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; }
-    .footer-col h4 { color:#fff; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:16px; }
-    .footer-col ul { list-style:none; }
-    .footer-col ul li { margin-bottom:10px; }
-    .footer-col ul a { color:rgba(255,255,255,0.6); text-decoration:none; font-size:0.88rem; }
-    .footer-col ul a:hover { color:var(--accent); }
-    .footer-logo { font-family:var(--font-serif); font-size:1.5rem; color:#fff; text-decoration:none; display:block; margin-bottom:12px; }
-    .footer-bottom { max-width:var(--max-width); margin:40px auto 0; padding:24px 24px 0; border-top:1px solid rgba(255,255,255,0.08); text-align:center; font-size:0.82rem; }
-    @media (max-width:900px) { .grid-3 { grid-template-columns:1fr; } .grid-2 { grid-template-columns:1fr; } .stats-bar { grid-template-columns:repeat(2,1fr); } .footer-grid { grid-template-columns:1fr 1fr; } .faq-grid { grid-template-columns:1fr; } }
-    @media (max-width:768px) { .hero h1 { font-size:2rem; } .stats-bar { grid-template-columns:1fr; } }
-  </style>
-<link rel="stylesheet" href="./shared-layout.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="./veritas-theme.css">
+  <link rel="stylesheet" href="./shared-layout.css">
 </head>
-<body><nav><div class="nav-container">
-    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="/pricing.html">Pricing</a></li>
-      <li><a href="/dashboard.html">Dashboard</a></li>
-      <li><a href="/blog">Blog</a></li>
-      <li class="resources-dropdown">
-        <a href="#">Resources ▾</a>
-        <div class="resources-menu">
-          <a href="/resources/medical-chronology-template.html">Medical Chronology Template</a>
-          <a href="/resources/medical-chronology-sample.html">Medical Chronology Sample</a>
-          <a href="/resources/medical-record-review-checklist.html">Record Review Checklist</a><a href="/ssd-disability-medical-chronology-software.html">SSD & Disability Chronologies</a>
-        </div>
-      </li>
-      <li><a href="/roi-calculator.html">ROI Calculator</a></li>
-      <li></li>
-      <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
-    </ul>
-    <button class="nav-toggle" aria-label="Menu">☰</button>
-  </div></nav>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="logo" style="text-decoration: none; color: white; display: flex; align-items: center; gap: 8px;">
+                    <span style="background: var(--gold-accent); color: var(--navy-bg); padding: 2px 6px; border-radius: 4px; font-weight: 800; font-size: 14px;">LF</span>
+                    <span style="font-family: var(--font-serif); font-weight: 700; font-size: 18px;">LexiFlow</span>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="/dashboard.html" class="nav-item">
+                    <i class="bi bi-speedometer2"></i>
+                    <span class="sidebar-text">Main Dashboard</span>
+                </a>
+                <a href="/discovery-vault.html" class="nav-item">
+                    <i class="bi bi-safe2"></i>
+                    <span class="sidebar-text">Discovery-Vault™</span>
+                </a>
+                <a href="/veritas" class="nav-item">
+                    <i class="bi bi-shield-check"></i>
+                    <span class="sidebar-text">Veritas Deposition™</span>
+                </a>
+                <a href="/ai-medical-chronologies.html" class="nav-item active">
+                    <i class="bi bi-file-medical"></i>
+                    <span class="sidebar-text">Medical AI</span>
+                </a>
+                <a href="/settlement-predictor.html" class="nav-item">
+                    <i class="bi bi-graph-up-arrow"></i>
+                    <span class="sidebar-text">Settlement-Predictor™</span>
+                </a>
+                <a href="/compliance-shield.html" class="nav-item">
+                    <i class="bi bi-lock"></i>
+                    <span class="sidebar-text">Compliance-Shield™</span>
+                </a>
+            </nav>
+            <div style="padding: 24px; border-top: 1px solid var(--navy-border);">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--navy-border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">JD</div>
+                    <div class="sidebar-text">
+                        <div style="font-size: 12px; font-weight: 600;">Partner Account</div>
+                        <div style="font-size: 10px; color: var(--text-secondary);">Enterprise Tier</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
 
+        <!-- Main Content -->
+        <main class="app-main">
+            <header class="page-header">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h1>Medical AI Chronologies</h1>
+                        <p>Automated Clinical Analysis & Treatment Timelines</p>
+                    </div>
+                    <div style="display: flex; gap: 12px;">
+                        <button class="v-btn v-btn-outline"><i class="bi bi-file-earmark-arrow-up"></i> Upload Batch</button>
+                        <button class="v-btn v-btn-primary">New Chronology</button>
+                    </div>
+                </div>
+            </header>
 
-<section class="hero"><div class="container">
-    <span class="badge">AI Medical Chronologies</span>
-    <h1>AI-Powered <span>Medical Chronology</span> Software</h1>
-    <p>Upload 500+ pages of medical records and get a comprehensive, organized chronology — with key findings, treatment summaries, and expense tracking — in minutes.</p>
-    <a href="./signup.html" class="btn btn-primary">Start Free Trial</a>
-    <a href="#features" class="btn btn-outline">How It Works</a>
-    <div class="hero-card">
-      <div class="entry"><span class="date">Mar 15</span> <span class="title">ER Admission</span><br><span class="detail">St. Mary's Hospital — Diagnosis: C-spine strain, concussion. CT negative.</span></div>
-      <div class="entry"><span class="date">Mar 17</span> <span class="title">Follow-Up</span><br><span class="detail">Dr. Williams — Orthopedic consult. MRI ordered. Prescribed PT 3x/week.</span></div>
-      <div class="entry"><span class="date">Mar 24</span> <span class="title">MRI Results</span><br><span class="detail">C5-C6 disc herniation confirmed. Neuro referral. Surgery recommended.</span></div>
+            <!-- Metrics -->
+            <div class="grid-cols-4">
+                <div class="v-card metric-card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="metric-label">Processing Speed</span>
+                        <i class="bi bi-lightning-charge metric-icon"></i>
+                    </div>
+                    <div class="metric-value">620/pg</div>
+                    <div style="font-size: 12px; color: var(--success); margin-top: 4px;">
+                        Pages per minute average
+                    </div>
+                </div>
+                <div class="v-card metric-card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="metric-label">Accuracy Rate</span>
+                        <i class="bi bi-bullseye metric-icon"></i>
+                    </div>
+                    <div class="metric-value">99.2%</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+                        Human-validated average
+                    </div>
+                </div>
+                <div class="v-card metric-card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="metric-label">Provider Matches</span>
+                        <i class="bi bi-person-heart metric-icon"></i>
+                    </div>
+                    <div class="metric-value">14.2k</div>
+                    <div style="font-size: 12px; color: var(--gold-accent); margin-top: 4px;">
+                        Cross-referenced database
+                    </div>
+                </div>
+                <div class="v-card metric-card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="metric-label">Time Saved</span>
+                        <i class="bi bi-hourglass-split metric-icon"></i>
+                    </div>
+                    <div class="metric-value">15x</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+                        Vs. manual paralegal review
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2-1">
+                <!-- Chronology Preview -->
+                <div class="v-card">
+                    <div class="v-card-header">
+                        <h3 class="v-card-title">📅 Live Chronology Stream</h3>
+                        <div class="v-badge v-badge-gold">Auto-Indexing</div>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div class="chron-item-v">
+                            <div class="date-v">MAR 15, 2026</div>
+                            <div style="font-weight: 700; color: var(--text-primary);">ER Admission — St. Mary's Hospital</div>
+                            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Diagnosis: C-spine strain, concussion. CT Head negative for acute bleed. Plan: Follow-up with Ortho.</p>
+                        </div>
+                        <div class="chron-item-v">
+                            <div class="date-v">MAR 17, 2026</div>
+                            <div style="font-weight: 700; color: var(--text-primary);">Consultation — Dr. Michael Williams</div>
+                            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Orthopedic consult. Patient reports 8/10 radicular pain. MRI Cervical spine ordered. PT 3x/week prescribed.</p>
+                        </div>
+                        <div class="chron-item-v">
+                            <div class="date-v">MAR 24, 2026</div>
+                            <div style="font-weight: 700; color: var(--text-primary);">Diagnostic Result — MRI Center</div>
+                            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;"><span class="v-badge v-badge-danger" style="padding: 2px 6px;">Critical</span> C5-C6 disc herniation confirmed with nerve root impingement. Surgical consult scheduled.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Sidebar -->
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                    <div class="v-card">
+                        <div class="v-card-header">
+                            <h3 class="v-card-title">Treatment Summary</h3>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                                <span>Total Visits</span>
+                                <span class="text-gold">14</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                                <span>Surgery Count</span>
+                                <span class="text-gold">1</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                                <span>Diagnostic Tests</span>
+                                <span class="text-gold">4</span>
+                            </div>
+                            <div style="padding-top: 12px; border-top: 1px solid var(--navy-border); margin-top: 8px;">
+                                <div style="display: flex; justify-content: space-between; font-weight: 700;">
+                                    <span>Total Medicals</span>
+                                    <span class="text-gold">$42,500.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="v-card">
+                        <div class="v-card-header">
+                            <h3 class="v-card-title">Provider Network</h3>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <span class="v-badge v-badge-gold" style="width: fit-content;">St. Mary's ER</span>
+                            <span class="v-badge v-badge-gold" style="width: fit-content;">Ortho-Direct LLC</span>
+                            <span class="v-badge v-badge-gold" style="width: fit-content;">Midwest MRI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Grid -->
+            <div style="margin-top: 48px;">
+                <h2 style="font-family: var(--font-serif); font-size: 1.75rem; margin-bottom: 24px;">Medical Intelligence Modules</h2>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+                    <div class="v-card">
+                        <i class="bi bi-calendar3" style="font-size: 24px; color: var(--gold-accent); display: block; margin-bottom: 16px;"></i>
+                        <h4 style="font-size: 18px; margin-bottom: 8px;">Automated Timelines</h4>
+                        <p style="font-size: 14px; color: var(--text-secondary);">Organize thousands of pages into a searchable, date-sorted clinical narrative automatically.</p>
+                    </div>
+                    <div class="v-card">
+                        <i class="bi bi-search" style="font-size: 24px; color: var(--gold-accent); display: block; margin-bottom: 16px;"></i>
+                        <h4 style="font-size: 18px; margin-bottom: 8px;">Key Finding Extraction</h4>
+                        <p style="font-size: 14px; color: var(--text-secondary);">AI isolates imaging results, surgical recommendations, and high-value clinical notes.</p>
+                    </div>
+                    <div class="v-card">
+                        <i class="bi bi-receipt" style="font-size: 24px; color: var(--gold-accent); display: block; margin-bottom: 16px;"></i>
+                        <h4 style="font-size: 18px; margin-bottom: 8px;">Billing & Specials</h4>
+                        <p style="font-size: 14px; color: var(--text-secondary);">Extract billing codes and total charges to build medical specials lists without data entry.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
-</div></section>
 
-<!-- Stats -->
-<section style="background:var(--primary);"><div class="container">
-  <div class="stats-bar">
-    <div class="stat-item"><div class="num">500+</div><div class="label">Pages per Minute</div></div>
-    <div class="stat-item"><div class="num">15x</div><div class="label">Faster Than Manual</div></div>
-    <div class="stat-item"><div class="num">99%</div><div class="label">Accuracy Rate</div></div>
-    <div class="stat-item"><div class="num">60s</div><div class="label">Average Processing</div></div>
-  </div>
-</div></section>
+    <style>
+        .chron-item-v {
+            padding: 16px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            border-left: 3px solid var(--gold-accent);
+        }
+        .date-v { font-weight: 800; font-size: 10px; color: var(--gold-accent); margin-bottom: 4px; }
+    </style>
 
-<!-- Features -->
-<section class="section" id="features"><div class="container">
-  <div style="text-align:center;"><span class="label">Features</span></div>
-  <h2>Turn Chaos into Clarity</h2>
-  <p class="subtitle">Medical chronologies are the backbone of case preparation. LexiFlow builds them faster and more accurately than manual review.</p>
-  <div class="grid-3">
-    <div class="card"><div class="icon">📅</div><h3>Chronological Timeline</h3><p>Every medical event extracted and organized by date — from ER visits to surgeries and therapy.</p></div>
-    <div class="card"><div class="icon">🔍</div><h3>Key Finding Highlighting</h3><p>AI identifies critical findings: diagnoses, imaging results, specialist referrals.</p></div>
-    <div class="card"><div class="icon">💰</div><h3>Expense Tracking</h3><p>Auto-extracts billing codes, charges, and payments. Builds a complete specials list.</p></div>
-    <div class="card"><div class="icon">📊</div><h3>Treatment Summary</h3><p>Total visits, procedures, medications, and providers — all summarized automatically.</p></div>
-    <div class="card"><div class="icon">📄</div><h3>Multiple Export Formats</h3><p>Export to PDF, Word, or CSV. Import directly into Filevine or Clio.</p></div>
-    <div class="card"><div class="icon">🔐</div><h3>HIPAA Compliant</h3><p>End-to-end encryption. SOC 2. Full audit trail for every document.</p></div>
-  </div>
-</div></section>
-
-<!-- How It Works -->
-<section class="section section-alt"><div class="container">
-  <div style="text-align:center;"><span class="label">How It Works</span></div>
-  <h2>Upload. Analyze. Export.</h2>
-  <p class="subtitle">From upload to deliverable in 3 simple steps.</p>
-  <div class="grid-3" style="margin-top:32px;">
-    <div style="text-align:center;">
-      <div class="step-circle">1</div>
-      <h3 style="font-size:1rem;color:var(--primary);margin-bottom:6px;">Upload Records</h3>
-      <p style="font-size:0.85rem;color:var(--text-muted);">PDF, DOCX, TIFF, or images. OCR handles scanned documents automatically.</p>
-    </div>
-    <div style="text-align:center;">
-      <div class="step-circle">2</div>
-      <h3 style="font-size:1rem;color:var(--primary);margin-bottom:6px;">AI Builds Chronology</h3>
-      <p style="font-size:0.85rem;color:var(--text-muted);">Dates, diagnoses, treatments, and billing organized into a clean timeline.</p>
-    </div>
-    <div style="text-align:center;">
-      <div class="step-circle">3</div>
-      <h3 style="font-size:1rem;color:var(--primary);margin-bottom:6px;">Review & Export</h3>
-      <p style="font-size:0.85rem;color:var(--text-muted);">Review, adjust, and export to your preferred format or CRM.</p>
-    </div>
-  </div>
-</div></section>
-
-<!-- Lead Magnet Section Removed -->
-
-<!-- Testimonial -->
-<section class="section section-alt"><div class="container">
-  <div style="text-align:center;"><span class="label">Testimonial</span></div>
-  <h2>What Paralegals Are Saying</h2>
-  <div class="testimonial-box">
-    <div class="stars">★★★★★</div>
-    <p class="text">"I used to spend 6-8 hours building medical chronologies for each case. LexiFlow does it in under a minute. The accuracy is incredible."</p>
-    <div class="author">
-      <div class="avatar">CP</div>
-      <div><div class="name">Carla Peterson</div><div class="role">Senior Paralegal, Pacific Legal Group</div></div>
-    </div>
-  </div>
-</div></section>
-
-<!-- FAQ -->
-<section class="section"><div class="container">
-  <h2>FAQs</h2>
-  <div class="faq-grid">
-    <div class="faq-item"><h4>How many pages can you process?</h4><p>Our AI handles sets of 500+ pages. Enterprise plans have no page limits.</p></div>
-    <div class="faq-item"><h4>What formats are supported?</h4><p>PDF, DOCX, TIFF, PNG, and JPG. Scanned documents supported via OCR.</p></div>
-    <div class="faq-item"><h4>How long does it take?</h4><p>Average processing time is under 60 seconds for a 500-page set.</p></div>
-    <div class="faq-item"><h4>Is my data secure?</h4><p>AES-256 encryption, SOC 2 compliant. HIPAA BAA available on Enterprise.</p></div>
-    <div class="faq-item"><h4>What's included in the chronology?</h4><p>Timeline, key findings, treatment summary, and expense tracking.</p></div>
-    <div class="faq-item"><h4>Can I export to my CRM?</h4><p>Direct export to Filevine, Clio, and LeadDock. CSV for other systems.</p></div>
-  </div>
-</div></section>
-
-<!-- CTA -->
-<section class="cta-section"><div class="container">
-  <h2>Stop Building Chronologies by Hand</h2>
-  <p>Get your first AI chronology free. Upload records and see the future of legal document review.</p>
-  <a href="./signup.html" class="btn btn-primary">Start Free Trial →</a>
-</div></section>
-
-            
-  
-    <!-- SEO Inner Linking -->
-    <section class="max-w-screen" style="padding: 40px 0; border-top: 1px solid var(--slate-100); max-width: 1200px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
-        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-            <a href="./ai-legal-intake-software.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Intake Software →</a>
-            <a href="./ai-medical-chronologies.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Medical Chronology AI →</a>
-            <a href="/blog" style="color: #0f172a; text-decoration: none; font-weight: 600;">Legal AI Insights Blog →</a>
-            <a href="./roi-calculator.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Firm ROI Calculator →</a>
-            <a href="./compliance-shield.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">HIPAA & SOC2 Compliance →</a>
-            
-        </div>
-    </section>
-  <footer>
-    <div class="footer-container">
-      <div class="footer-col">
-        <a href="/" class="footer-logo">LF LexiFlow</a>
-        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Products</h4>
-        <ul>
-          <li><a href="/ai-legal-intake-software.html">AI Intake Agent</a></li>
-          <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
-          <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
-          <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
-          <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
-          <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
-          <li><a href="//veritas">Veritas Deposition™ AI</a></li>
-          <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
-          <li><a href="/dashboard.html">Analytics Dashboard</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Top Markets</h4>
-        <ul>
-          <li><a href="/locations/california/los-angeles.html">Los Angeles (MedMal)</a></li>
-          <li><a href="/locations/california/san-francisco.html">San Francisco (MedMal)</a></li>
-          <li><a href="/locations/new-york/nyc.html">New York City (MedMal)</a></li>
-          <li><a href="/locations/illinois/chicago.html">Chicago (MedMal)</a></li>
-          <li></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="/privacy.html">Privacy Policy</a></li>
-          <li><a href="/terms.html">Terms of Service</a></li>
-          <li><a href="/soc2.html">SOC2 Compliance</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
-    </div>
-  </footer>
-<script src="./shared-layout.js"></script>
+    <script src="./shared-layout.js"></script>
 </body>
 </html>

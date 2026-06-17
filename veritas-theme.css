@@ -1,0 +1,275 @@
+/* Veritas Professional UI Theme */
+:root {
+    --navy-bg: #0a1a2e;
+    --navy-sidebar: #0f172a;
+    --navy-card: #1e293b;
+    --navy-border: #334155;
+    
+    --gold-accent: #c9a84c;
+    --gold-light: #e2c96e;
+    --gold-dark: #a88a30;
+    
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+body {
+    background-color: var(--navy-bg);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+}
+
+/* Dashboard Layout */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styling */
+.app-sidebar {
+    width: 260px;
+    background-color: var(--navy-sidebar);
+    border-right: 1px solid var(--navy-border);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+}
+
+.sidebar-header {
+    padding: 24px;
+    border-bottom: 1px solid var(--navy-border);
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding: 20px 0;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+    background: rgba(255,255,255,0.03);
+    color: var(--text-primary);
+}
+
+.nav-item.active {
+    color: var(--gold-accent);
+    background: rgba(201, 168, 76, 0.05);
+    border-left-color: var(--gold-accent);
+}
+
+.nav-item i {
+    font-size: 1.25rem;
+}
+
+/* Main Content Area */
+.app-main {
+    flex: 1;
+    margin-left: 260px;
+    padding: 40px;
+    max-width: 1400px;
+}
+
+.page-header {
+    margin-bottom: 32px;
+}
+
+.page-header h1 {
+    font-family: var(--font-serif);
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+}
+
+.page-header p {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    margin: 0;
+}
+
+/* Grid & Cards */
+.grid-cols-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.grid-2-1 {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+}
+
+.v-card {
+    background-color: var(--navy-card);
+    border: 1px solid var(--navy-border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-xl);
+}
+
+.v-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.v-card-title {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Metric Cards */
+.metric-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.metric-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.metric-icon {
+    color: var(--gold-accent);
+    font-size: 1.5rem;
+}
+
+/* Progress Bars */
+.v-progress {
+    height: 8px;
+    background: var(--navy-border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.v-progress-bar {
+    height: 100%;
+    background: var(--gold-accent);
+    border-radius: 4px;
+}
+
+/* Badges */
+.v-badge {
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.v-badge-gold { background: rgba(201, 168, 76, 0.15); color: var(--gold-light); }
+.v-badge-success { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+.v-badge-danger { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+
+/* Tables */
+.v-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.v-table th {
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--navy-border);
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.v-table td {
+    padding: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.9375rem;
+}
+
+.v-table tr:hover td {
+    background: rgba(255,255,255,0.02);
+}
+
+/* Typography Helpers */
+.text-gold { color: var(--gold-accent); }
+.text-muted { color: var(--text-muted); }
+
+/* Buttons */
+.v-btn {
+    padding: 10px 20px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    font-size: 0.875rem;
+}
+
+.v-btn-primary {
+    background-color: var(--gold-accent);
+    color: var(--navy-bg);
+}
+
+.v-btn-primary:hover {
+    background-color: var(--gold-light);
+    transform: translateY(-1px);
+}
+
+.v-btn-outline {
+    background: transparent;
+    border: 1px solid var(--navy-border);
+    color: var(--text-primary);
+}
+
+.v-btn-outline:hover {
+    border-color: var(--gold-accent);
+    color: var(--gold-accent);
+}
+
+@media (max-width: 1024px) {
+    .app-sidebar { width: 80px; }
+    .sidebar-text { display: none; }
+    .app-main { margin-left: 80px; }
+    .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2-1 { grid-template-columns: 1fr; }
+}
