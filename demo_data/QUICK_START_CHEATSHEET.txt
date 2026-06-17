@@ -16,7 +16,7 @@
 2. **Settlement**: Show the $4.2M valuation based on New York jurisdictional rules.
 3. **Discovery**: Flag the 14-hour gap automatically.
 4. **CRM**: One-click sync to Filevine to show workflow integration.
-5. **DepoLens**: Generate cross-exam questions to impeach Dr. Miller on the protocol gap.
+5. **Veritas Deposition™**: Generate cross-exam questions to impeach Dr. Miller on the protocol gap.
 
 ## 4. Troubleshooting
 - If login fails: Ensure the server is running on port 3000 (`ss -tuln | grep 3000`).

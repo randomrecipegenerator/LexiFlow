@@ -1,5 +1,17 @@
 [
   {
+    "id": "ssd-disability-medical-chronology-software",
+    "title": "SSD & Disability Medical Chronology: Finding the Critical Impairments with AI",
+    "slug": "ssd-disability-medical-chronology-software",
+    "category": "Medical Chronology",
+    "excerpt": "Learn how AI medical chronology software helps disability attorneys identify key impairments and support RFC claims in SSD cases.",
+    "date": "2026-07-13",
+    "readTime": "10 min read",
+    "image": "/blog/images/ssd-disability-medical-chronology.png",
+    "author": "LexiFlow Team",
+    "tags": ["SSD", "Disability", "Medical Chronology"]
+  },
+  {
     "id": "how-ai-medical-merit-review-cuts-case-screening",
     "title": "How AI Medical Merit Review Cuts Case Screening from 8 Hours to 3 Minutes",
     "slug": "how-ai-medical-merit-review-cuts-case-screening",
@@ -28,7 +40,7 @@
     "title": "LexiFlow Launches Enterprise Suite: AI-Powered Litigation Modules for Plaintiff Firms",
     "slug": "enterprise-suite-launch-ai-litigation",
     "category": "Legal Tech & AI Innovation",
-    "excerpt": "LexiFlow unveils its Enterprise Suite with four advanced litigation modules — Discovery-Vault, Settlement-Predictor Pro, DepoLens, and Compliance-Shield — at $299/month.",
+    "excerpt": "LexiFlow unveils its Enterprise Suite with four advanced litigation modules — Discovery-Vault, Settlement-Predictor Pro, Veritas Deposition™, and Compliance-Shield — at $299/month.",
     "date": "2026-06-22",
     "readTime": "8 min read",
     "image": "/blog/images/enterprise-suite-launch-announcement.png",

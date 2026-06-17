@@ -9,7 +9,7 @@ The latest and most complete codebase is located at:
 **Key Features Included:**
 - **Weekly Lead Reports**: Automated KPI tracking and email summaries for law firm partners.
 - **MeritScan**: AI-powered medical merit review for personal injury cases.
-- **DepoLens**: AI deposition conflict detector and chronology generator.
+- **Veritas Deposition™**: AI deposition conflict detector and chronology generator.
 - **Refined Frontend**: Professional, product-centric landing pages and localized SEO city pages.
 - **Consultation Flow**: Unified lead capture system routing to the backend dashboard.
 

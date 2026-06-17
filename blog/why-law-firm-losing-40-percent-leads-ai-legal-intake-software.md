@@ -131,7 +131,7 @@ LexiFlow offers native integrations with Filevine, Clio, and LeadDock. Lead data
 Absolutely. LexiFlow is HIPAA compliant by design — end-to-end encryption, signed BAA included, no training on client data, and full audit logging.
 
 ### What's the pricing?
-The full LexiFlow Suite — including AI intake, MeritScan medical review, DepoLens deposition analysis, Medical Chronologies, Narrative Synthesis, and CRM integrations — is available for just **$69/month**. There's no per-lead fee, no usage cap, and no long-term contract.
+The full LexiFlow Suite — including AI intake, MeritScan medical review, Veritas Deposition™ deposition analysis, Medical Chronologies, Narrative Synthesis, and CRM integrations — is available for just **$69/month**. There's no per-lead fee, no usage cap, and no long-term contract.
 
 ## The Bottom Line
 

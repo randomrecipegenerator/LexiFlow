@@ -8,7 +8,7 @@
   <rect width="800" height="500" rx="16" fill="url(#bgGrad)" stroke="#334155" stroke-width="1"/>
   <rect x="0" y="0" width="800" height="52" rx="16" fill="#1e3a5f"/>
   <rect x="0" y="36" width="800" height="16" fill="#1e3a5f"/>
-  <text x="400" y="32" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">🔍 DepoLens — Cross-Transcript Conflict Detection</text>
+  <text x="400" y="32" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">🔍 Veritas Deposition™ — Cross-Transcript Conflict Detection</text>
   <!-- Case banner -->
   <g transform="translate(24, 70)">
     <rect x="0" y="0" width="752" height="36" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>

@@ -1,7 +1,7 @@
-# DepoLens Brand Guidelines
+# Veritas Deposition™ Brand Guidelines
 
 ## Brand Overview
-**Product:** DepoLens  
+**Product:** Veritas Deposition™  
 **Tagline:** AI-Powered Deposition Conflict Detector  
 **Target:** Litigation law firms (PI, Commercial, Employment, Insurance Defense)  
 **Vibe:** Trustworthy, sharp, high-tech

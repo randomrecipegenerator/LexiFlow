@@ -25,7 +25,7 @@ For a platform handling medical records, deposition transcripts, and client inta
 
 **High-availability infrastructure.** The backend runs on hardened FastAPI processes with continuous delivery compatibility. The platform is deployed directly from the repository — no deployment gaps, no configuration drift.
 
-**Tested against real cases.** The Rodriguez v. Mount Sinai demo scenario is fully staged and verified — a complete medical malpractice case flowing through MeritScan, DepoLens, and the full intake pipeline.
+**Tested against real cases.** The Rodriguez v. Mount Sinai demo scenario is fully staged and verified — a complete medical malpractice case flowing through MeritScan, Veritas Deposition™, and the full intake pipeline.
 
 ## The Full LexiFlow Suite
 
@@ -43,7 +43,7 @@ Upload medical records and get a citation-backed preliminary merit report in und
 ### Medical Chronologies
 Automated treatment timelines with >99% extraction accuracy. Build complete, citation-backed chronologies from 5,000+ pages of records in under 60 seconds.
 
-### DepoLens — Deposition Intelligence
+### Veritas Deposition™ — Deposition Intelligence
 Upload deposition transcripts and get issue-organized digests with every contradiction flagged. Cross-reference testimony against medical records, prior depositions, and expert reports. Generate issue-specific digests for trial preparation.
 
 ### Narrative Synthesis
@@ -84,7 +84,7 @@ LexiFlow is priced for the economic reality of plaintiff practice — no per-lea
 |------|-------|----------|
 | **Standard** | $69/month | Full AI Intake Suite (Web/SMS AI, Voice AI, Basic Chronologies) |
 | **Professional** | $199/month | Everything in Standard + 250 docs/mo, Priority Processing, Basic CRM Sync |
-| **Enterprise** | $299/month | Everything in Professional + 500 docs/mo, DepoLens, Discovery-Vault, Settlement-Predictor Pro, Compliance-Shield, Enterprise CRM Sync |
+| **Enterprise** | $299/month | Everything in Professional + 500 docs/mo, Veritas Deposition™, Discovery-Vault, Settlement-Predictor Pro, Compliance-Shield, Enterprise CRM Sync |
 
 No setup fees. No contracts. Upgrade or downgrade at any time.
 

@@ -475,7 +475,7 @@ def generate_qualification_rules(firm_name, criteria_text):
 
 def analyze_transcript(text):
     """
-    Main entry point for DepoLens AI analysis.
+    Main entry point for Veritas Deposition™ AI analysis.
     Uses mock if no client.
     """
     if not client:
@@ -503,7 +503,7 @@ def analyze_transcript(text):
             }
         }
 
-    # Real AI logic (Simplified version of DepoLens logic)
+    # Real AI logic (Simplified version of Veritas Deposition™ logic)
     prompt = f"""
     Analyze the following deposition transcript.
     1. Extract a structured Fact Chronology.

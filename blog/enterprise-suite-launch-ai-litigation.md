@@ -1,6 +1,6 @@
 # LexiFlow Launches Enterprise Suite: AI-Powered Litigation Modules for Plaintiff Firms
 
-**Meta Description:** LexiFlow unveils its Enterprise Suite with four advanced litigation modules — Discovery-Vault, Settlement-Predictor Pro, DepoLens, and Compliance-Shield — at $299/month. No setup fees.
+**Meta Description:** LexiFlow unveils its Enterprise Suite with four advanced litigation modules — Discovery-Vault, Settlement-Predictor Pro, Veritas Deposition™, and Compliance-Shield — at $299/month. No setup fees.
 **Slug:** enterprise-suite-launch-ai-litigation
 **Published:** 2026-06-22
 **Reading Time:** 8 min
@@ -45,9 +45,9 @@ Settlement-Predictor Pro applies predictive modeling against a corpus of anonymi
 
 The tool does not replace attorney judgment — it augments it with data. Attorneys who use settlement analytics in mediation report 18–25% higher recovery rates compared to intuition-based evaluation alone.
 
-### DepoLens™ — Real-Time Deposition Intelligence
+### Veritas Deposition™ — Real-Time Deposition Intelligence
 
-DepoLens transforms deposition preparation and execution. The module ingests deposition transcripts, prior testimony, and medical records to:
+Veritas Deposition™ transforms deposition preparation and execution. The module ingests deposition transcripts, prior testimony, and medical records to:
 
 - **Flag contradictions** between current testimony and prior statements or records
 - **Identify expert witness conflicts** against a national database of expert testimony
@@ -55,7 +55,7 @@ DepoLens transforms deposition preparation and execution. The module ingests dep
 - **Cross-reference medical records** against testimony for accuracy verification
 - **Produce instant deposition summaries** organized by issue, witness, and timeline
 
-For firms that take 20+ depositions per month, DepoLens saves an estimated 40–50 hours of preparation and summary time — while catching inconsistencies that human reviewers miss.
+For firms that take 20+ depositions per month, Veritas Deposition™ saves an estimated 40–50 hours of preparation and summary time — while catching inconsistencies that human reviewers miss.
 
 ### Compliance-Shield™ — Ethics and Regulatory Guardrails
 
@@ -93,7 +93,7 @@ The Enterprise Suite integrates with every existing LexiFlow module, creating an
 1. **AI Intake Widget** captures client leads and case details 24/7
 2. **MeritScan** performs instant medical merit review and lead scoring
 3. **Medical Chronologies** builds treatment timelines automatically
-4. **DepoLens** analyzes deposition testimony against records
+4. **Veritas Deposition™** analyzes deposition testimony against records
 5. **Discovery-Vault** processes production documents
 6. **Settlement-Predictor Pro** models case value for mediation
 7. **Narrative Synthesis** drafts demand letters and case summaries
@@ -110,7 +110,7 @@ Yes. All LexiFlow modules, including the Enterprise Suite, maintain HIPAA compli
 
 ### Does the $299/month include all four modules?
 
-Yes. Discovery-Vault, Settlement-Predictor Pro, DepoLens, and Compliance-Shield are all included in the $299/month Enterprise tier, along with 500 documents per month of processing.
+Yes. Discovery-Vault, Settlement-Predictor Pro, Veritas Deposition™, and Compliance-Shield are all included in the $299/month Enterprise tier, along with 500 documents per month of processing.
 
 ### Can existing Professional tier firms upgrade?
 

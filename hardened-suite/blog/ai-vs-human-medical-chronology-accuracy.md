@@ -147,7 +147,7 @@ Yes. LexiFlow's AI is trained on national and state-specific clinical guidelines
 Absolutely. AI identifies potential deviations and organizes evidence — but final determination of negligence requires a qualified medical expert. The AI's value is in reducing the time and cost of expert review by pre-identifying the most relevant findings.
 
 ### How does pricing work for the Medical Chronologies module?
-The full LexiFlow Suite — including Medical Chronologies, MeritScan, DepoLens, Narrative Synthesis, AI Intake, and CRM integrations — is available for **$69/month**. There's no per-page fee, no usage cap, and no long-term contract.
+The full LexiFlow Suite — including Medical Chronologies, MeritScan, Veritas Deposition™, Narrative Synthesis, AI Intake, and CRM integrations — is available for **$69/month**. There's no per-page fee, no usage cap, and no long-term contract.
 
 ## The Bottom Line
 

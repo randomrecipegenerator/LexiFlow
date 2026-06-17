@@ -9,14 +9,14 @@ All notable changes to the LexiFlow AI project will be documented in this file.
   - New landing page: `meritscan.html` with medical aesthetic and ROI stats.
   - New branding: Shield-based logos and icons in `/branding/meritscan/`.
   - Integration: Added MeritScan to the primary navigation dropdown on the homepage.
-- **DepoLens Integration**: Integrated DepoLens (AI Deposition Analysis) into the primary product suite.
+- **Veritas Deposition™ Integration**: Integrated Veritas Deposition™ (AI Deposition Analysis) into the primary product suite.
 - **Local SEO Moat**: Initiated creation of 10 local-optimized landing pages for top US cities (e.g., Chicago, NYC, LA) in the `/cities/` directory.
 - **GitHub Integration (In Progress)**: Developing a secure document export feature to push AI-generated reports directly to firm-owned GitHub repositories.
 
 ### Changed
 - **UX Pivot**: Moved from a "self-serve playground" model to a professional "consultation" model.
 - **CTA Updates**: Replaced "Live Demo" buttons with "Request Consultation" to capture high-intent leads.
-- **Website Cleanup**: Refactored `index.html` to focus on the unified Legal AI Suite (LexiFlow, DepoLens, MeritScan).
+- **Website Cleanup**: Refactored `index.html` to focus on the unified Legal AI Suite (LexiFlow, Veritas Deposition™, MeritScan).
 - **Navigation**: Cleaned up the header to include a professional "Products" dropdown.
 
 ### Removed

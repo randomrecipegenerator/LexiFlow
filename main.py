@@ -1349,7 +1349,7 @@ def get_merit_report(id: int, db: Session = Depends(get_db)):
     return {"record": record, "report": report}
 # --- End MeritScan ---
 
-# --- Veritas Deposition™ (formerly DepoLens) Endpoints ---
+# --- Veritas Deposition™ (formerly Veritas Deposition™) Endpoints ---
 def process_transcript_task(transcript_id: int, db: Session):
     transcript = db.query(models.Transcript).filter(models.Transcript.id == transcript_id).first()
     if not transcript: return
@@ -1532,11 +1532,11 @@ if not os.getenv("VERCEL") and __name__ == "__main__":
 
     @app.api_route("/depolens", methods=["GET", "HEAD"])
     async def serve_depolens():
-        return FileResponse(os.path.join(root_dir, "veritas-app.html"))
+        return FileResponse(os.path.join(root_dir, "/veritas"))
 
     @app.api_route("/veritas-app", methods=["GET", "HEAD"])
     async def serve_veritas_legacy():
-        return FileResponse(os.path.join(root_dir, "veritas-app.html"))
+        return FileResponse(os.path.join(root_dir, "/veritas"))
 
     @app.api_route("/veritas", methods=["GET", "HEAD"])
     async def serve_veritas():

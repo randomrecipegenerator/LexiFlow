@@ -38,7 +38,7 @@ FOOTER_BLOCK = """<footer>
           <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
           <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
           <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
-          <li><a href="/depolens-ai.html">DepoLens™ AI</a></li>
+          <li><a href="//veritas">Veritas Deposition™ AI</a></li>
           <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
           <li><a href="/dashboard.html">Analytics Dashboard</a></li>
         </ul>

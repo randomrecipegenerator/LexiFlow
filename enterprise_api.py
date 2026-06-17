@@ -4,7 +4,7 @@ LexiFlow Enterprise Modules Mock API.
 Provides mock data endpoints for the 4 Enterprise modules:
 1. Discovery-Vault™ — AI-powered discovery document analysis
 2. Settlement-Predictor Pro™ — AI case valuation & settlement prediction
-3. DepoLens™ — Deposition intelligence & transcript analysis
+3. Veritas Deposition™ — Deposition intelligence & transcript analysis
 4. Compliance-Shield™ — HIPAA/regulatory compliance monitoring
 
 These endpoints are used by the Enterprise landing pages and Dashboard
@@ -318,7 +318,7 @@ MOCK_DEPOSITIONS = [
 
 @router.get("/depolens/overview")
 async def get_depolens_overview():
-    """Get overview of all DepoLens™ deposition analyses."""
+    """Get overview of all Veritas Deposition™ deposition analyses."""
     return {
         "total_depositions_analyzed": len(MOCK_DEPOSITIONS),
         "total_hours_of_footage": round(sum(d["duration_minutes"] for d in MOCK_DEPOSITIONS) / 60, 1),
@@ -479,7 +479,7 @@ async def get_enterprise_dashboard():
                 "average_confidence": round(sum(c["ai_confidence"] for c in MOCK_SETTLEMENT_CASES) / len(MOCK_SETTLEMENT_CASES), 1),
             },
             "depolens": {
-                "name": "DepoLens™",
+                "name": "Veritas Deposition™",
                 "depositions_analyzed": len(MOCK_DEPOSITIONS),
                 "total_hours": round(sum(d["duration_minutes"] for d in MOCK_DEPOSITIONS) / 60, 1),
                 "admissions_found": sum(len(d["key_admissions"]) for d in MOCK_DEPOSITIONS),

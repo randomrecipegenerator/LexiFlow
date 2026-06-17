@@ -19,7 +19,7 @@ But what if you could handle 3× the case volume without adding a single person?
 
 That's the promise of AI-powered legal intake and case management. And the numbers are not theoretical — they're being realized by firms like Smith & Lacien, a mid-sized Chicago PI firm that used the LexiFlow Suite to save **32 hours of paralegal time per week** while simultaneously improving case outcomes.
 
-> **LexiFlow's approach:** The full LexiFlow Suite — AI intake, MeritScan medical review, Medical Chronologies, DepoLens, Narrative Synthesis, and CRM integrations — replaces the work of 1–2 full-time staff members for just **$69/month**. [Learn more about the LexiFlow Suite →](https://lexiflow.co)
+> **LexiFlow's approach:** The full LexiFlow Suite — AI intake, MeritScan medical review, Medical Chronologies, Veritas Deposition™, Narrative Synthesis, and CRM integrations — replaces the work of 1–2 full-time staff members for just **$69/month**. [Learn more about the LexiFlow Suite →](https://lexiflow.co)
 
 ## The Cost of Inaction
 
