@@ -25,7 +25,11 @@
       "destination": "/api/index.py"
     },
     {
-      "source": "/veritas/:path*",
+      "source": "/veritas/assets/(.*)",
+      "destination": "/veritas/assets/$1"
+    },
+    {
+      "source": "/veritas/(.*)",
       "destination": "/veritas/index.html"
     },
     {
