@@ -67,6 +67,31 @@ p, span, li, td, label {
     flex-direction: column;
     position: fixed;
     height: 100vh;
+    z-index: 1001; /* Ensure sidebar is above global nav if it exists */
+}
+
+/* Suppress marketing nav and white bar on Enterprise pages */
+body > nav {
+    display: none !important;
+}
+
+/* Sidebar Nav Reset - prevents shared-layout.css hijacking */
+nav.sidebar-nav {
+    position: static !important;
+    height: auto !important;
+    width: auto !important;
+    background: transparent !important;
+    border: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 20px 0 !important;
+    box-shadow: none !important;
+    z-index: auto !important;
+}
+
+/* Ensure global header padding from shared-layout doesn't push down the app */
+body {
+    padding-top: 0 !important;
 }
 
 .sidebar-header {
@@ -76,7 +101,6 @@ p, span, li, td, label {
 
 .sidebar-nav {
     flex: 1;
-    padding: 20px 0;
 }
 
 .nav-item {
@@ -110,7 +134,7 @@ p, span, li, td, label {
 .app-main {
     flex: 1;
     margin-left: 260px;
-    padding: 40px;
+    padding: 60px 40px 40px 40px !important; /* Increased top padding to "put it down a bit" */
     max-width: 1400px;
 }
 
