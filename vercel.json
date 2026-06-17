@@ -25,6 +25,10 @@
       "destination": "/api/index.py"
     },
     {
+      "source": "/veritas/:path*",
+      "destination": "/veritas/index.html"
+    },
+    {
       "source": "/demo",
       "destination": "/demo.html"
     },

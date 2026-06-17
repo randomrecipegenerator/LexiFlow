@@ -19,6 +19,7 @@ import models, database, ai_engine, esign_engine, integration_engine, reception_
 import enterprise_api, desktop_api, admin_api
 from auth import auth_router
 from database import engine, get_db
+from health_diagnostics import health_diagnostics, HealthDiagnostics
 
 def create_audit_log(db: Session, action: str, lead_id: int = None, details: str = None, firm_id: int = None):
     log = models.AuditLog(lead_id=lead_id, action=action, details=details, firm_id=firm_id)
@@ -70,8 +71,19 @@ def startup_event():
     models.Base.metadata.create_all(bind=engine)
 
 @app.get("/health")
-def health_check():
-    return {"status": "healthy", "environment": "vercel" if os.getenv("VERCEL") else "local"}
+@app.get("/api/health")
+async def health_check():
+    """Enhanced health check with Enterprise Suite diagnostics."""
+    try:
+        diagnostics = await health_diagnostics.check_all()
+        return diagnostics
+    except Exception as e:
+        logger.warning(f"Health diagnostics failed, returning basic: {e}")
+        return {
+            "status": "healthy",
+            "environment": "vercel" if os.getenv("VERCEL") else "local",
+            "diagnostics_unavailable": str(e),
+        }
 
 # CORS
 allowed_origins = os.getenv("ALLOWED_ORIGINS", "*").split(",")
