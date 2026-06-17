@@ -315,3 +315,11 @@ body {
     .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
     .grid-2-1 { grid-template-columns: 1fr; }
 }
+
+/* OVERLAP PROTECTION: Suppress global marketing nav on Enterprise pages */
+body > nav { display: none !important; }
+
+/* CONTENT VISIBILITY: Ensure headers aren't clipped by fixed/absolute navs */
+.app-main {
+    padding-top: 60px !important;
+}
