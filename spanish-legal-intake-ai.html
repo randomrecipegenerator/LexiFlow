@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spanish AI Legal Intake & Answering | LexiFlow</title>
+  <meta name="description" content="Capture and qualify Spanish-speaking legal leads 24/7. LexiFlow's Bilingual Voice and Chat AI provides empathetic, culturally-competent client screening and instant translations." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="./shared-layout.css">
+  <style>
+    :root {
+      --primary: #1a3a5c;
+      --accent: #c9a84c;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-600: #475569;
+      --navy: #0f172a;
+      --gold: #c9a84c;
+    }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--navy); line-height: 1.6; margin: 0; padding-top: 80px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .hero { background: var(--navy); color: #fff; padding: 100px 0; text-align: center; position: relative; overflow: hidden; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 48px; margin-bottom: 20px; line-height: 1.2; }
+    .hero h1 span.highlight { color: var(--gold); }
+    .hero p.subtitle { font-size: 18px; color: var(--slate-400); max-width: 800px; margin: 0 auto 40px; }
+    .btn { display: inline-block; padding: 14px 28px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.2s; border: none; cursor: pointer; }
+    .btn-primary { background: var(--gold); color: var(--navy); }
+    .btn-secondary { border: 1px solid var(--slate-400); color: #fff; margin-left: 12px; background: transparent; }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.05); }
+    .section { padding: 80px 0; border-bottom: 1px solid var(--slate-200); }
+    .section-alt { background: var(--slate-50); }
+    .section-header { text-align: center; margin-bottom: 48px; max-width: 800px; margin-left: auto; margin-right: auto; }
+    .section-label { color: var(--gold); text-transform: uppercase; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; display: block; margin-bottom: 8px; }
+    .section h2 { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--navy); margin-bottom: 16px; }
+    .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .features-text h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); margin-bottom: 16px; }
+    .features-text p { color: var(--slate-600); margin-bottom: 24px; font-size: 16px; }
+    .feature-list { list-style: none; padding: 0; margin-bottom: 30px; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; color: var(--slate-600); }
+    .feature-list i { color: var(--gold); font-size: 20px; }
+    .features-visual { background: var(--navy); border-radius: 16px; padding: 40px; color: #fff; border: 1px solid rgba(255,255,255,0.1); }
+    .visual-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px; }
+    .visual-title { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 20px; }
+    .visual-status { background: rgba(40, 167, 69, 0.2); color: #28a745; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+    .transcript-box { background: rgba(0,0,0,0.2); border-radius: 8px; padding: 20px; font-family: monospace; font-size: 14px; max-height: 250px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.05); }
+    .speaker-agent { color: var(--gold); margin-bottom: 8px; }
+    .speaker-caller { color: var(--slate-400); margin-bottom: 8px; }
+    .compliance-bar { background: var(--slate-100); padding: 24px; border-radius: 8px; border-left: 4px solid var(--accent); margin-top: 30px; }
+    .compliance-bar h4 { margin-top: 0; color: var(--primary); margin-bottom: 8px; }
+    .compliance-bar p { margin: 0; color: var(--slate-600); font-size: 14px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/pricing.html">Pricing</a></li>
+        <li><a href="/dashboard.html">Dashboard</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li class="resources-dropdown">
+          <a href="#">Resources ▾</a>
+          <div class="resources-menu">
+            <a href="/resources/medical-chronology-template.html">Medical Chronology Template</a>
+            <a href="/resources/medical-chronology-sample.html">Medical Chronology Sample</a>
+            <a href="/resources/medical-record-review-checklist.html">Record Review Checklist</a>
+            <a href="/ssd-disability-medical-chronology-software.html">SSD & Disability Chronologies</a>
+          </div>
+        </li>
+        <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+        <li></li>
+        <li><a href="/login.html">Log In</a></li>
+        <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="hero-badges" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 24px;">
+        <span class="hero-badge" style="background: rgba(255,255,255,0.1); color: #fff; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600;">Asistente de IA Bilingüe</span>
+        <span class="hero-badge" style="background: rgba(201, 168, 76, 0.2); color: var(--gold); padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600;">Traducción Simultánea</span>
+      </div>
+      <h1>Bilingual Spanish AI Legal Intake <br/><span class="highlight">24/7 Client Qualification & Answering</span></h1>
+      <p class="subtitle">Expand your market to millions of Spanish-speaking prospective clients. LexiFlow answers calls and chats in fluent, empathetic Spanish, screens leads to your exact standards, and delivers translated summaries to your team.</p>
+      <div style="display: flex; justify-content: center; gap: 16px;">
+        <a href="/signup.html" class="btn btn-primary">Start Free Spanish Demo</a>
+        <a href="/pricing.html" class="btn btn-secondary">View Bilingual Plans</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Section 1: The Bilingual Market Opportunity -->
+    <section class="section">
+      <div class="container">
+        <div class="features-grid">
+          <div class="features-text">
+            <span class="section-label">Bilingual Law Firm Growth</span>
+            <h2>Why Spanish-Speaking Intake is Critical for Modern High-Volume Firms</h2>
+            <p>Spanish is spoken by over 40 million people in the United States, representing one of the fastest-growing demographics for legal services. In high-volume practice areas like Personal Injury, Auto Accidents, Workers' Compensation, and Mass Torts, having a responsive, culturally-competent Spanish-speaking intake system is not optional—it is a competitive necessity. Many meritorious cases are lost because firms lack Spanish-speaking staff on duty after-hours, leading callers to hang up and look elsewhere.</p>
+            <p>Hiring qualified, bilingual in-house staff is expensive, and outsourced Spanish answering services are often limited to static message-taking. LexiFlow provides a seamless, scalable solution. Our native Spanish-speaking Voice and Chat AI handles inbound calls and web interactions 24/7/365 with natural intelligence and human-grade empathy. It qualifies leads based on your specific criteria and delivers instant, translated case summaries to your team.</p>
+            <ul class="feature-list">
+              <li><i class="bi bi-translate"></i> <strong>Native Fluency & Accents:</strong> Converse naturally in perfect Spanish, adapting to regional dialects and common legal phrasing with exceptional clarity.</li>
+              <li><i class="bi bi-clock-history"></i> <strong>24/7 Zero Latency Answering:</strong> Never lose an after-hours Spanish lead. LexiFlow answers instantly, removing any delay in case qualification.</li>
+              <li><i class="bi bi-card-text"></i> <strong>Simultaneous English Translation:</strong> All Spanish conversations are instantly translated and summarized in English for your legal team's immediate review.</li>
+            </ul>
+          </div>
+          <div class="features-visual">
+            <div class="visual-header">
+              <span class="visual-title">LexiFlow AI - Inbound Voice (Spanish)</span>
+              <span class="visual-status"><i class="bi bi-record-circle"></i> En Vivo</span>
+            </div>
+            <div class="transcript-box">
+              <p class="speaker-agent">[LexiFlow AI]: "Hola, gracias por llamar a nuestro bufete de abogados. Lamento mucho saber que sufrió un accidente. Estoy aquí para escucharle. ¿Podría decirme qué ocurrió?"</p>
+              <p class="speaker-caller">[Caller]: "Hola, sí. Estaba manejando por la Interestatal 95 ayer por la tarde y un camión comercial chocó contra mi coche por detrás. Mi auto quedó totalmente destruido y me duele mucho la espalda. Fui al hospital en ambulancia."</p>
+              <p class="speaker-agent">[LexiFlow AI]: "Lamento mucho que haya pasado por este accidente tan terrible, y espero que se encuentre mejor. Para poder ayudarle de la mejor manera, ¿los médicos en el hospital le han indicado si tiene alguna fractura o si necesitará terapia o cirugía para su espalda?"</p>
+              <p class="speaker-caller">[Caller]: "Me dijeron que tengo un disco herniado y que tengo que ver a un especialista la próxima semana. No puedo ir a trabajar debido al dolor."</p>
+              <p class="speaker-agent">[LexiFlow AI]: "Entiendo perfectamente. Esa es una lesión seria que requiere atención médica continua. Para asegurar que hable con nuestro equipo especializado en accidentes, ¿le gustaría programar una llamada de consulta gratuita hoy mismo?"</p>
+            </div>
+            <div style="margin-top: 20px; font-size: 13px; color: var(--slate-400); display: flex; gap: 12px; align-items: center;">
+              <i class="bi bi-translate" style="color: var(--gold); font-size: 18px;"></i>
+              <span>Translations mapped dynamically into English CRM profiles.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Culturally Competent Legal Screening -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Culturally Intelligent Screening</span>
+          <h2>Empathetic, Fluent Conversational Excellence</h2>
+          <p>LexiFlow's Spanish AI is trained specifically on legal-tech terminology and cultural context, going far beyond standard machine translation software.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
+          <div class="card" style="background:#fff; border:1px solid var(--slate-200); padding:30px; border-radius:12px;">
+            <i class="bi bi-heart-pulse-fill" style="font-size:32px; color:var(--gold); display:block; margin-bottom:16px;"></i>
+            <h3 style="font-family:'Playfair Display', serif; font-size:22px; margin-bottom:12px; color:var(--navy);">Empathetic Active Listening</h3>
+            <p style="color:var(--slate-600); font-size:15px;">Spanish-speaking callers highly value personal connection and validation (personalismo). LexiFlow uses supportive language, active listening phrases, and expressions of concern, making the caller feel heard and supported throughout their intake.</p>
+          </div>
+          <div class="card" style="background:#fff; border:1px solid var(--slate-200); padding:30px; border-radius:12px;">
+            <i class="bi bi-journal-check" style="font-size:32px; color:var(--gold); display:block; margin-bottom:16px;"></i>
+            <h3 style="font-family:'Playfair Display', serif; font-size:22px; margin-bottom:12px; color:var(--navy);">Nuanced Terminology Parsing</h3>
+            <p style="color:var(--slate-600); font-size:15px;">The AI understands regional variations in legal terms, parsing terms like 'choque', 'colisión', 'fiscalía', 'demanda', 'aseguradora' and 'lesiones corporales' with high contextual accuracy across different Spanish-speaking backgrounds.</p>
+          </div>
+          <div class="card" style="background:#fff; border:1px solid var(--slate-200); padding:30px; border-radius:12px;">
+            <i class="bi bi-arrow-left-right" style="font-size:32px; color:var(--gold); display:block; margin-bottom:16px;"></i>
+            <h3 style="font-family:'Playfair Display', serif; font-size:22px; margin-bottom:12px; color:var(--navy);">Simultaneous Language Shift</h3>
+            <p style="color:var(--slate-600); font-size:15px;">If a caller switches between English and Spanish mid-sentence (Spanglish), LexiFlow dynamically adapts, adjusting its responses seamlessly to maintain a smooth, comfortable conversation flow.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Attorney Review & Translation Workflow -->
+    <section class="section">
+      <div class="container">
+        <div class="features-grid" style="direction: rtl;">
+          <div class="features-text" style="direction: ltr; text-align: left;">
+            <span class="section-label">Operational Control</span>
+            <h2>How the Translation & Review Process Puts You in Charge</h2>
+            <p>At LexiFlow, we ensure that you are always in total control of your database and intake pipeline. Our Spanish intake system operates with a transparent verification staging area, designed so English-speaking lawyers can easily supervise and approve Spanish leads.</p>
+            <p>Every lead is staged in a review dashboard. The AI presents the caller's complete narrative as an English-translated case summary, along with the original Spanish transcript side-by-side. Our system highlights critical case indicators (such as injury details, medical treatment facilities, and liability assessments), making it easy to audit the file before authorizing the final sync to Clio or Filevine.</p>
+            <div class="compliance-bar">
+              <h4>Bilingual Operational Flow:</h4>
+              <p style="margin-bottom: 8px;"><strong>1. Dual-Language Transcript Record:</strong> Secure storage of both the high-fidelity original Spanish recording and its complete English translation.</p>
+              <p style="margin-bottom: 8px;"><strong>2. High-Accuracy Translation:</strong> Advanced translation models maintain precise legal meanings, mapping Spanish legal terms into their standard American legal equivalents.</p>
+              <p><strong>3. Single-Click CRM Push:</strong> Approve the translated profile and sync it directly into your Clio Grow or Filevine system, maintaining clean data across your entire practice.</p>
+            </div>
+          </div>
+          <div class="features-visual" style="direction: ltr; text-align: left; background: var(--slate-50); color: var(--navy); border-color: var(--slate-200);">
+            <h4 style="font-family:'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 16px;">Bilingual Review Panel</h4>
+            <div style="background:#fff; border:1px solid var(--slate-200); border-radius:8px; padding:16px; margin-bottom:12px;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:12px; color:var(--slate-600);">
+                <span>Bilingual Sync Staging</span>
+                <span style="color:#28a745; font-weight:700;"><i class="bi bi-check-all"></i> Translated</span>
+              </div>
+              <h5 style="margin:4px 0 8px; font-size:16px;">Lead: Carlos Méndez</h5>
+              <div style="font-size:13px; color:var(--slate-600); margin-bottom:12px; line-height:1.4;">
+                <strong>Case Type:</strong> Auto Accident / Rear-End Collision<br/>
+                <strong>Original:</strong> "Estaba manejando y un camión me chocó..."<br/>
+                <strong>English Sync Summary:</strong> "Carlos was rear-ended by a commercial truck on I-95. Suffering severe lower back pain, herniated disc diagnosed at ER."
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button style="background:var(--primary); color:#fff; border:none; padding:6px 12px; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer;"><i class="bi bi-file-earmark-arrow-up-fill"></i> Approve & Sync to CRM</button>
+                <button style="background:#dc3545; color:#fff; border:none; padding:6px 12px; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer;"><i class="bi bi-trash"></i> Dismiss</button>
+              </div>
+            </div>
+            <p style="font-size:12px; color:var(--slate-600); margin:0;">Attorneys maintain 100% control. No lead is synchronized into your main CRM databases without manual authorization.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: HIPAA and Security Compliance -->
+    <section class="section section-alt">
+      <div class="container" style="max-width: 900px; text-align: center;">
+        <span class="section-label">Trust & Compliance</span>
+        <h2>HIPAA, SOC2, and Full BAA Security Standards</h2>
+        <p style="color: var(--slate-600); font-size: 16px; margin-bottom: 30px;">In legal practice, safeguarding client data confidentiality is an absolute ethical mandate. LexiFlow is built on top of a highly fortified security framework, ensuring that all bilingual intakes are fully encrypted and HIPAA compliant.</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; text-align: left;">
+          <div style="background:#fff; border:1px solid var(--slate-200); padding:24px; border-radius:8px;">
+            <h4 style="font-family:'Playfair Display', serif; font-size:18px; color:var(--navy); margin-bottom:8px;"><i class="bi bi-shield-fill-check" style="color:var(--gold);"></i> HIPAA Compliance & BAA</h4>
+            <p style="font-size:14px; color:var(--slate-600); margin:0;">We sign formal Business Associate Agreements (BAA) with law firms handling medical health disclosures. All Spanish narratives and medical details collected during voice intakes are protected under industry-standard HIPAA guidelines.</p>
+          </div>
+          <div style="background:#fff; border:1px solid var(--slate-200); padding:24px; border-radius:8px;">
+            <h4 style="font-family:'Playfair Display', serif; font-size:18px; color:var(--navy); margin-bottom:8px;"><i class="bi bi-lock-fill" style="color:var(--gold);"></i> Complete Encryption</h4>
+            <p style="font-size:14px; color:var(--slate-600); margin:0;">Bilingual recordings, chat logs, transcripts, and metadata are encrypted in-transit (TLS 1.3) and at-rest (AES-256), safeguarding sensitive client files against unauthorized access.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: FAQ -->
+    <section class="section section-alt">
+      <div class="container" style="max-width: 800px;">
+        <div class="section-header">
+          <span class="section-label">Frequently Asked Questions</span>
+          <h2>Answering Your Questions About Bilingual Legal AI</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">How accurate is the translation of Spanish legal intake responses?</h3>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">LexiFlow uses advanced legal-tuned LLMs trained on medical-legal bilingual terminology. Translations are highly accurate and maintain clinical and legal nuances, ensuring that Spanish responses are contextualized accurately for your English-speaking legal team.</p>
+          </div>
+          <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">Is the bilingual AI receptionist capable of switching languages dynamically?</h3>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Yes. The LexiFlow Voice AI detects the language of the speaker within milliseconds of the first utterance and seamlessly adjusts its responses to match, whether the caller speaks entirely in Spanish, English, or alternates between both (Spanglish).</p>
+          </div>
+          <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">How does the AI model understand region-specific Spanish legal terms?</h3>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Our underlying neural networks are trained on global Spanish variations (including Mexican, Caribbean, and South American dialects). The system maps region-specific idioms or vernacular descriptions of injuries and incidents to standard legal concepts correctly.</p>
+          </div>
+          <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">Does LexiFlow support bilingual SMS text messaging?</h3>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Yes. Our Omnichannel Web/SMS AI is fully bilingual, enabling your firm to deploy conversational text-based legal intake workflows in both English and Spanish automatically.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Internal Linking -->
+    <section class="section">
+      <div class="container">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+          <a href="./law-firm-call-answering-ai.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> AI Voice Call Answering →</a>
+          <a href="./clio-intake-automation.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Clio Intake Automation →</a>
+          <a href="./filevine-intake-automation.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Filevine Intake Automation →</a>
+          <a href="./lexiflow-vs-traditional-intake.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> LexiFlow vs. Traditional Intake →</a>
+          <a href="./best-ai-intake-software-for-law-firms.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Best AI Intake Buyers' Guide →</a>
+          <a href="./ai-legal-intake-vs-call-center.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> AI Intake vs. Outsourced Call Center →</a>
+          <a href="./roi-calculator.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Calculate Answering ROI →</a>
+          <a href="/veritas" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Veritas Deposition™ System →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software.html">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
+          <li><a href="/veritas">Veritas Deposition™ AI</a></li>
+          <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
+          <li><a href="/dashboard.html">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Top Markets</h4>
+        <ul>
+          <li><a href="/locations/california/los-angeles.html">Los Angeles (MedMal)</a></li>
+          <li><a href="/locations/california/san-francisco.html">San Francisco (MedMal)</a></li>
+          <li><a href="/locations/new-york/nyc.html">New York City (MedMal)</a></li>
+          <li><a href="/locations/illinois/chicago.html">Chicago (MedMal)</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+          <li><a href="/soc2.html">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
+
+  <script src="./shared-layout.js"></script>
+</body>
+</html>

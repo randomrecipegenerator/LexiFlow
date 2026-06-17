@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Call Answering & Receptionist for Law Firms | LexiFlow</title>
+  <meta name="description" content="Scale your law firm's response time to zero seconds. LexiFlow's AI Call Answering and Voice Receptionist qualifies legal leads 24/7 with human-grade empathy and absolute precision." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="./shared-layout.css">
+  <style>
+    :root {
+      --primary: #1a3a5c;
+      --accent: #c9a84c;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-600: #475569;
+      --navy: #0f172a;
+      --gold: #c9a84c;
+    }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--navy); line-height: 1.6; margin: 0; padding-top: 80px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .hero { background: var(--navy); color: #fff; padding: 100px 0; text-align: center; position: relative; overflow: hidden; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 48px; margin-bottom: 20px; line-height: 1.2; }
+    .hero h1 span.highlight { color: var(--gold); }
+    .hero p.subtitle { font-size: 18px; color: var(--slate-400); max-width: 800px; margin: 0 auto 40px; }
+    .btn { display: inline-block; padding: 14px 28px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.2s; border: none; cursor: pointer; }
+    .btn-primary { background: var(--gold); color: var(--navy); }
+    .btn-secondary { border: 1px solid var(--slate-400); color: #fff; margin-left: 12px; background: transparent; }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.05); }
+    .section { padding: 80px 0; border-bottom: 1px solid var(--slate-200); }
+    .section-alt { background: var(--slate-50); }
+    .section-header { text-align: center; margin-bottom: 48px; max-width: 800px; margin-left: auto; margin-right: auto; }
+    .section-label { color: var(--gold); text-transform: uppercase; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; display: block; margin-bottom: 8px; }
+    .section h2 { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--navy); margin-bottom: 16px; }
+    .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .features-text h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); margin-bottom: 16px; }
+    .features-text p { color: var(--slate-600); margin-bottom: 24px; font-size: 16px; }
+    .feature-list { list-style: none; padding: 0; margin-bottom: 30px; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; color: var(--slate-600); }
+    .feature-list i { color: var(--gold); font-size: 20px; }
+    .features-visual { background: var(--navy); border-radius: 16px; padding: 40px; color: #fff; border: 1px solid rgba(255,255,255,0.1); }
+    .visual-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px; }
+    .visual-title { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 20px; }
+    .visual-status { background: rgba(40, 167, 69, 0.2); color: #28a745; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+    .transcript-box { background: rgba(0,0,0,0.2); border-radius: 8px; padding: 20px; font-family: monospace; font-size: 14px; max-height: 250px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.05); }
+    .speaker-agent { color: var(--gold); margin-bottom: 8px; }
+    .speaker-caller { color: var(--slate-400); margin-bottom: 8px; }
+    .compliance-bar { background: var(--slate-100); padding: 24px; border-radius: 8px; border-left: 4px solid var(--accent); margin-top: 30px; }
+    .compliance-bar h4 { margin-top: 0; color: var(--primary); margin-bottom: 8px; }
+    .compliance-bar p { margin: 0; color: var(--slate-600); font-size: 14px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/pricing.html">Pricing</a></li>
+        <li><a href="/dashboard.html">Dashboard</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li class="resources-dropdown">
+          <a href="#">Resources ▾</a>
+          <div class="resources-menu">
+            <a href="/resources/medical-chronology-template.html">Medical Chronology Template</a>
+            <a href="/resources/medical-chronology-sample.html">Medical Chronology Sample</a>
+            <a href="/resources/medical-record-review-checklist.html">Record Review Checklist</a>
+            <a href="/ssd-disability-medical-chronology-software.html">SSD & Disability Chronologies</a>
+          </div>
+        </li>
+        <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+        <li></li>
+        <li><a href="/login.html">Log In</a></li>
+        <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="hero-badges" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 24px;">
+        <span class="hero-badge" style="background: rgba(255,255,255,0.1); color: #fff; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600;">24/7/365 Voice AI</span>
+        <span class="hero-badge" style="background: rgba(201, 168, 76, 0.2); color: var(--gold); padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600;">Zero Latency answering</span>
+      </div>
+      <h1>AI Call Answering & Voice Receptionist <br/><span class="highlight">Built Exclusively for Law Firms</span></h1>
+      <p class="subtitle">Capture, qualify, and sign high-value clients instantly. LexiFlow's conversational Voice AI answers inbound calls with natural intelligence, human-grade empathy, and legal qualification accuracy that rivals a senior intake specialist.</p>
+      <div style="display: flex; justify-content: center; gap: 16px;">
+        <a href="/signup.html" class="btn btn-primary">Try Live Voice Demo</a>
+        <a href="/pricing.html" class="btn btn-secondary">View Voice Plans</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Section 1: The Speed-to-Lead Challenge -->
+    <section class="section">
+      <div class="container">
+        <div class="features-grid">
+          <div class="features-text">
+            <span class="section-label">The Intake Bottleneck</span>
+            <h2>Why Law Firms Lose 40% of Meritorious Leads to Delayed Callbacks</h2>
+            <p>In high-stakes practice areas like Personal Injury, Medical Malpractice, and Mass Torts, speed-to-lead is not just a metric—it is the difference between securing a multi-million-dollar retainer and losing the client to a faster competitor. When a potential client experiences a life-altering incident, their immediate action is to call an attorney. If that call goes to voicemail or an unhelpful generic answering service, they hang up and dial the next listing on Google.</p>
+            <p>Traditional call centers use rigid, static scripts. Human agents, despite their best efforts, often lack the specialized knowledge to probe for liability, ask about damage severity, or identify the critical statute of limitations. LexiFlow solves this permanently by replacing static logic with advanced Reasoning AI that converses naturally, adapts to the caller's narrative, and scores the case dynamically in real-time.</p>
+            <ul class="feature-list">
+              <li><i class="bi bi-clock-history"></i> <strong>0-Second Hold Times:</strong> Handle unlimited concurrent incoming calls with zero queuing.</li>
+              <li><i class="bi bi-brain"></i> <strong>Dynamic Legal Probing:</strong> Adapts questions based on the caller's responses rather than following a linear script.</li>
+              <li><i class="bi bi-emoji-smile"></i> <strong>Empathetic Tone Modulation:</strong> Adjusts pacing, warmth, and supportive phrasing to match the emotional context of injured callers.</li>
+            </ul>
+          </div>
+          <div class="features-visual">
+            <div class="visual-header">
+              <span class="visual-title">LexiFlow AI Live Call Agent</span>
+              <span class="visual-status"><i class="bi bi-record-circle"></i> Active</span>
+            </div>
+            <div class="transcript-box">
+              <p class="speaker-agent">[LexiFlow AI]: "Hello, thank you for calling the Legal Group. I understand you're calling about a medical issue today. I'm here to listen and help. Could you tell me what happened?"</p>
+              <p class="speaker-caller">[Caller]: "Yes, my husband had surgery last Thursday at Mount Sinai, and when they discharged him, he was in extreme pain. We had to rush him back to the ER last night because of severe internal bleeding. The doctors there said a surgical clip was left behind."</p>
+              <p class="speaker-agent">[LexiFlow AI]: "I am so sorry to hear that your husband is going through this. That must be incredibly stressful for both of you. To help our attorneys evaluate how we can support you, did the emergency room physicians confirm in writing that the misplaced surgical clip caused the internal bleeding?"</p>
+              <p class="speaker-caller">[Caller]: "Yes, they took scans and it's documented in his admission report from last night."</p>
+              <p class="speaker-agent">[LexiFlow AI]: "Thank you for sharing those details. It sounds like you have clear documentation of the complication. Let's make sure we schedule a time for you to speak with our medical malpractice team directly."</p>
+            </div>
+            <div style="margin-top: 20px; font-size: 13px; color: var(--slate-400); display: flex; gap: 12px; align-items: center;">
+              <i class="bi bi-shield-check" style="color: var(--gold); font-size: 18px;"></i>
+              <span>HIPAA Compliant voice synthesis and transcription.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Core Capabilities -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Platform Strengths</span>
+          <h2>Intelligent Answering with Human-Grade Precision</h2>
+          <p>LexiFlow's Call Answering AI is not a generic voice assistant. It is a highly specialized legal receptionist engineered specifically to execute plaintiff-side law firm screening criteria.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
+          <div class="card" style="background:#fff; border:1px solid var(--slate-200); padding:30px; border-radius:12px;">
+            <i class="bi bi-chat-left-quote-fill" style="font-size:32px; color:var(--gold); display:block; margin-bottom:16px;"></i>
+            <h3 style="font-family:'Playfair Display', serif; font-size:22px; margin-bottom:12px; color:var(--navy);">Conversational Understanding</h3>
+            <p style="color:var(--slate-600); font-size:15px;">Unlike interactive voice response (IVR) menus that frustrate users, LexiFlow allows callers to tell their story in their own words. The AI extracts key parameters, including dates, locations, treatment facilities, and opposing parties, without interrupting or forcing rigid choices.</p>
+          </div>
+          <div class="card" style="background:#fff; border:1px solid var(--slate-200); padding:30px; border-radius:12px;">
+            <i class="bi bi-activity" style="font-size:32px; color:var(--gold); display:block; margin-bottom:16px;"></i>
+            <h3 style="font-family:'Playfair Display', serif; font-size:22px; margin-bottom:12px; color:var(--navy);">Medical Malpractice Probing</h3>
+            <p style="color:var(--slate-600); font-size:15px;">Trained on thousands of clinical records and intake patterns, the Voice AI knows to screen for key elements of medical negligence: establishing the standard of care, detailing the breach (deviation), proving causation, and identifying catastrophic damages (such as permanent injury or high medical bills).</p>
+          </div>
+          <div class="card" style="background:#fff; border:1px solid var(--slate-200); padding:30px; border-radius:12px;">
+            <i class="bi bi-calendar-event" style="font-size:32px; color:var(--gold); display:block; margin-bottom:16px;"></i>
+            <h3 style="font-family:'Playfair Display', serif; font-size:22px; margin-bottom:12px; color:var(--navy);">Instant Consult Scheduling</h3>
+            <p style="color:var(--slate-600); font-size:15px;">If the lead matches the firm's strict case criteria, LexiFlow automatically invites the caller to schedule an immediate consultation. It integrates with your firm's calendar tools (such as Clio Scheduler, Calendly, or Outlook) to lock in the client before they look elsewhere.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Attorney Review Workflow -->
+    <section class="section">
+      <div class="container">
+        <div class="features-grid" style="direction: rtl;">
+          <div class="features-text" style="direction: ltr; text-align: left;">
+            <span class="section-label">Complete Supervision</span>
+            <h2>The Attorney-in-the-Loop Workflow: Absolute Oversight and Control</h2>
+            <p>We believe that AI is a powerful tool to augment legal practitioners, never to replace them. That is why LexiFlow operates on a transparent, audit-ready framework that places firm partners and intake attorneys in absolute control of all automated qualifications.</p>
+            <p>Every call handled by the LexiFlow Voice AI goes through a multi-stage attorney verification pipeline. Intake teams are provided with a dedicated review dashboard where they can oversee, adjust, and approve AI decisions before files are pushed to active litigation queues.</p>
+            <div class="compliance-bar">
+              <h4>How the Oversight Architecture Works:</h4>
+              <p style="margin-bottom: 8px;"><strong>1. Absolute Record of Truth:</strong> Full, high-fidelity stereo audio recordings and synchronized word-by-word transcripts are saved for every intake call.</p>
+              <p style="margin-bottom: 8px;"><strong>2. Instant Case Qualification Score (CQS):</strong> LexiFlow breaks down case merit into standard vectors (Liability, Damages, Causation, Statute of Limitations). Every vector is backed by specific quote citations from the caller's testimony.</p>
+              <p style="margin-bottom: 8px;"><strong>3. One-Click Verification:</strong> Legal staff can review the AI's summary, adjust custom-mapped fields, and override a case qualification status with a single click.</p>
+              <p><strong>4. Active Learning Loop:</strong> If an intake manager overrides an AI qualification decision, the feedback is fed directly back into the firm's private model, continually refining the system's accuracy based on real attorney preferences.</p>
+            </div>
+          </div>
+          <div class="features-visual" style="direction: ltr; text-align: left; background: var(--slate-50); color: var(--navy); border-color: var(--slate-200);">
+            <h4 style="font-family:'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 16px;">Oversight Dashboard Preview</h4>
+            <div style="background:#fff; border:1px solid var(--slate-200); border-radius:8px; padding:16px; margin-bottom:12px;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:12px; color:var(--slate-600);">
+                <span>Lead ID: #LF-89412</span>
+                <span style="color:var(--gold); font-weight:700;"><i class="bi bi-star-fill"></i> High Priority</span>
+              </div>
+              <h5 style="margin:4px 0 8px; font-size:16px;">Surgical Complication - Mount Sinai</h5>
+              <div style="font-size:13px; color:var(--slate-600); margin-bottom:12px; line-height:1.4;">
+                <strong>AI Case Qualification Score:</strong> 9.4/10<br/>
+                <strong>Statute of Limitations:</strong> Within limits (Event: 6 days ago)<br/>
+                <strong>Proposed Action:</strong> Qualify & Route to MedMal Team
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button style="background:#28a745; color:#fff; border:none; padding:6px 12px; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer;"><i class="bi bi-check-circle"></i> Approve Case</button>
+                <button style="background:#dc3545; color:#fff; border:none; padding:6px 12px; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer;"><i class="bi bi-x-circle"></i> Override Decision</button>
+              </div>
+            </div>
+            <p style="font-size:12px; color:var(--slate-600); margin:0;">Attorneys maintain 100% control. No case is marked as "signed" or "retained" without manual human verification.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Security & Compliance -->
+    <section class="section section-alt">
+      <div class="container" style="max-width: 900px; text-align: center;">
+        <span class="section-label">Trust & Security</span>
+        <h2>HIPAA, SOC2, and Enterprise Security First</h2>
+        <p style="color: var(--slate-600); font-size: 16px; margin-bottom: 30px;">In the legal space, protecting client confidentiality is not just best practice—it is an ethical mandate. LexiFlow is built on top of a highly fortified compliance engine, providing the absolute security your clients demand and the regulatory safeguards your firm requires.</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; text-align: left;">
+          <div style="background:#fff; border:1px solid var(--slate-200); padding:24px; border-radius:8px;">
+            <h4 style="font-family:'Playfair Display', serif; font-size:18px; color:var(--navy); margin-bottom:8px;"><i class="bi bi-shield-fill-check" style="color:var(--gold);"></i> HIPAA Compliance & BAA</h4>
+            <p style="font-size:14px; color:var(--slate-600); margin:0;">We sign Business Associate Agreements (BAA) with our professional and enterprise clients. All medical disclosures, health records, and medical narratives discussed during voice intakes are protected under industry-standard HIPAA guidelines.</p>
+          </div>
+          <div style="background:#fff; border:1px solid var(--slate-200); padding:24px; border-radius:8px;">
+            <h4 style="font-family:'Playfair Display', serif; font-size:18px; color:var(--navy); margin-bottom:8px;"><i class="bi bi-lock-fill" style="color:var(--gold);"></i> Advanced Encryption Standards</h4>
+            <p style="font-size:14px; color:var(--slate-600); margin:0;">All call recordings, voice files, transcripts, and metadata are encrypted both in transit (using TLS 1.3) and at rest (using AES-256). We utilize hardware security modules to safeguard cryptographic keys.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: FAQ -->
+    <section class="section section-alt">
+      <div class="container" style="max-width: 800px;">
+        <div class="section-header">
+          <span class="section-label">Frequently Asked Questions</span>
+          <h2>Answering Your Questions About AI Call Answering</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">How does the AI receptionist handle emotional or distressed callers?</h3>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Our AI is trained using advanced empathy modeling and sentiment analysis. It detects conversational tone and emotional cues, dynamically adjusting its pacing and using warm, supportive language to ensure distressed callers feel heard and respected.</p>
+          </div>
+          <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">Is the AI call answering service HIPAA compliant?</h3>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Yes. LexiFlow operates with a secure BAA and meets HIPAA and SOC2 compliance standards. All voice logs, transcripts, and metadata are encrypted in-transit (TLS 1.3) and at-rest (AES-256).</p>
+          </div>
+          <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">Can the AI receptionist transfer calls to a live attorney?</h3>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Absolutely. You can configure rules inside the dashboard to route high-value leads immediately to a live attorney or intake coordinator via a secure, warm transfer or SMS notification.</p>
+          </div>
+          <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">How long does it take to set up the AI call answering system?</h3>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Setup takes less than an hour. Our team helps you map your firm's qualification guidelines and connect your existing phone numbers or web elements without coding.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Internal Linking -->
+    <section class="section">
+      <div class="container">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+          <a href="./clio-intake-automation.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Clio Intake Automation →</a>
+          <a href="./filevine-intake-automation.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Filevine Intake Automation →</a>
+          <a href="./spanish-legal-intake-ai.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Spanish Bilingual Legal Answering →</a>
+          <a href="./lexiflow-vs-traditional-intake.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> LexiFlow vs. Traditional Intake →</a>
+          <a href="./best-ai-intake-software-for-law-firms.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Best AI Intake Buyers' Guide →</a>
+          <a href="./ai-legal-intake-vs-call-center.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> AI Intake vs. Outsourced Call Center →</a>
+          <a href="./roi-calculator.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Calculate Answering ROI →</a>
+          <a href="/veritas" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Veritas Deposition™ System →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software.html">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
+          <li><a href="/veritas">Veritas Deposition™ AI</a></li>
+          <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
+          <li><a href="/dashboard.html">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Top Markets</h4>
+        <ul>
+          <li><a href="/locations/california/los-angeles.html">Los Angeles (MedMal)</a></li>
+          <li><a href="/locations/california/san-francisco.html">San Francisco (MedMal)</a></li>
+          <li><a href="/locations/new-york/nyc.html">New York City (MedMal)</a></li>
+          <li><a href="/locations/illinois/chicago.html">Chicago (MedMal)</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+          <li><a href="/soc2.html">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
+
+  <script src="./shared-layout.js"></script>
+</body>
+</html>

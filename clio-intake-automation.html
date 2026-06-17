@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clio AI Intake Automation & CRM Integration | LexiFlow</title>
+  <meta name="description" content="Supercharge your Clio CRM. LexiFlow uses Reasoning AI to capture, qualify, and sync personal injury and medical malpractice leads directly into Clio Grow and Manage." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="./shared-layout.css">
+  <style>
+    :root {
+      --primary: #1a3a5c;
+      --accent: #c9a84c;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-600: #475569;
+      --navy: #0f172a;
+      --gold: #c9a84c;
+    }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--navy); line-height: 1.6; margin: 0; padding-top: 80px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .hero { background: var(--navy); color: #fff; padding: 100px 0; text-align: center; position: relative; overflow: hidden; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 48px; margin-bottom: 20px; line-height: 1.2; }
+    .hero h1 span.highlight { color: var(--gold); }
+    .hero p.subtitle { font-size: 18px; color: var(--slate-400); max-width: 800px; margin: 0 auto 40px; }
+    .btn { display: inline-block; padding: 14px 28px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.2s; border: none; cursor: pointer; }
+    .btn-primary { background: var(--gold); color: var(--navy); }
+    .btn-secondary { border: 1px solid var(--slate-400); color: #fff; margin-left: 12px; background: transparent; }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.05); }
+    .section { padding: 80px 0; border-bottom: 1px solid var(--slate-200); }
+    .section-alt { background: var(--slate-50); }
+    .section-header { text-align: center; margin-bottom: 48px; max-width: 800px; margin-left: auto; margin-right: auto; }
+    .section-label { color: var(--gold); text-transform: uppercase; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; display: block; margin-bottom: 8px; }
+    .section h2 { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--navy); margin-bottom: 16px; }
+    .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .features-text h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); margin-bottom: 16px; }
+    .features-text p { color: var(--slate-600); margin-bottom: 24px; font-size: 16px; }
+    .feature-list { list-style: none; padding: 0; margin-bottom: 30px; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; color: var(--slate-600); }
+    .feature-list i { color: var(--gold); font-size: 20px; }
+    .features-visual { background: #fff; border-radius: 16px; padding: 40px; color: var(--navy); border: 1px solid var(--slate-200); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    .visual-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--slate-200); padding-bottom: 16px; }
+    .visual-title { font-family: 'Playfair Display', serif; color: var(--primary); font-size: 20px; display: flex; align-items: center; gap: 8px; }
+    .visual-status { background: rgba(201, 168, 76, 0.1); color: var(--gold); padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+    .integration-box { font-family: 'Inter', sans-serif; font-size: 14px; color: var(--slate-600); }
+    .compliance-bar { background: var(--slate-100); padding: 24px; border-radius: 8px; border-left: 4px solid var(--accent); margin-top: 30px; }
+    .compliance-bar h4 { margin-top: 0; color: var(--primary); margin-bottom: 8px; }
+    .compliance-bar p { margin: 0; color: var(--slate-600); font-size: 14px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/pricing.html">Pricing</a></li>
+        <li><a href="/dashboard.html">Dashboard</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li class="resources-dropdown">
+          <a href="#">Resources ▾</a>
+          <div class="resources-menu">
+            <a href="/resources/medical-chronology-template.html">Medical Chronology Template</a>
+            <a href="/resources/medical-chronology-sample.html">Medical Chronology Sample</a>
+            <a href="/resources/medical-record-review-checklist.html">Record Review Checklist</a>
+            <a href="/ssd-disability-medical-chronology-software.html">SSD & Disability Chronologies</a>
+          </div>
+        </li>
+        <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+        <li></li>
+        <li><a href="/login.html">Log In</a></li>
+        <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="hero-badges" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 24px;">
+        <span class="hero-badge" style="background: rgba(255,255,255,0.1); color: #fff; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600;">Clio Certified Partner</span>
+        <span class="hero-badge" style="background: rgba(201, 168, 76, 0.2); color: var(--gold); padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600;">Full Bi-Directional Sync</span>
+      </div>
+      <h1>Seamless AI Legal Intake <br/><span class="highlight">Integrated Directly with Clio</span></h1>
+      <p class="subtitle">Convert more leads and automate tedious manual entry. LexiFlow uses Reasoning AI to capture and qualify prospective clients, compile structured case metadata, and push trial-ready profiles directly into Clio Grow and Clio Manage.</p>
+      <div style="display: flex; justify-content: center; gap: 16px;">
+        <a href="/signup.html" class="btn btn-primary">Connect Clio Account</a>
+        <a href="/roi-calculator.html" class="btn btn-secondary">Calculate Time Savings</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Section 1: The Clio Gap -->
+    <section class="section">
+      <div class="container">
+        <div class="features-grid">
+          <div class="features-text">
+            <span class="section-label">Automated CRM Sync</span>
+            <h2>Eliminate Double Data Entry and Speed Up Case Acquisition</h2>
+            <p>Clio is the powerhouse of your law firm's daily operations, but standard intake workflows still rely on manual data entry, outdated web forms, or disjointed answering services. Paralegals and intake staff spend hours copying and pasting lead descriptions, typing contact details, and trying to score cases based on fragmented phone notes. This delay in inputting leads creates a critical gap where competitive plaintiff firms can step in and sign the client first.</p>
+            <p>LexiFlow bridges this gap permanently. Our advanced legal AI engine acts as your tireless 24/7 client qualifying coordinator, operating on your website and answering calls. It collects detailed case parameters, cross-references files, and imports the structured data directly into your Clio workspace. No more duplicate contact entries, no more missing phone numbers, and no more delays.</p>
+            <ul class="feature-list">
+              <li><i class="bi bi-person-plus-fill"></i> <strong>Automatic Lead Creation:</strong> Pushes qualified prospects immediately into Clio Grow as new Lead Records.</li>
+              <li><i class="bi bi-file-earmark-medical-fill"></i> <strong>Instantly Sync Chronologies:</strong> AI-generated medical chronologies and record reviews are saved directly to the Clio Manage Matter folder.</li>
+              <li><i class="bi bi-tags-fill"></i> <strong>Custom Mapping:</strong> Map custom legal fields (like Date of Accident, Treatment Facility, or Opposing Counsel) automatically to your standard Clio custom fields.</li>
+            </ul>
+          </div>
+          <div class="features-visual">
+            <div class="visual-header">
+              <span class="visual-title"><i class="bi bi-box-arrow-right" style="color:var(--gold);"></i> LexiFlow → Clio Integration</span>
+              <span class="visual-status" style="background:rgba(40,167,69,0.1); color:#28a745;">Connected</span>
+            </div>
+            <div class="integration-box">
+              <div style="background:var(--slate-50); padding:16px; border-radius:8px; border:1px solid var(--slate-200); margin-bottom:16px;">
+                <h4 style="margin:0 0 8px 0; font-family:'Playfair Display', serif; font-size:16px; color:var(--primary);"><i class="bi bi-folder-check"></i> Clio Manage Matter Folder</h4>
+                <p style="font-size:12px; color:var(--slate-600); margin:4px 0 0 0;">Matter: <strong>Rodriguez v. Mount Sinai Medical</strong></p>
+                <p style="font-size:12px; color:var(--slate-600); margin:2px 0 0 0;">Status: <strong>Open Matter / Pre-Litigation</strong></p>
+              </div>
+              <div style="border-left:2px dashed var(--gold); padding-left:16px; margin-left:10px;">
+                <div style="margin-bottom:12px;">
+                  <strong style="font-size:13px; color:var(--navy);"><i class="bi bi-file-earmark-text"></i> case_summary.pdf</strong>
+                  <span style="font-size:11px; color:#28a745; background:rgba(40,167,69,0.1); padding:2px 6px; border-radius:4px; margin-left:8px;">Synced</span>
+                  <p style="font-size:12px; color:var(--slate-600); margin:4px 0 0 0;">Complete AI intake narrative, case score, liability evaluation, and client contact profile.</p>
+                </div>
+                <div>
+                  <strong style="font-size:13px; color:var(--navy);"><i class="bi bi-file-earmark-medical"></i> medical_chronology_summary.pdf</strong>
+                  <span style="font-size:11px; color:#28a745; background:rgba(40,167,69,0.1); padding:2px 6px; border-radius:4px; margin-left:8px;">Synced</span>
+                  <p style="font-size:12px; color:var(--slate-600); margin:4px 0 0 0;">A detailed clinical timeline cross-referencing mount_sinai_records.pdf (142 pages).</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Clio Grow and Clio Manage workflows -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">End-to-End Workflow</span>
+          <h2>Intelligent Automation for Clio Grow & Clio Manage</h2>
+          <p>LexiFlow syncs with both parts of the Clio ecosystem, ensuring a fluid transition from the moment a lead first contacts your firm to the final settlement process.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+          <div style="background:#fff; padding:36px; border-radius:12px; border:1px solid var(--slate-200);">
+            <div style="background:var(--slate-50); width:48px; height:48px; border-radius:8px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; color:var(--gold); font-size:24px;"><i class="bi bi-person-fill-gear"></i></div>
+            <h3 style="font-family:'Playfair Display', serif; font-size:22px; color:var(--navy); margin-bottom:12px;">Stage 1: Clio Grow (Lead Acquisition)</h3>
+            <p style="color:var(--slate-600); font-size:15px; margin-bottom:16px;">When a lead interacts with the LexiFlow AI chat widget or calls your Voice AI Receptionist, LexiFlow evaluates their responses using deep reasoning criteria. If the case meets your parameters, LexiFlow automatically creates a Lead Profile in Clio Grow, populating standard client data fields, phone logs, and the conversation transcripts directly into the client record.</p>
+            <p style="color:var(--slate-600); font-size:15px;">Your intake staff receives an automated notification inside Clio, ready to send the retainer agreement with one click. Retainer signed? The lead transitions instantly to Clio Manage.</p>
+          </div>
+          <div style="background:#fff; padding:36px; border-radius:12px; border:1px solid var(--slate-200);">
+            <div style="background:var(--slate-50); width:48px; height:48px; border-radius:8px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; color:var(--gold); font-size:24px;"><i class="bi bi-briefcase-fill"></i></div>
+            <h3 style="font-family:'Playfair Display', serif; font-size:22px; color:var(--navy); margin-bottom:12px;">Stage 2: Clio Manage (Matter Preparation)</h3>
+            <p style="color:var(--slate-600); font-size:15px; margin-bottom:16px;">Once the case is accepted, the legal heavy lifting begins. LexiFlow continues to support your firm by serving as your AI Medical Chronology assistant. Drag and drop thousands of pages of medical records directly into LexiFlow's dashboard. The AI parses the text, extracts treatment dates, and constructs a detailed litigation chronology.</p>
+            <p style="color:var(--slate-600); font-size:15px;">LexiFlow automatically synchronizes these formatted timelines and medical reviews back to the corresponding Matter folder in Clio Manage, making them instantly accessible to your paralegals and trial lawyers.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Attorney Review Workflow -->
+    <section class="section">
+      <div class="container">
+        <div class="features-grid" style="direction: rtl;">
+          <div class="features-text" style="direction: ltr; text-align: left;">
+            <span class="section-label">Safe & Controlled Sync</span>
+            <h2>Attorney-in-the-Loop Verification Framework</h2>
+            <p>Law firms operate under strict ethical standards, and automated systems must never operate as a complete black box. LexiFlow features a built-in safety-valve framework that ensures a qualified human is always in control of what information is written to your official Clio records.</p>
+            <p>Before any prospect is synced, your team reviews the case details side-by-side in a staging area. From this interface, you can verify contact spellings, edit summary points, evaluate the AI-generated Case Score, and confirm that the case meets the firm's criteria. With one click, you authorize the transfer of the sanitized data into your Clio account, ensuring high-quality data integrity.</p>
+            <div class="compliance-bar">
+              <h4>Strict Guardrails & Controls:</h4>
+              <p style="margin-bottom: 8px;"><strong>Data Validation:</strong> Automated checks verify that emails and phone formats are accurate to prevent database corruption in Clio.</p>
+              <p style="margin-bottom: 8px;"><strong>Duplicate Detection:</strong> Checks incoming leads against existing contacts in Clio Grow using email and phone numbers to prevent duplicate files.</p>
+              <p><strong>Granular Custom Mapping:</strong> Attorneys can manually map specific AI responses to corresponding Clio custom fields before authorizing the synchronization.</p>
+            </div>
+          </div>
+          <div class="features-visual" style="direction: ltr; text-align: left; background: var(--slate-50); color: var(--navy); border-color: var(--slate-200);">
+            <h4 style="font-family:'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 16px;">Sync Authorization Console</h4>
+            <div style="background:#fff; border:1px solid var(--slate-200); border-radius:8px; padding:16px; margin-bottom:12px;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:12px; color:var(--slate-600);">
+                <span>Draft Lead Ready</span>
+                <span style="color:#28a745; font-weight:700;"><i class="bi bi-shield-check"></i> Validated</span>
+              </div>
+              <h5 style="margin:4px 0 8px; font-size:16px;">Lead: Maria Hernandez</h5>
+              <div style="font-size:13px; color:var(--slate-600); margin-bottom:12px; line-height:1.4;">
+                <strong>Sync Target:</strong> Clio Grow Sandbox<br/>
+                <strong>Case Type:</strong> Auto Injury (Rear-End Collision)<br/>
+                <strong>Identified Duplicate:</strong> None found in Clio database.
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button style="background:var(--primary); color:#fff; border:none; padding:6px 12px; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer;"><i class="bi bi-cloud-arrow-up-fill"></i> Push to Clio Grow</button>
+                <button style="background:#dc3545; color:#fff; border:none; padding:6px 12px; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer;"><i class="bi bi-trash"></i> Dismiss</button>
+              </div>
+            </div>
+            <p style="font-size:12px; color:var(--slate-600); margin:0;">Zero automated writes happen without explicit permission. Your data stays perfect, organized, and secure.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: HIPAA and Security -->
+    <section class="section section-alt">
+      <div class="container" style="max-width: 900px; text-align: center;">
+        <span class="section-label">Enterprise-Grade Architecture</span>
+        <h2>HIPAA Compliance, SOC2 Security, & Full BAA Commitments</h2>
+        <p style="color: var(--slate-600); font-size: 16px; margin-bottom: 30px;">Because LexiFlow integrates with your primary legal CRM, we prioritize extreme compliance safeguards. Our platform operates with the highest standards of digital security to protect medical details and personal records under HIPAA and SOC2 frameworks.</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; text-align: left;">
+          <div style="background:#fff; border:1px solid var(--slate-200); padding:24px; border-radius:8px;">
+            <h4 style="font-family:'Playfair Display', serif; font-size:18px; color:var(--navy); margin-bottom:8px;"><i class="bi bi-shield-fill-check" style="color:var(--gold);"></i> HIPAA Compliant Storage</h4>
+            <p style="font-size:14px; color:var(--slate-600); margin:0;">We sign Business Associate Agreements (BAA) with law firms handling medical records or personal health disclosures, guaranteeing that medical chronologies synced with Clio Manage comply with all administrative and physical safeguards.</p>
+          </div>
+          <div style="background:#fff; border:1px solid var(--slate-200); padding:24px; border-radius:8px;">
+            <h4 style="font-family:'Playfair Display', serif; font-size:18px; color:var(--navy); margin-bottom:8px;"><i class="bi bi-key-fill" style="color:var(--gold);"></i> Encrypted API Connections</h4>
+            <p style="font-size:14px; color:var(--slate-600); margin:0;">All data pushed to Clio is encrypted over TLS 1.3 in-transit and rests under AES-256 encryption. LexiFlow uses OAuth 2.0 security protocols to interface directly with Clio APIs without ever storing your master login credentials.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: FAQ -->
+    <section class="section section-alt">
+      <div class="container" style="max-width: 800px;">
+        <div class="section-header">
+          <span class="section-label">Frequently Asked Questions</span>
+          <h2>Answering Your Questions About Clio AI Integration</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">Does LexiFlow integrate with both Clio Grow and Clio Manage?</h3>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Yes. LexiFlow offers a full bidirectional integration. Qualified leads and pipeline data flow into Clio Grow to initiate retainer signing, while clinical documents and medical chronologies are synchronized directly with Matter folders inside Clio Manage.</p>
+          </div>
+          <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">How does LexiFlow prevent duplicate contacts in Clio?</h3>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">LexiFlow automatically performs advanced duplicate check algorithms. Before any lead profiles or contacts are pushed, LexiFlow evaluates email addresses and telephone numbers against your active Clio database to highlight and merge duplicate files.</p>
+          </div>
+          <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">Can I map custom intake fields from LexiFlow to Clio?</h3>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Absolutely. Through our granular custom mapping dashboard, your firm can link specific AI-extracted responses directly to your standard custom fields inside Clio Manage and Clio Grow.</p>
+          </div>
+          <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">Is a developer required to set up the Clio integration?</h3>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">No. The integration is built using OAuth 2.0 protocols. Legal administrators can connect LexiFlow and Clio Grow/Manage with a single secure login sequence, without writing any custom code.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Internal Linking -->
+    <section class="section">
+      <div class="container">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+          <a href="./law-firm-call-answering-ai.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> AI Voice Call Answering →</a>
+          <a href="./filevine-intake-automation.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Filevine Intake Automation →</a>
+          <a href="./spanish-legal-intake-ai.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Spanish Bilingual Legal Answering →</a>
+          <a href="./lexiflow-vs-traditional-intake.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> LexiFlow vs. Traditional Intake →</a>
+          <a href="./best-ai-intake-software-for-law-firms.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Best AI Intake Buyers' Guide →</a>
+          <a href="./ai-legal-intake-vs-call-center.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> AI Intake vs. Outsourced Call Center →</a>
+          <a href="./roi-calculator.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Calculate Answering ROI →</a>
+          <a href="/veritas" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Veritas Deposition™ System →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software.html">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
+          <li><a href="/veritas">Veritas Deposition™ AI</a></li>
+          <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
+          <li><a href="/dashboard.html">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Top Markets</h4>
+        <ul>
+          <li><a href="/locations/california/los-angeles.html">Los Angeles (MedMal)</a></li>
+          <li><a href="/locations/california/san-francisco.html">San Francisco (MedMal)</a></li>
+          <li><a href="/locations/new-york/nyc.html">New York City (MedMal)</a></li>
+          <li><a href="/locations/illinois/chicago.html">Chicago (MedMal)</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+          <li><a href="/soc2.html">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
+
+  <script src="./shared-layout.js"></script>
+</body>
+</html>

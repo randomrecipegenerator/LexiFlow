@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Filevine AI Intake Automation & CRM Integration | LexiFlow</title>
+  <meta name="description" content="Supercharge your Filevine CRM. LexiFlow uses Reasoning AI to capture, qualify, and sync personal injury and mass tort leads directly into Filevine and Lead Docket." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="./shared-layout.css">
+  <style>
+    :root {
+      --primary: #1a3a5c;
+      --accent: #c9a84c;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-600: #475569;
+      --navy: #0f172a;
+      --gold: #c9a84c;
+    }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--navy); line-height: 1.6; margin: 0; padding-top: 80px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .hero { background: var(--navy); color: #fff; padding: 100px 0; text-align: center; position: relative; overflow: hidden; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 48px; margin-bottom: 20px; line-height: 1.2; }
+    .hero h1 span.highlight { color: var(--gold); }
+    .hero p.subtitle { font-size: 18px; color: var(--slate-400); max-width: 800px; margin: 0 auto 40px; }
+    .btn { display: inline-block; padding: 14px 28px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.2s; border: none; cursor: pointer; }
+    .btn-primary { background: var(--gold); color: var(--navy); }
+    .btn-secondary { border: 1px solid var(--slate-400); color: #fff; margin-left: 12px; background: transparent; }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.05); }
+    .section { padding: 80px 0; border-bottom: 1px solid var(--slate-200); }
+    .section-alt { background: var(--slate-50); }
+    .section-header { text-align: center; margin-bottom: 48px; max-width: 800px; margin-left: auto; margin-right: auto; }
+    .section-label { color: var(--gold); text-transform: uppercase; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; display: block; margin-bottom: 8px; }
+    .section h2 { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--navy); margin-bottom: 16px; }
+    .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .features-text h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); margin-bottom: 16px; }
+    .features-text p { color: var(--slate-600); margin-bottom: 24px; font-size: 16px; }
+    .feature-list { list-style: none; padding: 0; margin-bottom: 30px; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; color: var(--slate-600); }
+    .feature-list i { color: var(--gold); font-size: 20px; }
+    .features-visual { background: #fff; border-radius: 16px; padding: 40px; color: var(--navy); border: 1px solid var(--slate-200); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    .visual-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--slate-200); padding-bottom: 16px; }
+    .visual-title { font-family: 'Playfair Display', serif; color: var(--primary); font-size: 20px; display: flex; align-items: center; gap: 8px; }
+    .visual-status { background: rgba(201, 168, 76, 0.1); color: var(--gold); padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+    .integration-box { font-family: 'Inter', sans-serif; font-size: 14px; color: var(--slate-600); }
+    .compliance-bar { background: var(--slate-100); padding: 24px; border-radius: 8px; border-left: 4px solid var(--accent); margin-top: 30px; }
+    .compliance-bar h4 { margin-top: 0; color: var(--primary); margin-bottom: 8px; }
+    .compliance-bar p { margin: 0; color: var(--slate-600); font-size: 14px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/pricing.html">Pricing</a></li>
+        <li><a href="/dashboard.html">Dashboard</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li class="resources-dropdown">
+          <a href="#">Resources ▾</a>
+          <div class="resources-menu">
+            <a href="/resources/medical-chronology-template.html">Medical Chronology Template</a>
+            <a href="/resources/medical-chronology-sample.html">Medical Chronology Sample</a>
+            <a href="/resources/medical-record-review-checklist.html">Record Review Checklist</a>
+            <a href="/ssd-disability-medical-chronology-software.html">SSD & Disability Chronologies</a>
+          </div>
+        </li>
+        <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+        <li></li>
+        <li><a href="/login.html">Log In</a></li>
+        <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="hero-badges" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 24px;">
+        <span class="hero-badge" style="background: rgba(255,255,255,0.1); color: #fff; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600;">Filevine API Integration</span>
+        <span class="hero-badge" style="background: rgba(201, 168, 76, 0.2); color: var(--gold); padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600;">Lead Docket Mapping</span>
+      </div>
+      <h1>Supercharge Filevine with <br/><span class="highlight">Advanced AI Legal Intake</span></h1>
+      <p class="subtitle">Streamline high-volume mass torts and complex personal injury cases. LexiFlow qualifies incoming prospects, extracts surgical timelines, and synchronizes project data directly into Filevine and Lead Docket.</p>
+      <div style="display: flex; justify-content: center; gap: 16px;">
+        <a href="/signup.html" class="btn btn-primary">Request Filevine Integration</a>
+        <a href="/roi-calculator.html" class="btn btn-secondary">Run Intake Audit</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Section 1: The Filevine Advantage -->
+    <section class="section">
+      <div class="container">
+        <div class="features-grid">
+          <div class="features-text">
+            <span class="section-label">Intelligent Orchestration</span>
+            <h2>Eliminate Manual Bottlenecks and Accelerate Intake Velocity</h2>
+            <p>Filevine is the trusted operating system for many of the country's leading personal injury, mass tort, and medical malpractice law firms. However, managing high lead volumes remains a complex operational challenge. Standard intake flows often suffer from delays, where valuable leads sit in generic triage queues for hours or days. This lag time increases lead friction and reduces conversion rates, as plaintiff claimants frequently select the first firm to offer a comprehensive evaluation.</p>
+            <p>LexiFlow provides a high-velocity, automated solution. Our legal-specific Reasoning AI qualifies incoming web and voice leads 24/7/365, ensuring zero-latency response. The AI handles the complete intake interview, extracting critical details like accident parameters, surgical timelines, and medical facilities, and populates this data directly into Filevine and Lead Docket as structured project files.</p>
+            <ul class="feature-list">
+              <li><i class="bi bi-box-arrow-in-right"></i> <strong>Direct Lead Docket Sync:</strong> Qualified leads are instantly injected into Lead Docket, trigger-ready for attorney review and e-sign deployment.</li>
+              <li><i class="bi bi-diagram-3-fill"></i> <strong>Section & Field Custom Mapping:</strong> Seamlessly map case scores, treating physicians, and incident dates to your firm's specific Filevine Custom Templates.</li>
+              <li><i class="bi bi-cloud-check-fill"></i> <strong>Secure Document Uploads:</strong> Synchronizes intake call audio recordings, translated transcripts, and medical authorizations directly to your Filevine Docs tab.</li>
+            </ul>
+          </div>
+          <div class="features-visual">
+            <div class="visual-header">
+              <span class="visual-title"><i class="bi bi-arrow-repeat" style="color:var(--gold);"></i> LexiFlow ⇋ Filevine Sync</span>
+              <span class="visual-status" style="background:rgba(40,167,69,0.1); color:#28a745;">Connected</span>
+            </div>
+            <div class="integration-box">
+              <div style="background:var(--slate-50); padding:16px; border-radius:8px; border:1px solid var(--slate-200); margin-bottom:16px;">
+                <h4 style="margin:0 0 8px 0; font-family:'Playfair Display', serif; font-size:16px; color:var(--primary);"><i class="bi bi-folder-fill"></i> Filevine Project Directory</h4>
+                <p style="font-size:12px; color:var(--slate-600); margin:4px 0 0 0;">Project: <strong>Estate of Johnson v. Hospital Group</strong></p>
+                <p style="font-size:12px; color:var(--slate-600); margin:2px 0 0 0;">Category: <strong>Medical Malpractice - Wrongful Death</strong></p>
+              </div>
+              <div style="border-left:2px dashed var(--gold); padding-left:16px; margin-left:10px;">
+                <div style="margin-bottom:12px;">
+                  <strong style="font-size:13px; color:var(--navy);"><i class="bi bi-card-checklist"></i> Intake_Data_Section</strong>
+                  <span style="font-size:11px; color:#28a745; background:rgba(40,167,69,0.1); padding:2px 6px; border-radius:4px; margin-left:8px;">Updated</span>
+                  <p style="font-size:12px; color:var(--slate-600); margin:4px 0 0 0;">Custom fields for treating doctors, date of negligence, and liability assessment populated.</p>
+                </div>
+                <div>
+                  <strong style="font-size:13px; color:var(--navy);"><i class="bi bi-file-earmark-medical-fill"></i> medical_chronology.docx</strong>
+                  <span style="font-size:11px; color:#28a745; background:rgba(40,167,69,0.1); padding:2px 6px; border-radius:4px; margin-left:8px;">Uploaded</span>
+                  <p style="font-size:12px; color:var(--slate-600); margin:4px 0 0 0;">Trial-ready, clinical timeline mapping 420 pages of hospital records attached directly to project files.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Filevine workflows -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Integrated Intelligence</span>
+          <h2>Tailored Automation for High-Value Litigation</h2>
+          <p>LexiFlow does not just copy text; it deeply understands your Filevine templates, ensuring that complex litigation information is routed to the exact sections your legal teams rely on.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+          <div style="background:#fff; padding:36px; border-radius:12px; border:1px solid var(--slate-200);">
+            <div style="background:var(--slate-50); width:48px; height:48px; border-radius:8px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; color:var(--gold); font-size:24px;"><i class="bi bi-lightning-charge-fill"></i></div>
+            <h3 style="font-family:'Playfair Display', serif; font-size:22px; color:var(--navy); margin-bottom:12px;">Stage 1: Lead Docket (Instant Capture)</h3>
+            <p style="color:var(--slate-600); font-size:15px; margin-bottom:16px;">Our AI screens incoming leads for primary liability criteria and injury severity. As soon as a lead is qualified, LexiFlow pushes the client profile into Filevine Lead Docket. Transcripts, geolocation data, and case narratives are instantly mapped into custom Lead Docket fields.</p>
+            <p style="color:var(--slate-600); font-size:15px;">Your intake agents can trigger an automatic text or email containing your digital retainer, allowing you to sign cases within minutes of initial contact.</p>
+          </div>
+          <div style="background:#fff; padding:36px; border-radius:12px; border:1px solid var(--slate-200);">
+            <div style="background:var(--slate-50); width:48px; height:48px; border-radius:8px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; color:var(--gold); font-size:24px;"><i class="bi bi-file-earmark-ruled-fill"></i></div>
+            <h3 style="font-family:'Playfair Display', serif; font-size:22px; color:var(--navy); margin-bottom:12px;">Stage 2: Filevine Projects (Advanced RAG Sync)</h3>
+            <p style="color:var(--slate-600); font-size:15px; margin-bottom:16px;">Once the lead is converted to an active Filevine Project, LexiFlow's medical analysis suite kicks in. Drag-and-drop clinical records directly into LexiFlow to compile dynamic medical chronologies. The AI identifies inconsistencies, medical errors, and pre-existing conditions.</p>
+            <p style="color:var(--slate-600); font-size:15px;">The finished docx chronologies, clinical indices, and record review checklists are automatically saved back to the Filevine Docs tab under 'Medical Records', keeping your case files litigation-ready.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Attorney Review Workflow -->
+    <section class="section">
+      <div class="container">
+        <div class="features-grid" style="direction: rtl;">
+          <div class="features-text" style="direction: ltr; text-align: left;">
+            <span class="section-label">Safe & Controlled Sync</span>
+            <h2>Attorney-in-the-Loop Verification Framework</h2>
+            <p>At LexiFlow, we recognize that data security and accuracy are paramount to active law firm operations. Automated systems must never operate without precise human oversight. Our platform uses a strict verification staging architecture that gives your intake managers absolute control over what is written to your Filevine projects.</p>
+            <p>Every lead is staged in a secure dashboard. Legal staff can review the AI's case summary, adjust contact spelling, add custom notes, evaluate the Case Qualification Score, and verify that the file is complete. Once verified, a single click authorizes the API transfer into Filevine or Lead Docket, keeping your database clean and pristine.</p>
+            <div class="compliance-bar">
+              <h4>Filevine Security Safeguards:</h4>
+              <p style="margin-bottom: 8px;"><strong>Custom Project Mapping:</strong> Map fields to specific Custom Project Types inside Filevine (e.g. MedMal, MVA, Premises Liability) with drag-and-drop simplicity.</p>
+              <p style="margin-bottom: 8px;"><strong>Duplicate Detection:</strong> Compares inbound lead emails and phone numbers against existing Filevine contacts to avoid duplicate profiles.</p>
+              <p><strong>Strict Audit Trail:</strong> Logs every automated field update, providing a complete record of compliance and oversight.</p>
+            </div>
+          </div>
+          <div class="features-visual" style="direction: ltr; text-align: left; background: var(--slate-50); color: var(--navy); border-color: var(--slate-200);">
+            <h4 style="font-family:'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 16px;">Sync Authorization Console</h4>
+            <div style="background:#fff; border:1px solid var(--slate-200); border-radius:8px; padding:16px; margin-bottom:12px;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:12px; color:var(--slate-600);">
+                <span>Draft Lead Ready</span>
+                <span style="color:#28a745; font-weight:700;"><i class="bi bi-shield-check"></i> Validated</span>
+              </div>
+              <h5 style="margin:4px 0 8px; font-size:16px;">Lead: Arthur Pendelton</h5>
+              <div style="font-size:13px; color:var(--slate-600); margin-bottom:12px; line-height:1.4;">
+                <strong>Sync Target:</strong> Filevine Lead Docket<br/>
+                <strong>Template Mapping:</strong> Medical Negligence V4<br/>
+                <strong>Identified Duplicate:</strong> None found in Filevine database.
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button style="background:var(--primary); color:#fff; border:none; padding:6px 12px; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer;"><i class="bi bi-cloud-arrow-up-fill"></i> Sync to Lead Docket</button>
+                <button style="background:#dc3545; color:#fff; border:none; padding:6px 12px; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer;"><i class="bi bi-trash"></i> Dismiss</button>
+              </div>
+            </div>
+            <p style="font-size:12px; color:var(--slate-600); margin:0;">Zero automated writes happen without explicit permission. Your data stays perfect, organized, and secure.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: HIPAA and Security -->
+    <section class="section section-alt">
+      <div class="container" style="max-width: 900px; text-align: center;">
+        <span class="section-label">Enterprise Security first</span>
+        <h2>HIPAA, SOC2, & Secure Filevine Integration</h2>
+        <p style="color: var(--slate-600); font-size: 16px; margin-bottom: 30px;">Integrating AI with active legal case management demands robust security safeguards. LexiFlow features a fortified security architecture, ensuring that client records and clinical files are fully protected at every stage of the sync pipeline.</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; text-align: left;">
+          <div style="background:#fff; border:1px solid var(--slate-200); padding:24px; border-radius:8px;">
+            <h4 style="font-family:'Playfair Display', serif; font-size:18px; color:var(--navy); margin-bottom:8px;"><i class="bi bi-shield-fill-check" style="color:var(--gold);"></i> HIPAA Compliance & BAA</h4>
+            <p style="font-size:14px; color:var(--slate-600); margin:0;">We execute formal Business Associate Agreements (BAA) for firms managing health disclosures. All medical chronologies, clinical narratives, and patient records synced into Filevine meet the highest standard of administrative security.</p>
+          </div>
+          <div style="background:#fff; border:1px solid var(--slate-200); padding:24px; border-radius:8px;">
+            <h4 style="font-family:'Playfair Display', serif; font-size:18px; color:var(--navy); margin-bottom:8px;"><i class="bi bi-key-fill" style="color:var(--gold);"></i> Secured API Protocols</h4>
+            <p style="font-size:14px; color:var(--slate-600); margin:0;">All data packets sent to Filevine utilize end-to-end encryption (TLS 1.3) and rest under AES-256 encryption. LexiFlow accesses Filevine using secure OAuth 2.0 credentials without ever storing master administrator passwords.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: FAQ -->
+    <section class="section section-alt">
+      <div class="container" style="max-width: 800px;">
+        <div class="section-header">
+          <span class="section-label">Frequently Asked Questions</span>
+          <h2>Answering Your Questions About Filevine AI Integration</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">Does LexiFlow support custom layouts inside Filevine?</h3>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Yes. LexiFlow is built to accommodate the highly customizable nature of Filevine. Our API connector allows you to map structured extraction variables directly to your firm's specific custom layout fields, including multi-select fields and customs tables.</p>
+          </div>
+          <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">How is intake data pushed to Filevine?</h3>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Once a lead is qualified, LexiFlow pushes the payload directly into Filevine or Lead Docket using official API endpoints. This triggers the automatic generation of a new Project, populates the Intake Section, and uploads associated intake summaries or call logs.</p>
+          </div>
+          <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">Does LexiFlow support document mapping in Filevine?</h3>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Absolutely. AI-extracted medical summaries, PDF chronologies, and transcript sheets are automatically organized and posted to the "Docs" tab within the newly initialized Filevine Project under designated folders.</p>
+          </div>
+          <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">How secure is the API connection between LexiFlow and Filevine?</h3>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">LexiFlow uses enterprise-grade OAuth 2.0 authentication to connect to your Filevine environment. All data synchronized is fully encrypted using TLS 1.3 in transit and AES-256 at rest, backed by our HIPAA and SOC2 compliance programs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Internal Linking -->
+    <section class="section">
+      <div class="container">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+          <a href="./law-firm-call-answering-ai.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> AI Voice Call Answering →</a>
+          <a href="./clio-intake-automation.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Clio Intake Automation →</a>
+          <a href="./spanish-legal-intake-ai.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Spanish Bilingual Legal Answering →</a>
+          <a href="./lexiflow-vs-traditional-intake.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> LexiFlow vs. Traditional Intake →</a>
+          <a href="./best-ai-intake-software-for-law-firms.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Best AI Intake Buyers' Guide →</a>
+          <a href="./ai-legal-intake-vs-call-center.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> AI Intake vs. Outsourced Call Center →</a>
+          <a href="./roi-calculator.html" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Calculate Answering ROI →</a>
+          <a href="/veritas" style="color: #0f172a; text-decoration: none; font-weight: 600;"><i class="bi bi-arrow-right-short" style="color:var(--gold);"></i> Veritas Deposition™ System →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software.html">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
+          <li><a href="/veritas">Veritas Deposition™ AI</a></li>
+          <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
+          <li><a href="/dashboard.html">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Top Markets</h4>
+        <ul>
+          <li><a href="/locations/california/los-angeles.html">Los Angeles (MedMal)</a></li>
+          <li><a href="/locations/california/san-francisco.html">San Francisco (MedMal)</a></li>
+          <li><a href="/locations/new-york/nyc.html">New York City (MedMal)</a></li>
+          <li><a href="/locations/illinois/chicago.html">Chicago (MedMal)</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+          <li><a href="/soc2.html">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
+
+  <script src="./shared-layout.js"></script>
+</body>
+</html>

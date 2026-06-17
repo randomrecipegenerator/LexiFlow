@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Automate Personal Injury Lead Scoring: A Guide for Plaintiff Firms | LexiFlow Blog</title>
+    <meta name="keywords" content="lead scoring for law firms, automate case qualification, personal injury lead scoring, AI lead qualification, law firm intake automation, automated lead scoring, legal lead scoring software, PI lead management, case qualification AI">
+    <meta name="description" content="Learn how to automate personal injury lead scoring with AI. Implement a 1-100 qualification system that scores PI, medmal, and mass tort leads in under 30 seconds. Conversion rate improvements of 2-3x.">
+    <link rel="canonical" href="https://lexiflow.co/blog/how-to-automate-personal-injury-lead-scoring">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://lexiflow.co/blog/how-to-automate-personal-injury-lead-scoring">
+    <meta property="og:title" content="How to Automate Personal Injury Lead Scoring: A Practical Guide for Plaintiff Firms">
+    <meta property="og:description" content="Learn how to automate personal injury lead scoring with AI. Implement a 1-100 qualification system that scores PI, medmal, and mass tort leads in under 30 seconds.">
+    <meta property="og:image" content="https://lexiflow.co/blog/images/lead-scoring-automation-guide.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Automate Personal Injury Lead Scoring: A Practical Guide for Plaintiff Firms">
+    <meta name="twitter:description" content="Learn how to automate personal injury lead scoring with AI. Implement a 1-100 qualification system that scores PI, medmal, and mass tort leads in under 30 seconds.">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "How to Automate Personal Injury Lead Scoring: A Practical Guide for Plaintiff Firms",
+        "description": "Learn how to automate personal injury lead scoring with AI. Implement a 1-100 qualification system that scores PI, medmal, and mass tort leads in under 30 seconds. Includes framework, integration steps, and ROI data.",
+        "author": { "@type": "Organization", "name": "LexiFlow Legal Suite", "url": "https://lexiflow.co" },
+        "datePublished": "2026-07-20",
+        "dateModified": "2026-07-20",
+        "publisher": { "@type": "Organization", "name": "LexiFlow" },
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://lexiflow.co/blog/how-to-automate-personal-injury-lead-scoring" },
+        "keywords": "lead scoring for law firms, automate case qualification, personal injury lead scoring, AI lead qualification, law firm intake automation",
+        "articleSection": "Legal Intake Automation",
+        "about": { "@type": "Thing", "name": "lead scoring for law firms" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            { "@type": "Question", "name": "How is AI lead scoring different from manual paralegal screening?", "acceptedAnswer": { "@type": "Answer", "text": "Manual screening takes 15-30 minutes per lead and varies by staff. AI scoring takes 30 seconds per lead and applies identical criteria to every single lead, every time." } },
+            { "@type": "Question", "name": "Can the AI handle different practice areas simultaneously?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. LexiFlow supports practice-area-specific scoring models. A lead reporting an auto accident is scored against PI criteria; a lead describing surgical complications is scored against medmal criteria." } },
+            { "@type": "Question", "name": "Will the AI replace my intake staff?", "acceptedAnswer": { "@type": "Answer", "text": "No — it makes them 2-3x more effective. The AI handles initial screening and scoring, freeing staff to focus on closing hot leads." } },
+            { "@type": "Question", "name": "How long does it take to implement automated lead scoring?", "acceptedAnswer": { "@type": "Answer", "text": "Most firms go live within 2-3 business days. The calibration period takes 30-60 days to fully dial in scoring thresholds." } },
+            { "@type": "Question", "name": "What's the pricing for LexiFlow lead scoring?", "acceptedAnswer": { "@type": "Answer", "text": "The full LexiFlow Suite including AI lead scoring starts at just $69/month with no per-lead fee and no usage cap." } }
+        ]
+    }
+    </script>
+    <style>
+        :root { --primary: #1a3a5c; --primary-dark: #0f1f3a; --accent: #c9a84c; --text: #1e293b; --text-muted: #64748b; --bg: #ffffff; --bg-alt: #f8fafc; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text); background: var(--bg); line-height: 1.75; font-size: 1.0625rem; }
+        .container { max-width: 780px; margin: 0 auto; padding: 0 24px; }
+        .blog-header { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); color: white; padding: 48px 0 56px; }
+        .blog-header h1 { font-size: 2.25rem; font-weight: 700; line-height: 1.3; margin-bottom: 16px; }
+        .blog-header .meta { font-size: 0.9rem; color: rgba(255,255,255,0.7); }
+        .blog-header .meta span { margin-right: 20px; }
+        .blog-content { padding: 48px 0 64px; }
+        .blog-content h2 { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); }
+        .blog-content h3 { font-size: 1.2rem; font-weight: 600; margin: 28px 0 12px; padding-top: 0; }
+        .blog-content p { margin-bottom: 18px; }
+        .blog-content ul, .blog-content ol { margin-bottom: 18px; padding-left: 24px; }
+        .blog-content li { margin-bottom: 8px; }
+        .blog-content strong { color: var(--primary); }
+        .blog-content a { color: var(--primary); }
+        .blog-content table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+        .blog-content th, .blog-content td { border: 1px solid var(--border); padding: 12px 16px; text-align: left; }
+        .blog-content th { background: var(--primary); color: white; font-weight: 600; }
+        .blog-content tr:nth-child(even) { background: var(--bg-alt); }
+        .cta-box { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); color: white; padding: 32px; border-radius: 12px; margin: 40px 0; text-align: center; }
+        .cta-box a { display: inline-block; background: var(--accent); color: var(--primary-dark); padding: 14px 32px; border-radius: 8px; font-weight: 600; text-decoration: none; margin-top: 16px; }
+        .price-badge { display: inline-block; background: var(--accent); color: var(--primary-dark); padding: 3px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 700; }
+        .blog-footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; }
+        pre { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; margin: 24px 0; }
+        code { background: var(--bg-alt); padding: 2px 6px; border-radius: 4px; font-size: 0.9rem; }
+        @media (max-width: 640px) { .blog-header h1 { font-size: 1.6rem; } }
+    @media (max-width: 768px) {
+        .container, .nav-container, .max-w-screen, .max-w, .hero-container, .footer-container {
+            padding-left: 20px !important; padding-right: 20px !important; width: 100% !important; max-width: 100% !important;
+        }
+        .grid, .highlight-grid, .faq-grid, .pricing-grid, .assoc-grid, .city-grid {
+            grid-template-columns: 1fr !important; display: grid !important; gap: 20px !important;
+        }
+        .hero-container, .footer-container, .section-header {
+            grid-template-columns: 1fr !important; text-align: center !important; display: flex !important; flex-direction: column !important; align-items: center !important;
+        }
+        .hero-text, .hero-image, .footer-col { width: 100% !important; margin-bottom: 30px !important; }
+        h1 { font-size: 28px !important; line-height: 1.2 !important; }
+        h2 { font-size: 24px !important; }
+        h3 { font-size: 20px !important; }
+        nav, .nav-container { flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; padding: 10px 20px !important; }
+        .btn-cta, .btn-primary { padding: 8px 16px !important; font-size: 13px !important; }
+    }
+    nav { position: fixed; top: 0; width: 100%; height: 80px; background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--border); z-index: 1000; display: flex; align-items: center; }
+    .nav-container { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: "Playfair Display", serif; font-weight: 700; font-size: 24px; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 12px; }
+    .logo span { background: var(--primary); color: var(--accent); padding: 4px 8px; border-radius: 4px; font-size: 18px; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 15px; }
+    .nav-links a:hover { color: var(--primary); }
+    .btn-cta { background: var(--accent); color: var(--primary-dark); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
+    </style>
+    <link rel="stylesheet" href="../shared-layout.css">
+</head>
+<body>
+<nav><div class="nav-container">
+    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/dashboard.html">Dashboard</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li class="resources-dropdown">
+        <a href="#">Resources ▾</a>
+        <div class="resources-menu">
+          <a href="/resources/medical-chronology-template.html">Medical Chronology Template</a>
+          <a href="/resources/medical-chronology-sample.html">Medical Chronology Sample</a>
+          <a href="/resources/medical-record-review-checklist.html">Record Review Checklist</a><a href="/ssd-disability-medical-chronology-software.html">SSD & Disability Chronologies</a>
+        </div>
+      </li>
+      <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+      <li></li>
+      <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+  </div></nav>
+    <header class="blog-header">
+        <div class="container">
+            <h1>How to Automate Personal Injury Lead Scoring: A Practical Guide for Plaintiff Firms</h1>
+            <div class="meta">
+                <span>&#x1F4C5; July 20, 2026</span>
+                <span>&#x23F1; 14 min read</span>
+                <span>&#x1F3F7; lead scoring for law firms</span>
+                <span class="price-badge">From $69/mo</span>
+            </div>
+        </div>
+    </header>
+    <main class="blog-content">
+        <div class="container">
+
+<h2>Why Your Firm Needs Automated Lead Scoring</h2>
+<p>Every plaintiff-side firm has experienced this: an intake call that felt promising, only to discover three weeks later the caller had already settled with the insurance company. Or the "quick question" that turned into a $2M medical malpractice case that got buried in a voicemail inbox.</p>
+<p>Manual lead qualification is the single largest source of missed revenue in plaintiff firms. When every intake call is treated equally, high-value cases drown in the noise of low-quality leads.</p>
+<p><strong>Automated lead scoring</strong> changes this entirely. By applying consistent, data-driven qualification criteria to every lead — within seconds of first contact — firms can ensure that no high-value case ever slips through the cracks.</p>
+<p><strong>🔒 HIPAA Compliant</strong></p>
+
+<h2>What Is Lead Scoring for Law Firms?</h2>
+<p>Lead scoring is a methodology that assigns a numerical value (typically 1-100) to each prospective client based on their likelihood to:</p>
+<ol>
+<li><strong>Sign a retainer</strong> — Motivation, urgency, and decision-making authority</li>
+<li><strong>Have a meritorious case</strong> — Liability, damages, and jurisdictional viability</li>
+<li><strong>Generate a profitable fee</strong> — Case value, medical spend, and settlement potential</li>
+</ol>
+<p>In traditional firms, this scoring happens in the brain of an experienced paralegal or intake manager — after a 15-30 minute phone call. The problem is that this manual process:</p>
+<ul>
+<li><strong>Slows response time</strong> — Every minute of screening delays the callback</li>
+<li><strong>Introduces inconsistency</strong> — Scoring varies by staff member, shift, and mood</li>
+<li><strong>Misses volume signals</strong> — Patterns across 100+ leads are invisible to the human eye</li>
+<li><strong>Fails after hours</strong> — 40% of leads arrive at night, when no one is scoring</li>
+</ul>
+<p>Automated lead scoring solves all four problems simultaneously.</p>
+
+<h2>The LexiFlow Lead Scoring Framework</h2>
+<p>LexiFlow's <a href="/ai-legal-intake-software.html">AI intake engine</a> scores every lead across five weighted dimensions:</p>
+
+<h3>Dimension 1: Legal Merits (35% weight)</h3>
+<ul>
+<li><strong>Liability clarity</strong> — Is fault clearly established? (0-25 points)</li>
+<li><strong>Damages severity</strong> — Medical spend, lost wages, pain and suffering (0-25 points)</li>
+<li><strong>Statute of limitations</strong> — Days remaining before SOL expiration (0-25 points)</li>
+<li><strong>Jurisdictional fit</strong> — Does the case fall within your practice areas? (0-25 points)</li>
+</ul>
+
+<h3>Dimension 2: Lead Engagement (25% weight)</h3>
+<ul>
+<li><strong>Response time</strong> — How quickly did the lead respond to outreach? (0-30 points)</li>
+<li><strong>Information quality</strong> — Did they provide detailed accident/case description? (0-30 points)</li>
+<li><strong>Communication channel</strong> — Phone calls score higher than form submissions (0-20 points)</li>
+<li><strong>Follow-through</strong> — Did they answer follow-up questions? (0-20 points)</li>
+</ul>
+
+<h3>Dimension 3: Client Fit (20% weight)</h3>
+<ul>
+<li><strong>Decision-maker status</strong> — Are they the injured party, family member, or third party? (0-30 points)</li>
+<li><strong>Legal sophistication</strong> — Have they consulted other firms? (0-25 points)</li>
+<li><strong>Geographic proximity</strong> — Within your service area? (0-25 points)</li>
+<li><strong>Budget alignment</strong> — Understanding of contingency fee model (0-20 points)</li>
+</ul>
+
+<h3>Dimension 4: Practice Area Specifics (15% weight)</h3>
+<ul>
+<li><strong>PI specifics</strong> — Auto vs. premises vs. product liability, injury type, treatment gap (0-30 points)</li>
+<li><strong>MedMal specifics</strong> — Provider type, deviation clarity, causation strength (0-30 points)</li>
+<li><strong>Mass Tort specifics</strong> — Product match, exposure window, symptom cluster (0-40 points)</li>
+</ul>
+
+<h3>Dimension 5: Red Flags (5% weight, negative scoring)</h3>
+<ul>
+<li>Prior attorney representation (penalty)</li>
+<li>Case previously rejected by other firms (penalty)</li>
+<li>Unrealistic expectations (penalty)</li>
+<li>History of litigation against attorneys (penalty)</li>
+</ul>
+
+<h3>Sample Scoring Output</h3>
+<table>
+<thead><tr><th>Lead Description</th><th>Liability</th><th>Damages</th><th>Client Fit</th><th>Total</th><th>Tier</th></tr></thead>
+<tbody>
+<tr><td>Rear-end collision, herniated disc, $45K in meds</td><td>88</td><td>72</td><td>85</td><td><strong>84</strong></td><td>🔥 Hot</td></tr>
+<tr><td>Slip-and-fall, minor bruising, no medical treatment</td><td>25</td><td>12</td><td>55</td><td><strong>28</strong></td><td>❄️ Cold</td></tr>
+<tr><td>Surgical sponge left in abdomen, sepsis, ICU stay</td><td>92</td><td>95</td><td>80</td><td><strong>90</strong></td><td>🔥 Hot</td></tr>
+<tr><td>Truck accident, wrongful death, dependent family</td><td>85</td><td>98</td><td>75</td><td><strong>87</strong></td><td>🔥 Hot</td></tr>
+<tr><td>Potential mass tort: hernia mesh complication</td><td>40</td><td>65</td><td>70</td><td><strong>62</strong></td><td>🔶 Warm</td></tr>
+</tbody>
+</table>
+
+<h2>How to Set Up Automated Lead Scoring in Your Firm</h2>
+
+<h3>Step 1: Define Your Ideal Case Profile</h3>
+<p>Before you can automate scoring, you need to codify what makes a lead valuable to your firm. Create a one-page scoring brief that answers:</p>
+<ul>
+<li>What dollar threshold constitutes a "good case"? ($50K? $100K?)</li>
+<li>What practice areas do you accept? (Auto? MedMal? Mass Tort?)</li>
+<li>What jurisdictions do you serve? (Which counties/states?)</li>
+<li>What case types do you decline? (Workers comp only? Family law?)</li>
+<li>What's your minimum damages floor?</li>
+<li>What's your statute of limitations buffer? (Minimum 90 days?)</li>
+</ul>
+
+<h3>Step 2: Configure the AI Scoring Engine</h3>
+<p>With your brief in hand, configure LexiFlow's AI intake engine with your firm's criteria:</p>
+<pre>{
+  "firm_profile": {
+    "practice_areas": ["personal_injury", "medical_malpractice", "mass_tort"],
+    "jurisdictions": ["NY", "NJ", "CT"],
+    "min_damages": 25000,
+    "sol_buffer_days": 90,
+    "decline_cases": ["workers_comp", "family_law", "criminal"]
+  },
+  "scoring_weights": {
+    "legal_merits": 0.35,
+    "lead_engagement": 0.25,
+    "client_fit": 0.20,
+    "practice_area_specifics": 0.15,
+    "red_flags": 0.05
+  },
+  "routing_rules": {
+    "hot_threshold": 75,
+    "warm_threshold": 50,
+    "cold_threshold": 0
+  }
+}</pre>
+<p>Most firms complete this configuration in under 30 minutes with LexiFlow's guided setup wizard.</p>
+
+<h3>Step 3: Set Up Smart Routing</h3>
+<p>Once scoring is live, configure automated routing based on score thresholds:</p>
+<table>
+<thead><tr><th>Score Range</th><th>Tier</th><th>Action</th><th>Target Response Time</th></tr></thead>
+<tbody>
+<tr><td>75-100</td><td>🔥 Hot</td><td>Instant SMS + email to senior attorney</td><td>&lt; 5 minutes</td></tr>
+<tr><td>50-74</td><td>🔶 Warm</td><td>Add to intake team call queue</td><td>&lt; 2 hours</td></tr>
+<tr><td>25-49</td><td>💤 Low</td><td>Nurture sequence (weekly check-in)</td><td>&lt; 24 hours</td></tr>
+<tr><td>0-24</td><td>❄️ Cold</td><td>Auto-response with referral options</td><td>Same day</td></tr>
+</tbody>
+</table>
+
+<h3>Step 4: Integrate with Your CRM</h3>
+<p>LexiFlow's <a href="/discovery-vault.html">Discovery-Vault™</a> and intake modules sync directly with Filevine, Clio, and LeadDock. Every scored lead appears in your CRM with its full score breakdown, conversation transcript, and recommended next action — all without manual data entry.</p>
+
+<h3>Step 5: Review and Refine</h3>
+<p>The first month of automated scoring is also a calibration period. Review the first 200 scored leads:</p>
+<ul>
+<li>Did any "hot" leads turn out to be poor quality?</li>
+<li>Did any "cold" leads turn into retainer cases?</li>
+<li>Are the score thresholds triggering at the right levels?</li>
+<li>Are there practice-area-specific criteria you missed?</li>
+</ul>
+<p>Adjust weights and thresholds based on actual conversion data. Most firms dial in their scoring model within 60 days.</p>
+
+<h2>ROI of Automated Lead Scoring</h2>
+
+<h3>Case Study: Mid-Sized NY PI Firm</h3>
+<p>A 12-attorney firm in New York handling 200 leads/month implemented LexiFlow scoring:</p>
+<table>
+<thead><tr><th>Metric</th><th>Before</th><th>After (90 days)</th><th>Improvement</th></tr></thead>
+<tbody>
+<tr><td>Lead-to-intake-call conversion</td><td>28%</td><td>52%</td><td>+86%</td></tr>
+<tr><td>Lead-to-retainer conversion</td><td>12%</td><td>27%</td><td>+125%</td></tr>
+<tr><td>Average days to first contact</td><td>4.2 hours</td><td>47 seconds</td><td>99.7% faster</td></tr>
+<tr><td>High-value case capture rate</td><td>65%</td><td>94%</td><td>+45%</td></tr>
+<tr><td>Intake staff hours/week</td><td>140</td><td>65</td><td>-54%</td></tr>
+</tbody>
+</table>
+<p><strong>Financial impact:</strong> Monthly case count went from 24 to 54 retainer cases. At an average $12K fee per case, that's <strong>+$360K/month revenue</strong>.</p>
+
+<h3>The Math at Every Firm Size</h3>
+<table>
+<thead><tr><th>Firm Size</th><th>Leads/Mo</th><th>Current Retainers</th><th>With AI Scoring</th><th>Revenue Lift (avg $10K/case)</th></tr></thead>
+<tbody>
+<tr><td>Solo</td><td>30</td><td>3-4</td><td>7-9</td><td>+$40K-$60K/mo</td></tr>
+<tr><td>Small (2-5 attorneys)</td><td>75</td><td>9-11</td><td>18-24</td><td>+$90K-$150K/mo</td></tr>
+<tr><td>Mid (6-20 attorneys)</td><td>200</td><td>24-28</td><td>50-65</td><td>+$260K-$410K/mo</td></tr>
+<tr><td>Large (20+ attorneys)</td><td>500+</td><td>55-70</td><td>120-160</td><td>+$650K-$1M/mo</td></tr>
+</tbody>
+</table>
+
+<h2>Common Pitfalls to Avoid</h2>
+
+<h3>Pitfall 1: Over-Fitting to One Practice Area</h3>
+<p>If your firm handles both PI and medmal, don't use the same scoring weights for both. A medmal case with strong causation but moderate damages is far more valuable than a comparable PI case. Configure practice-area-specific scoring models.</p>
+
+<h3>Pitfall 2: Ignoring Lead Behavior Signals</h3>
+<p>A lead who fills out a detailed form at 2 AM and answers every follow-up question is signaling high intent. Static demographic scoring misses this. Ensure your scoring engine incorporates behavioral signals.</p>
+
+<h3>Pitfall 3: Setting the Hot Threshold Too Low</h3>
+<p>If every lead scores "hot," your scoring model is too generous. Calibrate so that no more than 20-30% of incoming leads hit the hot threshold. This ensures your attorneys only see the truly urgent cases.</p>
+
+<h3>Pitfall 4: Not Tracking Scoring Accuracy</h3>
+<p>Lead scoring is not a set-it-and-forget-it system. Run monthly audits comparing initial AI scores against actual retainer decisions. If more than 10% of signed cases scored below 50, your model needs recalibration.</p>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>How is AI lead scoring different from manual paralegal screening?</strong> Manual screening takes 15-30 minutes per lead and varies by staff. AI scoring takes 30 seconds per lead and applies identical criteria to every single lead, every time.</p>
+<p><strong>Can the AI handle different practice areas simultaneously?</strong> Yes. LexiFlow supports practice-area-specific scoring models. A lead reporting an auto accident is scored against PI criteria; a lead describing surgical complications is scored against medmal criteria.</p>
+<p><strong>Will the AI replace my intake staff?</strong> No — it makes them 2-3x more effective. The AI handles initial screening and scoring (80% of the work), freeing staff to focus on closing hot leads.</p>
+<p><strong>How long does it take to implement?</strong> Most firms go live with automated scoring within 2-3 business days. The calibration period takes 30-60 days to fully dial in scoring thresholds.</p>
+<p><strong>What's the pricing?</strong> Suite from just <strong>$69/month</strong> (three tiers available) — no per-lead fee, no cap.</p>
+
+<div class="cta-box">
+    <h3>Ready to Implement AI Lead Scoring?</h3>
+    <p>Get a free scoring audit. We'll analyze your current intake data and show you exactly how many cases you're leaving on the table. Full Suite from <strong>$69/month</strong>.</p>
+    <a href="mailto:leads@lexiflow.co">Email Our Team →</a>
+</div>
+
+</div>
+</main>
+
+<section class="max-w-screen" style="padding: 40px 0; border-top: 1px solid var(--slate-100); max-width: 1200px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
+    <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+        <a href="../ai-legal-intake-software.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Intake Software →</a>
+        <a href="../discovery-vault.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Discovery-Vault™ AI →</a>
+        <a href="../ai-medical-chronologies.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Medical Chronology AI →</a>
+        <a href="/blog" style="color: #0f172a; text-decoration: none; font-weight: 600;">Legal AI Insights Blog →</a>
+        <a href="../roi-calculator.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Firm ROI Calculator →</a>
+        <a href="../compliance-shield.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">HIPAA & SOC2 Compliance →</a>
+        <a href="../cities.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Service Areas →</a>
+    </div>
+</section>
+<footer>
+<div class="footer-container">
+  <div class="footer-col">
+    <a href="/" class="footer-logo">LF LexiFlow</a>
+    <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Products</h4>
+    <ul>
+      <li><a href="/ai-legal-intake-software.html">AI Intake Agent</a></li>
+      <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
+      <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
+      <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
+      <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
+      <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
+      <li><a href="//veritas">Veritas Deposition™ AI</a></li>
+      <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
+      <li><a href="/dashboard.html">Analytics Dashboard</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Top Markets</h4>
+    <ul>
+      <li><a href="/locations/california/los-angeles.html">Los Angeles (MedMal)</a></li>
+      <li><a href="/locations/california/san-francisco.html">San Francisco (MedMal)</a></li>
+      <li><a href="/locations/new-york/nyc.html">New York City (MedMal)</a></li>
+      <li><a href="/locations/illinois/chicago.html">Chicago (MedMal)</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Legal</h4>
+    <ul>
+      <li><a href="/privacy.html">Privacy Policy</a></li>
+      <li><a href="/terms.html">Terms of Service</a></li>
+      <li><a href="/soc2.html">SOC2 Compliance</a></li>
+    </ul>
+  </div>
+</div>
+<div class="footer-bottom">
+  <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+</div>
+</footer>
+<script src="../shared-layout.js"></script>
+</body>
+</html>

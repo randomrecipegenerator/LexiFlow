@@ -190,5 +190,41 @@
     "image": "/blog/images/how-ai-merit-review-overhead-roi.png",
     "author": "LexiFlow Team",
     "tags": ["Overhead", "Profitability"]
+  },
+  {
+    "id": "lexiflow-vs-traditional-legal-call-centers",
+    "title": "LexiFlow vs. Traditional Legal Call Centers: A Data-Driven Cost-Benefit Analysis for Modern Law Firms",
+    "slug": "lexiflow-vs-traditional-legal-call-centers",
+    "category": "Legal Intake Automation",
+    "excerpt": "Compare AI-powered legal intake with traditional call centers. LexiFlow automates 90% of intake at $69/month vs. $3,000-$8,000/month for call centers. Data-driven cost-benefit analysis for plaintiff firms.",
+    "date": "2026-07-20",
+    "readTime": "12 min read",
+    "image": "/blog/images/lexiflow-vs-call-centers-comparison.png",
+    "author": "LexiFlow Team",
+    "tags": ["legal intake comparison", "call center replacement"]
+  },
+  {
+    "id": "how-to-automate-personal-injury-lead-scoring",
+    "title": "How to Automate Personal Injury Lead Scoring: A Practical Guide for Plaintiff Firms",
+    "slug": "how-to-automate-personal-injury-lead-scoring",
+    "category": "Legal Intake Automation",
+    "excerpt": "Learn how to automate personal injury lead scoring with AI. Implement a 1-100 qualification system that scores PI, medmal, and mass tort leads in under 30 seconds. Conversion rate improvements of 2-3x.",
+    "date": "2026-07-20",
+    "readTime": "14 min read",
+    "image": "/blog/images/lead-scoring-automation-guide.png",
+    "author": "LexiFlow Team",
+    "tags": ["lead scoring", "case qualification"]
+  },
+  {
+    "id": "scaling-mass-tort-practice-ai-discovery",
+    "title": "Scaling a Mass Tort Practice with AI Discovery: A Complete Implementation Guide",
+    "slug": "scaling-mass-tort-practice-ai-discovery",
+    "category": "Legal Intake Automation",
+    "excerpt": "Learn how mass tort intake automation and AI document indexing transform multi-jurisdiction case management. Process 10,000+ claims with AI. Case study reveals 30x growth.",
+    "date": "2026-07-20",
+    "readTime": "13 min read",
+    "image": "/blog/images/mass-tort-ai-discovery.png",
+    "author": "LexiFlow Team",
+    "tags": ["mass tort", "AI discovery"]
   }
 ]

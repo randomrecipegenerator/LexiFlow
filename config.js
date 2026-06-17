@@ -18,7 +18,21 @@ const LexiContext = {
 
 // Helper to handle fetch with API_BASE and multi-tenancy header
 async function apiFetch(endpoint, options = {}) {
-    const url = endpoint.startsWith('http') ? endpoint : `${API_BASE}${endpoint}`;
+    // If it's a full URL, use it as is
+    if (endpoint.startsWith('http')) return fetch(endpoint, options);
+    
+    // Normalize path: remove leading /api if present to prevent doubling
+    let path = endpoint;
+    if (path.startsWith('/api')) {
+        path = path.substring(4);
+    }
+    
+    // Ensure path starts with /
+    if (!path.startsWith('/')) {
+        path = '/' + path;
+    }
+    
+    const url = `${API_BASE}${path}`;
     
     // Merge headers
     const headers = options.headers || {};

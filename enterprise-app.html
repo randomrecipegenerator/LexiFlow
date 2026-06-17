@@ -66,15 +66,15 @@
                 if (module === 'discovery') {
                     titleEl.textContent = 'Discovery-Vault™';
                     descEl.textContent = 'AI-powered discovery document analysis and privilege logging.';
-                    endpoint = '/api/enterprise/discovery/overview';
+                    endpoint = '/enterprise/discovery/overview';
                 } else if (module === 'settlement') {
                     titleEl.textContent = 'Settlement-Predictor Pro™';
                     descEl.textContent = 'Advanced case valuation and settlement probability modeling.';
-                    endpoint = '/api/enterprise/settlement/overview';
+                    endpoint = '/enterprise/settlement/overview';
                 } else if (module === 'compliance') {
                     titleEl.textContent = 'Compliance-Shield™';
                     descEl.textContent = 'Immutable audit trails and HIPAA/SOC2 regulatory monitoring.';
-                    endpoint = '/api/enterprise/compliance/overview';
+                    endpoint = '/enterprise/compliance/overview';
                 }
 
                 if (!endpoint) return;
