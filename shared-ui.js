@@ -1,6 +1,6 @@
 /**
- * LexiFlow Professional UI Suite — Button Interaction Handler
- * Provides toast notifications and modal triggers for all action buttons.
+ * LexiFlow Professional UI Suite — Button Interaction Handler v2
+ * Fixed: missing handlers, robust detection, all buttons wired
  */
 (function() {
   'use strict';
@@ -15,16 +15,15 @@
       container.style.cssText = 'position:fixed;top:20px;right:20px;z-index:99999;display:flex;flex-direction:column;gap:10px;max-width:420px;';
       document.body.appendChild(container);
     }
-    var toast = document.createElement('div');
     var icons = { success: 'bi-check-circle-fill', info: 'bi-info-circle-fill', warning: 'bi-exclamation-triangle-fill', error: 'bi-x-circle-fill' };
     var colors = { success: '#16a34a', info: '#3b82f6', warning: '#f97316', error: '#ef4444' };
+    var toast = document.createElement('div');
     toast.style.cssText = 'display:flex;align-items:center;gap:12px;padding:14px 18px;background:#1e293b;border:1px solid #334155;border-left:4px solid ' + (colors[type] || '#3b82f6') + ';border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.4);color:#f1f5f9;font-family:Inter,sans-serif;font-size:14px;animation:slideIn 0.3s ease;';
     toast.innerHTML = '<i class="bi ' + (icons[type] || 'bi-info-circle-fill') + '" style="color:' + (colors[type] || '#3b82f6') + ';font-size:1.2rem;"></i><span style="flex:1;">' + message + '</span><button onclick="this.parentElement.remove()" style="background:none;border:none;color:#64748b;cursor:pointer;font-size:1.1rem;">&times;</button>';
     container.appendChild(toast);
     setTimeout(function() { if (toast.parentElement) { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(function() { toast.remove(); }, 300); } }, 4000);
   }
 
-  // Add keyframe animation
   var style = document.createElement('style');
   style.textContent = '@keyframes slideIn { from { transform:translateX(100%);opacity:0; } to { transform:translateX(0);opacity:1; } }';
   document.head.appendChild(style);
@@ -48,84 +47,148 @@
     }
   }
 
-  // Button click handlers
+  // All button handlers
   var buttons = {
     // Dashboard
-    'btn-suite-settings': function() { showModal('Suite Settings', '<p>Configure your LexiFlow Enterprise Suite preferences including notification settings, display options, and default views.</p><div style="margin-top:12px;padding:12px;background:#0f172a;border-radius:8px;border:1px solid #334155;"><div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>Notification Preferences</span><span style="color:#22c55e;">Enabled</span></div><div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>Auto-Refresh Interval</span><span style="color:#94a3b8;">30 seconds</span></div><div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>Default Dashboard View</span><span style="color:#94a3b8;">Full Suite</span></div></div>', 'Save Changes', function() { showToast('Suite settings updated successfully.', 'success'); }); },
+    'btn-suite-settings': function() { showModal('Suite Settings',
+      '<p>Configure your LexiFlow Enterprise Suite preferences.</p><div style="margin-top:12px;padding:12px;background:#0f172a;border-radius:8px;border:1px solid #334155;">' +
+      '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>Notification Preferences</span><span style="color:#22c55e;">Enabled</span></div>' +
+      '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>Auto-Refresh Interval</span><span style="color:#94a3b8;">30 seconds</span></div>' +
+      '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>Default Dashboard View</span><span style="color:#94a3b8;">Full Suite</span></div></div>',
+      'Save Changes', function() { showToast('Suite settings updated successfully.', 'success'); }); },
 
     // Discovery-Vault
-    'btn-upload-docs': function() { showToast('📤 Upload dialog opened. Select documents to upload to Discovery-Vault.', 'info'); },
-    'btn-new-mdl': function() { showModal('New MDL Case', '<p>Create a new MDL (Multi-District Litigation) case by entering case details below.</p><div style="margin-top:12px;"><div style="margin-bottom:12px;"><label style="display:block;font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">Case Name</label><input type="text" placeholder="e.g., Opioid MDL 2804" style="width:100%;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:0.85rem;"></div><div style="margin-bottom:12px;"><label style="display:block;font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">Jurisdiction</label><input type="text" placeholder="e.g., N.D. Ohio" style="width:100%;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:0.85rem;"></div><div><label style="display:block;font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">Lead Counsel</label><input type="text" placeholder="Attorney name" style="width:100%;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:0.85rem;"></div></div>', 'Create Case', function() { showToast('New MDL case created successfully.', 'success'); }); },
+    'btn-upload-docs': function() { showToast('📤 Upload Docs — Select documents to upload to Discovery-Vault.', 'info'); },
+    'btn-new-mdl': function() { showModal('New MDL Case',
+      '<p>Create a new Multi-District Litigation case.</p><div style="margin-top:12px;"><div style="margin-bottom:12px;"><label style="display:block;font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">Case Name</label><input type="text" placeholder="e.g., Opioid MDL 2804" style="width:100%;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:0.85rem;"></div>' +
+      '<div style="margin-bottom:12px;"><label style="display:block;font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">Jurisdiction</label><input type="text" placeholder="e.g., N.D. Ohio" style="width:100%;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:0.85rem;"></div>' +
+      '<div><label style="display:block;font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">Lead Counsel</label><input type="text" placeholder="Attorney name" style="width:100%;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:0.85rem;"></div></div>',
+      'Create Case', function() { showToast('New MDL case created successfully.', 'success'); }); },
     'btn-plus-dv': function() { showToast('Add new item to Discovery-Vault.', 'info'); },
     'btn-upload': function() { showToast('📤 File upload dialog opened.', 'info'); },
 
     // Medical AI
-    'btn-new-analysis': function() { showModal('New Medical Analysis', '<p>Start a new AI-powered medical record analysis. Upload records or select from existing matters.</p><div style="margin-top:12px;padding:12px;background:#0f172a;border-radius:8px;border:1px solid #334155;"><div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>Records Ready</span><span style="color:#22c55e;">347 pages</span></div><div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>AI Model</span><span style="color:#c9a84c;">Veritas Reasoning v3.2</span></div><div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>Est. Processing</span><span style="color:#94a3b8;">~45 seconds</span></div></div>', 'Start Analysis', function() { showToast('Medical analysis initiated. Results in ~45 seconds.', 'success'); }); },
+    'btn-new-analysis': function() { showModal('New Medical Analysis',
+      '<p>Start a new AI-powered medical record analysis.</p><div style="margin-top:12px;padding:12px;background:#0f172a;border-radius:8px;border:1px solid #334155;">' +
+      '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>Records Ready</span><span style="color:#22c55e;">347 pages</span></div>' +
+      '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>AI Model</span><span style="color:#c9a84c;">Veritas Reasoning v3.2</span></div>' +
+      '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>Est. Processing</span><span style="color:#94a3b8;">~45 seconds</span></div></div>',
+      'Start Analysis', function() { showToast('Medical analysis initiated. Results in ~45 seconds.', 'success'); }); },
     'btn-upload-ai': function() { showToast('📤 Upload medical records for AI analysis.', 'info'); },
-    'btn-new-chronology': function() { showModal('New Medical Chronology', '<p>Generate an AI-powered medical chronology from uploaded records.</p><div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px;"><div style="padding:12px;background:#0f172a;border-radius:8px;border:1px solid #334155;text-align:center;cursor:pointer;hover:border-gold;"><div style="font-size:1.5rem;margin-bottom:4px;">📋</div><div style="font-size:0.8rem;color:#94a3b8;">Standard</div></div><div style="padding:12px;background:#0f172a;border-radius:8px;border:1px solid #c9a84c;text-align:center;"><div style="font-size:1.5rem;margin-bottom:4px;">⚡</div><div style="font-size:0.8rem;color:#c9a84c;">Detailed + Findings</div></div></div>', 'Generate Chronology', function() { showToast('Medical chronology generated with 347 entries.', 'success'); }); },
+    'btn-upload-batch': function() { showToast('📤 Batch upload started. Processing multiple medical records.', 'info'); },
+    'btn-new-chronology': function() { showModal('New Medical Chronology',
+      '<p>Generate an AI-powered medical chronology.</p><div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">' +
+      '<div style="padding:12px;background:#0f172a;border-radius:8px;border:1px solid #c9a84c;text-align:center;"><div style="font-size:1.5rem;margin-bottom:4px;">📋</div><div style="font-size:0.8rem;color:#c9a84c;">Standard</div></div>' +
+      '<div style="padding:12px;background:#0f172a;border-radius:8px;border:1px solid #334155;text-align:center;"><div style="font-size:1.5rem;margin-bottom:4px;">⚡</div><div style="font-size:0.8rem;color:#94a3b8;">Detailed + Findings</div></div></div>',
+      'Generate', function() { showToast('Medical chronology generated with 347 entries.', 'success'); }); },
     'btn-plus-ai': function() { showToast('Add new analysis item.', 'info'); },
 
     // Settlement Predictor
-    'btn-run-valuation': function() { showModal('New Settlement Valuation', '<p>Run an AI-powered settlement valuation based on case data.</p><div style="margin-top:12px;"><div style="margin-bottom:12px;"><label style="display:block;font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">Case Type</label><select style="width:100%;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:0.85rem;"><option>Medical Malpractice</option><option>Personal Injury</option><option>Product Liability</option><option>Wrongful Death</option></select></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"><div><label style="display:block;font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">Severity Score</label><input type="number" value="8" min="1" max="10" style="width:100%;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:0.85rem;"></div><div><label style="display:block;font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">Liability %</label><input type="number" value="75" min="0" max="100" style="width:100%;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:0.85rem;"></div></div></div>', 'Run Valuation', function() { showToast('Settlement prediction complete: $1,250,000 - $1,800,000 range (94% confidence).', 'success'); }); },
+    'btn-run-valuation': function() { showModal('New Settlement Valuation',
+      '<p>Run an AI-powered settlement valuation.</p><div style="margin-top:12px;"><div style="margin-bottom:12px;"><label style="display:block;font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">Case Type</label>' +
+      '<select style="width:100%;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:0.85rem;"><option>Medical Malpractice</option><option>Personal Injury</option><option>Product Liability</option><option>Wrongful Death</option></select></div>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"><div><label style="display:block;font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">Severity Score</label><input type="number" value="8" min="1" max="10" style="width:100%;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:0.85rem;"></div>' +
+      '<div><label style="display:block;font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">Liability %</label><input type="number" value="75" min="0" max="100" style="width:100%;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:0.85rem;"></div></div></div>',
+      'Run Valuation', function() { showToast('Settlement prediction complete: $1,250,000 - $1,800,000 range (94% confidence).', 'success'); }); },
+    'btn-generate-demand': function() { showModal('Generate AI Demand Package',
+      '<p>Create a comprehensive AI-generated demand package with settlement analysis, medical chronology summary, and supporting evidence.</p><div style="margin-top:12px;padding:12px;background:#0f172a;border-radius:8px;border:1px solid #334155;">' +
+      '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>Estimated Settlement Range</span><span style="color:#c9a84c;">$1.2M - $1.8M</span></div>' +
+      '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>AI Confidence</span><span style="color:#22c55e;">94%</span></div>' +
+      '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>Documents to Include</span><span style="color:#94a3b8;">12 exhibits</span></div></div>',
+      'Generate Package', function() { showToast('AI demand package generated. Ready for review.', 'success'); }); },
+    'btn-view-comps': function() { showModal('Jurisdiction Comparables',
+      '<p>View recent settlement and verdict comparables for this jurisdiction and case type.</p><div style="margin-top:12px;"><div style="padding:10px;background:#0f172a;border-radius:8px;border:1px solid #334155;margin-bottom:8px;">' +
+      '<div style="display:flex;justify-content:space-between;font-size:0.85rem;"><span>Smith v. Pacific Medical</span><span style="color:#c9a84c;">$2.1M</span></div><div style="font-size:0.75rem;color:#64748b;">N.D. California · 2025</div></div>' +
+      '<div style="padding:10px;background:#0f172a;border-radius:8px;border:1px solid #334155;margin-bottom:8px;">' +
+      '<div style="display:flex;justify-content:space-between;font-size:0.85rem;"><span>Johnson v. St. Mary\'s</span><span style="color:#c9a84c;">$1.5M</span></div><div style="font-size:0.75rem;color:#64748b;">S.D. New York · 2024</div></div>' +
+      '<div style="padding:10px;background:#0f172a;border-radius:8px;border:1px solid #334155;">' +
+      '<div style="display:flex;justify-content:space-between;font-size:0.85rem;"><span>Rodriguez v. County General</span><span style="color:#c9a84c;">$3.4M</span></div><div style="font-size:0.75rem;color:#64748b;">N.D. Texas · 2024</div></div></div>',
+      null, null); },
 
     // Compliance Shield
-    'btn-download-soc2': function() { showToast('📄 SOC 2 Type II report download started.', 'success'); },
-    'btn-security-settings': function() { showModal('Security Settings', '<p>Configure compliance and security settings for your firm.</p><div style="margin-top:12px;"><div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #334155;"><span style="font-size:0.85rem;">HIPAA Compliance Mode</span><span style="color:#22c55e;font-size:0.85rem;">Active</span></div><div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #334155;"><span style="font-size:0.85rem;">Data Retention (days)</span><span style="color:#94a3b8;font-size:0.85rem;">365</span></div><div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #334155;"><span style="font-size:0.85rem;">Audit Logging</span><span style="color:#22c55e;font-size:0.85rem;">Enabled</span></div><div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;"><span style="font-size:0.85rem;">MFA Required</span><span style="color:#22c55e;font-size:0.85rem;">Enabled</span></div></div>', 'Save Settings', function() { showToast('Security settings saved successfully.', 'success'); }); },
+    'btn-download-soc2': function() { showToast('📄 SOC 2 Type II report download started. File: LexiFlow_SOC2_2026.pdf', 'success'); },
+    'btn-security-settings': function() { showModal('Security Settings',
+      '<p>Configure compliance and security settings.</p><div style="margin-top:12px;">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #334155;"><span style="font-size:0.85rem;">HIPAA Compliance Mode</span><span style="color:#22c55e;font-size:0.85rem;">Active</span></div>' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #334155;"><span style="font-size:0.85rem;">Data Retention (days)</span><span style="color:#94a3b8;font-size:0.85rem;">365</span></div>' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #334155;"><span style="font-size:0.85rem;">Audit Logging</span><span style="color:#22c55e;font-size:0.85rem;">Enabled</span></div>' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;"><span style="font-size:0.85rem;">MFA Required</span><span style="color:#22c55e;font-size:0.85rem;">Enabled</span></div></div>',
+      'Save Settings', function() { showToast('Security settings saved successfully.', 'success'); }); },
   };
 
-  // Initialize: add IDs and click handlers
-  function init() {
-    // Dashboard
-    var el = document.querySelector('#dashboard-settings-btn') || document.querySelector('button:has(.bi-gear)');
-    document.querySelectorAll('button').forEach(function(btn) {
-      var text = btn.textContent.trim().toLowerCase();
-      var html = btn.innerHTML;
-
-      // Suite Settings
-      if (html.indexOf('bi-gear') > -1 && text.indexOf('settings') > -1) { btn.id = 'btn-suite-settings'; }
-      // Upload Docs
-      else if (html.indexOf('bi-upload') > -1 && text.indexOf('upload') > -1 && text.indexOf('docs') > -1) { btn.id = 'btn-upload-docs'; }
-      // New MDL
-      else if (text.indexOf('new mdl') > -1 || text.indexOf('new mdl case') > -1) { btn.id = 'btn-new-mdl'; }
-      // Upload Button
-      else if (html.indexOf('bi-upload') > -1 && text.indexOf('upload') > -1 && !btn.id) { btn.id = 'btn-upload'; }
-      // New Analysis
-      else if (text.indexOf('new analysis') > -1) { btn.id = 'btn-new-analysis'; }
-      // Upload Batch
-      else if (text.indexOf('upload batch') > -1) { btn.id = 'btn-upload-batch'; }
-      // New Chronology
-      else if (text.indexOf('new chronology') > -1) { btn.id = 'btn-new-chronology'; }
-      // Run Valuation
-      else if (text.indexOf('run new valuation') > -1 || text.indexOf('run valuation') > -1) { btn.id = 'btn-run-valuation'; }
-      // Download SOC 2
-      else if (text.indexOf('download soc 2') > -1) { btn.id = 'btn-download-soc2'; }
-      // Security Settings
-      else if (text.indexOf('security settings') > -1) { btn.id = 'btn-security-settings'; }
-      // Plus icon buttons
-      else if (html.indexOf('bi-plus') > -1 || html.indexOf('⊕') > -1) {
-        btn.id = btn.closest('[class*="discov"]') ? 'btn-plus-dv' : 'btn-plus-ai';
-      }
-      // Upload icon buttons (↥)
-      else if (html.indexOf('↥') > -1 || html.indexOf('bi-file-earmark-arrow-up') > -1) {
-        btn.id = btn.closest('[class*="medic"]') ? 'btn-upload-ai' : 'btn-upload';
-      }
-
-      // Wire up click handler
-      if (btn.id && buttons[btn.id]) {
-        btn.onclick = function(e) {
-          e.preventDefault();
-          buttons[this.id]();
-        };
-      }
-    });
-
-    // Manual fallback for buttons without IDs
-    document.querySelectorAll('button.v-btn:not([id])').forEach(function(btn) {
-      var text = btn.textContent.trim();
-      if (text.indexOf('Suite Settings') > -1) { btn.id = 'btn-suite-settings'; btn.onclick = function(e) { e.preventDefault(); buttons['btn-suite-settings'](); }; }
-      else if (text.indexOf('Upload Docs') > -1) { btn.id = 'btn-upload-docs'; btn.onclick = function(e) { e.preventDefault(); buttons['btn-upload-docs'](); }; }
-    });
+  // Robust text matching: check if text contains any of the keywords (case-insensitive)
+  function textMatches(text, keywords) {
+    text = text.toLowerCase();
+    for (var i = 0; i < keywords.length; i++) {
+      if (text.indexOf(keywords[i].toLowerCase()) > -1) return true;
+    }
+    return false;
   }
+
+  // Initialize: detect and wire all buttons
+  function init() {
+    document.querySelectorAll('button, a.v-btn, .v-btn, [class*="btn"]').forEach(function(btn) {
+      var text = btn.textContent.trim();
+      var html = btn.innerHTML.toLowerCase();
+
+      // Order matters: check specific/unique matches first
+      if (textMatches(text, ['generate ai demand', 'demand package'])) { btn.id = 'btn-generate-demand'; }
+      else if (textMatches(text, ['view jurisdiction', 'jurisdiction comps'])) { btn.id = 'btn-view-comps'; }
+      else if (textMatches(text, ['suite settings'])) { btn.id = 'btn-suite-settings'; }
+      else if (textMatches(text, ['upload docs'])) { btn.id = 'btn-upload-docs'; }
+      else if (textMatches(text, ['upload batch'])) { btn.id = 'btn-upload-batch'; }
+      else if (textMatches(text, ['new mdl case', 'new mdl'])) { btn.id = 'btn-new-mdl'; }
+      else if (textMatches(text, ['new analysis'])) { btn.id = 'btn-new-analysis'; }
+      else if (textMatches(text, ['new chronology'])) { btn.id = 'btn-new-chronology'; }
+      else if (textMatches(text, ['run new valuation', 'run valuation'])) { btn.id = 'btn-run-valuation'; }
+      else if (textMatches(text, ['download soc 2', 'soc 2 report'])) { btn.id = 'btn-download-soc2'; }
+      else if (textMatches(text, ['security settings'])) { btn.id = 'btn-security-settings'; }
+      else if (textMatches(text, ['upload'])) { btn.id = 'btn-upload'; }
+      else if (html.indexOf('bi-plus') > -1 || text.indexOf('⊕') > -1 || text.indexOf('+') === 0) {
+        btn.id = (btn.closest('[class*="vault"]') || btn.closest('[class*="discov"]')) ? 'btn-plus-dv' : 'btn-plus-ai';
+      }
+      else if (html.indexOf('bi-file-earmark-arrow-up') > -1 || html.indexOf('↥') > -1) {
+        btn.id = (btn.closest('[class*="medic"]') || btn.closest('[class*="chrono"]')) ? 'btn-upload-ai' : 'btn-upload';
+      }
+
+      // Wire click handler
+      if (btn.id && buttons[btn.id]) {
+        btn.onclick = function(e) { e.preventDefault(); buttons[this.id](); };
+        btn.style.cursor = 'pointer';
+      }
+    });
+
+    // Fallback: wire any remaining un-ID'd buttons by exact text match
+    document.querySelectorAll('button:not([id]), .v-btn:not([id]), [class*="btn"]:not([id])').forEach(function(btn) {
+      var t = btn.textContent.trim();
+      for (var key in buttons) {
+        if (buttons.hasOwnProperty(key)) {
+          var cleanKey = key.replace('btn-', '').replace(/-/g, ' ');
+          if (t.toLowerCase().indexOf(cleanKey) > -1) {
+            btn.id = key;
+            btn.onclick = function(e) { e.preventDefault(); buttons[this.id](); };
+            btn.style.cursor = 'pointer';
+            break;
+          }
+        }
+      }
+    });
+
+    // Handle React/Veritas app buttons via window events
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      if (target && target.tagName === 'BUTTON') {
+        var t = target.textContent.trim().toLowerCase();
+        var id = target.id;
+        if (id && buttons[id]) { e.preventDefault(); buttons[id](); }
+        else if (t.indexOf('new analysis') > -1 && !id) { e.preventDefault(); buttons['btn-new-analysis'](); }
+        else if ((t.indexOf('upload') > -1 || t.indexOf('↥') > -1) && !id) { e.preventDefault(); buttons['btn-upload-ai'](); }
+      }
+    }, true);
+  }
+
+  // Expose to window for React/Veritas app access
+  window.lexiflowUI = { showToast: showToast, showModal: showModal, buttons: buttons };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
