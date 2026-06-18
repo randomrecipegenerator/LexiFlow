@@ -146,7 +146,15 @@
       null, null); },
 
     // Compliance Shield
-    'btn-download-soc2': function() { showToast('📄 SOC 2 Type II report download started. File: LexiFlow_SOC2_2026.pdf', 'success'); },
+    'btn-download-soc2': function() { 
+      showToast('📄 SOC 2 Type II report download started.', 'success');
+      var link = document.createElement('a');
+      link.href = './LexiFlow_SOC2_Summary_2026.pdf';
+      link.download = 'LexiFlow_SOC2_Summary_2026.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    },
     'btn-security-settings': function() { showModal('Security Settings',
       '<p>Configure compliance and security settings.</p><div style="margin-top:12px;">' +
       '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #334155;"><span style="font-size:0.85rem;">HIPAA Compliance Mode</span><span style="color:#22c55e;font-size:0.85rem;">Active</span></div>' +

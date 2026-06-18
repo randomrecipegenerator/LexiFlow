@@ -1,0 +1,18 @@
+LexiFlow Technologies Inc - SOC 2 Type II Compliance Report (Summary)
+Date: January 15, 2026
+Status: COMPLIANT
+
+This document serves as a summary of the SOC 2 Type II audit conducted for LexiFlow Technologies Inc.
+The full report is available to Enterprise clients under NDA.
+
+Trust Services Criteria Evaluated:
+1. Security - PASS
+2. Availability - COMPLIANT
+3. Processing Integrity - PASS
+4. Confidentiality - COMPLIANT
+5. Privacy - PASS
+
+Encryption: AES-256 (At Rest), TLS 1.3 (In Transit)
+Infrastructure: AWS / Vercel (US-East-1)
+
+Certified by: Independent Audit Partners LLP
