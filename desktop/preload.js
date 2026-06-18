@@ -67,4 +67,12 @@ contextBridge.exposeInMainWorld('lexiflow', {
 
     /** Get an SSO token to load the dashboard in an iframe. */
     getSSOToken: () => ipcRenderer.invoke('get-sso-token'),
+
+    // ========== Authentication ==========
+
+    /** Login with LexiFlow credentials. */
+    login: (email, password) => ipcRenderer.invoke('login', { email, password }),
+
+    /** Logout from the desktop app. */
+    logout: () => ipcRenderer.invoke('logout'),
 });

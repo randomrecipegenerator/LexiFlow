@@ -52,11 +52,17 @@ function createWindow() {
 
     // In development, load from local dev server; in production, load bundled UI
     const isDev = process.env.ELECTRON_DEV === 'true';
+    const apiKey = config.get('apiKey');
+
     if (isDev) {
         mainWindow.loadURL('http://localhost:5173');
         mainWindow.webContents.openDevTools();
     } else {
-        mainWindow.loadFile(path.join(__dirname, 'renderer', 'index.html'));
+        if (apiKey) {
+            mainWindow.loadFile(path.join(__dirname, 'renderer', 'index.html'));
+        } else {
+            mainWindow.loadFile(path.join(__dirname, 'renderer', 'login.html'));
+        }
     }
 
     // Build the application menu
@@ -157,43 +163,7 @@ async function handlePickFolder() {
 // =========================================================================
 
 async function getApiKey() {
-    let apiKey = config.get('apiKey');
-
-    if (!apiKey) {
-        try {
-            // Register this device with the cloud
-            const deviceId = require('crypto').randomUUID();
-            const response = await fetch(`${CLOUD_API_BASE}/auth/register-client`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    device_name: `LexiFlow Desktop - ${require('os').hostname()}`,
-                    device_id: deviceId,
-                    os_info: `${require('os').platform()} ${require('os').release()}`,
-                }),
-            });
-
-            if (!response.ok) {
-                console.error(`[Main] Registration failed: ${response.status} ${response.statusText}`);
-                return null;
-            }
-
-            const data = await response.json();
-            apiKey = data.api_key;
-            
-            if (apiKey) {
-                config.set('apiKey', apiKey);
-            }
-            if (data.client_id) {
-                config.set('clientId', data.client_id);
-            }
-        } catch (err) {
-            console.error('[Main] Error during client registration:', err.message);
-            return null;
-        }
-    }
-
-    return apiKey;
+    return config.get('apiKey');
 }
 
 // =========================================================================
@@ -337,6 +307,72 @@ function registerIpcHandlers() {
         } catch (err) {
             return { token: null, error: err.message };
         }
+    });
+
+    // -- Authentication --
+
+    ipcMain.handle('login', async (event, { email, password }) => {
+        try {
+            // 1. Call standard login endpoint
+            const formData = new URLSearchParams();
+            formData.append('email', email);
+            formData.append('password', password);
+
+            const loginResponse = await fetch(`${CLOUD_API_BASE.replace('/desktop', '')}/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formData.toString(),
+            });
+
+            if (!loginResponse.ok) {
+                const errData = await loginResponse.json();
+                return { success: false, error: errData.detail || 'Login failed' };
+            }
+
+            const loginData = await loginResponse.json();
+            const token = loginData.access_token;
+
+            // 2. Register this device using the JWT token
+            const deviceId = require('crypto').randomUUID();
+            const regResponse = await fetch(`${CLOUD_API_BASE}/auth/register-client`, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    device_name: `LexiFlow Desktop - ${require('os').hostname()}`,
+                    device_id: deviceId,
+                    os_info: `${require('os').platform()} ${require('os').release()}`,
+                }),
+            });
+
+            if (!regResponse.ok) {
+                return { success: false, error: 'Failed to register desktop client' };
+            }
+
+            const regData = await regResponse.json();
+            
+            // 3. Store credentials
+            config.set('apiKey', regData.api_key);
+            config.set('clientId', regData.client_id);
+            config.set('userEmail', email);
+
+            // 4. Switch to main dashboard
+            mainWindow.loadFile(path.join(__dirname, 'renderer', 'index.html'));
+            
+            return { success: true };
+        } catch (err) {
+            return { success: false, error: err.message };
+        }
+    });
+
+    ipcMain.handle('logout', async () => {
+        config.delete('apiKey');
+        config.delete('clientId');
+        config.delete('userEmail');
+        mainWindow.loadFile(path.join(__dirname, 'renderer', 'login.html'));
+        return { success: true };
     });
 }
 
