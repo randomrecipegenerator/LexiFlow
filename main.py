@@ -1542,6 +1542,19 @@ if not os.getenv("VERCEL") and __name__ == "__main__":
     async def serve_meritscan():
         return FileResponse(os.path.join(root_dir, "meritscan.html"))
 
+    # Blog URL normalization: clean URLs (no .html extension)
+    @app.api_route("/blog/{slug:path}", methods=["GET", "HEAD"])
+    async def serve_blog_slug(slug: str):
+        # Try direct slug (no .html)
+        blog_file = os.path.join(root_dir, "blog", f"{slug}.html")
+        if os.path.exists(blog_file):
+            return FileResponse(blog_file)
+        # Try as directory index (blog/slug/index.html)
+        blog_index = os.path.join(root_dir, "blog", slug, "index.html")
+        if os.path.exists(blog_index):
+            return FileResponse(blog_index)
+        raise HTTPException(status_code=404)
+
     @app.api_route("/depolens", methods=["GET", "HEAD"])
     async def serve_depolens():
         return FileResponse(os.path.join(root_dir, "/veritas"))
