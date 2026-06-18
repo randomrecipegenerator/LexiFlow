@@ -47,6 +47,29 @@
     }
   }
 
+  // File Picker Trigger
+  function triggerFilePicker(moduleName) {
+    var input = document.getElementById('lf-global-file-input');
+    if (!input) {
+      input = document.createElement('input');
+      input.type = 'file';
+      input.id = 'lf-global-file-input';
+      input.multiple = true;
+      input.style.display = 'none';
+      document.body.appendChild(input);
+      input.addEventListener('change', function() {
+        if (this.files && this.files.length > 0) {
+          var names = [];
+          for (var i = 0; i < Math.min(this.files.length, 3); i++) names.push(this.files[i].name);
+          var fileList = names.join(', ') + (this.files.length > 3 ? ' and ' + (this.files.length - 3) + ' more' : '');
+          showToast('Selected ' + this.files.length + ' file(s) for ' + moduleName + ': ' + fileList, 'success');
+          showToast('Processing documents with LexiFlow AI Core...', 'info');
+        }
+      });
+    }
+    input.click();
+  }
+
   // All button handlers
   var buttons = {
     // Dashboard
@@ -58,14 +81,14 @@
       'Save Changes', function() { showToast('Suite settings updated successfully.', 'success'); }); },
 
     // Discovery-Vault
-    'btn-upload-docs': function() { showToast('📤 Upload Docs — Select documents to upload to Discovery-Vault.', 'info'); },
+    'btn-upload-docs': function() { triggerFilePicker('Discovery-Vault™'); },
     'btn-new-mdl': function() { showModal('New MDL Case',
       '<p>Create a new Multi-District Litigation case.</p><div style="margin-top:12px;"><div style="margin-bottom:12px;"><label style="display:block;font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">Case Name</label><input type="text" placeholder="e.g., Opioid MDL 2804" style="width:100%;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:0.85rem;"></div>' +
       '<div style="margin-bottom:12px;"><label style="display:block;font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">Jurisdiction</label><input type="text" placeholder="e.g., N.D. Ohio" style="width:100%;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:0.85rem;"></div>' +
       '<div><label style="display:block;font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">Lead Counsel</label><input type="text" placeholder="Attorney name" style="width:100%;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:0.85rem;"></div></div>',
       'Create Case', function() { showToast('New MDL case created successfully.', 'success'); }); },
     'btn-plus-dv': function() { showToast('Add new item to Discovery-Vault.', 'info'); },
-    'btn-upload': function() { showToast('📤 File upload dialog opened.', 'info'); },
+    'btn-upload': function() { triggerFilePicker('Discovery-Vault™'); },
 
     // Medical AI
     'btn-new-analysis': function() { showModal('New Medical Analysis',
@@ -74,8 +97,8 @@
       '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>AI Model</span><span style="color:#c9a84c;">Veritas Reasoning v3.2</span></div>' +
       '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>Est. Processing</span><span style="color:#94a3b8;">~45 seconds</span></div></div>',
       'Start Analysis', function() { showToast('Medical analysis initiated. Results in ~45 seconds.', 'success'); }); },
-    'btn-upload-ai': function() { showToast('📤 Upload medical records for AI analysis.', 'info'); },
-    'btn-upload-batch': function() { showToast('📤 Batch upload started. Processing multiple medical records.', 'info'); },
+    'btn-upload-ai': function() { triggerFilePicker('Medical AI'); },
+    'btn-upload-batch': function() { triggerFilePicker('Medical AI (Batch)'); },
     'btn-new-chronology': function() { showModal('New Medical Chronology',
       '<p>Generate an AI-powered medical chronology.</p><div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">' +
       '<div style="padding:12px;background:#0f172a;border-radius:8px;border:1px solid #c9a84c;text-align:center;"><div style="font-size:1.5rem;margin-bottom:4px;">📋</div><div style="font-size:0.8rem;color:#c9a84c;">Standard</div></div>' +
@@ -174,15 +197,47 @@
       }
     });
 
-    // Handle React/Veritas app buttons via window events
+    // Handle React/Veritas app buttons via window events (Event Delegation)
     document.addEventListener('click', function(e) {
       var target = e.target;
-      if (target && target.tagName === 'BUTTON') {
+      // Search up the DOM tree to find a button-like element
+      while (target && target !== document.body) {
         var t = target.textContent.trim().toLowerCase();
         var id = target.id;
-        if (id && buttons[id]) { e.preventDefault(); buttons[id](); }
-        else if (t.indexOf('new analysis') > -1 && !id) { e.preventDefault(); buttons['btn-new-analysis'](); }
-        else if ((t.indexOf('upload') > -1 || t.indexOf('↥') > -1) && !id) { e.preventDefault(); buttons['btn-upload-ai'](); }
+        var isButton = target.tagName === 'BUTTON' || target.tagName === 'A' || target.classList.contains('nav-item') || target.classList.contains('cursor-pointer') || target.style.cursor === 'pointer' || target.getAttribute('role') === 'button';
+        
+        if (isButton) {
+          if (id && buttons[id]) { 
+            e.preventDefault(); 
+            e.stopPropagation();
+            buttons[id](); 
+            return;
+          }
+          
+          // Specific keyword detection for React-rendered components or generic divs
+          if (textMatches(t, ['upload', '↥'])) {
+            // EXCLUDE elements that handle their own file input (like Veritas React FileUpload)
+            if (target.closest('.border-dashed')) return;
+            if (document.getElementById('file-input') && target.contains(document.getElementById('file-input'))) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+            var module = 'Discovery-Vault™';
+            if (t.indexOf('medical') > -1 || document.title.indexOf('Medical') > -1) module = 'Medical AI';
+            else if (document.title.indexOf('Veritas') > -1) module = 'Veritas Deposition™';
+            
+            triggerFilePicker(module);
+            return;
+          }
+          
+          if (textMatches(t, ['new analysis'])) {
+            e.preventDefault();
+            e.stopPropagation();
+            buttons['btn-new-analysis']();
+            return;
+          }
+        }
+        target = target.parentElement;
       }
     }, true);
   }
