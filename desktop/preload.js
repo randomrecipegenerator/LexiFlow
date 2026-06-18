@@ -75,4 +75,20 @@ contextBridge.exposeInMainWorld('lexiflow', {
 
     /** Logout from the desktop app. */
     logout: () => ipcRenderer.invoke('logout'),
+
+    // ========== Settings Management ==========
+
+    /** Get a configuration setting. */
+    getSetting: (key) => ipcRenderer.invoke('get-setting', key),
+
+    /** Set a configuration setting. */
+    setSetting: (key, value) => ipcRenderer.invoke('set-setting', { key, value }),
+
+    /** Get application version. */
+    getAppVersion: () => ipcRenderer.invoke('get-app-version'),
+
+    /** Listen for navigation requests from main process. */
+    onNavigate: (callback) => {
+        ipcRenderer.on('navigate', (event, view) => callback(view));
+    },
 });

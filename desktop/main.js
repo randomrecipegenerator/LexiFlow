@@ -14,6 +14,7 @@ const fs = require('fs');
 const Store = require('electron-store');
 const { SyncEngine } = require('./sync-engine');
 const { RedactUtils } = require('./redact-utils');
+const { createTray, updateTrayMenu } = require('./tray');
 
 const config = new Store({ name: 'lexiflow-config' });
 
@@ -48,6 +49,14 @@ function createWindow() {
             nodeIntegration: false,
             sandbox: false,
         },
+    });
+
+    mainWindow.on('close', (event) => {
+        const minimizeToTray = config.get('minimizeToTray') !== false; // Default to true
+        if (!app.isQuitting && minimizeToTray) {
+            event.preventDefault();
+            mainWindow.hide();
+        }
     });
 
     // In development, load from local dev server; in production, load bundled UI
@@ -374,6 +383,30 @@ function registerIpcHandlers() {
         mainWindow.loadFile(path.join(__dirname, 'renderer', 'login.html'));
         return { success: true };
     });
+
+    // -- Settings Management --
+
+    ipcMain.handle('get-setting', (event, key) => {
+        return config.get(key);
+    });
+
+    ipcMain.handle('set-setting', (event, { key, value }) => {
+        config.set(key, value);
+        
+        // Handle specific setting side effects
+        if (key === 'launchOnStartup') {
+            app.setLoginItemSettings({
+                openAtLogin: value,
+                path: app.getPath('exe'),
+            });
+        }
+        
+        return { status: 'saved' };
+    });
+
+    ipcMain.handle('get-app-version', () => {
+        return app.getVersion();
+    });
 }
 
 // =========================================================================
@@ -383,6 +416,10 @@ function registerIpcHandlers() {
 app.whenReady().then(async () => {
     createWindow();
     registerIpcHandlers();
+
+    // Initialize tray
+    const trayIconPath = path.join(__dirname, 'app-icon.png');
+    createTray(mainWindow, trayIconPath);
 
     // Initialize sync engine
     syncEngine = new SyncEngine({

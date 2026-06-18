@@ -51,7 +51,7 @@ function updateTrayMenu(mainWindow) {
       click: () => {
         if (mainWindow) {
           mainWindow.show();
-          mainWindow.webContents.send('navigate', 'dashboard');
+          mainWindow.loadFile(path.join(__dirname, 'renderer', 'index.html'));
         }
       },
     },
@@ -61,7 +61,7 @@ function updateTrayMenu(mainWindow) {
       click: () => {
         if (mainWindow) {
           mainWindow.show();
-          mainWindow.webContents.send('navigate', 'settings');
+          mainWindow.loadFile(path.join(__dirname, 'renderer', 'desktop-settings.html'));
         }
       },
     },

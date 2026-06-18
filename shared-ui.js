@@ -166,7 +166,7 @@
     'btn-download-soc2': function() { 
       showToast('📄 SOC 2 Type II report download started.', 'success');
       var link = document.createElement('a');
-      link.href = './LexiFlow_SOC2_Summary_2026.pdf';
+      link.href = '/LexiFlow_SOC2_Summary_2026.pdf';
       link.download = 'LexiFlow_SOC2_Summary_2026.pdf';
       document.body.appendChild(link);
       link.click();
