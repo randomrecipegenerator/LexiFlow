@@ -49,24 +49,41 @@
 
   // File Picker Trigger
   function triggerFilePicker(moduleName) {
+    // Check if the page has a native file input (like Veritas React app)
+    var nativeInput = document.getElementById('file-input');
+    if (nativeInput && nativeInput.tagName === 'INPUT' && nativeInput.type === 'file') {
+      nativeInput.click();
+      return;
+    }
+
     var input = document.getElementById('lf-global-file-input');
     if (!input) {
       input = document.createElement('input');
       input.type = 'file';
       input.id = 'lf-global-file-input';
       input.multiple = true;
-      input.style.display = 'none';
+      input.style.cssText = 'position:fixed;top:-100px;left:-100px;opacity:0;z-index:-1;';
       document.body.appendChild(input);
-      input.addEventListener('change', function() {
-        if (this.files && this.files.length > 0) {
-          var names = [];
-          for (var i = 0; i < Math.min(this.files.length, 3); i++) names.push(this.files[i].name);
-          var fileList = names.join(', ') + (this.files.length > 3 ? ' and ' + (this.files.length - 3) + ' more' : '');
-          showToast('Selected ' + this.files.length + ' file(s) for ' + moduleName + ': ' + fileList, 'success');
-          showToast('Processing documents with LexiFlow AI Core...', 'info');
-        }
-      });
     }
+    
+    // Always clear value to allow re-selecting same files
+    input.value = '';
+    
+    // Remove existing listeners to avoid duplicate/wrong module toasts
+    var newInput = input.cloneNode(true);
+    input.parentNode.replaceChild(newInput, input);
+    input = newInput;
+
+    input.addEventListener('change', function() {
+      if (this.files && this.files.length > 0) {
+        var names = [];
+        for (var i = 0; i < Math.min(this.files.length, 3); i++) names.push(this.files[i].name);
+        var fileList = names.join(', ') + (this.files.length > 3 ? ' and ' + (this.files.length - 3) + ' more' : '');
+        showToast('Selected ' + this.files.length + ' file(s) for ' + moduleName + ': ' + fileList, 'success');
+        showToast('Processing documents with LexiFlow AI Core...', 'info');
+      }
+    });
+
     input.click();
   }
 
@@ -112,7 +129,7 @@
           'Start Analysis', function() { showToast('Medical analysis initiated. Results in ~45 seconds.', 'success'); });
       }
     },
-    'btn-modal-upload': function() { var ov = document.getElementById('lf-modal-overlay'); if (ov) ov.remove(); triggerFilePicker('Veritas Deposition™'); },
+    'btn-modal-upload': function() { triggerFilePicker('Veritas Deposition™'); var ov = document.getElementById('lf-modal-overlay'); if (ov) ov.remove(); },
     'btn-modal-vault': function() { var ov = document.getElementById('lf-modal-overlay'); if (ov) ov.remove(); showToast('Syncing selected documents from Discovery-Vault™...', 'info'); setTimeout(function() { showToast('3 documents imported for analysis.', 'success'); }, 1500); },
     'btn-upload-ai': function() { triggerFilePicker('Medical AI'); },
     'btn-upload-batch': function() { triggerFilePicker('Medical AI (Batch)'); },
