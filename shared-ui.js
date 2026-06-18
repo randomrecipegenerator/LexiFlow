@@ -90,13 +90,30 @@
     'btn-plus-dv': function() { showToast('Add new item to Discovery-Vault.', 'info'); },
     'btn-upload': function() { triggerFilePicker('Discovery-Vault™'); },
 
-    // Medical AI
-    'btn-new-analysis': function() { showModal('New Medical Analysis',
-      '<p>Start a new AI-powered medical record analysis.</p><div style="margin-top:12px;padding:12px;background:#0f172a;border-radius:8px;border:1px solid #334155;">' +
-      '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>Records Ready</span><span style="color:#22c55e;">347 pages</span></div>' +
-      '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>AI Model</span><span style="color:#c9a84c;">Veritas Reasoning v3.2</span></div>' +
-      '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>Est. Processing</span><span style="color:#94a3b8;">~45 seconds</span></div></div>',
-      'Start Analysis', function() { showToast('Medical analysis initiated. Results in ~45 seconds.', 'success'); }); },
+    // Medical AI & Veritas Analysis
+    'btn-new-analysis': function() { 
+      var isVeritas = document.title.indexOf('Veritas') > -1 || window.location.pathname.indexOf('veritas') > -1;
+      if (isVeritas) {
+        showModal('New Evidence Analysis',
+          '<p>Select how you would like to ingest new testimony or discovery for analysis.</p>' +
+          '<div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">' +
+          '<button id="btn-modal-upload" class="v-btn v-btn-outline" style="flex-direction:column;padding:24px;gap:12px;height:auto;border:1px solid #334155;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.03);">' +
+          '<div style="font-size:2rem;">↥</div><div style="font-weight:600;color:#f1f5f9;">Upload Files</div><div style="font-size:0.7rem;color:#94a3b8;">PDF, DOCX, TXT</div></button>' +
+          '<button id="btn-modal-vault" class="v-btn v-btn-outline" style="flex-direction:column;padding:24px;gap:12px;height:auto;border:1px solid #334155;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.03);">' +
+          '<div style="font-size:2rem;">📂</div><div style="font-weight:600;color:#f1f5f9;">From Vault</div><div style="font-size:0.7rem;color:#94a3b8;">Discovery-Vault™</div></button>' +
+          '</div>',
+          null, null);
+      } else {
+        showModal('New Medical Analysis',
+          '<p>Start a new AI-powered medical record analysis.</p><div style="margin-top:12px;padding:12px;background:#0f172a;border-radius:8px;border:1px solid #334155;">' +
+          '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>Records Ready</span><span style="color:#22c55e;">347 pages</span></div>' +
+          '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>AI Model</span><span style="color:#c9a84c;">Veritas Reasoning v3.2</span></div>' +
+          '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;"><span>Est. Processing</span><span style="color:#94a3b8;">~45 seconds</span></div></div>',
+          'Start Analysis', function() { showToast('Medical analysis initiated. Results in ~45 seconds.', 'success'); });
+      }
+    },
+    'btn-modal-upload': function() { var ov = document.getElementById('lf-modal-overlay'); if (ov) ov.remove(); triggerFilePicker('Veritas Deposition™'); },
+    'btn-modal-vault': function() { var ov = document.getElementById('lf-modal-overlay'); if (ov) ov.remove(); showToast('Syncing selected documents from Discovery-Vault™...', 'info'); setTimeout(function() { showToast('3 documents imported for analysis.', 'success'); }, 1500); },
     'btn-upload-ai': function() { triggerFilePicker('Medical AI'); },
     'btn-upload-batch': function() { triggerFilePicker('Medical AI (Batch)'); },
     'btn-new-chronology': function() { showModal('New Medical Chronology',
