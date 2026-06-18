@@ -31,14 +31,6 @@
     {
       "source": "/veritas/(.*)",
       "destination": "/veritas/index.html"
-    },
-    {
-      "source": "/demo",
-      "destination": "/demo.html"
-    },
-    {
-      "source": "/dashboard",
-      "destination": "/dashboard.html"
     }
   ]
 }
