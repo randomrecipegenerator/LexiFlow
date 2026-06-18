@@ -25,6 +25,10 @@
       "destination": "/api/index.py"
     },
     {
+      "source": "/blog/([^/]+)",
+      "destination": "/blog/$1.html"
+    },
+    {
       "source": "/veritas/assets/(.*)",
       "destination": "/veritas/assets/$1"
     },
