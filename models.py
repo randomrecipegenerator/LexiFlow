@@ -26,12 +26,15 @@ class Firm(Base):
     billing_period_start = Column(DateTime, default=datetime.datetime.utcnow)
     document_count = Column(Integer, default=0)
     ocr_page_count = Column(Integer, default=0)
+    stripe_customer_id = Column(String, nullable=True, index=True)
+    stripe_subscription_id = Column(String, nullable=True, index=True)
 
     users = relationship("User", back_populates="firm")
     leads = relationship("Lead", back_populates="firm")
     forms = relationship("Form", back_populates="firm")
     knowledge_base = relationship("KnowledgeBase", back_populates="firm")
     usage = relationship("Usage", back_populates="firm")
+    subscriptions = relationship("Subscription", back_populates="firm")
 
 class User(Base):
     __tablename__ = "users"
@@ -395,3 +398,23 @@ class EmailLog(Base):
     status = Column(String) # "success", "error"
     error_message = Column(Text, nullable=True)
     timestamp = Column(DateTime, default=datetime.datetime.utcnow)
+
+
+class Subscription(Base):
+    """Stripe subscription tracking for firm billing."""
+    __tablename__ = "subscriptions"
+
+    id = Column(Integer, primary_key=True, index=True)
+    firm_id = Column(Integer, ForeignKey("firms.id"), nullable=False, index=True)
+    stripe_subscription_id = Column(String, unique=True, index=True, nullable=True)
+    stripe_customer_id = Column(String, index=True, nullable=True)
+    status = Column(String, default="incomplete")  # incomplete, active, past_due, canceled, trialing
+    plan_tier = Column(String, default="standard")  # standard, professional, enterprise
+    current_period_start = Column(DateTime, nullable=True)
+    current_period_end = Column(DateTime, nullable=True)
+    cancel_at_period_end = Column(Boolean, default=False)
+    trial_end = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
+
+    firm = relationship("Firm", back_populates="subscriptions")
