@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LexiFlow | Enterprise Suite</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="./shared-layout.css">
+    <link rel="stylesheet" href="/shared-layout.css">
     <style>
         .mt-header { margin-top: 80px; }
         .enterprise-card { border-top: 4px solid #c9a84c; background: white; border-radius: 12px; border-left: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 24px; }
@@ -15,11 +15,11 @@
 </head>
 <body class="bg-slate-50 min-h-screen">
     <nav><div class="nav-container">
-        <a href="./" class="logo"><span>LF</span> LexiFlow</a>
+        <a href="/" class="logo"><span>LF</span> LexiFlow</a>
         <ul class="nav-links">
-            <li><a href="./dashboard.html">Dashboard</a></li>
-            <li><a href="./intake-app.html">Intake</a></li>
-            <li><a href="./enterprise-app.html" class="active">Enterprise</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/intake-app">Intake</a></li>
+            <li><a href="/enterprise-app" class="active">Enterprise</a></li>
         </ul>
     </div></nav>
 
@@ -43,7 +43,7 @@
         </div>
     </main>
 
-    <script src="./config.js"></script>
+    <script src="/config.js"></script>
     <script>
         const params = new URLSearchParams(window.location.search);
         const module = params.get('module') || 'discovery';
@@ -279,15 +279,15 @@
       <div class="footer-col">
         <h4>Products</h4>
         <ul>
-          <li><a href="/ai-legal-intake-software.html">AI Intake Agent</a></li>
-          <li><a href="/voice-ai-receptionist.html">Voice AI Receptionist</a></li>
-          <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
-          <li><a href="/auto-document-drafter.html">Auto-Doc Drafter</a></li>
-          <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
-          <li><a href="/settlement-predictor.html">Settlement-Predictor Pro™</a></li>
+          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
           <li><a href="/veritas">Veritas Deposition™</a></li>
-          <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
-          <li><a href="/dashboard.html">Analytics Dashboard</a></li>
+          <li><a href="/compliance-shield">Compliance-Shield™</a></li>
+          <li><a href="/dashboard">Analytics Dashboard</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -302,9 +302,9 @@
       <div class="footer-col">
         <h4>Legal</h4>
         <ul>
-          <li><a href="/privacy.html">Privacy Policy</a></li>
-          <li><a href="/terms.html">Terms of Service</a></li>
-          <li><a href="/soc2.html">SOC2 Compliance</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/soc2">SOC2 Compliance</a></li>
         </ul>
       </div>
     </div>
@@ -312,6 +312,6 @@
       <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
     </div>
   </footer>
-<script src="./shared-layout.js"></script>
+<script src="/shared-layout.js"></script>
 </body>
 </html>
