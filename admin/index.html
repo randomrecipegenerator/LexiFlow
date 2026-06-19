@@ -356,23 +356,98 @@
       </div>
       <!-- Billing & Usage -->
       <div class="page-section" id="page-billing">
-        <h2>Billing &amp; Usage</h2>
-        <p class="page-subtitle">Monitor your usage and billing tier.</p>
-        <div class="stat-grid">
-          <div class="stat-card"><div class="num" id="billingTierDisplay">Standard</div><div class="label">Current Plan</div></div>
-          <div class="stat-card"><div class="num" id="billingDocCount">0</div><div class="label">Documents This Period</div></div>
-          <div class="stat-card"><div class="num" id="billingOverage">$0</div><div class="label">Estimated Overage</div></div>
+        <h2>Billing &amp; Subscription</h2>
+        <p class="page-subtitle">Manage your subscription plan, monitor usage, and upgrade your tier.</p>
+        <div id="billingLoading" style="text-align:center;padding:40px;">
+          <div class="spinner" style="width:32px;height:32px;border-width:3px;color:var(--accent);margin-bottom:16px;"></div>
+          <p style="color:var(--text-muted);font-size:0.9rem;">Loading billing information...</p>
         </div>
-        <div class="card">
-          <h3>Plan Overview</h3>
-          <table>
-            <thead><tr><th>Feature</th><th>Included</th><th>Overage Rate</th></tr></thead>
-            <tbody>
-              <tr><td>Document Processing</td><td id="billingIncludedDocs">50/mo</td><td id="billingOverageRate">$2.50/doc</td></tr>
-              <tr><td>OCR Processing</td><td>—</td><td id="billingOcrRate">$0.15/page</td></tr>
-              <tr><td>Flat Subscription</td><td>$69/mo</td><td>—</td></tr>
-            </tbody>
-          </table>
+        <div id="billingContent" style="display:none;">
+          <div class="stat-grid">
+            <div class="stat-card"><div class="num" id="billingTierDisplay">—</div><div class="label">Current Plan</div></div>
+            <div class="stat-card"><div class="num" id="billingDocCount">0</div><div class="label">Documents Used</div></div>
+            <div class="stat-card"><div class="num" id="billingDocRemaining">0</div><div class="label">Documents Remaining</div></div>
+          </div>
+          <div class="card" id="billingStatusCard">
+            <h3>Subscription Status</h3>
+            <div id="billingStatusContent">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div><strong>Status:</strong> <span id="billingPlanStatus" class="badge" style="font-size:0.82rem;padding:4px 12px;">—</span></div>
+                <div><strong>Documents Limit:</strong> <span id="billingDocLimit">—</span></div>
+                <div><strong>Billing Period Start:</strong> <span id="billingPeriodStart">—</span></div>
+                <div><strong>Cancel at Period End:</strong> <span id="billingCancelAtEnd">No</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Actions</h3>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+              <button class="btn btn-primary" id="btnManageSubscription" onclick="handleManageSubscription()" title="Manage payment methods, view invoices, update billing info">Manage Subscription →</button>
+              <button class="btn btn-outline" id="btnUpgrade" onclick="showUpgradePlans()">Upgrade Plan ↑</button>
+              <button class="btn btn-outline" id="btnSimulateActivation" onclick="handleSimulateActivation()" style="display:none;">⚡ Simulate Activation (Dev)</button>
+            </div>
+            <p id="billingSimulatedNotice" style="margin-top:10px;font-size:0.78rem;color:var(--text-muted);display:none;">
+              ⚠️ Stripe billing is not yet configured. Subscription management is in simulated mode for development testing.
+            </p>
+          </div>
+          <div id="upgradePlansContainer" style="display:none;">
+            <div class="card">
+              <h3>Choose Your Plan</h3>
+              <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">Select a plan to upgrade or downgrade your subscription.</p>
+              <div id="plansGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+                <div class="plan-card" data-plan="standard" onclick="selectPlan('standard')" style="cursor:pointer;border:2px solid var(--border);border-radius:var(--radius-lg);padding:24px;text-align:center;transition:all 0.2s;">
+                  <h4 style="font-size:1.1rem;color:var(--primary);margin-bottom:8px;">Standard</h4>
+                  <div style="font-size:2rem;font-weight:800;color:var(--primary);font-family:var(--font-serif);">$69</div>
+                  <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">per month</div>
+                  <ul style="list-style:none;padding:0;font-size:0.82rem;color:var(--text-muted);text-align:left;">
+                    <li style="padding:4px 0;">✅ AI Web Chat & SMS Intake</li>
+                    <li style="padding:4px 0;">✅ Voice AI Agent</li>
+                    <li style="padding:4px 0;">✅ Basic Medical Chronologies</li>
+                    <li style="padding:4px 0;">✅ Lead Scoring & Qualification</li>
+                    <li style="padding:4px 0;font-weight:600;">📄 50 docs/month</li>
+                  </ul>
+                </div>
+                <div class="plan-card" data-plan="professional" onclick="selectPlan('professional')" style="cursor:pointer;border:2px solid var(--accent);border-radius:var(--radius-lg);padding:24px;text-align:center;transition:all 0.2s;position:relative;">
+                  <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--primary-dark);font-size:0.72rem;font-weight:700;padding:4px 14px;border-radius:100px;">POPULAR</div>
+                  <h4 style="font-size:1.1rem;color:var(--primary);margin-bottom:8px;">Professional</h4>
+                  <div style="font-size:2rem;font-weight:800;color:var(--primary);font-family:var(--font-serif);">$199</div>
+                  <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">per month</div>
+                  <ul style="list-style:none;padding:0;font-size:0.82rem;color:var(--text-muted);text-align:left;">
+                    <li style="padding:4px 0;">✅ Everything in Standard</li>
+                    <li style="padding:4px 0;">✅ Priority AI Processing Queue</li>
+                    <li style="padding:4px 0;">✅ Custom CRM Integration</li>
+                    <li style="padding:4px 0;font-weight:600;">📄 250 docs/month</li>
+                  </ul>
+                </div>
+                <div class="plan-card" data-plan="enterprise" onclick="selectPlan('enterprise')" style="cursor:pointer;border:2px solid var(--border);border-radius:var(--radius-lg);padding:24px;text-align:center;transition:all 0.2s;">
+                  <h4 style="font-size:1.1rem;color:var(--primary);margin-bottom:8px;">Enterprise</h4>
+                  <div style="font-size:2rem;font-weight:800;color:var(--primary);font-family:var(--font-serif);">$299</div>
+                  <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">per month</div>
+                  <ul style="list-style:none;padding:0;font-size:0.82rem;color:var(--text-muted);text-align:left;">
+                    <li style="padding:4px 0;">✅ Everything in Professional</li>
+                    <li style="padding:4px 0;">✅ Veritas Deposition™ Suite</li>
+                    <li style="padding:4px 0;">✅ Enterprise CRM Sync</li>
+                    <li style="padding:4px 0;">✅ Dedicated Support</li>
+                    <li style="padding:4px 0;font-weight:600;">📄 500 docs/month</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="upgradeActions" style="margin-top:20px;display:none;text-align:center;">
+                <p id="selectedPlanText" style="font-size:0.9rem;color:var(--primary);margin-bottom:12px;"></p>
+                <button class="btn btn-primary" id="btnConfirmUpgrade" onclick="handleUpgrade()">Confirm & Proceed to Checkout →</button>
+                <button class="btn btn-sm" style="background:transparent;border:none;color:var(--text-muted);cursor:pointer;" onclick="hideUpgradePlans()">Cancel</button>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Usage Details</h3>
+            <table>
+              <thead><tr><th>Metric</th><th>Used</th><th>Limit</th><th>Remaining</th></tr></thead>
+              <tbody>
+                <tr><td>Document Processing</td><td id="billingDocsUsed">0</td><td id="billingDocLimitTable">50/mo</td><td id="billingDocsRemaining">50</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <!-- Audit Log -->
@@ -470,15 +545,169 @@ function renderDashboard(firm, users) {
   $('statUsers').textContent = users?.length||0;
   $('statBillingTier').textContent = firm?.billing_tier ? firm.billing_tier.charAt(0).toUpperCase()+firm.billing_tier.slice(1) : 'Standard';
   $('statDocs').textContent = firm?.document_count||0;
-  $('billingTierDisplay').textContent = firm?.billing_tier ? firm.billing_tier.charAt(0).toUpperCase()+firm.billing_tier.slice(1) : 'Standard';
-  $('billingDocCount').textContent = firm?.document_count||0;
-  $('billingOverage').textContent = '$'+(firm?.estimated_overage||0);
-  const ti = {standard:{docs:'50/mo',overage:'$2.50/doc',ocr:'$0.15/page'},professional:{docs:'200/mo',overage:'$1.50/doc',ocr:'$0.10/page'},enterprise:{docs:'Unlimited',overage:'$0.50/doc',ocr:'$0.05/page'}}[firm?.billing_tier||'standard'];
-  $('billingIncludedDocs').textContent=ti.docs; $('billingOverageRate').textContent=ti.overage; $('billingOcrRate').textContent=ti.ocr;
   $('settingsFirmName').value = firm?.name||'';
   $('settingsBillingTier').textContent = firm?.billing_tier ? firm.billing_tier.charAt(0).toUpperCase()+firm.billing_tier.slice(1) : 'Standard';
   renderTeamTable(users); loadAuditLog(); renderChecklist(firm);
+  loadBillingStatus();
   $('overviewSubtitle').textContent = `Managing ${users?.length||0} team members at ${firm?.name||'your firm'}.`;
+}
+
+async function loadBillingStatus() {
+  try {
+    const data = await api('/api/billing/status');
+    renderBillingStatus(data);
+    $('billingLoading').style.display = 'none';
+    $('billingContent').style.display = 'block';
+  } catch(e) {
+    // Fall back to firm data if billing API isn't available
+    const tier = currentFirm?.billing_tier || 'standard';
+    $('billingTierDisplay').textContent = tier.charAt(0).toUpperCase() + tier.slice(1);
+    $('billingDocCount').textContent = currentFirm?.document_count || 0;
+    $('billingDocRemaining').textContent = '—';
+    $('billingPlanStatus').textContent = currentFirm?.plan_status || 'active';
+    $('billingPlanStatus').className = 'badge ' + (currentFirm?.plan_status === 'active' ? 'active' : 'inactive');
+    $('billingDocLimit').textContent = '—';
+    $('billingPeriodStart').textContent = '—';
+    $('billingCancelAtEnd').textContent = 'No';
+    $('billingDocsUsed').textContent = currentFirm?.document_count || 0;
+    $('billingDocLimitTable').textContent = '—';
+    $('billingDocsRemaining').textContent = '—';
+    $('billingLoading').style.display = 'none';
+    $('billingContent').style.display = 'block';
+  }
+}
+
+function renderBillingStatus(data) {
+  const plan = data.plan || {};
+  const sub = data.subscription || {};
+  const usage = data.usage || {};
+  const tier = plan.tier || 'standard';
+  const tierDisplay = tier.charAt(0).toUpperCase() + tier.slice(1);
+
+  // Stat cards
+  $('billingTierDisplay').textContent = tierDisplay;
+  $('billingDocCount').textContent = usage.documents_processed || 0;
+  $('billingDocRemaining').textContent = usage.documents_remaining || 0;
+
+  // Subscription status
+  const status = plan.status || sub.status || 'active';
+  $('billingPlanStatus').textContent = status;
+  $('billingPlanStatus').className = 'badge ' + (
+    status === 'active' || status === 'trialing' ? 'active' : 'inactive'
+  );
+  $('billingDocLimit').textContent = usage.document_limit || '—';
+  $('billingPeriodStart').textContent = plan.billing_period_start 
+    ? new Date(plan.billing_period_start).toLocaleDateString() : '—';
+  $('billingCancelAtEnd').textContent = sub.cancel_at_period_end ? 'Yes' : 'No';
+
+  // Usage table
+  $('billingDocsUsed').textContent = usage.documents_processed || 0;
+  $('billingDocLimitTable').textContent = (usage.document_limit || '—') + '/mo';
+  $('billingDocsRemaining').textContent = usage.documents_remaining || 0;
+
+  // Update overview stat card
+  $('statBillingTier').textContent = tierDisplay;
+
+  // Handle simulated mode
+  if (!data.stripe_configured) {
+    $('btnManageSubscription').textContent = 'Manage Subscription (Simulated) →';
+    $('billingSimulatedNotice').style.display = 'block';
+    $('btnSimulateActivation').style.display = 'inline-flex';
+  } else {
+    $('billingSimulatedNotice').style.display = 'none';
+    $('btnSimulateActivation').style.display = 'none';
+  }
+}
+
+let selectedPlan = null;
+
+function showUpgradePlans() {
+  selectedPlan = null;
+  $('upgradePlansContainer').style.display = 'block';
+  $('upgradeActions').style.display = 'none';
+  // Highlight current tier
+  const currentTier = (currentFirm?.billing_tier || 'standard').toLowerCase();
+  document.querySelectorAll('.plan-card').forEach(card => {
+    const plan = card.getAttribute('data-plan');
+    const isCurrent = plan === currentTier;
+    card.style.borderColor = isCurrent ? 'var(--accent)' : 'var(--border)';
+    card.style.opacity = isCurrent ? '0.7' : '1';
+    if (isCurrent) {
+      card.title = 'Your current plan';
+    }
+  });
+}
+
+function hideUpgradePlans() {
+  $('upgradePlansContainer').style.display = 'none';
+  selectedPlan = null;
+}
+
+function selectPlan(plan) {
+  selectedPlan = plan;
+  document.querySelectorAll('.plan-card').forEach(card => {
+    const p = card.getAttribute('data-plan');
+    card.style.borderColor = p === plan ? 'var(--accent)' : 'var(--border)';
+    card.style.transform = p === plan ? 'scale(1.03)' : 'scale(1)';
+    card.style.boxShadow = p === plan ? 'var(--shadow-lg)' : 'none';
+  });
+  const planNames = {standard:'Standard ($69/mo)',professional:'Professional ($199/mo)',enterprise:'Enterprise ($299/mo)'};
+  $('selectedPlanText').textContent = `You selected: ${planNames[plan] || plan}`;
+  $('upgradeActions').style.display = 'block';
+}
+
+async function handleUpgrade() {
+  if (!selectedPlan) return toast('Please select a plan first.', 'error');
+  const btn = $('btnConfirmUpgrade');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Redirecting...';
+  try {
+    const result = await api(`/api/billing/create-checkout?plan=${selectedPlan}`, 'POST');
+    toast('Redirecting to checkout...', 'info');
+    // Handle simulated mode - redirect to the provided URL
+    if (result.status === 'simulated' && result.url) {
+      toast('Simulated mode: ' + result.message, 'info');
+      window.open(result.url, '_blank');
+    } else if (result.url) {
+      window.location.href = result.url;
+    }
+    hideUpgradePlans();
+  } catch(e) {
+    toast(e.message, 'error');
+  }
+  btn.disabled = false; btn.textContent = 'Confirm & Proceed to Checkout →';
+}
+
+async function handleManageSubscription() {
+  const btn = $('btnManageSubscription');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Opening portal...';
+  try {
+    const result = await api('/api/billing/create-portal-session', 'POST');
+    if (result.status === 'simulated' && result.url) {
+      toast('Simulated mode: ' + result.message, 'info');
+      window.open(result.url, '_blank');
+    } else if (result.url) {
+      window.location.href = result.url;
+    }
+  } catch(e) {
+    toast(e.message, 'error');
+  }
+  btn.disabled = false; btn.textContent = 'Manage Subscription →';
+}
+
+async function handleSimulateActivation() {
+  const tier = prompt('Enter plan to simulate (standard, professional, or enterprise):', 'professional');
+  if (!tier) return;
+  const validTiers = ['standard', 'professional', 'enterprise'];
+  if (!validTiers.includes(tier.toLowerCase())) {
+    return toast('Invalid plan. Choose: standard, professional, or enterprise.', 'error');
+  }
+  try {
+    const result = await api(`/api/billing/simulate-activation?plan=${tier.toLowerCase()}`, 'POST');
+    toast(result.message || 'Subscription simulated successfully!', 'success');
+    await loadBillingStatus();
+  } catch(e) {
+    toast(e.message, 'error');
+  }
 }
 
 function renderTeamTable(users) {
