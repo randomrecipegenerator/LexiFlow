@@ -16,7 +16,7 @@ import asyncio
 from datetime import datetime
 
 import models, database, ai_engine, esign_engine, integration_engine, reception_engine, utils, reports
-import enterprise_api, desktop_api, admin_api
+import enterprise_api, desktop_api, admin_api, billing_api
 from auth import auth_router
 from database import engine, get_db
 from health_diagnostics import health_diagnostics, HealthDiagnostics
@@ -100,7 +100,8 @@ app.include_router(desktop_api.router)
 app.include_router(auth_router)
 app.include_router(admin_api.router)
 
-# Include usage API router if available
+app.include_router(billing_api.router)
+app.include_router(billing_api.webhook_router)
 try:
     from usage_api import router as usage_router
     app.include_router(usage_router)
@@ -1555,18 +1556,25 @@ if not os.getenv("VERCEL") and __name__ == "__main__":
             return FileResponse(blog_index)
         raise HTTPException(status_code=404)
 
+    @app.api_route("/veritas/{path:path}", methods=["GET", "HEAD"])
+    @app.api_route("/veritas", methods=["GET", "HEAD"])
+    async def serve_veritas(path: str = None):
+        # Serves the Veritas Deposition™ Evidence Intelligence SPA
+        # Use the copy in the veritas/ directory at root for production consistency
+        veritas_index = os.path.join(root_dir, "veritas/index.html")
+        if not os.path.exists(veritas_index):
+            # Fallback to the build directory if root copy missing
+            veritas_index = os.path.join(root_dir, "veritas-deposition/frontend/dist/index.html")
+        return FileResponse(veritas_index)
+
     @app.api_route("/depolens", methods=["GET", "HEAD"])
     async def serve_depolens():
-        return FileResponse(os.path.join(root_dir, "/veritas"))
+        # Alias for Veritas Deposition™
+        return await serve_veritas()
 
     @app.api_route("/veritas-app", methods=["GET", "HEAD"])
     async def serve_veritas_legacy():
-        return FileResponse(os.path.join(root_dir, "/veritas"))
-
-    @app.api_route("/veritas", methods=["GET", "HEAD"])
-    async def serve_veritas():
-        # Serves the Veritas Deposition™ Evidence Intelligence SPA
-        return FileResponse(os.path.join(root_dir, "veritas-deposition/frontend/dist/index.html"))
+        return await serve_veritas()
 
     app.mount("/api", api_app)
     app.mount("/", StaticFiles(directory=root_dir, html=True), name="static")

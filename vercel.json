@@ -35,7 +35,11 @@
     },
     {
       "source": "/veritas/(.*)",
-      "destination": "/veritas/index.html"
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/veritas",
+      "destination": "/api/index.py"
     }
   ]
 }
