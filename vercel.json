@@ -26,7 +26,11 @@
       "destination": "/api/index.py"
     },
     {
-      "source": "/blog/([^/]+)",
+      "source": "/blog/articles.json",
+      "destination": "/blog/articles.json"
+    },
+    {
+      "source": "/blog/([^/.]+)",
       "destination": "/blog/$1.html"
     },
     {
