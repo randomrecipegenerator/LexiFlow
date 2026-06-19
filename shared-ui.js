@@ -218,7 +218,11 @@
 
       // Wire click handler
       if (btn.id && buttons[btn.id]) {
-        btn.onclick = function(e) { e.preventDefault(); buttons[this.id](); };
+        btn.onclick = function(e) { 
+          if (this.hasAttribute('download')) return; // Allow direct download
+          e.preventDefault(); 
+          buttons[this.id](); 
+        };
         btn.style.cursor = 'pointer';
       }
     });
@@ -231,7 +235,11 @@
           var cleanKey = key.replace('btn-', '').replace(/-/g, ' ');
           if (t.toLowerCase().indexOf(cleanKey) > -1) {
             btn.id = key;
-            btn.onclick = function(e) { e.preventDefault(); buttons[this.id](); };
+            btn.onclick = function(e) { 
+              if (this.hasAttribute('download')) return; // Allow direct download
+              e.preventDefault(); 
+              buttons[this.id](); 
+            };
             btn.style.cursor = 'pointer';
             break;
           }
@@ -249,6 +257,7 @@
         var isButton = target.tagName === 'BUTTON' || target.tagName === 'A' || target.classList.contains('nav-item') || target.classList.contains('cursor-pointer') || target.style.cursor === 'pointer' || target.getAttribute('role') === 'button';
         
         if (isButton) {
+          if (target.hasAttribute('download')) return; // Allow direct download
           if (id && buttons[id]) { 
             e.preventDefault(); 
             e.stopPropagation();
