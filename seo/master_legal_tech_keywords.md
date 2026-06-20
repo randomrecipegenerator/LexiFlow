@@ -1,0 +1,114 @@
+# LexiFlow Master Keyword List (2026 Expansion)
+
+The following keywords have been provided for future website content, SEO optimization, and landing page expansion.
+
+## 1. Medical Chronology & Record Review
+- medical chronology software
+- software for medical chronologies
+- AI medical chronology software
+- automated medical chronology
+- medical record review software
+- AI medical record review
+- medical record review for attorneys
+- medical record review for law firms
+- legal medical chronology software
+- medical chronology
+- medical chronology template
+- medical chronology sample
+- sample medical chronology
+- medical chronology example
+- medical chronology report
+- legal medical chronology
+- legal medical chronologies
+- chronology of medical records
+- medical record chronology
+- chronological medical records
+- medical chronology process
+- create a medical chronology
+- how to create a medical chronology
+- medical chronology format
+- medical chronology services
+- personal injury medical chronology
+- litigation medical chronology
+- injury case medical chronology
+- medical timeline software
+- medical record review
+- medical records review
+- medical record review services
+- medical record review process
+- medical record review checklist
+- how to review medical records
+- medical record review for litigation
+- legal medical record review
+- personal injury medical record review
+- plaintiff medical record review
+- automated medical record review
+- medical record analysis software
+- medical records analysis
+- legal record review software
+- litigation medical review
+- attorney medical review
+- legal medical summaries
+- medical summary
+- medical summary template
+- medical summary example
+- medical summary sample
+- medical record summary
+- legal medical summary
+- medical narrative summary
+- plaintiff medical summary
+- personal injury medical summary
+- medical records summary
+- medical case summary
+- chronology vs medical summary
+- medical summary software
+- AI medical summary
+- automated medical summary
+
+## 2. Intake & Workflow Automation
+- personal injury software
+- plaintiff law firm software
+- law firm intake software
+- client intake software for law firms
+- legal intake software
+- legal workflow software
+- law firm workflow software
+- legal operations software
+- law firm project management software
+- small law firm software
+- software for small law firms
+- personal injury case management
+- personal injury workflow software
+- personal injury law firm software
+- plaintiff case management
+- litigation support software
+- legal case review software
+- settlement demand software
+- demand letter software
+- personal injury intake software
+- injury claim software
+- injury case software
+- personal injury operations
+- plaintiff legal technology
+- client intake software
+- attorney intake software
+- client onboarding software for law firms
+- legal workflow automation
+- law firm workflow automation
+- legal process automation
+- legal task management software
+- legal CRM software
+- legal workflow management
+- law firm automation software
+- legal practice automation
+
+## 3. Artificial Intelligence & Legal Tech
+- AI for personal injury lawyers
+- AI legal software
+- AI legal assistant
+- AI case management
+- AI legal workflow
+- AI medical chronology
+- AI legal intake
+- generative AI for law firms
+- legal AI software
