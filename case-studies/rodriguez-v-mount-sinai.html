@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rodriguez v. Mount Sinai — AI Medical Malpractice Case Study | LexiFlow</title>
+  <meta name="description" content="How LexiFlow's Veritas Deposition™ and Contradiction Detection Engine™ exposed a 14-hour treatment gap in a $4.2M NYC sepsis malpractice case." />
+  <link rel="canonical" href="https://lexiflow.co/case-studies/rodriguez-v-mount-sinai" />
+  <meta property="og:title" content="Rodriguez v. Mount Sinai — AI Case Study" />
+  <meta property="og:description" content="Contradiction Detection Engine™ in action: Exposing a 14-hour treatment gap at Mount Sinai Hospital." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="/shared-layout.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Rodriguez v. Mount Sinai Hospital: How AI Exposed a 14-Hour Treatment Gap",
+    "description": "Case study demonstrating LexiFlow's Veritas Deposition™ and Contradiction Detection Engine™ in a medical malpractice case.",
+    "author": { "@type": "Organization", "name": "LexiFlow Technologies Inc" },
+    "datePublished": "2026-07-07",
+    "publisher": { "@type": "Organization", "name": "LexiFlow" }
+  }
+  </script>
+  <style>
+    :root { --primary: #1a3a5c; --primary-dark: #0d1f33; --accent: #c9a84c; --accent-light: #e2c96e; --text-dark: #1a1a2e; --text-muted: #6b7280; --border: #e2e8f0; --bg-light: #f8fafc; --danger: #dc2626; --success: #16a34a; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: var(--text-dark); background: #fff; line-height: 1.6; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    nav { height: 80px; background: #fff; border-bottom: 1px solid var(--border); display: flex; align-items: center; position: fixed; top: 0; width: 100%; z-index: 100; }
+    .nav-container { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--primary); text-decoration: none; }
+    .logo span { background: var(--primary); color: var(--accent); padding: 4px 8px; border-radius: 4px; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 15px; font-weight: 500; }
+    .nav-links a:hover { color: var(--primary); }
+    .btn-cta { background: var(--accent); color: var(--primary); padding: 12px 24px; border-radius: 6px; font-weight: 600; }
+
+    /* Hero */
+    .hero { padding: 140px 0 60px; background: linear-gradient(135deg, #0d1f33, #1a3a5c); color: white; }
+    .breadcrumb { color: rgba(255,255,255,0.5); font-size: 13px; margin-bottom: 20px; }
+    .breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--accent); }
+    .hero-badge { display: inline-block; padding: 4px 12px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); border-radius: 100px; font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 800; margin-bottom: 8px; }
+    .hero h1 span { color: var(--accent); }
+    .hero .subtitle { font-size: 1.1rem; color: rgba(255,255,255,0.8); max-width: 600px; margin-bottom: 32px; }
+    .hero-stats { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 28px; }
+    .hero-stat { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 16px 24px; min-width: 140px; text-align: center; }
+    .hero-stat .num { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+    .hero-stat .label { font-size: 12px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.04em; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 8px; font-weight: 700; font-size: 15px; text-decoration: none; transition: all 0.2s; }
+    .btn-gold { background: var(--accent); color: var(--primary-dark); }
+    .btn-gold:hover { background: var(--accent-light); transform: translateY(-1px); }
+    .btn-outline-light { border: 2px solid rgba(255,255,255,0.3); color: white; }
+    .btn-outline-light:hover { border-color: var(--accent); color: var(--accent); }
+    .hipaa-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; background: rgba(22,163,74,0.1); border: 1px solid rgba(22,163,74,0.2); border-radius: 100px; font-size: 11px; color: #22c55e; }
+
+    /* Sections */
+    section { padding: 60px 0; }
+    section:nth-child(even) { background: var(--bg-light); }
+    h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--primary); margin-bottom: 12px; }
+    h2 .accent { color: var(--accent); }
+    .section-subtitle { color: var(--text-muted); font-size: 1rem; max-width: 600px; margin-bottom: 32px; }
+
+    /* Timeline */
+    .timeline { display: flex; gap: 0; overflow-x: auto; padding: 20px 0; position: relative; }
+    .tl-node { flex: 1; min-width: 160px; text-align: center; position: relative; padding: 16px 12px; }
+    .tl-node::after { content: ''; position: absolute; top: 50%; left: 50%; width: 100%; height: 3px; background: var(--border); z-index: 0; }
+    .tl-node:last-child::after { display: none; }
+    .tl-dot { width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 11px; margin: 0 auto 12px; position: relative; z-index: 1; }
+    .tl-node.gap .tl-dot { background: var(--danger); width: 56px; height: 56px; animation: pulse-glow 2s infinite; }
+    @keyframes pulse-glow { 0%,100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.4); } 50% { box-shadow: 0 0 0 12px rgba(220,38,38,0.1); } }
+    .tl-label { font-size: 13px; font-weight: 600; color: var(--text-dark); margin-bottom: 4px; }
+    .tl-time { font-size: 11px; color: var(--text-muted); }
+    .tl-node.gap .tl-label { color: var(--danger); }
+    .tl-desc { font-size: 11px; color: var(--text-muted); margin-top: 4px; max-width: 140px; margin-left: auto; margin-right: auto; }
+
+    /* Contradiction Engine */
+    .contradiction-grid { display: grid; gap: 24px; }
+    .contra-card { background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+    .contra-header { display: flex; align-items: center; gap: 12px; padding: 16px 20px; background: #fef2f2; border-bottom: 1px solid #fecaca; }
+    .contra-header .icon { font-size: 1.3rem; }
+    .contra-header h4 { font-size: 14px; font-weight: 600; color: var(--danger); }
+    .contra-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .contra-panel { padding: 20px; }
+    .contra-panel:first-child { border-right: 1px solid var(--border); }
+    .contra-panel .panel-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; }
+    .contra-panel.testimony .panel-label { color: var(--primary); }
+    .contra-panel.evidence .panel-label { color: var(--success); }
+    .contra-quote { font-size: 14px; font-style: italic; color: var(--text-dark); padding: 12px; background: var(--bg-light); border-radius: 8px; border-left: 3px solid var(--primary); margin-bottom: 8px; }
+    .contra-evidence { font-size: 14px; padding: 12px; background: #f0fdf4; border-radius: 8px; border-left: 3px solid var(--success); margin-bottom: 8px; }
+    .contra-ref { font-size: 11px; color: var(--text-muted); }
+    .contra-badge { display: inline-block; padding: 2px 8px; background: #fef2f2; color: var(--danger); border-radius: 100px; font-size: 10px; font-weight: 600; border: 1px solid #fecaca; }
+
+    /* Cross-Examination Questions */
+    .questions { background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 24px; margin-top: 24px; }
+    .questions h4 { font-size: 14px; font-weight: 600; color: #92400e; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .questions ol { padding-left: 20px; }
+    .questions li { font-size: 14px; color: var(--text-dark); margin-bottom: 10px; line-height: 1.5; }
+
+    /* Settlement Comparison */
+    .settlement-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+    .settlement-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+    .settlement-card .stat-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 4px; }
+    .settlement-card .stat-label { font-size: 12px; color: var(--text-muted); }
+    .jurisdiction-bar { display: flex; align-items: center; gap: 16px; padding: 12px 16px; border-radius: 8px; margin-bottom: 8px; font-size: 14px; }
+    .jurisdiction-bar .bar { flex: 1; height: 24px; border-radius: 4px; position: relative; overflow: hidden; }
+    .jurisdiction-bar .bar .fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: white; }
+    .jurisdiction-bar .value { font-weight: 700; min-width: 70px; text-align: right; }
+
+    /* Tech Stack */
+    .tech-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: center; }
+    .tech-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+    .tech-card .icon { font-size: 2rem; margin-bottom: 8px; }
+    .tech-card h4 { font-size: 14px; color: var(--primary); margin-bottom: 4px; }
+    .tech-card .stat { font-size: 12px; color: var(--accent); font-weight: 600; }
+    .tech-arrow { font-size: 1.5rem; color: var(--text-muted); text-align: center; }
+    .tech-quote { text-align: center; font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--primary); padding: 24px; border-top: 1px solid var(--border); margin-top: 24px; }
+
+    /* CTA */
+    .cta-section { background: linear-gradient(135deg, #0d1f33, #1a3a5c); color: white; text-align: center; padding: 60px 0; }
+    .cta-section h2 { color: white; font-size: 2rem; margin-bottom: 12px; }
+    .cta-section p { color: rgba(255,255,255,0.8); max-width: 500px; margin: 0 auto 24px; }
+    .cta-section .pricing-note { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 16px; }
+
+    /* Footer */
+    footer { background: #0f172a; color: rgba(255,255,255,0.6); padding: 48px 0 32px; }
+    .footer-grid { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+    .footer-col h4 { color: white; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: white; text-decoration: none; display: block; margin-bottom: 12px; }
+    .footer-bottom { max-width: 1100px; margin: 40px auto 0; padding: 24px 24px 0; border-top: 1px solid rgba(255,255,255,0.08); text-align: center; font-size: 13px; }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 1.8rem; }
+      .hero-stats { flex-direction: column; }
+      .contra-body { grid-template-columns: 1fr; }
+      .contra-panel:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+      .settlement-grid { grid-template-columns: 1fr; }
+      .tech-flow { grid-template-columns: 1fr 1fr; }
+      .tech-arrow { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .timeline { flex-direction: column; }
+      .tl-node::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-container">
+    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+    <ul class="nav-links">
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/blog/index.html">Blog</a></li>
+      <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> / <a href="/case-studies/">Case Studies</a> / Rodriguez v. Mount Sinai
+    </div>
+    <div class="hero-badge">📋 Case Study · NYC Bar Association Demo</div>
+    <h1>Rodriguez <span>v.</span> Mount Sinai Hospital</h1>
+    <p class="subtitle">How LexiFlow's AI exposed a 14-hour treatment gap that led to a bilateral amputation — and built the cross-examination in seconds.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">92/100</div><div class="label">Merit Score</div></div>
+      <div class="hero-stat"><div class="num">$4.2M</div><div class="label">Trial Value (NY)</div></div>
+      <div class="hero-stat"><div class="num">7</div><div class="label">Contradictions</div></div>
+      <div class="hero-stat"><div class="num">14h</div><div class="label">Treatment Gap</div></div>
+    </div>
+    <div class="hero-actions">
+      <a href="mailto:leads@lexiflow.co" class="btn btn-gold">▶ View Demo Walkthrough</a>
+      <a href="mailto:leads@lexiflow.co" class="btn btn-outline-light">📄 Download Case Study PDF</a>
+    </div>
+    <div style="margin-top:16px;">
+      <span class="hipaa-badge">🔒 HIPAA Compliant</span>
+    </div>
+  </div>
+</section>
+
+<!-- The Narrative -->
+<section>
+  <div class="container">
+    <h2>The <span class="accent">Narrative</span></h2>
+    <p class="section-subtitle">What happened to Elena Rodriguez, and how the system failed her.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div style="background:var(--bg-light);border-radius:12px;padding:20px;border-left:3px solid var(--accent);">
+        <div style="font-size:12px;font-weight:600;color:var(--accent);text-transform:uppercase;margin-bottom:6px;">18:30 — Arrival</div>
+        <p style="font-size:14px;color:var(--text-dark);line-height:1.6;">Elena Rodriguez arrives at Mount Sinai ER with 103.2°F fever, HR 115, qSOFA score 2/3 — indicating 10% in-hospital mortality risk. Surviving Sepsis Campaign guidelines require 3-Hour Bundle initiation.</p>
+      </div>
+      <div style="background:var(--bg-light);border-radius:12px;padding:20px;border-left:3px solid var(--accent);">
+        <div style="font-size:12px;font-weight:600;color:var(--accent);text-transform:uppercase;margin-bottom:6px;">19:15 — The Order</div>
+        <p style="font-size:14px;color:var(--text-dark);line-height:1.6;">ER resident orders blood cultures and IV Vancomycin. The order is entered. The standard-of-care clock starts ticking.</p>
+      </div>
+      <div style="background:#fef2f2;border-radius:12px;padding:20px;border-left:3px solid var(--danger);">
+        <div style="font-size:12px;font-weight:600;color:var(--danger);text-transform:uppercase;margin-bottom:6px;">20:00 → 09:30 — 14-Hour Gap</div>
+        <p style="font-size:14px;color:var(--text-dark);line-height:1.6;"><strong>Zero antibiotics administered.</strong> No vital sign checks. No follow-up assessments. The MAR shows no documentation for 13.5 hours. The patient who met sepsis criteria becomes invisible.</p>
+      </div>
+      <div style="background:#fef2f2;border-radius:12px;padding:20px;border-left:3px solid var(--danger);">
+        <div style="font-size:12px;font-weight:600;color:var(--danger);text-transform:uppercase;margin-bottom:6px;">10:00 — The Crash</div>
+        <p style="font-size:14px;color:var(--text-dark);line-height:1.6;">Code Blue called. BP 70/40. Septic shock. Prolonged hypotension and high-dose vasopressors lead to irreversible tissue death in both feet.</p>
+      </div>
+    </div>
+    <div style="margin-top:16px;background:#fff7ed;border-radius:12px;padding:16px;border:1px solid #fed7aa;">
+      <strong style="color:#9a3412;">May 15 — Outcome:</strong>
+      <span style="color:var(--text-dark);font-size:14px;"> Double below-knee amputation. A catastrophic outcome from a preventable delay.</span>
+    </div>
+  </div>
+</section>
+
+<!-- Timeline -->
+<section style="background:var(--bg-light);">
+  <div class="container">
+    <h2>Medical Timeline — <span class="accent">The 14-Hour Gap</span></h2>
+    <p class="section-subtitle">Each node is evidence-backed. The gap is highlighted in red.</p>
+    <div class="timeline">
+      <div class="tl-node">
+        <div class="tl-dot">18:30</div>
+        <div class="tl-label">Admission</div>
+        <div class="tl-time">qSOFA 2/3</div>
+        <div class="tl-desc">ER Triage documents sepsis criteria</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-dot">19:15</div>
+        <div class="tl-label">ABX Ordered</div>
+        <div class="tl-time">Vancomycin</div>
+        <div class="tl-desc">Broad-spectrum antibiotics ordered</div>
+      </div>
+      <div class="tl-node gap">
+        <div class="tl-dot">!</div>
+        <div class="tl-label" style="color:var(--danger);">14-HOUR GAP</div>
+        <div class="tl-time">20:00 → 09:30</div>
+        <div class="tl-desc" style="color:var(--danger);">No ABX given. No vitals checked.</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-dot">10:00</div>
+        <div class="tl-label">Code Blue</div>
+        <div class="tl-time">Septic Shock</div>
+        <div class="tl-desc">BP 70/40, unresponsive</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-dot">May 15</div>
+        <div class="tl-label">BK Amputation</div>
+        <div class="tl-time">Bilateral</div>
+        <div class="tl-desc">Below-knee amputation both legs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contradiction Detection Engine -->
+<section>
+  <div class="container">
+    <h2>⚡ Contradiction Detection <span class="accent">Engine™</span></h2>
+    <p class="section-subtitle">Side-by-side testimony vs. evidence comparison — the centerpiece of Veritas Deposition™.</p>
+    
+    <div class="contradiction-grid">
+      <!-- Contradiction 1 -->
+      <div class="contra-card">
+        <div class="contra-header">
+          <span class="icon">⚡</span>
+          <span class="contra-badge">CONTRADICTION</span>
+          <h4>Dr. Alan Miller — ER Attending</h4>
+        </div>
+        <div class="contra-body">
+          <div class="contra-panel testimony">
+            <div class="panel-label">📋 Deposition Testimony</div>
+            <div class="contra-quote">"I personally confirmed the start of the IV antibiotic protocol at 19:45."</div>
+            <div class="contra-ref">Deposition Page 34, Lines 12-15</div>
+          </div>
+          <div class="contra-panel evidence">
+            <div class="panel-label">📄 Evidentiary Record</div>
+            <div class="contra-evidence">Medication Administration Record (MAR) shows <strong>zero antibiotic dosage entries</strong> until 10:15 the following morning — 14 hours and 30 minutes after Dr. Miller's claimed confirmation.</div>
+            <div class="contra-ref">Exhibit: MAR_Table_3, Nursing_Logs_P8</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contradiction 2 -->
+      <div class="contra-card">
+        <div class="contra-header">
+          <span class="icon">⚡</span>
+          <span class="contra-badge">CONTRADICTION</span>
+          <h4>Dr. Alan Miller — ER Attending</h4>
+        </div>
+        <div class="contra-body">
+          <div class="contra-panel testimony">
+            <div class="panel-label">📋 Deposition Testimony</div>
+            <div class="contra-quote">"The patient's condition was stable throughout the evening shift."</div>
+            <div class="contra-ref">Deposition Page 47, Lines 8-11</div>
+          </div>
+          <div class="contra-panel evidence">
+            <div class="panel-label">📄 Evidentiary Record</div>
+            <div class="contra-evidence">ER Triage record documents <strong>qSOFA score of 2 at 18:30</strong> — a clinical indicator that carries a 10% risk of in-hospital mortality. Not consistent with "stable".</div>
+            <div class="contra-ref">Exhibit: ER_Triage_Page_1</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Cross-Examination Questions -->
+    <div class="questions">
+      <h4>🤖 AI-Generated Cross-Examination Questions</h4>
+      <ol>
+        <li><strong>"Doctor, you testified that you 'personally confirmed' the start of antibiotics at 19:45. Can you explain why the hospital's own electronic MAR, which timestamped in real-time, shows no such administration occurred for the next 14 hours?"</strong></li>
+        <li><strong>"You characterize a qSOFA score of 2 — which carries a 10% risk of in-hospital mortality — as 'stable'? Is that the standard definition of stability used at Mount Sinai?"</strong></li>
+        <li>"Does the hospital's Sepsis Protocol require the '3-Hour Bundle' implementation for patients meeting 2/3 qSOFA criteria?"</li>
+        <li>"If the '3-Hour Bundle' was not completed within 14 hours, would you agree that is a deviation from the hospital's internal safety guidelines?"</li>
+        <li>"Who was the nurse assigned to Bed 4 between the hours of 20:00 and 08:00?"</li>
+      </ol>
+      <div style="margin-top:16px;display:flex;gap:12px;">
+        <a href="mailto:leads@lexiflow.co" class="btn btn-gold" style="font-size:13px;padding:10px 20px;">📋 Copy All Questions</a>
+        <a href="mailto:leads@lexiflow.co" class="btn" style="font-size:13px;padding:10px 20px;border:1px solid var(--border);color:var(--text-dark);">💾 Save to Case File</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Settlement Intelligence -->
+<section style="background:var(--bg-light);">
+  <div class="container">
+    <h2>Settlement <span class="accent">Intelligence</span></h2>
+    <p class="section-subtitle">New York's uncapped damages make this a high-value case. See how it compares to capped states.</p>
+    
+    <div class="settlement-grid">
+      <div class="settlement-card" style="border-color:var(--accent);">
+        <div class="stat-num" style="color:var(--accent);">NY</div>
+        <div class="stat-label">Jurisdiction</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">No cap on damages</div>
+      </div>
+      <div class="settlement-card">
+        <div class="stat-num">$4,200,000</div>
+        <div class="stat-label">Estimated Trial Value</div>
+      </div>
+      <div class="settlement-card">
+        <div class="stat-num">$1.8M–$3.2M</div>
+        <div class="stat-label">Predicted Settlement Range</div>
+        <div style="font-size:11px;color:var(--accent);font-weight:600;margin-top:4px;">94% confidence</div>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--primary);margin-bottom:16px;">Jurisdiction Comparison</h3>
+    
+    <div class="jurisdiction-bar" style="background: #fefce8; border: 1px solid #fde68a;">
+      <span style="font-weight:600;min-width:30px;">NY</span>
+      <div class="bar"><div class="fill" style="width:100%;background:#c9a84c;">No Cap</div></div>
+      <span class="value" style="color:var(--accent);">$4,200,000</span>
+    </div>
+    <div class="jurisdiction-bar" style="background: var(--bg-light);">
+      <span style="font-weight:600;min-width:30px;">CA</span>
+      <div class="bar"><div class="fill" style="width:8%;background:#94a3b8;">MICRA Cap</div></div>
+      <span class="value" style="color:var(--text-muted);">$353,000</span>
+    </div>
+    <div class="jurisdiction-bar" style="background: var(--bg-light);">
+      <span style="font-weight:600;min-width:30px;">TX</span>
+      <div class="bar"><div class="fill" style="width:18%;background:#94a3b8;">$250K/d</div></div>
+      <span class="value" style="color:var(--text-muted);">$750,000</span>
+    </div>
+
+    <div style="margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;font-size:13px;">
+      <div style="padding:12px;background:white;border-radius:8px;border:1px solid var(--border);text-align:center;">
+        <strong style="color:var(--primary);">$1.2M</strong><br><span style="color:var(--text-muted);font-size:11px;">Past Medical</span>
+      </div>
+      <div style="padding:12px;background:white;border-radius:8px;border:1px solid var(--border);text-align:center;">
+        <strong style="color:var(--primary);">$850K</strong><br><span style="color:var(--text-muted);font-size:11px;">Future Medical</span>
+      </div>
+      <div style="padding:12px;background:white;border-radius:8px;border:1px solid var(--border);text-align:center;">
+        <strong style="color:var(--primary);">$400K</strong><br><span style="color:var(--text-muted);font-size:11px;">Lost Earnings</span>
+      </div>
+      <div style="padding:12px;background:white;border-radius:8px;border:1px solid var(--border);text-align:center;">
+        <strong style="color:var(--primary);">$1.75M</strong><br><span style="color:var(--text-muted);font-size:11px;">Pain & Suffering</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tech Stack -->
+<section>
+  <div class="container">
+    <h2>How LexiFlow <span class="accent">Processed This Case</span></h2>
+    <p class="section-subtitle">From intake to deposition — what normally takes 3-5 days takes LexiFlow 4 minutes.</p>
+    
+    <div class="tech-flow">
+      <div class="tech-card">
+        <div class="icon">🤖</div>
+        <h4>AI Intake Agent</h4>
+        <div class="stat">3 seconds</div>
+        <div style="font-size:11px;color:var(--text-muted);">Lead qualified 87/100</div>
+      </div>
+      <div class="tech-arrow">→</div>
+      <div class="tech-card">
+        <div class="icon">📋</div>
+        <h4>MeritScan</h4>
+        <div class="stat">92/100</div>
+        <div style="font-size:11px;color:var(--text-muted);">4 negligence markers</div>
+      </div>
+      <div class="tech-arrow">→</div>
+      <div class="tech-card">
+        <div class="icon">🎯</div>
+        <h4>Veritas Deposition™</h4>
+        <div class="stat">7 contradictions</div>
+        <div style="font-size:11px;color:var(--text-muted);">AI cross-exam questions</div>
+      </div>
+      <div class="tech-arrow">→</div>
+      <div class="tech-card">
+        <div class="icon">🔗</div>
+        <h4>CRM Sync</h4>
+        <div class="stat">1-click</div>
+        <div style="font-size:11px;color:var(--text-muted);">Full audit trail</div>
+      </div>
+    </div>
+    
+    <div class="tech-quote">
+      "What normally takes a firm 3-5 days took LexiFlow 4 minutes."
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>See the Contradiction Detection Engine™ <span style="color:var(--accent);">in Action</span></h2>
+    <p>Experience the full 8-minute demo at the NYC Bar Association — Tuesday, July 7th, 10:00 AM ET.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="mailto:leads@lexiflow.co" class="btn btn-gold">📅 RSVP for Demo</a>
+      <a href="mailto:leads@lexiflow.co" class="btn btn-outline-light">📧 Request a Private Demo</a>
+    </div>
+    <div class="pricing-note">Full Suite from $69/month · Three tiers available · HIPAA Compliant · SOC 2 Certified</div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <a href="/" class="footer-logo">LF LexiFlow</a>
+      <p style="font-size:14px;line-height:1.6;">Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/ai-legal-intake-software.html">AI Intake Agent</a></li>
+        <li><a href="/ai-medical-chronologies.html">Medical Chronologies</a></li>
+        <li><a href="/discovery-vault.html">Discovery-Vault™</a></li>
+        <li><a href="/depolens-ai.html">DepoLens™ AI</a></li>
+        <li><a href="/compliance-shield.html">Compliance-Shield™</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="/blog/index.html">Blog</a></li>
+        <li><a href="/case-studies/rodriguez-v-mount-sinai.html">Case Study</a></li>
+        <li><a href="/pricing.html">Pricing</a></li>
+        <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/terms.html">Terms of Service</a></li>
+        <li><a href="/soc2.html">SOC 2 Compliance</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+  </div>
+</footer>
+
+</body>
+</html>
