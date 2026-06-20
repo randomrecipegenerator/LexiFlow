@@ -4,68 +4,314 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SSD & Disability Medical Chronology Software | LexiFlow</title>
-    <meta name="description" content="Automate medical record reviews for SSD and Disability cases. LexiFlow's AI-powered chronology software helps disability attorneys identify key impairments and build trial-ready timelines.">
-    <link rel="stylesheet" href="shared-layout.css">
+    <meta name="description" content="LexiFlow is the leading AI medical chronology software for Social Security Disability (SSD) and Supplemental Security Income (SSI) attorneys. Automate SSA Blue Book listing identification and RFC mapping.">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="/shared-layout.css">
     <style>
-        :root { --primary: #1a3a5c; --accent: #c9a84c; --text: #1e293b; --bg: #ffffff; --border: #e2e8f0; }
-        body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); line-height: 1.75; }
+        :root { --primary: #1a3a5c; --primary-dark: #0d1f33; --accent: #c9a84c; --accent-light: #e2c96e; --text-dark: #1a1a2e; --text-muted: #6b7280; --border: #e2e8f0; --bg-light: #f8fafc; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; color: var(--text-dark); background: #fff; line-height: 1.6; padding-top: 80px; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-        .hero { background: linear-gradient(135deg, #0f1f3a, #1a3a5c); color: white; padding: 80px 0; text-align: center; }
-        .hero h1 { font-size: 3rem; font-family: 'Playfair Display', serif; margin-bottom: 20px; }
+        
+        nav { height: 80px; background: #fff; border-bottom: 1px solid var(--border); display: flex; align-items: center; position: fixed; top: 0; width: 100%; z-index: 100; }
+        .nav-container { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--primary); text-decoration: none; }
+        .logo span { background: var(--primary); color: var(--accent); padding: 4px 8px; border-radius: 4px; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 15px; font-weight: 500; }
+        .nav-links a:hover { color: var(--primary); }
+        .btn-cta { background: var(--accent); color: var(--primary); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; }
+
+        .hero { background: linear-gradient(135deg, #0d1f33, #1a3a5c); color: white; padding: 100px 0; text-align: center; }
+        .hero h1 { font-size: 3.5rem; font-family: 'Playfair Display', serif; font-weight: 800; margin-bottom: 24px; line-height: 1.2; }
         .hero h1 span { color: var(--accent); }
-        .content { padding: 60px 0; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-top: 40px; }
-        .card { padding: 32px; border: 1px solid var(--border); border-radius: 16px; background: #f8fafc; }
-        .card h3 { color: var(--primary); margin-bottom: 12px; }
-        .cta-section { background: var(--primary); color: white; padding: 60px 0; text-align: center; border-radius: 24px; margin-top: 60px; }
-        .btn { display: inline-block; background: var(--accent); color: #0f1f3a; padding: 14px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; margin-top: 24px; }
+        .hero p { font-size: 1.25rem; color: rgba(255,255,255,0.8); max-width: 800px; margin: 0 auto 40px; }
+        
+        .section-tag { display: inline-block; padding: 6px 12px; background: rgba(201,168,76,0.1); color: var(--accent); border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
+        
+        .content { padding: 100px 0; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-top: 60px; }
+        .card { padding: 48px; border: 1px solid var(--border); border-radius: 24px; background: white; transition: all 0.3s; position: relative; }
+        .card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); }
+        .card i { font-size: 40px; color: var(--accent); margin-bottom: 24px; display: block; }
+        .card h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--primary); margin-bottom: 16px; }
+        .card p { color: var(--text-muted); font-size: 16px; }
+
+        .detail-section { padding: 100px 0; background: var(--bg-light); }
+        .detail-flex { display: flex; align-items: center; gap: 60px; margin-bottom: 80px; }
+        .detail-flex:nth-child(even) { flex-direction: row-reverse; }
+        .detail-text { flex: 1; }
+        .detail-image { flex: 1; background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .detail-text h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary); margin-bottom: 24px; }
+        .detail-text ul { list-style: none; margin-top: 24px; }
+        .detail-text li { margin-bottom: 16px; display: flex; align-items: flex-start; gap: 12px; color: var(--text-muted); }
+        .detail-text li i { color: #10b981; font-size: 20px; }
+
+        .faq-section { padding: 100px 0; }
+        .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px; }
+        .faq-item h4 { font-size: 18px; color: var(--primary); margin-bottom: 12px; font-weight: 700; }
+        .faq-item p { color: var(--text-muted); }
+
+        .cta-section { background: var(--primary-dark); color: white; padding: 80px; text-align: center; border-radius: 32px; margin-top: 80px; position: relative; overflow: hidden; }
+        .cta-section h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 24px; }
+        .btn-large { display: inline-block; background: var(--accent); color: var(--primary-dark); padding: 18px 40px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 18px; transition: all 0.2s; }
+        .btn-large:hover { background: var(--accent-light); transform: scale(1.05); }
+
+        footer { background: #0f172a; color: rgba(255,255,255,0.5); padding: 80px 0 40px; margin-top: 100px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 24px; color: white; text-decoration: none; margin-bottom: 24px; display: block; }
+        .footer-col h4 { color: white; font-size: 14px; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 0.05em; }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 12px; }
+        .footer-col a { color: inherit; text-decoration: none; font-size: 14px; transition: color 0.2s; }
+        .footer-col a:hover { color: var(--accent); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .detail-flex { flex-direction: column !important; }
+            .faq-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-    <nav><div class="nav-container">
-        <a href="/" class="logo"><span>LF</span> LexiFlow</a>
-    </div></nav>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+            <ul class="nav-links">
+                <li><a href="/pricing">Pricing</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/signup" class="btn-cta">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <header class="hero">
         <div class="container">
-            <h1>SSD & Disability<br><span>Medical Chronology</span> Software</h1>
-            <p>Automate the analysis of thousands of pages of medical records to find the critical impairments for your Social Security Disability cases.</p>
-            <a href="/signup" class="btn">Get Started for Free</a>
+            <div class="section-tag">AI for Social Security Disability Attorneys</div>
+            <h1>The Gold Standard in<br><span>SSD Medical Chronology</span> Software</h1>
+            <p>Automate the identification of SSA Blue Book listings and map functional limitations for RFC forms. LexiFlow's Reasoning AI turns thousands of pages of medical records into winning Disability briefs in minutes.</p>
+            <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+                <a href="/signup" class="btn-large">Start Free Trial</a>
+                <a href="/roi-calculator" class="btn-large" style="background: transparent; border: 2px solid var(--accent); color: var(--accent);">Calculate Your ROI</a>
+            </div>
         </div>
     </header>
 
-    <main class="content">
-        <div class="container">
-            <h2>Why Disability Attorneys Choose LexiFlow</h2>
-            <p>LexiFlow's Reasoning AI is trained specifically to recognize the functional limitations and diagnostic criteria essential for SSD and Disability claims.</p>
-            
-            <div class="grid">
-                <div class="card">
-                    <h3>Identify Listings Automatically</h3>
-                    <p>AI scans records for diagnostic evidence that meets or equals SSA Blue Book listings.</p>
+    <main>
+        <!-- Key Features Grid -->
+        <section class="content">
+            <div class="container">
+                <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                    <div class="section-tag">Litigation Intelligence</div>
+                    <h2>Win More Claims with Data-Driven Evidence</h2>
+                    <p style="font-size: 18px; color: var(--text-muted); margin-top: 16px;">Social Security Disability (SSD) and Supplemental Security Income (SSI) claims are won on the details. Our software scans records for the specific clinical findings you need.</p>
                 </div>
-                <div class="card">
-                    <h3>Functional Limitation Mapping</h3>
-                    <p>Extract every mention of physical or mental limitations to support your client's RFC.</p>
-                </div>
-                <div class="card">
-                    <h3>Gap Detection</h3>
-                    <p>Instantly find periods of non-treatment or missing records that could impact a claim.</p>
+                
+                <div class="grid">
+                    <div class="card">
+                        <i class="bi bi-journal-text"></i>
+                        <h3>Blue Book Mapping</h3>
+                        <p>Our AI identifies diagnostic evidence that meet or equal specific SSA Listings (e.g., 1.00 Musculoskeletal, 11.00 Neurological).</p>
+                    </div>
+                    <div class="card">
+                        <i class="bi bi-person-walking"></i>
+                        <h3>RFC Support</h3>
+                        <p>Automatically extract functional limitations—exertional, postural, and mental—to support your client's RFC profile.</p>
+                    </div>
+                    <div class="card">
+                        <i class="bi bi-clock-history"></i>
+                        <h3>Longitudinal Evidence</h3>
+                        <p>Instantly visualize the severity and frequency of impairments over years of treatment to prove "severity over time."</p>
+                    </div>
                 </div>
             </div>
+        </section>
 
+        <!-- Detailed Deep Dives -->
+        <section class="detail-section">
+            <div class="container">
+                <div class="detail-flex">
+                    <div class="detail-text">
+                        <h2>Automated Listing Identification</h2>
+                        <p>Stop manual page-flipping for lab results and MRI findings. LexiFlow's SSD medical chronology software is pre-trained on SSA's Listing of Impairments.</p>
+                        <ul>
+                            <li><li><i class="bi bi-check-circle-fill"></i> Scans for specific criteria in Listings 1.00 through 14.00</li></li>
+                            <li><li><i class="bi bi-check-circle-fill"></i> Highlights page and line numbers for easy citation in briefs</li></li>
+                            <li><li><i class="bi bi-check-circle-fill"></i> Flags "Meeting vs. Equaling" clinical findings</li></li>
+                        </ul>
+                    </div>
+                    <div class="detail-image">
+                        <div style="background: #f1f5f9; height: 300px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700;">
+                            Listing Identification UI Preview
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-flex">
+                    <div class="detail-text">
+                        <h2>Functional Limitation Extraction</h2>
+                        <p>Building a robust Residual Functional Capacity (RFC) assessment is the key to winning cases at the ALJ hearing level. LexiFlow extracts every mention of client limitations.</p>
+                        <ul>
+                            <li><li><i class="bi bi-check-circle-fill"></i> Captures lifting, carrying, sitting, and standing restrictions</li></li>
+                            <li><li><i class="bi bi-check-circle-fill"></i> Identifies non-exertional limitations (e.g., mental, environmental)</li></li>
+                            <li><li><i class="bi bi-check-circle-fill"></i> Cross-references limitation data across multiple providers</li></li>
+                        </ul>
+                    </div>
+                    <div class="detail-image">
+                        <div style="background: #f1f5f9; height: 300px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700;">
+                            RFC Limitation Dashboard
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="container">
+                <div style="text-align: center;">
+                    <div class="section-tag">FAQ</div>
+                    <h2>Common Questions about SSD AI Software</h2>
+                </div>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h4>Is LexiFlow HIPAA compliant?</h4>
+                        <p>Yes. LexiFlow is built on enterprise-grade infrastructure with full HIPAA compliance and SOC2 Type II certification. All data is encrypted at rest and in transit.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Can it handle hand-written medical notes?</h4>
+                        <p>Our advanced OCR (Optical Character Recognition) engine is specifically tuned for medical handwriting and low-quality faxed records common in SSD cases.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>How does it help with ALJ hearings?</h4>
+                        <p>It provides an instant summary of "Step 3" (Listings) and "Step 4/5" (RFC) evidence, giving you a trial-ready cheat sheet to cross-examine Vocational Experts (VE).</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Does it integrate with Clio or Filevine?</h4>
+                        <p>Yes. LexiFlow offers deep integration with Clio Grow, Clio Manage, and Filevine, allowing you to push chronologies directly to your case files.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Related Guides -->
+        <section style="background: white; padding: 60px 0; border-top: 1px solid var(--border);">
+            <div class="container">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; color: var(--primary); margin-bottom: 32px;">SSD Case Preparation Resources</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px;">
+                    <a href="/blog/ssd-disability-medical-chronology-software" style="display: block; padding: 24px; border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--primary); font-weight: 600; transition: all 0.2s;">
+                        Finding Critical Impairments with AI →
+                        <p style="font-weight: 400; font-size: 14px; color: var(--text-muted); margin-top: 8px;">A deep dive into automated listing mapping and RFC support.</p>
+                    </a>
+                    <a href="/blog/how-to-create-medical-chronology-step-by-step" style="display: block; padding: 24px; border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--primary); font-weight: 600; transition: all 0.2s;">
+                        How to Create a Medical Chronology →
+                        <p style="font-weight: 400; font-size: 14px; color: var(--text-muted); margin-top: 8px;">A step-by-step guide for legal staff and associates.</p>
+                    </a>
+                    <a href="/ai-medical-chronologies" style="display: block; padding: 24px; border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--primary); font-weight: 600; transition: all 0.2s;">
+                        General Medical Chronology AI →
+                        <p style="font-weight: 400; font-size: 14px; color: var(--text-muted); margin-top: 8px;">LexiFlow's core engine for personal injury and mass torts.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom CTA -->
+        <div class="container">
             <section class="cta-section">
-                <h2>Build Stronger Disability Claims in Minutes</h2>
-                <p>Stop wasting billable hours on manual record review. Let LexiFlow do the heavy lifting.</p>
-                <a href="/signup" class="btn">Request a Private Demo</a>
+                <div class="section-tag" style="background: rgba(255,255,255,0.1); color: white;">Get Started Today</div>
+                <h2>Stop Reviewing Records. Start Winning Cases.</h2>
+                <p style="margin-bottom: 32px; color: rgba(255,255,255,0.7);">Join 200+ Disability and Personal Injury firms using LexiFlow to reclaim their billable hours.</p>
+                <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+                    <a href="/signup" class="btn-large">Create Your Account</a>
+                    <a href="/veritas" class="btn-large" style="background: transparent; border: 2px solid var(--accent); color: var(--accent);">Learn about Veritas™</a>
+                </div>
             </section>
         </div>
     </main>
 
-    <footer style="background: #0f1f3a; color: white; padding: 40px 0; margin-top: 80px;">
-        <div class="container" style="text-align: center;">
-            <p>&copy; 2026 LexiFlow Technologies Inc.</p>
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="/" class="footer-logo">LexiFlow</a>
+                    <p>Advanced Evidence Intelligence for the modern law firm. Built for Personal Injury, Medical Malpractice, and Disability practices.</p>
+                    <div style="display: flex; gap: 16px; margin-top: 24px; font-size: 20px;">
+                        <i class="bi bi-linkedin"></i>
+                        <i class="bi bi-twitter-x"></i>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="/ai-legal-intake-software">AI Intake</a></li>
+                        <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+                        <li><a href="/veritas">Veritas Deposition™</a></li>
+                        <li><a href="/pricing">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="/blog">Legal AI Blog</a></li>
+                        <li><a href="/case-studies/">Case Studies</a></li>
+                        <li><a href="/roi-calculator">ROI Calculator</a></li>
+                        <li><a href="/compliance-shield">HIPAA & Security</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="/soc2">Security Center</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.05); margin-top: 60px; padding-top: 32px; text-align: center; font-size: 13px;">
+                <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved.</p>
+                <p style="margin-top: 8px;">LexiFlow™ and Veritas™ are trademarks of LexiFlow Technologies Inc.</p>
+            </div>
         </div>
     </footer>
+    <script src="/shared-layout.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "Is LexiFlow HIPAA compliant?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. LexiFlow is built on enterprise-grade infrastructure with full HIPAA compliance and SOC2 Type II certification. All data is encrypted at rest and in transit."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Can it handle hand-written medical notes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our advanced OCR (Optical Character Recognition) engine is specifically tuned for medical handwriting and low-quality faxed records common in SSD cases."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does it help with ALJ hearings?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It provides an instant summary of Step 3 (Listings) and Step 4/5 (RFC) evidence, giving you a trial-ready cheat sheet to cross-examine Vocational Experts (VE)."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Does it integrate with Clio or Filevine?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. LexiFlow offers deep integration with Clio Grow, Clio Manage, and Filevine, allowing you to push chronologies directly to your case files."
+        }
+      }]
+    }
+    </script>
 </body>
 </html>
