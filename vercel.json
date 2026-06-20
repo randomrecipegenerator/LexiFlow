@@ -18,6 +18,10 @@
   ],
   "rewrites": [
     {
+      "source": "/veritas/:path*",
+      "destination": "/veritas/index.html"
+    },
+    {
       "source": "/__engine/events",
       "destination": "/api/index.py"
     },
@@ -32,10 +36,6 @@
     {
       "source": "/blog/([^/.]+)",
       "destination": "/blog/$1.html"
-    },
-    {
-      "source": "/veritas/:path*",
-      "destination": "/veritas/index.html"
     }
   ]
 }
