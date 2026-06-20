@@ -1513,6 +1513,237 @@ def seed_voice_leads(db: Session = Depends(get_db), current_firm: models.Firm = 
     db.commit()
     return {"status": "success", "lead_id": voice_lead.id}
 
+
+@app.post("/demo/crm-sync")
+async def demo_crm_sync(
+    lead_id: int = Form(None),
+    firm_slug: str = Form("lexiflow-tech"),
+    db: Session = Depends(get_db),
+):
+    """
+    Simulates a production-grade CRM sync for the NYC Bar demo.
+    
+    Takes an existing lead (or creates one from the Rodriguez scenario)
+    and pushes the full Reasoning AI metadata bundle to Filevine and Clio:
+    - Merit Score (92/100)
+    - Settlement Value ($4.2M — NY no-cap)
+    - 14-Hour Treatment Gap Contradiction Flag
+    - 4 Negligence Markers
+    - AI-Generated Cross-Examination Questions (3)
+    
+    Returns structured sync results matching what actual CRM integrations return.
+    """
+    import json as _json
+    from integration_engine import IntegrationEngine, UniversalLeadMapper
+    from crm.score_sync_engine import evaluate_score
+
+    # Find or create the lead
+    lead = None
+    if lead_id:
+        lead = db.query(models.Lead).filter(models.Lead.id == lead_id).first()
+    
+    if not lead:
+        # Auto-create the Rodriguez demo lead
+        firm = db.query(models.Firm).filter(models.Firm.slug == firm_slug).first()
+        if not firm:
+            firm = db.query(models.Firm).first()
+        
+        # Check if Rodriguez lead already exists
+        lead = db.query(models.Lead).filter(
+            models.Lead.full_name.ilike("%Rodriguez%"),
+            models.Lead.firm_id == (firm.id if firm else None)
+        ).first()
+        
+        if not lead:
+            lead = models.Lead(
+                firm_id=firm.id if firm else None,
+                full_name="Elena Rodriguez",
+                email="e.rodriguez@email.com",
+                phone="(212) 555-0147",
+                case_type="Medical Malpractice — Delayed Diagnosis",
+                description="14-hour delay in antibiotic administration at Mount Sinai ER leading to septic shock and bilateral below-knee amputation.",
+                qualification_score=87.0,
+                status="High Priority",
+                ai_summary="Definitive deviation from Standard of Care (Surviving Sepsis Campaign). Patient presented with 2/3 qSOFA criteria at triage. Antibiotics ordered at 19:15 but never administered until 10:15 next day — a 14-hour gap. Result: septic shock, bilateral foot necrosis, double amputation. Strong liability. NY has no damage cap.",
+                case_value_estimate=4200000.0,
+                source="AI Intake Demo",
+                is_demo=1,
+            )
+            db.add(lead)
+            db.flush()
+
+    # Build the Reasoning AI metadata bundle
+    reasoning_metadata = {
+        "ai_qualification": {
+            "priority_score": 87,
+            "merit_score": 92,
+            "negligence_markers": [
+                {
+                    "id": 1,
+                    "marker": "14-Hour Treatment Gap",
+                    "evidence": "MAR_Table_3, Nursing_Logs_P8",
+                    "severity": "CRITICAL",
+                    "description": "Antibiotics ordered at 19:15. First administration at 10:15 next day. 13.5 hours with zero documented care."
+                },
+                {
+                    "id": 2,
+                    "marker": "Sepsis Criteria Met at Triage — No Escalation",
+                    "evidence": "ER_Triage_Page_1",
+                    "severity": "HIGH",
+                    "description": "qSOFA 2/3 at 18:30 (103.2°F, HR 115). No sepsis protocol escalation for 14 hours."
+                },
+                {
+                    "id": 3,
+                    "marker": "Ordered Antibiotics Never Administered",
+                    "evidence": "Physician_Notes_P4 → MAR_Table_3",
+                    "severity": "CRITICAL",
+                    "description": "Vancomycin ordered at 19:15. MAR shows zero administration entries until 10:15."
+                },
+                {
+                    "id": 4,
+                    "marker": "No Vital Sign Monitoring During Gap",
+                    "evidence": "Nursing_Logs_P8",
+                    "severity": "HIGH",
+                    "description": "No nursing notes, no vital sign re-checks for 13.5 hours during the critical overnight period."
+                }
+            ],
+            "contradictions": [
+                {
+                    "testimony": "Dr. Alan Miller: 'I personally confirmed the start of the IV antibiotic protocol at 19:45.'",
+                    "evidence": "MAR shows zero antibiotic dosage entries until 10:15 the following morning.",
+                    "impeachment_question": "Doctor, you testified that you 'personally confirmed' the start of antibiotics at 19:45. Can you explain why the hospital's own electronic MAR shows no such administration occurred for the next 14 hours?",
+                    "confidence": 0.97
+                },
+                {
+                    "testimony": "Dr. Alan Miller: 'The patient's condition was stable throughout the evening shift.'",
+                    "evidence": "qSOFA score of 2 at 18:30 — carries 10% in-hospital mortality risk.",
+                    "impeachment_question": "You characterize a qSOFA score of 2 — which carries a 10% risk of in-hospital mortality — as 'stable'? Is that the standard definition of stability used at Mount Sinai?",
+                    "confidence": 0.94
+                }
+            ],
+            "cross_exam_questions": [
+                "Does the hospital's Sepsis Protocol require the '3-Hour Bundle' for patients meeting 2/3 qSOFA criteria?",
+                "If the '3-Hour Bundle' was not completed within 14 hours, would you agree that is a deviation from the hospital's internal safety guidelines?",
+                "Who was the nurse assigned to Bed 4 between the hours of 20:00 and 08:00?"
+            ],
+            "settlement_analysis": {
+                "jurisdiction": "New York",
+                "estimated_value": 4200000,
+                "value_range": {"low": 3500000, "high": 5200000},
+                "damage_cap": "No cap — NY has no statutory limit on non-economic damages",
+                "comparison_jurisdictions": {
+                    "California (MICRA)": 353000,
+                    "Texas (per defendant)": 750000,
+                    "Florida": "No cap"
+                },
+                "injury_severity": "Catastrophic — Bilateral BKA amputation + permanent kidney damage"
+            },
+            "medical_chronology": {
+                "source": "Discovery-Vault™ AI",
+                "events": [
+                    {"time": "May 10, 18:30", "event": "Admission — 103.2°F, HR 115, qSOFA 2/3", "ref": "ER_Triage_Page_1"},
+                    {"time": "May 10, 19:15", "event": "Antibiotics ordered (Vancomycin)", "ref": "Physician_Notes_P4"},
+                    {"time": "May 10 20:00 → May 11 09:30", "event": "⚠️ 14-HOUR GAP — No care documented", "ref": "MAR_Table_3, Nursing_Logs_P8", "flag": "CRITICAL"},
+                    {"time": "May 11, 10:00", "event": "Code Blue — Septic shock (BP 70/40)", "ref": "Code_Sheet_P1"},
+                    {"time": "May 12", "event": "Bilateral foot necrosis", "ref": "Surgical_Consult_P2"},
+                    {"time": "May 15", "event": "Double BKA amputation", "ref": "Op_Report_May15"}
+                ]
+            }
+        }
+    }
+
+    # Build CRM payloads using existing mapper
+    mapper = UniversalLeadMapper()
+    filevine_payload = mapper.map_lead(lead, "filevine")
+    clio_payload = mapper.map_lead(lead, "clio")
+
+    # Enhance payloads with Reasoning AI metadata
+    filevine_payload["aiMetadata"] = reasoning_metadata
+    filevine_payload["customFields"] = {
+        "lexiflow_priority_score": 87,
+        "lexiflow_merit_score": 92,
+        "lexiflow_case_value": "$4,200,000",
+        "lexiflow_negligence_markers": "4 detected — including 14-hour treatment gap",
+        "lexiflow_contradictions": "2 high-confidence contradictions flagged",
+        "lexiflow_cross_exam_questions": "3 AI-generated questions ready",
+        "lexiflow_damage_cap_state": "NY — No cap",
+    }
+
+    clio_payload["ai_metadata"] = reasoning_metadata
+    clio_payload["custom_fields"] = {
+        "lead_score": "87/100 — High Priority",
+        "merit_score": "92/100 — Strong Medical Merit",
+        "case_value": "$4,200,000",
+        "key_finding": "14-hour treatment gap — CRITICAL deviation"
+    }
+
+    # Evaluate score-based routing
+    score_action = evaluate_score(87)
+
+    # Simulate sync results as they would appear from live API calls
+    sync_results = {
+        "filevine": {
+            "status": "success",
+            "simulated": True,
+            "action": "create_project",
+            "project_name": "Rodriguez, Elena - Medical Malpractice — Delayed Diagnosis",
+            "external_id": f"FV-PROJ-{lead.id:06d}",
+            "reasoning_metadata_included": True,
+            "custom_fields_set": list(filevine_payload["customFields"].keys()),
+            "payload_preview": {k: v for k, v in filevine_payload.items() if k not in ["aiMetadata"]}
+        },
+        "clio": {
+            "status": "success",
+            "simulated": True,
+            "action": "create_lead",
+            "external_id": f"CLIO-LEAD-{lead.id:06d}",
+            "reasoning_metadata_included": True,
+            "custom_fields_set": list(clio_payload["custom_fields"].keys()),
+        }
+    }
+
+    # Update lead record
+    lead.sync_status = "Synced (Filevine + Clio)"
+    lead.external_crm_id = sync_results["filevine"]["external_id"]
+    db.commit()
+
+    create_audit_log(
+        db, "demo_crm_sync",
+        lead.id,
+        f"Filevine+Clio sync with full Reasoning AI metadata. Score: 87, Merit: 92, Value: $4.2M"
+    )
+
+    return {
+        "status": "success",
+        "demo_note": "This is a simulated CRM sync for demo purposes. Live sync requires configured CRM API keys.",
+        "lead": {
+            "id": lead.id,
+            "name": lead.full_name,
+            "score": lead.qualification_score,
+            "merit_score": 92,
+            "case_value": lead.case_value_estimate,
+            "status": lead.status,
+            "sync_status": lead.sync_status,
+        },
+        "reasoning_ai_bundle": {
+            "merit_score": reasoning_metadata["ai_qualification"]["merit_score"],
+            "negligence_markers_count": len(reasoning_metadata["ai_qualification"]["negligence_markers"]),
+            "contradictions_count": len(reasoning_metadata["ai_qualification"]["contradictions"]),
+            "cross_exam_questions_count": len(reasoning_metadata["ai_qualification"]["cross_exam_questions"]),
+            "settlement_value": reasoning_metadata["ai_qualification"]["settlement_analysis"]["estimated_value"],
+            "damage_cap_info": reasoning_metadata["ai_qualification"]["settlement_analysis"]["damage_cap"],
+        },
+        "sync_results": sync_results,
+        "score_based_routing": {
+            "action": score_action.action,
+            "priority": score_action.priority,
+            "sync_filevine": score_action.sync_filevine,
+            "sync_clio": score_action.sync_clio,
+            "notify_attorney": score_action.notify_attorney,
+        }
+    }
+
+
 @app.get("/audit-logs")
 def get_audit_logs(limit: int = 100, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
     query = db.query(models.AuditLog)
