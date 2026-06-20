@@ -67,7 +67,7 @@ LexiFlow's AI doesn't just recognize characters — it understands medical conte
 |--------------|----------|---------------------|-------------------|---------------|
 | Basic OCR | 70–85% | Unlimited | 5 min (search only) | $10–$50 |
 | Human paralegal | 85–95% | Limited by fatigue | 8–12 hours | $1,200–$2,100 |
-| **LexiFlow AI** | **>99%** | **Unlimited** | **3 minutes** | **$75–$150** |
+| **LexiFlow Technologies Inc** | **>99%** | **Unlimited** | **3 minutes** | **$75–$150** |
 
 ## How Reasoning AI Identifies Negligence Markers
 
@@ -157,4 +157,4 @@ For firms handling complex medical malpractice cases with large record volumes, 
 
 ---
 
-**Ready to see the accuracy difference for yourself?** [Email our team →](mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io) for a free comparison report. We'll process a sample of your records through both manual review and LexiFlow AI, and show you exactly what the accuracy gap means for your cases. The Suite from **$69/month** (3 tiers available).
+**Ready to see the accuracy difference for yourself?** [Email our team →](mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io) for a free comparison report. We'll process a sample of your records through both manual review and LexiFlow Technologies Inc, and show you exactly what the accuracy gap means for your cases. The Suite from **$69/month** (3 tiers available).

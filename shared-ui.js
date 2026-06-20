@@ -80,7 +80,7 @@
         for (var i = 0; i < Math.min(this.files.length, 3); i++) names.push(this.files[i].name);
         var fileList = names.join(', ') + (this.files.length > 3 ? ' and ' + (this.files.length - 3) + ' more' : '');
         showToast('Selected ' + this.files.length + ' file(s) for ' + moduleName + ': ' + fileList, 'success');
-        showToast('Processing documents with LexiFlow AI Core...', 'info');
+        showToast('Processing documents with LexiFlow Technologies Inc Core...', 'info');
       }
     });
 

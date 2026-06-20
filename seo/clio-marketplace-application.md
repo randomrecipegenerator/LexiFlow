@@ -30,7 +30,7 @@ This document contains all materials needed to submit LexiFlow for listing in th
 
 ### Data Flow
 1. Lead submits intake via LexiFlow web widget or voice AI
-2. LexiFlow AI qualifies lead (medical merit review, conflict check)
+2. LexiFlow Technologies Inc qualifies lead (medical merit review, conflict check)
 3. Qualified lead pushed to Clio as new matter/contact
 4. Medical chronology generated and attached to matter
 5. Settlement estimate pushed to custom field

@@ -1139,7 +1139,7 @@ def export_lead_clio_csv(lead_id: int, db: Session = Depends(get_db), current_fi
         lead.email or "",
         lead.phone or "",
         note,
-        lead.source or "LexiFlow AI",
+        lead.source or "LexiFlow Technologies Inc",
         lead.status or "New"
     ])
     

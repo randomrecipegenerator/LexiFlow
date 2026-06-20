@@ -1,6 +1,6 @@
 # LexiFlow — 2-Minute Demo Video Script
 
-## Title: "From Lead to Retainer in 60 Seconds — LexiFlow AI"
+## Title: "From Lead to Retainer in 60 Seconds — LexiFlow Technologies Inc"
 
 ---
 

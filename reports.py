@@ -76,7 +76,7 @@ async def generate_and_send_report(db: Session, firm: models.Firm):
     body = f"""
 Dear {firm.name} Team,
 
-Here is your weekly LexiFlow AI lead summary for the period of {stats['period']}.
+Here is your weekly LexiFlow Technologies Inc lead summary for the period of {stats['period']}.
 
 --- PERFORMANCE METRICS ---
 Total New Leads: {stats['total_leads']}
@@ -91,7 +91,7 @@ Documents Analyzed: {stats['docs_analyzed']}
 Manage your leads at: https://app.lexiflow.co/dashboard
 
 Best regards,
-LexiFlow AI Agent
+LexiFlow Technologies Inc Agent
     """
     
     # Get recipient email from firm config or default to lexiflow-legal-suite-88a6f8e9@ctomail.io

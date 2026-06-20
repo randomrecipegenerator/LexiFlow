@@ -28,7 +28,7 @@ Read the full cost-benefit analysis: https://lexiflow.co/blog/lexiflow-vs-tradit
 
 2/ Traditional call centers charge $1,500–$4,000/mo for basic message-taking. At 500 leads, that's $6K–$12K/mo. And you still have to re-qualify every lead. 😬
 
-3/ LexiFlow AI intake handles voice, web, SMS, and forms — with full lead scoring (1-100) — for $69–$299/mo. No per-minute billing. No per-lead fees.
+3/ LexiFlow Technologies Inc intake handles voice, web, SMS, and forms — with full lead scoring (1-100) — for $69–$299/mo. No per-minute billing. No per-lead fees.
 
 4/ The conversion gap is even bigger: Call centers: 10-15% → AI intake: 35-50%. For a firm with 100 leads/mo at $15K avg fee, that's $345K MORE revenue per month.
 

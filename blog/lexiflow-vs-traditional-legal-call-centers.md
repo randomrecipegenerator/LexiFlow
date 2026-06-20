@@ -38,7 +38,7 @@ Beyond the per-minute billing, call centers create three hidden cost centers:
 2. **Staff time to re-qualify** — Your paralegals must re-interview every call center lead because the intake data is shallow (name, number, "maybe injured").
 3. **Missed after-hours web leads** — Call centers only handle phone calls. The 40% of leads arriving via web forms at night are untouched.
 
-## What LexiFlow AI Intake Offers
+## What LexiFlow Technologies Inc Intake Offers
 
 LexiFlow's AI intake suite replaces the call center model entirely with an always-on AI engine that handles voice calls, web chat, SMS, and form submissions across a unified platform.
 
@@ -63,7 +63,7 @@ LexiFlow's AI intake suite replaces the call center model entirely with an alway
 
 ## Head-to-Head Comparison
 
-| Capability | Traditional Call Center | LexiFlow AI Intake |
+| Capability | Traditional Call Center | LexiFlow Technologies Inc Intake |
 |-----------|----------------------|-------------------|
 | **Monthly cost (100 leads)** | $1,800-$4,000 | $69 |
 | **Monthly cost (500 leads)** | $6,000-$12,000 | $299 |
@@ -112,7 +112,7 @@ Cost is only half the equation. The conversion differential is even more impactf
 A firm with 100 leads/month and a $15K average case value:
 
 - **Call center:** 12 cases/mo × $15K = **$180K/month**
-- **LexiFlow AI:** 35 cases/mo × $15K = **$525K/month**
+- **LexiFlow Technologies Inc:** 35 cases/mo × $15K = **$525K/month**
 - **Monthly revenue lift:** **$345K**
 
 ## The Implementation Transition
