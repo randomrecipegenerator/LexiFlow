@@ -60,3 +60,22 @@ To initialize the LexiFlow database schema:
 python create_tables.py
 ```
 Refer to [DEPLOYMENT.md](DEPLOYMENT.md) for full production deployment instructions.
+
+---
+
+## Core Interactive Workflows
+
+- [Rodriguez v. Mount Sinai Case Study](/case-studies/rodriguez-v-mount-sinai.html) — Full contradiction detection demo with Contradiction Detection Engine™
+- [Veritas Deposition™ Demo](/veritas) — Evidence Intelligence System™
+- [AI Intake Agent](/ai-legal-intake-software.html) — Lead qualification and scoring
+- [MeritScan](/meritscan.html) — Medical merit review
+- [Settlement Predictor Pro](/settlement-predictor.html) — Case valuation
+- [ROI Calculator](/roi-calculator.html) — Time and cost savings estimator
+
+## State Ethics & Compliance Guides
+
+- [New York AI Ethics Guide](/blog/new-york-trial-lawyers-ai-ethics-legal-intake) — 22 NYCRR Part 1200 compliance
+- [Illinois AI Ethics Guide](/blog/illinois-trial-lawyers-ai-ethics-legal-intake) — Section 2-622 compliance
+- [Pennsylvania AI Ethics Guide](/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake) — PA AI ethics framework
+- [San Francisco MedMal Intake](/san-francisco-medical-malpractice-intake.html) — MICRA 2024 / AB 35 compliance
+- [California Medical Malpractice AI Intake](/cities/san-francisco-medical-malpractice-intake) — CA-specific AI intake

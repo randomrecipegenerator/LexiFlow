@@ -1,3 +1,32 @@
+# robots.txt for LexiFlow Technologies Inc
+# https://lexiflow.co/robots.txt
+
+# Allow AI search/agent crawlers for maximum visibility
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+Disallow: /dashboard/
+Disallow: /api/v1/
+
+User-agent: GPTBot
+Allow: /
+
+# Allow standard search engines, protect sensitive paths
 User-agent: *
 Allow: /
+Disallow: /dashboard/
+Disallow: /api/v1/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+
+# Sitemap
 Sitemap: https://lexiflow.co/sitemap.xml
