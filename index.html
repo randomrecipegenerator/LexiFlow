@@ -233,6 +233,15 @@
         .pricing-card.featured { transform: none !important; margin: 20px 0 !important; }
     }
 
+    /* Case Study Section: Mobile Responsive */
+    @media (max-width: 768px) {
+      .case-metrics-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .contra-side-by-side { grid-template-columns: 1fr !important; }
+      .contra-side-by-side > div:first-child { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .tech-flow-grid { grid-template-columns: 1fr 1fr !important; }
+      .case-study-h2 { font-size: 28px !important; }
+    }
+
     </style>
 <link rel="stylesheet" href="/shared-layout.css">
 </head>
@@ -250,7 +259,7 @@
           <a href="/resources/medical-record-review-checklist.html">Record Review Checklist</a>
           <a href="/ssd-disability-medical-chronology-software">SSD & Disability Chronologies</a>
           <a href="/witness-testimony-analysis">Witness Testimony Analysis</a>
-          <a href="/case-studies/">Success Stories / Case Studies</a>
+          <a href="/case-studies/">Case Studies</a>
         </div>
       </li>
       <li><a href="/roi-calculator">ROI Calculator</a></li>
@@ -336,6 +345,148 @@
         <p>Real-time insights into your firm's performance, lead quality, and litigation ROI.</p>
       </div></section>
   </main>
+
+  <!-- Case Study: Rodriguez v. Mount Sinai -->
+  <section style="background: var(--navy); color: white; padding: 80px 0; overflow: hidden;">
+    <div style="max-width: var(--max-width); margin: 0 auto; padding: 0 40px;">
+
+      <!-- Accuracy First Badge -->
+      <div style="text-align: center; margin-bottom: 48px;">
+        <div style="display: inline-flex; align-items: center; gap: 12px; background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.25); border-radius: 100px; padding: 12px 28px;">
+          <span style="background: #16a34a; color: white; padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Accuracy First ✅</span>
+          <span style="font-size: 13px; color: var(--gold); font-weight: 600;">0% Hallucination Rate — Verified by Traceability Audit</span>
+        </div>
+        <p style="color: var(--slate-400); font-size: 14px; margin-top: 12px; max-width: 500px; margin-left: auto; margin-right: auto;">Every AI-generated clinical timeline and contradiction finding cross-referenced against source documents. Defensible, traceable, and court-ready.</p>
+      </div>
+
+      <!-- Section Header -->
+      <div style="text-align: center; margin-bottom: 48px;">
+        <div style="display: inline-block; padding: 8px 16px; background: rgba(201,168,76,0.1); color: var(--gold); border-radius: 100px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px;">⚡ Featured Case Study · NYC Bar Demo</div>
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 800; margin-bottom: 8px;">Rodriguez <span style="color: var(--gold);">v.</span> Mount Sinai Hospital</h2>
+        <p style="color: var(--slate-400); font-size: 18px; max-width: 600px; margin: 0 auto;">How Veritas Deposition™ exposed a 14-hour treatment gap that led to a bilateral amputation — and built the cross-examination in seconds.</p>
+      </div>
+
+      <!-- Key Metrics -->
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 48px;">
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; text-align: center;">
+          <div style="font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 800; color: var(--gold);">92</div>
+          <div style="font-size: 12px; color: var(--slate-400); text-transform: uppercase; letter-spacing: 0.05em;">Merit Score</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; text-align: center;">
+          <div style="font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 800; color: var(--gold);">$4.2M</div>
+          <div style="font-size: 12px; color: var(--slate-400); text-transform: uppercase; letter-spacing: 0.05em;">Trial Value (NY)</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; text-align: center;">
+          <div style="font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 800; color: var(--gold);">7</div>
+          <div style="font-size: 12px; color: var(--slate-400); text-transform: uppercase; letter-spacing: 0.05em;">Contradictions</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; text-align: center;">
+          <div style="font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 800; color: #ef4444;">14h</div>
+          <div style="font-size: 12px; color: var(--slate-400); text-transform: uppercase; letter-spacing: 0.05em;">Treatment Gap</div>
+        </div>
+      </div>
+
+      <!-- Contradiction Detection Engine™ Preview -->
+      <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 32px;">
+          <span style="font-size: 24px;">⚡</span>
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; color: white;">Contradiction Detection <span style="color: var(--gold);">Engine™</span></h3>
+          <span style="background: #dc2626; color: white; padding: 2px 10px; border-radius: 100px; font-size: 11px; font-weight: 700;">LIVE DEMO</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden; margin-bottom: 24px;">
+          <!-- Testimony Side -->
+          <div style="padding: 24px; border-right: 1px solid rgba(255,255,255,0.08);">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+              <span style="font-size: 16px;">📋</span>
+              <span style="font-size: 12px; font-weight: 600; color: var(--slate-400); text-transform: uppercase; letter-spacing: 0.05em;">Deposition Testimony</span>
+            </div>
+            <div style="background: rgba(255,255,255,0.05); border-left: 3px solid var(--slate-400); padding: 16px; border-radius: 8px; margin-bottom: 8px;">
+              <p style="font-style: italic; font-size: 14px; color: rgba(255,255,255,0.9);">"I personally confirmed the start of the IV antibiotic protocol at 19:45."</p>
+            </div>
+            <div style="font-size: 11px; color: var(--slate-400); margin-bottom: 16px;">— Dr. Alan Miller, ER Attending, Deposition Page 34</div>
+
+            <div style="background: rgba(255,255,255,0.05); border-left: 3px solid var(--slate-400); padding: 16px; border-radius: 8px; margin-bottom: 8px;">
+              <p style="font-style: italic; font-size: 14px; color: rgba(255,255,255,0.9);">"The patient's condition was stable throughout the evening shift."</p>
+            </div>
+            <div style="font-size: 11px; color: var(--slate-400);">— Dr. Alan Miller, Deposition Page 47</div>
+          </div>
+
+          <!-- Evidence Side -->
+          <div style="padding: 24px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+              <span style="font-size: 16px;">📄</span>
+              <span style="font-size: 12px; font-weight: 600; color: var(--slate-400); text-transform: uppercase; letter-spacing: 0.05em;">Evidentiary Record</span>
+            </div>
+            <div style="background: rgba(34,197,94,0.06); border-left: 3px solid #16a34a; padding: 16px; border-radius: 8px; margin-bottom: 8px;">
+              <p style="font-size: 14px; color: rgba(255,255,255,0.9);">Medication Administration Record (MAR) shows <strong style="color: #ef4444;">zero antibiotic dosage entries</strong> until 10:15 the following morning — <strong>14 hours and 30 minutes</strong> after Dr. Miller's claimed confirmation.</p>
+            </div>
+            <div style="font-size: 11px; color: var(--slate-400); margin-bottom: 16px;">Exhibit: MAR_Table_3, Nursing_Logs_P8</div>
+
+            <div style="background: rgba(34,197,94,0.06); border-left: 3px solid #16a34a; padding: 16px; border-radius: 8px; margin-bottom: 8px;">
+              <p style="font-size: 14px; color: rgba(255,255,255,0.9);">ER Triage record documents <strong style="color: #ef4444;">qSOFA score of 2 at 18:30</strong> — a clinical indicator that carries a 10% risk of in-hospital mortality.</p>
+            </div>
+            <div style="font-size: 11px; color: var(--slate-400);">Exhibit: ER_Triage_Page_1</div>
+          </div>
+        </div>
+
+        <!-- AI Cross-Examination Questions Preview -->
+        <div style="background: rgba(201,168,76,0.04); border: 1px solid rgba(201,168,76,0.15); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+            <span>🤖</span>
+            <span style="font-size: 12px; font-weight: 600; color: var(--gold); text-transform: uppercase; letter-spacing: 0.05em;">AI-Generated Cross-Examination Questions</span>
+          </div>
+          <ol style="padding-left: 20px; color: rgba(255,255,255,0.85); font-size: 13px; line-height: 1.7;">
+            <li><em>"Doctor, you testified that you 'personally confirmed' the start of antibiotics at 19:45. Can you explain why the hospital's own electronic MAR shows no such administration occurred for the next 14 hours?"</em></li>
+            <li><em>"You characterize a qSOFA score of 2 — which carries a 10% risk of in-hospital mortality — as 'stable'?"</em></li>
+            <li><em>"Does the hospital's Sepsis Protocol require the '3-Hour Bundle' for patients meeting 2/3 qSOFA criteria?"</em></li>
+          </ol>
+        </div>
+
+        <!-- Tech Stack Flow -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; align-items: center; margin-bottom: 24px;">
+          <div style="text-align: center; padding: 16px; background: rgba(255,255,255,0.04); border-radius: 12px;">
+            <div style="font-size: 28px; margin-bottom: 6px;">🤖</div>
+            <div style="font-size: 12px; font-weight: 600; color: white;">AI Intake</div>
+            <div style="font-size: 11px; color: var(--gold);">3 seconds</div>
+          </div>
+          <div style="text-align: center; color: var(--slate-400); font-size: 24px;">→</div>
+          <div style="text-align: center; padding: 16px; background: rgba(255,255,255,0.04); border-radius: 12px;">
+            <div style="font-size: 28px; margin-bottom: 6px;">📋</div>
+            <div style="font-size: 12px; font-weight: 600; color: white;">MeritScan</div>
+            <div style="font-size: 11px; color: var(--gold);">92/100</div>
+          </div>
+          <div style="text-align: center; color: var(--slate-400); font-size: 24px;">→</div>
+          <div style="text-align: center; padding: 16px; background: rgba(255,255,255,0.04); border-radius: 12px;">
+            <div style="font-size: 28px; margin-bottom: 6px;">🎯</div>
+            <div style="font-size: 12px; font-weight: 600; color: white;">Veritas Depo™</div>
+            <div style="font-size: 11px; color: var(--gold);">7 contradictions</div>
+          </div>
+          <div style="text-align: center; color: var(--slate-400); font-size: 24px;">→</div>
+          <div style="text-align: center; padding: 16px; background: rgba(255,255,255,0.04); border-radius: 12px;">
+            <div style="font-size: 28px; margin-bottom: 6px;">🔗</div>
+            <div style="font-size: 12px; font-weight: 600; color: white;">CRM Sync</div>
+            <div style="font-size: 11px; color: var(--gold);">1-click</div>
+          </div>
+        </div>
+
+        <!-- Quote -->
+        <div style="text-align: center; padding: 20px 0;">
+          <p style="font-family: 'Playfair Display', serif; font-size: 22px; color: var(--gold);">"What normally takes a firm 3-5 days took LexiFlow <strong>4 minutes</strong>."</p>
+        </div>
+      </div>
+
+      <!-- High-Intent CTA -->
+      <div style="text-align: center; padding: 32px 0;">
+        <p style="color: var(--slate-400); font-size: 14px; margin-bottom: 20px;">🔒 HIPAA Compliant · SOC 2 Certified · Signed BAA Available</p>
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <a href="/case-studies/rodriguez-v-mount-sinai" class="btn-cta" style="font-size: 16px; padding: 16px 32px;">📖 Read the Full Case Study</a>
+          <a href="mailto:leads@lexiflow.co" class="btn-cta" style="background: white; color: var(--navy); font-size: 16px; padding: 16px 32px;">🔬 Request Technical Breakdown</a>
+        </div>
+        <p style="color: var(--slate-400); font-size: 13px; margin-top: 16px;">Or see the live demo at the <strong style="color: var(--gold);">NYC Bar Association</strong> — Tuesday, July 7th, 10:00 AM ET. <a href="mailto:leads@lexiflow.co" style="color: var(--gold);">RSVP →</a></p>
+      </div>
+    </div>
+  </section>
 
 
 
