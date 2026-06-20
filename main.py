@@ -1807,6 +1807,36 @@ if not os.getenv("VERCEL") and __name__ == "__main__":
     async def serve_veritas_legacy():
         return await serve_veritas()
 
+    # Clean URL support: /page → /page.html
+    # List of pages that should be accessible without .html extension
+    CLEAN_URL_PAGES = [
+        "pricing", "signup", "login", "dashboard", "ai-legal-intake-software",
+        "ai-medical-chronologies", "voice-ai-receptionist", "compliance-shield",
+        "discovery-vault", "settlement-predictor", "roi-calculator",
+        "meritscan", "privacy", "terms", "soc2", "security",
+        "ai-intake-agent", "auto-document-drafter", "integrations",
+        "witness-testimony-analysis", "personal-injury-software",
+        "medical-chronology-software", "medical-chronology-template",
+        "medical-chronology-sample", "medical-record-review-checklist",
+        "case-studies", "roi-report-template", "veritas-app",
+        "san-francisco-medical-malpractice-intake",
+    ]
+    for page in CLEAN_URL_PAGES:
+        html_path = os.path.join(root_dir, f"{page}.html")
+        if os.path.exists(html_path):
+            @app.api_route(f"/{page}", methods=["GET", "HEAD"])
+            async def _serve_clean_url(page=page):
+                return FileResponse(os.path.join(root_dir, f"{page}.html"))
+
+    # Resources pages: /resources/medical-chronology-template → /resources/medical-chronology-template.html
+    RESOURCE_PAGES = ["medical-chronology-template", "medical-chronology-sample", "medical-record-review-checklist"]
+    for rp in RESOURCE_PAGES:
+        rp_path = os.path.join(root_dir, "resources", f"{rp}.html")
+        if os.path.exists(rp_path):
+            @app.api_route(f"/resources/{rp}", methods=["GET", "HEAD"])
+            async def _serve_resource(rp=rp):
+                return FileResponse(os.path.join(root_dir, "resources", f"{rp}.html"))
+
     app.mount("/api", api_app)
     app.mount("/", StaticFiles(directory=root_dir, html=True), name="static")
     
