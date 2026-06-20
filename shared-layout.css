@@ -81,3 +81,27 @@ nav ul li a[aria-current="page"] {
 @media (max-width: 768px) {
   .nav-toggle { display: block; }
 }
+
+/* --- Agentic Browsing: Owner-Specified Styles --- */
+#agentic-intake-section {
+  display: block;
+  min-height: 450px;
+  contain: layout size;
+}
+#webmcp-intake-form input,
+#webmcp-intake-form select,
+#webmcp-intake-form textarea,
+#webmcp-intake-form button,
+#webmcp-intake-form label {
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-width: 44px;
+  min-height: 44px;
+}
+#webmcp-intake-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+}
