@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800">
+  <defs>
+    <style>
+      .navy { fill: #1a3a5c; }
+      .gold { fill: #c9a84c; }
+      .slate-100 { fill: #f1f5f9; }
+      .slate-200 { fill: #e2e8f0; }
+      .slate-400 { fill: #94a3b8; }
+      .slate-600 { fill: #475569; }
+      .white { fill: #ffffff; }
+      .green { fill: #16a34a; }
+      .blue { fill: #3b82f6; }
+      .text-navy { fill: #1a3a5c; font-family: Inter, sans-serif; }
+      .text-white { fill: #ffffff; font-family: Inter, sans-serif; }
+      .text-gold { fill: #c9a84c; font-family: Inter, sans-serif; }
+      .text-muted { fill: #94a3b8; font-family: Inter, sans-serif; }
+      .text-body { fill: #475569; font-family: Inter, sans-serif; }
+      .title { font-size: 20px; font-weight: 700; }
+      .subtitle { font-size: 14px; }
+      .body { font-size: 13px; }
+      .caption { font-size: 11px; }
+      .frame { fill: none; stroke: #e2e8f0; stroke-width: 1.5; }
+    </style>
+  </defs><rect width="1280" height="800" fill="#f8fafc"/><rect width="1280" height="40" fill="#1a3a5c"/><text x="20" y="26" class="text-white subtitle">LexiFlow Intake Widget — Embedded Demo</text><rect x="30" y="55" width="650" height="720" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/><rect x="30" y="55" width="650" height="44" rx="12" fill="#1a3a5c"/><text x="50" y="82" class="text-white subtitle">Clio Grow — Lead Inbox</text><text x="50" y="125" class="text-muted caption">Name</text><text x="220" y="125" class="text-muted caption">Source</text><text x="340" y="125" class="text-muted caption">Status</text><text x="430" y="125" class="text-muted caption">Score</text><line x1="30" y1="148" x2="680" y2="148" stroke="#e2e8f0" stroke-width="1"/><text x="50" y="172" class="text-navy body">James Williamson</text><text x="220" y="172" class="text-body body">Web Widget</text><text x="340" y="172" class="text-body body">New</text><text x="430" y="172" class="text-navy body">87</text><line x1="30" y1="196" x2="680" y2="196" stroke="#e2e8f0" stroke-width="1"/><text x="50" y="220" class="text-navy body">Maria Garcia</text><text x="220" y="220" class="text-body body">Web Widget</text><text x="340" y="220" class="text-body body">Contacted</text><text x="430" y="220" class="text-navy body">92</text><line x1="30" y1="244" x2="680" y2="244" stroke="#e2e8f0" stroke-width="1"/><text x="50" y="268" class="text-navy body">Robert Chen</text><text x="220" y="268" class="text-body body">Voice</text><text x="340" y="268" class="text-body body">Qualified</text><text x="430" y="268" class="text-navy body">78</text><line x1="30" y1="292" x2="680" y2="292" stroke="#e2e8f0" stroke-width="1"/><text x="50" y="316" class="text-navy body">Sarah Williams</text><text x="220" y="316" class="text-body body">Web Widget</text><text x="340" y="316" class="text-body body">New</text><text x="430" y="316" class="text-navy body">45</text><line x1="30" y1="340" x2="680" y2="340" stroke="#e2e8f0" stroke-width="1"/><text x="50" y="364" class="text-navy body">David Kim</text><text x="220" y="364" class="text-body body">Voice</text><text x="340" y="364" class="text-body body">Qualified</text><text x="430" y="364" class="text-navy body">95</text><rect x="710" y="55" width="540" height="420" rx="16" fill="#ffffff" stroke="#c9a84c" stroke-width="1.5"/><rect x="710" y="55" width="540" height="55" rx="16" fill="#1a3a5c"/><text x="740" y="80" class="text-white subtitle">LexiFlow AI Intake</text><text x="740" y="100" class="text-gold caption">Online • Ready to assist</text><rect x="740" y="125" width="300" height="55" rx="8" fill="#1a3a5c"/><text x="752" y="151" class="text-white body">Hi! I'm Alex. How can I help?</text><rect x="900" y="195" width="300" height="45" rx="8" fill="#f1f5f9"/><text x="912" y="221" class="text-body body">I was in a car accident.</text><rect x="740" y="255" width="320" height="55" rx="8" fill="#1a3a5c"/><text x="752" y="281" class="text-white body">I'm sorry to hear that. Were you injured?</text><rect x="730" y="390" width="460" height="45" rx="12" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1.5"/><text x="750" y="415" class="text-muted caption">Type your message...</text><rect x="1200" y="390" width="50" height="45" rx="12" fill="#1a3a5c" stroke="none" stroke-width="1.5"/><text x="1210" y="415" class="text-white caption">Send</text><text x="730" y="490" class="text-muted caption">Embed: &lt;script src=&quot;https://lexiflow.co/widget.js&quot;&gt;&lt;/script&gt;</text></svg>

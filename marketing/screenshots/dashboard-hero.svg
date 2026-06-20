@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800">
+  <rect width="1200" height="800" fill="#f8fafc"/>
+  <rect width="1200" height="60" fill="#fff" stroke="#e2e8f0"/>
+  <text x="30" y="38" font-family="Inter" font-size="16" font-weight="700" fill="#1a3a5c">LexiFlow Dashboard</text>
+  <text x="200" y="38" font-family="Inter" font-size="12" fill="#6b7280">Signed in as admin@firm.com</text>
+  <rect x="30" y="90" width="340" height="100" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <text x="50" y="125" font-family="Georgia" font-size="36" font-weight="800" fill="#1a3a5c">247</text>
+  <text x="50" y="155" font-family="Inter" font-size="11" fill="#6b7280">TOTAL LEADS</text>
+  <rect x="390" y="90" width="340" height="100" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <text x="410" y="125" font-family="Georgia" font-size="36" font-weight="800" fill="#1a3a5c">3.8%</text>
+  <text x="410" y="155" font-family="Inter" font-size="11" fill="#6b7280">CONVERSION RATE</text>
+  <rect x="750" y="90" width="340" height="100" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <text x="770" y="125" font-family="Georgia" font-size="36" font-weight="800" fill="#1a3a5c">$69</text>
+  <text x="770" y="155" font-family="Inter" font-size="11" fill="#6b7280">MONTHLY FLAT</text>
+  <rect x="30" y="220" width="570" height="290" rx="12" fill="#fff" stroke="#e2e8f0"/>
+  <text x="60" y="255" font-family="Inter" font-size="16" font-weight="700" fill="#1a3a5c">Lead Pipeline</text>
+  <rect x="50" y="280" width="100" height="170" rx="4" fill="#e2e8f0"/><text x="100" y="465" font-family="Inter" font-size="11" fill="#6b7280">New (35)</text>
+  <rect x="170" y="300" width="100" height="150" rx="4" fill="rgba(22,163,74,0.15)"/><text x="220" y="465" font-family="Inter" font-size="11" fill="#6b7280">Qualified (68)</text>
+  <rect x="290" y="240" width="100" height="210" rx="4" fill="#c9a84c"/><text x="340" y="465" font-family="Inter" font-size="11" fill="#6b7280">Priority (112)</text>
+  <rect x="410" y="320" width="100" height="130" rx="4" fill="rgba(239,68,68,0.15)"/><text x="460" y="465" font-family="Inter" font-size="11" fill="#6b7280">Closed (32)</text>
+  <rect x="640" y="220" width="530" height="290" rx="12" fill="#fff" stroke="#e2e8f0"/>
+  <text x="670" y="255" font-family="Inter" font-size="16" font-weight="700" fill="#1a3a5c">Recent Leads</text>
+  <text x="670" y="290" font-family="Inter" font-size="14" font-weight="600" fill="#1a3a5c">Todd Walker MedMal</text>
+  <text x="670" y="315" font-family="Inter" font-size="12" fill="#6b7280">Score: 98.5 High Priority Sync to Clio</text>
+  <text x="670" y="360" font-family="Inter" font-size="14" font-weight="600" fill="#1a3a5c">Maria Rodriguez Birth Injury</text>
+  <text x="670" y="385" font-family="Inter" font-size="12" fill="#6b7280">Score: 99.0 Spanish Intake High Priority</text>
+  <text x="670" y="430" font-family="Inter" font-size="14" font-weight="600" fill="#1a3a5c">Route 66 Collision Trucking</text>
+  <text x="670" y="455" font-family="Inter" font-size="12" fill="#6b7280">Score: 94.2 Logbook Violations Sync Pending</text>
+  <rect x="0" y="720" width="1200" height="80" fill="#0d1f33"/>
+</svg>

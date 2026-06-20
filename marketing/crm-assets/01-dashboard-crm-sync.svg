@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800">
+  <defs>
+    <style>
+      .navy { fill: #1a3a5c; }
+      .gold { fill: #c9a84c; }
+      .slate-100 { fill: #f1f5f9; }
+      .slate-200 { fill: #e2e8f0; }
+      .slate-400 { fill: #94a3b8; }
+      .slate-600 { fill: #475569; }
+      .white { fill: #ffffff; }
+      .green { fill: #16a34a; }
+      .blue { fill: #3b82f6; }
+      .text-navy { fill: #1a3a5c; font-family: Inter, sans-serif; }
+      .text-white { fill: #ffffff; font-family: Inter, sans-serif; }
+      .text-gold { fill: #c9a84c; font-family: Inter, sans-serif; }
+      .text-muted { fill: #94a3b8; font-family: Inter, sans-serif; }
+      .text-body { fill: #475569; font-family: Inter, sans-serif; }
+      .title { font-size: 20px; font-weight: 700; }
+      .subtitle { font-size: 14px; }
+      .body { font-size: 13px; }
+      .caption { font-size: 11px; }
+      .frame { fill: none; stroke: #e2e8f0; stroke-width: 1.5; }
+    </style>
+  </defs><rect width="1280" height="800" fill="#ffffff"/><rect width="1280" height="56" fill="#1a3a5c"/><text x="24" y="34" class="text-white title">LexiFlow Attorney Dashboard</text><text x="1040" y="34" class="text-gold subtitle">CRM: Connected</text><rect x="0" y="56" width="200" height="744" fill="#f1f5f9"/><text x="20" y="102" class="text-body body">  Dashboard</text><text x="20" y="150" class="text-body body">  Leads</text><rect x="0" y="172" width="200" height="36" fill="#ffffff"/><text x="20" y="198" class="text-navy body">  CRM Sync</text><text x="20" y="246" class="text-body body">  Settings</text><text x="20" y="294" class="text-body body">  Integrations</text><text x="240" y="100" class="text-navy title">CRM Integration Settings</text><rect x="240" y="140" width="400" height="100" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/><text x="260" y="164" class="text-navy body">Clio Grow (Lexicata)</text><text x="260" y="190" class="body" fill="#16a34a">Status: Connected</text><text x="260" y="212" class="text-muted caption">Last Sync: Today at 2:34 PM</text><rect x="240" y="260" width="400" height="100" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/><text x="260" y="284" class="text-navy body">Filevine</text><text x="260" y="310" class="body" fill="#16a34a">Status: Connected</text><text x="260" y="332" class="text-muted caption">Last Sync: Today at 2:34 PM</text><rect x="240" y="380" width="400" height="100" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/><text x="260" y="404" class="text-navy body">LeadDock</text><text x="260" y="430" class="body" fill="#94a3b8">Status: Not Configured</text><text x="260" y="452" class="text-muted caption">Click to configure</text><rect x="680" y="140" width="560" height="340" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/><text x="700" y="166" class="text-navy body">Recent CRM Sync Activity</text><text x="700" y="190" class="body" fill="#16a34a">✓ Lead: John Smith → Synced to Clio Grow</text><text x="700" y="238" class="body" fill="#16a34a">✓ Lead: Maria Garcia → Synced to Filevine</text><text x="700" y="286" class="body" fill="#16a34a">✓ Lead: Robert Chen → Synced to Clio Grow</text><text x="700" y="334" class="body" fill="#16a34a">✓ Medical Chronology → Attached to Filevine</text><text x="700" y="382" class="body" fill="#ef4444">✗ Lead: Sarah Williams → Sync Failed (retrying)</text><rect x="240" y="580" width="1000" height="70" rx="12" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1.5"/><text x="270" y="605" class="text-muted caption">Total Leads Synced</text><text x="270" y="630" class="text-navy title">1,247</text><text x="510" y="605" class="text-muted caption">Active Integrations</text><text x="510" y="630" class="text-navy title">2/3</text><text x="750" y="605" class="text-muted caption">Sync Rate</text><text x="750" y="630" class="text-navy title">99.8%</text><text x="990" y="605" class="text-muted caption">Errors Today</text><text x="990" y="630" class="text-navy title">1</text></svg>

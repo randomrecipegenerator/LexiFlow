@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800">
+  <defs>
+    <style>
+      .navy { fill: #1a3a5c; }
+      .gold { fill: #c9a84c; }
+      .slate-100 { fill: #f1f5f9; }
+      .slate-200 { fill: #e2e8f0; }
+      .slate-400 { fill: #94a3b8; }
+      .slate-600 { fill: #475569; }
+      .white { fill: #ffffff; }
+      .green { fill: #16a34a; }
+      .blue { fill: #3b82f6; }
+      .text-navy { fill: #1a3a5c; font-family: Inter, sans-serif; }
+      .text-white { fill: #ffffff; font-family: Inter, sans-serif; }
+      .text-gold { fill: #c9a84c; font-family: Inter, sans-serif; }
+      .text-muted { fill: #94a3b8; font-family: Inter, sans-serif; }
+      .text-body { fill: #475569; font-family: Inter, sans-serif; }
+      .title { font-size: 20px; font-weight: 700; }
+      .subtitle { font-size: 14px; }
+      .body { font-size: 13px; }
+      .caption { font-size: 11px; }
+      .frame { fill: none; stroke: #e2e8f0; stroke-width: 1.5; }
+    </style>
+  </defs><rect width="1280" height="800" fill="#ffffff"/><rect width="1280" height="56" fill="#1a3a5c"/><text x="24" y="34" class="text-white title">LexiFlow — Medical Chronology (CRM Ready)</text><rect x="30" y="80" width="600" height="700" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/><rect x="30" y="80" width="600" height="44" rx="16" fill="#1a3a5c"/><text x="50" y="108" class="text-white subtitle">AI Medical Chronology — Smith v. Pacific Medical</text><circle cx="75" cy="153" r="16" fill="#c9a84c"/><text x="68" y="158" class="text-white caption">03-10</text><text x="110" y="149" class="text-navy body">PCP Visit</text><text x="110" y="173" class="text-muted caption">Chest pressure. Missed cardiac workup.</text><circle cx="75" cy="228" r="16" fill="#c9a84c"/><text x="68" y="233" class="text-white caption">03-12</text><text x="110" y="224" class="text-navy body">ER Admission</text><text x="110" y="248" class="text-muted caption">NSTEMI. Emergency stent placed.</text><circle cx="75" cy="303" r="16" fill="#c9a84c"/><text x="68" y="308" class="text-white caption">03-17</text><text x="110" y="299" class="text-navy body">Readmission</text><text x="110" y="323" class="text-muted caption">STEMI — in-stent thrombosis. Thrombectomy.</text><circle cx="75" cy="378" r="16" fill="#c9a84c"/><text x="68" y="383" class="text-white caption">03-25</text><text x="110" y="374" class="text-navy body">Discharge</text><text x="110" y="398" class="text-muted caption">Triple therapy. Cardiac rehab.</text><rect x="660" y="80" width="590" height="240" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/><text x="690" y="112" class="text-navy title">CRM Actions</text><rect x="690" y="140" width="530" height="45" rx="12" fill="#f1f5f9" stroke="none" stroke-width="1.5"/><text x="710" y="162" class="text-navy body">Sync Chronology to Clio</text><text x="930" y="162" class="text-muted caption">Attach to matter #1234</text><rect x="690" y="195" width="530" height="45" rx="12" fill="#f1f5f9" stroke="none" stroke-width="1.5"/><text x="710" y="217" class="text-navy body">Sync to Filevine</text><text x="930" y="217" class="text-muted caption">Add to case file</text><rect x="690" y="250" width="530" height="45" rx="12" fill="#f1f5f9" stroke="none" stroke-width="1.5"/><text x="710" y="272" class="text-navy body">Email Report</text><text x="930" y="272" class="text-muted caption">Send PDF to team</text><rect x="660" y="350" width="590" height="430" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/><text x="690" y="380" class="text-navy title">Sync History</text><text x="690" y="420" class="text-body body">✓ PDF Chronology exported &amp; attached to Clio</text><text x="690" y="456" class="text-body body">✓ Filevine case note created</text><text x="690" y="492" class="text-body body">✓ Email sent to 3 team members</text><text x="690" y="528" class="text-body body">✓ Document indexed for discovery</text></svg>
