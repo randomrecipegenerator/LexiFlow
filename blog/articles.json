@@ -1,5 +1,69 @@
 [
   {
+    "id": "ai-deposition-summary-vs-manual-review",
+    "title": "AI Deposition Summary vs Manual Review",
+    "slug": "ai-deposition-summary-vs-manual-review",
+    "category": "Deposition Analysis",
+    "excerpt": "An objective, data-backed cost-benefit analysis of AI deposition summaries versus traditional manual paralegal review. Compare speed, error rates, unbilled overhead, and firm ROI.",
+    "date": "2026-06-22",
+    "readTime": "11 min read",
+    "image": "/blog/images/roi-ai-law-firm-scaling.png",
+    "author": "LexiFlow Team",
+    "tags": [
+      "ai deposition summary vs manual review",
+      "deposition digest cost comparison",
+      "AI legal transcript accuracy"
+    ]
+  },
+  {
+    "id": "deposition-summary-template",
+    "title": "Standard Deposition Summary Template & Formats",
+    "slug": "deposition-summary-template",
+    "category": "Deposition Analysis",
+    "excerpt": "Download the standard, partner-approved deposition summary template used by top litigation firms. Compare manual template formatting with automated AI-generated digests.",
+    "date": "2026-06-22",
+    "readTime": "8 min read",
+    "image": "/blog/images/lead-scoring-automation-guide.png",
+    "author": "LexiFlow Team",
+    "tags": [
+      "deposition summary template",
+      "deposition digest template",
+      "paralegal deposition summary"
+    ]
+  },
+  {
+    "id": "how-ai-finds-key-admissions-in-depositions",
+    "title": "How AI Finds Key Admissions in Depositions",
+    "slug": "how-ai-finds-key-admissions-in-depositions",
+    "category": "Deposition Analysis",
+    "excerpt": "How does AI find case-winning admissions in 500-page deposition transcripts? Discover the technology behind semantic extraction, standard-of-care analysis, and automated citation linking.",
+    "date": "2026-06-22",
+    "readTime": "9 min read",
+    "image": "/blog/images/mass-tort-ai-discovery.png",
+    "author": "LexiFlow Team",
+    "tags": [
+      "deposition admissions finder",
+      "extract admissions",
+      "AI impeachment finder"
+    ]
+  },
+  {
+    "id": "how-to-digest-a-deposition-in-15-minutes",
+    "title": "How to Digest a Deposition in 15 Minutes with AI",
+    "slug": "how-to-digest-a-deposition-in-15-minutes",
+    "category": "Deposition Analysis",
+    "excerpt": "Stop wasting 20+ hours on manual deposition summaries. Learn how modern litigation teams use AI to digest depositions, track legal issues, and prepare trial outlines in 15 minutes.",
+    "date": "2026-06-22",
+    "readTime": "10 min read",
+    "image": "/blog/images/digesting-deposition-ai-analysis.png",
+    "author": "LexiFlow Team",
+    "tags": [
+      "how to digest a deposition",
+      "AI deposition summary",
+      "deposition digest"
+    ]
+  },
+  {
     "id": "ssd-disability-medical-chronology-software",
     "title": "SSD & Disability Medical Chronology: Finding the Critical Impairments with AI",
     "slug": "ssd-disability-medical-chronology-software",
@@ -9,7 +73,11 @@
     "readTime": "10 min read",
     "image": "/blog/images/ssd-disability-medical-chronology.png",
     "author": "LexiFlow Team",
-    "tags": ["SSD", "Disability", "Medical Chronology"]
+    "tags": [
+      "SSD",
+      "Disability",
+      "Medical Chronology"
+    ]
   },
   {
     "id": "how-ai-medical-merit-review-cuts-case-screening",
@@ -21,7 +89,10 @@
     "readTime": "11 min read",
     "image": "/blog/images/how-ai-merit-review-case-screening.png",
     "author": "LexiFlow Team",
-    "tags": ["AI medical merit review", "HIPAA Compliant"]
+    "tags": [
+      "AI medical merit review",
+      "HIPAA Compliant"
+    ]
   },
   {
     "id": "ethics-ai-legal-intake-responsible-implementation",
@@ -33,67 +104,85 @@
     "readTime": "12 min read",
     "image": "/blog/images/ethics-ai-legal-intake-responsible.png",
     "author": "LexiFlow Team",
-    "tags": ["AI ethics", "legal intake"]
+    "tags": [
+      "AI ethics",
+      "legal intake"
+    ]
   },
   {
     "id": "enterprise-suite-launch-ai-litigation",
     "title": "LexiFlow Launches Enterprise Suite: AI-Powered Litigation Modules for Plaintiff Firms",
     "slug": "enterprise-suite-launch-ai-litigation",
     "category": "Legal Tech & AI Innovation",
-    "excerpt": "LexiFlow unveils its Enterprise Suite with four advanced litigation modules — Discovery-Vault, Settlement-Predictor Pro, Veritas Deposition™, and Compliance-Shield — at $299/month.",
+    "excerpt": "LexiFlow unveils its Enterprise Suite with four advanced litigation modules \u2014 Discovery-Vault, Settlement-Predictor Pro, Veritas Deposition\u2122, and Compliance-Shield \u2014 at $299/month.",
     "date": "2026-06-22",
     "readTime": "8 min read",
     "image": "/blog/images/enterprise-suite-launch-announcement.png",
     "author": "LexiFlow Team",
-    "tags": ["AI litigation software", "Enterprise Suite"]
+    "tags": [
+      "AI litigation software",
+      "Enterprise Suite"
+    ]
   },
   {
     "id": "lexiflow-10-production-launch-ai-litigation-platform",
     "title": "LexiFlow 1.0: Production-Ready AI for Plaintiff Litigation",
     "slug": "lexiflow-10-production-launch-ai-litigation-platform",
     "category": "Product Launch",
-    "excerpt": "LexiFlow 1.0 is live — HIPAA-compliant, production-hardened, and purpose-built for plaintiff-side PI and medical malpractice firms.",
+    "excerpt": "LexiFlow 1.0 is live \u2014 HIPAA-compliant, production-hardened, and purpose-built for plaintiff-side PI and medical malpractice firms.",
     "date": "2026-06-18",
     "readTime": "7 min read",
     "image": "/blog/images/how-ai-merit-review-overhead-roi.png",
     "author": "LexiFlow Team",
-    "tags": ["Product Launch", "HIPAA Compliant"]
+    "tags": [
+      "Product Launch",
+      "HIPAA Compliant"
+    ]
   },
   {
     "id": "medical-chronology-vs-medical-summary-difference",
     "title": "Medical Chronology vs. Medical Summary: What's the Difference and When to Use Each",
     "slug": "medical-chronology-vs-medical-summary-difference",
     "category": "Medical Chronology",
-    "excerpt": "Medical chronology vs. medical summary — what's the difference, when to use each, and how AI tools automate both for plaintiff personal injury attorneys.",
+    "excerpt": "Medical chronology vs. medical summary \u2014 what's the difference, when to use each, and how AI tools automate both for plaintiff personal injury attorneys.",
     "date": "2026-06-19",
     "readTime": "9 min read",
     "image": "/blog/images/medical-chronology-vs-summary-comparison.png",
     "author": "LexiFlow Team",
-    "tags": ["chronology", "medical summary"]
+    "tags": [
+      "chronology",
+      "medical summary"
+    ]
   },
   {
     "id": "how-to-create-medical-chronology-step-by-step",
     "title": "How to Create a Medical Chronology: A Step-by-Step Guide for PI Attorneys",
     "slug": "how-to-create-medical-chronology-step-by-step",
     "category": "Medical Chronology",
-    "excerpt": "Learn how to create a medical chronology for personal injury cases — step-by-step process, template best practices, and how AI medical chronology software automates the workflow.",
+    "excerpt": "Learn how to create a medical chronology for personal injury cases \u2014 step-by-step process, template best practices, and how AI medical chronology software automates the workflow.",
     "date": "2026-06-22",
     "readTime": "12 min read",
     "image": "/blog/images/how-to-create-medical-chronology-guide.png",
     "author": "LexiFlow Team",
-    "tags": ["Medical Chronology", "Workflow"]
+    "tags": [
+      "Medical Chronology",
+      "Workflow"
+    ]
   },
   {
     "id": "digesting-deposition-ai-transcript-analysis",
     "title": "Digesting a Deposition: How AI Is Revolutionizing Transcript Analysis for Trial Lawyers",
     "slug": "digesting-deposition-ai-transcript-analysis",
     "category": "Deposition Analysis",
-    "excerpt": "Learn how AI deposition analysis tools digest depositions in minutes — flagging contradictions, cross-referencing medical records, and surfacing key testimony.",
+    "excerpt": "Learn how AI deposition analysis tools digest depositions in minutes \u2014 flagging contradictions, cross-referencing medical records, and surfacing key testimony.",
     "date": "2026-06-15",
     "readTime": "10 min read",
     "image": "/blog/images/digesting-deposition-ai-analysis.png",
     "author": "LexiFlow Team",
-    "tags": ["Deposition Analysis", "Trial Strategy"]
+    "tags": [
+      "Deposition Analysis",
+      "Trial Strategy"
+    ]
   },
   {
     "id": "roi-ai-personal-injury-firms-scaling-without-adding-headcount",
@@ -105,7 +194,11 @@
     "readTime": "15 min read",
     "image": "/blog/images/roi-ai-law-firm-scaling.png",
     "author": "LexiFlow Team",
-    "tags": ["ROI", "Scaling", "Case Study"]
+    "tags": [
+      "ROI",
+      "Scaling",
+      "Case Study"
+    ]
   },
   {
     "id": "why-law-firm-losing-40-percent-leads-ai-legal-intake-software",
@@ -117,7 +210,10 @@
     "readTime": "12 min read",
     "image": "/blog/images/why-law-firm-losing-leads.png",
     "author": "LexiFlow Team",
-    "tags": ["Legal Intake", "Conversion"]
+    "tags": [
+      "Legal Intake",
+      "Conversion"
+    ]
   },
   {
     "id": "ai-vs-human-medical-chronology-accuracy",
@@ -129,7 +225,10 @@
     "readTime": "14 min read",
     "image": "/blog/images/ai-vs-human-chronology-accuracy-hero.png",
     "author": "LexiFlow Team",
-    "tags": ["Accuracy", "Benchmarks"]
+    "tags": [
+      "Accuracy",
+      "Benchmarks"
+    ]
   },
   {
     "id": "how-ai-medical-chronologies-revolutionizing-personal-injury-case-valuation",
@@ -141,7 +240,10 @@
     "readTime": "10 min read",
     "image": "/blog/images/ai-medical-chronology-revolutionizing-valuation.png",
     "author": "LexiFlow Team",
-    "tags": ["Case Valuation", "Settlement Demands"]
+    "tags": [
+      "Case Valuation",
+      "Settlement Demands"
+    ]
   },
   {
     "id": "new-york-trial-lawyers-ai-ethics-legal-intake",
@@ -153,7 +255,11 @@
     "readTime": "13 min read",
     "image": "/blog/images/ethics-ai-legal-intake-responsible.png",
     "author": "LexiFlow Team",
-    "tags": ["New York", "Ethics", "Compliance"]
+    "tags": [
+      "New York",
+      "Ethics",
+      "Compliance"
+    ]
   },
   {
     "id": "illinois-trial-lawyers-ai-ethics-legal-intake",
@@ -165,7 +271,11 @@
     "readTime": "12 min read",
     "image": "/blog/images/ethics-ai-legal-intake-responsible.png",
     "author": "LexiFlow Team",
-    "tags": ["Illinois", "Ethics", "Section 2-622"]
+    "tags": [
+      "Illinois",
+      "Ethics",
+      "Section 2-622"
+    ]
   },
   {
     "id": "pennsylvania-trial-lawyers-ai-ethics-legal-intake",
@@ -177,7 +287,10 @@
     "readTime": "11 min read",
     "image": "/blog/images/ethics-ai-legal-intake-responsible.png",
     "author": "LexiFlow Team",
-    "tags": ["Pennsylvania", "Ethics"]
+    "tags": [
+      "Pennsylvania",
+      "Ethics"
+    ]
   },
   {
     "id": "how-ai-medical-merit-review-slashes-law-firm-overhead",
@@ -189,7 +302,10 @@
     "readTime": "9 min read",
     "image": "/blog/images/how-ai-merit-review-overhead-roi.png",
     "author": "LexiFlow Team",
-    "tags": ["Overhead", "Profitability"]
+    "tags": [
+      "Overhead",
+      "Profitability"
+    ]
   },
   {
     "id": "lexiflow-vs-traditional-legal-call-centers",
@@ -201,7 +317,10 @@
     "readTime": "12 min read",
     "image": "/blog/images/lexiflow-vs-call-centers-comparison.png",
     "author": "LexiFlow Team",
-    "tags": ["legal intake comparison", "call center replacement"]
+    "tags": [
+      "legal intake comparison",
+      "call center replacement"
+    ]
   },
   {
     "id": "how-to-automate-personal-injury-lead-scoring",
@@ -213,7 +332,10 @@
     "readTime": "14 min read",
     "image": "/blog/images/lead-scoring-automation-guide.png",
     "author": "LexiFlow Team",
-    "tags": ["lead scoring", "case qualification"]
+    "tags": [
+      "lead scoring",
+      "case qualification"
+    ]
   },
   {
     "id": "scaling-mass-tort-practice-ai-discovery",
@@ -225,6 +347,9 @@
     "readTime": "13 min read",
     "image": "/blog/images/mass-tort-ai-discovery.png",
     "author": "LexiFlow Team",
-    "tags": ["mass tort", "AI discovery"]
+    "tags": [
+      "mass tort",
+      "AI discovery"
+    ]
   }
 ]

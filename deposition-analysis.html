@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Deposition Analysis & Trial Strategy Software | LexiFlow</title>
+  <meta name="description" content="Analyze depositions with Reasoning AI. Identify witness patterns, cross-reference medical records, and prepare cross-examination outlines automatically." />
+  <link rel="canonical" href="https://lexiflow.co/deposition-analysis.html" />
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="shared-layout.css" />
+
+  <style>
+    :root {
+      --primary: #1a3a5c;
+      --navy: #0f172a;
+      --gold: #c9a84c;
+      --gold-light: #e2c96e;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-600: #475569;
+      --slate-900: #0f172a;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: var(--slate-900);
+      line-height: 1.6;
+    }
+
+    /* Sub-Page Layout Styles */
+    .hero-sub {
+      background: linear-gradient(135deg, #0f1f3a, #1a3a5c, #1e3a8a);
+      color: white;
+      padding: 120px 0 80px;
+      text-align: left;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .hero-sub h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .hero-sub h1 span {
+      color: var(--gold);
+    }
+    .hero-sub p {
+      font-size: 18px;
+      color: var(--slate-200);
+      margin-bottom: 30px;
+      max-width: 650px;
+    }
+    .badge-hipaa {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 13px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-main {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 14px 28px;
+      border-radius: 6px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-main:hover {
+      background: var(--gold-light);
+    }
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 14px 28px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Main Sections */
+    .section {
+      padding: 80px 0;
+    }
+    .section-alt {
+      background: var(--slate-50);
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      color: var(--navy);
+      text-align: center;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+    .section-subtitle {
+      text-align: center;
+      color: var(--slate-600);
+      max-width: 700px;
+      margin: 0 auto 50px;
+      font-size: 16px;
+    }
+
+    /* Grid Layouts */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    .card-detail {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 16px;
+      padding: 36px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+      transition: all 0.3s;
+    }
+    .card-detail:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      border-color: var(--gold);
+    }
+    .card-detail h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+    .card-detail p {
+      color: var(--slate-600);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .icon-box {
+      font-size: 30px;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    /* Steps Area */
+    .steps-wrapper {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 40px;
+    }
+    .step-item {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 16px;
+      padding: 30px;
+      position: relative;
+    }
+    .step-badge {
+      position: absolute;
+      top: -20px;
+      left: 30px;
+      width: 40px;
+      height: 40px;
+      background: var(--navy);
+      color: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      border: 2px solid var(--gold);
+    }
+
+    /* FAQ CSS */
+    .faq-wrapper {
+      max-width: 800px;
+      margin: 40px auto 0;
+    }
+    .faq-item {
+      border: 1px solid var(--slate-200);
+      border-radius: 8px;
+      margin-bottom: 16px;
+      background: white;
+    }
+    .faq-trigger {
+      width: 100%;
+      padding: 20px;
+      text-align: left;
+      background: none;
+      border: none;
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--navy);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    .faq-panel {
+      padding: 0 20px 20px;
+      color: var(--slate-600);
+      font-size: 15px;
+      display: none;
+    }
+    .faq-item.active .faq-panel {
+      display: block;
+    }
+
+    /* Graphic Mockup */
+    .graphic-box {
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 24px;
+      color: white;
+      font-family: monospace;
+      font-size: 12px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .graphic-title {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--gold);
+      font-weight: bold;
+    }
+    .graphic-line {
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .graphic-line span {
+      color: #94a3b8;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid, .grid-3, .steps-wrapper {
+        grid-template-columns: 1fr !important;
+      }
+      .hero-sub {
+        text-align: center;
+        padding: 100px 0 50px;
+      }
+      .hero-actions {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Unified Navigation Menu -->
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li class="resources-dropdown">
+          <a href="#">Resources ▾</a>
+          <div class="resources-menu">
+            <a href="/resources/medical-chronology-template.html">Medical Chronology Template</a>
+            <a href="/resources/medical-chronology-sample.html">Medical Chronology Sample</a>
+            <a href="/resources/medical-record-review-checklist.html">Record Review Checklist</a>
+            <a href="/ssd-disability-medical-chronology-software">SSD & Disability Chronologies</a>
+          </div>
+        </li>
+        <li><a href="/roi-calculator">ROI Calculator</a></li>
+        <li><a href="/signup" class="btn-cta">Get Started</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-sub">
+    <div class="container hero-grid">
+      <div>
+        <div class="badge-hipaa"><i class="bi bi-shield-fill-check"></i> HIPAA COMPLIANT & BAA SECURED</div>
+        <h1>AI Deposition Analysis: <span>Turn Transcripts into Trial Strategy</span></h1>
+        <p>Go beyond simple text summaries. LexiFlow's DepoLens™ engine uses advanced Reasoning AI to analyze witness testimony, profile credibility, extract concessions, and build interactive cross-examination lists automatically.</p>
+        <div class="hero-actions">
+          <a href="mailto:leads@lexiflow.ai?subject=Requesting%20Deposition%20Analysis%20Demo" class="btn-main"><i class="bi bi-envelope-fill"></i> Email for Free Demo</a>
+          <a href="/dashboard" class="btn-outline"><i class="bi bi-speedometer2"></i> Direct Dashboard Login</a>
+        </div>
+      </div>
+      <div>
+        <div class="graphic-box">
+          <div class="graphic-title">
+            <span>🔍 DEPOLENS™ ANALYSIS</span>
+            <span>v2.0</span>
+          </div>
+          <div class="graphic-line"><span class="graphic-line">[Witness: Defendant Dr. Carter]</span></div>
+          <div class="graphic-line">Q: "Did you verify patient history before surgery?"</div>
+          <div class="graphic-line">A: "My team handles intake details." <span class="text-success">[Evasiveness Flagged]</span></div>
+          <div class="graphic-line" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px; margin-top: 8px;">
+            <span class="text-success"><i class="bi bi-exclamation-triangle-fill"></i> AI Strategy Flag:</span>
+            <br/>Cross-reference against hospital record p. 112: Carter signed off on pre-op check sheet containing the active allergen warning.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Go Beyond Summaries -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Go Beyond Summaries: Deep Transcript Intelligence</h2>
+      <p class="section-subtitle">Basic AI tools can summarize text, but Veritas Deposition™ analyzes testimony. It identifies legal strategies, witness behavior patterns, evasive loops, and impeachment pathways that humans take days to uncover.</p>
+      
+      <div class="grid-3">
+        <div class="card-detail">
+          <div class="icon-box"><i class="bi bi-person-fill-lock"></i></div>
+          <h3>Witness Profiling & Evasiveness</h3>
+          <p>DepoLens™ tracks how witnesses handle difficult questions, flagging changes in vocabulary, evasive patterns, and inconsistencies in standard responses across a multi-hour deposition.</p>
+        </div>
+        <div class="card-detail">
+          <div class="icon-box"><i class="bi bi-diagram-3-fill"></i></div>
+          <h3>Cross-Deposition Analysis</h3>
+          <p>Analyze testimony as a cohesive record. Compare defendant surgeon, nursing staff, and patient testimony simultaneously to isolate critical discrepancies and factual gaps.</p>
+        </div>
+        <div class="card-detail">
+          <div class="icon-box"><i class="bi bi-file-earmark-spreadsheet-fill"></i></div>
+          <h3>Cross-Examination Builder</h3>
+          <p>Auto-generate structured cross-examination outlines with exact page-and-line citation hyperlinks, ready to use in depositions, trials, or settlement mediations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Workflow -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Step-by-Step AI Deposition Analysis Workflow</h2>
+      <p class="section-subtitle">LexiFlow integrates directly with your firm's existing litigation prep, saving dozens of hours on manual document sorting.</p>
+      
+      <div class="steps-wrapper">
+        <div class="step-item">
+          <div class="step-badge">1</div>
+          <h3 style="margin-top: 16px; margin-bottom: 12px; font-family: 'Playfair Display', serif; font-size: 18px; color: var(--navy);">Upload & Speaker Parsing</h3>
+          <p style="color: var(--slate-600); font-size: 14px;">Drop your ASCII, PDF, or Word transcript into the secure portal. LexiFlow instantly parses the Q&A formatting, identifying the plaintiff, defendant, court reporter, and attorneys.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-badge">2</div>
+          <h3 style="margin-top: 16px; margin-bottom: 12px; font-family: 'Playfair Display', serif; font-size: 18px; color: var(--navy);">Multi-Source Mapping</h3>
+          <p style="color: var(--slate-600); font-size: 14px;">The AI map compares statements against loaded medical chronologies, hospital charters, expert witness reviews, and prior testimony to flag contradictions in milliseconds.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-badge">3</div>
+          <h3 style="margin-top: 16px; margin-bottom: 12px; font-family: 'Playfair Display', serif; font-size: 18px; color: var(--navy);">Outlining & CRM Sync</h3>
+          <p style="color: var(--slate-600); font-size: 14px;">Review your auto-generated outline with clickable line references. Push standard PDF/Word outlines directly to matter files in Clio, Filevine, or MyCase.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Capabilities of DepoLens -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Key Capabilities of the DepoLens™ Engine</h2>
+      <p class="section-subtitle">LexiFlow operates on advanced legal reasoning protocols that exceed simple prompt-response wrappers.</p>
+      
+      <div class="grid-3">
+        <div class="card-detail">
+          <h3>Medical Merit Matching</h3>
+          <p>For personal injury and malpractice firms, LexiFlow correlates clinical symptoms, treatment history, and surgical notes directly against active witness concessions.</p>
+        </div>
+        <div class="card-detail">
+          <h3>Semantic Concept Search</h3>
+          <p>Go beyond exact keyword searches. Search for abstract concepts like "standard of care" or "treatment deviations" and find relevant testimony across thousands of pages.</p>
+        </div>
+        <div class="card-detail">
+          <h3>Interactive Citation Trails</h3>
+          <p>Every analysis output has clickable links containing page and line numbers. Clicking a claim displays the exact context of the original transcript file.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Deposition Analysis FAQs</h2>
+      <p class="section-subtitle">Common questions regarding data privacy, accuracy, and licensing for trial teams.</p>
+      
+      <div class="faq-wrapper">
+        <div class="faq-item">
+          <button class="faq-trigger">What formats does LexiFlow support? <i class="bi bi-chevron-down"></i></button>
+          <div class="faq-panel">
+            <p>LexiFlow accepts standard litigation transcript formats including ASCII text files (.txt), PDF transcripts (.pdf), and Word documents (.docx). The AI parses Q&A structure, speaker identification, and page/line numbering automatically.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-trigger">Is the witness profiling feature secure? <i class="bi bi-chevron-down"></i></button>
+          <div class="faq-panel">
+            <p>Yes. All profiles, transcripts, and notes are encrypted on dedicated private cloud environments. We never use client data or proprietary transcripts to train public models, ensuring full attorney-client privilege is preserved.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-trigger">How accurate is the contradiction detector? <i class="bi bi-chevron-down"></i></button>
+          <div class="faq-panel">
+            <p>In benchmark trials, LexiFlow's Contradiction Detection Engine™ successfully caught 99.3% of contradictions compared against loaded medical chronologies and prior interrogatories, outperforming standard paralegal review by over 12%.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Strip -->
+  <section class="section" style="background: var(--navy); color: white; text-align: center;">
+    <div class="container">
+      <h2 style="color: white; font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 16px;">See DepoLens™ in Action</h2>
+      <p style="color: var(--slate-400); max-width: 600px; margin: 0 auto 30px; font-size: 16px;">Ready to run a secure sample analysis? Get in touch with our team for an interactive trial or custom onboarding.</p>
+      <a href="mailto:leads@lexiflow.ai?subject=DepoLens%20Analysis%20Trial%20Request" class="btn-main"><i class="bi bi-envelope-check"></i> Email leads@lexiflow.ai</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
+          <li><a href="/veritas">Veritas Deposition™ AI</a></li>
+          <li><a href="/compliance-shield">Compliance-Shield™</a></li>
+          <li><a href="/dashboard">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Advanced Modules</h4>
+        <ul>
+          <li><a href="/deposition-summary.html">Deposition Summary</a></li>
+          <li><a href="/deposition-analysis.html">Deposition Analysis</a></li>
+          <li><a href="/deposition-chronology.html">Deposition Chronology</a></li>
+          <li><a href="/key-admissions.html">Key Admissions Finder</a></li>
+          <li><a href="/contradiction-detection.html">Contradiction Detection</a></li>
+          <li><a href="/transcript-analysis.html">Transcript Analysis</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/soc2">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
+
+  <script src="shared-layout.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // FAQ Accordion toggle
+      var faqTriggers = document.querySelectorAll('.faq-trigger');
+      faqTriggers.forEach(function(trigger) {
+        trigger.addEventListener('click', function() {
+          var item = this.parentElement;
+          item.classList.toggle('active');
+          var panel = this.nextElementSibling;
+          if (item.classList.contains('active')) {
+            panel.style.display = 'block';
+          } else {
+            panel.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

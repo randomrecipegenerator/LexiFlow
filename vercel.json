@@ -34,15 +34,7 @@
       "destination": "/blog/$1.html"
     },
     {
-      "source": "/veritas/assets/(.*)",
-      "destination": "/veritas/assets/$1"
-    },
-    {
-      "source": "/veritas/(.*)",
-      "destination": "/veritas/index.html"
-    },
-    {
-      "source": "/veritas",
+      "source": "/veritas/:path*",
       "destination": "/veritas/index.html"
     }
   ]

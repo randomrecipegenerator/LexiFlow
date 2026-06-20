@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automated Deposition Chronology & Timeline Software | LexiFlow</title>
+  <meta name="description" content="Transform raw deposition transcripts and medical records into a unified, interactive chronology. Map witness statements, treatment dates, and key admissions." />
+  <link rel="canonical" href="https://lexiflow.co/deposition-chronology.html" />
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="shared-layout.css" />
+
+  <style>
+    :root {
+      --primary: #1a3a5c;
+      --navy: #0f172a;
+      --gold: #c9a84c;
+      --gold-light: #e2c96e;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-600: #475569;
+      --slate-900: #0f172a;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: var(--slate-900);
+      line-height: 1.6;
+    }
+
+    /* Sub-Page Layout Styles */
+    .hero-sub {
+      background: linear-gradient(135deg, #0f1f3a, #1a3a5c, #1e3a8a);
+      color: white;
+      padding: 120px 0 80px;
+      text-align: left;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .hero-sub h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .hero-sub h1 span {
+      color: var(--gold);
+    }
+    .hero-sub p {
+      font-size: 18px;
+      color: var(--slate-200);
+      margin-bottom: 30px;
+      max-width: 650px;
+    }
+    .badge-hipaa {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 13px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-main {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 14px 28px;
+      border-radius: 6px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-main:hover {
+      background: var(--gold-light);
+    }
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 14px 28px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Main Sections */
+    .section {
+      padding: 80px 0;
+    }
+    .section-alt {
+      background: var(--slate-50);
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      color: var(--navy);
+      text-align: center;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+    .section-subtitle {
+      text-align: center;
+      color: var(--slate-600);
+      max-width: 700px;
+      margin: 0 auto 50px;
+      font-size: 16px;
+    }
+
+    /* Grid Layouts */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    .card-detail {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 16px;
+      padding: 36px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+      transition: all 0.3s;
+    }
+    .card-detail:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      border-color: var(--gold);
+    }
+    .card-detail h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+    .card-detail p {
+      color: var(--slate-600);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .icon-box {
+      font-size: 30px;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    /* Chrono Timelines Graphic */
+    .chrono-graphic {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+    }
+    .chrono-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .chrono-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 105px;
+      top: 30px;
+      bottom: -25px;
+      width: 2px;
+      background: var(--slate-200);
+    }
+    .chrono-date {
+      width: 90px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      padding-top: 4px;
+    }
+    .chrono-dot {
+      width: 32px;
+      height: 32px;
+      background: var(--slate-100);
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 14px;
+      z-index: 2;
+    }
+    .chrono-content {
+      flex: 1;
+      background: var(--slate-50);
+      border-radius: 8px;
+      padding: 12px 16px;
+      border: 1px solid var(--slate-200);
+    }
+    .chrono-content h4 {
+      font-size: 14px;
+      margin-bottom: 4px;
+      color: var(--navy);
+    }
+    .chrono-content p {
+      font-size: 12px;
+      color: var(--slate-600);
+    }
+
+    /* FAQ CSS */
+    .faq-wrapper {
+      max-width: 800px;
+      margin: 40px auto 0;
+    }
+    .faq-item {
+      border: 1px solid var(--slate-200);
+      border-radius: 8px;
+      margin-bottom: 16px;
+      background: white;
+    }
+    .faq-trigger {
+      width: 100%;
+      padding: 20px;
+      text-align: left;
+      background: none;
+      border: none;
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--navy);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    .faq-panel {
+      padding: 0 20px 20px;
+      color: var(--slate-600);
+      font-size: 15px;
+      display: none;
+    }
+    .faq-item.active .faq-panel {
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid, .grid-3, .chrono-graphic {
+        grid-template-columns: 1fr !important;
+      }
+      .hero-sub {
+        text-align: center;
+        padding: 100px 0 50px;
+      }
+      .hero-actions {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Unified Navigation Menu -->
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li class="resources-dropdown">
+          <a href="#">Resources ▾</a>
+          <div class="resources-menu">
+            <a href="/resources/medical-chronology-template.html">Medical Chronology Template</a>
+            <a href="/resources/medical-chronology-sample.html">Medical Chronology Sample</a>
+            <a href="/resources/medical-record-review-checklist.html">Record Review Checklist</a>
+            <a href="/ssd-disability-medical-chronology-software">SSD & Disability Chronologies</a>
+          </div>
+        </li>
+        <li><a href="/roi-calculator">ROI Calculator</a></li>
+        <li><a href="/signup" class="btn-cta">Get Started</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-sub">
+    <div class="container hero-grid">
+      <div>
+        <div class="badge-hipaa"><i class="bi bi-shield-fill-check"></i> HIPAA COMPLIANT & BAA SECURED</div>
+        <h1>Automated Deposition Chronology Software <span>for Case Mapping</span></h1>
+        <p>Unify witness testimonies and medical treatment records into a single, interactive master timeline. LexiFlow chronologically maps every admission, treatment date, and symptom concession automatically.</p>
+        <div class="hero-actions">
+          <a href="mailto:leads@lexiflow.ai?subject=Requesting%20Deposition%20Chronology%20Demo" class="btn-main"><i class="bi bi-envelope-fill"></i> Email for Free Demo</a>
+          <a href="/dashboard" class="btn-outline"><i class="bi bi-speedometer2"></i> Direct Dashboard Login</a>
+        </div>
+      </div>
+      <div>
+        <div class="chrono-graphic">
+          <div class="chrono-item">
+            <div class="chrono-date">Oct 12, 2025</div>
+            <div class="chrono-dot"><i class="bi bi-car-button"></i></div>
+            <div class="chrono-content">
+              <h4>Motor Vehicle Collision</h4>
+              <p>Plaintiff vehicle struck by defendant courier truck. Injury logged by EMT.</p>
+            </div>
+          </div>
+          <div class="chrono-item">
+            <div class="chrono-date">Oct 13, 2025</div>
+            <div class="chrono-dot"><i class="bi bi-hospital"></i></div>
+            <div class="chrono-content">
+              <h4>ER Admission - Mercy Hosp</h4>
+              <p>Severe lumbar strain and clinical symptoms reported in medical notes.</p>
+            </div>
+          </div>
+          <div class="chrono-item">
+            <div class="chrono-date">Nov 15, 2025</div>
+            <div class="chrono-dot"><i class="bi bi-chat-dots"></i></div>
+            <div class="chrono-content">
+              <h4>Defendant Deposition p. 14</h4>
+              <p>Defendant claims road conditions were wet. Cross-ref: METAR report logs dry.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Connect the Dots -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Connect the Dots Across Your Entire Case</h2>
+      <p class="section-subtitle">Do not treat depositions as separate from medical records. LexiFlow unifies physical clinical treatment notes and witness transcripts, automatically structuring a chronological master file.</p>
+      
+      <div class="grid-3">
+        <div class="card-detail">
+          <div class="icon-box"><i class="bi bi-calendar3"></i></div>
+          <h3>Dynamic Timeline Generation</h3>
+          <p>Every time you upload a medical report or deposition transcript, the master timeline updates instantly. No manual date re-typing or copy-pasting required.</p>
+        </div>
+        <div class="card-detail">
+          <div class="icon-box"><i class="bi bi-search"></i></div>
+          <h3>Interactive Source Verification</h3>
+          <p>Click any date or symptom inside the chronology to jump directly to the verified page of the treatment note or the line of the deposition transcript.</p>
+        </div>
+        <div class="card-detail">
+          <div class="icon-box"><i class="bi bi-arrow-left-right"></i></div>
+          <h3>Factual Discrepancy Spotting</h3>
+          <p>LexiFlow cross-references statements against recorded clinical facts. If a witness disputes a treatment date, LexiFlow flags the conflict in your outline.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Core Features -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Core Features of the Chronology Engine</h2>
+      <p class="section-subtitle">LexiFlow operates on secure private cloud databases utilizing robust standard vector algorithms designed for medical-legal review.</p>
+      
+      <div class="grid-3">
+        <div class="card-detail">
+          <h3>Integrate Medical & Legal Docs</h3>
+          <p>Combine hospital treatment sheets, MRI reports, surgical records, and expert deposition transcripts into a single, cohesive file structure.</p>
+        </div>
+        <div class="card-detail">
+          <h3>Custom Issue Tagging</h3>
+          <p>Filter chronological timelines by custom categories like "Symptom Onset", "Prior Injuries", or "Diagnostic Imaging" for targeted trial preparation.</p>
+        </div>
+        <div class="card-detail">
+          <h3>PDF & Word Outlines</h3>
+          <p>Export timelines directly to pre-formatted Word or PDF files, matching standard partner-ready formats for trial exhibits and demand packages.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Chronology Software FAQs</h2>
+      <p class="section-subtitle">Common technical and security questions regarding automated chronology structures.</p>
+      
+      <div class="faq-wrapper">
+        <div class="faq-item">
+          <button class="faq-trigger">Can I export timelines to Clio or Filevine? <i class="bi bi-chevron-down"></i></button>
+          <div class="faq-panel">
+            <p>Yes. LexiFlow features native integration with Clio, Filevine, and MyCase. Generated chronologies and master timelines can be uploaded directly to active case files with one click.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-trigger">Is there a limit on document size? <i class="bi bi-chevron-down"></i></button>
+          <div class="faq-panel">
+            <p>The Standard tier supports up to 200 pages per document. Professional ($199/mo) and Enterprise ($299/mo) tiers allow files of up to 1,500 pages per upload, perfectly matching massive hospital charts and expert testimonies.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-trigger">How secure is our client data? <i class="bi bi-chevron-down"></i></button>
+          <div class="faq-panel">
+            <p>LexiFlow maintains strict SOC 2 compliance. All data is protected via bank-grade encryption at rest and in transit. We sign Business Associate Agreements (BAAs) to secure HIPAA compliance across all medical chronologies.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Strip -->
+  <section class="section" style="background: var(--navy); color: white; text-align: center;">
+    <div class="container">
+      <h2 style="color: white; font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 16px;">Create Timelines Automatically</h2>
+      <p style="color: var(--slate-400); max-width: 600px; margin: 0 auto 30px; font-size: 16px;">Stop creating chronologies by hand. Request an onboarding session or send an intake sample to leads@lexiflow.ai.</p>
+      <a href="mailto:leads@lexiflow.ai?subject=Deposition%20Chronology%20Trial%20Request" class="btn-main"><i class="bi bi-envelope-check"></i> Email leads@lexiflow.ai</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
+          <li><a href="/veritas">Veritas Deposition™ AI</a></li>
+          <li><a href="/compliance-shield">Compliance-Shield™</a></li>
+          <li><a href="/dashboard">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Advanced Modules</h4>
+        <ul>
+          <li><a href="/deposition-summary.html">Deposition Summary</a></li>
+          <li><a href="/deposition-analysis.html">Deposition Analysis</a></li>
+          <li><a href="/deposition-chronology.html">Deposition Chronology</a></li>
+          <li><a href="/key-admissions.html">Key Admissions Finder</a></li>
+          <li><a href="/contradiction-detection.html">Contradiction Detection</a></li>
+          <li><a href="/transcript-analysis.html">Transcript Analysis</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/soc2">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
+
+  <script src="shared-layout.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // FAQ Accordion toggle
+      var faqTriggers = document.querySelectorAll('.faq-trigger');
+      faqTriggers.forEach(function(trigger) {
+        trigger.addEventListener('click', function() {
+          var item = this.parentElement;
+          item.classList.toggle('active');
+          var panel = this.nextElementSibling;
+          if (item.classList.contains('active')) {
+            panel.style.display = 'block';
+          } else {
+            panel.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
