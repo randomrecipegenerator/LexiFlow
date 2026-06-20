@@ -1,89 +1,83 @@
-    :root {
-      --navy: #0f172a; --gold: #c9a84c; --gold-light: #e2c96e;
-      --slate-50: #f8fafc; --slate-200: #e2e8f0; --slate-400: #94a3b8; --slate-600: #475569;
-      --slate-900: #0f172a; --max-width: 1200px;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--slate-900); line-height: 1.6; padding-top: 80px; }
-    
-    nav { position: fixed; top: 0; width: 100%; height: 80px; background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--slate-200); z-index: 1000; display: flex; align-items: center; }
-    .nav-container { max-width: var(--max-width); margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--navy); text-decoration: none; display: flex; align-items: center; gap: 12px; }
-    .logo span { background: var(--navy); color: var(--gold); padding: 4px 8px; border-radius: 4px; font-size: 18px; }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; }
-    .nav-links a:hover { color: var(--navy); }
-    .resources-dropdown { position:relative; }
-    .resources-menu { display:none; position:absolute; top:100%; left:0; background:#fff; border:1px solid var(--slate-200); border-radius:8px; box-shadow:0 10px 30px rgba(0,0,0,0.1); min-width:240px; z-index:200; padding:8px 0; }
-    .resources-menu a { display:block; padding:10px 20px; font-size:0.85rem; color:var(--slate-600); white-space:nowrap; }
-    .resources-menu a:hover { background:var(--slate-50); color:var(--navy); }
-    .resources-dropdown:hover .resources-menu { display:block; }
-    .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
-    .nav-toggle { display: none; background: #0f172a; color: #fff; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 22px; z-index: 1001; }
+/* LexiFlow Shared Layout — Agent-Centric Styles */
+/* Accessibility & Layout Shift Prevention */
 
-    .hero { padding: 100px 0; background: var(--navy); color: white; position: relative; overflow: hidden; }
-    .hero-container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-    .hero h1 { font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 24px; line-height: 1.1; }
-    .hero h1 span { color: var(--gold); }
-    .hero p { font-size: 20px; color: var(--slate-400); margin-bottom: 40px; }
+/* --- Layout Shift Prevention --- */
+html { overflow-y: scroll; }
+body { min-height: 100vh; }
+img, video, iframe { max-width: 100%; height: auto; }
+img { aspect-ratio: attr(width) / attr(height); }
 
-    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding: 80px 40px; max-width: var(--max-width); margin: 0 auto; }
-    .card { padding: 40px; background: var(--slate-50); border-radius: 24px; border: 1px solid var(--slate-200); transition: all 0.3s; }
-    .card:hover { transform: translateY(-8px); border-color: var(--gold); background: #fff; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
-    .card i { font-size: 32px; color: var(--gold); margin-bottom: 24px; display: block; }
-    .card h3 { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 16px; color: var(--navy); }
-    .card p { color: var(--slate-600); font-size: 15px; }
+/* --- Agentic Intake Section --- */
+#agentic-intake-section {
+  scroll-margin-top: 80px;
+}
 
-    footer { background: var(--navy); color: var(--slate-400); padding: 80px 0 40px; border-top: 1px solid rgba(255,255,255,0.1); }
-    .footer-container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr repeat(4, 1fr); gap: 40px; }
-    .footer-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; margin-bottom: 20px; display: block; }
-    .footer-col h4 { color: #fff; margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; }
-    .footer-col ul { list-style: none; }
-    .footer-col ul li { margin-bottom: 12px; }
-    .footer-col ul a { color: var(--slate-400); text-decoration: none; font-size: 14px; }
-    .footer-col ul a:hover { color: var(--gold); }
-    .footer-bottom { max-width: var(--max-width); margin: 60px auto 0; padding: 40px 40px 0; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; text-align: center; }
+/* --- Focus Management --- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #c9a84c;
+  outline-offset: 2px;
+}
 
-    /* MOBILE STANDARDIZATION */
-    @media (max-width: 768px) {
-      body { padding-top: 60px; }
-      nav { height: 60px; }
-      .nav-container { padding: 0 20px; }
-      .logo { font-size: 20px; }
-      .nav-links { 
-        display: none !important; 
-        position: absolute; 
-        top: 60px; 
-        left: 0; 
-        width: 100%; 
-        background: #fff; 
-        flex-direction: column !important; 
-        padding: 20px !important; 
-        gap: 15px !important; 
-        border-bottom: 1px solid var(--slate-200); 
-        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        z-index: 1000;
-        align-items: flex-start !important;
-      }
-      .nav-links.active { display: flex !important; }
-      .nav-links li { width: 100%; }
-      .nav-links a { font-size: 16px; display: block; width: 100%; padding: 10px 0; }
-      .nav-toggle { display: block !important; }
-      .resources-dropdown:hover .resources-menu { position: static; display: block; box-shadow: none; border: none; padding-left: 20px; }
-      .btn-cta { text-align: center; margin-top: 10px; }
+/* --- Skip to Content --- */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: #c9a84c;
+  color: #0f172a;
+  padding: 8px 16px;
+  z-index: 10000;
+  font-weight: 600;
+  text-decoration: none;
+}
+.skip-to-content:focus {
+  top: 0;
+}
 
-      .hero { padding: 60px 0; }
-      .hero-container { grid-template-columns: 1fr; text-align: center; gap: 30px; padding: 0 20px; }
-      .hero h1 { font-size: 32px; }
-      .hero p { font-size: 16px; }
-      
-      .grid { grid-template-columns: 1fr; padding: 40px 20px; }
-      .footer-container { grid-template-columns: 1fr; text-align: center; gap: 30px; }
-      .footer-logo { margin: 0 auto 20px; }
-      .footer-bottom { padding: 20px; margin-top: 40px; }
-      
-      /* Global helper overrides for mobile */
-      .container, .max-w-screen, .section-header { padding-left: 20px !important; padding-right: 20px !important; }
-      h1 { font-size: 28px !important; }
-      h2 { font-size: 24px !important; }
-    }
+/* --- Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --- Responsive Typography --- */
+@media (max-width: 768px) {
+  h1 { font-size: clamp(1.5rem, 5vw, 2rem) !important; }
+  h2 { font-size: clamp(1.25rem, 4vw, 1.75rem) !important; }
+  h3 { font-size: clamp(1.1rem, 3vw, 1.4rem) !important; }
+}
+
+/* --- Agent Accessible Navigation --- */
+nav ul li a[aria-current="page"] {
+  font-weight: 700;
+  color: #c9a84c;
+}
+
+/* --- Prevent CLS on Hero Images & CTAs --- */
+.btn, .btn-cta, .btn-primary, .btn-secondary {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Nav Toggle (Hamburger) --- */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 8px;
+  color: #0f172a;
+}
+@media (max-width: 768px) {
+  .nav-toggle { display: block; }
+}
