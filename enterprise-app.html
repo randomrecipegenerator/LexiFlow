@@ -6,22 +6,41 @@
     <title>LexiFlow | Enterprise Suite</title>
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/shared-layout.css">
+    
     <style>
         .mt-header { margin-top: 80px; }
         .enterprise-card { border-top: 4px solid #c9a84c; background: white; border-radius: 12px; border-left: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 24px; }
         .gold-badge { background: #fef9c3; color: #854d0e; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
     </style>
+  <link rel="stylesheet" href="/master-layout.css">
 </head>
 <body class="bg-slate-50 min-h-screen">
-    <nav><div class="nav-container">
-        <a href="/" class="logo"><span>LF</span> LexiFlow</a>
-        <ul class="nav-links">
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/intake-app">Intake</a></li>
-            <li><a href="/enterprise-app" class="active">Enterprise</a></li>
-        </ul>
-    </div></nav>
+    <nav>
+  <div class="nav-container">
+    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/solutions">Solutions</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li class="resources-dropdown">
+        <a href="#">Resources ▾</a>
+        <div class="resources-menu">
+          <a href="/resources/medical-chronology-template">Medical Chronology Template</a>
+          <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a>
+          <a href="/resources/medical-record-review-checklist">Record Review Checklist</a>
+          <a href="/ssd-disability-medical-chronology-software">SSD & Disability AI</a>
+          <a href="/witness-testimony-analysis">Witness Testimony Analysis</a>
+          <a href="/case-studies">Case Studies</a>
+        </div>
+      </li>
+      <li><a href="/roi-calculator">ROI Calculator</a></li>
+      <li><a href="/login">Log In</a></li>
+      <li><a href="/signup" class="btn-cta">Get Started</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</nav>
 
     <div class="mt-header bg-navy text-white py-12" style="background: #0f172a;">
         <div class="container mx-auto px-4">
@@ -312,6 +331,7 @@
       <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
     </div>
   </footer>
+
 <script src="/shared-layout.js"></script>
 </body>
 </html>

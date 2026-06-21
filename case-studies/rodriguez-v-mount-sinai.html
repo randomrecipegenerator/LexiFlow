@@ -29,11 +29,11 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; color: var(--text-dark); background: #fff; line-height: 1.6; }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-    nav { height: 80px; background: #fff; border-bottom: 1px solid var(--border); display: flex; align-items: center; position: fixed; top: 0; width: 100%; z-index: 100; }
-    .nav-container { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--primary); text-decoration: none; }
+    
+    
+    
     .logo span { background: var(--primary); color: var(--accent); padding: 4px 8px; border-radius: 4px; }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
+    
     .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 15px; font-weight: 500; }
     .nav-links a:hover { color: var(--primary); }
     .btn-cta { background: var(--accent); color: var(--primary); padding: 12px 24px; border-radius: 6px; font-weight: 600; }
@@ -128,15 +128,15 @@
     .cta-section .pricing-note { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 16px; }
 
     /* Footer */
-    footer { background: #0f172a; color: rgba(255,255,255,0.6); padding: 48px 0 32px; }
+    
     .footer-grid { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
     .footer-col h4 { color: white; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
     .footer-col ul { list-style: none; }
     .footer-col li { margin-bottom: 10px; }
     .footer-col a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; }
     .footer-col a:hover { color: var(--accent); }
-    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: white; text-decoration: none; display: block; margin-bottom: 12px; }
-    .footer-bottom { max-width: 1100px; margin: 40px auto 0; padding: 24px 24px 0; border-top: 1px solid rgba(255,255,255,0.08); text-align: center; font-size: 13px; }
+    
+    
 
     @media (max-width: 768px) {
       .hero h1 { font-size: 1.8rem; }
@@ -151,18 +151,34 @@
       .tl-node::after { display: none; }
     }
   </style>
+  <link rel="stylesheet" href="/master-layout.css">
 </head>
 <body>
 
 <nav>
   <div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
-    <ul class="nav-links">
-      <li><a href="/pricing.html">Pricing</a></li>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/solutions">Solutions</a></li>
       <li><a href="/dashboard">Dashboard</a></li>
-      <li><a href="/blog/index.html">Blog</a></li>
-      <li><a href="/signup.html" class="btn-cta">Get Started</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li class="resources-dropdown">
+        <a href="#">Resources ▾</a>
+        <div class="resources-menu">
+          <a href="/resources/medical-chronology-template">Medical Chronology Template</a>
+          <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a>
+          <a href="/resources/medical-record-review-checklist">Record Review Checklist</a>
+          <a href="/ssd-disability-medical-chronology-software">SSD & Disability AI</a>
+          <a href="/witness-testimony-analysis">Witness Testimony Analysis</a>
+          <a href="/case-studies">Case Studies</a>
+        </div>
+      </li>
+      <li><a href="/roi-calculator">ROI Calculator</a></li>
+      <li><a href="/login">Log In</a></li>
+      <li><a href="/signup" class="btn-cta">Get Started</a></li>
     </ul>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
   </div>
 </nav>
 
@@ -485,5 +501,6 @@
     </div>
   </footer>
 
+<script src="/shared-layout.js"></script>
 </body>
 </html>

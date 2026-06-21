@@ -120,15 +120,15 @@
     .cta-section { background:linear-gradient(135deg,var(--primary-dark),var(--primary)); color:var(--text-light); text-align:center; padding:60px 0; }
     .cta-section h2 { font-family:var(--font-serif); font-size:2.2rem; margin-bottom:10px; }
     .cta-section p { font-size:1rem; color:rgba(255,255,255,0.8); max-width:500px; margin:0 auto 24px; }
-    .footer { background:var(--bg-dark); color:rgba(255,255,255,0.6); padding:48px 0 32px; }
+    .
     .footer-grid { max-width:var(--max-width); margin:0 auto; padding:0 24px; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; }
     .footer-col h4 { color:#fff; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:16px; }
     .footer-col ul { list-style:none; }
     .footer-col ul li { margin-bottom:10px; }
     .footer-col ul a { color:rgba(255,255,255,0.6); text-decoration:none; font-size:0.88rem; }
     .footer-col ul a:hover { color:var(--accent); }
-    .footer-logo { font-family:var(--font-serif); font-size:1.5rem; color:#fff; text-decoration:none; display:block; margin-bottom:12px; }
-    .footer-bottom { max-width:var(--max-width); margin:40px auto 0; padding:24px 24px 0; border-top:1px solid rgba(255,255,255,0.08); text-align:center; font-size:0.82rem; }
+    
+    
     .exec-summary { max-width:800px; margin:0 auto; font-size:0.95rem; color:var(--text-muted); line-height:1.8; }
     .exec-summary strong { color:var(--text-dark); }
     .internal-links { padding:40px 0; border-top:1px solid var(--border); }
@@ -139,9 +139,11 @@
     @media (max-width:900px) { .grid-3, .grid-2 { grid-template-columns:1fr; } .security-grid { grid-template-columns:1fr; } .footer-grid { grid-template-columns:1fr 1fr; gap:32px; } }
     @media (max-width:768px) { .hero-sub h1 { font-size:2rem; } .faq-grid { grid-template-columns:1fr; } .footer-grid { grid-template-columns:1fr; } .step { flex-direction:column; } }
   </style>
-<link rel="stylesheet" href="/shared-layout.css">
+
+  <link rel="stylesheet" href="/master-layout.css">
 </head>
-<body><nav><div class="nav-container">
+<body><nav>
+  <div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing">Pricing</a></li>
@@ -164,7 +166,8 @@
       <li><a href="/signup" class="btn-cta">Get Started</a></li>
     </ul>
     <button class="nav-toggle" aria-label="Menu">☰</button>
-  </div></nav>
+  </div>
+</nav>
 
 
 <!-- Hero -->
@@ -340,6 +343,7 @@
       <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
     </div>
   </footer>
+
 <script src="/shared-layout.js"></script>
 </body>
 </html>

@@ -60,7 +60,7 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../shared-layout.css">
+    
     <style>
         :root { --primary: #1a3a5c; --primary-dark: #0f1f3a; --accent: #c9a84c; --text: #1e293b; --text-muted: #64748b; --bg: #ffffff; --bg-alt: #f8fafc; --border: #e2e8f0; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -84,33 +84,40 @@
         .cta-box a { display: inline-block; background: var(--accent); color: var(--primary-dark); padding: 14px 32px; border-radius: 8px; font-weight: 600; text-decoration: none; margin-top: 16px; }
         .hipaa-badge { display: inline-block; background: rgba(34,197,94,0.1); color: #16a34a; padding: 4px 12px; border-radius: 100px; font-size: 0.8rem; font-weight: 600; }
         .price-badge { display: inline-block; background: var(--accent); color: var(--primary-dark); padding: 4px 12px; border-radius: 100px; font-size: 0.8rem; font-weight: 700; }
-        .blog-footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; }
+        .blog-
         @media (max-width: 640px) { .blog-header h1 { font-size: 1.6rem; } }
     </style>
+  <link rel="stylesheet" href="/master-layout.css">
 </head>
 <body>
 
   <!-- Navigation Menu -->
-  <nav><div class="nav-container">
+  <nav>
+  <div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/solutions">Solutions</a></li>
       <li><a href="/dashboard">Dashboard</a></li>
       <li><a href="/blog">Blog</a></li>
       <li class="resources-dropdown">
         <a href="#">Resources ▾</a>
         <div class="resources-menu">
-          <a href="/resources/medical-chronology-template.html">Medical Chronology Template</a>
-          <a href="/resources/medical-chronology-sample.html">Medical Chronology Sample</a>
-          <a href="/resources/medical-record-review-checklist.html">Record Review Checklist</a>
-          <a href="/ssd-disability-medical-chronology-software">SSD & Disability Chronologies</a>
+          <a href="/resources/medical-chronology-template">Medical Chronology Template</a>
+          <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a>
+          <a href="/resources/medical-record-review-checklist">Record Review Checklist</a>
+          <a href="/ssd-disability-medical-chronology-software">SSD & Disability AI</a>
+          <a href="/witness-testimony-analysis">Witness Testimony Analysis</a>
+          <a href="/case-studies">Case Studies</a>
         </div>
       </li>
       <li><a href="/roi-calculator">ROI Calculator</a></li>
+      <li><a href="/login">Log In</a></li>
       <li><a href="/signup" class="btn-cta">Get Started</a></li>
     </ul>
     <button class="nav-toggle" aria-label="Menu">☰</button>
-  </div></nav>
+  </div>
+</nav>
 
   <!-- Blog Header -->
   <header class="blog-header">
@@ -221,6 +228,7 @@
     </div>
   </footer>
 
-  <script src="../shared-layout.js"></script>
+  
+<script src="/shared-layout.js"></script>
 </body>
 </html>

@@ -10,12 +10,7 @@
     <style>
     /* Mobile-Friendly Adjustments */
     @media (max-width: 768px) {
-        .container, .nav-container, .max-w-screen, .max-w, .hero-container, .footer-container {
-            padding-left: 20px !important;
-            padding-right: 20px !important;
-            width: 100% !important;
-            max-width: 100% !important;
-        }
+        .container, .nav-container, .max-w-screen, .max-w, .hero-container, 
         .grid, .highlight-grid, .faq-grid, .pricing-grid, .assoc-grid, .city-grid {
             grid-template-columns: 1fr !important;
             display: grid !important;
@@ -28,20 +23,17 @@
             flex-direction: column !important;
             align-items: center !important;
         }
-        .hero-text, .hero-image, .footer-col {
-            width: 100% !important;
-            margin-bottom: 30px !important;
-        }
+        .hero-text, .hero-image, 
         h1 { font-size: 28px !important; line-height: 1.2 !important; }
         h2 { font-size: 24px !important; }
         h3 { font-size: 20px !important; }
 
         /* Nav adjustments */
-        nav, /* Local nav style removed */
+        nav, 
         .nav-container, .nav .container { flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; padding: 10px 20px !important; }
-        /* Local nav style removed */
+        
         .nav-links.active { display: flex !important; }
-        /* Local nav style removed */
+        
         .btn-cta, .btn-primary { padding: 8px 16px !important; font-size: 13px !important; }
 
         /* Card and Feature adjustments */
@@ -53,23 +45,36 @@
         .pricing-card.featured { transform: none !important; margin: 20px 0 !important; }
     }
         </style>
-<link rel="stylesheet" href="/shared-layout.css">
+
+  <link rel="stylesheet" href="/master-layout.css">
 </head>
 <body class="bg-slate-50 text-slate-900 py-20">
-<nav><div class="nav-container">
+<nav>
+  <div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/solutions">Solutions</a></li>
       <li><a href="/dashboard">Dashboard</a></li>
       <li><a href="/blog">Blog</a></li>
-      
+      <li class="resources-dropdown">
+        <a href="#">Resources ▾</a>
+        <div class="resources-menu">
+          <a href="/resources/medical-chronology-template">Medical Chronology Template</a>
+          <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a>
+          <a href="/resources/medical-record-review-checklist">Record Review Checklist</a>
+          <a href="/ssd-disability-medical-chronology-software">SSD & Disability AI</a>
+          <a href="/witness-testimony-analysis">Witness Testimony Analysis</a>
+          <a href="/case-studies">Case Studies</a>
+        </div>
+      </li>
       <li><a href="/roi-calculator">ROI Calculator</a></li>
-      <li></li>
       <li><a href="/login">Log In</a></li>
       <li><a href="/signup" class="btn-cta">Get Started</a></li>
     </ul>
     <button class="nav-toggle" aria-label="Menu">☰</button>
-  </div></nav>
+  </div>
+</nav>
 
 
     <div class="max-w-3xl mx-auto px-4 bg-white p-12 rounded-3xl shadow-sm border border-slate-200">
@@ -194,6 +199,7 @@
       <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
     </div>
   </footer>
+
 <script src="/shared-layout.js"></script>
 </body>
 </html>

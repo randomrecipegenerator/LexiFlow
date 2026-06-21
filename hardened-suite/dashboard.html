@@ -27,15 +27,15 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--slate-50); color: var(--slate-900); line-height: 1.6; padding-top: 80px; }
 
-        nav { position: fixed; top: 0; width: 100%; height: 80px; background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--slate-200); z-index: 1000; display: flex; align-items: center; }
-        .nav-container { max-width: var(--max-width); margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--navy); text-decoration: none; display: flex; align-items: center; gap: 12px; }
+        
+        
+        
         .logo span { background: var(--navy); color: var(--gold); padding: 4px 8px; border-radius: 4px; font-size: 18px; }
-        /* Local nav style removed */
+        
         .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; }
         .nav-links a:hover { color: var(--navy); }
         .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; border: none; cursor: pointer; }
-        /* Local nav style removed */
+        
 
         .dash-header { padding: 64px 0; background: var(--navy); color: white; }
         .max-w-screen { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; }
@@ -82,28 +82,30 @@
         .act-info span { font-size: 12px; color: var(--slate-400); }
         .act-score { font-weight: 800; color: #16a34a; font-size: 15px; }
 
-        footer { background: var(--navy); color: var(--slate-400); padding: 80px 0 40px; border-top: 1px solid rgba(255,255,255,0.1); }
-        .footer-container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr repeat(4, 1fr); gap: 40px; }
-        .footer-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; margin-bottom: 20px; display: block; }
+        
+        
+        
         .footer-col h4 { color: #fff; margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; }
         .footer-col ul { list-style: none; }
         .footer-col ul li { margin-bottom: 12px; }
         .footer-col ul a { color: var(--slate-400); text-decoration: none; font-size: 14px; }
         .footer-col ul a:hover { color: var(--gold); }
-        .footer-bottom { max-width: var(--max-width); margin: 60px auto 0; padding: 40px 40px 0; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; text-align: center; }
+        
 
         @media (max-width: 968px) {
             .analytics-row { grid-template-columns: 1fr; }
         }
         /* Local mobile nav style removed */
-            /* Local nav style removed */
-            .footer-container { grid-template-columns: 1fr; text-align: center; }
-            .footer-logo { margin: 0 auto 20px; }
+            
+            
+            
         }
     </style>
-<link rel="stylesheet" href="../shared-layout.css">
+
+  <link rel="stylesheet" href="/master-layout.css">
 </head>
-<body><nav><div class="nav-container">
+<body><nav>
+  <div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing">Pricing</a></li>
@@ -126,7 +128,8 @@
       <li><a href="/signup" class="btn-cta">Get Started</a></li>
     </ul>
     <button class="nav-toggle" aria-label="Menu">☰</button>
-  </div></nav>
+  </div>
+</nav>
 
 
 
@@ -508,7 +511,7 @@
       <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
     </div>
   </footer>
-<script src="../shared-layout.js"></script><script>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
       const NAVY = '#0f172a', GOLD = '#c9a84c', GOLD_LIGHT = '#e2c96e';
       new Chart(document.getElementById('chart-conversion'), {
@@ -538,6 +541,7 @@
 
 
 
-<script src="../shared-layout.js"></script>
+
+<script src="/shared-layout.js"></script>
 </body>
 </html>

@@ -20,11 +20,11 @@
     html { scroll-behavior: smooth; }
     body { font-family:var(--font-sans); color:var(--text-dark); background:var(--bg-light); line-height:1.6; }
     .container { max-width:var(--max-width); margin:0 auto; padding:0 24px; }
-    /* Local nav style removed */
+    
     .nav .container { display:flex; align-items:center; justify-content:space-between; height:68px; }
     .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
     .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:800; }
-    /* Local nav style removed */
+    
     .nav-links a { font-size:0.88rem; font-weight:500; color:var(--text-muted); text-decoration:none; }
     .nav-links a:hover { color:var(--primary); }
     .nav-cta { padding:8px 20px; background:var(--accent); color:var(--primary-dark)!important; border-radius:var(--radius); font-weight:600!important; }
@@ -67,17 +67,19 @@
     .badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:600; }
     .badge-green { background:rgba(22,163,74,0.1); color:var(--green); }
     .badge-gold { background:rgba(201,168,76,0.12); color:var(--accent-dark); }
-    .footer { background:var(--bg-dark); color:rgba(255,255,255,0.6); padding:40px 0 24px; margin-top:40px; }
+    .
     .footer .container { display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px; }
     .footer a { color:rgba(255,255,255,0.6); text-decoration:none; }
     .footer a:hover { color:var(--accent); }
-    .footer-logo { font-family:var(--font-serif); font-size:1.3rem; color:#fff; }
+    
     @media (max-width:900px) { .stats-bar { grid-template-columns:repeat(2,1fr); } .layout-2col { grid-template-columns:1fr; } }
     @media (max-width:768px) { .hero h1 { font-size:1.8rem; } .case-grid { grid-template-columns:1fr; } }
   </style>
-<link rel="stylesheet" href="../shared-layout.css">
+
+  <link rel="stylesheet" href="/master-layout.css">
 </head>
-<body><nav><div class="nav-container">
+<body><nav>
+  <div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing">Pricing</a></li>
@@ -100,7 +102,8 @@
       <li><a href="/signup" class="btn-cta">Get Started</a></li>
     </ul>
     <button class="nav-toggle" aria-label="Menu">☰</button>
-  </div></nav>
+  </div>
+</nav>
 
 <section class="hero"><div class="container">
   <h1>🔍 <span>Discovery-Vault™</span></h1>
@@ -200,7 +203,7 @@
       <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
     </div>
   </footer>
-<script src="../shared-layout.js"></script><script>
+<script>
 const cases = [
   {name:"Opioid MDL",docket:"MDL 2804 (N.D. Ohio)",docs:50200000,status:82,color:"#c9a84c",facts:8442,defendants:"J&J, Purdue, Teva, CVS, Walgreens"},
   {name:"PFAS Water Contamination",docket:"MDL 2873 (D.S.C.)",docs:12000000,status:76,color:"#c9a84c",facts:2891,defendants:"3M, DuPont, Chemours"},
@@ -278,6 +281,7 @@ render();
 
 
 
-<script src="../shared-layout.js"></script>
+
+<script src="/shared-layout.js"></script>
 </body>
 </html>

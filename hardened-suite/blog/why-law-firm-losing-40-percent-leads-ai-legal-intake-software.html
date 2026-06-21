@@ -81,17 +81,12 @@
         .cta-box { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); color: white; padding: 32px; border-radius: 12px; margin: 40px 0; text-align: center; }
         .cta-box a { display: inline-block; background: var(--accent); color: var(--primary-dark); padding: 14px 32px; border-radius: 8px; font-weight: 600; text-decoration: none; margin-top: 16px; }
         .price-badge { display: inline-block; background: var(--accent); color: var(--primary-dark); padding: 3px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 700; }
-        .blog-footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; }
+        .blog-
         @media (max-width: 640px) { .blog-header h1 { font-size: 1.6rem; } }
 
     /* Mobile-Friendly Adjustments */
     @media (max-width: 768px) {
-        .container, .nav-container, .max-w-screen, .max-w, .hero-container, .footer-container {
-            padding-left: 20px !important;
-            padding-right: 20px !important;
-            width: 100% !important;
-            max-width: 100% !important;
-        }
+        .container, .nav-container, .max-w-screen, .max-w, .hero-container, 
         .grid, .highlight-grid, .faq-grid, .pricing-grid, .assoc-grid, .city-grid {
             grid-template-columns: 1fr !important;
             display: grid !important;
@@ -104,20 +99,17 @@
             flex-direction: column !important;
             align-items: center !important;
         }
-        .hero-text, .hero-image, .footer-col {
-            width: 100% !important;
-            margin-bottom: 30px !important;
-        }
+        .hero-text, .hero-image, 
         h1 { font-size: 28px !important; line-height: 1.2 !important; }
         h2 { font-size: 24px !important; }
         h3 { font-size: 20px !important; }
 
         /* Nav adjustments */
-        nav, /* Local nav style removed */
+        nav, 
         .nav-container, .nav .container { flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; padding: 10px 20px !important; }
-        /* Local nav style removed */
+        
         .nav-links.active { display: flex !important; }
-        /* Local nav style removed */
+        
         .btn-cta, .btn-primary { padding: 8px 16px !important; font-size: 13px !important; }
 
         /* Card and Feature adjustments */
@@ -130,22 +122,24 @@
     }
 
 
-    nav { position: fixed; top: 0; width: 100%; height: 80px; background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--border); z-index: 1000; display: flex; align-items: center; }
-    .nav-container { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-family: "Playfair Display", serif; font-weight: 700; font-size: 24px; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 12px; }
+    
+    
+    
     .logo span { background: var(--primary); color: var(--accent); padding: 4px 8px; border-radius: 4px; font-size: 18px; }
-    /* Local nav style removed */
+    
     .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 15px; }
     .nav-links a:hover { color: var(--primary); }
     .btn-cta { background: var(--accent); color: var(--primary-dark); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
-    /* Local nav style removed */
+    
     /* Local mobile nav style removed */
-      /* Local nav style removed */
+      
     }
 \n    </style>
 <link rel="stylesheet" href="../../shared-layout.css">
+  <link rel="stylesheet" href="/master-layout.css">
 </head>
-<body><nav><div class="nav-container">
+<body><nav>
+  <div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing">Pricing</a></li>
@@ -168,7 +162,8 @@
       <li><a href="/signup" class="btn-cta">Get Started</a></li>
     </ul>
     <button class="nav-toggle" aria-label="Menu">☰</button>
-  </div></nav>
+  </div>
+</nav>
 
 
 
@@ -327,5 +322,6 @@
     </div>
   </footer>
 <script src="../../shared-layout.js"></script>
+<script src="/shared-layout.js"></script>
 </body>
 </html>

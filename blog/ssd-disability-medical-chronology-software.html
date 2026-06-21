@@ -52,12 +52,39 @@
         .blog-content blockquote { border-left: 4px solid var(--accent); padding: 16px 20px; margin: 24px 0; background: var(--bg-alt); border-radius: 0 8px 8px 0; font-style: italic; }
         .cta-box { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); color: white; padding: 32px; border-radius: 12px; margin: 40px 0; text-align: center; }
         .cta-box a { display: inline-block; background: var(--accent); color: var(--primary-dark); padding: 14px 32px; border-radius: 8px; font-weight: 600; text-decoration: none; margin-top: 16px; }
-        .blog-footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; }
+        .blog-
         @media (max-width: 640px) { .blog-header h1 { font-size: 1.6rem; } }
         @media (max-width: 768px) { .container { padding-left: 20px !important; padding-right: 20px !important; } }
     </style>
+  <link rel="stylesheet" href="/master-layout.css">
 </head>
 <body>
+<nav>
+  <div class="nav-container">
+    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/solutions">Solutions</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li class="resources-dropdown">
+        <a href="#">Resources ▾</a>
+        <div class="resources-menu">
+          <a href="/resources/medical-chronology-template">Medical Chronology Template</a>
+          <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a>
+          <a href="/resources/medical-record-review-checklist">Record Review Checklist</a>
+          <a href="/ssd-disability-medical-chronology-software">SSD & Disability AI</a>
+          <a href="/witness-testimony-analysis">Witness Testimony Analysis</a>
+          <a href="/case-studies">Case Studies</a>
+        </div>
+      </li>
+      <li><a href="/roi-calculator">ROI Calculator</a></li>
+      <li><a href="/login">Log In</a></li>
+      <li><a href="/signup" class="btn-cta">Get Started</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</nav>
     <header class="blog-header">
         <div class="container">
             <h1>SSD & Disability Medical Chronology: Finding the Critical Impairments with AI</h1>
@@ -177,16 +204,48 @@
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 40px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: 0.9rem;">
-        <div class="container">
-            <p>© 2026 LexiFlow Legal Suite. All rights reserved.</p>
-            <p style="margin-top: 12px;">
-                <a href="/" style="color: var(--primary); text-decoration: none;">Home</a> · 
-                <a href="/demo" style="color: var(--primary); text-decoration: none;">Free Demo</a> · 
-                <a href="/blog" style="color: var(--primary); text-decoration: none;">Blog</a> · 
-                <a href="mailto:leads@lexiflow.ai" style="color: var(--primary); text-decoration: none;">Contact</a>
-            </p>
-        </div>
-    </footer>
+    <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
+          <li><a href="/veritas">Veritas Deposition™</a></li>
+          <li><a href="/compliance-shield">Compliance-Shield™</a></li>
+          <li><a href="/dashboard">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>State Ethics Guides</h4>
+        <ul>
+          <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
+          <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
+          <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
+          <li><a href="/blog">All Resources</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/soc2">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
+<script src="/shared-layout.js"></script>
 </body>
 </html>

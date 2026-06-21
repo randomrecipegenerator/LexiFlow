@@ -17,11 +17,11 @@
     body { font-family: var(--font-sans); color: var(--text-dark); line-height: 1.6; background: var(--bg-light); }
     .container { max-width: var(--max-width); margin:0 auto; padding:0 24px; }
 
-    /* Local nav style removed */
+    
     .nav .container { display:flex; align-items:center; justify-content:space-between; height:68px; }
     .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
     .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:800; }
-    /* Local nav style removed */
+    
     .nav-links a { font-size:0.88rem; font-weight:500; color:var(--text-muted); text-decoration:none; transition:color 0.2s; }
     .nav-links a:hover { color:var(--primary); }
     .nav-links .active { color:var(--primary); font-weight:600; }
@@ -99,16 +99,11 @@
     .activity-info .detail { color:var(--text-muted); font-size:0.8rem; }
     .activity-time { font-size:0.75rem; color:var(--text-muted); white-space:nowrap; }
 
-    .footer { background:var(--bg-dark); color:rgba(255,255,255,0.6); padding:36px 0; text-align:center; font-size:0.82rem; }
+    .
 
     /* Mobile-Friendly Adjustments */
     @media (max-width: 768px) {
-        .container, .nav-container, .max-w-screen, .max-w, .hero-container, .footer-container {
-            padding-left: 20px !important;
-            padding-right: 20px !important;
-            width: 100% !important;
-            max-width: 100% !important;
-        }
+        .container, .nav-container, .max-w-screen, .max-w, .hero-container, 
         .grid, .highlight-grid, .faq-grid, .pricing-grid, .assoc-grid, .city-grid {
             grid-template-columns: 1fr !important;
             display: grid !important;
@@ -121,20 +116,17 @@
             flex-direction: column !important;
             align-items: center !important;
         }
-        .hero-text, .hero-image, .footer-col {
-            width: 100% !important;
-            margin-bottom: 30px !important;
-        }
+        .hero-text, .hero-image, 
         h1 { font-size: 28px !important; line-height: 1.2 !important; }
         h2 { font-size: 24px !important; }
         h3 { font-size: 20px !important; }
 
         /* Nav adjustments */
-        nav, /* Local nav style removed */
+        nav, 
         .nav-container, .nav .container { flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; padding: 10px 20px !important; }
-        /* Local nav style removed */
+        
         .nav-links.active { display: flex !important; }
-        /* Local nav style removed */
+        
         .btn-cta, .btn-primary { padding: 8px 16px !important; font-size: 13px !important; }
 
         /* Card and Feature adjustments */
@@ -147,9 +139,11 @@
     }
 
     </style>
-<link rel="stylesheet" href="/shared-layout.css">
+
+  <link rel="stylesheet" href="/master-layout.css">
 </head>
-<body><nav><div class="nav-container">
+<body><nav>
+  <div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing">Pricing</a></li>
@@ -172,7 +166,8 @@
       <li><a href="/signup" class="btn-cta">Get Started</a></li>
     </ul>
     <button class="nav-toggle" aria-label="Menu">☰</button>
-  </div></nav>
+  </div>
+</nav>
 
 
 
@@ -605,6 +600,7 @@ function disconnect(crm) {
       <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
     </div>
   </footer>
+
 <script src="/shared-layout.js"></script>
 </body>
 </html>

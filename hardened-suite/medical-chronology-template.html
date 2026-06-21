@@ -19,11 +19,11 @@
     * { box-sizing:border-box; margin:0; padding:0; }
     body { font-family:var(--font-sans); color:#1a1a2e; background:var(--bg-light); line-height:1.6; }
     .container { max-width:900px; margin:0 auto; padding:0 24px; }
-    /* Local nav style removed */
+    
     .nav .container { display:flex; align-items:center; justify-content:space-between; height:68px; max-width:1100px; }
     .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
     .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:800; }
-    /* Local nav style removed */
+    
     .nav-links a { font-size:0.85rem; font-weight:500; color:var(--text-muted); text-decoration:none; }
     .nav-links a:hover, .nav-links a.active { color:var(--primary); font-weight:600; }
     .resources-dropdown { position:relative; }
@@ -54,7 +54,7 @@
     .cta-box { background:linear-gradient(135deg,#0d1f33,var(--primary)); border-radius:var(--radius-lg); padding:40px; text-align:center; color:#fff; margin:30px 0; }
     .cta-box h3 { font-family:var(--font-serif); font-size:1.5rem; color:#fff; margin-bottom:10px; }
     .cta-box p { color:rgba(255,255,255,0.85); margin-bottom:20px; }
-    .footer { background:#0d1f33; color:rgba(255,255,255,0.6); padding:36px 0; text-align:center; font-size:0.82rem; }
+    .
     .footer a { color:rgba(255,255,255,0.6); }
     .modal-overlay { position:fixed; inset:0; background:rgba(13,31,51,0.85); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; z-index:2000; }
     .modal-overlay.active { display:flex; }
@@ -65,9 +65,11 @@
     @media (max-width:768px) { .hero h1 { font-size:1.8rem; } }
     .hidden { display:none; }
   </style>
-<link rel="stylesheet" href="../shared-layout.css">
+
+  <link rel="stylesheet" href="/master-layout.css">
 </head>
-<body><nav><div class="nav-container">
+<body><nav>
+  <div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/pricing">Pricing</a></li>
@@ -90,7 +92,8 @@
       <li><a href="/signup" class="btn-cta">Get Started</a></li>
     </ul>
     <button class="nav-toggle" aria-label="Menu">☰</button>
-  </div></nav>
+  </div>
+</nav>
 
 <section class="hero"><div class="container">
   <span class="badge">📋 Free Resource</span>
@@ -190,7 +193,7 @@
       <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
     </div>
   </footer>
-<script src="../shared-layout.js"></script><!-- Lead Modal Removed -->
+<!-- Lead Modal Removed -->
 <!--
 <div class="modal-overlay" id="leadModal">
   <div class="modal-box">
@@ -243,6 +246,7 @@ document.getElementById('downloadForm').addEventListener('submit', function(e) {
 
 
 
-<script src="../shared-layout.js"></script>
+
+<script src="/shared-layout.js"></script>
 </body>
 </html>
