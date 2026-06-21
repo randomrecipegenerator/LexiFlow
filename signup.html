@@ -142,7 +142,10 @@
         <h2>Start Your 14-Day Free Trial</h2>
         <p>Experience the full power of LexiFlow. No credit card required to start. 14-day trials available for all tiers: <strong>Standard ($69/mo)</strong>, <strong>Professional ($199/mo)</strong>, and <strong>Enterprise ($299/mo)</strong>.</p>
         
-        <form id="signupForm" style="max-width: 400px; margin: 0 auto; text-align: left;">
+        <form id="signupForm" style="max-width: 400px; margin: 0 auto; text-align: left;"
+              toolname="request_free_trial"
+              tooldescription="Submits a request for a 14-day free trial of the LexiFlow platform."
+              inputschema='{"type":"object","properties":{"name":{"type":"string","description":"Full name of the requester"},"email":{"type":"string","format":"email","description":"Work email address"},"firm":{"type":"string","description":"Law firm name"}},"required":["name","email","firm"]}'>
           <div style="margin-bottom: 15px;">
             <label style="display: block; margin-bottom: 5px; font-weight: 600;">Full Name</label>
             <input type="text" id="signupName" name="name" style="width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px;" required />

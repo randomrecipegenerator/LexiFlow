@@ -175,7 +175,10 @@
     <div style="text-align:right;"><button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text-muted);">&times;</button></div>
     <h3>📥 Request a Private Demo</h3>
     <p>Enter your details to receive our comprehensive guide to AI-powered personal injury software.</p>
-    <form action="mailto:leads@lexiflow.co" method="post" enctype="text/plain">
+    <form action="/api/demo-request" method="POST"
+          toolname="request_pi_demo"
+          tooldescription="Requests a private demo of LexiFlow for a personal injury law firm."
+          inputschema='{"type":"object","properties":{"name":{"type":"string","description":"Full name of the requester"},"email":{"type":"string","format":"email","description":"Work email address"},"firm":{"type":"string","description":"Law firm name"}},"required":["name","email","firm"]}'>
       <input type="text" name="name" placeholder="Full Name" required />
       <input type="email" name="email" placeholder="Work Email" required />
       <input type="text" name="firm" placeholder="Law Firm Name" required />

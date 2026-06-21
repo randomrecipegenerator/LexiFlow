@@ -132,7 +132,10 @@
   <div class="demo-form">
     <h3>📅 Book Your Enterprise Demo</h3>
     <p>Fill out the form below and we'll schedule a personalized walkthrough of the full Enterprise suite.</p>
-    <form action="mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io" method="post" enctype="text/plain">
+    <form action="/api/demo-request" method="POST"
+          toolname="request_hardened_demo"
+          tooldescription="Requests a personalized walkthrough of the hardened LexiFlow Enterprise platform from within the suite."
+          inputschema='{"type":"object","properties":{"name":{"type":"string","description":"Full name of the requester"},"email":{"type":"string","format":"email","description":"Work email address"},"firm":{"type":"string","description":"Law firm name"},"tier":{"type":"string","enum":["enterprise","professional","standard"],"description":"The plan tier the firm is interested in"}},"required":["name","email","firm","tier"]}'>
       <input type="text" name="name" placeholder="Full Name" required />
       <input type="email" name="email" placeholder="Work Email" required />
       <input type="text" name="firm" placeholder="Law Firm Name" required />

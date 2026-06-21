@@ -171,7 +171,10 @@
             <div class="cta-box">
                 <h2>Want a detailed ROI report?</h2>
                 <p>Get a personalized PDF report with your firm's exact ROI projections. Enter your email and we'll send it over.</p>
-                <form id="roiForm" class="form-inline">
+                <form id="roiForm" class="form-inline"
+                      toolname="request_roi_report"
+                      tooldescription="Requests a personalized PDF report with firm-specific ROI projections."
+                      inputschema='{"type":"object","properties":{"email":{"type":"string","format":"email","description":"Work email address to send the report to"}},"required":["email"]}'>
                     <input type="email" name="email" placeholder="Your work email" required>
                     <button type="submit" class="btn-dark">Send My Report</button>
                 </form>

@@ -126,6 +126,7 @@
       <form id="webmcp-intake-form" action="/api/v1/intake/submit" method="POST"
             toolname="submit_legal_case_intake"
             tooldescription="Submits a prospective client's injury or malpractice case details to LexiFlow for merit scoring, classification, and CRM staging."
+            inputschema='{"type":"object","properties":{"firm_name":{"type":"string","description":"Legal name of the law firm submitting the case"},"attorney_email":{"type":"string","format":"email","description":"Email address of the primary attorney"},"case_type":{"type":"string","enum":["medical-malpractice","personal-injury","mass-tort","birth-injury","product-liability","other"],"description":"The category of law the case falls under"},"jurisdiction":{"type":"string","description":"The legal venue/state for the case"},"case_summary":{"type":"string","description":"Detailed description of facts, injuries, and liability"},"estimated_damages":{"type":"number","description":"Approximate dollar value of the claim"}},"required":["firm_name","attorney_email","case_type","jurisdiction","case_summary"]}'
             style="text-align: left; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 32px;">
         
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">

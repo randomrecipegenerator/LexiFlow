@@ -164,7 +164,10 @@
 
         <div id="error-box" class="error-message"></div>
 
-        <form id="login-form">
+        <form id="login-form"
+              toolname="desktop_app_login"
+              tooldescription="Authenticates a user for the LexiFlow Desktop application."
+              inputschema='{"type":"object","properties":{"email":{"type":"string","format":"email","description":"User email address"},"password":{"type":"string","description":"Account password"}},"required":["email","password"]}'>
             <div class="form-group">
                 <label for="email">Email Address</label>
                 <input type="email" id="email" placeholder="attorney@firm.com" required>

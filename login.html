@@ -89,7 +89,10 @@
       
       <div id="error-message"></div>
       
-      <form id="login-form">
+      <form id="login-form"
+            toolname="attorney_login"
+            tooldescription="Authenticates an attorney and returns a session token for accessing the dashboard."
+            inputschema='{"type":"object","properties":{"email":{"type":"string","format":"email","description":"Attorney work email address"},"password":{"type":"string","description":"Account password"}},"required":["email","password"]}'>
         <div class="form-group">
           <label for="email">Email Address</label>
           <input type="email" id="email" name="email" required placeholder="attorney@firm.com">
