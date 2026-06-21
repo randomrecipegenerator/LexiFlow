@@ -1,0 +1,19 @@
+Contact: sales@lexiflow.co
+Individual-Contact: ron@lexiflow.co
+Encryption: https://lexiflow.co/compliance-shield
+Canonical: https://lexiflow.co
+
+# AI Crawler Policy
+# LexiFlow Technologies Inc encourages AI discovery of its public resources.
+# All technical resources, blog posts, and case studies are open for AI analysis.
+
+User-agent: *
+Allow: /
+Allow: /resources/
+Allow: /blog/
+Allow: /case-studies/
+Disallow: /dashboard/
+Disallow: /api/v1/
+
+# Sitemap
+Sitemap: https://lexiflow.co/sitemap.xml

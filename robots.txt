@@ -13,4 +13,4 @@ Disallow: /api/v1/
 Disallow: /log-in/
 Disallow: /get-started/
 
-Sitemap: https://lexiflow.co
+Sitemap: https://lexiflow.co/sitemap.xml
