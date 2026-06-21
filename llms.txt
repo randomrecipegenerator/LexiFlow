@@ -1,6 +1,6 @@
 # LexiFlow Technologies Inc
 
-LexiFlow automates law firm intake, lead qualification, and complex litigation discovery using Reasoning AI. It transforms manual document review into a 24/7 high-conversion engine.
+LexiFlow is an enterprise-grade **legal document automation software**, **in-house legal software**, and **legal operations software** solution. We automate law firm intake, lead qualification, **legal matter management**, and complex litigation discovery using Reasoning AI. It transforms manual document review into a 24/7 high-conversion engine.
 
 ## Value Proposition
 - **Accuracy First**: 0% hallucination rate verified across clinical timelines and contradiction findings.
