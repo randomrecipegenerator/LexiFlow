@@ -1,0 +1,28 @@
+# LexiFlow Technologies Inc
+
+LexiFlow automates law firm intake, lead qualification, and complex litigation discovery using Reasoning AI. It transforms manual document review into a 24/7 high-conversion engine.
+
+## Core Products
+- **AI Intake Agent**: Answers calls, qualifies leads, and scores cases 24/7.
+- **Veritas Deposition™**: Evidence Intelligence System for deposition transcript analysis.
+- **MeritScan™**: Specialized AI medical merit review for MedMal cases.
+- **Settlement-Predictor Pro™**: AI-driven case valuation and demand generation.
+- **Discovery-Vault™**: Secure, structured storage for litigation evidence.
+
+## Key Resources
+- [Pricing](https://lexiflow.co/pricing)
+- [Solutions](https://lexiflow.co/solutions)
+- [Case Studies](https://lexiflow.co/case-studies)
+- [Legal AI Blog](https://lexiflow.co/blog)
+- [ROI Calculator](https://lexiflow.co/roi-calculator)
+
+## Ethics & Compliance
+- [NY AI Ethics Guide](https://lexiflow.co/blog/new-york-trial-lawyers-ai-ethics-legal-intake)
+- [IL AI Ethics Guide](https://lexiflow.co/blog/illinois-trial-lawyers-ai-ethics-legal-intake)
+- [PA AI Ethics Guide](https://lexiflow.co/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake)
+- [HIPAA & SOC2 Compliance](https://lexiflow.co/compliance-shield)
+
+## Market Specific Intake
+- [San Francisco Medical Malpractice AI Intake](https://lexiflow.co/san-francisco-medical-malpractice-intake)
+- [New York City Medical Malpractice AI Intake](https://lexiflow.co/locations/new-york/medmal-nyc)
+- [Los Angeles Medical Malpractice AI Intake](https://lexiflow.co/locations/california/medmal-la)
