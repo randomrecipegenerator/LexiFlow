@@ -162,6 +162,23 @@
       '<div style="display:flex;justify-content:space-between;font-size:0.85rem;"><span>Rodriguez v. County General</span><span style="color:#c9a84c;">$3.4M</span></div><div style="font-size:0.75rem;color:#64748b;">N.D. Texas · 2024</div></div></div>',
       null, null); },
 
+    // Strategist
+    'btn-run-strategy-analysis': function() { 
+      showToast('Strategist AI is processing case evidence...', 'info');
+      setTimeout(function() { showToast('Analysis complete. 3 new impeachment opportunities identified.', 'success'); }, 2000);
+    },
+    'btn-new-strategy-session': function() { 
+      showModal('New Strategy Session', 
+        '<p>Initialize a new Reasoning AI strategy session for a case.</p>' +
+        '<div style="margin-top:12px;"><label style="display:block;font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">Select Case</label>' +
+        '<select style="width:100%;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:0.85rem;"><option>Rodriguez v. Mount Sinai</option><option>State v. Henderson</option><option>New Matter...</option></select></div>',
+        'Start Session', function() { showToast('New strategy session initialized.', 'success'); });
+    },
+    'btn-export-strategy': function() { 
+      showToast('Preparing strategy report and cross-examination outline...', 'info');
+      setTimeout(function() { showToast('Strategy report (PDF) ready for download.', 'success'); }, 1500);
+    },
+
     // Compliance Shield
     'btn-download-soc2': function() { 
       showToast('📄 SOC 2 Type II report download started.', 'success');
@@ -205,6 +222,9 @@
       else if (textMatches(text, ['new mdl case', 'new mdl'])) { btn.id = 'btn-new-mdl'; }
       else if (textMatches(text, ['new analysis'])) { btn.id = 'btn-new-analysis'; }
       else if (textMatches(text, ['new chronology'])) { btn.id = 'btn-new-chronology'; }
+      else if (textMatches(text, ['run analysis'])) { btn.id = 'btn-run-strategy-analysis'; }
+      else if (textMatches(text, ['new strategy session'])) { btn.id = 'btn-new-strategy-session'; }
+      else if (textMatches(text, ['export full cross-outline', 'export strategy'])) { btn.id = 'btn-export-strategy'; }
       else if (textMatches(text, ['run new valuation', 'run valuation'])) { btn.id = 'btn-run-valuation'; }
       else if (textMatches(text, ['download soc 2', 'soc 2 report'])) { btn.id = 'btn-download-soc2'; }
       else if (textMatches(text, ['security settings'])) { btn.id = 'btn-security-settings'; }
