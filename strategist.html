@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexiFlow Strategist™ | AI Case Advice & Litigation Intelligence</title>
+    <meta name="description" content="LexiFlow Strategist™ provides reasoning-based AI case advice, identifies evidentiary weaknesses, and generates cross-examination questions for complex litigation.">
+    <link rel="icon" type="image/svg+xml" href="/branding/logo-icon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    
+    <link rel="stylesheet" href="/veritas-theme.css">
+    <link rel="stylesheet" href="/master-layout.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="logo" style="text-decoration: none; color: white; display: flex; align-items: center; gap: 8px;">
+                    <span style="background: var(--gold-accent); color: var(--navy-bg); padding: 2px 6px; border-radius: 4px; font-weight: 800; font-size: 14px;">LF</span>
+                    <span style="font-family: var(--font-serif); font-weight: 700; font-size: 18px;">LexiFlow</span>
+                </a>
+            </div>
+            <div class="sidebar-nav">
+                <a href="/dashboard" class="nav-item">
+                    <i class="bi bi-speedometer2"></i>
+                    <span class="sidebar-text">Main Dashboard</span>
+                </a>
+                <a href="/discovery-vault" class="nav-item">
+                    <i class="bi bi-safe2"></i>
+                    <span class="sidebar-text">Discovery-Vault™</span>
+                </a>
+                <a href="/veritas" class="nav-item">
+                    <i class="bi bi-shield-check"></i>
+                    <span class="sidebar-text">Veritas Deposition™</span>
+                </a>
+                <a href="/strategist" class="nav-item active">
+                    <i class="bi bi-brain"></i>
+                    <span class="sidebar-text">LexiFlow Strategist™</span>
+                </a>
+                <a href="/ai-medical-chronologies" class="nav-item">
+                    <i class="bi bi-file-medical"></i>
+                    <span class="sidebar-text">Medical AI</span>
+                </a>
+                <a href="/settlement-predictor" class="nav-item">
+                    <i class="bi bi-graph-up-arrow"></i>
+                    <span class="sidebar-text">Settlement-Predictor™</span>
+                </a>
+                <a href="/compliance-shield" class="nav-item">
+                    <i class="bi bi-lock"></i>
+                    <span class="sidebar-text">Compliance-Shield™</span>
+                </a>
+            </div>
+            <div style="padding: 24px; border-top: 1px solid var(--navy-border);">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--navy-border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">JD</div>
+                    <div class="sidebar-text">
+                        <div style="font-size: 12px; font-weight: 600;">Partner Account</div>
+                        <div style="font-size: 10px; color: var(--text-secondary);">Enterprise Tier</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <header class="page-header">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h1>LexiFlow Strategist™</h1>
+                        <p>Reasoning AI Case Advice & Litigation Strategy Engine</p>
+                    </div>
+                    <div style="display: flex; gap: 12px;">
+                        <button class="v-btn v-btn-outline"><i class="bi bi-lightning"></i> Run Analysis</button>
+                        <button class="v-btn v-btn-primary">New Strategy Session</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Metrics -->
+            <div class="grid-cols-4">
+                <div class="v-card metric-card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="metric-label">Active Analysis</span>
+                        <i class="bi bi-activity metric-icon"></i>
+                    </div>
+                    <div class="metric-value">42</div>
+                    <div style="font-size: 12px; color: var(--gold-accent); margin-top: 4px;">
+                        High-stakes matters
+                    </div>
+                </div>
+                <div class="v-card metric-card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="metric-label">Avg Merit Score</span>
+                        <i class="bi bi-star-fill metric-icon"></i>
+                    </div>
+                    <div class="metric-value">88.4</div>
+                    <div style="font-size: 12px; color: var(--success); margin-top: 4px;">
+                        Above threshold
+                    </div>
+                </div>
+                <div class="v-card metric-card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="metric-label">Impeachments</span>
+                        <i class="bi bi-target metric-icon"></i>
+                    </div>
+                    <div class="metric-value">156</div>
+                    <div style="font-size: 12px; color: var(--danger); margin-top: 4px;">
+                        Direct contradictions found
+                    </div>
+                </div>
+                <div class="v-card metric-card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="metric-label">Strategy ROI</span>
+                        <i class="bi bi-currency-dollar metric-icon"></i>
+                    </div>
+                    <div class="metric-value">+28%</div>
+                    <div style="font-size: 12px; color: var(--success); margin-top: 4px;">
+                        Case value increase
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2-1">
+                <!-- Case Strategy Analysis -->
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                    <div class="v-card">
+                        <div class="v-card-header">
+                            <h3 class="v-card-title">🧠 Strategic Analysis: Rodriguez v. Mount Sinai</h3>
+                            <div class="v-badge v-badge-gold">Priority High</div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 16px;">
+                            <div class="strategy-item-v">
+                                <div class="strategy-title">Evidentiary Weakness: 14-Hour Antibiotic Gap</div>
+                                <p class="strategy-desc">The AI identifies a critical failure in the sepsis protocol. While the defendant testifies to immediate treatment, the MAR shows a 14-hour delay. This is a primary liability pivot.</p>
+                            </div>
+                            <div class="strategy-item-v">
+                                <div class="strategy-title">Impeachment Opportunity: ER Attending Testimony</div>
+                                <p class="strategy-desc">Witness Alan Miller (Page 34) claims "immediate administration." This is directly refuted by Nursing Log P8. Suggest trapping witness on protocol adherence before introducing exhibit.</p>
+                            </div>
+                            <div class="strategy-item-v">
+                                <div class="strategy-title">Jurisdictional Alert: New York State Caps</div>
+                                <p class="strategy-desc">Based on current NY case law (22 NYCRR Part 1200), the vicarious liability of the hospital is strengthened by the triage qSOFA score of 2. Settlement value should be adjusted upward.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="v-card">
+                        <div class="v-card-header">
+                            <h3 class="v-card-title">🤖 AI-Generated Cross-Examination</h3>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 12px;" id="crossExamList">
+                            <div class="cross-item">
+                                <span class="q-num">Q1.</span> "Doctor, would you agree that a 14-hour delay in antibiotics for a qSOFA-2 patient constitutes a breach of the standard of care?"
+                            </div>
+                            <div class="cross-item">
+                                <span class="q-num">Q2.</span> "You testified earlier that you 'personally confirmed' the start of IV antibiotics at 19:45, correct?"
+                            </div>
+                            <div class="cross-item">
+                                <span class="q-num">Q3.</span> "Then please explain why the hospital's own electronic record shows no such administration until the following morning."
+                            </div>
+                        </div>
+                        <button class="v-btn v-btn-outline" style="margin-top: 20px; width: 100%;"><i class="bi bi-file-earmark-pdf"></i> Export Full Cross-Outline</button>
+                    </div>
+                </div>
+
+                <!-- Secondary Column -->
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                    <div class="v-card">
+                        <div class="v-card-header">
+                            <h3 class="v-card-title">⚖️ Liability Score</h3>
+                        </div>
+                        <div style="text-align: center; padding: 20px 0;">
+                            <div class="score-circle">92</div>
+                            <div style="font-size: 14px; font-weight: 700; margin-top: 12px; color: var(--success);">VICTORY PROBABILITY: HIGH</div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: var(--text-secondary);">
+                            <div style="display: flex; justify-content: space-between;"><span>Liability Strength</span><span>96/100</span></div>
+                            <div style="display: flex; justify-content: space-between;"><span>Damage Potential</span><span>88/100</span></div>
+                            <div style="display: flex; justify-content: space-between;"><span>Venue Favorability</span><span>74/100</span></div>
+                        </div>
+                    </div>
+
+                    <div class="v-card">
+                        <div class="v-card-header">
+                            <h3 class="v-card-title">Subpoena Roadmap</h3>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div class="roadmap-item"><i class="bi bi-check2-square text-gold"></i> Triage IT Audit Logs</div>
+                            <div class="roadmap-item"><i class="bi bi-check2-square text-gold"></i> Pharmacy Dispensing Records</div>
+                            <div class="roadmap-item"><i class="bi bi-square text-muted"></i> Internal Quality Review Memos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <style>
+        .strategy-item-v {
+            padding: 16px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            border-left: 3px solid var(--gold-accent);
+        }
+        .strategy-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; color: var(--text-primary); }
+        .strategy-desc { font-size: 12px; color: var(--text-secondary); }
+
+        .cross-item {
+            padding: 12px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+            font-size: 13px;
+            font-style: italic;
+            border: 1px solid var(--navy-border);
+        }
+        .q-num { color: var(--gold-accent); font-weight: 800; margin-right: 8px; }
+
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 6px solid var(--gold-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0 auto;
+            color: var(--text-primary);
+            box-shadow: 0 0 20px rgba(201, 168, 76, 0.2);
+        }
+
+        .roadmap-item { font-size: 12px; display: flex; gap: 10px; align-items: center; }
+    </style>
+
+    <script src="/config.js"></script>
+    <script src="/shared-ui.js"></script>
+    <script src="/shared-layout.js"></script>
+</body>
+</html>
