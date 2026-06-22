@@ -22,7 +22,7 @@ Traditional deposition digestion is a major bottleneck for litigation law firms.
   - `/deposition-chronology.html` (Primary search intent: "deposition chronology")
   - `/key-admissions.html` (Primary search intent: "deposition admissions finder")
   - `/contradiction-detection.html` (Primary search intent: "deposition contradiction detector")
-  - `/transcript-analysis.html` (Primary search intent: "deposition transcript analysis software")
+  - `/veritas-deposition.html` (Primary search intent: "deposition transcript analysis software")
 - **Supporting Editorial Blogs:**
   - `/blog/how-to-digest-a-deposition-in-15-minutes.html`
   - `/blog/how-ai-finds-key-admissions-in-depositions.html`
@@ -162,13 +162,13 @@ All landing pages are designed to utilize the unified navigation/footer structur
 
 ---
 
-### LANDING PAGE 6: `/transcript-analysis.html`
-* **SEO Slug:** `/transcript-analysis.html`
+### LANDING PAGE 6: `/veritas-deposition.html`
+* **SEO Slug:** `/veritas-deposition.html`
 * **Primary Target Keyword:** `deposition transcript analysis software` (Search Volume: 90, Keyword Difficulty: Low, Intent: Commercial)
 * **Secondary Keywords:** `AI transcript analyzer legal`, `legal transcript summaries`, `read depositions with AI`
 * **Target Page Title:** `Legal Transcript Analysis & Deposition AI Software | LexiFlow`
 * **Meta Description:** `Read, search, summarize, and analyze litigation transcripts automatically. Streamline trial prep with HIPAA-compliant, enterprise-grade AI transcript analysis.`
-* **Canonical URL:** `https://lexiflow.co/transcript-analysis.html`
+* **Canonical URL:** `https://lexiflow.co/veritas-deposition.html`
 
 #### Page Structure & Heading Hierarchy
 - **H1:** AI Deposition Transcript Analysis Software for Modern Litigators
@@ -263,6 +263,6 @@ To build strong domain authority and signal a structured information hierarchy t
 
 ### Specific Link Rules
 1. **The transactional landing pages** (e.g., `/deposition-summary.html`) must contain a primary internal link to the core product page `/veritas` and a secondary link to the relevant blog posts (e.g., pointing to `/blog/deposition-summary-template.html` for template download seekers).
-2. **The blog posts** must contain at least two internal links to the transactional landing pages (e.g., the template blog links to `/deposition-summary.html` and `/transcript-analysis.html` as the "next-gen automated upgrade").
+2. **The blog posts** must contain at least two internal links to the transactional landing pages (e.g., the template blog links to `/deposition-summary.html` and `/veritas-deposition.html` as the "next-gen automated upgrade").
 3. **The core product page** `/veritas` links dynamically to all 6 specialized landing pages as deep feature modules, forming a complete semantic ring.
 4. **All pages** must incorporate standard navigation linkages via the `nav` and `footer` elements in `shared-layout.js` to prevent orphaned nodes.

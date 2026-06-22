@@ -12,7 +12,7 @@ Veritas Deposition™ by LexiFlow changes this entirely. Upload the transcript a
 
 Included in the Professional ($199/mo) and Enterprise ($299/mo) tiers.
 
-Full breakdown: https://lexiflow.co/blog/digesting-deposition-ai-transcript-analysis.html
+Full breakdown: https://lexiflow.co/blog/digesting-deposition-ai-veritas-deposition.html
 
 Email for a personalized Veritas Deposition™ demo: leads@lexiflow.co
 
@@ -22,7 +22,7 @@ Email for a personalized Veritas Deposition™ demo: leads@lexiflow.co
 3/ Veritas Deposition™ by LexiFlow does all of this in 15-30 minutes. Upload the raw transcript. Get issue-organized digests with every contradiction flagged.
 4/ The accuracy numbers: 97% issue classification, 99.3% contradiction detection, zero missed medical record cross-references.
 5/ Included in Professional ($199/mo) and Enterprise ($299/mo) tiers. HIPAA compliant. BAA included.
-6/ Full article → https://lexiflow.co/blog/digesting-deposition-ai-transcript-analysis.html
+6/ Full article → https://lexiflow.co/blog/digesting-deposition-ai-veritas-deposition.html
 
 ## Email Newsletter
 **Subject:** Deposition digestion just got 50x faster
@@ -39,6 +39,6 @@ Key capabilities:
 • Medical record cross-referencing with citation trails
 • Issue-specific digests for trial preparation
 
-Read the full article: https://lexiflow.co/blog/digesting-deposition-ai-transcript-analysis.html
+Read the full article: https://lexiflow.co/blog/digesting-deposition-ai-veritas-deposition.html
 
 Reply for a personalized Veritas Deposition™ demo.
