@@ -400,13 +400,13 @@ Thank you. I'm happy to take questions."
 
 ### Offer Structure
 
-| Tier | Standard | Professional | Enterprise |
-|------|----------|-------------|-----------|
-| **Normal Price** | $69/month | $199/month | $299/month |
+| Tier | Starter | Professional | Enterprise |
+|------|---------|--------------|------------|
+| **Normal Price** | $29/month | $99/month | $129/month |
 | **Pilot Price** | **FREE for 30 days** | **FREE for 30 days** | **FREE for 30 days** |
 | **Onboarding** | Self-guided (15 min) | Priority (1-hour setup call) | VIP (2-hour dedicated setup) |
 | **Support** | Email | Email + Chat | Dedicated account manager |
-| **Documents** | Unlimited intake | 250 documents/mo | 500 documents/mo |
+| **Documents** | 10 documents/mo | 250 documents/mo | 500 documents/mo |
 | **Veritas Deposition™** | — | — | ✅ Full access |
 | **CRM Sync** | — | — | ✅ Filevine/Clio |
 
@@ -434,7 +434,7 @@ Here's what you get:
 - Dedicated account manager
 
 **At the end of 30 days:**
-- If you love it: Continue on your tier of choice (Standard $69, Professional $199, or Enterprise $299/month)
+- If you love it: Continue on your tier of choice (Starter $29, Professional $99, or Enterprise $129/month)
 - If you need more time: We'll extend the pilot by 2 weeks — no questions asked
 - If it's not right: Cancel. No cost. No hassle.
 
@@ -448,7 +448,7 @@ We'll handle the data migration. You focus on your cases."
 
 | Question | Response |
 |----------|----------|
-| "How long does setup take?" | "For Standard, self-guided setup takes about 15 minutes. For Enterprise, our team handles everything in a 2-hour dedicated session." |
+| "How long does setup take?" | "For Starter, self-guided setup takes about 15 minutes. For Enterprise, our team handles everything in a 2-hour dedicated session." |
 | "Can we try Veritas Deposition™?" | "Absolutely. The Enterprise pilot includes full Veritas access — Contradiction Detection Engine™, Cross-Examination Builder™, and the full Evidence Intelligence Suite." |
 | "What if we want to upgrade mid-pilot?" | "You can upgrade at any time. We'll credit the remaining pilot days toward your first month." |
 | "Do you integrate with our other tools?" | "We sync with Filevine and Clio out of the box. We also support LeadDock and standard CSV exports for other CRMs." |
