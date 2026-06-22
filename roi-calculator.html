@@ -289,7 +289,7 @@
             document.getElementById('leadCapture').textContent = '+' + Math.round(lossRate * 100 * 0.7) + '%';
             document.getElementById('efficiency').textContent = Math.round((1 - aiMinsPerLead/manualMinsPerLead) * 100) + '%';
             document.getElementById('hoursSaved').textContent = hoursSavedMonthly.toLocaleString();
-            const cost = 299 * 12;
+            const cost = 129 * 12;
             const paybackMonths = cost / (totalAnnualSavings / 12 || 1);
             document.getElementById('payback').textContent = paybackMonths < 0.5 ? 'Instant' : (paybackMonths < 1 ? '< 1 month' : Math.ceil(paybackMonths) + ' months');
         }

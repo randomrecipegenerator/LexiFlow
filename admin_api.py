@@ -317,7 +317,9 @@ async def register_firm(
         name=reg_data.firm_name,
         slug=slugify(reg_data.firm_name),
         branding_colors=reg_data.branding_colors,
-        plan_status="standard"
+        plan_status="trialing",
+        billing_tier="starter",
+        trial_expires_at=datetime.utcnow() + timedelta(days=30)
     )
     db.add(new_firm)
     db.flush()

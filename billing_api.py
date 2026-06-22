@@ -5,9 +5,9 @@ Provides subscription management endpoints using Stripe Connect.
 Handles checkout, customer portal, webhooks, and plan status.
 
 Pricing Tiers (monthly recurring):
-- Standard: $69  — AI Intake Suite, Basic Chronologies
-- Professional: $199  — Standard + 250 docs/mo + Priority Processing
-- Enterprise: $299  — Professional + Veritas Deposition™ + 500 docs/mo
+- Starter: $29  — AI Intake Suite, Basic Chronologies
+- Professional: $99  — Standard + 250 docs/mo + Priority Processing
+- Enterprise: $129  — Professional + Veritas Deposition™ + 500 docs/mo
 
 Stripe Connect onboarding scheduled: Tuesday, June 23, 2026.
 Test mode keys should be used for development until live keys are configured.
@@ -44,16 +44,16 @@ FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
 # Price IDs — to be created in Stripe Dashboard after onboarding.
 # Until then, the checkout endpoint uses test-mode price lookups.
 PRICE_IDS = {
-    "standard": os.getenv("STRIPE_PRICE_STANDARD", "price_standard_monthly"),
+    "starter": os.getenv("STRIPE_PRICE_STARTER", "price_starter_monthly"),
     "professional": os.getenv("STRIPE_PRICE_PROFESSIONAL", "price_professional_monthly"),
     "enterprise": os.getenv("STRIPE_PRICE_ENTERPRISE", "price_enterprise_monthly"),
 }
 
 # Tier metadata for reference
 PLANS = {
-    "standard": {
-        "name": "Standard",
-        "amount": 6900,  # $69 in cents
+    "starter": {
+        "name": "Starter",
+        "amount": 2900,  # $29 in cents
         "description": "AI Intake Suite (Web/SMS AI, Voice AI, Basic Chronologies)",
         "features": [
             "AI Web Chat & SMS Intake",
@@ -64,10 +64,10 @@ PLANS = {
     },
     "professional": {
         "name": "Professional",
-        "amount": 19900,  # $199 in cents
+        "amount": 9900,  # $99 in cents
         "description": "Standard features + 250 documents/month + Priority AI Processing",
         "features": [
-            "Everything in Standard",
+            "Everything in Starter",
             "250 Documents/Month Processing",
             "Priority AI Processing Queue",
             "Custom CRM Integration",
@@ -75,20 +75,20 @@ PLANS = {
     },
     "enterprise": {
         "name": "Enterprise",
-        "amount": 29900,  # $299 in cents
-        "description": "Professional + Veritas Deposition™ + 500 documents/month + Enterprise CRM Sync",
+        "amount": 12900,  # $129 in cents
+        "description": "Professional + Veritas Deposition™ + 500 documents/month + LexiFlow Strategist™",
         "features": [
             "Everything in Professional",
-            "Veritas Deposition™ (Discovery-Vault™, Settlement-Predictor Pro™, DepoLens™)",
+            "Veritas Deposition™ Suite",
+            "LexiFlow Strategist™ AI Advice",
             "500 Documents/Month",
             "Enterprise CRM Sync (Clio, Filevine)",
-            "Dedicated Support",
         ],
     },
 }
 
 DOCUMENT_LIMITS = {
-    "standard": 50,
+    "starter": 10,
     "professional": 250,
     "enterprise": 500,
 }
@@ -178,7 +178,7 @@ async def create_checkout_session(
     if not resolved_price_id:
         raise HTTPException(
             status_code=400,
-            detail="Either 'price_id' (Stripe Price ID) or 'plan' (standard/professional/enterprise) is required.",
+            detail="Either 'price_id' (Stripe Price ID) or 'plan' (starter/professional/enterprise) is required.",
         )
 
     # If Stripe isn't configured yet, return a simulated checkout URL for testing
@@ -187,7 +187,7 @@ async def create_checkout_session(
         logger.info(f"Stripe not configured — returning simulated checkout URL for firm {firm.id}, plan={plan or price_id}")
         return {
             "status": "simulated",
-            "url": f"{FRONTEND_URL}/billing/simulated-checkout?firm_id={firm.id}&plan={plan or 'standard'}",
+            "url": f"{FRONTEND_URL}/billing/simulated-checkout?firm_id={firm.id}&plan={plan or 'starter'}",
             "session_id": f"cs_sim_{firm.id}_{datetime.utcnow().timestamp()}",
             "message": "Stripe Connect onboarding is scheduled for June 23, 2026. "
                        "This is a simulated checkout for development purposes.",
@@ -368,16 +368,16 @@ async def _handle_checkout_completed(session_data: dict, db: Session):
     firm.plan_status = "active"
 
     # Determine tier from the subscription line items
-    # Fall back to standard if we can't detect
-    tier = "standard"
+    # Fall back to starter if we can't detect
+    tier = "starter"
     line_items = session_data.get("line_items", {}).get("data", [])
     if line_items:
         price_id = line_items[0].get("price", {}).get("id", "")
         reverse_map = {v: k for k, v in PRICE_IDS.items()}
-        tier = reverse_map.get(price_id, "standard")
+        tier = reverse_map.get(price_id, "starter")
     else:
         # Try to infer from metadata
-        tier = metadata.get("plan", "standard")
+        tier = metadata.get("plan", "starter")
 
     firm.billing_tier = tier
 
@@ -506,7 +506,7 @@ async def _handle_subscription_deleted(subscription_data: dict, db: Session):
     if firm:
         firm.plan_status = "canceled"
         firm.stripe_subscription_id = None
-        firm.billing_tier = "standard"
+        firm.billing_tier = "starter"
         db.commit()
 
     logger.info(f"Subscription canceled for firm {sub.firm_id}")
@@ -576,7 +576,7 @@ def get_billing_status(
 
 @router.post("/simulate-activation")
 def simulate_subscription_activation(
-    plan: str = "standard",
+    plan: str = "starter",
     user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
