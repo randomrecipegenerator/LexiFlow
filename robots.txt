@@ -1,16 +1,63 @@
+# LexiFlow Technologies Inc - Robots.txt
+# Production environment
+
+# AI Training Crawlers - Allowed to index for AI search visibility
 User-agent: OAI-SearchBot
+Allow: /
+Allow: /resources/
+Allow: /products/
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /login
+Disallow: /signup
+
 User-agent: Claude-Web
+Allow: /
+Allow: /resources/
+Allow: /products/
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /login
+Disallow: /signup
+
 User-agent: PerplexityBot
+Allow: /
+Allow: /resources/
+Allow: /products/
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /login
+Disallow: /signup
+
 User-agent: Google-Extended
+Allow: /
+Allow: /resources/
+Allow: /products/
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /login
+Disallow: /signup
+
 User-agent: Applebot-Extended
 Allow: /
 Allow: /resources/
 Allow: /products/
-
-User-agent: *
 Disallow: /dashboard/
-Disallow: /api/v1/
-Disallow: /log-in/
+Disallow: /api/
+Disallow: /login
+Disallow: /signup
+
+# General crawlers
+User-agent: *
+Allow: /
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /login
+Disallow: /signup
 Disallow: /get-started/
 
+# Crawl delay for polite crawling
+Crawl-delay: 10
+
+# Sitemaps
 Sitemap: https://lexiflow.co/sitemap.xml
