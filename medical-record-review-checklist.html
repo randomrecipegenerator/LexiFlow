@@ -185,25 +185,26 @@
       <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
     </div>
   </footer>
-<!-- Lead Modal Removed -->
-<!--
+<!-- Lead Modal -->
 <div class="modal-overlay" id="leadModal">
   <div class="modal-box">
     <div style="text-align:right;"><button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">&times;</button></div>
     <h3>📥 Download Medical Record Review Checklist</h3>
     <p>Enter your details to receive the resource instantly.</p>
-    <form id="downloadForm" data-file="/downloads/lexiflow-record-review-checklist.pdf">
+    <form id="downloadForm" data-file="/downloads/lexiflow-record-review-checklist.pdf"
+          toolname="download_medical_record_review_checklist"
+          tooldescription="Submits a request to download the Medical Record Review Checklist PDF."
+          inputschema='{"type":"object","properties":{"name":{"type":"string","description":"Full name of the requester"},"email":{"type":"string","format":"email","description":"Work email address"},"firm":{"type":"string","description":"Law firm name"}},"required":["name","email","firm"]}'>
       <input type="text" name="name" placeholder="Full Name" required />
       <input type="email" name="email" placeholder="Work Email" required />
       <input type="text" name="firm" placeholder="Law Firm Name" required />
       <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" id="submitBtn">📥 Request Demo →</button>
     </form>
     <div id="successMsg" class="hidden" style="margin-top:20px; padding:15px; background:rgba(22, 163, 74, 0.1); border:1px solid #16a34a; color:#16a34a; border-radius:8px; font-size:0.9rem; text-align:center;">
-      <strong>Success!</strong> Your download should start automatically. If not, <!-- Download Removed -->.
+      <strong>Success!</strong> Your download should start automatically.
     </div>
   </div>
 </div>
--->
 
 <script>
 function openModal() { document.getElementById('leadModal').classList.add('active'); }
