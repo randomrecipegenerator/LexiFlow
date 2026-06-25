@@ -1819,7 +1819,8 @@ if not os.getenv("VERCEL") and __name__ == "__main__":
         "medical-chronology-software", "medical-chronology-template",
         "medical-chronology-sample", "medical-record-review-checklist",
         "case-studies", "roi-report-template", "veritas-app",
-        "san-francisco-medical-malpractice-intake",
+        "san-francisco-medical-malpractice-intake", "strategist",
+        "veritas-deposition",
     ]
     for page in CLEAN_URL_PAGES:
         html_path = os.path.join(root_dir, f"{page}.html")

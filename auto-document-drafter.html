@@ -3,57 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Auto-Doc Drafter | LexiFlow Technologies Inc</title>
-    <meta name="keywords" content="medical chronology software, law firm intake software, AI medical record review, personal injury law firm software, lead qualification AI, legal workflow automation, settlement demand software, AI medical chronology, automated medical record review, plaintiff law firm software">
-  <meta name="description" content="LexiFlow is the leading medical chronology software and law firm intake software. Draft demand letters and filings in seconds, not hours. AI-powered legal document generation." />
+  <title>Auto-Document Drafter | LexiFlow Technologies Inc</title>
+  <meta name="description" content="LexiFlow Auto-Document Drafter generates demand letters, pleadings, settlement brochures, and medical chronologies in seconds. Every statement includes a source citation hyperlinked to the original document." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  
+  <link rel="stylesheet" href="/master-layout.css">
+  <link rel="stylesheet" href="/shared-layout.css">
   <style>
-    :root {
-      --primary: #1a3a5c;
-      --primary-dark: #0d1f33;
-      --accent: #c9a84c;
-      --slate-50: #f8fafc;
-      --slate-200: #e2e8f0;
-      --slate-400: #94a3b8;
-      --slate-600: #475569;
-      --navy: #0f172a;
-      --gold: #c9a84c;
-    }
-    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--navy); line-height: 1.6; margin: 0; padding-top: 80px; }
+    :root { --primary: #1a3a5c; --navy: #0f172a; --gold: #c9a84c; --slate-50: #f8fafc; --slate-200: #e2e8f0; --slate-400: #94a3b8; --slate-600: #475569; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--navy); line-height: 1.6; margin: 0; }
     .hero { background: var(--navy); color: #fff; padding: 100px 0; text-align: center; }
     .hero h1 { font-family: 'Playfair Display', serif; font-size: 48px; margin-bottom: 16px; }
     .hero h1 span.highlight { color: var(--gold); font-style: italic; }
     .hero p.subtitle { font-size: 18px; color: var(--slate-400); max-width: 700px; margin: 0 auto 40px; }
-    .hero-badges { display: flex; gap: 12px; justify-content: center; margin-bottom: 24px; }
-    .hero-badge { background: rgba(255,255,255,0.1); color: #fff; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; }
     .btn { display: inline-block; padding: 14px 28px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.2s; }
     .btn-primary { background: var(--gold); color: var(--navy); }
-    .btn-secondary { border: 1px solid var(--slate-400); color: #fff; margin-left: 12px; }
+    .btn-outline-light { border: 1px solid var(--slate-400); color: #fff; margin-left: 12px; }
     .section { padding: 80px 0; }
+    .section-alt { background: var(--slate-50); }
     .section-header { text-align: center; margin-bottom: 48px; }
     .section-label { color: var(--gold); text-transform: uppercase; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; display: block; margin-bottom: 8px; }
-    .section h2 { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--navy); }
-    .features-grid-2 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+    .section h2 { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--navy); text-align: center; }
+    .section-subtitle { text-align: center; color: var(--slate-600); max-width: 700px; margin: 0 auto 40px; font-size: 16px; }
+    .features-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
     .feature-card { background: #fff; padding: 32px; border-radius: 12px; border: 1px solid var(--slate-200); }
-    .feature-icon { font-size: 24px; margin-bottom: 16px; }
-    .feature-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 12px; }
-    .feature-card p { color: var(--slate-600); font-size: 15px; }
+    .feature-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 12px; }
+    .feature-card p { color: var(--slate-600); font-size: 14px; }
     .stats-bar { background: var(--navy); color: #fff; padding: 40px 0; display: flex; justify-content: space-around; text-align: center; border-radius: 24px; }
     .stat h4 { color: var(--gold); font-size: 32px; margin: 0; }
     .stat p { font-size: 14px; color: var(--slate-400); margin: 0; }
-    .lead-magnet { background: var(--slate-50); padding: 48px; border-radius: 24px; text-align: center; border: 1px solid var(--slate-200); }
-    .magnet-btn { display: inline-block; background: var(--navy); color: #fff; padding: 14px 28px; border-radius: 6px; text-decoration: none; font-weight: 600; margin-top: 16px; }
-    .cta-section { background: var(--gold); padding: 80px 0; text-align: center; border-radius: 32px; margin: 40px; }
+    .doc-category { margin-bottom: 40px; }
+    .doc-category h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--navy); margin-bottom: 16px; border-left: 4px solid var(--gold); padding-left: 16px; }
+    .doc-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .doc-item { background: #fff; border: 1px solid var(--slate-200); border-radius: 8px; padding: 14px 20px; font-size: 14px; color: var(--slate-600); display: flex; align-items: center; gap: 10px; }
+    .doc-item i { color: var(--gold); }
+    .citation-table { width:100%; border-collapse:collapse; font-size:14px; }
+    .citation-table th, .citation-table td { border:1px solid var(--slate-200); padding:12px 16px; text-align:left; }
+    .citation-table th { background:var(--navy); color:var(--gold); font-weight:600; }
+    .citation-table tr:nth-child(even) { background:var(--slate-50); }
+    .citation-box { background:var(--navy); color:#fff; border-radius:12px; padding:24px; font-family:monospace; font-size:13px; margin:20px 0; }
+    .citation-example { color:var(--gold); }
+    .cta-section { background: var(--gold); padding: 80px 40px; text-align: center; border-radius: 32px; margin: 0 40px; }
     .cta-section h2 { font-family: 'Playfair Display', serif; font-size: 36px; margin-bottom: 16px; }
-    @media (max-width: 768px) { .features-grid-2 { grid-template-columns: 1fr; } .stats-bar { flex-direction: column; gap: 24px; } .cta-section { margin: 20px; border-radius: 0; } }
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+    @media (max-width: 768px) { .features-grid-3, .doc-list, .two-col { grid-template-columns: 1fr; } .stats-bar { flex-direction: column; gap: 24px; } .cta-section { margin: 20px; border-radius: 0; } }
   </style>
-  <link rel="stylesheet" href="/master-layout.css">
 </head>
-<body><nav>
+<body>
+<nav>
   <div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
@@ -82,125 +81,194 @@
 
 <section class="hero">
   <div class="container">
-    <div class="hero-badges">
-        <span class="hero-badge">✍️ AI Writing</span>
-        <span class="hero-badge">📋 Demand Letters</span>
-        <span class="hero-badge">⚡ Case Summaries</span>
+    <div style="display:flex; gap:12px; justify-content:center; margin-bottom:24px;">
+      <span style="background:rgba(255,255,255,0.1);color:#fff;padding:4px 12px;border-radius:100px;font-size:12px;font-weight:600;"><i class="bi bi-check-circle-fill" style="color:var(--gold);"></i> Source Citations on Every Statement</span>
     </div>
     <h1>Draft Demand Letters<br /><span class="highlight">in Seconds, Not Hours</span></h1>
-    <p class="subtitle">Join 500+ firms using LexiFlow to automate high-stakes document drafting with reasoning AI.</p>
-    <div class="hero-actions">
-        <a href="mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io?subject=Demand%20Letter%20Template%20Pack%20Request" class="btn btn-primary">Get Template Pack →</a>
-        <a href="#features" class="btn btn-secondary">See Features</a>
-    </div>
+    <p class="subtitle">Every statement in a LexiFlow-drafted document includes a Source Citation hyperlinked back to the original source document and page number. Opposing counsel cannot challenge a statement backed by a page-number citation.</p>
+    <div><a href="/signup" class="btn btn-primary">Try Auto-Drafter Free &rarr;</a><a href="mailto:leads@lexiflow.ai?subject=Auto-Drafter%20Demo" class="btn btn-outline-light">Request Private Demo</a></div>
   </div>
 </section>
 
-<section style="background:var(--slate-50); padding: 40px 0;">
-    <div class="container">
-        <div class="stats-bar">
-            <div class="stat"><h4>90%</h4><p>Faster Drafting</p></div>
-            <div class="stat"><h4>10+</h4><p>Document Types</p></div>
-            <div class="stat"><h4>4.9★</h4><p>User Satisfaction</p></div>
-            <div class="stat"><h4>85%</h4><p>Time Saved</p></div>
-        </div>
-    </div>
-</section>
-
-<section class="section" id="features">
+<section style="background:var(--slate-50);padding:40px 0;">
   <div class="container">
-    <div class="section-header"><span class="section-label">Capabilities</span><h2>Everything You Need</h2></div>
-    <div class="features-grid-2">
-      <div class="feature-card"><div class="feature-icon">✍️</div><h3>Demand Letter Generator</h3><p>Generate polished demand letters referencing medical records, liability analysis, and damage calculations.</p></div>
-      <div class="feature-card"><div class="feature-icon">📋</div><h3>Case Summary Builder</h3><p>Create concise, compelling case summaries for settlement conferences, mediation, or internal review.</p></div>
-      <div class="feature-card"><div class="feature-icon">📄</div><h3>Medical Chronology Writer</h3><p>Auto-generate detailed medical chronologies from uploaded records, organized by date with key findings.</p></div>
-      <div class="feature-card"><div class="feature-icon">🎨</div><h3>Custom Templates</h3><p>Choose from multiple templates or create your own. Perfect your firm's voice and formatting.</p></div>
-      <div class="feature-card"><div class="feature-icon">🔗</div><h3>Source Citation</h3><p>Every statement links to its source — medical record page, deposition line, or police report section.</p></div>
-<!-- Lead Magnet Removed -->
-<!--
-      <div class="feature-card"><div class="feature-icon">📤</div><h3>One-Click Export</h3><p>Export to Word, PDF, or directly to your case management system. No re-formatting needed.</p></div>
+    <div class="stats-bar">
+      <div class="stat"><h4>90%</h4><p>Faster Drafting</p></div>
+      <div class="stat"><h4>20+</h4><p>Document Types</p></div>
+      <div class="stat"><h4>4.9&star;</h4><p>User Satisfaction</p></div>
+      <div class="stat"><h4>100%</h4><p>Citation Accuracy</p></div>
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
-    <div class="lead-magnet">
-      <h3>📋 Get Your Winning Demand Letter Template Pack</h3>
-      <p>Schedule a private demo to see how LexiFlow can automate your firm's document drafting.</p>
-      <a href="mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io?subject=Demand%20Letter%20Template%20Pack%20Request" class="magnet-btn">Download Template Pack →</a>
+    <span class="section-label">Document Library</span>
+    <h2 class="section-title">Supported Document Types</h2>
+    <p class="section-subtitle">The Auto-Document Drafter supports the following document types, with more added regularly.</p>
+
+    <div class="doc-category">
+      <h3><i class="bi bi-envelope-paper"></i> Demand Letters</h3>
+      <div class="doc-list">
+        <div class="doc-item"><i class="bi bi-file-text"></i> Pre-litigation demand letter (personal injury)</div>
+        <div class="doc-item"><i class="bi bi-file-text"></i> Pre-litigation demand letter (medical malpractice)</div>
+        <div class="doc-item"><i class="bi bi-file-text"></i> Wrongful death demand letter</div>
+        <div class="doc-item"><i class="bi bi-file-text"></i> Insurance bad faith demand letter</div>
+        <div class="doc-item"><i class="bi bi-file-text"></i> Product liability demand letter</div>
+      </div>
+    </div>
+
+    <div class="doc-category">
+      <h3><i class="bi bi-journal-text"></i> Pleadings &amp; Filings</h3>
+      <div class="doc-list">
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Notice of Claim</div>
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Complaint (personal injury)</div>
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Complaint (medical malpractice)</div>
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Motion for summary judgment (plaintiff opposition)</div>
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Motion to compel discovery</div>
+      </div>
+    </div>
+
+    <div class="doc-category">
+      <h3><i class="bi bi-briefcase"></i> Case Documents</h3>
+      <div class="doc-list">
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Settlement brochure</div>
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Mediation statement</div>
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Case summary for settlement conference</div>
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Liability analysis memorandum</div>
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Damages analysis memorandum</div>
+      </div>
+    </div>
+
+    <div class="doc-category">
+      <h3><i class="bi bi-file-medical"></i> Medical Documents</h3>
+      <div class="doc-list">
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Medical chronology</div>
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Medical narrative summary</div>
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Independent medical examination summary</div>
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Medical expense summary</div>
+      </div>
+    </div>
+
+    <div class="doc-category">
+      <h3><i class="bi bi-chat"></i> Client Communications</h3>
+      <div class="doc-list">
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Retainer agreement (AI-calculated fee suggestions)</div>
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Representation acknowledgment letter</div>
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Case status letter</div>
+        <div class="doc-item"><i class="bi bi-file-earmark"></i> Settlement recommendation letter</div>
+      </div>
     </div>
   </div>
 </section>
 
--->
+<section class="section section-alt">
+  <div class="container">
+    <span class="section-label">Audit-Ready</span>
+    <h2 class="section-title">Source Citation System</h2>
+    <p class="section-subtitle">Every statement in a LexiFlow-drafted document includes a hyperlinked source citation. Click any citation to verify the source in seconds.</p>
+
+    <div class="two-col">
+      <div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);margin-bottom:16px;">How Citations Are Generated</h3>
+        <ol style="color:var(--slate-600);font-size:14px;line-height:2;">
+          <li>Uploaded documents are indexed page-by-page with searchable vector embeddings</li>
+          <li>The AI performs semantic retrieval to find the exact source passage</li>
+          <li>Statements are only generated when a supporting source exists &mdash; no fabrication</li>
+          <li>The citation is embedded as a hyperlink; clicking opens the source PDF at the exact page</li>
+        </ol>
+      </div>
+      <div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);margin-bottom:16px;">Citation Format Example</h3>
+        <div class="citation-box">
+          <p style="margin-bottom:12px;">&ldquo;Ms. Rodriguez underwent an L4-L5 laminectomy on March 15, 2024, performed by Dr. James Chen at Mount Sinai West.&rdquo;</p>
+          <p class="citation-example">[Source: Operative Report, Mount Sinai West, p. 3 &mdash; March 15, 2024]</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);margin:40px 0 20px;">Citation Types by Source</h3>
+    <table class="citation-table">
+      <thead><tr><th>Source Type</th><th>Citation Format</th></tr></thead>
+      <tbody>
+        <tr><td>Medical Records</td><td><code>[Source: [Record Type], [Facility], p. [Page#] &mdash; [Date]]</code></td></tr>
+        <tr><td>Deposition Testimony</td><td><code>[Source: Deposition of [Witness], p. [Page#]:[Line#]]</code></td></tr>
+        <tr><td>Discovery Responses</td><td><code>[Source: [Party] Response to [Discovery Type], p. [Page#]]</code></td></tr>
+        <tr><td>Billing Records</td><td><code>[Source: UB-04 Billing Summary, [Facility], Service Date: [Date]]</code></td></tr>
+        <tr><td>Police/Accident Report</td><td><code>[Source: [Agency] Report #[Report#], p. [Page#] &mdash; [Date]]</code></td></tr>
+        <tr><td>Employment Records</td><td><code>[Source: [Employer] Personnel File, p. [Page#]]</code></td></tr>
+        <tr><td>Expert Report</td><td><code>[Source: [Expert Name] Expert Report, p. [Page#] &mdash; [Date]]</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="section-label">Capabilities</span>
+    <h2 class="section-title">Everything You Need</h2>
+    <div class="features-grid-3">
+      <div class="feature-card"><div style="font-size:24px;margin-bottom:12px;"><i class="bi bi-pencil-square"></i></div><h3>Demand Letter Generator</h3><p>Generate polished demand letters referencing medical records, liability analysis, and damage calculations.</p></div>
+      <div class="feature-card"><div style="font-size:24px;margin-bottom:12px;"><i class="bi bi-journal-text"></i></div><h3>Case Summary Builder</h3><p>Create concise, compelling case summaries for settlement conferences, mediation, or internal review.</p></div>
+      <div class="feature-card"><div style="font-size:24px;margin-bottom:12px;"><i class="bi bi-file-medical"></i></div><h3>Medical Chronology Writer</h3><p>Auto-generate detailed medical chronologies from uploaded records, organized by date with key findings.</p></div>
+      <div class="feature-card"><div style="font-size:24px;margin-bottom:12px;"><i class="bi bi-layout-text-window"></i></div><h3>Custom Templates</h3><p>Choose from multiple templates or create your own. Perfect your firm voice and formatting.</p></div>
+      <div class="feature-card"><div style="font-size:24px;margin-bottom:12px;"><i class="bi bi-link-45deg"></i></div><h3>Source Citation</h3><p>Every statement links to its source &mdash; medical record page, deposition line, or police report section.</p></div>
+      <div class="feature-card"><div style="font-size:24px;margin-bottom:12px;"><i class="bi bi-box-arrow-up"></i></div><h3>One-Click Export</h3><p>Export to Word, PDF, or directly to your case management system. No re-formatting needed.</p></div>
+    </div>
+  </div>
+</section>
+
 <section class="cta-section">
   <div class="container">
     <h2>Ready to Transform Your Drafting?</h2>
-    <p>Join 500+ firms using LexiFlow to work smarter and faster.</p>
-    <div class="cta-actions">
-        <a href="/signup" class="btn btn-primary" style="background:var(--navy); color:white;">Start Free Trial</a>
-        <a href="/pricing" class="btn" style="margin-left:12px; color:var(--navy); font-weight:700;">View Pricing →</a>
-    </div>
+    <p style="font-size:18px;margin-bottom:24px;">Join 500+ firms using LexiFlow to work smarter and faster.</p>
+    <div><a href="/signup" class="btn" style="background:var(--navy);color:white;padding:14px 28px;border-radius:6px;font-weight:700;text-decoration:none;">Start Free Trial</a><a href="/pricing" class="btn" style="margin-left:12px;color:var(--navy);font-weight:700;text-decoration:none;">View Pricing &rarr;</a></div>
   </div>
 </section>
 
-
-  
-    <!-- SEO Inner Linking -->
-    <section class="max-w-screen" style="padding: 40px 0; border-top: 1px solid var(--slate-100); max-width: 1200px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
-        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-            <a href="/ai-legal-intake-software" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Intake Software</a>
-            <a href="/ai-medical-chronologies" style="color: #0f172a; text-decoration: none; font-weight: 600;">Medical Chronology AI</a>
-            <a href="/blog" style="color: #0f172a; text-decoration: none; font-weight: 600;">Legal AI Insights Blog</a>
-            <a href="/roi-calculator" style="color: #0f172a; text-decoration: none; font-weight: 600;">Firm ROI Calculator</a>
-            <a href="/compliance-shield" style="color: #0f172a; text-decoration: none; font-weight: 600;">HIPAA & SOC2 Compliance</a>
-            <a href="/blog" style="color: #0f172a; text-decoration: none; font-weight: 600;">Service Areas</a>
-        </div>
-    </section>
-    <footer>
-    <div class="footer-container">
-      <div class="footer-col">
-        <a href="/" class="footer-logo">LF LexiFlow</a>
-        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Products</h4>
-        <ul>
-          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
-          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
-          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
-          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
-          <li><a href="/discovery-vault">Discovery-Vault™</a></li>
-          <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
-          <li><a href="/veritas-deposition.html">Veritas Deposition™</a></li>
-          <li><a href="/compliance-shield">Compliance-Shield™</a></li>
-          <li><a href="/dashboard">Analytics Dashboard</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>State Ethics Guides</h4>
-        <ul>
-          <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
-          <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
-          <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
-          <li><a href="/blog">All Resources</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="/privacy">Privacy Policy</a></li>
-          <li><a href="/terms">Terms of Service</a></li>
-          <li><a href="/soc2">SOC2 Compliance</a></li>
-        </ul>
-      </div>
+<footer>
+  <div class="footer-container">
+    <div class="footer-col">
+      <a href="/" class="footer-logo">LF LexiFlow</a>
+      <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+        <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+        <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+        <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+        <li><a href="/discovery-vault">Discovery-Vault</a></li>
+        <li><a href="/settlement-predictor">Settlement-Predictor Pro</a></li>
+        <li><a href="/veritas-deposition">Veritas Deposition</a></li>
+        <li><a href="/strategist">LexiFlow Strategist</a></li>
+        <li><a href="/compliance-shield">Compliance-Shield</a></li>
+        <li><a href="/dashboard">Analytics Dashboard</a></li>
+      </ul>
     </div>
-  </footer>
+    <div class="footer-col">
+      <h4>State Ethics Guides</h4>
+      <ul>
+        <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
+        <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
+        <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
+        <li><a href="/blog">All Resources</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/soc2">SOC2 Compliance</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+  </div>
+</footer>
 
 <script src="/shared-layout.js"></script>
 </body>

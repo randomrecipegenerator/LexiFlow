@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Legal Intake Software for Law Firms | LexiFlow</title>
-  <meta name="description" content="LexiFlow is the leading AI legal intake software for law firms. Capture, qualify, and route leads 24/7 with enterprise-grade AI legal intake automation." />
-  <link rel="canonical" href="https://lexiflow.co/ai-legal-intake-software.html" />
+  <meta name="description" content="LexiFlow is the leading AI legal intake software for law firms. Reason over case facts — don't click through decision trees. Capture, qualify, and route leads 24/7 with enterprise-grade Reasoning AI." />
+  <link rel="canonical" href="https://lexiflow.co/ai-legal-intake-software" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" />
@@ -14,47 +14,62 @@
   <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" media="print" onload="this.media='all'" />
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" /></noscript>
+  <link rel="stylesheet" href="/master-layout.css">
+  <link rel="stylesheet" href="/shared-layout.css">
   <style>
-    :root { --primary:#1a3a5c; --accent:#c9a84c; --text-muted:#6b7280; --border:#e2e8f0; --bg-light:#f8fafc; --radius:8px; --radius-lg:16px; --font-sans:'Inter',sans-serif; --font-serif:'Playfair Display',Georgia,serif; }
+    :root { --primary:#1a3a5c; --accent:#c9a84c; --navy:#0f172a; --gold:#c9a84c; --text-muted:#6b7280; --border:#e2e8f0; --bg-light:#f8fafc; --radius:8px; --radius-lg:16px; --font-sans:'Inter',sans-serif; --font-serif:'Playfair Display',Georgia,serif; }
     * { box-sizing:border-box; margin:0; padding:0; }
     body { font-family:var(--font-sans); color:#1a1a2e; background:var(--bg-light); line-height:1.6; }
     .container { max-width:1100px; margin:0 auto; padding:0 24px; }
-    
-    .nav .container { display:flex; align-items:center; justify-content:space-between; height:68px; }
-    .nav-logo { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:700; color:var(--primary); text-decoration:none; }
-    .nav-logo-icon { width:32px; height:32px; background:var(--primary); color:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:800; }
     .hero { padding:120px 0 50px; background:linear-gradient(135deg,#0d1f33,var(--primary),#2a5a8c); color:#fff; text-align:center; }
     .hero h1 { font-family:var(--font-serif); font-size:2.8rem; margin-bottom:16px; }
     .hero h1 span { color:var(--accent); }
     .hero p { color:rgba(255,255,255,0.85); max-width:650px; margin:0 auto 28px; }
-    .hero p.seo-copy { font-size: 0.9rem; margin-top: 20px; opacity: 0.8; }
     .btn { display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:var(--radius); font-weight:700; text-decoration:none; cursor:pointer; border:none; }
     .btn-primary { background:var(--accent); color:#0d1f33; }
+    .btn-outline-light { background:transparent; color:#fff; border:1px solid rgba(255,255,255,0.3); }
     .section { padding:60px 0; }
     .section-alt { background:#fff; }
-    .section h2 { font-family:var(--font-serif); font-size:2rem; color:var(--primary); text-align:center; margin-bottom:12px; }
+    .section h2 { font-family:var(--font-serif); font-size:2rem; color:var(--navy); text-align:center; margin-bottom:12px; }
+    .section-label { color:var(--gold); text-transform:uppercase; font-size:12px; font-weight:700; letter-spacing:0.1em; display:block; text-align:center; margin-bottom:8px; }
     .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
     .card { background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); padding:28px; }
-    .card h3 { font-size:1rem; color:var(--primary); margin-bottom:6px; }
+    .card h3 { font-size:1rem; color:var(--navy); margin-bottom:6px; }
     .card p { font-size:0.85rem; color:var(--text-muted); }
     .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; max-width:800px; margin:30px auto; }
     .stat { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:var(--radius); padding:16px; }
     .stat .num { font-family:var(--font-serif); font-size:1.8rem; font-weight:800; color:var(--accent); }
     .stat .label { font-size:0.72rem; color:rgba(255,255,255,0.7); text-transform:uppercase; }
-    .
-    .footer a { color:rgba(255,255,255,0.6); }
     .modal-overlay { position:fixed; inset:0; background:rgba(13,31,51,0.85); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; z-index:2000; }
     .modal-overlay.active { display:flex; }
     .modal-box { background:#fff; border-radius:var(--radius-lg); padding:40px; max-width:480px; width:90%; }
-    .modal-box h3 { font-family:var(--font-serif); font-size:1.3rem; color:var(--primary); }
+    .modal-box h3 { font-family:var(--font-serif); font-size:1.3rem; color:var(--navy); }
     .modal-box input { width:100%; padding:12px 16px; border:1px solid var(--border); border-radius:var(--radius); font-size:0.9rem; margin-bottom:14px; }
-    @media (max-width:900px) { .grid-3 { grid-template-columns:1fr; } .stats { grid-template-columns:repeat(2,1fr); } }
+    .tech-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:14px; }
+    .tech-table th, .tech-table td { border:1px solid var(--border); padding:12px 16px; text-align:left; }
+    .tech-table th { background:var(--navy); color:var(--gold); font-weight:600; }
+    .tech-table tr:nth-child(even) { background:var(--bg-light); }
+    .tech-table td:first-child { font-weight:600; color:var(--navy); }
+    .merit-tier { display:inline-block; padding:2px 10px; border-radius:100px; font-size:11px; font-weight:700; }
+    .merit-high { background:#d4edda; color:#155724; }
+    .merit-moderate { background:#fff3cd; color:#856404; }
+    .merit-low { background:#f8d7da; color:#721c24; }
+    .badge-accuracy { display:inline-flex; align-items:center; gap:6px; background:rgba(34,197,94,0.15); color:#4ade80; border:1px solid rgba(34,197,94,0.3); padding:6px 14px; border-radius:100px; font-weight:600; font-size:13px; text-transform:uppercase; letter-spacing:0.05em; }
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start; }
+    .info-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); padding:32px; }
+    .info-card h3 { font-family:var(--font-serif); font-size:1.3rem; color:var(--navy); margin-bottom:12px; display:flex; align-items:center; gap:10px; }
+    .info-card ul { list-style:none; padding:0; }
+    .info-card ul li { padding:8px 0; border-bottom:1px solid var(--border); font-size:14px; color:var(--text-muted); display:flex; align-items:center; gap:10px; }
+    .info-card ul li:last-child { border-bottom:none; }
+    .info-card ul li i { color:var(--gold); }
+    @media (max-width:900px) { .grid-3 { grid-template-columns:1fr; } .stats { grid-template-columns:repeat(2,1fr); } .two-col { grid-template-columns:1fr; } }
     @media (max-width:768px) { .hero h1 { font-size:1.4rem; } }
   </style>
-
-  <link rel="stylesheet" href="/master-layout.css">
 </head>
-<body><nav>
+<body>
+
+<!-- Navigation -->
+<nav>
   <div class="nav-container">
     <a href="/" class="logo"><span>LF</span> LexiFlow</a>
     <ul class="nav-links" id="navLinks">
@@ -81,10 +96,15 @@
   </div>
 </nav>
 
+<!-- Hero -->
 <section class="hero"><div class="container">
+  <div style="margin-bottom:20px;"><span class="badge-accuracy"><i class="bi bi-cpu"></i> Reasoning AI — Not a Decision Tree</span></div>
   <h1>AI Legal Intake Software <span>for Law Firms</span></h1>
-  <p>LexiFlow answers calls, qualifies leads, scores cases, and syncs intake data into Clio, Filevine, and MyCase, helping high-volume law firms respond faster and convert more qualified matters.</p>
-  <button class="btn btn-primary" onclick="openModal()">📥 Download Intake Guide</button>
+  <p>Most "AI" intake tools are decision-tree bots with if/then logic. LexiFlow's Reasoning AI listens to the caller's full narrative, extracts case elements in natural language, and dynamically generates follow-up questions — just as a senior partner would.</p>
+  <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+    <button class="btn btn-primary" onclick="openModal()">📥 Download Intake Guide</button>
+    <a href="/signup" class="btn btn-outline-light"><i class="bi bi-arrow-right"></i> Start Free Trial</a>
+  </div>
   <div class="stats">
     <div class="stat"><div class="num">3.2x</div><div class="label">Higher Conversion</div></div>
     <div class="stat"><div class="num">&lt;5s</div><div class="label">Response Time</div></div>
@@ -93,42 +113,119 @@
   </div>
 </div></section>
 
+<!-- How It Works -->
 <section class="section section-alt"><div class="container">
   <h2>How AI Legal Intake Works</h2>
   <div class="grid-3">
-    <div class="card"><h3>Capture</h3><p>Embed the AI widget on your site. Voice AI handles after-hours calls. Every lead is captured instantly.</p></div>
-    <div class="card"><h3>Qualify</h3><p>AI asks structured intake questions and scores each lead in real time — just like a senior partner would.</p></div>
-    <div class="card"><h3>Route</h3><p>High-value cases are auto-pushed to your team via email, SMS, and CRM. Zero manual entry.</p></div>
+    <div class="card"><h3>Capture</h3><p>Embed the AI widget on your site. Voice AI handles after-hours calls. Every lead is captured instantly — no form fills, no missed opportunities.</p></div>
+    <div class="card"><h3>Qualify</h3><p>Reasoning AI asks structured intake questions and scores each lead in real time across four weighted vectors — just like a senior partner would.</p></div>
+    <div class="card"><h3>Route</h3><p>High-value cases are auto-pushed to your team via email, SMS, and CRM. Zero manual entry. Bi-directional sync with Clio, Filevine, and MyCase.</p></div>
   </div>
 </div></section>
 
-            
-  
-    <!-- SEO Inner Linking -->
-    <section class="max-w-screen" style="padding: 40px 0; border-top: 1px solid var(--slate-100); max-width: 1200px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
-        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-            <a href="/ai-legal-intake-software" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Intake Software →</a>
-            <a href="/ai-medical-chronologies" style="color: #0f172a; text-decoration: none; font-weight: 600;">Medical Chronology AI →</a>
-            <a href="/blog" style="color: #0f172a; text-decoration: none; font-weight: 600;">Legal AI Insights Blog →</a>
-            <a href="/roi-calculator" style="color: #0f172a; text-decoration: none; font-weight: 600;">Firm ROI Calculator →</a>
-            <a href="/compliance-shield" style="color: #0f172a; text-decoration: none; font-weight: 600;">HIPAA & SOC2 Compliance →</a>
-            
-        </div>
-    </section>
-  <!-- Agentic Intake Section: WebMCP Declarative Form -->
-  <section id="agentic-intake-section" aria-label="LexiFlow Technologies Inc Intake Portal" style="background: var(--navy, #0f172a); color: white; padding: 60px 0;">
-    <div class="container" style="max-width: 700px; margin: 0 auto; text-align: center;">
-      <div style="display: inline-block; background: rgba(201,168,76,0.1); color: #c9a84c; padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px;">🤖 AI-Powered Intake</div>
-      <h2 style="font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; margin-bottom: 8px;">Submit a Case for AI Merit Review</h2>
-      <p style="color: rgba(255,255,255,0.7); font-size: 14px; margin-bottom: 28px; max-width: 500px; margin-left: auto; margin-right: auto;">Complete the form below to submit a prospective client's case for AI-powered merit scoring, classification, and CRM staging.</p>
-      
-      <form id="webmcp-intake-form" action="/api/v1/intake/submit" method="POST"
-            toolname="submit_legal_case_intake"
-            tooldescription="Submits a prospective client's injury or malpractice case details to LexiFlow for merit scoring, classification, and CRM staging."
-            inputschema='{"type":"object","properties":{"firm_name":{"type":"string","description":"Legal name of the law firm submitting the case"},"attorney_email":{"type":"string","format":"email","description":"Email address of the primary attorney"},"case_type":{"type":"string","enum":["medical-malpractice","personal-injury","mass-tort","birth-injury","product-liability","other"],"description":"The category of law the case falls under"},"jurisdiction":{"type":"string","description":"The legal venue/state for the case"},"case_summary":{"type":"string","description":"Detailed description of facts, injuries, and liability"},"estimated_damages":{"type":"number","description":"Approximate dollar value of the claim"}},"required":["firm_name","attorney_email","case_type","jurisdiction","case_summary"]}'
-            style="text-align: left; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 32px;">
-        
+<!-- Reasoning AI vs Decision-Tree Bots -->
+<section class="section"><div class="container">
+  <span class="section-label">The Technical Distinction</span>
+  <h2>Reasoning AI vs. Decision-Tree Bots</h2>
+  <p style="text-align:center;color:var(--text-muted);max-width:750px;margin:0 auto 40px;">Most "AI" intake tools on the market today are not AI at all — they operate on pre-programmed if/then logic. LexiFlow is fundamentally different.</p>
+
+  <div class="two-col">
+    <div class="info-card" style="border-left:4px solid var(--gold);">
+      <h3><i class="bi bi-cpu"></i> LexiFlow Reasoning AI</h3>
+      <ul>
+        <li><i class="bi bi-check-circle-fill"></i> Uses an LLM fine-tuned on tens of thousands of real intake conversations</li>
+        <li><i class="bi bi-check-circle-fill"></i> Trained on medical records, clinical terminology, and state-specific SOL requirements</li>
+        <li><i class="bi bi-check-circle-fill"></i> Listens to the caller's full narrative in natural language</li>
+        <li><i class="bi bi-check-circle-fill"></i> Extracts key case elements: date, facilities, injuries, opposing parties</li>
+        <li><i class="bi bi-check-circle-fill"></i> Dynamically generates follow-up questions to probe liability, causation, and damages</li>
+      </ul>
+    </div>
+    <div class="info-card" style="border-left:4px solid #dc3545;">
+      <h3><i class="bi bi-diagram-3"></i> Decision-Tree Bots</h3>
+      <ul>
+        <li><i class="bi bi-x-circle-fill" style="color:#dc3545;"></i> Pre-programmed if/then logic: "if auto accident, show Q1-5"</li>
+        <li><i class="bi bi-x-circle-fill" style="color:#dc3545;"></i> Cannot understand nuance or follow a caller's narrative</li>
+        <li><i class="bi bi-x-circle-fill" style="color:#dc3545;"></i> Breaks when caller says something the programmer didn't anticipate</li>
+        <li><i class="bi bi-x-circle-fill" style="color:#dc3545;"></i> Rigid menus, no adaptive questioning</li>
+        <li><i class="bi bi-x-circle-fill" style="color:#dc3545;"></i> No cross-referencing against medical records or case law</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- 0-100 Merit Scoring System -->
+<section class="section section-alt"><div class="container">
+  <span class="section-label">Case Merit Scoring</span>
+  <h2>The 0–100 Merit Scoring System</h2>
+  <p style="text-align:center;color:var(--text-muted);max-width:700px;margin:0 auto 30px;">Every qualified lead is assigned a Case Merit Score calculated across four weighted vectors. Each vector is backed by specific citations from the caller's conversation transcript.</p>
+
+  <table class="tech-table">
+    <thead>
+      <tr><th>Vector</th><th>Weight</th><th>What It Measures</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Liability Strength</td><td>35%</td><td>Clearness of fault, existence of direct evidence, admission by opposing party, regulatory violation</td></tr>
+      <tr><td>Damages Severity</td><td>30%</td><td>Medical bill totals, permanency of injury, pain and suffering indicators, lost wage documentation</td></tr>
+      <tr><td>Causation Clarity</td><td>20%</td><td>Direct temporal link between incident and injury, pre-existing condition separation, expert report availability</td></tr>
+      <tr><td>Statute & Procedural</td><td>15%</td><td>Remaining SOL window, certificate of merit requirements met, jurisdiction filing status</td></tr>
+    </tbody>
+  </table>
+
+  <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:30px;">
+    <div class="card" style="text-align:center;"><div class="merit-tier merit-high" style="display:inline-block;margin-bottom:8px;">80–100</div><h3 style="font-size:14px;">High-Value</h3><p style="font-size:12px;">Auto-qualify, route to senior partner, immediate scheduling</p></div>
+    <div class="card" style="text-align:center;"><div class="merit-tier merit-moderate" style="display:inline-block;margin-bottom:8px;">50–79</div><h3 style="font-size:14px;">Moderate</h3><p style="font-size:12px;">Flag for intake team review, schedule standard consultation</p></div>
+    <div class="card" style="text-align:center;"><div class="merit-tier merit-low" style="display:inline-block;margin-bottom:8px;">20–49</div><h3 style="font-size:14px;">Low</h3><p style="font-size:12px;">Review for niche practice fit, may need more information</p></div>
+    <div class="card" style="text-align:center;background:var(--bg-light);"><span style="color:var(--text-muted);font-weight:700;display:block;margin-bottom:8px;">0–19</span><h3 style="font-size:14px;">Decline</h3><p style="font-size:12px;">Outside firm's practice areas or below minimum case value</p></div>
+  </div>
+</div></section>
+
+<!-- CRM Data Sync -->
+<section class="section"><div class="container">
+  <span class="section-label">CRM Integration</span>
+  <h2>Bi-Directional CRM Data Sync</h2>
+  <p style="text-align:center;color:var(--text-muted);max-width:700px;margin:0 auto 40px;">When a lead is qualified and approved, data syncs automatically to your firm's CRM — and any updates made in the CRM flow back to LexiFlow's dashboard.</p>
+
+  <div class="two-col">
+    <div class="info-card">
+      <h3><i class="bi bi-clipboard-data"></i> Clio Grow / Clio Manage</h3>
+      <ul>
+        <li><i class="bi bi-check2"></i> Full contact details (name, phone, email, address)</li>
+        <li><i class="bi bi-check2"></i> Case type and practice area classification</li>
+        <li><i class="bi bi-check2"></i> Incident date and location</li>
+        <li><i class="bi bi-check2"></i> AI Merit Score (stored as custom field)</li>
+        <li><i class="bi bi-check2"></i> Summary of liability narrative (intake notes)</li>
+        <li><i class="bi bi-check2"></i> Statute of limitations deadline (calendar reminder)</li>
+        <li><i class="bi bi-check2"></i> Referral source (web chat, SMS, voice, etc.)</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3><i class="bi bi-diagram-2"></i> Filevine / Lead Docket</h3>
+      <ul>
+        <li><i class="bi bi-check2"></i> All Clio fields, plus:</li>
+        <li><i class="bi bi-check2"></i> Treating facility names and addresses</li>
+        <li><i class="bi bi-check2"></i> Insurance carrier information (if disclosed)</li>
+        <li><i class="bi bi-check2"></i> Opposing party name and counsel (if known)</li>
+        <li><i class="bi bi-check2"></i> Damage amount estimated range</li>
+        <li><i class="bi bi-check2"></i> Custom project template by case type</li>
+        <li><i class="bi bi-check2"></i> Bidirectional sync: retainer → dashboard pipeline</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- Agentic Intake Section -->
+<section id="agentic-intake-section" aria-label="LexiFlow Technologies Inc Intake Portal" style="background: var(--navy); color: white; padding: 60px 0;">
+  <div class="container" style="max-width: 700px; margin: 0 auto; text-align: center;">
+    <div style="display: inline-block; background: rgba(201,168,76,0.1); color: #c9a84c; padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px;">🤖 AI-Powered Intake</div>
+    <h2 style="font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; margin-bottom: 8px;">Submit a Case for AI Merit Review</h2>
+    <p style="color: rgba(255,255,255,0.7); font-size: 14px; margin-bottom: 28px; max-width: 500px; margin-left: auto; margin-right: auto;">Complete the form below to submit a prospective client's case for AI-powered merit scoring, classification, and CRM staging.</p>
+
+    <form id="webmcp-intake-form" action="/api/v1/intake/submit" method="POST"
+          toolname="submit_legal_case_intake"
+          tooldescription="Submits a prospective client's injury or malpractice case details to LexiFlow for merit scoring, classification, and CRM staging."
+          inputschema='{"type":"object","properties":{"firm_name":{"type":"string","description":"Legal name of the law firm submitting the case"},"attorney_email":{"type":"string","format":"email","description":"Email address of the primary attorney"},"case_type":{"type":"string","enum":["medical-malpractice","personal-injury","mass-tort","birth-injury","product-liability","other"],"description":"The category of law the case falls under"},"jurisdiction":{"type":"string","description":"The legal venue/state for the case"},"case_summary":{"type":"string","description":"Detailed description of facts, injuries, and liability"},"estimated_damages":{"type":"number","description":"Approximate dollar value of the claim"}},"required":["firm_name","attorney_email","case_type","jurisdiction","case_summary"]}'
+          style="text-align: left; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 32px;">
+
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
           <div>
             <label for="firm_name" style="display: block; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.8); margin-bottom: 4px;">Law Firm Name *</label>
@@ -172,52 +269,67 @@
         <button type="submit" class="btn-cta" style="width: 100%; justify-content: center; padding: 14px; font-size: 16px; margin-top: 8px;">🚀 Submit for AI Merit Review</button>
       </form>
 
-      <p style="color: rgba(255,255,255,0.4); font-size: 12px; margin-top: 20px;">🔒 HIPAA Compliant · SOC 2 Certified · Signed BAA Available</p>
-    </div>
-  </section>
+    <p style="color: rgba(255,255,255,0.4); font-size: 12px; margin-top: 20px;">🔒 HIPAA Compliant · SOC 2 Certified · Signed BAA Available</p>
+  </div>
+</section>
 
-    <footer>
-    <div class="footer-container">
-      <div class="footer-col">
-        <a href="/" class="footer-logo">LF LexiFlow</a>
-        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Products</h4>
-        <ul>
-          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
-          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
-          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
-          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
-          <li><a href="/discovery-vault">Discovery-Vault™</a></li>
-          <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
-          <li><a href="/veritas-deposition.html">Veritas Deposition™</a></li>
-          <li><a href="/compliance-shield">Compliance-Shield™</a></li>
-          <li><a href="/dashboard">Analytics Dashboard</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>State Ethics Guides</h4>
-        <ul>
-          <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
-          <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
-          <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
-          <li><a href="/blog">All Resources</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="/privacy">Privacy Policy</a></li>
-          <li><a href="/terms">Terms of Service</a></li>
-          <li><a href="/soc2">SOC2 Compliance</a></li>
-        </ul>
-      </div>
+<!-- SEO Inner Linking -->
+<section class="max-w-screen" style="padding: 40px 0; border-top: 1px solid var(--border); max-width: 1200px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
+  <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+    <a href="/ai-legal-intake-software" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Intake Software →</a>
+    <a href="/ai-medical-chronologies" style="color: #0f172a; text-decoration: none; font-weight: 600;">Medical Chronology AI →</a>
+    <a href="/blog" style="color: #0f172a; text-decoration: none; font-weight: 600;">Legal AI Insights Blog →</a>
+    <a href="/roi-calculator" style="color: #0f172a; text-decoration: none; font-weight: 600;">Firm ROI Calculator →</a>
+    <a href="/compliance-shield" style="color: #0f172a; text-decoration: none; font-weight: 600;">HIPAA & SOC2 Compliance →</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-container">
+    <div class="footer-col">
+      <a href="/" class="footer-logo">LF LexiFlow</a>
+      <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+        <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+        <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+        <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+        <li><a href="/discovery-vault">Discovery-Vault™</a></li>
+        <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
+        <li><a href="/veritas-deposition">Veritas Deposition™</a></li>
+        <li><a href="/strategist">LexiFlow Strategist™</a></li>
+        <li><a href="/compliance-shield">Compliance-Shield™</a></li>
+        <li><a href="/dashboard">Analytics Dashboard</a></li>
+      </ul>
     </div>
-  </footer>
+    <div class="footer-col">
+      <h4>State Ethics Guides</h4>
+      <ul>
+        <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
+        <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
+        <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
+        <li><a href="/blog">All Resources</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/soc2">SOC2 Compliance</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+  </div>
+</footer>
+
 <div class="modal-overlay" id="leadModal">
   <div class="modal-box">
     <div style="text-align:right;"><button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">&times;</button></div>
@@ -237,12 +349,6 @@ function openModal() { document.getElementById('leadModal').classList.add('activ
 function closeModal() { document.getElementById('leadModal').classList.remove('active'); }
 document.getElementById('leadModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 </script>
-
-
-
-
-
-
 <script src="/shared-layout.js"></script>
 </body>
 </html>
