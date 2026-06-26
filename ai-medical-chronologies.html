@@ -110,7 +110,8 @@
                         <h1>Medical AI Chronologies</h1>
                         <p>Automated Clinical Analysis & Treatment Timelines</p>
                     </div>
-                    <div style="display: flex; gap: 12px;">
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <span class="v-badge v-badge-gold" style="font-size: 11px;"><i class="bi bi-check-circle-fill"></i> Active: Rodriguez v. Mount Sinai</span>
                         <button class="v-btn v-btn-outline"><i class="bi bi-file-earmark-arrow-up"></i> Upload Batch</button>
                         <button class="v-btn v-btn-primary">New Chronology</button>
                     </div>
@@ -165,25 +166,30 @@
                 <!-- Chronology Preview -->
                 <div class="v-card">
                     <div class="v-card-header">
-                        <h3 class="v-card-title">📅 Live Chronology Stream</h3>
-                        <div class="v-badge v-badge-gold">Auto-Indexing</div>
+                        <h3 class="v-card-title">📅 Live Chronology: <span style="color: var(--gold-accent);">Rodriguez v. Mount Sinai</span></h3>
+                        <div class="v-badge v-badge-gold">Auto-Indexing: Sepsis Protocol</div>
                     </div>
                     
                     <div style="display: flex; flex-direction: column; gap: 16px;">
                         <div class="chron-item-v">
-                            <div class="date-v">MAR 15, 2026</div>
-                            <div style="font-weight: 700; color: var(--text-primary);">ER Admission — St. Mary's Hospital</div>
-                            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Diagnosis: C-spine strain, concussion. CT Head negative for acute bleed. Plan: Follow-up with Ortho.</p>
+                            <div class="date-v">JUN 14, 2026 — 18:30</div>
+                            <div style="font-weight: 700; color: var(--text-primary);">ER Triage — Mount Sinai Hospital</div>
+                            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Patient presents with fever (39.2°C), tachycardia, and altered mental status. <strong>qSOFA score: 2/3</strong> — 10% in-hospital mortality risk. Sepsis protocol indicated per hospital policy.</p>
                         </div>
                         <div class="chron-item-v">
-                            <div class="date-v">MAR 17, 2026</div>
-                            <div style="font-weight: 700; color: var(--text-primary);">Consultation — Dr. Michael Williams</div>
-                            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Orthopedic consult. Patient reports 8/10 radicular pain. MRI Cervical spine ordered. PT 3x/week prescribed.</p>
+                            <div class="date-v">JUN 14, 2026 — 19:45</div>
+                            <div style="font-weight: 700; color: var(--text-primary);">Dr. Miller Exam — ER Attending</div>
+                            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Defendant testifies IV antibiotics confirmed at this time. <span class="v-badge v-badge-warning" style="padding: 2px 6px;">Deposition Claim</span> MAR shows <strong style="color: var(--danger);">no administration</strong> until following morning.</p>
                         </div>
                         <div class="chron-item-v">
-                            <div class="date-v">MAR 24, 2026</div>
-                            <div style="font-weight: 700; color: var(--text-primary);">Diagnostic Result — MRI Center</div>
-                            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;"><span class="v-badge v-badge-danger" style="padding: 2px 6px;">Critical</span> C5-C6 disc herniation confirmed with nerve root impingement. Surgical consult scheduled.</p>
+                            <div class="date-v">JUN 15, 2026 — 10:15</div>
+                            <div style="font-weight: 700; color: var(--text-primary);">First Antibiotic Administration — MAR Entry</div>
+                            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;"><span class="v-badge v-badge-danger" style="padding: 2px 6px;">14h 30m Gap</span> Medication Administration Record shows first IV antibiotic entry. <strong>Critical deviation</strong> from Surviving Sepsis Campaign 1-hour bundle standard.</p>
+                        </div>
+                        <div class="chron-item-v">
+                            <div class="date-v">JUN 15, 2026 — 14:00</div>
+                            <div style="font-weight: 700; color: var(--text-primary);">ICU Transfer — Worsening Condition</div>
+                            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Patient transferred to ICU with septic shock. Lactate: 4.2 mmol/L. IV vasopressors initiated. Subsequent <strong style="color: var(--danger);">below-knee amputation</strong> due to septic emboli.</p>
                         </div>
                     </div>
                 </div>
@@ -192,25 +198,29 @@
                 <div style="display: flex; flex-direction: column; gap: 24px;">
                     <div class="v-card">
                         <div class="v-card-header">
-                            <h3 class="v-card-title">Treatment Summary</h3>
+                            <h3 class="v-card-title">Treatment Summary — Rodriguez v. Mount Sinai</h3>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 12px;">
                             <div style="display: flex; justify-content: space-between; font-size: 14px;">
-                                <span>Total Visits</span>
-                                <span class="text-gold">14</span>
+                                <span>Pages Indexed</span>
+                                <span class="text-gold">847</span>
                             </div>
                             <div style="display: flex; justify-content: space-between; font-size: 14px;">
-                                <span>Surgery Count</span>
-                                <span class="text-gold">1</span>
+                                <span>Treatment Gap</span>
+                                <span class="text-gold" style="color: var(--danger) !important;">14h 30m</span>
                             </div>
                             <div style="display: flex; justify-content: space-between; font-size: 14px;">
-                                <span>Diagnostic Tests</span>
-                                <span class="text-gold">4</span>
+                                <span>Contradictions</span>
+                                <span class="text-gold" style="color: var(--danger) !important;">7</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                                <span>Merit Score</span>
+                                <span class="text-gold" style="color: var(--success) !important;">92/100</span>
                             </div>
                             <div style="padding-top: 12px; border-top: 1px solid var(--navy-border); margin-top: 8px;">
                                 <div style="display: flex; justify-content: space-between; font-weight: 700;">
-                                    <span>Total Medicals</span>
-                                    <span class="text-gold">$42,500.00</span>
+                                    <span>Estimated Trial Value (NY)</span>
+                                    <span class="text-gold">$4.2M</span>
                                 </div>
                             </div>
                         </div>
@@ -221,9 +231,9 @@
                             <h3 class="v-card-title">Provider Network</h3>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <span class="v-badge v-badge-gold" style="width: fit-content;">St. Mary's ER</span>
-                            <span class="v-badge v-badge-gold" style="width: fit-content;">Ortho-Direct LLC</span>
-                            <span class="v-badge v-badge-gold" style="width: fit-content;">Midwest MRI</span>
+                            <span class="v-badge v-badge-gold" style="width: fit-content;">Mount Sinai Hospital — ER</span>
+                            <span class="v-badge v-badge-danger" style="width: fit-content;">Dr. Alan Miller — Attending</span>
+                            <span class="v-badge v-badge-gold" style="width: fit-content;">Mount Sinai ICU</span>
                         </div>
                     </div>
                 </div>
@@ -266,5 +276,48 @@
     
 <script src="/shared-ui.js"></script>
 <script src="/shared-layout.js"></script>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault">Discovery-Vault</a></li>
+          <li><a href="/settlement-predictor">Settlement-Predictor Pro</a></li>
+          <li><a href="/veritas">Veritas Deposition</a></li>
+          <li><a href="/strategist">LexiFlow Strategist</a></li>
+          <li><a href="/compliance-shield">Compliance-Shield</a></li>
+          <li><a href="/dashboard">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>State Ethics Guides</h4>
+        <ul>
+          <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
+          <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
+          <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
+          <li><a href="/blog">All Resources</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/soc2">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
 </body>
 </html>
