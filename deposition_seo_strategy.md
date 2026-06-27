@@ -33,7 +33,7 @@ Traditional deposition digestion is a major bottleneck for litigation law firms.
 
 ## 2. LANDING PAGES: CONTENT BRIEFS & UX WIREFRAMES
 
-All landing pages are designed to utilize the unified navigation/footer structure and brand guidelines (Deep Navy blue `#1a3a5c` and Warm Gold accent `#c9a84c` with `Inter` and `Playfair Display` typography) defined in `shared-layout.css`. All CTAs strictly lead to high-conversion actions (`mailto:leads@lexiflow.ai` or Direct Dashboard SignUp) and highlight HIPAA and SOC2 compliance.
+All landing pages are designed to utilize the unified navigation/footer structure and brand guidelines (Deep Navy blue `#1a3a5c` and Warm Gold accent `#c9a84c` with `Inter` and `Playfair Display` typography) defined in `shared-layout.css`. All CTAs strictly lead to high-conversion actions (`mailto:info@lexiflow.co` or Direct Dashboard SignUp) and highlight HIPAA and SOC2 compliance.
 
 ---
 
@@ -86,7 +86,7 @@ All landing pages are designed to utilize the unified navigation/footer structur
    - *Column 2 (Cross-Deposition Analysis):* Compare what the plaintiff said vs what the defendant surgeon or expert said.
    - *Column 3 (Cross-Examination Outlines):* Auto-generate trial outlines with exact page-and-line citations.
 3. **Product Demonstration Mockup:** Full-width screenshot showing a side-by-side view: the transcript on the left, and AI comments/analysis notes on the right.
-4. **CTA Banner:** Dark navy background with a warm gold border. Text: "Want to see Veritas Deposition™ analyze a real transcript? Send a sample to leads@lexiflow.ai for a secure, free merit summary."
+4. **CTA Banner:** Dark navy background with a warm gold border. Text: "Want to see Veritas Deposition™ analyze a real transcript? Send a sample to info@lexiflow.co for a secure, free merit summary."
 
 ---
 
@@ -191,7 +191,7 @@ All landing pages are designed to utilize the unified navigation/footer structur
 
 ## 3. BLOG POSTS: METADATA & SCHEMA SPECIFICATIONS
 
-All blogs follow the required inverted pyramid post structure defined in `blog-workflow.md`. Every post incorporates server-side JSON-LD structured schemas (`BlogPosting` and `FAQPage`) and uses direct `mailto:leads@lexiflow.ai` CTAs to eliminate conversion barriers.
+All blogs follow the required inverted pyramid post structure defined in `blog-workflow.md`. Every post incorporates server-side JSON-LD structured schemas (`BlogPosting` and `FAQPage`) and uses direct `mailto:info@lexiflow.co` CTAs to eliminate conversion barriers.
 
 ---
 

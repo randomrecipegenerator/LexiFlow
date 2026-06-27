@@ -1,11 +1,10 @@
-# NYC Bar Demo — Wave 1 Outreach Dispatch ⚠️ REFERENCE ONLY — DO NOT SEND ⚠️
+# NYC Bar Demo — Wave 1 Outreach Dispatch (Email + Phone)
 ## 25 NYC Tier-1 Firms | June 22 Launch
 ## July 7, 2026 — Rodriguez v. Mount Sinai Demo @ NYC Bar Association
 
-> **⚠️ POLICY NOTICE: Email outreach is PAUSED due to bounce-rate policy.**
-> These email drafts are for **reference only** — use to inform LinkedIn InMail messages and phone scripts.
-> **DO NOT send via AgentMail.** Use the LinkedIn Trackers instead.
-> See: `/home/team/shared/outreach/nyc-bar-demo/linkedin-outreach-tracker-25firms.md`
+> **POLICY NOTICE: Outreach is via Email and Phone. LinkedIn is DISCONTINUED.**
+> **Use the Email drafts below for immediate dispatch via LexiFlow official channels.**
+> See tracker for results: `/home/team/shared/outreach/nyc-bar-demo/wave1-dispatch-log.csv`
 
 **Core Hook:** Reasoning AI for Medical Malpractice — not pattern matching, but real clinical reasoning.
 **Pilot Offer:** 30 days free. No credit card. Cancel anytime.

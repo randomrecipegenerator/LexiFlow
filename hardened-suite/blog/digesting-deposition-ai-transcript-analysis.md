@@ -106,8 +106,8 @@ Veritas Deposition™ is included in both the **Professional ($199/month)** and 
 
 The firms that win are the firms that prepare better, faster, and more thoroughly. AI-assisted deposition digestion isn't a luxury — it's becoming the standard of care in complex litigation.
 
-**Email us for a personalized Veritas Deposition™ demo:** [lexiflow-legal-suite-88a6f8e9@ctomail.io](mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io)
+**Email us for a personalized Veritas Deposition™ demo:** [info@lexiflow.co](mailto:info@lexiflow.co)
 
 ---
 
-*LexiFlow Legal Suite — $69/month Standard • $199/month Professional • $299/month Enterprise. [lexiflow-legal-suite-88a6f8e9@ctomail.io](mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io)*
+*LexiFlow Legal Suite — $69/month Standard • $199/month Professional • $299/month Enterprise. [info@lexiflow.co](mailto:info@lexiflow.co)*

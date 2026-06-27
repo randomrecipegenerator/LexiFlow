@@ -471,7 +471,7 @@ Thank you for attending today's NYC Bar demo. I hope the Rodriguez v. Mount Sina
 As discussed, I'd love to get you started on our 30-Day Pilot Program — completely free.
 
 To provision your account, I just need:
-1. Your preferred tier (Standard / Professional / Enterprise)
+1. Your preferred tier (Starter / Professional / Enterprise)
 2. Whether you use Filevine, Clio, or another CRM
 3. A good time for your onboarding call
 

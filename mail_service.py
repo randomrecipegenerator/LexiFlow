@@ -16,7 +16,7 @@ class MailService:
     """
     def __init__(self):
         self.postmark_server_token = os.getenv("POSTMARK_SERVER_TOKEN")
-        self.postmark_from_email = os.getenv("POSTMARK_FROM_EMAIL", "lexiflow-legal-suite-88a6f8e9@ctomail.io")
+        self.postmark_from_email = os.getenv("POSTMARK_FROM_EMAIL", "info@lexiflow.co")
         
         self.smtp_host = os.getenv("SMTP_HOST")
         self.smtp_port = int(os.getenv("SMTP_PORT", "587"))
