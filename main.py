@@ -4,7 +4,7 @@ logger = logging.getLogger(__name__)
 
 from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, Form, Header, BackgroundTasks, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse, FileResponse
+from fastapi.responses import StreamingResponse, FileResponse, JSONResponse
 from sqlalchemy.orm import Session
 from typing import List
 import os
@@ -40,6 +40,21 @@ def find_firm_by_slug(db: Session, slug: str):
     return db.query(models.Firm).filter(models.Firm.slug == slug).first()
 
 app = FastAPI(title="LexiFlow API")
+
+
+# ── Global Exception Handler ──────────────────────────────────────────
+# Returns JSON errors instead of HTML 500 pages on Vercel.
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    logger.error(f"Unhandled exception on {request.method} {request.url.path}: {exc}")
+    return JSONResponse(
+        status_code=500,
+        content={
+            "error": "Internal Server Error",
+            "detail": str(exc) if os.getenv("DEBUG") else "An unexpected error occurred. Please try again.",
+        },
+    )
+
 
 async def event_generator():
     while True:
@@ -135,6 +150,7 @@ def start_chat(firm_slug: str = None, db: Session = Depends(get_db)):
 
 
 @app.post("/v1/intake/submit")
+@app.post("/api/v1/intake/submit")
 async def case_intake_submit(
     firm_name: str = Form(...),
     attorney_email: str = Form(...),
@@ -239,6 +255,7 @@ async def case_intake_submit(
 
 
 @app.post("/demo-request")
+@app.post("/api/demo-request")
 async def demo_request(name: str = Form(...), email: str = Form(...), firm: str = Form(None), tier: str = Form(None), db: Session = Depends(get_db)):
     try:
         demo_req = models.DemoRequest(name=name, email=email, firm=firm)
