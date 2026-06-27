@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smith LaCien LLP — AI Intake Scaling Case Study | LexiFlow</title>
+  <meta name="description" content="How Smith LaCien LLP, a boutique San Francisco PI firm, scaled intake 3x without hiring using LexiFlow's Reasoning AI and MeritScan." />
+  <link rel="canonical" href="https://lexiflow.co/case-studies/smith-lacien" />
+  <meta property="og:title" content="Smith LaCien LLP — AI Intake Scaling Case Study" />
+  <meta property="og:description" content="3x case growth without headcount: How a boutique SF firm scaled intake using LexiFlow Reasoning AI and MeritScan." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="/shared-layout.css" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "Article", "headline": "Smith LaCien LLP: 3x Intake Growth Without Headcount Using AI", "description": "Case study demonstrating LexiFlow's AI intake and MeritScan at a San Francisco PI firm.", "author": { "@type": "Organization", "name": "LexiFlow Technologies Inc" }, "datePublished": "2026-06-22", "publisher": { "@type": "Organization", "name": "LexiFlow" } }
+  </script>
+  <style>
+    :root { --primary: #1a3a5c; --primary-dark: #0d1f33; --accent: #c9a84c; --accent-light: #e2c96e; --text-dark: #1a1a2e; --text-muted: #6b7280; --border: #e2e8f0; --bg-light: #f8fafc; --danger: #dc2626; --success: #16a34a; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: var(--text-dark); background: #fff; line-height: 1.6; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .logo span { background: var(--primary); color: var(--accent); padding: 4px 8px; border-radius: 4px; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 15px; font-weight: 500; }
+    .nav-links a:hover { color: var(--primary); }
+    .btn-cta { background: var(--accent); color: var(--primary); padding: 12px 24px; border-radius: 6px; font-weight: 600; }
+    .hero { padding: 140px 0 60px; background: linear-gradient(135deg, #0d1f33, #1a3a5c); color: white; }
+    .breadcrumb { color: rgba(255,255,255,0.5); font-size: 13px; margin-bottom: 20px; }
+    .breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--accent); }
+    .hero-badge { display: inline-block; padding: 4px 12px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); border-radius: 100px; font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 800; margin-bottom: 8px; }
+    .hero h1 span { color: var(--accent); }
+    .hero .subtitle { font-size: 1.1rem; color: rgba(255,255,255,0.8); max-width: 600px; margin-bottom: 32px; }
+    .hero-stats { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 28px; }
+    .hero-stat { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 16px 24px; min-width: 140px; text-align: center; }
+    .hero-stat .num { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+    .hero-stat .label { font-size: 12px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.04em; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 8px; font-weight: 700; font-size: 15px; text-decoration: none; transition: all 0.2s; }
+    .btn-gold { background: var(--accent); color: var(--primary-dark); }
+    .btn-gold:hover { background: var(--accent-light); transform: translateY(-1px); }
+    .btn-outline-light { border: 2px solid rgba(255,255,255,0.3); color: white; }
+    .btn-outline-light:hover { border-color: var(--accent); color: var(--accent); }
+    .hipaa-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; background: rgba(22,163,74,0.1); border: 1px solid rgba(22,163,74,0.2); border-radius: 100px; font-size: 11px; color: #22c55e; }
+    section { padding: 60px 0; }
+    section:nth-child(even) { background: var(--bg-light); }
+    h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--primary); margin-bottom: 12px; }
+    h2 .accent { color: var(--accent); }
+    .section-subtitle { color: var(--text-muted); font-size: 1rem; max-width: 600px; margin-bottom: 32px; }
+    .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .result-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 24px; text-align: center; }
+    .result-card .num { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+    .result-card .label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; }
+    .metric-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+    .metric-table th, .metric-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .metric-table th { background: var(--primary); color: white; font-weight: 600; }
+    .metric-table tr:hover { background: var(--bg-light); }
+    .tech-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: center; }
+    .tech-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+    .tech-card .icon { font-size: 2rem; margin-bottom: 8px; }
+    .tech-card h4 { font-size: 14px; color: var(--primary); margin-bottom: 4px; }
+    .tech-card .stat { font-size: 12px; color: var(--accent); font-weight: 600; }
+    .tech-arrow { font-size: 1.5rem; color: var(--text-muted); text-align: center; }
+    .tech-quote { text-align: center; font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--primary); padding: 24px; border-top: 1px solid var(--border); margin-top: 24px; }
+    .cta-section { background: linear-gradient(135deg, #0d1f33, #1a3a5c); color: white; text-align: center; padding: 60px 0; }
+    .cta-section h2 { color: white; font-size: 2rem; margin-bottom: 12px; }
+    .cta-section p { color: rgba(255,255,255,0.8); max-width: 500px; margin: 0 auto 24px; }
+    .cta-section .pricing-note { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 16px; }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 1.8rem; }
+      .hero-stats { flex-direction: column; }
+      .tech-flow { grid-template-columns: 1fr 1fr; }
+      .tech-arrow { display: none; }
+    }
+  </style>
+  <link rel="stylesheet" href="/master-layout.css">
+</head>
+<body>
+<nav>
+  <div class="nav-container">
+    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/solutions">Solutions</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li class="resources-dropdown">
+        <a href="#">Resources ▾</a>
+        <div class="resources-menu">
+          <a href="/resources/medical-chronology-template">Medical Chronology Template</a>
+          <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a>
+          <a href="/resources/medical-record-review-checklist">Record Review Checklist</a>
+          <a href="/ssd-disability-medical-chronology-software">SSD & Disability AI</a>
+          <a href="/witness-testimony-analysis">Witness Testimony Analysis</a>
+          <a href="/case-studies">Case Studies</a>
+        </div>
+      </li>
+      <li><a href="/roi-calculator">ROI Calculator</a></li>
+      <li><a href="/login">Log In</a></li>
+      <li><a href="/signup" class="btn-cta">Get Started</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Home</a> / <a href="/case-studies/">Case Studies</a> / Smith LaCien LLP</div>
+    <div class="hero-badge">📋 Case Study · San Francisco PI Firm</div>
+    <h1>Smith <span>LaCien</span> LLP</h1>
+    <p class="subtitle">How a boutique San Francisco PI firm scaled intake 3x without adding headcount — using LexiFlow's Reasoning AI and MeritScan.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">3x</div><div class="label">Case Growth</div></div>
+      <div class="hero-stat"><div class="num">95%</div><div class="label">Review Cost Savings</div></div>
+      <div class="hero-stat"><div class="num">$347K</div><div class="label">Annual Impact</div></div>
+      <div class="hero-stat"><div class="num">5</div><div class="label">Days to Deploy</div></div>
+    </div>
+    <div class="hero-actions">
+      <a href="/signup" class="btn btn-gold">🚀 Start Free Trial</a>
+      <a href="mailto:leads@lexiflow.co" class="btn btn-outline-light">📧 Request Private Demo</a>
+    </div>
+    <div style="margin-top:16px;"><span class="hipaa-badge">🔒 HIPAA Compliant</span></div>
+  </div>
+</section>
+
+<!-- Narrative -->
+<section>
+  <div class="container">
+    <h2>The <span class="accent">Narrative</span></h2>
+    <p class="section-subtitle">A growth dilemma solved with AI — more cases, same team.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div style="background:var(--bg-light);border-radius:12px;padding:20px;border-left:3px solid var(--accent);">
+        <div style="font-size:12px;font-weight:600;color:var(--accent);text-transform:uppercase;margin-bottom:6px;">The Challenge</div>
+        <p style="font-size:14px;color:var(--text-dark);line-height:1.6;">Smith LaCien LLP, a boutique San Francisco PI firm, faced a classic growth dilemma: more demand meant more leads to screen, but each new hire added significant fixed costs. With 6-8 hour response times, zero after-hours capture, $1,200-2,000 per case in medical record review costs, and only 2 full-time intake staff, they were leaving money on the table — but couldn't justify expanding headcount.</p>
+      </div>
+      <div style="background:var(--bg-light);border-radius:12px;padding:20px;border-left:3px solid var(--accent);">
+        <div style="font-size:12px;font-weight:600;color:var(--accent);text-transform:uppercase;margin-bottom:6px;">The Solution</div>
+        <p style="font-size:14px;color:var(--text-dark);line-height:1.6;">Smith LaCien deployed LexiFlow's AI intake suite with MeritScan integration: custom-branded web intake, 24/7 AI voice receptionist with California law awareness, and automated medical merit review that reduced per-case review costs from $1,500 to $75 — a 95% savings. Implementation took 5 days with zero disruption to existing workflows.</p>
+      </div>
+      <div style="background:var(--bg-light);border-radius:12px;padding:20px;border-left:3px solid var(--accent);">
+        <div style="font-size:12px;font-weight:600;color:var(--accent);text-transform:uppercase;margin-bottom:6px;">The Results</div>
+        <p style="font-size:14px;color:var(--text-dark);line-height:1.6;">Within 60 days, case screening capacity grew from 15 to 50+ cases per month — a 3.3x increase. Response time dropped from 6-8 hours to under 30 seconds (720x faster). Retained cases tripled without adding a single staff member. The firm reduced intake staffing from 2 FTEs to 0.5 FTE, saving $90,000 annually in salary alone.</p>
+      </div>
+      <div style="background:var(--bg-light);border-radius:12px;padding:20px;border-left:3px solid var(--accent);">
+        <div style="font-size:12px;font-weight:600;color:var(--accent);text-transform:uppercase;margin-bottom:6px;">ROI Summary</div>
+        <p style="font-size:14px;color:var(--text-dark);line-height:1.6;">The combined annual impact exceeded $347,000: $90,000 in intake staffing reduction, $17,100 in medical record review savings, and $240,000+ in incremental revenue from additional retained cases. MeritScan alone paid for the entire LexiFlow subscription. The firm's cost-per-case dropped by more than 60% while case volume tripled.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Performance Metrics -->
+<section style="background:var(--bg-light);">
+  <div class="container">
+    <h2>Performance <span class="accent">Metrics</span></h2>
+    <p class="section-subtitle">60-day impact: faster response, higher volume, lower cost.</p>
+    <table class="metric-table">
+      <tr><th>Metric</th><th>Before LexiFlow</th><th>After LexiFlow</th><th>Improvement</th></tr>
+      <tr><td>Response time</td><td>6-8 hours</td><td>< 30 seconds</td><td>720x faster</td></tr>
+      <tr><td>Case screening capacity</td><td>15/month</td><td>50+/month</td><td>3.3x</td></tr>
+      <tr><td>Med mal review cost</td><td>$1,500/case</td><td>$75/case</td><td>95% savings</td></tr>
+      <tr><td>Retained cases</td><td>Baseline</td><td>+200%</td><td>3x growth</td></tr>
+      <tr><td>Intake staff needed</td><td>2 FTE</td><td>0.5 FTE</td><td>75% reduction</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- Financial Impact -->
+<section>
+  <div class="container">
+    <h2>Annual <span class="accent">ROI</span></h2>
+    <p class="section-subtitle">$347,000+ in combined annual savings and revenue impact.</p>
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="num">$90,000</div>
+        <div class="label">Intake Staffing Savings</div>
+      </div>
+      <div class="result-card">
+        <div class="num">$17,100</div>
+        <div class="label">Record Review Savings</div>
+      </div>
+      <div class="result-card">
+        <div class="num">$240,000+</div>
+        <div class="label">Incremental Case Revenue</div>
+      </div>
+      <div class="result-card" style="border-color:var(--accent);">
+        <div class="num" style="color:var(--accent);">$347,000+</div>
+        <div class="label">Total Annual Impact</div>
+      </div>
+    </div>
+    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:20px;">
+      <strong style="color:#92400e;">Key Insight:</strong>
+      <span style="color:var(--text-dark);font-size:14px;"> MeritScan's AI medical record review alone — $75/case vs. $1,500 manual — saved enough to cover the firm's entire LexiFlow subscription. The remaining $330,000+ in staffing and revenue impact was pure upside.</span>
+    </div>
+  </div>
+</section>
+
+<!-- Tech Stack -->
+<section style="background:var(--bg-light);">
+  <div class="container">
+    <h2>How LexiFlow <span class="accent">Processed This Engagement</span></h2>
+    <p class="section-subtitle">From intake to deposition — a fully integrated workflow.</p>
+    <div class="tech-flow">
+      <div class="tech-card"><div class="icon">🤖</div><h4>AI Intake</h4><div class="stat">Web + Voice</div><div style="font-size:11px;color:var(--text-muted);">24/7 CA-aware screening</div></div>
+      <div class="tech-arrow">→</div>
+      <div class="tech-card"><div class="icon">📋</div><h4>MeritScan</h4><div class="stat">$75/case</div><div style="font-size:11px;color:var(--text-muted);">95% cost reduction</div></div>
+      <div class="tech-arrow">→</div>
+      <div class="tech-card"><div class="icon">🎯</div><h4>Veritas Depo™</h4><div class="stat">Live Litigation</div><div style="font-size:11px;color:var(--text-muted);">Deposition conflict detection</div></div>
+      <div class="tech-arrow">→</div>
+      <div class="tech-card"><div class="icon">🔗</div><h4>Clio Sync</h4><div class="stat">1-click Push</div><div style="font-size:11px;color:var(--text-muted);">Full audit trail</div></div>
+    </div>
+    <div class="tech-quote">"MeritScan alone paid for our entire LexiFlow subscription. We're screening medical records in minutes instead of days, and the AI identifies issues our paralegals would have missed." — Senior Litigator, Smith LaCien LLP</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Scale Your Firm Without Adding <span style="color:var(--accent);">Headcount</span></h2>
+    <p>Smith LaCien tripled case volume with the same team. See what LexiFlow can do for your practice.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="/signup" class="btn btn-gold">🚀 Start Free Trial</a>
+      <a href="mailto:leads@lexiflow.co" class="btn btn-outline-light">📧 Request Private Demo</a>
+    </div>
+    <div class="pricing-note">Full Suite from $29/month · <strong>30-Day Free Trial Available</strong> · HIPAA Compliant · SOC 2 Certified</div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-col">
+      <a href="/" class="footer-logo">LF LexiFlow</a>
+      <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+        <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+        <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+        <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+        <li><a href="/discovery-vault">Discovery-Vault™</a></li>
+        <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
+        <li><a href="/veritas-deposition.html">Veritas Deposition™</a></li>
+        <li><a href="/compliance-shield">Compliance-Shield™</a></li>
+        <li><a href="/dashboard">Analytics Dashboard</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>State Ethics Guides</h4>
+      <ul>
+        <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
+        <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
+        <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
+        <li><a href="/blog">All Resources</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/soc2">SOC2 Compliance</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+  </div>
+</footer>
+<script src="/shared-layout.js"></script>
+</body>
+</html>
