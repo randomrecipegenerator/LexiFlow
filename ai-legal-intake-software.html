@@ -449,17 +449,15 @@
     </div>
   </footer>
 
+<!-- Lead Capture Modal Removed -->
 <div class="modal-overlay" id="leadModal">
   <div class="modal-box">
     <div style="text-align:right;"><button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">&times;</button></div>
     <h3>📥 Download AI Intake Guide</h3>
-    <p>Enter your details to receive our guide on how AI is transforming legal intake.</p>
-    <form onsubmit="event.preventDefault(); document.getElementById('leadModal').querySelector('.modal-box').innerHTML = '<div style=\'text-align:center;padding:20px;\'><i class=\'bi bi-check-circle\' style=\'font-size:3.5rem;color:#22c55e;\'></i><h3 style=\'margin-top:20px;font-family:var(--font-serif);\'>Guide on the Way!</h3><p style=\'color:var(--text-muted);margin-bottom:24px;\'>We have dispatched the AI Intake Revolution Guide to your inbox. Check your email shortly.</p><button onclick=\'closeModal()\' class=\'btn btn-primary\' style=\'width:100%;justify-content:center;\'>Got it, thanks!</button></div>'; return false;">
-      <input type="text" name="name" placeholder="Full Name" required />
-      <input type="email" name="email" placeholder="Work Email" required />
-      <input type="text" name="firm" placeholder="Law Firm Name" required />
-      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">📥 Download →</button>
-    </form>
+    <p>To receive our guide on how AI is transforming legal intake, please email us at <a href="mailto:info@lexiflow.co" style="color:var(--navy); font-weight:700; text-decoration:none;">info@lexiflow.co</a> with your firm name.</p>
+    <div style="margin-top: 24px; font-size: 14px; color: var(--text-muted); text-align: center;">
+        <i class="bi bi-shield-check"></i> HIPAA Compliant & SOC2 Certified
+    </div>
   </div>
 </div>
 

@@ -199,19 +199,10 @@
 <div class="modal-overlay" id="leadModal">
   <div class="modal-box">
     <div style="text-align:right;"><button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">&times;</button></div>
-    <h3>Request a Private Demo</h3>
-    <p>Enter your details to receive the resource instantly.</p>
-    <form id="downloadForm" data-file="/downloads/lexiflow-medical-chronology-sample.pdf"
-          toolname="download_medical_chronology_sample_resource"
-          tooldescription="Submits a request to download the sample AI-generated medical chronology PDF from the resources folder."
-          inputschema='{"type":"object","properties":{"name":{"type":"string","description":"Full name of the requester"},"email":{"type":"string","format":"email","description":"Work email address"},"firm":{"type":"string","description":"Law firm name"}},"required":["name","email","firm"]}'>
-      <input type="text" name="name" placeholder="Full Name" required />
-      <input type="email" name="email" placeholder="Work Email" required />
-      <input type="text" name="firm" placeholder="Law Firm Name" required />
-      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" id="submitBtn">📥 Request Demo →</button>
-    </form>
-    <div id="successMsg" class="hidden" style="margin-top:20px; padding:15px; background:rgba(22, 163, 74, 0.1); border:1px solid #16a34a; color:#16a34a; border-radius:8px; font-size:0.9rem; text-align:center;">
-      <strong>Success!</strong> Your download should start automatically.
+    <h3>📥 Request a Private Demo</h3>
+    <p>To receive the resource or schedule a private demo, please email us at <a href="mailto:info@lexiflow.co" style="color:var(--primary); font-weight:700; text-decoration:none;">info@lexiflow.co</a> with your firm name.</p>
+    <div style="margin-top: 24px; font-size: 14px; color: var(--text-muted); text-align: center;">
+        <i class="bi bi-shield-check"></i> HIPAA Compliant & SOC2 Certified
     </div>
   </div>
 </div>
