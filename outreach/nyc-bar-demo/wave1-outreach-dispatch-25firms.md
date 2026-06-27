@@ -552,15 +552,15 @@ Best,
 
 ### 19. Waldman Law Group — Michael Waldman
 **Email:** mwaldman@waldmanlawyers.com | **LinkedIn:** linkedin.com/in/michael-waldman
-**Strategy:** AI intake for smaller firms; $69/mo Standard tier pitch
+**Strategy:** AI intake for smaller firms; $29/mo Starter tier pitch
 
-**Subject:** $69/mo AI Intake for Boutique PI Firms — NYC Bar Demo
+**Subject:** $29/mo AI Intake for Boutique PI Firms — NYC Bar Demo
 
 ```
 Dear Michael,
 
 Boutique firms like Waldman Law Group know that every lead counts. 
-LexiFlow's AI intake platform starts at just $69/month — making 
+LexiFlow's AI intake platform starts at just $29/month — making 
 enterprise-level lead qualification accessible for growing practices.
 
 We're demonstrating at the NYC Bar on July 7th.
