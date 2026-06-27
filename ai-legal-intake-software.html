@@ -404,66 +404,6 @@
   </div>
 </section>
 
-<!-- Agentic Intake Section -->
-<section id="agentic-intake-section" aria-label="LexiFlow Technologies Inc Intake Portal" style="background: #0f172a; color: white; padding: 100px 0 250px; position: relative; clear: both;">
-  <div class="container" style="max-width: 700px; margin: 0 auto; text-align: center;">
-    <div style="display: inline-block; background: rgba(201,168,76,0.1); color: #c9a84c; padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px;">🤖 AI-Powered Intake</div>
-    <h2 style="font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; margin-bottom: 8px; color: white;">Submit a Case for AI Merit Review</h2>
-    <p style="color: rgba(255,255,255,0.7); font-size: 14px; margin-bottom: 28px; max-width: 500px; margin-left: auto; margin-right: auto;">Complete the form below to submit a prospective client's case for AI-powered merit scoring, classification, and CRM staging.</p>
-
-    <form id="webmcp-intake-form" action="/api/v1/intake/submit" method="POST"
-          style="margin-bottom: 120px;"
-          toolname="submit_legal_case_intake"
-          tooldescription="Submits a prospective client's injury or malpractice case details to LexiFlow for merit scoring, classification, and CRM staging."
-          inputschema='{"type":"object","properties":{"firm_name":{"type":"string","description":"Legal name of the law firm submitting the case"},"attorney_email":{"type":"string","format":"email","description":"Email address of the primary attorney"},"case_type":{"type":"string","enum":["medical-malpractice","personal-injury","mass-tort","birth-injury","product-liability","other"],"description":"The category of law the case falls under"},"jurisdiction":{"type":"string","description":"The legal venue/state for the case"},"case_summary":{"type":"string","description":"Detailed description of facts, injuries, and liability"},"estimated_damages":{"type":"number","description":"Approximate dollar value of the claim"}},"required":["firm_name","attorney_email","case_type","jurisdiction","case_summary"]}'>
-
-        <div class="form-grid">
-          <div>
-            <label for="firm_name" style="display: block; font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">Law Firm Name *</label>
-            <input type="text" id="firm_name" name="firm_name" required placeholder="e.g. Smith & Associates" style="width: 100%; padding: 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; background: rgba(255,255,255,0.1); color: white; font-size: 15px;">
-          </div>
-          <div>
-            <label for="attorney_email" style="display: block; font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">Attorney Email *</label>
-            <input type="email" id="attorney_email" name="attorney_email" required placeholder="attorney@firm.com" style="width: 100%; padding: 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; background: rgba(255,255,255,0.1); color: white; font-size: 15px;">
-          </div>
-        </div>
-
-        <div class="form-grid">
-          <div>
-            <label for="case_type" style="display: block; font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">Case Type *</label>
-            <select id="case_type" name="case_type" required style="width: 100%; padding: 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; background: rgba(255,255,255,0.1); color: white; font-size: 15px;">
-              <option value="" style="background:#0f172a;color:white;">Select case type...</option>
-              <option value="medical-malpractice" style="background:#0f172a;color:white;">Medical Malpractice</option>
-              <option value="personal-injury" style="background:#0f172a;color:white;">Personal Injury</option>
-              <option value="mass-tort" style="background:#0f172a;color:white;">Mass Tort</option>
-              <option value="birth-injury" style="background:#0f172a;color:white;">Birth Injury</option>
-              <option value="product-liability" style="background:#0f172a;color:white;">Product Liability</option>
-              <option value="other" style="background:#0f172a;color:white;">Other</option>
-            </select>
-          </div>
-          <div>
-            <label for="jurisdiction" style="display: block; font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">Jurisdiction *</label>
-            <input type="text" id="jurisdiction" name="jurisdiction" required placeholder="e.g. New York, NY" style="width: 100%; padding: 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; background: rgba(255,255,255,0.1); color: white; font-size: 15px;">
-          </div>
-        </div>
-
-        <div style="margin-bottom: 20px;">
-          <label for="case_summary" style="display: block; font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">Case Summary *</label>
-          <textarea id="case_summary" name="case_summary" rows="4" required placeholder="Describe the incident, injuries, and any notes on liability..." style="width: 100%; padding: 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; background: rgba(255,255,255,0.1); color: white; font-size: 15px; resize: vertical;"></textarea>
-        </div>
-
-        <div style="margin-bottom: 24px;">
-          <label for="estimated_damages" style="display: block; font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">Estimated Damages ($)</label>
-          <input type="number" id="estimated_damages" name="estimated_damages" placeholder="e.g. 500000" min="0" style="width: 100%; padding: 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; background: rgba(255,255,255,0.1); color: white; font-size: 15px;">
-        </div>
-
-        <button type="submit" class="btn-cta" style="width: 100%; justify-content: center; padding: 16px; font-size: 18px; font-weight: 800; background: var(--gold); color: var(--navy); border: none; border-radius: 8px; cursor: pointer;">🚀 Submit for AI Merit Review</button>
-      </form>
-
-    <p style="color: rgba(255,255,255,0.4); font-size: 12px; margin-top: 20px;">🔒 HIPAA Compliant · SOC 2 Certified · Signed BAA Available</p>
-  </div>
-</section>
-
     <!-- Footer -->
     <footer style="margin-top: 150px; position: relative; z-index: 1000; clear: both;">
     <div class="footer-container">
