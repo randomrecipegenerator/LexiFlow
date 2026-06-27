@@ -22,6 +22,10 @@
     {
       "source": "/blog/([^/.]+)",
       "destination": "/blog/$1.html"
+    },
+    {
+      "source": "/case-studies/([^/.]+)",
+      "destination": "/case-studies/$1.html"
     }
   ]
 }
