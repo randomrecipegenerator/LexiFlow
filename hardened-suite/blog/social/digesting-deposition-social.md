@@ -14,7 +14,7 @@ Included in the Professional ($199/mo) and Enterprise ($299/mo) tiers.
 
 Full breakdown: https://lexiflow.co/blog/digesting-deposition-ai-veritas-deposition.html
 
-Email for a personalized Veritas Deposition™ demo: leads@lexiflow.co
+Email for a personalized Veritas Deposition™ demo: info@lexiflow.co
 
 ## X/Twitter (Thread)
 1/ Deposition digestion takes 4-6 hours per hour of testimony. A 6-hour depo = 24-36 hours of manual work. 🧵

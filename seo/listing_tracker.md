@@ -26,7 +26,7 @@ Use the following standardized content for all submissions to ensure brand consi
 - **Product Name:** LexiFlow Legal Suite
 - **Company Name:** LexiFlow
 - **Website URL:** https://lexiflow.co
-- **Contact Email:** leads@lexiflow.co
+- **Contact Email:** info@lexiflow.co
 - **Founded Year:** 2026
 - **Headquarters:** (Consult lead for specific address, default to "Remote/US-based")
 
@@ -66,10 +66,10 @@ Use the following standardized content for all submissions to ensure brand consi
     - **Justia/Capterra:** Cloudflare JS challenge presented; automated solve failed due to browser fingerprinting.
     - **Legaltech Hub:** `ERR_SSL_PROTOCOL_ERROR` / `tlsv1 alert internal error` prevented connection.
 - **Manual Submission Required:** This task is confirmed as requiring human intervention. The "Profile Submission Materials" section below remains the source of truth for the manual copy-paste process.
-- **Verification Emails:** Any verification emails sent to `leads@lexiflow.co` should be monitored by the lead or the team member performing the submission.
+- **Verification Emails:** Any verification emails sent to `info@lexiflow.co` should be monitored by the lead or the team member performing the submission.
 
 ## Next Steps for Lead
 1. **Manual Submission:** Assign a team member or assistant to use the "Profile Submission Materials" to fill out the forms at the provided URLs.
 2. **Review Generation:** Once listings are live, reach out to the 20 Tier 1 firms in our sales database to request initial reviews on G2 and Capterra to build social proof.
-3. **Monitor Email Responses:** All 5 blocked platforms (G2, Capterra, Software Advice, Legaltech Hub, Justia) plus new inquiries (Clio, Filevine, bar associations, directories) were contacted via email on 2026-06-03. Monitor leads@lexiflow.co for responses.
+3. **Monitor Email Responses:** All 5 blocked platforms (G2, Capterra, Software Advice, Legaltech Hub, Justia) plus new inquiries (Clio, Filevine, bar associations, directories) were contacted via email on 2026-06-03. Monitor info@lexiflow.co for responses.
 4. **Follow-up Schedule:** If no response in 7 days, send follow-up emails to all outreach targets. Second follow-up at 14 days.

@@ -145,8 +145,8 @@ The strongest plaintiff practices maintain complete medical chronologies for eve
 
 **Part 1 of this series:** [How to Create a Medical Chronology: A Step-by-Step Guide](/blog/how-to-create-medical-chronology-step-by-step)
 
-**Want to see how AI handles both in under 60 seconds?** [Email our team →](mailto:leads@lexiflow.co) for a free demonstration on your own records.
+**Want to see how AI handles both in under 60 seconds?** [Email our team →](mailto:info@lexiflow.co) for a free demonstration on your own records.
 
 ---
 
-*LexiFlow Legal Suite — $69/month Standard • $199/month Professional • $299/month Enterprise. [leads@lexiflow.co](mailto:leads@lexiflow.co)*
+*LexiFlow Legal Suite — $69/month Standard • $199/month Professional • $299/month Enterprise. [info@lexiflow.co](mailto:info@lexiflow.co)*

@@ -208,4 +208,4 @@ The 15-minute deposition digest isn't about cutting corners. It's about realloca
 
 ---
 
-*LexiFlow Legal Suite — AI deposition analysis included in Professional ($199/month) and Enterprise ($299/month) tiers. Full Suite starts at $69/month. [Email our team for a personalized demo](mailto:leads@lexiflow.co).*
+*LexiFlow Legal Suite — AI deposition analysis included in Professional ($199/month) and Enterprise ($299/month) tiers. Full Suite starts at $69/month. [Email our team for a personalized demo](mailto:info@lexiflow.co).*

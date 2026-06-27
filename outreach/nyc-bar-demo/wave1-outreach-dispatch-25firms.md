@@ -46,7 +46,7 @@ Space is limited. Reply to reserve your seat.
 
 Best,
 [Your Name] | LexiFlow Technologies Inc
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -80,7 +80,7 @@ Reply to reserve your spot.
 
 Best,
 [Your Name] | LexiFlow Technologies Inc
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -115,7 +115,7 @@ Please reply to confirm your attendance.
 
 Best,
 [Your Name] | LexiFlow Technologies Inc
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -151,7 +151,7 @@ Reply to save your seat.
 
 Best,
 [Your Name] | LexiFlow Technologies Inc
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -182,7 +182,7 @@ Details: July 7th | 10:00–11:00 AM ET | NYC Bar Association
 
 Best,
 [Your Name] | LexiFlow Technologies Inc
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -216,7 +216,7 @@ Reply to reserve your seat.
 
 Best,
 [Your Name] | LexiFlow Technologies Inc
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -249,7 +249,7 @@ Tuesday, July 7th | 10:00–11:00 AM ET | NYC Bar Association
 
 Best,
 [Your Name] | LexiFlow Technologies Inc
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -278,7 +278,7 @@ Details: July 7th | 10:00–11:00 AM ET | NYC Bar Association
 
 Best,
 [Your Name] | LexiFlow Technologies Inc
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -309,7 +309,7 @@ July 7th | 10:00 AM | NYC Bar Association
 
 Best,
 [Your Name] | LexiFlow Technologies Inc
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -340,7 +340,7 @@ Details: July 7th | 10:00–11:00 AM ET | NYC Bar Association
 
 Best,
 [Your Name] | LexiFlow Technologies Inc
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -371,7 +371,7 @@ We're demoing at the NYC Bar on July 7th — Rodriguez v. Mount Sinai.
 July 7th | 10:00 AM | NYC Bar Association
 
 Best,
-[Your Name] | leads@lexiflow.co
+[Your Name] | info@lexiflow.co
 ```
 
 ---
@@ -394,7 +394,7 @@ We're demonstrating at the NYC Bar on July 7th — Rodriguez v. Mount Sinai.
 July 7th | 10:00 AM | NYC Bar Association
 
 Best,
-[Your Name] | leads@lexiflow.co
+[Your Name] | info@lexiflow.co
 ```
 
 ---
@@ -421,7 +421,7 @@ We're demonstrating at the NYC Bar on July 7th.
 Details: July 7th | 10:00 AM | NYC Bar Association
 
 Best,
-[Your Name] | leads@lexiflow.co
+[Your Name] | info@lexiflow.co
 ```
 
 ---
@@ -446,7 +446,7 @@ We're demonstrating at the NYC Bar on July 7th — Rodriguez v. Mount Sinai.
 July 7th | 10:00 AM | NYC Bar Association
 
 Best,
-[Your Name] | leads@lexiflow.co
+[Your Name] | info@lexiflow.co
 ```
 
 ---
@@ -469,7 +469,7 @@ We're demonstrating at the NYC Bar on July 7th.
 July 7th | 10:00 AM | NYC Bar Association
 
 Best,
-[Your Name] | leads@lexiflow.co
+[Your Name] | info@lexiflow.co
 ```
 
 ---
@@ -492,7 +492,7 @@ deposition analysis — all in under 15 minutes.
 July 7th | 10:00 AM | NYC Bar Association
 
 Best,
-[Your Name] | leads@lexiflow.co
+[Your Name] | info@lexiflow.co
 ```
 
 ---
@@ -516,7 +516,7 @@ Sinai scenario with our Contradiction Detection Engine in action.
 July 7th | 10:00 AM | NYC Bar Association
 
 Best,
-[Your Name] | leads@lexiflow.co
+[Your Name] | info@lexiflow.co
 ```
 
 ---
@@ -544,7 +544,7 @@ standard of care, and spots contradictions in deposition testimony.
 July 7th | 10:00 AM | NYC Bar Association
 
 Best,
-[Your Name] | leads@lexiflow.co
+[Your Name] | info@lexiflow.co
 ```
 
 ---
@@ -569,7 +569,7 @@ We're demonstrating at the NYC Bar on July 7th.
 July 7th | 10:00 AM | NYC Bar Association
 
 Best,
-[Your Name] | leads@lexiflow.co
+[Your Name] | info@lexiflow.co
 ```
 
 ---
@@ -594,7 +594,7 @@ We're demonstrating at the NYC Bar on July 7th.
 July 7th | 10:00 AM | NYC Bar Association
 
 Best,
-[Your Name] | leads@lexiflow.co
+[Your Name] | info@lexiflow.co
 ```
 
 ---
@@ -617,7 +617,7 @@ We're demonstrating at the NYC Bar on July 7th — Rodriguez v. Mount Sinai.
 July 7th | 10:00 AM | NYC Bar Association
 
 Best,
-[Your Name] | leads@lexiflow.co
+[Your Name] | info@lexiflow.co
 ```
 
 ---
@@ -642,7 +642,7 @@ We're demonstrating at the NYC Bar on July 7th — Rodriguez v. Mount Sinai.
 July 7th | 10:00 AM | NYC Bar Association
 
 Best,
-[Your Name] | leads@lexiflow.co
+[Your Name] | info@lexiflow.co
 ```
 
 ---
@@ -667,7 +667,7 @@ We're demonstrating at the NYC Bar on July 7th — Rodriguez v. Mount Sinai.
 July 7th | 10:00 AM | NYC Bar Association
 
 Best,
-[Your Name] | leads@lexiflow.co
+[Your Name] | info@lexiflow.co
 ```
 
 ---
@@ -692,7 +692,7 @@ We're demonstrating at the NYC Bar on July 7th.
 July 7th | 10:00 AM | NYC Bar Association
 
 Best,
-[Your Name] | leads@lexiflow.co
+[Your Name] | info@lexiflow.co
 ```
 
 ---
@@ -717,7 +717,7 @@ We're demonstrating at the NYC Bar on July 7th — Rodriguez v. Mount Sinai.
 July 7th | 10:00 AM | NYC Bar Association
 
 Best,
-[Your Name] | leads@lexiflow.co
+[Your Name] | info@lexiflow.co
 ```
 
 ---
@@ -754,4 +754,4 @@ Best,
 
 *Prepared for Wave 1 Launch — June 22, 2026*
 *25 NYC Tier-1 Firms — Personalized Outreach*
-*LexiFlow Technologies Inc — leads@lexiflow.co*
+*LexiFlow Technologies Inc — info@lexiflow.co*

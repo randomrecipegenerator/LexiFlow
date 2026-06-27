@@ -123,7 +123,7 @@ Use the following for all directory submissions:
 - **Product Name:** LexiFlow Legal Suite
 - **Company:** LexiFlow
 - **Website:** https://lexiflow.co
-- **Email:** leads@lexiflow.co
+- **Email:** info@lexiflow.co
 - **Founded:** 2026
 - **Headquarters:** Remote/US-based
 

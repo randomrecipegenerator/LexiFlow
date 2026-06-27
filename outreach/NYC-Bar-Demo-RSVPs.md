@@ -118,7 +118,7 @@ Warm regards,
 
 [Sales Representative]
 LexiFlow Technologies Inc
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -159,7 +159,7 @@ about partnership opportunities?"
 ```
 "Hi [Name], this is [Your Name] from LexiFlow. We're presenting our Veritas Deposition™ 
 platform at the NYC Bar Association on July 7th — featuring the 'Rodriguez v. Mount Sinai' 
-MedMal scenario. I'd love to have you attend. Please reach me at leads@lexiflow.co 
+MedMal scenario. I'd love to have you attend. Please reach me at info@lexiflow.co 
 or call me back to reserve your spot. Looking forward to connecting!"
 ```
 

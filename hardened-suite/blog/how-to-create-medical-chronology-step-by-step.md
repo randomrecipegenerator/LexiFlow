@@ -162,8 +162,8 @@ A well-constructed medical chronology can make or break a case. Whether you're b
 
 [Request a Private Demo →](/resources/medical-chronology-sample.html)
 
-**Want to see AI medical chronology in action?** [Email our team →](mailto:leads@lexiflow.co) for a Private Demo on a real case.
+**Want to see AI medical chronology in action?** [Email our team →](mailto:info@lexiflow.co) for a Private Demo on a real case.
 
 ---
 
-*LexiFlow Legal Suite — $69/month Standard • $199/month Professional • $299/month Enterprise. [leads@lexiflow.co](mailto:leads@lexiflow.co)*
+*LexiFlow Legal Suite — $69/month Standard • $199/month Professional • $299/month Enterprise. [info@lexiflow.co](mailto:info@lexiflow.co)*

@@ -41,7 +41,7 @@
 ---
 
 ### Scene 7 (1:45–2:00) — CTA
-**Visual:** Final screen — LexiFlow logo with "Start Your 14-Day Free Trial" CTA button. Gold accent on navy background. Email link: `leads@lexiflow.co`.
+**Visual:** Final screen — LexiFlow logo with "Start Your 14-Day Free Trial" CTA button. Gold accent on navy background. Email link: `info@lexiflow.co`.
 **Narrator:** "Join 500+ firms already using LexiFlow to close cases faster and save thousands. Start your free trial today at lexiflow.co. LexiFlow — Enterprise Legal Intelligence."
 
 ---
@@ -55,7 +55,7 @@
 | Admin Dashboard | `/dashboard.html` |
 | Pricing Page | `/pricing.html` |
 | Admin Login | `/admin/index.html` |
-| Contact | `mailto:leads@lexiflow.co` |
+| Contact | `mailto:info@lexiflow.co` |
 
 ## Screenshots for Marketplace Assets
 

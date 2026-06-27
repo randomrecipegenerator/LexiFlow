@@ -7,7 +7,7 @@ This document contains all materials needed to submit LexiFlow for listing in th
 - **Product Name:** LexiFlow Legal Suite
 - **Company Name:** LexiFlow
 - **Website URL:** https://lexiflow.co
-- **Contact Email:** leads@lexiflow.co
+- **Contact Email:** info@lexiflow.co
 - **Founded:** 2026
 - **Headquarters:** Remote/US-based
 

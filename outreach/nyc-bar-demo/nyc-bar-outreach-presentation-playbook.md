@@ -55,7 +55,7 @@ Would you like me to reserve a spot for you? Happy to send over the calendar inv
 Best,
 [Your Name]
 LexiFlow Technologies Inc
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -157,7 +157,7 @@ Please reply to confirm your attendance, and I'll send the calendar invite.
 Best,
 [Your Name]
 LexiFlow Technologies Inc
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -193,7 +193,7 @@ Space is limited. Reply to reserve your spot and I'll send the calendar invite.
 Best,
 [Your Name]
 LexiFlow Technologies Inc
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -222,7 +222,7 @@ Would you like me to reserve a spot for you or a member of your litigation team?
 
 Best,
 [Your Name]
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -438,7 +438,7 @@ Here's what you get:
 - If you need more time: We'll extend the pilot by 2 weeks — no questions asked
 - If it's not right: Cancel. No cost. No hassle.
 
-**To get started:** Send me an email at **leads@lexiflow.co** and I'll have your pilot account provisioned within 24 hours.
+**To get started:** Send me an email at **info@lexiflow.co** and I'll have your pilot account provisioned within 24 hours.
 
 We'll handle the data migration. You focus on your cases."
 
@@ -479,7 +479,7 @@ Reply here and I'll have your account ready within 24 hours.
 
 Best,
 [Your Name]
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 **Email 2 — 48-Hour Follow-up:**
@@ -501,7 +501,7 @@ The Contradiction Detection Engine™ found inconsistencies their senior paraleg
 
 Your pilot account can be live within 24 hours. Ready to give it a shot?
 
-leads@lexiflow.co
+info@lexiflow.co
 
 Best,
 [Your Name]
@@ -523,7 +523,7 @@ The 14-hour gap in antibiotic administration. The contradiction between testimon
 
 That's what LexiFlow brings to your firm — and our 30-day pilot is risk-free.
 
-If you're interested, reply here or email leads@lexiflow.co.
+If you're interested, reply here or email info@lexiflow.co.
 
 Best,
 [Your Name]

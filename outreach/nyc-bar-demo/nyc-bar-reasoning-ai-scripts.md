@@ -44,7 +44,7 @@ If there's a member newsletter or event calendar where this could be listed, ple
 
 Best,
 [Your Name]
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -87,7 +87,7 @@ Space is limited. Reply to reserve your spot.
 Best,
 [Your Name]
 LexiFlow Technologies Inc
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -116,7 +116,7 @@ Reply to save your seat.
 
 Best,
 [Your Name]
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -144,7 +144,7 @@ This is a closed demo for select NYC firms. Would you like a seat?
 
 Best,
 [Your Name]
-leads@lexiflow.co
+info@lexiflow.co
 ```
 
 ---
@@ -279,7 +279,7 @@ Rodriguez v. Mount Sinai went from intake to deposition analysis in under 15 min
 - We'll load one of your actual cases (anonymized)
 - No credit card required. Cancel anytime.
 
-Contact me at **leads@lexiflow.co** to get started.
+Contact me at **info@lexiflow.co** to get started.
 
 Thank you."
 
@@ -338,7 +338,7 @@ analysis and Cross-Examination Builder™.
 This is not pattern-matching AI. This is technology that evaluates 
 medical records the way a senior medmal attorney does — at machine speed.
 
-Space is limited. Email leads@lexiflow.co to reserve your seat.
+Space is limited. Email info@lexiflow.co to reserve your seat.
 ```
 
 ---
