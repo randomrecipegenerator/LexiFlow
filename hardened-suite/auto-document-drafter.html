@@ -176,24 +176,6 @@ function openModal() { document.getElementById('leadModal').classList.remove('hi
 function closeModal() { document.getElementById('leadModal').classList.add('hidden'); }
 document.getElementById('leadModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
-document.getElementById('downloadForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const btn = document.getElementById('submitBtn');
-  const msg = document.getElementById('successMsg');
-  const fileLink = msg.querySelector('a');
-
-  btn.disabled = true;
-  btn.innerText = 'Processing...';
-
-  if (fileLink) {
-    fileLink.click();
-  }
-
-  setTimeout(() => {
-    btn.classList.add('hidden');
-    msg.classList.remove('hidden');
-  }, 500);
-});
 </script>
 
 <style>

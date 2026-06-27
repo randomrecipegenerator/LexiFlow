@@ -193,27 +193,6 @@ function openModal() { document.getElementById('leadModal').classList.add('activ
 function closeModal() { document.getElementById('leadModal').classList.remove('active'); }
 document.getElementById('leadModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
-document.getElementById('downloadForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const btn = document.getElementById('submitBtn');
-  const msg = document.getElementById('successMsg');
-  const fileLink = msg.querySelector('a');
-
-  // Update UI immediately
-  btn.disabled = true;
-  btn.innerText = 'Processing...';
-
-  // Trigger download from the existing link in the success message
-  if (fileLink) {
-    fileLink.click();
-  }
-
-  // Show success message and hide button after a short delay for visual feedback
-  setTimeout(() => {
-    btn.classList.add('hidden');
-    msg.classList.remove('hidden');
-  }, 500);
-});
 </script>
 
 
