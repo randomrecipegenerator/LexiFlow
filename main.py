@@ -133,6 +133,111 @@ def start_chat(firm_slug: str = None, db: Session = Depends(get_db)):
     db.refresh(lead)
     return {"lead_id": lead.id}
 
+
+@app.post("/v1/intake/submit")
+async def case_intake_submit(
+    firm_name: str = Form(...),
+    attorney_email: str = Form(...),
+    case_type: str = Form(...),
+    jurisdiction: str = Form(...),
+    case_summary: str = Form(...),
+    estimated_damages: float = Form(None),
+    firm_slug: str = Form(None),
+    db: Session = Depends(get_db),
+):
+    """
+    POST /api/v1/intake/submit
+    
+    Public endpoint for the 'Submit a Case for AI Merit Review' form.
+    Accepts case details, creates a Lead, runs AI merit scoring,
+    and returns the score and summary.
+    
+    Accessible via /api/v1/intake/submit (middleware strips /api/ prefix).
+    """
+    # 1. Find or create the firm
+    firm = None
+    if firm_slug:
+        firm = db.query(models.Firm).filter(models.Firm.slug == firm_slug).first()
+    if not firm:
+        firm = db.query(models.Firm).filter(models.Firm.name.ilike(f"%{firm_name}%")).first()
+    if not firm:
+        firm = db.query(models.Firm).filter(
+            models.Firm.api_config_json.ilike(f"%{firm_name}%")
+        ).first()
+
+    # 2. Create the Lead record
+    lead = models.Lead(
+        firm_id=firm.id if firm else None,
+        full_name=firm_name if not firm else f"{firm_name} Lead",
+        email=attorney_email,
+        case_type=case_type.replace("-", " ").title(),
+        description=case_summary,
+        case_value_estimate=estimated_damages or 0.0,
+        source="Web Intake Form",
+        status="New",
+    )
+    db.add(lead)
+    db.flush()
+
+    # 3. Run AI merit scoring
+    kb_context = ""
+    if firm:
+        kb_entries = db.query(models.KnowledgeBase).filter(
+            models.KnowledgeBase.is_active == 1,
+            models.KnowledgeBase.firm_id == firm.id,
+        ).all()
+        kb_context = "\n".join([f"KB - {k.title}: {k.content}" for k in kb_entries])
+
+    score, status, summary, client_info, case_value = ai_engine.qualify_lead(
+        case_summary, context=kb_context
+    )
+
+    # 4. Save AI results to the Lead
+    lead.qualification_score = score
+    lead.status = status
+    lead.ai_summary = summary
+    if case_value and not estimated_damages:
+        lead.case_value_estimate = case_value
+
+    if firm:
+        utils.log_usage(db, firm.id, "web_intake", quantity=1.0, details=f"Web Intake Form: Lead ID {lead.id}")
+
+    db.commit()
+
+    # 5. Log audit
+    create_audit_log(
+        db, "case_intake_submit", lead.id,
+        f"Firm: {firm_name}, Type: {case_type}, Score: {score}, Status: {status}",
+        firm_id=firm.id if firm else None,
+    )
+
+    # 6. Auto-sync to CRM if score is high enough
+    if score >= 70 and firm:
+        try:
+            import asyncio
+            await asyncio.sleep(0)  # Allow event loop to yield
+            sync_result = await integration_engine.integration_engine.sync_lead_auto(lead, db=db)
+            if sync_result.get("targets"):
+                create_audit_log(
+                    db, "intake_auto_sync", lead.id,
+                    f"Score: {score}, Targets: {sync_result['targets']}",
+                    firm_id=firm.id,
+                )
+        except Exception as e:
+            logger.warning(f"Auto-sync skipped for lead {lead.id}: {e}")
+
+    return {
+        "status": "success",
+        "lead_id": lead.id,
+        "merit_score": score,
+        "merit_summary": summary,
+        "case_status": status,
+        "firm_linked": bool(firm),
+        "firm_name": firm.name if firm else None,
+        "estimated_value": lead.case_value_estimate,
+    }
+
+
 @app.post("/demo-request")
 async def demo_request(name: str = Form(...), email: str = Form(...), firm: str = Form(None), tier: str = Form(None), db: Session = Depends(get_db)):
     demo_req = models.DemoRequest(name=name, email=email, firm=firm)
