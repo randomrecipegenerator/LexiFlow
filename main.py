@@ -271,7 +271,7 @@ async def demo_request(name: str = Form(...), email: str = Form(...), firm: str 
     try:
         from mail_service import mail_service
         await mail_service.send_email(
-            to_email="lexiflow-legal-suite-88a6f8e9@ctomail.io",
+            to_email="info@lexiflow.co",
             subject=subject,
             body=body,
             html_body=html_body

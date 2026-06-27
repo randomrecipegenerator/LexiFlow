@@ -1,8 +1,8 @@
 import os
 
 base_path = "/home/team/shared/LexiFlow-Final"
-old_email = "lexiflow-legal-suite-88a6f8e9@ctomail.io"
-new_email = "lexiflow-legal-suite-88a6f8e9@ctomail.io"
+old_email = "info@lexiflow.co"
+new_email = "info@lexiflow.co"
 
 def fix_emails(directory):
     for root, dirs, files in os.walk(directory):

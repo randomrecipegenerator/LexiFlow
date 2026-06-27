@@ -10,7 +10,7 @@ The impact goes beyond time savings: firms using AI chronologies report 15-25% h
 
 Read the full case study → https://lexiflow.co/blog/how-ai-medical-chronologies-revolutionizing-personal-injury-case-valuation
 
-Email for a Private Demo: lexiflow-legal-suite-88a6f8e9@ctomail.io
+Email for a Private Demo: info@lexiflow.co
 
 ## X/Twitter (Thread)
 1/ 12 hours per medical chronology. At $175/hr, that's $2,100 in labor for ONE case. AI changes everything. 🧵
@@ -26,4 +26,4 @@ Email for a Private Demo: lexiflow-legal-suite-88a6f8e9@ctomail.io
 
 Read more: https://lexiflow.co/blog/how-ai-medical-chronologies-revolutionizing-personal-injury-case-valuation
 
-Reply for a Private Demo: lexiflow-legal-suite-88a6f8e9@ctomail.io
+Reply for a Private Demo: info@lexiflow.co

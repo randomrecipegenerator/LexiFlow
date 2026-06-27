@@ -1,9 +1,9 @@
 # Reasoning AI for Medical Malpractice — NYC Bar Scripts
 ## July 7, 2026 | Rodriguez v. Mount Sinai
 
-> **⚠️ OUTREACH POLICY: LinkedIn + Phone ONLY. Email is PAUSED.**
-> These email scripts are for **reference/template use only** — adapt content for LinkedIn InMail messages and phone calls.
-> Use the LinkedIn Tracker: `/home/team/shared/outreach/nyc-bar-demo/linkedin-outreach-tracker-25firms.md`
+> **OUTREACH POLICY: Email + Phone ONLY. LinkedIn is PAUSED.**
+> These scripts are for **direct outreach dispatches**.
+> Use the Outreach Tracker: `/home/team/shared/outreach/nyc-bar-demo/wave1-outreach-dispatch-25firms.md`
 
 > **The Hook:** "Most 'AI' in legal tech is pattern matching. LexiFlow's Reasoning AI thinks like a senior medmal attorney — it evaluates standard of care, spots deviations, and builds your case theory from 1,200 pages of medical records in under 5 minutes."
 

@@ -21,7 +21,7 @@ Part of the LexiFlow Suite — all 6 modules for $69/month.
 
 Read the full post → https://lexiflow.co/blog/how-ai-medical-merit-review-cuts-case-screening
 
-Or email us for a private demonstration: lexiflow-legal-suite-88a6f8e9@ctomail.io
+Or email us for a private demonstration: info@lexiflow.co
 
 ### X/Twitter Thread — Done (Publish Now)
 1/ Every PI attorney knows this pain: 500+ pages of medical records, 8-12 hours to screen, and you STILL might miss the case.
@@ -51,7 +51,7 @@ Our latest post breaks down the 5 ethical pillars every firm must address, plus 
 
 Read the full guide: https://lexiflow.co/blog/ethics-ai-legal-intake-responsible-implementation
 
-Email us for a free ethics review: lexiflow-legal-suite-88a6f8e9@ctomail.io
+Email us for a free ethics review: info@lexiflow.co
 
 ### X/Twitter Thread — Done (Publish Now)
 1/ AI is transforming legal intake. But with great power comes ethical responsibility. 🧵
@@ -79,4 +79,4 @@ Email us for a free ethics review: lexiflow-legal-suite-88a6f8e9@ctomail.io
 | **Friday** | Re-share (LinkedIn) | Quote cards from both posts | 10:00 AM |
 
 ## Social Media Copy (ready to copy-paste)
-Copy the content above directly into LinkedIn, X/Twitter, and email platforms. All CTAs use mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io — NO forms.
+Copy the content above directly into LinkedIn, X/Twitter, and email platforms. All CTAs use mailto:info@lexiflow.co — NO forms.
