@@ -116,6 +116,47 @@
     ::-ms-input-placeholder { color: rgba(255,255,255,0.6) !important; }
     @media (max-width:900px) { .grid-3 { grid-template-columns:1fr; } .stats { grid-template-columns:repeat(2,1fr); } .two-col { grid-template-columns:1fr; } }
     @media (max-width:768px) { .hero h1 { font-size:1.8rem; } }
+
+    /* Intake Form Scrollbar and Responsiveness */
+    #webmcp-intake-form {
+      text-align: left;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 16px;
+      padding: 40px 20px 40px 40px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      margin-bottom: 120px;
+      max-height: 600px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) rgba(255,255,255,0.1);
+    }
+    #webmcp-intake-form::-webkit-scrollbar {
+      width: 6px;
+    }
+    #webmcp-intake-form::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+    }
+    #webmcp-intake-form::-webkit-scrollbar-thumb {
+      background-color: var(--gold);
+      border-radius: 10px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 640px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      #webmcp-intake-form {
+        padding: 20px !important;
+        max-height: 500px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -373,10 +414,9 @@
     <form id="webmcp-intake-form" action="/api/v1/intake/submit" method="POST"
           toolname="submit_legal_case_intake"
           tooldescription="Submits a prospective client's injury or malpractice case details to LexiFlow for merit scoring, classification, and CRM staging."
-          inputschema='{"type":"object","properties":{"firm_name":{"type":"string","description":"Legal name of the law firm submitting the case"},"attorney_email":{"type":"string","format":"email","description":"Email address of the primary attorney"},"case_type":{"type":"string","enum":["medical-malpractice","personal-injury","mass-tort","birth-injury","product-liability","other"],"description":"The category of law the case falls under"},"jurisdiction":{"type":"string","description":"The legal venue/state for the case"},"case_summary":{"type":"string","description":"Detailed description of facts, injuries, and liability"},"estimated_damages":{"type":"number","description":"Approximate dollar value of the claim"}},"required":["firm_name","attorney_email","case_type","jurisdiction","case_summary"]}'
-          style="text-align: left; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 16px; padding: 40px; box-shadow: 0 10px 40px rgba(0,0,0,0.4); margin-bottom: 120px;">
+          inputschema='{"type":"object","properties":{"firm_name":{"type":"string","description":"Legal name of the law firm submitting the case"},"attorney_email":{"type":"string","format":"email","description":"Email address of the primary attorney"},"case_type":{"type":"string","enum":["medical-malpractice","personal-injury","mass-tort","birth-injury","product-liability","other"],"description":"The category of law the case falls under"},"jurisdiction":{"type":"string","description":"The legal venue/state for the case"},"case_summary":{"type":"string","description":"Detailed description of facts, injuries, and liability"},"estimated_damages":{"type":"number","description":"Approximate dollar value of the claim"}},"required":["firm_name","attorney_email","case_type","jurisdiction","case_summary"]}'>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+        <div class="form-grid">
           <div>
             <label for="firm_name" style="display: block; font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">Law Firm Name *</label>
             <input type="text" id="firm_name" name="firm_name" required placeholder="e.g. Smith & Associates" style="width: 100%; padding: 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; background: rgba(255,255,255,0.1); color: white; font-size: 15px;">
@@ -387,7 +427,7 @@
           </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+        <div class="form-grid">
           <div>
             <label for="case_type" style="display: block; font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">Case Type *</label>
             <select id="case_type" name="case_type" required style="width: 100%; padding: 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; background: rgba(255,255,255,0.1); color: white; font-size: 15px;">

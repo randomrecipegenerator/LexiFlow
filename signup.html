@@ -202,11 +202,12 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
             btn.innerHTML = 'Trial Requested';
             document.getElementById('signupForm').reset();
         } else {
-            throw new Error('Failed');
+            const errData = await response.json().catch(() => ({}));
+            throw new Error(errData.detail || errData.message || 'Server error');
         }
     } catch (err) {
         status.style.color = '#dc2626';
-        status.innerHTML = '✕ Error processing request. Please try again.';
+        status.innerHTML = '✕ Error: ' + err.message + '. Please try again or contact info@lexiflow.co.';
         btn.disabled = false;
         btn.innerHTML = 'Start Free Trial →';
     }
