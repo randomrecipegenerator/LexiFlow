@@ -58,7 +58,16 @@
     .modal-box { background:#fff; border-radius:var(--radius-lg); padding:40px; max-width:480px; width:90%; }
     .modal-box h3 { font-family:var(--font-serif); font-size:1.3rem; color:var(--primary); }
     .modal-box input { width:100%; padding:12px; border:1px solid var(--border); border-radius:var(--radius); margin-bottom:14px; }
-    @media (max-width:768px) { .hero h1 { font-size:1.8rem; } }
+    @media (max-width:768px) { .hero h1 { font-size:1.8rem; } .demo-card { padding:20px; } }
+    .demo-card { background:linear-gradient(135deg,#0d1f33,var(--primary)); border-radius:12px; padding:32px; color:#fff; margin:30px 0; }
+    .demo-card h4 { font-family:var(--font-serif); font-size:20px; color:var(--accent); margin-bottom:12px; }
+    .demo-card p { color:rgba(255,255,255,0.85); font-size:14px; line-height:1.7; margin-bottom:8px; }
+    .demo-card .stat { display:inline-block; background:rgba(255,255,255,0.1); padding:4px 12px; border-radius:100px; font-size:12px; margin-right:6px; margin-bottom:4px; color:var(--accent); }
+    .demo-card .stat i { margin-right:4px; }
+    .pricing-row { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin:20px 0; }
+    .pricing-tier { background:rgba(255,255,255,0.15); padding:12px 20px; border-radius:8px; text-align:center; min-width:120px; }
+    .pricing-tier .tier-name { font-size:11px; text-transform:uppercase; letter-spacing:0.05em; font-weight:700; }
+    .pricing-tier .tier-price { font-size:18px; font-weight:700; margin-top:2px; }
   </style>
 
   <link rel="stylesheet" href="/master-layout.css">
@@ -113,10 +122,20 @@
 </div></section>
 
 <section class="section"><div class="container">
+  <div class="demo-card">
+    <h4><i class="bi bi-play-circle"></i> Live Demo: Rodriguez v. Mount Sinai</h4>
+    <p>This real medmal case was processed by LexiFlow's AI in under 4 minutes — the same AI that powers every chronology template and sample. The 14-hour antibiotic gap was flagged automatically.</p>
+    <p><span class="stat"><i class="bi bi-stopwatch"></i> 4-min AI chronology</span><span class="stat"><i class="bi bi-check-circle"></i> 92/100 Merit Score</span><span class="stat"><i class="bi bi-currency-dollar"></i> $4.2M NY value</span></p>
+    <a href="/case-studies/rodriguez-v-mount-sinai" style="color:var(--accent);font-weight:600;text-decoration:none;">View the full case study →</a>
+  </div>
+</div></section>
+
+<section class="section"><div class="container">
   <div class="cta-box">
-    <h3>📥 Download the Full private demo</h3>
-    <p>Get the complete chronology with expense tracking, provider list, and key findings summary.</p>
-    <a href="/signup" class="btn btn-primary">Request a Demo →</a>
+    <h3>📥 Get Your AI-Generated Chronology</h3>
+    <p>Upload your case files and get a full chronology in minutes. Full Suite from $29/month.</p>
+    <div class="pricing-row"><div class="pricing-tier"><div class="tier-name">Starter</div><div class="tier-price">$29/mo</div></div><div class="pricing-tier"><div class="tier-name">Professional</div><div class="tier-price">$99/mo</div></div><div class="pricing-tier"><div class="tier-name">Enterprise</div><div class="tier-price">$129/mo</div></div></div>
+    <a href="/signup" class="btn btn-primary">Start Free Trial →</a>
   </div>
 </div></section>
 
