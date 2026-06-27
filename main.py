@@ -240,9 +240,13 @@ async def case_intake_submit(
 
 @app.post("/demo-request")
 async def demo_request(name: str = Form(...), email: str = Form(...), firm: str = Form(None), tier: str = Form(None), db: Session = Depends(get_db)):
-    demo_req = models.DemoRequest(name=name, email=email, firm=firm)
-    db.add(demo_req)
-    db.commit()
+    try:
+        demo_req = models.DemoRequest(name=name, email=email, firm=firm)
+        db.add(demo_req)
+        db.commit()
+    except Exception as e:
+        logger.error(f"DATABASE ERROR in demo_request: {e}")
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
     
     # Send notification email to the sales team
     subject = f"New Consultation Request: {name}"
@@ -280,7 +284,11 @@ async def demo_request(name: str = Form(...), email: str = Form(...), firm: str 
         # Log error but don't block the user's request
         logger.error(f"Failed to send demo request notification: {e}")
 
-    create_audit_log(db, "demo_request", details=f"Name: {name}, Email: {email}, Firm: {firm}, Tier: {tier}")
+    try:
+        create_audit_log(db, "demo_request", details=f"Name: {name}, Email: {email}, Firm: {firm}, Tier: {tier}")
+    except Exception as e:
+        logger.warning(f"Audit log failed for demo_request: {e}")
+        
     return {"status": "success", "message": "Demo request received"}
 
 @app.post("/integrations/github/push")
