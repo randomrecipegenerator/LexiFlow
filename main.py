@@ -71,14 +71,6 @@ async def engine_events():
     """
     return StreamingResponse(event_generator(), media_type="text/event-stream")
 
-@app.middleware("http")
-async def standardize_path(request: Request, call_next):
-    path = request.url.path
-    if path.startswith("/api/"):
-        request.scope["path"] = path[4:]
-        logger.error(f"MIDDLEWARE: Stripped /api/ from {path} -> {request.scope['path']}")
-    response = await call_next(request)
-    return response
 
 # Create database tables on startup
 @app.on_event("startup")
@@ -110,16 +102,19 @@ app.add_middleware(
 )
 
 # Include routers from other modules
-app.include_router(enterprise_api.router)
-app.include_router(desktop_api.router)
-app.include_router(auth_router)
-app.include_router(admin_api.router)
+api_router = FastAPI()
+api_router.include_router(enterprise_api.router)
+api_router.include_router(desktop_api.router)
+api_router.include_router(auth_router)
+api_router.include_router(admin_api.router)
+api_router.include_router(billing_api.router)
+api_router.include_router(billing_api.webhook_router)
 
-app.include_router(billing_api.router)
-app.include_router(billing_api.webhook_router)
+app.mount("/api", api_router)
+
 try:
     from usage_api import router as usage_router
-    app.include_router(usage_router)
+    api_router.include_router(usage_router)
 except ImportError:
     pass  # Usage API optional for now
 
