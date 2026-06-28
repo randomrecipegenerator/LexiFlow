@@ -205,9 +205,9 @@
         <div class="container" style="max-width: 800px; margin: 0 auto; text-align: center;">
           <div style="background: var(--bg-light); padding: 60px; border-radius: 32px; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.05);">
             <div style="display: inline-block; padding: 8px 16px; background: rgba(201, 168, 76, 0.1); color: var(--accent-dark); border-radius: 100px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px;">Free Resource</div>
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; color: var(--primary); margin-bottom: 16px;">Download the Medical Chronology Template</h2>
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; color: var(--primary); margin-bottom: 16px;">Request a Private Demo</h2>
             <p style="color: var(--text-muted); margin-bottom: 32px; font-size: 18px;">Get our professional template for building trial-ready medical timelines for deposition and trial.</p>
-            <button class="btn btn-primary" onclick="openModal()" style="padding: 16px 40px; font-size: 16px;">📥 Download Template →</button>
+            <button class="btn btn-primary" onclick="openModal()" style="padding: 16px 40px; font-size: 16px;">🔒 Request Demo →</button>
           </div>
         </div>
       </section>
@@ -218,16 +218,16 @@
   <div class="modal-overlay hidden" id="leadModal">
     <div class="modal-box">
       <div style="text-align:right;"><button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--primary);">&times;</button></div>
-      <h3 style="color:var(--primary);margin-bottom:12px;">📥 Download Chronology Template</h3>
-      <p style="color:var(--text-muted);margin-bottom:24px;">Enter your details to receive the template instantly.</p>
-      <form id="downloadForm" data-file="../downloads/lexiflow-medical-chronology-template.pdf">
+      <h3 style="color:var(--primary);margin-bottom:12px;">🔒 Request Demo</h3>
+      <p style="color:var(--text-muted);margin-bottom:24px;">Enter your details to schedule a private demo.</p>
+      <form id="downloadForm" data-file="">
         <input type="text" name="name" placeholder="Full Name" required style="width:100%; padding:12px; border:1px solid var(--border); border-radius:8px; margin-bottom:14px;" />
         <input type="email" name="email" placeholder="Work Email" required style="width:100%; padding:12px; border:1px solid var(--border); border-radius:8px; margin-bottom:14px;" />
         <input type="text" name="firm" placeholder="Law Firm Name" required style="width:100%; padding:12px; border:1px solid var(--border); border-radius:8px; margin-bottom:14px;" />
         <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" id="submitBtn">📥 Request Demo →</button>
       </form>
       <div id="successMsg" class="hidden" style="margin-top:20px; padding:15px; background:rgba(22, 163, 74, 0.1); border:1px solid #16a34a; color:#16a34a; border-radius:8px; font-size:0.9rem; text-align:center;">
-        <strong>Success!</strong> Your download should start automatically. If not, <!-- Download Removed -->.
+        <strong>Success!</strong> Thank you! A team member will schedule your private demo.
       </div>
     </div>
   </div>

@@ -293,7 +293,7 @@ Thank you."
 
 We'll set up your account within 24 hours. We'll train your team. We'll load one of your actual cases so you can compare LexiFlow's analysis against your team's findings.
 
-At the end of 30 days, if you want to continue, it's $69/month for Standard or $299/month for Enterprise with full Veritas Deposition™ access.
+At the end of 30 days, if you want to continue, it's $29/month for Starter, $99/month for Professional, or $129/month for Enterprise with full Veritas Deposition™ access.
 
 If it's not right, cancel. No cost, no questions.
 
