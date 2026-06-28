@@ -1,0 +1,212 @@
+[33mcommit 88379c1ac95db1096f0a290dd7f3bcdb633dfe25[m[33m ([m[1;31morigin/feat/case-study-rodriguez[m[33m, [m[1;32mfeat/case-study-rodriguez[m[33m)[m
+Author: cto-new[bot] <cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 20:13:02 2026 +0000
+
+    feat: integrate Rodriguez v. Mount Sinai case study into landing page
+
+index.html
+
+[33mcommit bdad91d1df9a511c417a501ec35e623cc68ffddb[m
+Author: cto-new[bot] <cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 19:52:06 2026 +0000
+
+    feat: Enterprise CRM Sync Demo for NYC Bar
+
+main.py
+scripts/seed_crm_demo_config.py
+
+[33mcommit 1305029abaecd64d921bff0650655509ea70aa7a[m
+Author: cto-new[bot] <cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 18:34:42 2026 +0000
+
+    Blog article date synchronization and new deposition workflow content
+
+blog/articles.json
+blog/how-to-digest-deposition-in-15-minutes-ai-workflow.html
+blog/how-to-digest-deposition-in-15-minutes-ai-workflow.md
+blog/images/how-to-digest-deposition-15-minutes.png
+blog/index.html
+blog/roi-ai-personal-injury-firms-scaling-without-adding-headcount.html
+blog/social/how-to-digest-deposition-social.md
+blog/ssd-disability-medical-chronology-software.html
+index.html
+sitemap.xml
+ssd-disability-medical-chronology-software.html
+
+[33mcommit 375829e4ce762fe8d6ee5172356c3cfdf17baa80[m
+Merge: 343e153d 995d957f
+Author: cto-new[bot] <140088366+cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 17:47:42 2026 +0000
+
+    Merge Veritas routing 404 fixes and navigation updates
+    
+    Fix Veritas routing 404s and update navigation
+
+[33mcommit 995d957f6fcdd569bdf0a15e6ce6e717683dc4c7[m[33m ([m[1;31morigin/fix/routing-404-navigation[m[33m)[m
+Author: cto-new[bot] <cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 17:42:06 2026 +0000
+
+    Fix routing 404s and update navigation with new landing pages
+
+index.html
+vercel.json
+veritas/index.html
+[33mcommit 88379c1ac95db1096f0a290dd7f3bcdb633dfe25[m[33m ([m[1;31morigin/feat/case-study-rodriguez[m[33m, [m[1;32mfeat/case-study-rodriguez[m[33m)[m
+Author: cto-new[bot] <cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 20:13:02 2026 +0000
+
+    feat: integrate Rodriguez v. Mount Sinai case study into landing page
+
+index.html
+
+[33mcommit bdad91d1df9a511c417a501ec35e623cc68ffddb[m
+Author: cto-new[bot] <cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 19:52:06 2026 +0000
+
+    feat: Enterprise CRM Sync Demo for NYC Bar
+
+main.py
+scripts/seed_crm_demo_config.py
+
+[33mcommit 1305029abaecd64d921bff0650655509ea70aa7a[m
+Author: cto-new[bot] <cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 18:34:42 2026 +0000
+
+    Blog article date synchronization and new deposition workflow content
+
+blog/articles.json
+blog/how-to-digest-deposition-in-15-minutes-ai-workflow.html
+blog/how-to-digest-deposition-in-15-minutes-ai-workflow.md
+blog/images/how-to-digest-deposition-15-minutes.png
+blog/index.html
+blog/roi-ai-personal-injury-firms-scaling-without-adding-headcount.html
+blog/social/how-to-digest-deposition-social.md
+blog/ssd-disability-medical-chronology-software.html
+index.html
+sitemap.xml
+ssd-disability-medical-chronology-software.html
+
+[33mcommit 375829e4ce762fe8d6ee5172356c3cfdf17baa80[m
+Merge: 343e153d 995d957f
+Author: cto-new[bot] <140088366+cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 17:47:42 2026 +0000
+
+    Merge Veritas routing 404 fixes and navigation updates
+    
+    Fix Veritas routing 404s and update navigation
+
+[33mcommit 995d957f6fcdd569bdf0a15e6ce6e717683dc4c7[m[33m ([m[1;31morigin/fix/routing-404-navigation[m[33m)[m
+Author: cto-new[bot] <cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 17:42:06 2026 +0000
+
+    Fix routing 404s and update navigation with new landing pages
+
+index.html
+vercel.json
+veritas/index.html
+[33mcommit 88379c1ac95db1096f0a290dd7f3bcdb633dfe25[m[33m ([m[1;31morigin/feat/case-study-rodriguez[m[33m, [m[1;32mfeat/case-study-rodriguez[m[33m)[m
+Author: cto-new[bot] <cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 20:13:02 2026 +0000
+
+    feat: integrate Rodriguez v. Mount Sinai case study into landing page
+
+index.html
+
+[33mcommit bdad91d1df9a511c417a501ec35e623cc68ffddb[m
+Author: cto-new[bot] <cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 19:52:06 2026 +0000
+
+    feat: Enterprise CRM Sync Demo for NYC Bar
+
+main.py
+scripts/seed_crm_demo_config.py
+
+[33mcommit 1305029abaecd64d921bff0650655509ea70aa7a[m
+Author: cto-new[bot] <cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 18:34:42 2026 +0000
+
+    Blog article date synchronization and new deposition workflow content
+
+blog/articles.json
+blog/how-to-digest-deposition-in-15-minutes-ai-workflow.html
+blog/how-to-digest-deposition-in-15-minutes-ai-workflow.md
+blog/images/how-to-digest-deposition-15-minutes.png
+blog/index.html
+blog/roi-ai-personal-injury-firms-scaling-without-adding-headcount.html
+blog/social/how-to-digest-deposition-social.md
+blog/ssd-disability-medical-chronology-software.html
+index.html
+sitemap.xml
+ssd-disability-medical-chronology-software.html
+
+[33mcommit 375829e4ce762fe8d6ee5172356c3cfdf17baa80[m
+Merge: 343e153d 995d957f
+Author: cto-new[bot] <140088366+cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 17:47:42 2026 +0000
+
+    Merge Veritas routing 404 fixes and navigation updates
+    
+    Fix Veritas routing 404s and update navigation
+
+[33mcommit 995d957f6fcdd569bdf0a15e6ce6e717683dc4c7[m[33m ([m[1;31morigin/fix/routing-404-navigation[m[33m)[m
+Author: cto-new[bot] <cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 17:42:06 2026 +0000
+
+    Fix routing 404s and update navigation with new landing pages
+
+index.html
+vercel.json
+veritas/index.html
+[33mcommit 88379c1ac95db1096f0a290dd7f3bcdb633dfe25[m[33m ([m[1;31morigin/feat/case-study-rodriguez[m[33m, [m[1;32mfeat/case-study-rodriguez[m[33m)[m
+Author: cto-new[bot] <cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 20:13:02 2026 +0000
+
+    feat: integrate Rodriguez v. Mount Sinai case study into landing page
+
+index.html
+
+[33mcommit bdad91d1df9a511c417a501ec35e623cc68ffddb[m
+Author: cto-new[bot] <cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 19:52:06 2026 +0000
+
+    feat: Enterprise CRM Sync Demo for NYC Bar
+
+main.py
+scripts/seed_crm_demo_config.py
+
+[33mcommit 1305029abaecd64d921bff0650655509ea70aa7a[m
+Author: cto-new[bot] <cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 18:34:42 2026 +0000
+
+    Blog article date synchronization and new deposition workflow content
+
+blog/articles.json
+blog/how-to-digest-deposition-in-15-minutes-ai-workflow.html
+blog/how-to-digest-deposition-in-15-minutes-ai-workflow.md
+blog/images/how-to-digest-deposition-15-minutes.png
+blog/index.html
+blog/roi-ai-personal-injury-firms-scaling-without-adding-headcount.html
+blog/social/how-to-digest-deposition-social.md
+blog/ssd-disability-medical-chronology-software.html
+index.html
+sitemap.xml
+ssd-disability-medical-chronology-software.html
+
+[33mcommit 375829e4ce762fe8d6ee5172356c3cfdf17baa80[m
+Merge: 343e153d 995d957f
+Author: cto-new[bot] <140088366+cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 17:47:42 2026 +0000
+
+    Merge Veritas routing 404 fixes and navigation updates
+    
+    Fix Veritas routing 404s and update navigation
+
+[33mcommit 995d957f6fcdd569bdf0a15e6ce6e717683dc4c7[m[33m ([m[1;31morigin/fix/routing-404-navigation[m[33m)[m
+Author: cto-new[bot] <cto-new[bot]@users.noreply.github.com>
+Date:   Sat Jun 20 17:42:06 2026 +0000
+
+    Fix routing 404s and update navigation with new landing pages
+
+index.html
+vercel.json
+veritas/index.html
