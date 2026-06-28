@@ -12,4 +12,5 @@ pymupdf
 sqlalchemy-libsql
 python-jose
 passlib[bcrypt]
+bcrypt
 stripe>=9.0.0
