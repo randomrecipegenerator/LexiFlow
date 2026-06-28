@@ -86,9 +86,9 @@
       <li class="resources-dropdown">
         <a href="#">Resources ▾</a>
         <div class="resources-menu">
-          <a href="/resources/medical-chronology-template">Medical Chronology Template</a>
-          <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a>
-          <a href="/resources/medical-record-review-checklist">Record Review Checklist</a>
+          <!-- <a href="/resources/medical-chronology-template">Medical Chronology Template</a> (coming soon) -->
+          <!-- <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a> (coming soon) -->
+          <!-- <a href="/resources/medical-record-review-checklist">Record Review Checklist</a> (coming soon) -->
           <a href="/ssd-disability-medical-chronology-software">SSD & Disability AI</a>
           <a href="/witness-testimony-analysis">Witness Testimony Analysis</a>
           <a href="/case-studies">Case Studies</a>
@@ -130,9 +130,24 @@
 
 <section class="section-alt" id="book-demo"><div class="container">
   <div class="demo-form">
-      <h3>📅 Book Your Enterprise Demo</h3>
-      <p>To schedule a personalized walkthrough of the full Enterprise suite, please email us at <a href="mailto:info@lexiflow.co" style="color:var(--primary); font-weight:700; text-decoration:none;">info@lexiflow.co</a> with your firm name and preferred timing.</p>
-    </div>
+    <h3>📅 Book Your Enterprise Demo</h3>
+    <p>Fill out the form below and we'll schedule a personalized walkthrough of the full Enterprise suite.</p>
+    <form id="demoForm"
+          toolname="request_enterprise_demo"
+          tooldescription="Requests a personalized walkthrough of the LexiFlow Enterprise platform."
+          inputschema='{"type":"object","properties":{"name":{"type":"string","description":"Full name of the requester"},"email":{"type":"string","format":"email","description":"Work email address"},"firm":{"type":"string","description":"Law firm name"},"tier":{"type":"string","enum":["enterprise","professional","standard"],"description":"The plan tier the firm is interested in"}},"required":["name","email","firm","tier"]}'>
+      <input type="text" id="demoName" name="name" placeholder="Full Name" required />
+      <input type="email" id="demoEmail" name="email" placeholder="Work Email" required />
+      <input type="text" id="demoFirm" name="firm" placeholder="Law Firm Name" required />
+      <select id="demoTier" name="tier">
+        <option value="enterprise">Enterprise — $129/mo (500 docs/mo + full Litigation Suite)</option>
+        <option value="professional">Professional — $99/mo (250 docs/mo)</option>
+        <option value="standard">Starter — $29/mo (10 docs/mo)</option>
+      </select>
+      <button type="submit" class="btn btn-primary" id="demoSubmitBtn">Request Demo →</button>
+      <div id="demoStatus" style="margin-top: 15px; display: none; text-align: center; font-weight: 500;"></div>
+    </form>
+  </div>
 </div></section>
 
 <script>

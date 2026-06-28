@@ -160,4 +160,4 @@ The firms that adopt this technology aren't just saving paralegal hours. They're
 
 ---
 
-**Ready to see what AI chronologies can do for your cases?** [Email our team →](mailto:info@lexiflow.co) for a Private Demo on a real case. The full LexiFlow Suite — including Medical Chronologies — from just **$69/month**.
+**Ready to see what AI chronologies can do for your cases?** [Email our team →](mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io) for a Private Demo on a real case. The full LexiFlow Suite — including Medical Chronologies — from just **$69/month**.

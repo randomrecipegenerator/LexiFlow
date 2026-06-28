@@ -17,7 +17,7 @@ We built this because plaintiff firms deserve the same technology advantages as 
 
 Full announcement: https://lexiflow.co/blog/enterprise-suite-launch-ai-litigation
 
-Email for a personalized walkthrough: info@lexiflow.co
+Email for a personalized walkthrough: lexiflow-legal-suite-88a6f8e9@ctomail.io
 
 ## X/Twitter (Thread)
 1/ LexiFlow just launched our Enterprise Suite — 4 new litigation modules for plaintiff firms. 🧵

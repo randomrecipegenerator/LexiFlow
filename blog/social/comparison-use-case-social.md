@@ -34,7 +34,7 @@ Read the full cost-benefit analysis: https://lexiflow.co/blog/lexiflow-vs-tradit
 
 5/ Over 5 years, a growing firm saves $215K by switching from call centers to AI. Enough to hire an associate or fund a marketing campaign.
 
-6/ Ready to compare? Get a free intake audit: mailto:info@lexiflow.co Full analysis here: https://lexiflow.co/blog/lexiflow-vs-traditional-legal-call-centers
+6/ Ready to compare? Get a free intake audit: mailto:leads@lexiflow.co Full analysis here: https://lexiflow.co/blog/lexiflow-vs-traditional-legal-call-centers
 
 ---
 
