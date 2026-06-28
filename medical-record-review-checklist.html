@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Medical Record Review Checklist — Free Download for Law Firms | LexiFlow</title>
-  <meta name="description" content="LexiFlow is the leading medical chronology software and law firm intake software. Download a free medical record review checklist for personal injury and medical malpractice cases. Comprehensive guide covering key documents, timelines, and evidentiary findings." />
+  <title>Medical Record Review Checklist — Request a Demo | LexiFlow</title>
+  <meta name="description" content="LexiFlow is the leading medical chronology software and law firm intake software. Request a private demo of LexiFlow's medical record review platform for personal injury and medical malpractice cases. See how AI streamlines document review, timelines, and evidentiary findings." />
   <meta name="keywords" content="medical chronology software, law firm intake software, AI medical record review, personal injury law firm software, lead qualification AI, legal workflow automation, settlement demand software, AI medical chronology, automated medical record review, plaintiff law firm software" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -77,9 +77,9 @@
       <li class="resources-dropdown">
         <a href="#">Resources ▾</a>
         <div class="resources-menu">
-          <a href="/resources/medical-chronology-template">Medical Chronology Template</a>
-          <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a>
-          <a href="/resources/medical-record-review-checklist">Record Review Checklist</a>
+          <!-- <a href="/resources/medical-chronology-template">Medical Chronology Template</a> (coming soon) -->
+          <!-- <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a> (coming soon) -->
+          <!-- <a href="/resources/medical-record-review-checklist">Record Review Checklist</a> (coming soon) -->
           <a href="/ssd-disability-medical-chronology-software">SSD & Disability AI</a>
           <a href="/witness-testimony-analysis">Witness Testimony Analysis</a>
           <a href="/case-studies">Case Studies</a>
@@ -122,7 +122,7 @@
 
 <section class="section"><div class="container">
   <div class="cta-box">
-    <h3>📥 Download the Full Checklist</h3>
+    <h3>🔒 Request a Private Demo</h3>
     <p>Complete with all 4 phases, 30+ checklist items, and expert review tips.</p>
     <a href="/signup" class="btn btn-primary">Request a Demo →</a>
   </div>
@@ -134,12 +134,12 @@
     <section class="max-w-screen" style="padding: 40px 0; border-top: 1px solid var(--slate-100); max-width: 1200px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
         <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-            <a href="../ai-legal-intake-software" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Intake Software →</a>
-            <a href="../ai-medical-chronologies" style="color: #0f172a; text-decoration: none; font-weight: 600;">Medical Chronology AI →</a>
+            <a href="../ai-legal-intake-software.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Intake Software →</a>
+            <a href="../ai-medical-chronologies.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Medical Chronology AI →</a>
             <a href="/blog" style="color: #0f172a; text-decoration: none; font-weight: 600;">Legal AI Insights Blog →</a>
-            <a href="../roi-calculator" style="color: #0f172a; text-decoration: none; font-weight: 600;">Firm ROI Calculator →</a>
-            <a href="../compliance-shield" style="color: #0f172a; text-decoration: none; font-weight: 600;">HIPAA & SOC2 Compliance →</a>
-            <a href="../cities" style="color: #0f172a; text-decoration: none; font-weight: 600;">Service Areas →</a>
+            <a href="../roi-calculator.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Firm ROI Calculator →</a>
+            <a href="../compliance-shield.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">HIPAA & SOC2 Compliance →</a>
+            <a href="../cities.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Service Areas →</a>
         </div>
     </section>
     <footer>
@@ -189,10 +189,19 @@
 <div class="modal-overlay" id="leadModal">
   <div class="modal-box">
     <div style="text-align:right;"><button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">&times;</button></div>
-    <h3>📥 Download Medical Record Review Checklist</h3>
-    <p>To receive the checklist instantly, please email us at <a href="mailto:info@lexiflow.co" style="color:var(--primary); font-weight:700; text-decoration:none;">info@lexiflow.co</a> with your firm name.</p>
-    <div style="margin-top: 24px; font-size: 14px; color: var(--text-muted); text-align: center;">
-        <i class="bi bi-shield-check"></i> HIPAA Compliant & SOC2 Certified
+    <h3>🔒 Request Demo</h3>
+    <p>Enter your details to receive the resource instantly.</p>
+    <form id="downloadForm" data-file=""
+          toolname="demo_medical_record_review"
+          tooldescription="Submits a request to download the Medical Record Review Checklist PDF."
+          inputschema='{"type":"object","properties":{"name":{"type":"string","description":"Full name of the requester"},"email":{"type":"string","format":"email","description":"Work email address"},"firm":{"type":"string","description":"Law firm name"}},"required":["name","email","firm"]}'>
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="email" name="email" placeholder="Work Email" required />
+      <input type="text" name="firm" placeholder="Law Firm Name" required />
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" id="submitBtn">🔒 Request Private Demo →</button>
+    </form>
+    <div id="successMsg" class="hidden" style="margin-top:20px; padding:15px; background:rgba(22, 163, 74, 0.1); border:1px solid #16a34a; color:#16a34a; border-radius:8px; font-size:0.9rem; text-align:center;">
+      <strong>Success!</strong> Your download should start automatically.
     </div>
   </div>
 </div>
@@ -202,6 +211,27 @@ function openModal() { document.getElementById('leadModal').classList.add('activ
 function closeModal() { document.getElementById('leadModal').classList.remove('active'); }
 document.getElementById('leadModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
+document.getElementById('downloadForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const msg = document.getElementById('successMsg');
+  const fileLink = msg.querySelector('a');
+
+  // Update UI immediately
+  btn.disabled = true;
+  btn.innerText = 'Processing...';
+
+  // Trigger download from the existing link in the success message
+  if (fileLink) {
+    fileLink.click();
+  }
+
+  // Show success message and hide button after a short delay for visual feedback
+  setTimeout(() => {
+    btn.classList.add('hidden');
+    msg.classList.remove('hidden');
+  }, 500);
+});
 </script>
 
 

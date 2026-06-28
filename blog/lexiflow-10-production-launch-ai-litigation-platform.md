@@ -92,10 +92,10 @@ No setup fees. No contracts. Upgrade or downgrade at any time.
 
 The platform is live. The modules are hardened. The demo is staged and ready.
 
-**Email our team for a personalized walkthrough:** [info@lexiflow.co](mailto:info@lexiflow.co)
+**Email our team for a personalized walkthrough:** [leads@lexiflow.co](mailto:leads@lexiflow.co)
 
 Tell us about your practice size and caseload, and we'll build a custom demo showing exactly what LexiFlow 1.0 can do for your firm.
 
 ---
 
-*LexiFlow 1.0 — Production-ready AI for plaintiff litigation. [info@lexiflow.co](mailto:info@lexiflow.co)*
+*LexiFlow 1.0 — Production-ready AI for plaintiff litigation. [leads@lexiflow.co](mailto:leads@lexiflow.co)*

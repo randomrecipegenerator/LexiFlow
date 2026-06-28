@@ -113,9 +113,9 @@
       <li class="resources-dropdown">
         <a href="#">Resources ▾</a>
         <div class="resources-menu">
-          <a href="/resources/medical-chronology-template">Medical Chronology Template</a>
-          <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a>
-          <a href="/resources/medical-record-review-checklist">Record Review Checklist</a>
+          <!-- <a href="/resources/medical-chronology-template">Medical Chronology Template</a> (coming soon) -->
+          <!-- <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a> (coming soon) -->
+          <!-- <a href="/resources/medical-record-review-checklist">Record Review Checklist</a> (coming soon) -->
           <a href="/ssd-disability-medical-chronology-software">SSD & Disability AI</a>
           <a href="/witness-testimony-analysis">Witness Testimony Analysis</a>
           <a href="/case-studies">Case Studies</a>
@@ -192,14 +192,20 @@
   </div>
 </div></section>
 
-<!-- Lead Capture Modal Removed -->
+<!-- Lead Magnet Section Removed -->
 <div class="modal-overlay hidden" id="leadModal">
   <div class="modal-box">
     <div style="text-align:right;"><button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">&times;</button></div>
-    <h3>📋 Request a Private Demo</h3>
-    <p>To schedule a personalized walkthrough or start your free trial, please email us at <a href="mailto:info@lexiflow.co" style="color:var(--primary); font-weight:700; text-decoration:none;">info@lexiflow.co</a> with your firm name and preferred timing.</p>
-    <div style="margin-top: 24px; font-size: 14px; color: var(--text-muted); text-align: center;">
-        <i class="bi bi-shield-check"></i> HIPAA Compliant & SOC2 Certified
+    <h3>Request a Private Demo</h3>
+    <p>Enter your details to receive the resource instantly.</p>
+    <form id="downloadForm" data-file="">
+      <input type="text" name="name" placeholder="Full Name" required style="width:100%; padding:12px; border:1px solid var(--border); border-radius:var(--radius); margin-bottom:14px;" />
+      <input type="email" name="email" placeholder="Work Email" required style="width:100%; padding:12px; border:1px solid var(--border); border-radius:var(--radius); margin-bottom:14px;" />
+      <input type="text" name="firm" placeholder="Law Firm Name" required style="width:100%; padding:12px; border:1px solid var(--border); border-radius:var(--radius); margin-bottom:14px;" />
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" id="submitBtn">🔒 Request Private Demo →</button>
+    </form>
+    <div id="successMsg" class="hidden" style="margin-top:20px; padding:15px; background:rgba(22, 163, 74, 0.1); border:1px solid #16a34a; color:#16a34a; border-radius:8px; font-size:0.9rem; text-align:center;">
+      <strong>Thank you!</strong> A member of our team will reach out to schedule your private demo.
     </div>
   </div>
 </div>
@@ -210,6 +216,24 @@ function openModal() { document.getElementById('leadModal').classList.remove('hi
 function closeModal() { document.getElementById('leadModal').classList.add('hidden'); }
 document.getElementById('leadModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
+document.getElementById('downloadForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const msg = document.getElementById('successMsg');
+  const fileLink = msg.querySelector('a');
+
+  btn.disabled = true;
+  btn.innerText = 'Processing...';
+
+  if (fileLink) {
+    fileLink.click();
+  }
+
+  setTimeout(() => {
+    btn.classList.add('hidden');
+    msg.classList.remove('hidden');
+  }, 500);
+});
 </script>
 
 <style>

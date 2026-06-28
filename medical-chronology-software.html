@@ -80,9 +80,9 @@
       <li class="resources-dropdown">
         <a href="#">Resources ▾</a>
         <div class="resources-menu">
-          <a href="/resources/medical-chronology-template">Medical Chronology Template</a>
-          <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a>
-          <a href="/resources/medical-record-review-checklist">Record Review Checklist</a>
+          <!-- <a href="/resources/medical-chronology-template">Medical Chronology Template</a> (coming soon) -->
+          <!-- <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a> (coming soon) -->
+          <!-- <a href="/resources/medical-record-review-checklist">Record Review Checklist</a> (coming soon) -->
           <a href="/ssd-disability-medical-chronology-software">SSD & Disability AI</a>
           <a href="/witness-testimony-analysis">Witness Testimony Analysis</a>
           <a href="/case-studies">Case Studies</a>
@@ -227,10 +227,17 @@
   <div class="modal-box">
     <div style="text-align:right;"><button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text-muted);">&times;</button></div>
     <h3>📋 Request a Private Demo</h3>
-    <p>To schedule a 15-minute demonstration of our AI medical chronology software, please email us at <a href="mailto:info@lexiflow.co" style="color:var(--primary); font-weight:700; text-decoration:none;">info@lexiflow.co</a> with your firm name and preferred timing.</p>
-    <div style="margin-top: 24px; font-size: 14px; color: var(--text-muted); text-align: center;">
-        <i class="bi bi-shield-check"></i> HIPAA Compliant & SOC2 Certified
-    </div>
+    <p>Enter your details below and a product specialist will contact you to schedule a 15-minute demonstration.</p>
+    <form action="/api/demo-request" method="POST"
+          toolname="request_chronology_demo"
+          tooldescription="Requests a private demo focused on AI medical chronology capabilities."
+          inputschema='{"type":"object","properties":{"name":{"type":"string","description":"Full name of the requester"},"email":{"type":"string","format":"email","description":"Work email address"},"firm":{"type":"string","description":"Law firm name"}},"required":["name","email","firm"]}'>
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="email" name="email" placeholder="Work Email" required />
+      <input type="text" name="firm" placeholder="Law Firm Name" required />
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Request My Demo →</button>
+    </form>
+    <p style="font-size:0.75rem;color:var(--text-muted);margin-top:12px;">We respect your privacy. Unsubscribe anytime.</p>
   </div>
 </div>
 
