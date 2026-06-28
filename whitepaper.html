@@ -70,9 +70,9 @@
       <li class="resources-dropdown">
         <a href="#">Resources ▾</a>
         <div class="resources-menu">
-          <a href="/resources/medical-chronology-template">Medical Chronology Template</a>
-          <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a>
-          <a href="/resources/medical-record-review-checklist">Record Review Checklist</a>
+          <!-- <a href="/resources/medical-chronology-template">Medical Chronology Template</a> (coming soon) -->
+          <!-- <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a> (coming soon) -->
+          <!-- <a href="/resources/medical-record-review-checklist">Record Review Checklist</a> (coming soon) -->
           <a href="/ssd-disability-medical-chronology-software">SSD & Disability AI</a>
           <a href="/witness-testimony-analysis">Witness Testimony Analysis</a>
           <a href="/case-studies">Case Studies</a>
@@ -163,12 +163,7 @@
     <script>
         function toggleConsultation(label) { alert('Demo request initiated: ' + label); }
         function toggleModal(m){document.querySelector('body').classList.toggle('modal-active');document.getElementById(m).classList.toggle('opacity-0');document.getElementById(m).classList.toggle('pointer-events-none');}
-        document.getElementById('whitepaperForm').addEventListener('submit', async (e) => {
-            e.preventDefault(); const f = new FormData(e.target);
-            try { const r = await fetch('/demo-request', { method:'POST', body:f }); const d = await r.json();
-            if(d.status==='success'){ alert('Thank you! Check your inbox for the whitepaper download link.'); e.target.reset(); }
-            else alert('Error: '+(d.message||'Unknown')); } catch(e){ alert('Error sending request.'); }
-        });
+        // Whitepaper form removed — direct email contact via info@lexiflow.co
     </script>
 
         <script>
