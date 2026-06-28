@@ -2,9 +2,24 @@
   "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
+  "builds": [
+    {
+      "src": "**/*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "**/*.{xml,txt,png,svg,ico,js,css,json,pdf}",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    }
+  ],
   "functions": {
     "api/index.py": {
-      "runtime": "vercel-python@0.0.1"
+      "memory": 512,
+      "maxDuration": 30
     }
   },
   "rewrites": [
