@@ -2,6 +2,11 @@
   "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
+  "functions": {
+    "api/index.py": {
+      "runtime": "vercel-python@0.0.1"
+    }
+  },
   "rewrites": [
     {
       "source": "/veritas/:path*",
