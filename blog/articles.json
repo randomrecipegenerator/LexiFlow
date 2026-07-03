@@ -1,5 +1,69 @@
 [
   {
+    "id": "california-trial-lawyers-ai-ethics-legal-intake",
+    "title": "California Trial Lawyers Guide: AI Ethics and MICRA Compliance",
+    "slug": "california-trial-lawyers-ai-ethics-legal-intake",
+    "category": "Legal Ethics & Technology",
+    "excerpt": "Ethical AI adoption for California trial lawyers navigating MICRA caps, CCP § 364 pre-suit notice, and Cal. Rules of Professional Conduct. Covers LA and SF markets.",
+    "date": "2026-07-10",
+    "readTime": "13 min read",
+    "image": "/blog/images/ethics-ai-legal-intake-responsible.png",
+    "author": "LexiFlow Team",
+    "tags": [
+      "California",
+      "Ethics",
+      "MICRA"
+    ]
+  },
+  {
+    "id": "texas-trial-lawyers-ai-ethics-legal-intake",
+    "title": "Texas Trial Lawyers Guide: AI Ethics and Chapter 74 Compliance",
+    "slug": "texas-trial-lawyers-ai-ethics-legal-intake",
+    "category": "Legal Ethics & Technology",
+    "excerpt": "A guide for Texas firms on AI-powered intake within Chapter 74's expert report deadline, 51% bar rule, and TX Disciplinary Rules of Professional Conduct.",
+    "date": "2026-07-10",
+    "readTime": "12 min read",
+    "image": "/blog/images/ethics-ai-legal-intake-responsible.png",
+    "author": "LexiFlow Team",
+    "tags": [
+      "Texas",
+      "Ethics",
+      "Chapter 74"
+    ]
+  },
+  {
+    "id": "florida-trial-lawyers-ai-ethics-legal-intake",
+    "title": "Florida Trial Lawyers Guide: AI Ethics and Pre-Suit Investigation",
+    "slug": "florida-trial-lawyers-ai-ethics-legal-intake",
+    "category": "Legal Ethics & Technology",
+    "excerpt": "A practical framework for Florida firms adopting AI intake within the pre-suit investigation framework, 90-day notice period, and Florida Bar Rules.",
+    "date": "2026-07-10",
+    "readTime": "11 min read",
+    "image": "/blog/images/ethics-ai-legal-intake-responsible.png",
+    "author": "LexiFlow Team",
+    "tags": [
+      "Florida",
+      "Ethics",
+      "Pre-Suit"
+    ]
+  },
+  {
+    "id": "new-jersey-trial-lawyers-ai-ethics-legal-intake",
+    "title": "New Jersey Trial Lawyers Guide: AI Ethics and Affidavit of Merit",
+    "slug": "new-jersey-trial-lawyers-ai-ethics-legal-intake",
+    "category": "Legal Ethics & Technology",
+    "excerpt": "Ethical AI adoption for New Jersey firms navigating Affidavit of Merit requirements, NJ RPC compliance, and comparative negligence screening.",
+    "date": "2026-07-10",
+    "readTime": "11 min read",
+    "image": "/blog/images/ethics-ai-legal-intake-responsible.png",
+    "author": "LexiFlow Team",
+    "tags": [
+      "New Jersey",
+      "Ethics",
+      "Affidavit of Merit"
+    ]
+  },
+  {
     "id": "hard-roi-reasoning-ai-legal-operations",
     "title": "The Hard ROI of Reasoning AI in Legal Operations: A Guide for Plaintiff Firms",
     "slug": "hard-roi-reasoning-ai-legal-operations",
