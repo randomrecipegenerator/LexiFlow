@@ -3,18 +3,19 @@ LexiFlow JWT Authentication Module.
 Provides token creation, verification, and dependency injection for protected routes.
 """
 import os
+import re
 import logging
 import bcrypt
 from datetime import datetime, timedelta
 from typing import Optional
 
 from fastapi import Depends, HTTPException, Header, status, APIRouter, Form
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, JSONResponse
 from sqlalchemy.orm import Session
 from jose import JWTError, jwt
 
 from database import get_db
-from models import User, Firm, SSOToken
+from models import User, Firm, SSOToken, Subscription
 
 logger = logging.getLogger(__name__)
 
@@ -200,6 +201,127 @@ async def login(email: str = Form(...), password: str = Form(...), db: Session =
             "role": user.role,
             "firm_id": user.firm_id
         }
+    }
+
+
+def _generate_unique_slug(firm_name: str, db: Session) -> str:
+    """Generate a unique URL-friendly slug from a firm name."""
+    base_slug = re.sub(r'[^a-z0-9]+', '-', firm_name.lower()).strip('-')
+    if not base_slug:
+        base_slug = "firm"
+    
+    slug = base_slug
+    counter = 1
+    while db.query(Firm).filter(Firm.slug == slug).first():
+        slug = f"{base_slug}-{counter}"
+        counter += 1
+    return slug
+
+
+@auth_router.post("/register")
+async def register(
+    name: str = Form(...),
+    email: str = Form(...),
+    password: str = Form(...),
+    firm_name: str = Form(...),
+    db: Session = Depends(get_db),
+):
+    """
+    Register a new law firm and user with a 30-day free trial.
+    
+    Steps:
+    1. Validate inputs (email not taken, password length)
+    2. Create Firm with unique slug
+    3. Create User with hashed password
+    4. Set up 30-day trial (plan_status='trial', trial_expires_at = now + 30 days)
+    5. Create Subscription record
+    6. Return JWT token + user/firm details for redirect to dashboard
+    """
+    from sqlalchemy import func
+    
+    # Validate inputs
+    if len(password) < 8:
+        raise HTTPException(status_code=400, detail="Password must be at least 8 characters.")
+    
+    if len(firm_name.strip()) < 2:
+        raise HTTPException(status_code=400, detail="Firm name is required.")
+    
+    if len(name.strip()) < 2:
+        raise HTTPException(status_code=400, detail="Full name is required.")
+    
+    # Check if email is already registered
+    existing_user = db.query(User).filter(func.lower(User.email) == func.lower(email.strip())).first()
+    if existing_user:
+        raise HTTPException(status_code=409, detail="An account with this email already exists.")
+    
+    # Generate unique slug
+    slug = _generate_unique_slug(firm_name.strip(), db)
+    
+    # Create the Firm
+    trial_end = datetime.utcnow() + timedelta(days=30)
+    firm = Firm(
+        name=firm_name.strip(),
+        slug=slug,
+        plan_status="trial",
+        trial_expires_at=trial_end,
+        billing_tier="starter",
+        billing_period_start=datetime.utcnow(),
+    )
+    db.add(firm)
+    db.flush()  # Get firm.id
+    
+    # Create the User
+    hashed = hash_password(password)
+    user = User(
+        email=email.strip().lower(),
+        hashed_password=hashed,
+        full_name=name.strip(),
+        firm_id=firm.id,
+        role="admin",
+        is_active=1,
+    )
+    db.add(user)
+    db.flush()
+    
+    # Create Subscription record for the trial
+    subscription = Subscription(
+        firm_id=firm.id,
+        status="trialing",
+        plan_tier="starter",
+        trial_end=trial_end,
+        current_period_start=datetime.utcnow(),
+        current_period_end=trial_end,
+    )
+    db.add(subscription)
+    db.commit()
+    db.refresh(user)
+    db.refresh(firm)
+    
+    # Generate JWT
+    access_token = create_access_token(
+        data={"sub": str(user.id), "firm_id": user.firm_id, "role": user.role},
+        expires_delta=timedelta(hours=24),
+    )
+    
+    return {
+        "status": "success",
+        "access_token": access_token,
+        "token_type": "bearer",
+        "redirect": "/dashboard",
+        "user": {
+            "id": user.id,
+            "email": user.email,
+            "full_name": user.full_name,
+            "role": user.role,
+            "firm_id": user.firm_id,
+        },
+        "firm": {
+            "id": firm.id,
+            "name": firm.name,
+            "slug": firm.slug,
+            "plan_status": firm.plan_status,
+            "trial_expires_at": firm.trial_expires_at.isoformat(),
+        },
     }
 
 

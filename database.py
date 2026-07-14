@@ -1,11 +1,27 @@
+"""
+LexiFlow Database Configuration
+
+Supports multiple database backends:
+1. Turso/libsql (production) — set DATABASE_URL to a libsql:// URL
+2. SQLite (local development) — default when no DATABASE_URL is set
+3. Vercel /tmp SQLite — automatic fallback on Vercel when no DATABASE_URL is set
+
+Set DATABASE_URL to a Turso connection string for production:
+  libsql://<database-name>.turso.io?authToken=<token>
+
+For local development, leave DATABASE_URL unset to use local SQLite.
+"""
 import os
+import logging
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-# Use environment variable for DB URL, default to local SQLite for development
-# On Vercel, the filesystem is read-only, so we use /tmp for SQLite if no DATABASE_URL is provided.
+logger = logging.getLogger(__name__)
+
+# Determine the database URL
 db_url = os.getenv("DATABASE_URL")
+
 if not db_url:
     # Check if we are in a Vercel environment
     if os.getenv("VERCEL") or os.getenv("NOW_REGION"):
@@ -17,9 +33,9 @@ if not db_url:
             if os.path.exists(repo_db):
                 try:
                     shutil.copy2(repo_db, "/tmp/lexiflow.db")
-                    print("Seeded /tmp/lexiflow.db from repository")
+                    logger.info("Seeded /tmp/lexiflow.db from repository")
                 except Exception as e:
-                    print(f"Failed to seed /tmp/lexiflow.db: {e}")
+                    logger.warning(f"Failed to seed /tmp/lexiflow.db: {e}")
     else:
         # Use absolute path to avoid directory confusion
         base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -27,25 +43,50 @@ if not db_url:
         db_url = f"sqlite:///{db_path}"
 
 SQLALCHEMY_DATABASE_URL = db_url
+logger.info(f"Database URL scheme: {db_url.split('://')[0] if '://' in db_url else 'unknown'}")
 
-# Standard SQLAlchemy setup
+# Configure engine based on database type
 connect_args = {}
+engine_kwargs = {}
+
 if SQLALCHEMY_DATABASE_URL.startswith("sqlite"):
+    # SQLite needs check_same_thread=False for FastAPI async usage
     connect_args = {"check_same_thread": False}
+elif SQLALCHEMY_DATABASE_URL.startswith("libsql"):
+    # Turso/libsql — use the libsql dialect from sqlalchemy-libsql
+    # The libsql dialect handles its own connection pooling
+    # No special connect_args needed for libsql
+    pass
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args=connect_args
+    SQLALCHEMY_DATABASE_URL,
+    connect_args=connect_args,
+    **engine_kwargs,
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
+
 def get_db():
+    """FastAPI dependency that yields a database session."""
     db = SessionLocal()
     try:
         yield db
     except Exception as e:
-        print(f"Database Session Error: {e}")
+        logger.error(f"Database Session Error: {e}")
         raise
     finally:
         db.close()
+
+
+def check_connection() -> bool:
+    """Verify the database connection is working."""
+    try:
+        db = SessionLocal()
+        db.execute(db.bind.dialect.statement_compiler(db.bind.dialect, None).__class__.__name__)
+        db.close()
+        return True
+    except Exception as e:
+        logger.error(f"Database connection check failed: {e}")
+        return False
