@@ -40,15 +40,32 @@
   <link rel="stylesheet" href="/master-layout.css">
 </head>
 <body class="bg-gray-50 min-h-screen">
-    <nav><div class="nav-container">
-        <a href="/" class="logo"><span>LF</span> LexiFlow</a>
-        <ul class="nav-links">
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/intake-app">Intake</a></li>
-            <li><a href="/drafter-app" class="active">Drafter</a></li>
-            <li><a href="/medical-chronologies-app">MeritScan</a></li>
-        </ul>
-    </div></nav>
+    <nav>
+  <div class="nav-container">
+    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/solutions">Solutions</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li class="resources-dropdown">
+        <a href="#">Resources ▾</a>
+        <div class="resources-menu">
+          <a href="/resources/medical-chronology-template">Medical Chronology Template</a>
+          <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a>
+          <a href="/resources/medical-record-review-checklist">Record Review Checklist</a>
+          <a href="/ssd-disability-medical-chronology-software">SSD & Disability AI</a>
+          <a href="/witness-testimony-analysis">Witness Testimony Analysis</a>
+          <a href="/case-studies">Case Studies</a>
+        </div>
+      </li>
+      <li><a href="/roi-calculator">ROI Calculator</a></li>
+      <li><a href="/login">Log In</a></li>
+      <li><a href="/signup" class="btn-cta">Get Started</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</nav>
 
     <div class="mt-header bg-white border-b border-gray-200">
         <div class="container mx-auto px-4 py-6 flex justify-between items-center">
