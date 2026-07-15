@@ -10,6 +10,26 @@
         "memory": 512,
         "maxDuration": 30
       }
+    },
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "assets/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "branding/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "blog/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "case-studies/**/*",
+      "use": "@vercel/static"
     }
   ],
   "rewrites": [
