@@ -30,12 +30,52 @@
     {
       "src": "case-studies/**/*",
       "use": "@vercel/static"
+    },
+    {
+      "src": "admin/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "hardened-suite/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "practice-areas/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "resources/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "veritas/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "desktop/**/*",
+      "use": "@vercel/static"
     }
   ],
   "rewrites": [
     {
       "source": "/veritas/:path*",
       "destination": "/veritas/index.html"
+    },
+    {
+      "source": "/admin/:path*",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/hardened-suite/:path*",
+      "destination": "/hardened-suite/index.html"
+    },
+    {
+      "source": "/practice-areas/:path*",
+      "destination": "/practice-areas/index.html"
+    },
+    {
+      "source": "/desktop/:path*",
+      "destination": "/desktop/index.html"
     },
     {
       "source": "/__engine/events",
@@ -56,6 +96,10 @@
     {
       "source": "/case-studies/([^/.]+)",
       "destination": "/case-studies/$1.html"
+    },
+    {
+      "source": "/practice-areas/medical-malpractice/([^/.]+)",
+      "destination": "/practice-areas/medical-malpractice/$1.html"
     }
   ]
 }
