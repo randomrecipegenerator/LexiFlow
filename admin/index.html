@@ -935,6 +935,12 @@ function switchPage(page) {
 }
 
 (async function init() {
+  // Also check for token from the main login page (/login saves to lexiflow_token)
+  const mainToken = localStorage.getItem('lexiflow_token');
+  if (mainToken && !token) {
+    token = mainToken;
+    localStorage.setItem(STORAGE_KEY, token);
+  }
   if(token){try{await loadDashboard();return;}catch(e){localStorage.removeItem(STORAGE_KEY);token=null;}}
   $('authScreen').style.display='flex'; $('dashboardView').style.display='none';
 })();
