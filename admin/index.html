@@ -281,6 +281,7 @@
       <div class="nav-item" data-page="settings" onclick="switchPage('settings')">⚙️ Firm Settings</div>
       <div class="nav-item" data-page="billing" onclick="switchPage('billing')">💳 Billing &amp; Usage</div>
       <div class="nav-item" data-page="audit" onclick="switchPage('audit')">📋 Audit Log</div>
+      <div class="nav-item" data-page="crm" onclick="switchPage('crm')">🔄 CRM Sync</div>
     </div>
     <div class="dash-content">
       <!-- Overview -->
@@ -458,6 +459,72 @@
                 <tr><td>Document Processing</td><td id="billingDocsUsed">0</td><td id="billingDocLimitTable">50/mo</td><td id="billingDocsRemaining">50</td></tr>
               </tbody>
             </table>
+          </div>
+        </div>
+      </div>
+      <!-- CRM Sync -->
+      <div class="page-section" id="page-crm">
+        <h2>CRM Sync Settings</h2>
+        <p class="page-subtitle">Configure automatic lead sync from LexiFlow AI Intake to your CRM platforms.</p>
+        <div id="crmLoading" style="text-align:center;padding:40px;">
+          <div class="spinner" style="width:32px;height:32px;border-width:3px;color:var(--accent);margin-bottom:16px;"></div>
+          <p style="color:var(--text-muted);font-size:0.9rem;">Loading CRM settings...</p>
+        </div>
+        <div id="crmContent" style="display:none;">
+          <div class="card">
+            <h3>Auto-Sync Rules</h3>
+            <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">Leads are automatically routed based on their AI-assigned score:</p>
+            <ul style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;padding-left:20px;">
+              <li><strong>Score ≥ 70</strong> → Synced to all connected CRMs</li>
+              <li><strong>Score 50–69</strong> → Synced to LeadDock only</li>
+              <li><strong>Score &lt; 50</strong> → Manual review (no auto-sync)</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Clio Grow</h3>
+            <div class="form-group">
+              <label for="crmClioToken">Auth Token</label>
+              <input type="password" id="crmClioToken" placeholder="Enter Clio Grow API token" />
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="testCrmConnection('clio')">Test Connection</button>
+            <span id="crmClioStatus" style="margin-left:10px;font-size:0.82rem;"></span>
+          </div>
+          <div class="card">
+            <h3>Filevine</h3>
+            <div class="form-group">
+              <label for="crmFilevineKey">API Key</label>
+              <input type="password" id="crmFilevineKey" placeholder="Enter Filevine API key" />
+            </div>
+            <div class="form-group">
+              <label for="crmFilevineSession">Session ID</label>
+              <input type="password" id="crmFilevineSession" placeholder="Enter Filevine session ID" />
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="testCrmConnection('filevine')">Test Connection</button>
+            <span id="crmFilevineStatus" style="margin-left:10px;font-size:0.82rem;"></span>
+          </div>
+          <div class="card">
+            <h3>LeadDock</h3>
+            <div class="form-group">
+              <label for="crmLeaddockKey">API Key</label>
+              <input type="password" id="crmLeaddockKey" placeholder="Enter LeadDock API key" />
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="testCrmConnection('leaddock')">Test Connection</button>
+            <span id="crmLeaddockStatus" style="margin-left:10px;font-size:0.82rem;"></span>
+          </div>
+          <div class="card">
+            <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+              <button class="btn btn-primary" onclick="saveCrmSettings()">💾 Save All Settings</button>
+              <label style="font-size:0.85rem;display:flex;align-items:center;gap:6px;">
+                <input type="checkbox" id="crmProductionToggle" /> Enable Live Sync
+              </label>
+            </div>
+            <p style="margin-top:8px;font-size:0.78rem;color:var(--text-muted);">When enabled, leads will be synced in real-time. Disabled = simulation mode.</p>
+          </div>
+          <div class="card">
+            <h3>Sync History</h3>
+            <div id="crmSyncHistory">
+              <div class="empty-state"><div class="icon">🔄</div><h4>No sync activity yet</h4><p>Sync events will appear here as leads are processed.</p></div>
+            </div>
           </div>
         </div>
       </div>
@@ -720,6 +787,45 @@ async function handleSimulateActivation() {
     toast('Opening Stripe checkout for ' + tier + ' plan...', 'info');
   } else {
     toast('No checkout link available for this plan.', 'error');
+  }
+}
+
+// === CRM Sync Functions ===
+async function testCrmConnection(provider) {
+  const statusEl = $(`crm${provider.charAt(0).toUpperCase() + provider.slice(1)}Status`);
+  statusEl.innerHTML = '<span class="spinner"></span> Testing...';
+  const payload = { provider };
+  if (provider === 'clio') payload.token = $('crmClioToken').value.trim();
+  if (provider === 'filevine') {
+    payload.api_key = $('crmFilevineKey').value.trim();
+    payload.session_id = $('crmFilevineSession').value.trim();
+  }
+  if (provider === 'leaddock') payload.api_key = $('crmLeaddockKey').value.trim();
+  try {
+    const result = await api('/api/firm/crm/test', 'POST', payload);
+    statusEl.textContent = result.success ? '✅ Connected' : '❌ Failed: ' + (result.error || 'Unknown error');
+    statusEl.style.color = result.success ? 'var(--green)' : 'var(--red)';
+  } catch(e) {
+    statusEl.textContent = '❌ ' + e.message;
+    statusEl.style.color = 'var(--red)';
+  }
+}
+
+async function saveCrmSettings() {
+  const settings = {
+    clio: { token: $('crmClioToken').value.trim() },
+    filevine: {
+      api_key: $('crmFilevineKey').value.trim(),
+      session_id: $('crmFilevineSession').value.trim()
+    },
+    leaddock: { api_key: $('crmLeaddockKey').value.trim() },
+    production_mode: $('crmProductionToggle').checked
+  };
+  try {
+    await api('/api/firm/settings', 'POST', { crm_config: settings });
+    toast('CRM settings saved successfully!', 'success');
+  } catch(e) {
+    toast(e.message, 'error');
   }
 }
 

@@ -264,7 +264,7 @@ async def register(
         slug=slug,
         plan_status="trial",
         trial_expires_at=trial_end,
-        billing_tier="starter",
+        billing_tier="enterprise",  # Full access during 30-day trial
         billing_period_start=datetime.utcnow(),
     )
     db.add(firm)
@@ -287,7 +287,7 @@ async def register(
     subscription = Subscription(
         firm_id=firm.id,
         status="trialing",
-        plan_tier="starter",
+        plan_tier="enterprise",  # Full access during trial
         trial_end=trial_end,
         current_period_start=datetime.utcnow(),
         current_period_end=trial_end,
