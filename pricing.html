@@ -191,7 +191,7 @@
           <li><span class="ic">✅</span> 30-Day Free Trial</li>
           <li style="color:var(--text-muted);font-size:0.78rem;"><span class="ic">📋</span> 10 docs/mo · Overage fees apply</li>
         </ul>
-        <a href="mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io?subject=Starter%20Trial" class="btn-cta-card">Start Free Trial →</a>
+        <a href="/signup?plan=starter" class="btn-cta-card">Start Free Trial →</a>
         <div class="money-back">No credit card required</div>
       </div>
       <div class="pricing-card featured">
@@ -211,7 +211,7 @@
                         <li><span class="ic">✅</span> 30-Day Free Trial</li>
                         <li style="color:var(--text-muted);font-size:0.78rem;"><span class="ic">📋</span> 250 docs/mo · Overage fees apply</li>
         </ul>
-        <a href="mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io?subject=Pro%20Trial" class="btn-cta-card">Start Free Trial →</a>
+        <a href="/signup?plan=professional" class="btn-cta-card">Start Free Trial →</a>
         <div class="money-back">No credit card required</div>
       </div>
       <div class="pricing-card">
@@ -231,7 +231,7 @@
           <li><span class="ic">🧠</span> <strong>LexiFlow Strategist™</strong> — AI Case Advice</li>
           <li style="color:var(--text-muted);font-size:0.78rem;"><span class="ic">📋</span> 500 docs/mo · Overage fees apply</li>
         </ul>
-        <a href="mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io?subject=Enterprise%20Trial" class="btn-cta-card">Start 30-Day Free Trial →</a>
+        <a href="/signup?plan=enterprise" class="btn-cta-card">Start 30-Day Free Trial →</a>
         <div class="money-back">No setup fees. Cancel anytime.</div>
       </div>
     </div>
@@ -258,7 +258,7 @@
   <div class="cta-banner">
     <h2>Ready for Trial?</h2>
     <p>$129/mo — full Enterprise suite. No setup fees. 30-day free trial.</p>
-    <a href="mailto:lexiflow-legal-suite-88a6f8e9@ctomail.io?subject=Enterprise%20Trial">Start Enterprise Free Trial →</a>
+    <a href="/signup?plan=enterprise">Start Enterprise Free Trial →</a>
   </div>
 </section>
 
@@ -340,6 +340,43 @@
     </div>
   </footer>
 
-<script src="/shared-layout.js"></script>
+<script src="/config.js"></script>
+    <script>
+    /**
+     * Direct Stripe Payment Links (no API calls — works without auth)
+     *
+     * For new users: links go to signup for 30-day free trial.
+     * For existing users: once Stripe is connected, replace these with
+     * real Stripe Checkout links (e.g. https://buy.stripe.com/xxx).
+     *
+     * Stripe Payment Links (to be set once Stripe is connected):
+     *   Starter:     https://buy.stripe.com/PLACEHOLDER_STARTER
+     *   Professional: https://buy.stripe.com/PLACEHOLDER_PROFESSIONAL
+     *   Enterprise:   https://buy.stripe.com/PLACEHOLDER_ENTERPRISE
+     */
+    document.addEventListener('DOMContentLoaded', function() {
+      const token = localStorage.getItem('lexiflow_token');
+      const planButtons = document.querySelectorAll('.btn-cta-card, .cta-banner a');
+
+      planButtons.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          // If user is logged in, redirect to dashboard with upgrade prompt
+          if (token) {
+            e.preventDefault();
+            const href = this.getAttribute('href');
+            const match = href.match(/plan=(\w+)/);
+            if (match) {
+              const plan = match[1];
+              // Show upgrade message — once Stripe is connected, this will
+              // redirect to a direct Stripe Checkout link
+              window.location.href = '/dashboard?upgrade=' + plan;
+            }
+          }
+          // If not logged in, href="/signup?plan=..." works as-is
+        });
+      });
+    });
+    </script>
+    <script src="/shared-layout.js"></script>
 </body>
 </html>
