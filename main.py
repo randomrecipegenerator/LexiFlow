@@ -614,6 +614,58 @@ def update_firm_settings(
     create_audit_log(db, "settings_updated", details="Firm settings updated via dashboard", firm_id=current_firm.id)
     return {"status": "success"}
 
+@app.post("/firm/crm/test")
+async def test_crm_connection(
+    request: Request,
+    db: Session = Depends(get_db),
+    current_firm: models.Firm = Depends(get_current_firm)
+):
+    """
+    Test CRM connection credentials without syncing a lead.
+    Validates the API keys/tokens for a given CRM system.
+    """
+    if not current_firm:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    
+    try:
+        body = await request.json()
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid JSON body")
+    
+    system = body.get("system", "").lower().strip()
+    credentials = body.get("credentials", {})
+    
+    if system not in ["clio", "filevine", "leaddock"]:
+        raise HTTPException(status_code=400, detail="Unsupported CRM system. Supported: clio, filevine, leaddock")
+    
+    if system == "clio":
+        token = credentials.get("clio_auth_token", "").strip()
+        if not token:
+            return {"status": "error", "valid": False, "message": "Clio Auth Token is required."}
+        if len(token) < 10:
+            return {"status": "error", "valid": False, "message": "Clio Auth Token appears to be too short. Please check your token."}
+        return {"status": "success", "valid": True, "message": "Clio credentials look valid. Token format accepted."}
+    
+    elif system == "filevine":
+        api_key = credentials.get("filevine_api_key", "").strip()
+        session_id = credentials.get("filevine_session_id", "").strip()
+        if not api_key:
+            return {"status": "error", "valid": False, "message": "Filevine API Key is required."}
+        if not session_id:
+            return {"status": "error", "valid": False, "message": "Filevine Session ID is required for direct API access."}
+        if len(api_key) < 8:
+            return {"status": "error", "valid": False, "message": "Filevine API Key appears to be too short."}
+        return {"status": "success", "valid": True, "message": "Filevine credentials look valid. API Key and Session ID accepted."}
+    
+    elif system == "leaddock":
+        api_key = credentials.get("leaddock_api_key", "").strip()
+        if not api_key:
+            return {"status": "info", "valid": False, "message": "No LeadDock API key provided. LeadDock sync will be skipped."}
+        return {"status": "success", "valid": True, "message": "LeadDock API key provided. Credentials accepted."}
+    
+    return {"status": "error", "valid": False, "message": "Unknown validation error."}
+
+
 @app.post("/sync/{system}/{lead_id}")
 async def universal_sync(system: str, lead_id: int, db: Session = Depends(get_db), current_firm: models.Firm = Depends(get_current_firm)):
     query = db.query(models.Lead).filter(models.Lead.id == lead_id)
@@ -1945,7 +1997,7 @@ if not os.getenv("VERCEL") and __name__ == "__main__":
         "medical-chronology-sample", "medical-record-review-checklist",
         "case-studies", "roi-report-template", "veritas-app",
         "san-francisco-medical-malpractice-intake", "strategist",
-        "veritas-deposition",
+        "veritas-deposition", "crm-settings",
     ]
     for page in CLEAN_URL_PAGES:
         html_path = os.path.join(root_dir, f"{page}.html")

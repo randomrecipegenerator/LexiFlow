@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Sync Settings | LexiFlow Enterprise</title>
+    <meta name="description" content="Configure Clio, Filevine, and LeadDock CRM integrations for automatic lead sync from LexiFlow AI Intake." />
+    <link rel="canonical" href="https://lexiflow.co/crm-settings" />
+    <link rel="icon" type="image/svg+xml" href="/branding/logo-icon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="/veritas-theme.css">
+    <link rel="stylesheet" href="/master-layout.css">
+    <style>
+        .settings-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+        .settings-header {
+            margin-bottom: 40px;
+        }
+        .settings-header h1 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin: 0 0 8px 0;
+        }
+        .settings-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        .crm-section {
+            background: var(--navy-card);
+            border: 1px solid var(--navy-border);
+            border-radius: var(--radius-md);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+        .crm-section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--navy-border);
+            cursor: pointer;
+            user-select: none;
+        }
+        .crm-section-header:hover {
+            background: rgba(255,255,255,0.03);
+        }
+        .crm-section-header .crm-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+        .crm-icon-clio { background: #1a56db; color: #fff; }
+        .crm-icon-filevine { background: #059669; color: #fff; }
+        .crm-icon-leaddock { background: #7c3aed; color: #fff; }
+        .crm-section-header .crm-info {
+            flex: 1;
+        }
+        .crm-section-header .crm-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 4px 0;
+        }
+        .crm-section-header .crm-info .crm-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+        .crm-status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .crm-status-badge.connected {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+        }
+        .crm-status-badge.disconnected {
+            background: rgba(100, 116, 139, 0.15);
+            color: var(--text-muted);
+        }
+        .crm-status-badge.error {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+        }
+        .crm-section-body {
+            padding: 24px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+        .form-group label .required {
+            color: var(--danger);
+            margin-left: 2px;
+        }
+        .form-group .help-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--navy-border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--gold-accent);
+            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+        }
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+        .form-input.code {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.8rem;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--navy-border);
+        }
+        .v-btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .v-btn-primary {
+            background: var(--gold-accent);
+            color: var(--navy-bg);
+        }
+        .v-btn-primary:hover {
+            background: var(--gold-light);
+        }
+        .v-btn-outline {
+            background: transparent;
+            border: 1px solid var(--navy-border);
+            color: var(--text-secondary);
+        }
+        .v-btn-outline:hover {
+            border-color: var(--gold-accent);
+            color: var(--gold-accent);
+        }
+        .v-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .v-btn-sm {
+            padding: 6px 14px;
+            font-size: 0.8rem;
+        }
+        .test-result {
+            margin-top: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            display: none;
+        }
+        .test-result.success {
+            display: block;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--success);
+        }
+        .test-result.error {
+            display: block;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: var(--danger);
+        }
+        .test-result.info {
+            display: block;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+        }
+        .sync-history-section {
+            margin-top: 40px;
+        }
+        .sync-history-section h2 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin: 0 0 20px 0;
+        }
+        .sync-log-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .sync-log-table th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--navy-border);
+        }
+        .sync-log-table td {
+            padding: 12px 16px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+        }
+        .sync-log-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+        .sync-status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .sync-status-dot.success { background: var(--success); }
+        .sync-status-dot.error { background: var(--danger); }
+        .sync-status-dot.skipped { background: var(--warning); }
+        .sync-status-dot.simulated { background: var(--text-muted); }
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+        .empty-state i {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 12px;
+        }
+        .empty-state p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        .rules-section {
+            background: var(--navy-card);
+            border: 1px solid var(--navy-border);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .rules-section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 16px 0;
+        }
+        .rule-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+        }
+        .rule-item:last-child {
+            border-bottom: none;
+        }
+        .rule-item .rule-score {
+            font-weight: 700;
+            font-size: 0.9rem;
+            min-width: 50px;
+        }
+        .rule-item .rule-action {
+            flex: 1;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .rule-item .rule-badge {
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .rule-badge.high { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+        .rule-badge.medium { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+        .rule-badge.low { background: rgba(100, 116, 139, 0.15); color: var(--text-muted); }
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--navy-border);
+            border-radius: 24px;
+            transition: 0.3s;
+        }
+        .toggle-slider:before {
+            content: "";
+            position: absolute;
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+        .toggle-switch input:checked + .toggle-slider {
+            background: var(--gold-accent);
+        }
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(20px);
+        }
+        @media (max-width: 768px) {
+            .settings-container { padding: 20px 16px; }
+            .form-row { grid-template-columns: 1fr; }
+            .btn-row { flex-direction: column; }
+            .crm-section-header { flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="logo" style="text-decoration: none; color: white; display: flex; align-items: center; gap: 8px;">
+                    <span style="background: var(--gold-accent); color: var(--navy-bg); padding: 2px 6px; border-radius: 4px; font-weight: 800; font-size: 14px;">LF</span>
+                    <span style="font-family: var(--font-serif); font-weight: 700; font-size: 18px;">LexiFlow</span>
+                </a>
+            </div>
+            <div class="sidebar-nav">
+                <a href="/dashboard" class="nav-item"><i class="bi bi-speedometer2"></i><span class="sidebar-text">Main Dashboard</span></a>
+                <a href="/discovery-vault" class="nav-item"><i class="bi bi-safe2"></i><span class="sidebar-text">Discovery-Vault™</span></a>
+                <a href="/veritas" class="nav-item"><i class="bi bi-shield-check"></i><span class="sidebar-text">Veritas Deposition™</span></a>
+                <a href="/strategist" class="nav-item"><i class="bi bi-brain"></i><span class="sidebar-text">LexiFlow Strategist™</span></a>
+                <a href="/ai-medical-chronologies" class="nav-item"><i class="bi bi-file-medical"></i><span class="sidebar-text">Medical AI</span></a>
+                <a href="/settlement-predictor" class="nav-item"><i class="bi bi-graph-up-arrow"></i><span class="sidebar-text">Settlement-Predictor™</span></a>
+                <a href="/compliance-shield" class="nav-item"><i class="bi bi-lock"></i><span class="sidebar-text">Compliance-Shield™</span></a>
+                <a href="/crm-settings" class="nav-item"><i class="bi bi-diagram-3"></i><span class="sidebar-text">CRM Sync</span></a>
+            </div>
+            <div style="padding: 24px; border-top: 1px solid var(--navy-border);">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--navy-border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">JD</div>
+                    <div class="sidebar-text">
+                        <div style="font-size: 12px; font-weight: 600;">Partner Account</div>
+                        <div style="font-size: 10px; color: var(--text-secondary);">Enterprise Tier</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <main class="app-main">
+            <header class="page-header">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h1>CRM Sync Settings</h1>
+                        <p>Configure automatic lead sync to your practice management systems</p>
+                    </div>
+                    <div style="display: flex; gap: 12px;">
+                        <a href="/dashboard" class="v-btn v-btn-outline"><i class="bi bi-arrow-left"></i> Back to Dashboard</a>
+                    </div>
+                </div>
+            </header>
+            <div class="settings-container">
+                <!-- Auto-Sync Rules -->
+                <div class="rules-section">
+                    <h3>⚙️ Auto-Sync Rules</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Leads are automatically routed to connected CRMs based on their AI qualification score.</p>
+                    <div class="rule-item">
+                        <span class="rule-score" style="color: var(--success);">≥ 70</span>
+                        <span class="rule-action">High-value leads — sync to <strong>all connected CRMs</strong> (Filevine + Clio)</span>
+                        <span class="rule-badge high">Auto-Sync</span>
+                    </div>
+                    <div class="rule-item">
+                        <span class="rule-score" style="color: var(--warning);">50–69</span>
+                        <span class="rule-action">Medium-value leads — sync to <strong>LeadDock</strong> only</span>
+                        <span class="rule-badge medium">Staged</span>
+                    </div>
+                    <div class="rule-item">
+                        <span class="rule-score" style="color: var(--text-muted);">&lt; 50</span>
+                        <span class="rule-action">Low-value leads — <strong>held for manual review</strong>, no auto-sync</span>
+                        <span class="rule-badge low">Manual</span>
+                    </div>
+                </div>
+
+                <!-- Clio Grow -->
+                <div class="crm-section" id="crm-clio">
+                    <div class="crm-section-header" onclick="toggleSection('clio')">
+                        <div class="crm-icon crm-icon-clio"><i class="bi bi-building"></i></div>
+                        <div class="crm-info">
+                            <h3>Clio Grow (Lexicata)</h3>
+                            <p class="crm-desc">Connect your Clio Grow account to automatically push qualified leads as new inbox leads.</p>
+                        </div>
+                        <span class="crm-status-badge disconnected" id="clio-status-badge">Not Connected</span>
+                        <i class="bi bi-chevron-down" id="clio-chevron" style="color: var(--text-muted); transition: transform 0.3s;"></i>
+                    </div>
+                    <div class="crm-section-body" id="clio-body" style="display: none;">
+                        <div class="form-group">
+                            <label>Clio Auth Token <span class="required">*</span></label>
+                            <input type="password" class="form-input code" id="clio-auth-token" placeholder="Enter your Clio Grow / Lexicata API token" />
+                            <div class="help-text">Generate this token from your Clio Grow (Lexicata) account settings → Integrations → API Tokens.</div>
+                        </div>
+                        <div class="test-result" id="clio-test-result"></div>
+                        <div class="btn-row">
+                            <button class="v-btn v-btn-outline v-btn-sm" onclick="testConnection('clio')" id="clio-test-btn"><i class="bi bi-plug"></i> Test Connection</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filevine -->
+                <div class="crm-section" id="crm-filevine">
+                    <div class="crm-section-header" onclick="toggleSection('filevine')">
+                        <div class="crm-icon crm-icon-filevine"><i class="bi bi-diagram-3"></i></div>
+                        <div class="crm-info">
+                            <h3>Filevine</h3>
+                            <p class="crm-desc">Connect Filevine to automatically create projects and sync lead data, AI scores, and metadata.</p>
+                        </div>
+                        <span class="crm-status-badge disconnected" id="filevine-status-badge">Not Connected</span>
+                        <i class="bi bi-chevron-down" id="filevine-chevron" style="color: var(--text-muted); transition: transform 0.3s;"></i>
+                    </div>
+                    <div class="crm-section-body" id="filevine-body" style="display: none;">
+                        <div class="form-group">
+                            <label>Filevine API Key <span class="required">*</span></label>
+                            <input type="password" class="form-input code" id="filevine-api-key" placeholder="Enter your Filevine API key" />
+                            <div class="help-text">Find this in Filevine Settings → API → Your API Key.</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Filevine Session ID <span class="required">*</span></label>
+                            <input type="password" class="form-input code" id="filevine-session-id" placeholder="Enter your Filevine Session ID" />
+                            <div class="help-text">Required for direct API access. Generate from Filevine settings.</div>
+                        </div>
+                        <div class="test-result" id="filevine-test-result"></div>
+                        <div class="btn-row">
+                            <button class="v-btn v-btn-outline v-btn-sm" onclick="testConnection('filevine')" id="filevine-test-btn"><i class="bi bi-plug"></i> Test Connection</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LeadDock -->
+                <div class="crm-section" id="crm-leaddock">
+                    <div class="crm-section-header" onclick="toggleSection('leaddock')">
+                        <div class="crm-icon crm-icon-leaddock"><i class="bi bi-inbox"></i></div>
+                        <div class="crm-info">
+                            <h3>LeadDock</h3>
+                            <p class="crm-desc">Connect LeadDock for medium-value lead routing and secondary intake pipeline.</p>
+                        </div>
+                        <span class="crm-status-badge disconnected" id="leaddock-status-badge">Not Connected</span>
+                        <i class="bi bi-chevron-down" id="leaddock-chevron" style="color: var(--text-muted); transition: transform 0.3s;"></i>
+                    </div>
+                    <div class="crm-section-body" id="leaddock-body" style="display: none;">
+                        <div class="form-group">
+                            <label>LeadDock API Key</label>
+                            <input type="password" class="form-input code" id="leaddock-api-key" placeholder="Enter your LeadDock API key" />
+                            <div class="help-text">Optional. LeadDock is used for secondary lead routing.</div>
+                        </div>
+                        <div class="test-result" id="leaddock-test-result"></div>
+                        <div class="btn-row">
+                            <button class="v-btn v-btn-outline v-btn-sm" onclick="testConnection('leaddock')" id="leaddock-test-btn"><i class="bi bi-plug"></i> Test Connection</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save / Production Toggle -->
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-top: 1px solid var(--navy-border); margin-top: 12px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="production-sync-toggle" />
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <div>
+                            <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-primary);">Enable Live Sync</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">When enabled, leads are pushed to live CRM endpoints. Disabled = simulation mode.</div>
+                        </div>
+                    </div>
+                    <button class="v-btn v-btn-primary" onclick="saveAllSettings()" id="save-all-btn"><i class="bi bi-check-lg"></i> Save All Settings</button>
+                </div>
+
+                <!-- Sync History -->
+                <div class="sync-history-section">
+                    <h2>📋 Recent Sync Activity</h2>
+                    <div class="crm-section">
+                        <div style="padding: 16px 24px;">
+                            <table class="sync-log-table" id="sync-history-table">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Lead</th>
+                                        <th>CRM</th>
+                                        <th>Status</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="sync-history-body"></tbody>
+                            </table>
+                            <div class="empty-state" id="sync-empty-state">
+                                <i class="bi bi-arrow-repeat"></i>
+                                <p>No sync activity yet. Configure a CRM above and qualify your first lead to see activity here.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+        await loadCurrentConfig();
+        await loadSyncHistory();
+    });
+
+    function toggleSection(crm) {
+        const body = document.getElementById(crm + '-body');
+        const chevron = document.getElementById(crm + '-chevron');
+        if (!body || !chevron) return;
+        const isOpen = body.style.display !== 'none';
+        body.style.display = isOpen ? 'none' : 'block';
+        chevron.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+    }
+
+    async function loadCurrentConfig() {
+        try {
+            const resp = await apiFetch('/firm/me');
+            if (!resp.ok) { console.warn('Could not load firm config'); return; }
+            const data = await resp.json();
+            const config = data.api_config || {};
+            const syncEnabled = data.production_sync_enabled;
+            document.getElementById('production-sync-toggle').checked = syncEnabled === 1 || syncEnabled === true;
+            if (config.clio_auth_token) {
+                document.getElementById('clio-auth-token').value = config.clio_auth_token;
+                updateStatusBadge('clio', 'connected');
+            }
+            if (config.filevine_api_key) {
+                document.getElementById('filevine-api-key').value = config.filevine_api_key;
+                updateStatusBadge('filevine', 'connected');
+            }
+            if (config.filevine_session_id) {
+                document.getElementById('filevine-session-id').value = config.filevine_session_id;
+            }
+            if (config.leaddock_api_key) {
+                document.getElementById('leaddock-api-key').value = config.leaddock_api_key;
+                updateStatusBadge('leaddock', 'connected');
+            }
+        } catch (err) { console.error('Failed to load config:', err); }
+    }
+
+    function updateStatusBadge(crm, status) {
+        const badge = document.getElementById(crm + '-status-badge');
+        if (!badge) return;
+        badge.className = 'crm-status-badge ' + status;
+        const labels = { connected: 'Connected', disconnected: 'Not Connected', error: 'Error' };
+        badge.textContent = labels[status] || 'Not Connected';
+    }
+
+    async function testConnection(crm) {
+        const btn = document.getElementById(crm + '-test-btn');
+        const result = document.getElementById(crm + '-test-result');
+        if (!btn || !result) return;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="bi bi-arrow-repeat"></i> Testing...';
+        result.className = 'test-result';
+        result.style.display = 'none';
+        const credentials = {};
+        if (crm === 'clio') {
+            credentials.clio_auth_token = document.getElementById('clio-auth-token').value.trim();
+            if (!credentials.clio_auth_token) {
+                showResult(result, 'error', 'Please enter a Clio Auth Token before testing.');
+                btn.disabled = false; btn.innerHTML = '<i class="bi bi-plug"></i> Test Connection';
+                return;
+            }
+        } else if (crm === 'filevine') {
+            credentials.filevine_api_key = document.getElementById('filevine-api-key').value.trim();
+            credentials.filevine_session_id = document.getElementById('filevine-session-id').value.trim();
+            if (!credentials.filevine_api_key) {
+                showResult(result, 'error', 'Please enter a Filevine API Key before testing.');
+                btn.disabled = false; btn.innerHTML = '<i class="bi bi-plug"></i> Test Connection';
+                return;
+            }
+        } else if (crm === 'leaddock') {
+            credentials.leaddock_api_key = document.getElementById('leaddock-api-key').value.trim();
+            if (!credentials.leaddock_api_key) {
+                showResult(result, 'info', 'LeadDock is optional. No API key entered — will skip LeadDock routing.');
+                btn.disabled = false; btn.innerHTML = '<i class="bi bi-plug"></i> Test Connection';
+                return;
+            }
+        }
+        try {
+            const resp = await apiFetch('/firm/crm/test', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ system: crm, credentials: credentials })
+            });
+            const data = await resp.json();
+            if (data.status === 'success' || data.valid) {
+                showResult(result, 'success', '✅ ' + (data.message || 'Connection verified successfully!'));
+                updateStatusBadge(crm, 'connected');
+            } else if (data.status === 'simulated') {
+                showResult(result, 'info', '🔌 ' + (data.message || 'Connection test passed (simulation mode).'));
+                updateStatusBadge(crm, 'connected');
+            } else {
+                showResult(result, 'error', '❌ ' + (data.message || 'Connection failed.'));
+                updateStatusBadge(crm, 'error');
+            }
+        } catch (err) {
+            showResult(result, 'error', '❌ Network error: ' + err.message);
+            updateStatusBadge(crm, 'error');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="bi bi-plug"></i> Test Connection';
+        }
+    }
+
+    function showResult(element, type, message) {
+        element.className = 'test-result ' + type;
+        element.textContent = message;
+        element.style.display = 'block';
+    }
+
+    async function saveAllSettings() {
+        const btn = document.getElementById('save-all-btn');
+        if (!btn) return;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="bi bi-arrow-repeat"></i> Saving...';
+        const apiConfig = {};
+        const clioToken = document.getElementById('clio-auth-token').value.trim();
+        const filevineKey = document.getElementById('filevine-api-key').value.trim();
+        const filevineSession = document.getElementById('filevine-session-id').value.trim();
+        const leaddockKey = document.getElementById('leaddock-api-key').value.trim();
+        if (clioToken) apiConfig.clio_auth_token = clioToken;
+        if (filevineKey) apiConfig.filevine_api_key = filevineKey;
+        if (filevineSession) apiConfig.filevine_session_id = filevineSession;
+        if (leaddockKey) apiConfig.leaddock_api_key = leaddockKey;
+        const productionSync = document.getElementById('production-sync-toggle').checked ? 1 : 0;
+        const formData = new URLSearchParams();
+        if (Object.keys(apiConfig).length > 0) formData.append('api_config', JSON.stringify(apiConfig));
+        formData.append('production_sync_enabled', String(productionSync));
+        try {
+            const resp = await apiFetch('/firm/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formData.toString()
+            });
+            const data = await resp.json();
+            if (data.status === 'success') {
+                if (clioToken) updateStatusBadge('clio', 'connected');
+                if (filevineKey) updateStatusBadge('filevine', 'connected');
+                if (leaddockKey) updateStatusBadge('leaddock', 'connected');
+                if (window.lexiflowUI && window.lexiflowUI.showToast) {
+                    window.lexiflowUI.showToast('CRM settings saved successfully.', 'success');
+                } else { alert('CRM settings saved successfully.'); }
+            } else {
+                throw new Error(data.detail || 'Save failed');
+            }
+        } catch (err) {
+            if (window.lexiflowUI && window.lexiflowUI.showToast) {
+                window.lexiflowUI.showToast('Failed to save: ' + err.message, 'error');
+            } else { alert('Failed to save: ' + err.message); }
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="bi bi-check-lg"></i> Save All Settings';
+        }
+    }
+
+    async function loadSyncHistory() {
+        const tbody = document.getElementById('sync-history-body');
+        const empty = document.getElementById('sync-empty-state');
+        if (!tbody || !empty) return;
+        try {
+            const resp = await apiFetch('/audit-logs?limit=50');
+            if (!resp.ok) return;
+            const logs = await resp.json();
+            const syncLogs = logs.filter(log => log.action && (log.action.startsWith('sync_') || log.action === 'intake_auto_sync' || log.action === 'lead_auto_sync'));
+            if (syncLogs.length === 0) {
+                empty.style.display = 'block';
+                tbody.innerHTML = '';
+                return;
+            }
+            empty.style.display = 'none';
+            tbody.innerHTML = syncLogs.slice(0, 20).map(log => {
+                const status = log.details && log.details.includes('error') ? 'error' : log.details && log.details.includes('simulated') ? 'simulated' : 'success';
+                const crmLabel = log.action.replace('sync_', '').replace('_auto', '').replace('intake_auto_sync', 'Auto-Route');
+                const time = new Date(log.timestamp).toLocaleString();
+                return '<tr><td style="white-space:nowrap;">' + time + '</td><td>' + (log.lead_id ? 'Lead #' + log.lead_id : '—') + '</td><td><span class="sync-status-dot ' + status + '"></span>' + crmLabel + '</td><td>' + (log.details ? log.details.substring(0, 60) : 'Completed') + '</td><td style="font-size:0.8rem;color:var(--text-muted);">' + (log.action || '') + '</td></tr>';
+            }).join('');
+        } catch (err) { console.error('Failed to load sync history:', err); }
+    }
+    </script>
+    <script src="/shared-ui.js"></script>
+    <script src="/shared-layout.js"></script>
+</body>
+</html>
