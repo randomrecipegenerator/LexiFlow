@@ -280,8 +280,14 @@
       <div class="nav-item" data-page="team" onclick="switchPage('team')">👥 Team Management</div>
       <div class="nav-item" data-page="settings" onclick="switchPage('settings')">⚙️ Firm Settings</div>
       <div class="nav-item" data-page="billing" onclick="switchPage('billing')">💳 Billing &amp; Usage</div>
-      <div class="nav-item" data-page="audit" onclick="switchPage('audit')">📋 Audit Log</div>
       <div class="nav-item" data-page="crm" onclick="switchPage('crm')">🔄 CRM Sync</div>
+      <div class="nav-item" data-page="documents" onclick="switchPage('documents')">📄 Document Upload</div>
+      <div class="nav-item" data-page="medical" onclick="switchPage('medical')">🏥 AI Medical</div>
+      <div class="nav-item" data-page="deposition" onclick="switchPage('deposition')">🎙️ Veritas Deposition</div>
+      <div class="nav-item" data-page="discovery" onclick="switchPage('discovery')">🔍 Discovery Vault</div>
+      <div class="nav-item" data-page="settlement" onclick="switchPage('settlement')">💰 Settlement Predictor</div>
+      <div class="nav-item" data-page="intake" onclick="switchPage('intake')">📞 AI Intake</div>
+      <div class="nav-item" data-page="audit" onclick="switchPage('audit')">📋 Audit Log</div>
     </div>
     <div class="dash-content">
       <!-- Overview -->
@@ -460,6 +466,89 @@
               </tbody>
             </table>
           </div>
+        </div>
+      </div>
+      <!-- Document Upload -->
+      <div class="page-section" id="page-documents">
+        <h2>Document Upload &amp; Processing</h2>
+        <p class="page-subtitle">Upload legal documents for AI-powered analysis, chronology, and review. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
+        <div class="card">
+          <h3>Upload Documents</h3>
+          <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">Upload medical records, depositions, police reports, and other legal documents. AI will analyze and extract key insights.</p>
+          <div style="border:2px dashed var(--border);border-radius:var(--radius-lg);padding:40px;text-align:center;margin-bottom:16px;" id="docUploadZone">
+            <div style="font-size:3rem;margin-bottom:12px;">📄</div>
+            <p style="font-weight:600;color:var(--primary);margin-bottom:4px;">Drop files here or click to browse</p>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:16px;">Supports PDF, DOCX, TXT (Max 50MB per file)</p>
+            <input type="file" id="docFileInput" multiple accept=".pdf,.docx,.txt" style="display:none;" />
+            <button class="btn btn-primary" onclick="document.getElementById('docFileInput').click()">Choose Files</button>
+          </div>
+          <div id="docUploadStatus" style="display:none;margin-bottom:16px;"></div>
+          <div id="docFileList" style="margin-bottom:16px;"></div>
+          <button class="btn btn-primary" id="btnProcessDocs" onclick="processDocuments()" style="display:none;">🚀 Process with AI</button>
+        </div>
+        <div class="card">
+          <h3>Recent Documents</h3>
+          <div id="recentDocsContainer">
+            <div class="empty-state"><div class="icon">📄</div><h4>No documents yet</h4><p>Upload your first document above to start using AI-powered analysis.</p></div>
+          </div>
+        </div>
+      </div>
+      <!-- AI Medical -->
+      <div class="page-section" id="page-medical">
+        <h2>AI Medical Chronologies &amp; Merit Review</h2>
+        <p class="page-subtitle">Generate medical chronologies, evaluate case merit, and review records with AI. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
+        <div class="card" style="text-align:center;padding:60px 40px;">
+          <div style="font-size:4rem;margin-bottom:16px;">🏥</div>
+          <h3 style="margin-bottom:8px;">Medical Chronology AI</h3>
+          <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:20px;max-width:500px;margin-left:auto;margin-right:auto;">Upload medical records and get a complete chronological summary with key events, treatments, and findings highlighted.</p>
+          <button class="btn btn-primary" onclick="switchPage('documents')">📄 Upload Medical Records →</button>
+          <p style="margin-top:20px;font-size:0.82rem;color:var(--text-muted);">Or visit <a href="/ai-medical-chronologies" target="_blank" style="color:var(--accent-dark);">full Medical Chronology page →</a></p>
+        </div>
+      </div>
+      <!-- Veritas Deposition -->
+      <div class="page-section" id="page-deposition">
+        <h2>Veritas Deposition™</h2>
+        <p class="page-subtitle">Analyze deposition transcripts, detect contradictions, and build cross-examinations. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
+        <div class="card" style="text-align:center;padding:60px 40px;">
+          <div style="font-size:4rem;margin-bottom:16px;">🎙️</div>
+          <h3 style="margin-bottom:8px;">Deposition Intelligence</h3>
+          <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:20px;max-width:500px;margin-left:auto;margin-right:auto;">Upload deposition transcripts for AI-powered contradiction detection, key admission extraction, and cross-examination building.</p>
+          <button class="btn btn-primary" onclick="switchPage('documents')">📄 Upload Deposition →</button>
+          <p style="margin-top:20px;font-size:0.82rem;color:var(--text-muted);">Or visit <a href="/veritas-deposition" target="_blank" style="color:var(--accent-dark);">full Veritas Deposition page →</a></p>
+        </div>
+      </div>
+      <!-- Discovery Vault -->
+      <div class="page-section" id="page-discovery">
+        <h2>Discovery-Vault™</h2>
+        <p class="page-subtitle">Centralized discovery management with AI-powered document review. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
+        <div class="card" style="text-align:center;padding:60px 40px;">
+          <div style="font-size:4rem;margin-bottom:16px;">🔍</div>
+          <h3 style="margin-bottom:8px;">Discovery Management</h3>
+          <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:20px;max-width:500px;margin-left:auto;margin-right:auto;">Manage discovery documents, track productions, and use AI to find relevant evidence across your case files.</p>
+          <button class="btn btn-primary" onclick="switchPage('documents')">📄 Upload Discovery Docs →</button>
+          <p style="margin-top:20px;font-size:0.82rem;color:var(--text-muted);">Or visit <a href="/discovery-vault" target="_blank" style="color:var(--accent-dark);">full Discovery-Vault page →</a></p>
+        </div>
+      </div>
+      <!-- Settlement Predictor -->
+      <div class="page-section" id="page-settlement">
+        <h2>Settlement-Predictor Pro™</h2>
+        <p class="page-subtitle">AI-powered case valuation and settlement range estimation. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
+        <div class="card" style="text-align:center;padding:60px 40px;">
+          <div style="font-size:4rem;margin-bottom:16px;">💰</div>
+          <h3 style="margin-bottom:8px;">Case Valuation AI</h3>
+          <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:20px;max-width:500px;margin-left:auto;margin-right:auto;">Get AI-powered settlement estimates based on case details, jurisdiction, and historical data. Make informed settlement decisions.</p>
+          <p style="margin-top:20px;font-size:0.82rem;color:var(--text-muted);">Visit <a href="/settlement-predictor" target="_blank" style="color:var(--accent-dark);">full Settlement-Predictor page →</a></p>
+        </div>
+      </div>
+      <!-- AI Intake -->
+      <div class="page-section" id="page-intake">
+        <h2>AI Intake Agent</h2>
+        <p class="page-subtitle">Automated lead intake, qualification, and client communication. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
+        <div class="card" style="text-align:center;padding:60px 40px;">
+          <div style="font-size:4rem;margin-bottom:16px;">📞</div>
+          <h3 style="margin-bottom:8px;">Intake Automation</h3>
+          <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:20px;max-width:500px;margin-left:auto;margin-right:auto;">AI-powered web chat, SMS, and voice intake. Automatically qualify leads, capture case details, and sync to your CRM.</p>
+          <p style="margin-top:20px;font-size:0.82rem;color:var(--text-muted);">Visit <a href="/ai-legal-intake-software" target="_blank" style="color:var(--accent-dark);">full AI Intake page →</a></p>
         </div>
       </div>
       <!-- CRM Sync -->
@@ -788,6 +877,108 @@ async function handleSimulateActivation() {
   } else {
     toast('No checkout link available for this plan.', 'error');
   }
+}
+
+// === Document Upload Functions ===
+const selectedFiles = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+  const fileInput = document.getElementById('docFileInput');
+  if (fileInput) {
+    fileInput.addEventListener('change', function(e) {
+      for (const file of e.target.files) {
+        if (file.size > 50 * 1024 * 1024) {
+          toast(file.name + ' exceeds 50MB limit.', 'error');
+          continue;
+        }
+        selectedFiles.push(file);
+      }
+      updateFileList();
+      fileInput.value = '';
+    });
+  }
+  
+  // Drag and drop
+  const dropZone = document.getElementById('docUploadZone');
+  if (dropZone) {
+    dropZone.addEventListener('dragover', function(e) { e.preventDefault(); this.style.borderColor = 'var(--accent)'; });
+    dropZone.addEventListener('dragleave', function(e) { this.style.borderColor = 'var(--border)'; });
+    dropZone.addEventListener('drop', function(e) {
+      e.preventDefault();
+      this.style.borderColor = 'var(--border)';
+      for (const file of e.dataTransfer.files) {
+        if (file.size > 50 * 1024 * 1024) { toast(file.name + ' exceeds 50MB limit.', 'error'); continue; }
+        selectedFiles.push(file);
+      }
+      updateFileList();
+    });
+  }
+});
+
+function updateFileList() {
+  const list = document.getElementById('docFileList');
+  const btn = document.getElementById('btnProcessDocs');
+  if (selectedFiles.length === 0) {
+    list.innerHTML = '';
+    btn.style.display = 'none';
+    return;
+  }
+  btn.style.display = 'inline-flex';
+  list.innerHTML = '<h4 style="margin-bottom:8px;">Selected Files:</h4>' + selectedFiles.map((f, i) =>
+    '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--bg-light);border-radius:var(--radius);margin-bottom:4px;">' +
+    '<span>' + f.name + ' (' + (f.size / 1024).toFixed(0) + ' KB)</span>' +
+    '<button onclick="removeFile(' + i + ')" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:1.2rem;">×</button></div>'
+  ).join('');
+}
+
+function removeFile(index) {
+  selectedFiles.splice(index, 1);
+  updateFileList();
+}
+
+async function processDocuments() {
+  if (selectedFiles.length === 0) return toast('No files selected.', 'error');
+  const btn = document.getElementById('btnProcessDocs');
+  const status = document.getElementById('docUploadStatus');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Uploading & Processing...';
+  status.style.display = 'block'; status.innerHTML = 'Uploading ' + selectedFiles.length + ' file(s)...';
+  try {
+    const formData = new FormData();
+    for (const file of selectedFiles) formData.append('files', file);
+    const result = await fetch('/api/documents/upload', { method: 'POST', headers: { 'Authorization': 'Bearer ' + token }, body: formData });
+    const data = await result.json();
+    if (result.ok) {
+      status.style.color = 'var(--green)';
+      status.innerHTML = '✅ ' + (data.processed || data.count || selectedFiles.length) + ' document(s) processed successfully!';
+      selectedFiles.length = 0;
+      updateFileList();
+      loadRecentDocuments();
+    } else {
+      status.style.color = 'var(--red)';
+      status.innerHTML = '❌ ' + (data.detail || 'Upload failed');
+    }
+  } catch(e) {
+    status.style.color = 'var(--red)';
+    status.innerHTML = '❌ Connection error: ' + e.message;
+  }
+  btn.disabled = false; btn.innerHTML = '🚀 Process with AI';
+}
+
+async function loadRecentDocuments() {
+  try {
+    const docs = await api('/api/documents');
+    const c = document.getElementById('recentDocsContainer');
+    if (!docs || docs.length === 0) {
+      c.innerHTML = '<div class="empty-state"><div class="icon">📄</div><h4>No documents yet</h4><p>Upload your first document above to start using AI-powered analysis.</p></div>';
+      return;
+    }
+    let h = '<div class="table-wrap"><table><thead><tr><th>Name</th><th>Type</th><th>Status</th><th>Date</th></tr></thead><tbody>';
+    docs.slice(0, 20).forEach(d => {
+      h += '<tr><td>' + (d.filename || d.name || 'Document') + '</td><td>' + (d.doc_type || '—') + '</td><td><span class="badge ' + (d.status === 'processed' ? 'active' : 'inactive') + '">' + (d.status || 'pending') + '</span></td><td style="font-size:0.78rem;color:var(--text-muted);">' + (d.created_at ? new Date(d.created_at).toLocaleDateString() : '—') + '</td></tr>';
+    });
+    h += '</tbody></table></div>';
+    c.innerHTML = h;
+  } catch(e) {}
 }
 
 // === CRM Sync Functions ===
