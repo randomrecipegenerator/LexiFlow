@@ -791,6 +791,29 @@ async function handleSimulateActivation() {
 }
 
 // === CRM Sync Functions ===
+async function loadCrmSettings() {
+  const loading = $('crmLoading');
+  const content = $('crmContent');
+  loading.style.display = 'block';
+  content.style.display = 'none';
+  try {
+    const firm = await api('/api/admin/firms/me');
+    const config = firm.api_config_json ? JSON.parse(firm.api_config_json) : {};
+    const crm = config.crm_config || {};
+    // Populate fields
+    if (crm.clio) $('crmClioToken').value = crm.clio.token || '';
+    if (crm.filevine) {
+      $('crmFilevineKey').value = crm.filevine.api_key || '';
+      $('crmFilevineSession').value = crm.filevine.session_id || '';
+    }
+    if (crm.leaddock) $('crmLeaddockKey').value = crm.leaddock.api_key || '';
+    $('crmProductionToggle').checked = !!crm.production_mode;
+    loading.style.display = 'none';
+    content.style.display = 'block';
+  } catch(e) {
+    loading.innerHTML = '<p style="color:var(--text-muted);">Could not load CRM settings. ' + e.message + '</p>';
+  }
+}
 async function testCrmConnection(provider) {
   const statusEl = $(`crm${provider.charAt(0).toUpperCase() + provider.slice(1)}Status`);
   statusEl.innerHTML = '<span class="spinner"></span> Testing...';
@@ -907,6 +930,8 @@ function switchPage(page) {
   document.querySelector(`.nav-item[data-page="${page}"]`)?.classList.add('active');
   document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
   $(`page-${page}`)?.classList.add('active');
+  // Load CRM settings when CRM page is opened
+  if (page === 'crm') loadCrmSettings();
 }
 
 (async function init() {
