@@ -23,8 +23,15 @@ logger = logging.getLogger(__name__)
 db_url = os.getenv("DATABASE_URL")
 
 if not db_url:
+    # Check for Turso environment variables (set by the platform integration)
+    turso_url = os.getenv("TURSO_DATABASE_URL")
+    turso_token = os.getenv("TURSO_AUTH_TOKEN")
+    if turso_url and turso_token:
+        # Construct libsql URL with auth token
+        db_url = f"{turso_url}?authToken={turso_token}"
+        logger.info("Using Turso edge database from environment variables")
     # Check if we are in a Vercel environment
-    if os.getenv("VERCEL") or os.getenv("NOW_REGION"):
+    elif os.getenv("VERCEL") or os.getenv("NOW_REGION"):
         db_url = "sqlite:////tmp/lexiflow.db"
         # Seed the /tmp database from the repository file if it doesn't exist
         import shutil
