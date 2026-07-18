@@ -39,14 +39,14 @@ webhook_router = APIRouter(tags=["Stripe Webhooks"])
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "sk_test_placeholder")
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY", "pk_test_placeholder")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
-FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
+FRONTEND_URL = os.getenv("FRONTEND_URL", "https://lexiflow.co")
 
 # Price IDs — to be created in Stripe Dashboard after onboarding.
 # Until then, the checkout endpoint uses test-mode price lookups.
 PRICE_IDS = {
-    "starter": os.getenv("STRIPE_PRICE_STARTER", "price_starter_monthly"),
-    "professional": os.getenv("STRIPE_PRICE_PROFESSIONAL", "price_professional_monthly"),
-    "enterprise": os.getenv("STRIPE_PRICE_ENTERPRISE", "price_enterprise_monthly"),
+    "starter": os.getenv("STRIPE_PRICE_STARTER", "price_1Tl7m7Duzv52kSfFg3HEEARn"),
+    "professional": os.getenv("STRIPE_PRICE_PROFESSIONAL", "price_1Tl7lRDuzv52kSfFeULUtvef"),
+    "enterprise": os.getenv("STRIPE_PRICE_ENTERPRISE", "price_1Tl7mLDuzv52kSfF0gNi9mNp"),
 }
 
 # Tier metadata for reference

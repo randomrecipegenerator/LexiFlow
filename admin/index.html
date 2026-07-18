@@ -630,6 +630,12 @@ function renderBillingStatus(data) {
   }
 }
 
+const STRIPE_LINKS = {
+  starter: 'https://buy.stripe.com/9B628rbN87Qy8qnb8HcZa05',
+  professional: 'https://buy.stripe.com/4gM6oH04qgn46if1y7cZa06',
+  enterprise: 'https://buy.stripe.com/7sYeVd6sOeeW0XV6SrcZa07'
+};
+
 let selectedPlan = null;
 
 function showUpgradePlans() {
@@ -669,23 +675,14 @@ function selectPlan(plan) {
 
 async function handleUpgrade() {
   if (!selectedPlan) return toast('Please select a plan first.', 'error');
-  const btn = $('btnConfirmUpgrade');
-  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Redirecting...';
-  try {
-    const result = await api(`/api/billing/create-checkout?plan=${selectedPlan}`, 'POST');
-    toast('Redirecting to checkout...', 'info');
-    // Handle simulated mode - redirect to the provided URL
-    if (result.status === 'simulated' && result.url) {
-      toast('Simulated mode: ' + result.message, 'info');
-      window.open(result.url, '_blank');
-    } else if (result.url) {
-      window.location.href = result.url;
-    }
+  const link = STRIPE_LINKS[selectedPlan];
+  if (link) {
+    window.open(link, '_blank');
+    toast('Opening Stripe checkout for ' + selectedPlan + ' plan...', 'info');
     hideUpgradePlans();
-  } catch(e) {
-    toast(e.message, 'error');
+  } else {
+    toast('No checkout link available for this plan.', 'error');
   }
-  btn.disabled = false; btn.textContent = 'Confirm & Proceed to Checkout →';
 }
 
 async function handleManageSubscription() {
@@ -700,24 +697,29 @@ async function handleManageSubscription() {
       window.location.href = result.url;
     }
   } catch(e) {
-    toast(e.message, 'error');
+    // If no Stripe customer yet, guide user to subscribe first
+    if (e.message && e.message.includes('No Stripe customer record')) {
+      toast('Please subscribe to a plan first using the "Upgrade Plan" button above.', 'info');
+    } else {
+      toast(e.message, 'error');
+    }
   }
   btn.disabled = false; btn.textContent = 'Manage Subscription →';
 }
 
 async function handleSimulateActivation() {
-  const tier = prompt('Enter plan to simulate (standard, professional, or enterprise):', 'professional');
+  const tier = prompt('Enter plan to activate (starter, professional, or enterprise):', 'professional');
   if (!tier) return;
-  const validTiers = ['standard', 'professional', 'enterprise'];
+  const validTiers = ['starter', 'professional', 'enterprise'];
   if (!validTiers.includes(tier.toLowerCase())) {
-    return toast('Invalid plan. Choose: standard, professional, or enterprise.', 'error');
+    return toast('Invalid plan. Choose: starter, professional, or enterprise.', 'error');
   }
-  try {
-    const result = await api(`/api/billing/simulate-activation?plan=${tier.toLowerCase()}`, 'POST');
-    toast(result.message || 'Subscription simulated successfully!', 'success');
-    await loadBillingStatus();
-  } catch(e) {
-    toast(e.message, 'error');
+  const link = STRIPE_LINKS[tier.toLowerCase()];
+  if (link) {
+    window.open(link, '_blank');
+    toast('Opening Stripe checkout for ' + tier + ' plan...', 'info');
+  } else {
+    toast('No checkout link available for this plan.', 'error');
   }
 }
 
