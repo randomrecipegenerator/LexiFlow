@@ -24,8 +24,8 @@ db_url = os.getenv("DATABASE_URL")
 
 if not db_url:
     # Check for Turso environment variables (set by the platform integration)
-    turso_url = os.getenv("TURSO_DATABASE_URL")
-    turso_token = os.getenv("TURSO_AUTH_TOKEN")
+    turso_url = os.getenv("turso_database_url") or os.getenv("TURSO_DATABASE_URL")
+    turso_token = os.getenv("turso_auth_token") or os.getenv("TURSO_AUTH_TOKEN")
     if turso_url and turso_token:
         # Construct libsql URL with auth token
         db_url = f"{turso_url}?authToken={turso_token}"
