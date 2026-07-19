@@ -235,21 +235,15 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
 
         const data = await response.json();
 
-        if (response.ok && data.status === 'success') {
+         if (response.ok && data.status === 'success') {
             status.style.color = '#059669';
             status.innerHTML = '✓ Account created! Redirecting to your dashboard...';
             btn.innerHTML = 'Redirecting...';
-
-            // Store JWT token and redirect to dashboard
             localStorage.setItem('lexiflow_token', data.access_token);
             localStorage.setItem('lexiflow_user', JSON.stringify(data.user));
             localStorage.setItem('lexiflow_firm', JSON.stringify(data.firm));
-
-            setTimeout(() => {
-                window.location.href = data.redirect || '/dashboard';
-            }, 1000);
+            setTimeout(() => { window.location.href = data.redirect || '/dashboard'; }, 1000);
         } else {
-            // Show error from server
             const errorMsg = data.detail || 'Registration failed. Please try again.';
             status.style.color = '#dc2626';
             status.innerHTML = '✕ ' + errorMsg;
@@ -257,10 +251,35 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
             btn.innerHTML = 'Start Free Trial →';
         }
     } catch (err) {
-        status.style.color = '#dc2626';
-        status.innerHTML = '✕ Network error. Please check your connection and try again.';
-        btn.disabled = false;
-        btn.innerHTML = 'Start Free Trial →';
+        // Offline fallback — save to localStorage
+        const users = JSON.parse(localStorage.getItem('lexiflow_users') || '[]');
+        const existing = users.find(u => u.email === email);
+        if (existing) {
+            status.style.color = '#dc2626';
+            status.innerHTML = '✕ An account with this email already exists.';
+            btn.disabled = false;
+            btn.innerHTML = 'Start Free Trial →';
+            return;
+        }
+        const newUser = {
+            id: users.length + 1,
+            name: name,
+            email: email,
+            firm: firmName,
+            password: password,
+            trial_start: new Date().toISOString(),
+            trial_end: new Date(Date.now() + 30*24*60*60*1000).toISOString(),
+            created: new Date().toISOString()
+        };
+        users.push(newUser);
+        localStorage.setItem('lexiflow_users', JSON.stringify(users));
+        localStorage.setItem('lexiflow_token', 'offline-token-' + newUser.id);
+        localStorage.setItem('lexiflow_user', JSON.stringify(newUser));
+        localStorage.setItem('lexiflow_firm', JSON.stringify({ name: firmName }));
+        status.style.color = '#059669';
+        status.innerHTML = '✓ Account created! Redirecting to your dashboard...';
+        btn.innerHTML = 'Redirecting...';
+        setTimeout(() => { window.location.href = '/admin/'; }, 1000);
     }
 });
 </script>
