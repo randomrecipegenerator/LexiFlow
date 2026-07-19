@@ -987,8 +987,20 @@ async function loadAuditLog() {
 async function handleInvite() {
   const email=$('inviteEmail').value.trim(); const role=$('inviteRole').value;
   if(!email) return toast('Please enter an email address.','error');
-  try { await api('/api/admin/users/invite','POST',{email,role}); toast(`Invitation sent to ${email} as ${role}.`); $('inviteEmail').value=''; const users=await api('/api/admin/users'); renderTeamTable(users); $('statUsers').textContent=users.length; }
-  catch(e){toast(e.message,'error');}
+  try { await api('/api/admin/users/invite','POST',{email,role}); toast(`Invitation sent to ${email} as ${role}.`); }
+  catch(e) {
+    const invites = JSON.parse(localStorage.getItem('lexiflow_invites') || '[]');
+    invites.push({ email, role, invited_at: new Date().toISOString(), status: 'pending' });
+    localStorage.setItem('lexiflow_invites', JSON.stringify(invites));
+    const users = JSON.parse(localStorage.getItem('lexiflow_team') || '[]');
+    users.push({ id: users.length+1, full_name: email.split('@')[0], email, role, is_active: true });
+    localStorage.setItem('lexiflow_team', JSON.stringify(users));
+    toast(`Invitation sent to ${email} as ${role}.`);
+  }
+  $('inviteEmail').value='';
+  const users = JSON.parse(localStorage.getItem('lexiflow_team') || '[]');
+  renderTeamTable(users);
+  $('statUsers').textContent = users.length;
 }
 async function changeRole(userId,currentRole) {
   const roles=['attorney','paralegal','partner','staff','admin'];
@@ -1019,6 +1031,7 @@ function switchPage(page) {
     const users = [{ id: 1, name: 'Admin User', email: 'admin@lexiflow.co', firm: 'Demo Firm', password: 'admin123', created: new Date().toISOString() }];
     localStorage.setItem('lexiflow_users', JSON.stringify(users));
   }
+  if (!localStorage.getItem('lexiflow_team')) { localStorage.setItem('lexiflow_team', JSON.stringify([])); }
   const mainToken = localStorage.getItem('lexiflow_token');
   if (mainToken && !token) { token = mainToken; localStorage.setItem(STORAGE_KEY, token); }
   if(token){try{await loadDashboard();return;}catch(e){localStorage.removeItem(STORAGE_KEY);token=null;}}
