@@ -5,7 +5,7 @@ root_dir = os.path.dirname(current_dir)
 if root_dir not in sys.path:
     sys.path.insert(0, root_dir)
 
-def app(environ, start_response):
+def handler(environ, start_response):
     path = environ.get("PATH_INFO", "")
     status = "200 OK"
     headers = [("Content-Type", "application/json")]
