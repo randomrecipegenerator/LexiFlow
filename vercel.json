@@ -36,6 +36,10 @@
       "destination": "/desktop/index.html"
     },
     {
+      "source": "/signin",
+      "destination": "/signin.html"
+    },
+    {
       "source": "/__engine/events",
       "destination": "/api/index.py"
     },

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LexiFlow — Sign In</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f2f5; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .card { background: white; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.1); padding: 40px; width: 400px; max-width: 90vw; }
+    h1 { font-size: 24px; color: #1a3a5c; margin-bottom: 8px; text-align: center; }
+    .subtitle { color: #6b7280; font-size: 14px; text-align: center; margin-bottom: 24px; }
+    label { display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px; margin-top: 16px; }
+    input { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; }
+    input:focus { outline: none; border-color: #1a3a5c; box-shadow: 0 0 0 3px rgba(26,58,92,0.1); }
+    button { width: 100%; margin-top: 24px; padding: 12px; background: #1a3a5c; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; }
+    button:hover { background: #2a5a8c; }
+    .error { color: #ef4444; font-size: 13px; margin-top: 8px; display: none; }
+    .switch { text-align: center; margin-top: 16px; font-size: 14px; color: #6b7280; }
+    .switch a { color: #1a3a5c; cursor: pointer; text-decoration: underline; }
+    .hidden { display: none; }
+    .badge { background: #c9a84c; color: #0d1f33; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>⚖️ LexiFlow</h1>
+  <p class="subtitle">Enterprise Legal AI <span class="badge">Offline Mode</span></p>
+
+  <div id="loginForm">
+    <label>Email</label>
+    <input type="email" id="loginEmail" placeholder="you@firm.com" value="admin@lexiflow.co">
+    <label>Password</label>
+    <input type="password" id="loginPassword" placeholder="password" value="admin123">
+    <div class="error" id="loginError">Invalid email or password</div>
+    <button onclick="handleLogin()">Sign In</button>
+    <div class="switch">Don't have an account? <a onclick="showRegister()">Register</a></div>
+  </div>
+
+  <div id="registerForm" class="hidden">
+    <label>Your Name</label>
+    <input type="text" id="regName" placeholder="John Doe" value="Admin User">
+    <label>Email</label>
+    <input type="email" id="regEmail" placeholder="you@firm.com" value="admin@lexiflow.co">
+    <label>Firm Name</label>
+    <input type="text" id="regFirm" placeholder="Your Law Firm" value="Demo Firm">
+    <label>Password</label>
+    <input type="password" id="regPassword" placeholder="password" value="admin123">
+    <div class="error" id="regError">Registration failed</div>
+    <button onclick="handleRegister()">Create Account</button>
+    <div class="switch">Already have an account? <a onclick="showLogin()">Sign In</a></div>
+  </div>
+</div>
+
+<script>
+function initUsers() {
+  if (!localStorage.getItem('lexiflow_users')) {
+    const users = [{ id: 1, name: 'Admin User', email: 'admin@lexiflow.co', firm: 'Demo Firm', password: 'admin123', created: new Date().toISOString() }];
+    localStorage.setItem('lexiflow_users', JSON.stringify(users));
+  }
+}
+function showLogin() { document.getElementById('loginForm').classList.remove('hidden'); document.getElementById('registerForm').classList.add('hidden'); }
+function showRegister() { document.getElementById('loginForm').classList.add('hidden'); document.getElementById('registerForm').classList.remove('hidden'); }
+function handleLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const users = JSON.parse(localStorage.getItem('lexiflow_users') || '[]');
+  const user = users.find(u => u.email === email && u.password === password);
+  if (!user) { document.getElementById('loginError').style.display = 'block'; return; }
+  document.getElementById('loginError').style.display = 'none';
+  localStorage.setItem('lexiflow_user', JSON.stringify(user));
+  localStorage.setItem('lexiflow_token', 'demo-token-' + Date.now());
+  window.location.href = '/admin/';
+}
+function handleRegister() {
+  const name = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const firm = document.getElementById('regFirm').value.trim();
+  const password = document.getElementById('regPassword').value;
+  if (!name || !email || !firm || !password) { document.getElementById('regError').textContent = 'All fields required'; document.getElementById('regError').style.display = 'block'; return; }
+  const users = JSON.parse(localStorage.getItem('lexiflow_users') || '[]');
+  if (users.find(u => u.email === email)) { document.getElementById('regError').textContent = 'Email already registered'; document.getElementById('regError').style.display = 'block'; return; }
+  document.getElementById('regError').style.display = 'none';
+  const newUser = { id: users.length + 1, name, email, firm, password, created: new Date().toISOString() };
+  users.push(newUser);
+  localStorage.setItem('lexiflow_users', JSON.stringify(users));
+  localStorage.setItem('lexiflow_user', JSON.stringify(newUser));
+  localStorage.setItem('lexiflow_token', 'demo-token-' + Date.now());
+  window.location.href = '/admin/';
+}
+initUsers();
+</script>
+</body>
+</html>
