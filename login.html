@@ -3,242 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Logging in...</title>
-  <script>window.location.href = '/admin';</script>
-</head>
-<body><p>Redirecting to login...</p></body>
-</html>
-
-  <!-- Open Graph / Social Sharing -->
-
-  <!-- Twitter Card -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <title>LexiFlow — Login</title>
   <style>
-    :root {
-      --primary: #1a3a5c;
-      --primary-dark: #0d1f33;
-      --accent: #c9a84c;
-      --slate-50: #f8fafc;
-      --slate-100: #f1f5f9;
-      --slate-200: #e2e8f0;
-      --slate-400: #94a3b8;
-      --slate-600: #475569;
-      --text-muted: #94a3b8;
-      --bg-light: #f8fafc;
-      --navy: #0f172a;
-      --gold: #c9a84c;
-    }
-    body { font-family: 'Inter', sans-serif; background: var(--slate-50); color: var(--navy); margin: 0; padding: 0; line-height: 1.8; }
-    
-    
-    
-    /* Removed */
-    .nav-links a { text-decoration: none; color: var(--slate-600); font-weight: 500; font-size: 15px; }
-    .nav-links a:hover { color: var(--navy); }
-    .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
-
-    .login-container { max-width: 450px; margin: 100px auto; padding: 0 20px; }
-    .login-card { background: white; padding: 48px; border-radius: 24px; border: 1px solid var(--slate-200); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); }
-    .login-card h1 { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 12px; color: var(--navy); text-align: center; }
-    .login-card p { color: var(--slate-600); font-size: 16px; margin-bottom: 32px; text-align: center; }
-    
-    .form-group { margin-bottom: 24px; }
-    .form-group label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 8px; color: var(--navy); }
-    .form-group input { width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--slate-200); font-family: inherit; font-size: 16px; box-sizing: border-box; }
-    .form-group input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1); }
-    
-    .btn-login { display: block; width: 100%; background: var(--navy); color: white; padding: 14px; border: none; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer; transition: all 0.2s; }
-    .btn-login:hover { background: var(--primary-dark); transform: translateY(-1px); }
-    
-    .login-
-    .login-footer a { color: var(--gold); text-decoration: none; font-weight: 600; }
-    .login-footer a:hover { text-decoration: underline; }
-
-    #error-message { color: #ef4444; background: #fee2e2; padding: 12px; border-radius: 8px; margin-bottom: 24px; font-size: 14px; display: none; text-align: center; }
-
-    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f2f5; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .card { background: white; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.1); padding: 40px; width: 400px; max-width: 90vw; }
+    h1 { font-size: 24px; color: #1a3a5c; margin-bottom: 8px; text-align: center; }
+    .subtitle { color: #6b7280; font-size: 14px; text-align: center; margin-bottom: 24px; }
+    label { display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px; margin-top: 16px; }
+    input { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; }
+    input:focus { outline: none; border-color: #1a3a5c; box-shadow: 0 0 0 3px rgba(26,58,92,0.1); }
+    button { width: 100%; margin-top: 24px; padding: 12px; background: #1a3a5c; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; }
+    button:hover { background: #2a5a8c; }
+    .error { color: #ef4444; font-size: 13px; margin-top: 8px; display: none; }
+    .switch { text-align: center; margin-top: 16px; font-size: 14px; color: #6b7280; }
+    .switch a { color: #1a3a5c; cursor: pointer; text-decoration: underline; }
+    .hidden { display: none; }
+    .badge { background: #c9a84c; color: #0d1f33; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
   </style>
-
-  <link rel="stylesheet" href="/master-layout.css">
 </head>
-<body><body>
-<nav>
-  <div class="nav-container">
-    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="/pricing">Pricing</a></li>
-      <li><a href="/solutions">Solutions</a></li>
-      <li><a href="/dashboard">Dashboard</a></li>
-      <li><a href="/blog">Blog</a></li>
-      <li class="resources-dropdown">
-        <a href="#">Resources ▾</a>
-        <div class="resources-menu">
-          <a href="/resources/medical-chronology-template">Medical Chronology Template</a>
-          <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a>
-          <a href="/resources/medical-record-review-checklist">Record Review Checklist</a>
-          <a href="/ssd-disability-medical-chronology-software">SSD & Disability AI</a>
-          <a href="/witness-testimony-analysis">Witness Testimony Analysis</a>
-          <a href="/case-studies">Case Studies</a>
-        </div>
-      </li>
-      <li><a href="/roi-calculator">ROI Calculator</a></li>
-      <li><a href="/login">Log In</a></li>
-      <li><a href="/signup" class="btn-cta">Get Started</a></li>
-    </ul>
-    <button class="nav-toggle" aria-label="Menu">☰</button>
-  </div>
-</nav>
+<body>
+<div class="card">
+  <h1>⚖️ LexiFlow</h1>
+  <p class="subtitle">Enterprise Legal AI <span class="badge">Offline Mode</span></p>
 
-  <div class="login-container">
-    <div class="login-card">
-      <h1>Welcome Back</h1>
-      <p>Log in to your attorney dashboard</p>
-      
-      <div id="error-message"></div>
-      
-      <form id="login-form"
-            toolname="attorney_login"
-            tooldescription="Authenticates an attorney and returns a session token for accessing the dashboard."
-            inputschema='{"type":"object","properties":{"email":{"type":"string","format":"email","description":"Attorney work email address"},"password":{"type":"string","description":"Account password"}},"required":["email","password"]}'>
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" required placeholder="attorney@firm.com">
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required placeholder="••••••••">
-        </div>
-        <button type="submit" class="btn-login" id="login-btn">Log In</button>
-      </form>
-      
-      <div class="login-footer">
-        <p>Don't have an account? <a href="/signup">Request access</a></p>
-        <p style="margin-top: 8px;"><a href="#">Forgot password?</a></p>
-      </div>
-    </div>
+  <!-- Login Form -->
+  <div id="loginForm">
+    <label>Email</label>
+    <input type="email" id="loginEmail" placeholder="you@firm.com" value="admin@lexiflow.co">
+    <label>Password</label>
+    <input type="password" id="loginPassword" placeholder="••••••••" value="admin123">
+    <div class="error" id="loginError">Invalid email or password</div>
+    <button onclick="handleLogin()">Sign In</button>
+    <div class="switch">Don't have an account? <a onclick="showRegister()">Register</a></div>
   </div>
 
-    <footer>
-    <div class="footer-container">
-      <div class="footer-col">
-        <a href="/" class="footer-logo">LF LexiFlow</a>
-        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Products</h4>
-        <ul>
-          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
-          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
-          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
-          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
-          <li><a href="/discovery-vault">Discovery-Vault™</a></li>
-          <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
-          <li><a href="/veritas-deposition">Veritas Deposition™</a></li>
-          <li><a href="/strategist">LexiFlow Strategist™</a></li>
-          <li><a href="/compliance-shield">Compliance-Shield™</a></li>
-          <li><a href="/dashboard">Analytics Dashboard</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>State Ethics Guides</h4>
-        <ul>
-          <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
-          <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
-          <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
-          <li><a href="/blog">All Resources</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="/privacy">Privacy Policy</a></li>
-          <li><a href="/terms">Terms of Service</a></li>
-          <li><a href="/soc2">SOC2 Compliance</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
-    </div>
-  </footer>
+  <!-- Register Form -->
+  <div id="registerForm" class="hidden">
+    <label>Your Name</label>
+    <input type="text" id="regName" placeholder="John Doe" value="Admin User">
+    <label>Email</label>
+    <input type="email" id="regEmail" placeholder="you@firm.com" value="admin@lexiflow.co">
+    <label>Firm Name</label>
+    <input type="text" id="regFirm" placeholder="Your Law Firm" value="Demo Firm">
+    <label>Password</label>
+    <input type="password" id="regPassword" placeholder="••••••••" value="admin123">
+    <div class="error" id="regError">Registration failed</div>
+    <button onclick="handleRegister()">Create Account</button>
+    <div class="switch">Already have an account? <a onclick="showLogin()">Sign In</a></div>
+  </div>
+</div>
+
 <script>
-    document.getElementById('login-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const btn = document.getElementById('login-btn');
-      const errorMsg = document.getElementById('error-message');
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      
-      errorMsg.style.display = 'none';
-      errorMsg.textContent = '';
-      btn.innerHTML = 'Authenticating...';
-      btn.disabled = true;
-      
-      try {
-        // Use URLSearchParams for application/x-www-form-urlencoded (matches FastAPI Form())
-        const params = new URLSearchParams();
-        params.append('email', email);
-        params.append('password', password);
-        
-        const response = await fetch('/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: params.toString()
-        });
-        
-        const data = await response.json();
-        
-        if (response.ok) {
-          localStorage.setItem('lexiflow_token', data.access_token);
-          localStorage.setItem('lexiflow_user', JSON.stringify(data.user));
-          
-          if (data.user && data.user.role === 'admin') {
-            window.location.href = '/admin/index.html';
-          } else {
-            window.location.href = '/dashboard';
-          }
-        } else {
-          // Handle 401, 422, and other errors with API detail message
-          const detail = data.detail || 'Login failed. Please check your credentials.';
-          if (response.status === 401) {
-            errorMsg.textContent = 'Incorrect email or password. Please try again.';
-          } else if (response.status === 422) {
-            errorMsg.textContent = 'Validation error: ' + (typeof detail === 'string' ? detail : 'Invalid input format.');
-          } else if (response.status === 403) {
-            errorMsg.textContent = detail;
-          } else {
-            errorMsg.textContent = detail;
-          }
-          errorMsg.style.display = 'block';
-          btn.innerHTML = 'Log In';
-          btn.disabled = false;
-        }
-      } catch (error) {
-        errorMsg.textContent = 'A connection error occurred. Please check your network and try again.';
-        errorMsg.style.display = 'block';
-        btn.innerHTML = 'Log In';
-        btn.disabled = false;
-      }
-    });
+// Initialize demo users on first load
+function initUsers() {
+  if (!localStorage.getItem('lexiflow_users')) {
+    const users = [{ id: 1, name: 'Admin User', email: 'admin@lexiflow.co', firm: 'Demo Firm', password: 'admin123', created: new Date().toISOString() }];
+    localStorage.setItem('lexiflow_users', JSON.stringify(users));
+  }
+}
 
-    // Check for SSO error parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const error = urlParams.get('error');
-    if (error) {
-      const errorMsg = document.getElementById('error-message');
-      if (error === 'sso_token_expired') {
-        errorMsg.textContent = 'Your session has expired. Please log in again.';
-      } else if (error === 'invalid_sso_token') {
-        errorMsg.textContent = 'Invalid security token.';
-      } else {
-        errorMsg.textContent = 'Authentication error. Please log in with your credentials.';
-      }
-      errorMsg.style.display = 'block';
-    }
-  </script>
-<script src="/shared-layout.js"></script>
+function showLogin() { document.getElementById('loginForm').classList.remove('hidden'); document.getElementById('registerForm').classList.add('hidden'); }
+function showRegister() { document.getElementById('loginForm').classList.add('hidden'); document.getElementById('registerForm').classList.remove('hidden'); }
+
+function handleLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const users = JSON.parse(localStorage.getItem('lexiflow_users') || '[]');
+  const user = users.find(u => u.email === email && u.password === password);
+  if (!user) { document.getElementById('loginError').style.display = 'block'; return; }
+  document.getElementById('loginError').style.display = 'none';
+  localStorage.setItem('lexiflow_user', JSON.stringify(user));
+  localStorage.setItem('lexiflow_token', 'demo-token-' + Date.now());
+  window.location.href = '/admin/';
+}
+
+function handleRegister() {
+  const name = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const firm = document.getElementById('regFirm').value.trim();
+  const password = document.getElementById('regPassword').value;
+  if (!name || !email || !firm || !password) { document.getElementById('regError').textContent = 'All fields required'; document.getElementById('regError').style.display = 'block'; return; }
+  const users = JSON.parse(localStorage.getItem('lexiflow_users') || '[]');
+  if (users.find(u => u.email === email)) { document.getElementById('regError').textContent = 'Email already registered'; document.getElementById('regError').style.display = 'block'; return; }
+  document.getElementById('regError').style.display = 'none';
+  const newUser = { id: users.length + 1, name, email, firm, password, created: new Date().toISOString() };
+  users.push(newUser);
+  localStorage.setItem('lexiflow_users', JSON.stringify(users));
+  localStorage.setItem('lexiflow_user', JSON.stringify(newUser));
+  localStorage.setItem('lexiflow_token', 'demo-token-' + Date.now());
+  window.location.href = '/admin/';
+}
+
+initUsers();
+</script>
 </body>
 </html>
