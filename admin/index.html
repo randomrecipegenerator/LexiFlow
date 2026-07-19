@@ -630,6 +630,8 @@ async function api(path, method='GET', body=null) {
     if (path === '/api/admin/users') return [];
     if (path.startsWith('/api/billing/')) return { plan: 'enterprise', status: 'active', trial_end: null };
     if (path.startsWith('/api/firm/crm/')) return { success: true };
+     if (path === '/api/admin/users/invite') return { success: true, message: 'invite_offline' };
+    if (path === '/api/admin/audit-log') return [];
     throw e;
   }
 }
