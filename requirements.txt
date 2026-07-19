@@ -1,16 +1,6 @@
 fastapi
 uvicorn
-openai
 sqlalchemy
 pydantic
 python-multipart
-jinja2
 python-dotenv
-httpx
-google-generativeai
-pymupdf
-sqlalchemy-libsql
-python-jose
-passlib[bcrypt]
-bcrypt
-stripe>=9.0.0
