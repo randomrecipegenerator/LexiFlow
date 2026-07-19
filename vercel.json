@@ -3,137 +3,35 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "builds": [
-    {
-      "src": "api/index.py",
-      "use": "@vercel/python"
-    },
-    {
-      "src": "*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.js",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.css",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.json",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.png",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.ico",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.pdf",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "assets/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "branding/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "blog/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "case-studies/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "admin/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "hardened-suite/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "practice-areas/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "resources/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "veritas/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "desktop/**/*",
-      "use": "@vercel/static"
-    }
+    { "src": "*.html", "use": "@vercel/static" },
+    { "src": "*.js", "use": "@vercel/static" },
+    { "src": "*.css", "use": "@vercel/static" },
+    { "src": "*.json", "use": "@vercel/static" },
+    { "src": "*.svg", "use": "@vercel/static" },
+    { "src": "*.png", "use": "@vercel/static" },
+    { "src": "*.ico", "use": "@vercel/static" },
+    { "src": "*.pdf", "use": "@vercel/static" },
+    { "src": "assets/**/*", "use": "@vercel/static" },
+    { "src": "branding/**/*", "use": "@vercel/static" },
+    { "src": "blog/**/*", "use": "@vercel/static" },
+    { "src": "case-studies/**/*", "use": "@vercel/static" },
+    { "src": "admin/**/*", "use": "@vercel/static" },
+    { "src": "hardened-suite/**/*", "use": "@vercel/static" },
+    { "src": "practice-areas/**/*", "use": "@vercel/static" },
+    { "src": "resources/**/*", "use": "@vercel/static" },
+    { "src": "veritas/**/*", "use": "@vercel/static" },
+    { "src": "desktop/**/*", "use": "@vercel/static" }
   ],
-  "functions": {
-    "api/index.py": {
-      "memory": 512,
-      "maxDuration": 30
-    }
-  },
   "rewrites": [
-    {
-      "source": "/veritas/:path*",
-      "destination": "/veritas/index.html"
-    },
-    {
-      "source": "/admin/:path*",
-      "destination": "/admin/index.html"
-    },
-    {
-      "source": "/hardened-suite/:path*",
-      "destination": "/hardened-suite/index.html"
-    },
-    {
-      "source": "/practice-areas/:path*",
-      "destination": "/practice-areas/index.html"
-    },
-    {
-      "source": "/desktop/:path*",
-      "destination": "/desktop/index.html"
-    },
-    {
-      "source": "/signin",
-      "destination": "/signin.html"
-    },
-    {
-      "source": "/__engine/events",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/blog/articles.json",
-      "destination": "/blog/articles.json"
-    },
-    {
-      "source": "/blog/([^/.]+)",
-      "destination": "/blog/$1.html"
-    },
-    {
-      "source": "/case-studies/([^/.]+)",
-      "destination": "/case-studies/$1.html"
-    },
-    {
-      "source": "/practice-areas/medical-malpractice/([^/.]+)",
-      "destination": "/practice-areas/medical-malpractice/$1.html"
-    }
+    { "source": "/veritas/:path*", "destination": "/veritas/index.html" },
+    { "source": "/admin/:path*", "destination": "/admin/index.html" },
+    { "source": "/hardened-suite/:path*", "destination": "/hardened-suite/index.html" },
+    { "source": "/practice-areas/:path*", "destination": "/practice-areas/index.html" },
+    { "source": "/desktop/:path*", "destination": "/desktop/index.html" },
+    { "source": "/signin", "destination": "/signin.html" },
+    { "source": "/blog/articles.json", "destination": "/blog/articles.json" },
+    { "source": "/blog/([^/.]+)", "destination": "/blog/$1.html" },
+    { "source": "/case-studies/([^/.]+)", "destination": "/case-studies/$1.html" },
+    { "source": "/practice-areas/medical-malpractice/([^/.]+)", "destination": "/practice-areas/medical-malpractice/$1.html" }
   ]
 }
