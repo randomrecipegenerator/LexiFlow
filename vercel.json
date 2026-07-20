@@ -12,6 +12,7 @@
     { "src": "*.ico", "use": "@vercel/static" },
     { "src": "*.pdf", "use": "@vercel/static" },
     { "src": "*.txt", "use": "@vercel/static" },
+    { "src": "*.xml", "use": "@vercel/static" },
     { "src": "assets/**/*", "use": "@vercel/static" },
     { "src": "branding/**/*", "use": "@vercel/static" },
     { "src": "blog/**/*", "use": "@vercel/static" },
