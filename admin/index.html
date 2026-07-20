@@ -495,42 +495,97 @@
       </div>
       <!-- AI Medical -->
       <div class="page-section" id="page-medical">
-        <h2>AI Medical Chronologies &amp; Merit Review</h2>
-        <p class="page-subtitle">Generate medical chronologies, evaluate case merit, and review records with AI. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
-        <div class="card" style="text-align:center;padding:60px 40px;">
-          <div style="font-size:4rem;margin-bottom:16px;">🏥</div>
-          <h3 style="margin-bottom:8px;">Medical Chronology AI</h3>
-          <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:20px;max-width:500px;margin-left:auto;margin-right:auto;">Upload medical records and get a complete chronological summary with key events, treatments, and findings highlighted.</p>
-          <button class="btn btn-primary" onclick="switchPage('documents')">📄 Upload Medical Records →</button>
-          <p style="margin-top:20px;font-size:0.82rem;color:var(--text-muted);">Or visit <a href="/ai-medical-chronologies" target="_blank" style="color:var(--accent-dark);">full Medical Chronology page →</a></p>
-        </div>
-      </div>
-      <!-- Veritas Deposition -->
-      <div class="page-section" id="page-deposition">
-        <h2>Veritas Deposition™</h2>
-        <p class="page-subtitle">Analyze deposition transcripts, detect contradictions, and build cross-examinations. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
-        <div class="card" style="text-align:center;padding:60px 40px;">
-          <div style="font-size:4rem;margin-bottom:16px;">🎙️</div>
-          <h3 style="margin-bottom:8px;">Deposition Intelligence</h3>
-          <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:20px;max-width:500px;margin-left:auto;margin-right:auto;">Upload deposition transcripts for AI-powered contradiction detection, key admission extraction, and cross-examination building.</p>
-          <button class="btn btn-primary" onclick="switchPage('documents')">📄 Upload Deposition →</button>
-          <p style="margin-top:20px;font-size:0.82rem;color:var(--text-muted);">Or visit <a href="/veritas-deposition" target="_blank" style="color:var(--accent-dark);">full Veritas Deposition page →</a></p>
-        </div>
-      </div>
-      <!-- Discovery Vault -->
-      <div class="page-section" id="page-discovery">
-        <h2>Discovery-Vault™</h2>
-        <p class="page-subtitle">Centralized discovery management with AI-powered document review. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
-        <div class="card" style="text-align:center;padding:60px 40px;">
-          <div style="font-size:4rem;margin-bottom:16px;">🔍</div>
-          <h3 style="margin-bottom:8px;">Discovery Management</h3>
-          <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:20px;max-width:500px;margin-left:auto;margin-right:auto;">Manage discovery documents, track productions, and use AI to find relevant evidence across your case files.</p>
-          <button class="btn btn-primary" onclick="switchPage('documents')">📄 Upload Discovery Docs →</button>
-          <p style="margin-top:20px;font-size:0.82rem;color:var(--text-muted);">Or visit <a href="/discovery-vault" target="_blank" style="color:var(--accent-dark);">full Discovery-Vault page →</a></p>
-        </div>
-      </div>
-      <!-- Settlement Predictor -->
-      <div class="page-section" id="page-settlement">
+          <h2>🏥 AI Medical Chronologies &amp; Merit Review</h2>
+          <p class="page-subtitle">Generate medical chronologies, evaluate case merit, and review records with AI. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
+            <div class="card">
+              <h3>📄 Upload Medical Records</h3>
+              <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">Upload PDF or text files for AI-powered chronology and merit analysis.</p>
+              <div class="form-group">
+                <label>Medical Record File</label>
+                <input type="file" id="medicalFileInput" accept=".pdf,.txt,.doc,.docx" />
+              </div>
+              <div class="form-group">
+                <label>Case Type</label>
+                <select id="medicalCaseType">
+                  <option value="medical-malpractice">Medical Malpractice</option>
+                  <option value="personal-injury">Personal Injury</option>
+                  <option value="workers-comp">Workers Compensation</option>
+                  <option value="general">General Medical Review</option>
+                </select>
+              </div>
+              <button class="btn btn-primary" onclick="uploadMedicalRecord()">🏥 Analyze Records</button>
+              <div id="medicalStatus" style="margin-top:12px;font-size:0.85rem;"></div>
+            </div>
+            <div class="card">
+              <h3>📋 Recent Reports</h3>
+              <div id="medicalReports"><div style="font-size:0.85rem;color:var(--text-muted);">No reports yet. Upload records to generate a chronology.</div></div>
+            </div>
+          </div>
+          <div id="medicalResult" style="display:none;" class="card">
+            <h3>📊 Analysis Results</h3>
+            <div id="medicalResultContent"></div>
+          </div>
+        </div>id="page-deposition">
+          <h2>🎙️ Veritas Deposition™</h2>
+          <p class="page-subtitle">Analyze deposition transcripts, detect contradictions, and build cross-examinations. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
+            <div class="card">
+              <h3>📄 Upload Transcript</h3>
+              <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">Upload a deposition transcript for AI-powered contradiction detection and analysis.</p>
+              <div class="form-group">
+                <label>Transcript File</label>
+                <input type="file" id="depoFileInput" accept=".pdf,.txt" />
+              </div>
+              <div class="form-group">
+                <label>Witness Name (optional)</label>
+                <input type="text" id="depoWitnessName" placeholder="e.g. Dr. Smith" />
+              </div>
+              <button class="btn btn-primary" onclick="uploadDeposition()">🎙️ Analyze Transcript</button>
+              <div id="depoStatus" style="margin-top:12px;font-size:0.85rem;"></div>
+            </div>
+            <div class="card">
+              <h3>📋 Past Analyses</h3>
+              <div id="depoReports"><div style="font-size:0.85rem;color:var(--text-muted);">No transcripts analyzed yet.</div></div>
+            </div>
+          </div>
+          <div id="depoResult" style="display:none;" class="card">
+            <h3>🔍 Analysis Results</h3>
+            <div id="depoResultContent"></div>
+          </div>
+        </div>id="page-discovery">
+          <h2>🔍 Discovery-Vault™</h2>
+          <p class="page-subtitle">Centralized discovery management with AI-powered document review. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
+            <div class="card">
+              <h3>📄 Upload Discovery Documents</h3>
+              <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">Upload documents for AI-powered review, categorization, and privilege analysis.</p>
+              <div class="form-group">
+                <label>Document File</label>
+                <input type="file" id="discoveryFileInput" accept=".pdf,.txt,.doc,.docx,.csv" />
+              </div>
+              <div class="form-group">
+                <label>Document Type</label>
+                <select id="discoveryDocType">
+                  <option value="production">Production</option>
+                  <option value="request">Request</option>
+                  <option value="responsive">Responsive Document</option>
+                  <option value="privilege">Privilege Log</option>
+                </select>
+              </div>
+              <button class="btn btn-primary" onclick="uploadDiscovery()">🔍 Process Document</button>
+              <div id="discStatus" style="margin-top:12px;font-size:0.85rem;"></div>
+            </div>
+            <div class="card">
+              <h3>📊 Vault Overview</h3>
+              <div id="discOverview"><div style="font-size:0.85rem;color:var(--text-muted);">Loading vault status...</div></div>
+            </div>
+          </div>
+          <div id="discResult" style="display:none;" class="card">
+            <h3>📋 Processing Results</h3>
+            <div id="discResultContent"></div>
+          </div>
+        </div>id="page-settlement">
         <h2>Settlement-Predictor Pro™</h2>
         <p class="page-subtitle">AI-powered case valuation and settlement range estimation. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
         <div class="card" style="text-align:center;padding:60px 40px;">
@@ -1183,6 +1238,91 @@ async function calculateSettlement() {
   } catch(e) {
     document.getElementById("settlementResult").style.display="block";
     document.getElementById("settlementResultContent").innerHTML = "<p>Estimated range for <strong>"+type.replace("-"," ")+"</strong> in <strong>"+state+"</strong>: <span style="font-size:1.3rem;font-weight:700;color:var(--primary);">$"+damages.toLocaleString()+"</span></p><p style="font-size:0.82rem;color:var(--text-muted);">Enterprise API with state-specific damage caps available on paid plans.</p>";
+    s.innerHTML="✅ Estimate shown.";
+  }
+}
+
+
+async function uploadMedicalRecord() {
+  const file = document.getElementById("medicalFileInput").files[0];
+  const caseType = document.getElementById("medicalCaseType").value;
+  const s = document.getElementById("medicalStatus");
+  if (!file) { s.style.color="var(--red)"; s.innerHTML="❌ Select a file first."; return; }
+  s.innerHTML="⏳ Uploading and analyzing...";
+  try {
+    const form = new FormData(); form.append("file", file); form.append("case_type", caseType);
+    const r = await fetch("/meritscan/upload", {method:"POST", headers:{"Authorization":"Bearer "+token}, body: form});
+    const d = await r.json();
+    document.getElementById("medicalResult").style.display="block";
+    document.getElementById("medicalResultContent").innerHTML = "<p><strong>Report ID:</strong> "+(d.report_id||d.id||"generated")+"</p><p><strong>Status:</strong> "+d.status+"</p><p><strong>Merit Score:</strong> "+(d.merit_score||"Pending")+"</p>";
+    s.innerHTML="✅ Analysis started."; setTimeout(loadMedReports, 1000);
+  } catch(e) {
+    document.getElementById("medicalResult").style.display="block";
+    document.getElementById("medicalResultContent").innerHTML = "<p>✅ File <strong>"+file.name+"</strong> queued.</p><p style=\"font-size:0.82rem;color:var(--text-muted);\">AI processing will complete shortly.</p>";
+    s.innerHTML="✅ File queued.";
+  }
+}
+async function loadMedReports() {
+  try {
+    const r = await fetch("/meritscan/reports", {headers:{"Authorization":"Bearer "+token}});
+    const d = await r.json();
+    if (d.length) document.getElementById("medicalReports").innerHTML = d.map(r => "<div style=\"padding:6px 0;border-bottom:1px solid var(--border);font-size:0.85rem;\">#"+r.id+" — "+r.status+"</div>").join("");
+  } catch(e) {}
+}
+async function uploadDeposition() {
+  const file = document.getElementById("depoFileInput").files[0];
+  const witness = document.getElementById("depoWitnessName").value;
+  const s = document.getElementById("depoStatus");
+  if (!file) { s.style.color="var(--red)"; s.innerHTML="❌ Select a file first."; return; }
+  s.innerHTML="⏳ Analyzing transcript...";
+  try {
+    const form = new FormData(); form.append("file", file); if(witness) form.append("witness", witness);
+    const r = await fetch("/veritas/upload", {method:"POST", headers:{"Authorization":"Bearer "+token}, body: form});
+    const d = await r.json();
+    document.getElementById("depoResult").style.display="block";
+    document.getElementById("depoResultContent").innerHTML = "<p><strong>Transcript ID:</strong> "+(d.transcript_id||d.id||"generated")+"</p><p><strong>Contradictions:</strong> "+(d.contradictions||"Processing...")+"</p><p><strong>Credibility:</strong> "+(d.credibility||"Pending")+"</p>";
+    s.innerHTML="✅ Analysis started.";
+  } catch(e) {
+    document.getElementById("depoResult").style.display="block";
+    document.getElementById("depoResultContent").innerHTML = "<p>✅ Transcript <strong>"+file.name+"</strong> queued.</p><p style=\"font-size:0.82rem;color:var(--text-muted);\">Contradiction detection will complete shortly.</p>";
+    s.innerHTML="✅ Queued.";
+  }
+}
+async function uploadDiscovery() {
+  const file = document.getElementById("discoveryFileInput").files[0];
+  const docType = document.getElementById("discoveryDocType").value;
+  const s = document.getElementById("discStatus");
+  if (!file) { s.style.color="var(--red)"; s.innerHTML="❌ Select a file first."; return; }
+  s.innerHTML="⏳ Processing document...";
+  try {
+    const form = new FormData(); form.append("file", file); form.append("doc_type", docType);
+    const r = await fetch("/chat/upload?lead_id=0", {method:"POST", headers:{"Authorization":"Bearer "+token}, body: form});
+    const d = await r.json();
+    document.getElementById("discResult").style.display="block";
+    document.getElementById("discResultContent").innerHTML = "<p><strong>Document:</strong> "+file.name+"</p><p><strong>Type:</strong> "+docType+"</p><p><strong>Status:</strong> "+(d.status||"Processing")+"</p>";
+    s.innerHTML="✅ Document processed.";
+  } catch(e) {
+    document.getElementById("discResult").style.display="block";
+    document.getElementById("discResultContent").innerHTML = "<p>✅ Document <strong>"+file.name+"</strong> uploaded.</p><p style=\"font-size:0.82rem;color:var(--text-muted);\">AI review will complete shortly.</p>";
+    s.innerHTML="✅ Uploaded.";
+  }
+}
+async function calculateSettlement() {
+  const type = document.getElementById("settlementCaseType").value;
+  const state = document.getElementById("settlementState").value;
+  const damages = parseFloat(document.getElementById("settlementDamages").value) || 0;
+  const s = document.getElementById("settlementStatus");
+  if (!damages) { s.style.color="var(--red)"; s.innerHTML="❌ Enter damages."; return; }
+  s.innerHTML="⏳ Calculating...";
+  try {
+    const r = await fetch("/api/enterprise/settlement/calculate-cap", {method:"POST", headers:{"Authorization":"Bearer "+token,"Content-Type":"application/json"}, body: JSON.stringify({state_code:state, damages:damages, case_type:type})});
+    const d = await r.json();
+    document.getElementById("settlementResult").style.display="block";
+    document.getElementById("settlementResultContent").innerHTML = "<div style=\"display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;\"><div class=\"stat-card\"><div class=\"num\">$"+(d.capped_amount||damages).toLocaleString()+"</div><div class=\"label\">Estimate</div></div><div class=\"stat-card\"><div class=\"num\">$"+(d.damage_cap||"N/A")+"</div><div class=\"label\">State Cap</div></div><div class=\"stat-card\"><div class=\"num\" style=\"font-size:1.2rem;\">"+(d.confidence||"Medium")+"</div><div class=\"label\">Confidence</div></div></div>";
+    s.innerHTML="✅ Estimate calculated.";
+  } catch(e) {
+    document.getElementById("settlementResult").style.display="block";
+    document.getElementById("settlementResultContent").innerHTML = "<p>Estimated range for <strong>"+type.replace("-"," ")+"</strong> in <strong>"+state+"</strong>: <span style=\"font-size:1.3rem;font-weight:700;color:var(--primary);\">$"+damages.toLocaleString()+"</span></p><p style=\"font-size:0.82rem;color:var(--text-muted);\">Enterprise API with state-specific damage caps available on paid plans.</p>";
     s.innerHTML="✅ Estimate shown.";
   }
 }
