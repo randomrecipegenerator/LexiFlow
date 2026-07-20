@@ -1103,6 +1103,56 @@ async function loadAuditLog() {
     h+='</tbody></table></div>';c.innerHTML=h;
   } catch(e){}
 }
+  async function submitIntake() {
+  const name = document.getElementById('intakeName').value.trim();
+  const phone = document.getElementById('intakePhone').value.trim();
+  const email = document.getElementById('intakeEmail').value.trim();
+  const caseType = document.getElementById('intakeCaseType').value;
+  const summary = document.getElementById('intakeSummary').value.trim();
+  const status = document.getElementById('intakeStatus');
+  if (!name || !phone || !email) { status.style.color = 'var(--red)'; status.innerHTML = '❌ Please fill in name, phone, and email.'; return; }
+  status.style.color = 'var(--primary)'; status.innerHTML = '⏳ Submitting lead...';
+  try {
+    const chatRes = await fetch('/chat/start', { method: 'POST', headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' } });
+    const chatData = await chatRes.json();
+    if (!chatRes.ok || !chatData.lead_id) throw new Error('Failed');
+    const fd = new URLSearchParams(); fd.append('lead_id', chatData.lead_id);
+    fd.append('content', name + ' | Phone: ' + phone + ' | Email: ' + email + ' | Case: ' + caseType);
+    await fetch('/chat/message', { method: 'POST', headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/x-www-form-urlencoded' }, body: fd.toString() });
+    const inf = new URLSearchParams(); inf.append('firm_name', currentFirm?.name || 'Firm');
+    inf.append('attorney_email', email); inf.append('case_type', caseType); inf.append('jurisdiction', 'NY');
+    inf.append('case_summary', name + ' | ' + phone + ' | ' + summary);
+    await fetch('/api/v1/intake/submit', { method: 'POST', headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/x-www-form-urlencoded' }, body: inf.toString() });
+    status.style.color = 'var(--green)'; status.innerHTML = '✅ Lead captured! Phone: ' + phone;
+    document.getElementById('intakeName').value = ''; document.getElementById('intakePhone').value = '';
+    document.getElementById('intakeEmail').value = ''; document.getElementById('intakeSummary').value = '';
+    loadRecentLeads();
+  } catch(e) {
+    const leads = JSON.parse(localStorage.getItem('lexiflow_leads') || '[]');
+    leads.push({ id: leads.length+1, name: name, phone: phone, email: email, case_type: caseType, summary: summary, source: 'Manual', status: 'New', created_at: new Date().toISOString() });
+    localStorage.setItem('lexiflow_leads', JSON.stringify(leads));
+    status.style.color = 'var(--green)'; status.innerHTML = '✅ Lead saved (offline): ' + name + ' — Phone: ' + phone;
+    loadRecentLeads();
+  }
+}
+async function loadRecentLeads() {
+  const c = document.getElementById('intakeLeadsContainer');
+  try {
+    const leads = await api('/leads');
+    if (leads && leads.length > 0) {
+      let h = '<div class="table-wrap"><table><thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>Case Type</th><th>Status</th><th>Date</th></tr></thead><tbody>';
+      leads.slice(0, 20).forEach(function(l) {
+        h += '<tr><td>' + (l.full_name || l.name || '—') + '</td><td>' + (l.phone || '—') + '</td><td>' + (l.email || '—') + '</td><td>' + (l.case_type || '—') + '</td><td><span class="badge ' + (l.status === 'New' ? 'active' : 'inactive') + '">' + (l.status || 'New') + '</span></td><td style="font-size:0.78rem;color:var(--text-muted);">' + (l.created_at ? new Date(l.created_at).toLocaleDateString() : '—') + '</td></tr>';
+      });
+      h += '</tbody></table></div>'; c.innerHTML = h; return;
+    }
+  } catch(e) {}
+  const leads = JSON.parse(localStorage.getItem('lexiflow_leads') || '[]');
+  if (leads.length === 0) { c.innerHTML = '<div class="empty-state"><div class="icon">📇</div><h4>No leads yet</h4>'; return; }
+  let h = '<div class="table-wrap"><table><thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>Case Type</th><th>Date</th></tr></thead><tbody>';
+  leads.slice(0, 20).forEach(function(l) { h += '<tr><td>' + (l.name || '—') + '</td><td>' + (l.phone || '—') + '</td><td>' + (l.email || '—') + '</td><td>' + (l.case_type || '—') + '</td><td style="font-size:0.78rem;">' + (l.created_at ? new Date(l.created_at).toLocaleDateString() : '—') + '</td></tr>'; });
+  h += '</tbody></table></div>'; c.innerHTML = h;
+}
 async function handleInvite() {
   const email=$('inviteEmail').value.trim(); const role=$('inviteRole').value;
   if(!email) return toast('Please enter an email address.','error');
@@ -1157,7 +1207,7 @@ function switchPage(page) {
   document.querySelector(`.nav-item[data-page="${page}"]`)?.classList.add('active');
   document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
   $(`page-${page}`)?.classList.add('active');
-  if (page === 'crm') loadCrmSettings();
+  if (page === 'crm') loadCrmSettings(); if (page === 'intake') loadRecentLeads();
 }
 
 (async function init() {
