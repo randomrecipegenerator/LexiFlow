@@ -390,7 +390,7 @@
               <h3>Choose Your Plan</h3>
               <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">Select a plan to upgrade or downgrade your subscription.</p>
               <div id="plansGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
-                <div class="plan-card" data-plan="starter" onclick="selectPlan('standard')" style="cursor:pointer;border:2px solid var(--border);border-radius:var(--radius-lg);padding:24px;text-align:center;transition:all 0.2s;">
+                <div class="plan-card" data-plan="starter" onclick="selectPlan('starter')" style="cursor:pointer;border:2px solid var(--border);border-radius:var(--radius-lg);padding:24px;text-align:center;transition:all 0.2s;">
                   <h4 style="font-size:1.1rem;color:var(--primary);margin-bottom:8px;">Starter</h4>
                   <div style="font-size:2rem;font-weight:800;color:var(--primary);font-family:var(--font-serif);">$29</div>
                   <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">per month</div>
@@ -814,7 +814,7 @@ function selectPlan(plan) {
     card.style.transform = p === plan ? 'scale(1.03)' : 'scale(1)';
     card.style.boxShadow = p === plan ? 'var(--shadow-lg)' : 'none';
   });
-  const planNames = {standard:'Starter ($29/mo, 10 docs/mo)',professional:'Professional ($99/mo, 250 docs/mo)',enterprise:'Enterprise ($129/mo, 500 docs/mo)'};
+  const planNames = {starter:'Starter ($29/mo, 10 docs/mo)',professional:'Professional ($99/mo, 250 docs/mo)',enterprise:'Enterprise ($129/mo, 500 docs/mo)'};
   $('selectedPlanText').textContent = `You selected: ${planNames[plan] || plan}`;
   $('upgradeActions').style.display = 'block';
 }
