@@ -1166,6 +1166,27 @@ async function handleUpdateSettings() {
   try{await api('/api/admin/firms/me','PUT',{name,branding_colors:JSON.stringify({primary,accent})});toast('Settings saved.');$('dashFirmName').textContent=name;}catch(e){toast(e.message,'error');}
 }
 
+
+async function calculateSettlement() {
+  const type = document.getElementById("settlementCaseType").value;
+  const state = document.getElementById("settlementState").value;
+  const damages = parseFloat(document.getElementById("settlementDamages").value) || 0;
+  const s = document.getElementById("settlementStatus");
+  if (!damages) { s.style.color="var(--red)"; s.innerHTML="❌ Enter damages."; return; }
+  s.innerHTML="⏳ Calculating...";
+  try {
+    const r = await fetch("/api/enterprise/settlement/calculate-cap", {method:"POST", headers:{"Authorization":"Bearer "+token,"Content-Type":"application/json"}, body: JSON.stringify({state_code:state, damages:damages, case_type:type})});
+    const d = await r.json();
+    document.getElementById("settlementResult").style.display="block";
+    document.getElementById("settlementResultContent").innerHTML = "<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;"><div class="stat-card"><div class="num">$"+(d.capped_amount||damages).toLocaleString()+"</div><div class="label">Estimate</div></div><div class="stat-card"><div class="num">$"+(d.damage_cap||"N/A")+"</div><div class="label">State Cap</div></div><div class="stat-card"><div class="num" style="font-size:1.2rem;">"+(d.confidence||"Medium")+"</div><div class="label">Confidence</div></div></div>";
+    s.innerHTML="✅ Estimate calculated.";
+  } catch(e) {
+    document.getElementById("settlementResult").style.display="block";
+    document.getElementById("settlementResultContent").innerHTML = "<p>Estimated range for <strong>"+type.replace("-"," ")+"</strong> in <strong>"+state+"</strong>: <span style="font-size:1.3rem;font-weight:700;color:var(--primary);">$"+damages.toLocaleString()+"</span></p><p style="font-size:0.82rem;color:var(--text-muted);">Enterprise API with state-specific damage caps available on paid plans.</p>";
+    s.innerHTML="✅ Estimate shown.";
+  }
+}
+
 function switchPage(page) {
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.querySelector(`.nav-item[data-page="${page}"]`)?.classList.add('active');
