@@ -1343,7 +1343,7 @@ async function calculateSettlement() {
     const r = await fetch("/api/enterprise/settlement/calculate-cap", {method:"POST", headers:{"Authorization":"Bearer "+token,"Content-Type":"application/json"}, body: JSON.stringify({state_code:state, damages:damages, case_type:type})});
     const d = await r.json();
     document.getElementById("settlementResult").style.display="block";
-    document.getElementById("settlementResultContent").innerHTML = "<div style='display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;'><div class="stat-card"><div class="num">$"+(d.capped_amount||damages).toLocaleString()+"</div><div class="label">Estimate</div></div><div class="stat-card"><div class="num">$"+(d.damage_cap||"N/A")+"</div><div class="label">State Cap</div></div><div class="stat-card"><div class="num" style='font-size:1.2rem;'>"+(d.confidence||"Medium")+"</div><div class="label">Confidence</div></div></div>";
+    document.getElementById("settlementResultContent").innerHTML = "<div style='display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;'><div class='stat-card'><div class='num'>$"+(d.capped_amount||damages).toLocaleString()+"</div><div class='label'>Estimate</div></div><div class='stat-card'><div class='num'>$"+(d.damage_cap||"N/A")+"</div><div class='label'>State Cap</div></div><div class='stat-card'><div class='num' style='font-size:1.2rem;'>"+(d.confidence||"Medium")+"</div><div class='label'>Confidence</div></div></div>";
     s.innerHTML="✅ Estimate calculated.";
   } catch(e) {
     document.getElementById("settlementResult").style.display="block";
