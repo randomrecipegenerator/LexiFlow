@@ -239,10 +239,10 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
             status.style.color = '#059669';
             status.innerHTML = '✓ Account created! Redirecting to your dashboard...';
             btn.innerHTML = 'Redirecting...';
-            localStorage.setItem('lexiflow_token', data.access_token);
+            localStorage.setItem('lexiflow_admin_token', data.access_token);
             localStorage.setItem('lexiflow_user', JSON.stringify(data.user));
             localStorage.setItem('lexiflow_firm', JSON.stringify(data.firm));
-            setTimeout(() => { window.location.href = data.redirect || '/dashboard'; }, 1000);
+            setTimeout(() => { window.location.href = data.redirect || '/admin'; }, 1000);
         } else {
             const errorMsg = data.detail || 'Registration failed. Please try again.';
             status.style.color = '#dc2626';
@@ -273,7 +273,7 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
         };
         users.push(newUser);
         localStorage.setItem('lexiflow_users', JSON.stringify(users));
-        localStorage.setItem('lexiflow_token', 'offline-token-' + newUser.id);
+        localStorage.setItem('lexiflow_admin_token', 'offline-token-' + newUser.id);
         localStorage.setItem('lexiflow_user', JSON.stringify(newUser));
         localStorage.setItem('lexiflow_firm', JSON.stringify({ name: firmName }));
         status.style.color = '#059669';
