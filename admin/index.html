@@ -331,6 +331,39 @@
             <input type="text" id="settingsFirmName" placeholder="Your Firm Name" />
           </div>
           <div class="form-group">
+            <label for="settingsFirmAddress">Firm Address</label>
+            <input type="text" id="settingsFirmAddress" placeholder="123 Main St, Suite 400" />
+          </div>
+          <div class="form-group">
+            <label for="settingsFirmPhone">Phone Number</label>
+            <input type="text" id="settingsFirmPhone" placeholder="(212) 555-0123" />
+          </div>
+          <div class="form-group">
+            <label for="settingsBillingEmail">Billing Email</label>
+            <input type="email" id="settingsBillingEmail" placeholder="billing@yourfirm.com" />
+          </div>
+          <div class="form-group">
+            <label for="settingsTaxId">Tax ID / EIN</label>
+            <input type="text" id="settingsTaxId" placeholder="XX-XXXXXXX" />
+          </div>
+          <div class="form-group">
+            <label>Brand Colors</label>
+            <div class="color-row">
+              <div><label style="font-weight:400;font-size:0.78rem;">Primary</label><input type="color" id="settingsColorPrimary" value="#1a3a5c" /></div>
+              <div><label style="font-weight:400;font-size:0.78rem;">Accent</label><input type="color" id="settingsColorAccent" value="#c9a84c" /></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Current Billing Tier</label>
+            <span class="billing-tier" id="settingsBillingTier">Starter</span>
+            <span style="font-size:0.82rem;color:var(--text-muted);margin-left:10px;">$29/mo</span>
+          </div>
+          <button class="btn btn-primary" onclick="handleUpdateSettings()">Save Changes</button>
+          <div class="form-group">
+            <label for="settingsFirmName">Firm Name</label>
+            <input type="text" id="settingsFirmName" placeholder="Your Firm Name" />
+          </div>
+          <div class="form-group">
             <label>Brand Colors</label>
             <div class="color-row">
               <div><label style="font-weight:400;font-size:0.78rem;">Primary</label><input type="color" id="settingsColorPrimary" value="#1a3a5c" /></div>
@@ -725,7 +758,11 @@ function renderDashboard(firm, users) {
   $('statUsers').textContent = users?.length||0;
   $('statBillingTier').textContent = firm?.billing_tier ? firm.billing_tier.charAt(0).toUpperCase()+firm.billing_tier.slice(1) : 'Starter';
   $('statDocs').textContent = firm?.document_count||0;
-  $('settingsFirmName').value = firm?.name||'';
+  $('settingsFirmName').value = firm?.name||'';  const savedBilling = JSON.parse(localStorage.getItem('lexiflow_billing_info') || '{}');
+  if(savedBilling.address) $('settingsFirmAddress').value = savedBilling.address;
+  if(savedBilling.phone) $('settingsFirmPhone').value = savedBilling.phone;
+  if(savedBilling.billing_email) $('settingsBillingEmail').value = savedBilling.billing_email;
+  if(savedBilling.tax_id) $('settingsTaxId').value = savedBilling.tax_id;
   $('settingsBillingTier').textContent = firm?.billing_tier ? firm.billing_tier.charAt(0).toUpperCase()+firm.billing_tier.slice(1) : 'Starter';
   renderTeamTable(users); loadAuditLog(); renderChecklist(firm);
   loadBillingStatus();
@@ -1016,9 +1053,24 @@ async function deactivateUser(userId) {
 }
 async function handleUpdateSettings() {
   const name=$('settingsFirmName').value.trim();
+  const address=$('settingsFirmAddress').value.trim();
+  const phone=$('settingsFirmPhone').value.trim();
+  const billingEmail=$('settingsBillingEmail').value.trim();
+  const taxId=$('settingsTaxId').value.trim();
   const primary=$('settingsColorPrimary').value; const accent=$('settingsColorAccent').value;
   if(!name) return toast('Firm name is required.','error');
-  try{await api('/api/admin/firms/me','PUT',{name,branding_colors:JSON.stringify({primary,accent})});toast('Settings saved.');$('dashFirmName').textContent=name;}catch(e){toast(e.message,'error');}
+  const billingInfo = { address, phone, billing_email: billingEmail, tax_id: taxId };
+  try {
+    await api('/api/admin/firms/me','PUT',{name,branding_colors:JSON.stringify({primary,accent}),billing_info:JSON.stringify(billingInfo)});
+    localStorage.setItem('lexiflow_billing_info', JSON.stringify(billingInfo));
+    toast('Settings saved.');
+    $('dashFirmName').textContent=name;
+  } catch(e) {
+    localStorage.setItem('lexiflow_firm_name', name);
+    localStorage.setItem('lexiflow_billing_info', JSON.stringify(billingInfo));
+    toast('Settings saved (offline).');
+    $('dashFirmName').textContent=name;
+  }
 }
 function switchPage(page) {
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
