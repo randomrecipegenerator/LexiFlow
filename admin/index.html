@@ -546,15 +546,64 @@
         </div>
       </div>
       <div class="page-section" id="page-intake">
-        <h2>AI Intake Agent</h2>
-        <p class="page-subtitle">Automated lead intake, qualification, and client communication. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
-        <div class="card" style="text-align:center;padding:60px 40px;">
-          <div style="font-size:4rem;margin-bottom:16px;">📞</div>
-          <h3 style="margin-bottom:8px;">Intake Automation</h3>
-          <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:20px;max-width:500px;margin-left:auto;margin-right:auto;">AI-powered web chat, SMS, and voice intake. Automatically qualify leads, capture case details, and sync to your CRM.</p>
-          <p style="margin-top:20px;font-size:0.82rem;color:var(--text-muted);">Visit <a href="/ai-legal-intake-software" target="_blank" style="color:var(--accent-dark);">full AI Intake page →</a></p>
-        </div>
+  <h2>AI Intake Agent</h2>
+  <p class="page-subtitle">Capture leads with phone, web chat, and AI qualification. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
+  
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
+    <div class="card">
+      <h3>📞 New Lead Intake</h3>
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">Enter client details and phone number for AI intake, SMS follow-up, and voice callback.</p>
+      <div class="form-group">
+        <label for="intakeName">Full Name</label>
+        <input type="text" id="intakeName" placeholder="John Doe" />
       </div>
+      <div class="form-group">
+        <label for="intakePhone">Phone Number</label>
+        <input type="tel" id="intakePhone" placeholder="(212) 555-0123" />
+        <div class="hint">Used for SMS intake and voice AI callback.</div>
+      </div>
+      <div class="form-group">
+        <label for="intakeEmail">Email</label>
+        <input type="email" id="intakeEmail" placeholder="john@example.com" />
+      </div>
+      <div class="form-group">
+        <label for="intakeCaseType">Case Type</label>
+        <select id="intakeCaseType">
+          <option value="medical-malpractice">Medical Malpractice</option>
+          <option value="personal-injury">Personal Injury</option>
+          <option value="product-liability">Product Liability</option>
+          <option value="mass-tort">Mass Tort</option>
+          <option value="wrongful-death">Wrongful Death</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="intakeSummary">Case Summary</label>
+        <textarea id="intakeSummary" rows="3" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius);font-family:inherit;font-size:0.92rem;" placeholder="Brief description of the case..."></textarea>
+      </div>
+      <button class="btn btn-primary" onclick="submitIntake()">Submit Lead →</button>
+      <div id="intakeStatus" style="margin-top:12px;font-size:0.85rem;"></div>
+    </div>
+    
+    <div class="card">
+      <h3>📊 Intake Widget Code</h3>
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">Embed this snippet on your website:</p>
+      <div style="background:var(--bg-light);padding:16px;border-radius:var(--radius);font-size:0.78rem;font-family:monospace;overflow-x:auto;margin-bottom:16px;">
+&lt;script src="https://lexiflow.co/widget.js" data-firm="<span id="intakeFirmSlug">your-firm</span>"&gt;&lt;/script&gt;
+      </div>
+      <h3 style="margin-top:20px;">📱 Voice AI Receptionist</h3>
+      <p style="font-size:0.85rem;color:var(--text-muted);">Your dedicated intake phone number routes calls through AI. Captures name, phone, and case details.</p>
+    </div>
+  </div>
+  
+  <div class="card">
+    <h3>Recent Leads</h3>
+    <div id="intakeLeadsContainer">
+      <div class="empty-state"><div class="icon">📇</div><h4>No leads yet</h4><p>Submit your first lead above.</p></div>
+    </div>
+  </div>
+</div>
+
       <div class="page-section" id="page-crm">
         <h2>CRM Sync Settings</h2>
         <p class="page-subtitle">Configure automatic lead sync from LexiFlow AI Intake to your CRM platforms.</p>
