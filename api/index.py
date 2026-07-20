@@ -4,9 +4,10 @@ root_dir = os.path.dirname(current_dir)
 if root_dir not in sys.path:
     sys.path.insert(0, root_dir)
 
-# Import and run the FastAPI app
+# Import the FastAPI app
 from main import app
-from mangum import Mangum
 
-# For Railway: wrap FastAPI as a handler
-handler = Mangum(app)
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
