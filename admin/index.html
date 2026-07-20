@@ -1156,15 +1156,23 @@ async function loadRecentLeads() {
 async function handleInvite() {
   const email=$('inviteEmail').value.trim(); const role=$('inviteRole').value;
   if(!email) return toast('Please enter an email address.','error');
-  try { await api('/api/admin/users/invite','POST',{email,role}); toast(`Invitation sent to ${email} as ${role}.`); }
-  catch(e) {
+  try {
+    await api('/api/admin/users/invite','POST',{email,role});
+    toast('Invitation sent to ' + email + '.');
+  } catch(e) {
     const invites = JSON.parse(localStorage.getItem('lexiflow_invites') || '[]');
     invites.push({ email, role, invited_at: new Date().toISOString(), status: 'pending' });
     localStorage.setItem('lexiflow_invites', JSON.stringify(invites));
     const users = JSON.parse(localStorage.getItem('lexiflow_team') || '[]');
     users.push({ id: users.length+1, full_name: email.split('@')[0], email, role, is_active: true });
     localStorage.setItem('lexiflow_team', JSON.stringify(users));
-    toast(`Invitation sent to ${email} as ${role}.`);
+    const inviteLink = window.location.origin + '/signup?ref=' + btoa(email);
+    try {
+      navigator.clipboard.writeText(inviteLink);
+      toast('📋 Invite link copied: ' + inviteLink, 'info');
+    } catch(e2) {
+      toast('📋 Share this link: ' + inviteLink, 'info');
+    }
   }
   $('inviteEmail').value='';
   const users = JSON.parse(localStorage.getItem('lexiflow_team') || '[]');
