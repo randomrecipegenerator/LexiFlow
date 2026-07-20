@@ -526,7 +526,7 @@
             <h3>📊 Analysis Results</h3>
             <div id="medicalResultContent"></div>
           </div>
-        </div>id="page-deposition">
+        <div class="page-section" id="page-deposition">
           <h2>🎙️ Veritas Deposition™</h2>
           <p class="page-subtitle">Analyze deposition transcripts, detect contradictions, and build cross-examinations. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
@@ -553,7 +553,7 @@
             <h3>🔍 Analysis Results</h3>
             <div id="depoResultContent"></div>
           </div>
-        </div>id="page-discovery">
+        <div class="page-section" id="page-discovery">
           <h2>🔍 Discovery-Vault™</h2>
           <p class="page-subtitle">Centralized discovery management with AI-powered document review. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
@@ -585,7 +585,7 @@
             <h3>📋 Processing Results</h3>
             <div id="discResultContent"></div>
           </div>
-        </div>id="page-settlement">
+        <div class="page-section" id="page-settlement">
         <h2>Settlement-Predictor Pro™</h2>
         <p class="page-subtitle">AI-powered case valuation and settlement range estimation. <span class="badge active" style="font-size:0.78rem;padding:4px 10px;">Free during trial</span></p>
         <div class="card" style="text-align:center;padding:60px 40px;">
@@ -866,7 +866,7 @@ async function handleLogin() {
     localStorage.setItem('lexiflow_user', JSON.stringify(u));
     currentUser = { id: 1, email: 'admin@lexiflow.co', name: 'Admin', firm_name: 'LexiFlow Technologies Inc' };
     currentFirm = { name: 'LexiFlow Technologies Inc', slug: 'lexiflow-technologies-inc' };
-    toast('Welcome back, Admin!'); btn.disabled=false; btn.textContent='Sign In'; enterDashboard(); return;
+    toast('Welcome back, Admin!'); btn.disabled=false; btn.textContent='Sign In'; loadDashboard(); return;
   }
   try {
     const res = await api('/api/admin/auth/login','POST',{email,password});
