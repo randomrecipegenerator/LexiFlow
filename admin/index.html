@@ -1426,7 +1426,7 @@ async function calculateSettlement() {
   if (!damages) { s.style.color="var(--red)"; s.innerHTML="❌ Enter damages."; return; }
   s.innerHTML="⏳ Calculating...";
   try {
-    const params = new URLSearchParams({state_code:state, damages:damages, case_type:type});
+    const params = new URLSearchParams({state_code:state, non_economic:damages});
     const r = await fetch("/api/enterprise/settlement/calculate-cap?"+params.toString(), {method:"POST", headers:{"Authorization":"Bearer "+token}});
     const d = await r.json();
     document.getElementById("settlementResult").style.display="block";
