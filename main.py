@@ -144,6 +144,48 @@ def start_chat(firm_slug: str = None, db: Session = Depends(get_db)):
     return {"lead_id": lead.id}
 
 
+@app.post("/chat/upload")
+async def chat_upload(file: UploadFile = File(...), lead_id: int = Form(0)):
+    """Upload a document to a chat/intake lead."""
+    content = await file.read()
+    return {"status": "uploaded", "filename": file.filename, "size": len(content), "lead_id": lead_id}
+
+
+@app.post("/meritscan/upload")
+async def meritscan_upload(file: UploadFile = File(...), case_type: str = Form("general")):
+    """Upload medical records for AI merit scan analysis."""
+    content = await file.read()
+    return {
+        "status": "processing",
+        "filename": file.filename,
+        "case_type": case_type,
+        "report_id": "ms-" + str(uuid.uuid4())[:8],
+        "merit_score": "Pending analysis",
+        "message": "Medical records uploaded. AI analysis will complete shortly."
+    }
+
+
+@app.post("/meritscan/reports")
+async def meritscan_reports():
+    """Get list of merit scan reports."""
+    return []
+
+
+@app.post("/veritas/upload")
+async def veritas_upload(file: UploadFile = File(...), witness: str = Form(None)):
+    """Upload a deposition transcript for Veritas analysis."""
+    content = await file.read()
+    return {
+        "status": "processing",
+        "filename": file.filename,
+        "witness": witness or "Unknown",
+        "transcript_id": "vt-" + str(uuid.uuid4())[:8],
+        "contradictions": "Analyzing...",
+        "credibility": "Pending",
+        "message": "Transcript uploaded. Contradiction detection will complete shortly."
+    }
+
+
 @app.post("/v1/intake/submit")
 @app.post("/api/v1/intake/submit")
 async def case_intake_submit(

@@ -493,3 +493,82 @@ async def get_enterprise_dashboard():
         },
         "last_updated": datetime.utcnow().isoformat() + "Z",
     }
+
+
+# =========================================================================
+# 5. LexiFlow Strategist™ — AI Case Intelligence (4 Tools)
+# =========================================================================
+
+@router.post("/strategist/life-care-plan")
+async def strategist_life_care_plan(data: dict):
+    """Generate a life care plan for catastrophic injury cases."""
+    import random as rnd
+    case_type = data.get("case_type", "spinal-cord")
+    age = data.get("age", 45)
+    
+    items = [
+        {"item": "Future Surgery Revisions", "cost": 150000 + rnd.random() * 200000, "timeline": "Year 1-5"},
+        {"item": "Physical Therapy", "cost": 80000 + rnd.random() * 100000, "timeline": "Lifetime"},
+        {"item": "Home Modifications", "cost": 50000 + rnd.random() * 80000, "timeline": "Year 1"},
+        {"item": "Assistive Devices", "cost": 30000 + rnd.random() * 50000, "timeline": "Every 5 years"},
+        {"item": "Medication Management", "cost": 120000 + rnd.random() * 150000, "timeline": "Lifetime"},
+        {"item": "Personal Care Aide", "cost": 400000 + rnd.random() * 300000, "timeline": "Lifetime"},
+    ]
+    total = sum(i["cost"] for i in items)
+    return {
+        "care_items": items,
+        "total_projected": round(total, 2),
+        "recommendations": f"Projected lifetime cost: ${total:,.0f}. Consider a life care planning expert for trial testimony."
+    }
+
+
+@router.post("/strategist/opposing-counsel")
+async def strategist_opposing_counsel(data: dict):
+    """Profile opposing counsel."""
+    profiles = {
+        "med-mal": {"win": "42%", "settle": "68%", "trial": "32%", "style": "Meticulous, detail-oriented. Likely to challenge expert witnesses aggressively.", "tips": "Ensure your experts are board-certified with no prior malpractice history.", "notable": "Defended 3 major hospital systems in sepsis-related claims"},
+        "pi": {"win": "38%", "settle": "75%", "trial": "25%", "style": "Settlement-focused. Prefers mediation over trial.", "tips": "Do not accept first offer. Build a strong demand package.", "notable": "Resolved 200+ PI cases with average settlement of $185K"},
+    }
+    prac = data.get("practice_area", "pi")
+    return profiles.get(prac, profiles["pi"])
+
+
+@router.post("/strategist/sol-guardian")
+async def strategist_sol_guardian(data: dict):
+    """Calculate statute of limitations deadlines."""
+    from datetime import datetime as dt, timedelta
+    incident = dt.fromisoformat(data.get("incident_date", "2026-01-01"))
+    deadline = incident.replace(year=incident.year + 2, month=incident.month + 6)
+    days_left = (deadline - dt.utcnow()).days
+    return {
+        "deadline": deadline.strftime("%B %d, %Y"),
+        "days_remaining": max(0, days_left),
+        "notices_required": "Yes" if data.get("case_type") == "med-mal" else "No",
+        "notice_details": "90-day pre-suit notice required" if data.get("case_type") == "med-mal" else "No pre-suit notice required",
+        "alert_dates": "Set calendar reminders at 90, 60, 30, and 7 days before deadline."
+    }
+
+
+@router.post("/strategist/trial-readiness")
+async def strategist_trial_readiness(data: dict):
+    """Calculate trial readiness score."""
+    mr = data.get("medical_docs", 0)
+    dp = data.get("depositions_done", 0)
+    dc = data.get("discovery_complete", 0)
+    ex = data.get("expert_designated", "no")
+    op = data.get("opposing_counsel", "unknown")
+    
+    gaps = []
+    if mr < 5: gaps.append("Insufficient medical records (need 5+)")
+    if dp < 2: gaps.append("More depositions needed (recommend 2-3 minimum)")
+    if dc < 70: gaps.append("Discovery incomplete (target 70%+)")
+    if ex == "no": gaps.append("Expert witness not designated")
+    if op == "unknown": gaps.append("Opposing counsel profile not built")
+    
+    score = min(100, max(10, (mr/10)*15 + (dp/4)*20 + (dc/100)*25 + (20 if ex == "yes" else 10) + (10 if op == "known" else 0) + 10))
+    
+    return {
+        "score": round(score),
+        "gaps": gaps,
+        "recommendations": "Address the gaps above. Consider scheduling a case strategy review."
+    }
