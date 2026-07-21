@@ -867,7 +867,7 @@ async function handleLogin() {
     localStorage.setItem('lexiflow_user', JSON.stringify(u));
     currentUser = { id: 1, email: 'admin@lexiflow.co', name: 'Admin', firm_name: 'LexiFlow Technologies Inc' };
     currentFirm = { name: 'LexiFlow Technologies Inc', slug: 'lexiflow-technologies-inc' };
-    toast('Welcome back, Admin!'); btn.disabled=false; btn.textContent='Sign In'; loadDashboard(); return;
+    toast('Welcome back, Admin!'); btn.disabled=false; btn.textContent='Sign In'; enterDashboard(); return;
   }
   try {
     const res = await api('/api/admin/auth/login','POST',{email,password});
