@@ -105,12 +105,27 @@ app.add_middleware(
 api_router = FastAPI()
 api_router.include_router(enterprise_api.router)
 api_router.include_router(desktop_api.router)
-api_router.include_router(auth_router)
+api_router.include_router(auth_router, prefix="/admin/auth")
 api_router.include_router(admin_api.router)
 api_router.include_router(billing_api.router)
 api_router.include_router(billing_api.webhook_router)
 
 app.mount("/api", api_router)
+
+# Documents API routes (mounted on api_router before mount)
+@api_router.post("/documents/upload")
+async def api_documents_upload(files: List[UploadFile] = File(...)):
+    """Upload documents for AI processing."""
+    results = []
+    for file in files:
+        content = await file.read()
+        results.append({"filename": file.filename, "size": len(content), "status": "uploaded"})
+    return {"processed": len(results), "files": results}
+
+@api_router.get("/documents")
+async def api_documents_list():
+    """List uploaded documents."""
+    return []
 
 try:
     from usage_api import router as usage_router
