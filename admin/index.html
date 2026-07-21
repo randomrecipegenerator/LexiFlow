@@ -1175,7 +1175,7 @@ async function processDocuments() {
   try {
     const formData = new FormData();
     for (const file of selectedFiles) formData.append('files', file);
-    const result = await fetch('/api/documents/upload', { method: 'POST', headers: { 'Authorization': 'Bearer ' + token }, body: formData });
+    const result = await fetch('/api/documents/upload', { method: 'POST', body: formData });
     const data = await result.json();
     if (result.ok) {
       status.style.color = 'var(--green)';
@@ -1452,7 +1452,7 @@ async function generateLifeCarePlan() {
   var ct=document.getElementById('lcCaseType').value,age=parseInt(document.getElementById('lcAge').value)||45,st=document.getElementById('lcState').value,inj=document.getElementById('lcInjury').value||'Severe injury requiring ongoing care',s=document.getElementById('lcStatus');
   s.innerHTML='⏳ Generating life care plan...';
   try {
-    var r=await fetch('/api/enterprise/strategist/life-care-plan',{method:'POST',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,age:age,state:st,injury_summary:inj})});
+    var r=await fetch('/api/enterprise/strategist/life-care-plan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,age:age,state:st,injury_summary:inj})});
     var d=await r.json(); showPlanResult(d);
   } catch(e) {
     var items=[{item:'Future Surgery Revisions',cost:150000+Math.random()*200000,timeline:'Year 1-5'},{item:'Physical Therapy',cost:80000+Math.random()*100000,timeline:'Lifetime'},{item:'Home Modifications',cost:50000+Math.random()*80000,timeline:'Year 1'},{item:'Assistive Devices',cost:30000+Math.random()*50000,timeline:'Every 5 years'},{item:'Medication Management',cost:120000+Math.random()*150000,timeline:'Lifetime'},{item:'Personal Care Aide',cost:400000+Math.random()*300000,timeline:'Lifetime'}];
@@ -1470,7 +1470,7 @@ async function profileOpposingCounsel() {
   var name=document.getElementById('ocName').value||'Unknown Attorney',firm=document.getElementById('ocFirm').value||'Unknown Firm',st=document.getElementById('ocState').value,prac=document.getElementById('ocPractice').value,s=document.getElementById('ocStatus');
   s.innerHTML='⏳ Profiling counsel...';
   try {
-    var r=await fetch('/api/enterprise/strategist/opposing-counsel',{method:'POST',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({attorney_name:name,firm:firm,state:st,practice_area:prac})});
+    var r=await fetch('/api/enterprise/strategist/opposing-counsel',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({attorney_name:name,firm:firm,state:st,practice_area:prac})});
     var d=await r.json(); showCounselResult(d,name,firm,prac);
   } catch(e) {
     var profiles={'med-mal':{win:'42%',settle:'68%',trial:'32%',style:'Meticulous, detail-oriented. Likely to challenge expert witnesses aggressively.',tips:'Ensure your experts are board-certified with no prior malpractice history. Expect Daubert challenges.',notable:'Defended 3 major hospital systems in sepsis-related claims'},'pi':{win:'38%',settle:'75%',trial:'25%',style:'Settlement-focused. Prefers mediation over trial. Known for aggressive early lowball offers.',tips:'Do not accept first offer. Build a strong demand package with clear liability evidence.',notable:'Resolved 200+ PI cases with average settlement of $185K'},'product-liability':{win:'35%',settle:'55%',trial:'45%',style:'Trial-hardened. Specializes in defending manufacturers. Uses empty-chair defense.',tips:'Focus on document discovery early. Expect aggressive summary judgment motions.',notable:'Defended automotive manufacturer in 3 class-action suits'},'mass-tort':{win:'31%',settle:'82%',trial:'18%',style:'Mass tort specialist. Efficient settlement negotiator. Uses bellwether trials.',tips:'Strong case-specific evidence is critical. Watch for global settlement caps.',notable:'Handled 5000+ claims in nationwide MDL'}};
@@ -1499,7 +1499,7 @@ async function checkSOL() {
   if(!dt){s.style.color='var(--red)';s.innerHTML='❌ Select an incident date.';return;}
   s.innerHTML='⏳ Calculating SOL...';
   try {
-    var r=await fetch('/api/enterprise/strategist/sol-guardian',{method:'POST',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,state:st,incident_date:dt,plaintiff_age:age})});
+    var r=await fetch('/api/enterprise/strategist/sol-guardian',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,state:st,incident_date:dt,plaintiff_age:age})});
     var d=await r.json(); showSOLResult(d);
   } catch(e) {
     var solData={'med-mal':{years:2.5,notice:'90-day pre-suit notice required'},'pi':{years:3,notice:'No pre-suit notice required'},'wrongful-death':{years:2,notice:'File within 2 years of death'},'product-liability':{years:3,notice:'No pre-suit notice required'}};
@@ -1519,7 +1519,7 @@ async function calculateTrialReadiness() {
   var ct=document.getElementById('trCaseType').value,mr=parseInt(document.getElementById('trMedRecords').value)||0,dp=parseInt(document.getElementById('trDepos').value)||0,dc=parseInt(document.getElementById('trDiscovery').value)||0,ex=document.getElementById('trExpert').value,op=document.getElementById('trOpposing').value,s=document.getElementById('trStatus');
   s.innerHTML='⏳ Calculating trial readiness...';
   try {
-    var r=await fetch('/api/enterprise/strategist/trial-readiness',{method:'POST',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,medical_docs:mr,depositions_done:dp,discovery_complete:dc,expert_designated:ex,opposing_counsel:op})});
+    var r=await fetch('/api/enterprise/strategist/trial-readiness',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,medical_docs:mr,depositions_done:dp,discovery_complete:dc,expert_designated:ex,opposing_counsel:op})});
     var d=await r.json(); showReadinessResult(d);
   } catch(e) {
     var missing=[];
