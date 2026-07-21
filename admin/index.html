@@ -1362,7 +1362,7 @@ async function uploadMedicalRecord() {
   s.innerHTML="⏳ Uploading and analyzing...";
   try {
     const form = new FormData(); form.append("file", file); form.append("case_type", caseType);
-    const r = await fetch("/meritscan/upload", {method:"POST", headers:{"Authorization":"Bearer "+token}, body: form});
+    const r = await fetch("/meritscan/upload", {method:"POST", body: form});
     const d = await r.json();
     document.getElementById("medicalResult").style.display="block";
     document.getElementById("medicalResultContent").innerHTML = "<p><strong>Report ID:</strong> "+(d.report_id||d.id||"generated")+"</p><p><strong>Status:</strong> "+d.status+"</p><p><strong>Merit Score:</strong> "+(d.merit_score||"Pending")+"</p>";
@@ -1375,7 +1375,7 @@ async function uploadMedicalRecord() {
 }
 async function loadMedReports() {
   try {
-    const r = await fetch("/meritscan/reports", {headers:{"Authorization":"Bearer "+token}});
+    const r = await fetch("/meritscan/reports", {});
     const d = await r.json();
     if (d.length) document.getElementById("medicalReports").innerHTML = d.map(r => "<div style=\"padding:6px 0;border-bottom:1px solid var(--border);font-size:0.85rem;\">#"+r.id+" — "+r.status+"</div>").join("");
   } catch(e) {}
@@ -1388,7 +1388,7 @@ async function uploadDeposition() {
   s.innerHTML="⏳ Analyzing transcript...";
   try {
     const form = new FormData(); form.append("file", file); if(witness) form.append("witness", witness);
-    const r = await fetch("/veritas/upload", {method:"POST", headers:{"Authorization":"Bearer "+token}, body: form});
+    const r = await fetch("/veritas/upload", {method:"POST", body: form});
     const d = await r.json();
     document.getElementById("depoResult").style.display="block";
     document.getElementById("depoResultContent").innerHTML = "<p><strong>Transcript ID:</strong> "+(d.transcript_id||d.id||"generated")+"</p><p><strong>Contradictions:</strong> "+(d.contradictions||"Processing...")+"</p><p><strong>Credibility:</strong> "+(d.credibility||"Pending")+"</p>";
@@ -1407,7 +1407,7 @@ async function uploadDiscovery() {
   s.innerHTML="⏳ Processing document...";
   try {
     const form = new FormData(); form.append("file", file); form.append("doc_type", docType);
-    const r = await fetch("/chat/upload?lead_id=0", {method:"POST", headers:{"Authorization":"Bearer "+token}, body: form});
+    const r = await fetch("/chat/upload?lead_id=0", {method:"POST", body: form});
     const d = await r.json();
     document.getElementById("discResult").style.display="block";
     document.getElementById("discResultContent").innerHTML = "<p><strong>Document:</strong> "+file.name+"</p><p><strong>Type:</strong> "+docType+"</p><p><strong>Status:</strong> "+(d.status||"Processing")+"</p>";
@@ -1427,7 +1427,7 @@ async function calculateSettlement() {
   s.innerHTML="⏳ Calculating...";
   try {
     const params = new URLSearchParams({state_code:state, non_economic:damages});
-    const r = await fetch("/api/enterprise/settlement/calculate-cap?"+params.toString(), {method:"POST", headers:{"Authorization":"Bearer "+token}});
+    const r = await fetch("/api/enterprise/settlement/calculate-cap?"+params.toString(), {method:"POST", });
     const d = await r.json();
     document.getElementById("settlementResult").style.display="block";
     document.getElementById("settlementResultContent").innerHTML = "<div style=\"display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;\"><div class=\"stat-card\"><div class=\"num\">$"+(d.capped_total||damages).toLocaleString()+"</div><div class=\"label\">Capped Total</div></div><div class=\"stat-card\"><div class=\"num\">$"+(d.non_economic_cap||"None")+"</div><div class=\"label\">State Cap</div></div><div class=\"stat-card\"><div class=\"num\" style=\"font-size:1rem;\">"+d.state_name+"</div><div class=\"label\">Jurisdiction</div></div></div>";
