@@ -326,12 +326,7 @@
             </div>
             <div class="form-group" style="min-width:140px;flex:0;">
               <label for="inviteRole">Role</label>
-              <select id="inviteRole">
-                <option value="attorney">Attorney</option>
-                <option value="paralegal">Paralegal</option>
-                <option value="partner">Partner</option>
-                <option value="staff">Staff</option>
-              </select>
+              <input type="text" id="inviteRole" placeholder="e.g. Attorney, Paralegal" />
             </div>
             <button class="btn btn-primary" onclick="handleInvite()">Send Invite →</button>
           </div>
@@ -508,12 +503,7 @@
               </div>
               <div class="form-group">
                 <label>Case Type</label>
-                <select id="medicalCaseType">
-                  <option value="medical-malpractice">Medical Malpractice</option>
-                  <option value="personal-injury">Personal Injury</option>
-                  <option value="workers-comp">Workers Compensation</option>
-                  <option value="general">General Medical Review</option>
-                </select>
+                <input type="text" id="medicalCaseType" placeholder="e.g. Medical Malpractice" />
               </div>
               <button class="btn btn-primary" onclick="uploadMedicalRecord()">🏥 Analyze Records</button>
               <div id="medicalStatus" style="margin-top:12px;font-size:0.85rem;"></div>
@@ -569,12 +559,7 @@
               </div>
               <div class="form-group">
                 <label>Document Type</label>
-                <select id="discoveryDocType">
-                  <option value="production">Production</option>
-                  <option value="request">Request</option>
-                  <option value="responsive">Responsive Document</option>
-                  <option value="privilege">Privilege Log</option>
-                </select>
+                <input type="text" id="discoveryDocType" placeholder="e.g. Production, Privilege Log" />
               </div>
               <button class="btn btn-primary" onclick="uploadDiscovery()">🔍 Process Document</button>
               <div id="discStatus" style="margin-top:12px;font-size:0.85rem;"></div>
@@ -626,9 +611,9 @@
               <div class="card">
                 <h3>🧬 Life Care Plan AI</h3>
                 <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">Generate a comprehensive life care plan for catastrophic injury cases. AI estimates future medical costs, care needs, and projected lifetime expenses.</p>
-                <div class="form-group"><label>Case Type</label><select id="lcCaseType"><option value="spinal-cord">Spinal Cord Injury</option><option value="tbi">Traumatic Brain Injury</option><option value="amputation">Amputation</option><option value="burn">Severe Burns</option><option value="birth-injury">Birth Injury</option></select></div>
+                <div class="form-group"><label>Case Type</label><input type="text" id="lcCaseType" placeholder="e.g. Spinal Cord Injury" /></div>
                 <div class="form-group"><label>Patient Age</label><input type="number" id="lcAge" placeholder="45" /></div>
-                <div class="form-group"><label>State</label><select id="lcState"><option value="NY">New York</option><option value="CA">California</option><option value="FL">Florida</option><option value="TX">Texas</option><option value="PA">Pennsylvania</option><option value="IL">Illinois</option></select></div>
+                <div class="form-group"><label>State</label><input type="text" id="lcState" placeholder="e.g. NY or New York" /></div>
                 <div class="form-group"><label>Injury Summary (brief)</label><textarea id="lcInjury" rows="2" placeholder="Describe the injury and current medical status..."></textarea></div>
                 <button class="btn btn-primary" onclick="generateLifeCarePlan()">🧬 Generate Life Care Plan</button>
                 <div id="lcStatus" style="margin-top:12px;font-size:0.85rem;"></div>
@@ -650,8 +635,8 @@
                 <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">Profile opposing counsel based on name, firm, and practice area. AI analyzes available data to predict their strategy, settlement tendencies, and deposition style.</p>
                 <div class="form-group"><label>Attorney Name</label><input type="text" id="ocName" placeholder="e.g. John Smith" /></div>
                 <div class="form-group"><label>Firm Name</label><input type="text" id="ocFirm" placeholder="e.g. Smith & Associates" /></div>
-                <div class="form-group"><label>State</label><select id="ocState"><option value="NY">New York</option><option value="CA">California</option><option value="FL">Florida</option><option value="TX">Texas</option><option value="IL">Illinois</option><option value="PA">Pennsylvania</option></select></div>
-                <div class="form-group"><label>Practice Area</label><select id="ocPractice"><option value="med-mal">Medical Malpractice</option><option value="pi">Personal Injury</option><option value="product-liability">Product Liability</option><option value="mass-tort">Mass Tort</option></select></div>
+                <div class="form-group"><label>State</label><input type="text" id="ocState" placeholder="e.g. NY or New York" /></div>
+                <div class="form-group"><label>Practice Area</label><input type="text" id="ocPractice" placeholder="e.g. Medical Malpractice" /></div>
                 <button class="btn btn-primary" onclick="profileOpposingCounsel()">⚖️ Profile Counsel</button>
                 <div id="ocStatus" style="margin-top:12px;font-size:0.85rem;"></div>
               </div>
@@ -670,8 +655,8 @@
               <div class="card">
                 <h3>📅 Statute of Limitations Guardian</h3>
                 <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">Track SOL deadlines, notice requirements, and get automated alerts. Never miss a filing deadline again.</p>
-                <div class="form-group"><label>Case Type</label><select id="solCaseType"><option value="med-mal">Medical Malpractice</option><option value="pi">Personal Injury</option><option value="wrongful-death">Wrongful Death</option><option value="product-liability">Product Liability</option></select></div>
-                <div class="form-group"><label>State</label><select id="solState"><option value="NY">New York</option><option value="CA">California</option><option value="FL">Florida</option><option value="TX">Texas</option><option value="IL">Illinois</option><option value="PA">Pennsylvania</option><option value="NJ">New Jersey</option><option value="MA">Massachusetts</option></select></div>
+                <div class="form-group"><label>Case Type</label><input type="text" id="solCaseType" placeholder="e.g. Medical Malpractice" /></div>
+                <div class="form-group"><label>State</label><input type="text" id="solState" placeholder="e.g. NY or New York" /></div>
                 <div class="form-group"><label>Incident Date</label><input type="date" id="solIncidentDate" /></div>
                 <div class="form-group"><label>Plaintiff Age</label><input type="number" id="solAge" placeholder="45" /></div>
                 <button class="btn btn-primary" onclick="checkSOL()">📅 Calculate Deadline</button>
@@ -692,12 +677,12 @@
               <div class="card">
                 <h3>🎯 Trial Readiness Score</h3>
                 <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">AI analyzes your case file and gives a readiness score from 0-100. Identifies gaps, missing evidence, and preparation steps.</p>
-                <div class="form-group"><label>Case Type</label><select id="trCaseType"><option value="med-mal">Medical Malpractice</option><option value="pi">Personal Injury</option><option value="product-liability">Product Liability</option><option value="wrongful-death">Wrongful Death</option></select></div>
+                <div class="form-group"><label>Case Type</label><input type="text" id="trCaseType" placeholder="e.g. Medical Malpractice" /></div>
                 <div class="form-group"><label>Medical Records (count)</label><input type="number" id="trMedRecords" placeholder="12" /></div>
                 <div class="form-group"><label>Depositions Completed</label><input type="number" id="trDepos" placeholder="3" /></div>
                 <div class="form-group"><label>Discovery Complete (%)</label><input type="range" id="trDiscovery" min="0" max="100" value="50" oninput="upd('trDiscoveryVal',this.value+chr(37))" /> <span id="trDiscoveryVal">50%</span></div>
-                <div class="form-group"><label>Expert Witness Designated?</label><select id="trExpert"><option value="yes">Yes</option><option value="no">No</option><option value="pending">In Progress</option></select></div>
-                <div class="form-group"><label>Opposing Counsel</label><select id="trOpposing"><option value="unknown">Unknown</option><option value="known">Known</option><option value="none">Pro Se</option></select></div>
+                <div class="form-group"><label>Expert Witness Designated?</label><input type="text" id="trExpert" placeholder="e.g. Yes, No, In Progress" /></div>
+                <div class="form-group"><label>Opposing Counsel</label><input type="text" id="trOpposing" placeholder="e.g. Known, Unknown, Pro Se" /></div>
                 <button class="btn btn-primary" onclick="calculateTrialReadiness()">🎯 Calculate Score</button>
                 <div id="trStatus" style="margin-top:12px;font-size:0.85rem;"></div>
               </div>
