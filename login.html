@@ -1,101 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LexiFlow — Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login — LexiFlow Enterprise System</title>
+  <meta name="description" content="Secure admin login for LexiFlow enterprise system administration. Authorized personnel only." />
+  <meta name="keywords" content="LexiFlow admin login, enterprise admin portal, system admin authentication" />
+  <link rel="canonical" href="https://lexiflow.co/admin/login" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Admin Login — LexiFlow Enterprise System" />
+  <meta property="og:description" content="Secure admin login for LexiFlow enterprise system administration." />
+  <meta property="og:url" content="https://lexiflow.co/admin/login" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LexiFlow Technologies Inc" />
+  <meta property="og:image" content="https://lexiflow.co/social-banner.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Admin Login — LexiFlow Enterprise System" />
+  <meta name="twitter:description" content="Secure admin login for LexiFlow enterprise system." />
+  <meta name="twitter:image" content="https://lexiflow.co/social-banner.png" />
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f2f5; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-    .card { background: white; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.1); padding: 40px; width: 400px; max-width: 90vw; }
-    h1 { font-size: 24px; color: #1a3a5c; margin-bottom: 8px; text-align: center; }
-    .subtitle { color: #6b7280; font-size: 14px; text-align: center; margin-bottom: 24px; }
-    label { display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px; margin-top: 16px; }
-    input { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; }
-    input:focus { outline: none; border-color: #1a3a5c; box-shadow: 0 0 0 3px rgba(26,58,92,0.1); }
-    button { width: 100%; margin-top: 24px; padding: 12px; background: #1a3a5c; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; }
-    button:hover { background: #2a5a8c; }
-    .error { color: #ef4444; font-size: 13px; margin-top: 8px; display: none; }
-    .switch { text-align: center; margin-top: 16px; font-size: 14px; color: #6b7280; }
-    .switch a { color: #1a3a5c; cursor: pointer; text-decoration: underline; }
-    .hidden { display: none; }
-    .badge { background: #c9a84c; color: #0d1f33; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
-  </style>
+    /* Mobile-Friendly Adjustments */
+    @media (max-width: 768px) {
+        .container, .nav-container, .max-w-screen, .max-w, .hero-container, 
+        .grid, .highlight-grid, .faq-grid, .pricing-grid, .assoc-grid, .city-grid {
+            grid-template-columns: 1fr !important;
+            display: grid !important;
+            gap: 20px !important;
+        }
+        .hero-container, .footer-container, .section-header {
+            grid-template-columns: 1fr !important;
+            text-align: center !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+        .hero-text, .hero-image, 
+        h1 { font-size: 28px !important; line-height: 1.2 !important; }
+        h2 { font-size: 24px !important; }
+        h3 { font-size: 20px !important; }
+
+        /* Nav adjustments */
+        nav, 
+        .nav-container, .nav .container { flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; padding: 10px 20px !important; }
+        
+        .nav-links.active { display: flex !important; }
+        
+        .btn-cta, .btn-primary { padding: 8px 16px !important; font-size: 13px !important; }
+
+        /* Card and Feature adjustments */
+        .card, .pricing-card, .highlight-item, .faq-item, .assoc-card, .city-link {
+            margin-bottom: 20px !important;
+            width: 100% !important;
+            min-width: 0 !important;
+        }
+        .pricing-card.featured { transform: none !important; margin: 20px 0 !important; }
+    }
+        </style>
+
+  <link rel="stylesheet" href="/master-layout.css">
 </head>
-<body>
-<div class="card">
-  <h1>⚖️ LexiFlow</h1>
-  <p class="subtitle">Enterprise Legal AI <span class="badge">Offline Mode</span></p>
-
-  <!-- Login Form -->
-  <div id="loginForm">
-    <label>Email</label>
-    <input type="email" id="loginEmail" placeholder="you@firm.com" value="admin@lexiflow.co">
-    <label>Password</label>
-    <input type="password" id="loginPassword" placeholder="••••••••" value="admin123">
-    <div class="error" id="loginError">Invalid email or password</div>
-    <button onclick="handleLogin()">Sign In</button>
-    <div class="switch">Don't have an account? <a onclick="showRegister()">Register</a></div>
+<body><nav>
+  <div class="nav-container">
+    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/solutions">Solutions</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li class="resources-dropdown">
+        <a href="#">Resources ▾</a>
+        <div class="resources-menu">
+          <a href="/resources/medical-chronology-template">Medical Chronology Template</a>
+          <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a>
+          <a href="/resources/medical-record-review-checklist">Record Review Checklist</a>
+          <a href="/ssd-disability-medical-chronology-software">SSD & Disability AI</a>
+          <a href="/witness-testimony-analysis">Witness Testimony Analysis</a>
+          <a href="/case-studies">Case Studies</a>
+        </div>
+      </li>
+      <li><a href="/roi-calculator">ROI Calculator</a></li>
+      <li><a href="/login">Log In</a></li>
+      <li><a href="/signup" class="btn-cta">Get Started</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
   </div>
+</nav>
 
-  <!-- Register Form -->
-  <div id="registerForm" class="hidden">
-    <label>Your Name</label>
-    <input type="text" id="regName" placeholder="John Doe" value="Admin User">
-    <label>Email</label>
-    <input type="email" id="regEmail" placeholder="you@firm.com" value="admin@lexiflow.co">
-    <label>Firm Name</label>
-    <input type="text" id="regFirm" placeholder="Your Law Firm" value="Demo Firm">
-    <label>Password</label>
-    <input type="password" id="regPassword" placeholder="••••••••" value="admin123">
-    <div class="error" id="regError">Registration failed</div>
-    <button onclick="handleRegister()">Create Account</button>
-    <div class="switch">Already have an account? <a onclick="showLogin()">Sign In</a></div>
-  </div>
-</div>
+  <p>Redirecting to <a href="/">Admin Dashboard</a>...</p>
+        <script>
+        // Mobile menu toggle helper
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', function() {
+                    links.classList.toggle('active');
+                });
+            }
+        });
+        </script>
 
-<script>
-// Initialize demo users on first load
-function initUsers() {
-  if (!localStorage.getItem('lexiflow_users')) {
-    const users = [{ id: 1, name: 'Admin User', email: 'admin@lexiflow.co', firm: 'Demo Firm', password: 'admin123', created: new Date().toISOString() }];
-    localStorage.setItem('lexiflow_users', JSON.stringify(users));
-  }
-}
 
-function showLogin() { document.getElementById('loginForm').classList.remove('hidden'); document.getElementById('registerForm').classList.add('hidden'); }
-function showRegister() { document.getElementById('loginForm').classList.add('hidden'); document.getElementById('registerForm').classList.remove('hidden'); }
 
-function handleLogin() {
-  const email = document.getElementById('loginEmail').value.trim();
-  const password = document.getElementById('loginPassword').value;
-  const users = JSON.parse(localStorage.getItem('lexiflow_users') || '[]');
-  const user = users.find(u => u.email === email && u.password === password);
-  if (!user) { document.getElementById('loginError').style.display = 'block'; return; }
-  document.getElementById('loginError').style.display = 'none';
-  localStorage.setItem('lexiflow_user', JSON.stringify(user));
-  localStorage.setItem('lexiflow_token', 'demo-token-' + Date.now());
-  window.location.href = '/admin/';
-}
 
-function handleRegister() {
-  const name = document.getElementById('regName').value.trim();
-  const email = document.getElementById('regEmail').value.trim();
-  const firm = document.getElementById('regFirm').value.trim();
-  const password = document.getElementById('regPassword').value;
-  if (!name || !email || !firm || !password) { document.getElementById('regError').textContent = 'All fields required'; document.getElementById('regError').style.display = 'block'; return; }
-  const users = JSON.parse(localStorage.getItem('lexiflow_users') || '[]');
-  if (users.find(u => u.email === email)) { document.getElementById('regError').textContent = 'Email already registered'; document.getElementById('regError').style.display = 'block'; return; }
-  document.getElementById('regError').style.display = 'none';
-  const newUser = { id: users.length + 1, name, email, firm, password, created: new Date().toISOString() };
-  users.push(newUser);
-  localStorage.setItem('lexiflow_users', JSON.stringify(users));
-  localStorage.setItem('lexiflow_user', JSON.stringify(newUser));
-  localStorage.setItem('lexiflow_token', 'demo-token-' + Date.now());
-  window.location.href = '/admin/';
-}
 
-initUsers();
-</script>
+
+
+
+
+
+
+
+    <!-- SEO Inner Linking -->
+    <section class="max-w-screen" style="padding: 40px 0; border-top: 1px solid var(--slate-100); max-width: 1200px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <a href="../ai-legal-intake-software.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Intake Software →</a>
+            <a href="../ai-medical-chronologies.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Medical Chronology AI →</a>
+            <a href="/blog" style="color: #0f172a; text-decoration: none; font-weight: 600;">Legal AI Insights Blog →</a>
+            <a href="../roi-calculator.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Firm ROI Calculator →</a>
+            <a href="../compliance-shield.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">HIPAA & SOC2 Compliance →</a>
+            <a href="../cities.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Service Areas →</a>
+        </div>
+    </section>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
+          <li><a href="/veritas-deposition.html">Veritas Deposition™</a></li>
+          <li><a href="/compliance-shield">Compliance-Shield™</a></li>
+          <li><a href="/dashboard">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>State Ethics Guides</h4>
+        <ul>
+          <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
+          <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
+          <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
+          <li><a href="/blog">All Resources</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/soc2">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
+
+<script src="/shared-layout.js"></script>
 </body>
 </html>
