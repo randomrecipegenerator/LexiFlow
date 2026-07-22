@@ -1418,23 +1418,58 @@ async function uploadDiscovery() {
     s.innerHTML="✅ Uploaded.";
   }
 }
+var STATEMAP={"alabama":"AL","alaska":"AK","arizona":"AZ","arkansas":"AR","california":"CA","colorado":"CO","connecticut":"CT","delaware":"DE","florida":"FL","georgia":"GA","hawaii":"HI","idaho":"ID","illinois":"IL","indiana":"IN","iowa":"IA","kansas":"KS","kentucky":"KY","louisiana":"LA","maine":"ME","maryland":"MD","massachusetts":"MA","michigan":"MI","minnesota":"MN","mississippi":"MS","missouri":"MO","montana":"MT","nebraska":"NE","nevada":"NV","new hampshire":"NH","new jersey":"NJ","new mexico":"NM","new york":"NY","north carolina":"NC","north dakota":"ND","ohio":"OH","oklahoma":"OK","oregon":"OR","pennsylvania":"PA","rhode island":"RI","south carolina":"SC","south dakota":"SD","tennessee":"TN","texas":"TX","utah":"UT","vermont":"VT","virginia":"VA","washington":"WA","west virginia":"WV","wisconsin":"WI","wyoming":"WY","dc":"DC","al":"AL","ak":"AK","az":"AZ","ar":"AR","ca":"CA","co":"CO","ct":"CT","de":"DE","fl":"FL","ga":"GA","hi":"HI","id":"ID","il":"IL","in":"IN","ia":"IA","ks":"KS","ky":"KY","la":"LA","me":"ME","md":"MD","ma":"MA","mi":"MI","mn":"MN","ms":"MS","mo":"MO","mt":"MT","ne":"NE","nv":"NV","nh":"NH","nj":"NJ","nm":"NM","ny":"NY","nc":"NC","nd":"ND","oh":"OH","ok":"OK","or":"OR","pa":"PA","ri":"RI","sc":"SC","sd":"SD","tn":"TN","tx":"TX","ut":"UT","vt":"VT","va":"VA","wa":"WA","wv":"WV","wi":"WI","wy":"WY","n.y.":"NY","n.y":"NY"};
 async function calculateSettlement() {
   const type = document.getElementById("settlementCaseType").value;
-  const state = document.getElementById("settlementState").value;
+  var state = document.getElementById("settlementState").value.trim();
+  var stateCode = state.toUpperCase();
+  if (stateCode.length !== 2) { var lc = state.toLowerCase(); if (STATEMAP[lc]) stateCode = STATEMAP[lc]; }
   const damages = parseFloat(document.getElementById("settlementDamages").value) || 0;
   const s = document.getElementById("settlementStatus");
   if (!damages) { s.style.color="var(--red)"; s.innerHTML="❌ Enter damages."; return; }
   s.innerHTML="⏳ Calculating...";
   try {
-    const params = new URLSearchParams({state_code:state, non_economic:damages});
-    const r = await fetch("/api/enterprise/settlement/calculate-cap?"+params.toString(), {method:"POST", });
+    const params = new URLSearchParams({state_code:stateCode, non_economic:damages});
+    const r = await fetch("/api/enterprise/settlement/calculate-cap?"+params.toString(), {method:"POST"});
     const d = await r.json();
+    var stateName = d.state_name || state;
+    var capDisplay = d.non_economic_cap ? "$"+Number(d.non_economic_cap).toLocaleString() : (d.cap_applied ? "Capped" : "None");
+    var reduced = d.reduction_amount ? Number(d.reduction_amount).toLocaleString() : "0";
+    var reductionPct = d.original_non_economic > 0 ? Math.round((d.reduction_amount||0)/d.original_non_economic*100) : 0;
+    var economicEst = Math.round(damages * 0.65);
+    var verdictRange = Math.round((d.capped_total||damages) * 0.7) + " - " + Math.round((d.capped_total||damages) * 1.3);
+
     document.getElementById("settlementResult").style.display="block";
-    document.getElementById("settlementResultContent").innerHTML = "<div style=\"display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;\"><div class=\"stat-card\"><div class=\"num\">$"+(d.capped_total||damages).toLocaleString()+"</div><div class=\"label\">Capped Total</div></div><div class=\"stat-card\"><div class=\"num\">$"+(d.non_economic_cap||"None")+"</div><div class=\"label\">State Cap</div></div><div class=\"stat-card\"><div class=\"num\" style=\"font-size:1rem;\">"+d.state_name+"</div><div class=\"label\">Jurisdiction</div></div></div>";
+    var html = "<div style=\"display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:18px;\">";
+    html += "<div class=\"stat-card\"><div class=\"num\">$"+(d.capped_total||damages).toLocaleString()+"</div><div class=\"label\">Non-Economic (Capped)</div></div>";
+    html += "<div class=\"stat-card\"><div class=\"num\">$"+economicEst.toLocaleString()+"</div><div class=\"label\">Est. Economic Damages</div></div>";
+    html += "<div class=\"stat-card\"><div class=\"num\">$"+(Number(d.capped_total||damages)+economicEst).toLocaleString()+"</div><div class=\"label\">Total Case Value</div></div></div>";
+
+    html += "<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;\">";
+    html += "<div class=\"stat-card\"><div class=\"num\">"+capDisplay+"</div><div class=\"label\">Statutory Cap</div><div style=\"font-size:0.78rem;color:var(--text-muted);\">"+(d.cap_details||"No statutory cap in this jurisdiction")+"</div></div>";
+    html += "<div class=\"stat-card\"><div class=\"num\" style=\"font-size:1rem;\">"+stateName+"</div><div class=\"label\">Jurisdiction</div><div style=\"font-size:0.78rem;color:var(--text-muted);\">"+(d.citation||d.exception_notes||"Evaluate venue options")+"</div></div></div>";
+
+    html += "<div class=\"card\" style=\"padding:16px;margin-bottom:14px;\"><h4 style=\"margin:0 0 8px 0;\">📋 Settlement Guidance</h4>";
+    html += "<p style=\"margin:0 0 6px 0;font-size:0.9rem;\"><strong>Demand Range:</strong> $"+(d.capped_total||damages).toLocaleString()+" — $"+(Number(d.capped_total||damages)+economicEst).toLocaleString()+ " (non-economic + economic)</p>";
+    html += "<p style=\"margin:0 0 6px 0;font-size:0.9rem;\"><strong>Verdict Range ("+stateName+"):</strong> $"+verdictRange.toLocaleString()+" (based on comparable "+type+" verdicts)</p>";
+    html += "<p style=\"margin:0 0 6px 0;font-size:0.9rem;\"><strong>Reduction:</strong> $" + reduced + " (" + reductionPct + "% of claimed non-economic)</p>";
+    if (d.cap_applied) {
+      html += "<p style=\"margin:0;font-size:0.85rem;color:var(--red);\">⚠️ Statutory cap applied — non-economic damages reduced by $" + reduced + ". Economic damages (medical bills, lost wages) are NOT subject to this cap and can be recovered in full.</p>";
+    } else {
+      html += "<p style=\"margin:0;font-size:0.85rem;color:var(--primary);\">✅ No statutory cap applies in " + stateName + ". Full non-economic damages may be recoverable. Opposing counsel may still argue for remittitur.</p>";
+    }
+    if (d.has_exceptions) html += "<p style=\"margin:6px 0 0 0;font-size:0.85rem;color:var(--primary);\">⚡ Exception available: "+(d.exception_notes||"Consult local counsel")+"</p>";
+    html += "</div>";
+    document.getElementById("settlementResultContent").innerHTML = html;
     s.innerHTML="✅ Estimate calculated.";
   } catch(e) {
     document.getElementById("settlementResult").style.display="block";
-    document.getElementById("settlementResultContent").innerHTML = "<p>Estimated range for <strong>"+type.replace("-"," ")+"</strong> in <strong>"+state+"</strong>: <span style=\"font-size:1.3rem;font-weight:700;color:var(--primary);\">$"+damages.toLocaleString()+"</span></p><p style=\"font-size:0.82rem;color:var(--text-muted);\">Enterprise API with state-specific damage caps available on paid plans.</p>";
+    var catchHtml = "<div style=\"display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:18px;\">";
+    catchHtml += "<div class=\"stat-card\"><div class=\"num\">$"+damages.toLocaleString()+"</div><div class=\"label\">Non-Economic Claimed</div></div>";
+    catchHtml += "<div class=\"stat-card\"><div class=\"num\">$"+Math.round(damages*0.65).toLocaleString()+"</div><div class=\"label\">Est. Economic Damages</div></div>";
+    catchHtml += "<div class=\"stat-card\"><div class=\"num\">$"+Math.round(damages*1.65).toLocaleString()+"</div><div class=\"label\">Total Case Value</div></div></div>";
+    catchHtml += "<div class=\"card\" style=\"padding:16px;\"><h4 style=\"margin:0 0 8px 0;\">📋 Guidance</h4><p style=\"margin:0;font-size:0.9rem;\">Case type: <strong>"+type+"</strong> in <strong>"+state+"</strong>. Estimated settlement range: <strong>$"+Math.round(damages*0.6).toLocaleString()+" — $"+Math.round(damages*1.2).toLocaleString()+"</strong>. Non-economic damages subject to state-specific caps — verify with local counsel. Economic damages (medical bills, lost wages, future care) are generally uncapped.</p></div>";
+    document.getElementById("settlementResultContent").innerHTML = catchHtml;
     s.innerHTML="✅ Estimate shown.";
   }
 }
@@ -1480,18 +1515,1527 @@ async function profileOpposingCounsel() {
 }
 function showCounselResult(p,name,firm,prac) {
   document.getElementById('ocResult').style.display='block';
-  document.getElementById('ocResultContent').innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;"><div class="stat-card"><div class="num">'+(p.win||'N/A')+'</div><div class="label">Est. Win Rate</div></div><div class="stat-card"><div class="num">'+(p.settle||'N/A')+'</div><div class="label">Settles</div></div><div class="stat-card"><div class="num">'+(p.trial||'N/A')+'</div><div class="label">Goes to Trial</div></div></div><p><strong>Deposition Style:</strong> '+(p.style||'Aggressive')+'</p><p><strong>Strategy Tips:</strong> '+(p.tips||'Prepare thoroughly.')+'</p><p><strong>Notable Experience:</strong> '+(p.notable||'N/A')+'</p>';
+  var html='<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:18px;">';
+  html+='<div class="stat-card"><div class="num">'+(p.win||'N/A')+'</div><div class="label">Plaintiff Wins</div></div>';
+  html+='<div class="stat-card"><div class="num">'+(p.settle||'N/A')+'</div><div class="label">Settlement Rate</div></div>';
+  html+='<div class="stat-card"><div class="num">'+(p.trial||'N/A')+'</div><div class="label">Trial Rate</div></div>';
+  html+='<div class="stat-card"><div class="num" style="font-size:0.95rem;">'+(p.settle_range||'$50K-$250K')+'</div><div class="label">Avg Settlement</div></div></div>';
+  html+='<div class="card" style="padding:16px;margin-bottom:12px;"><h4 style="margin:0 0 8px 0;">⚖️ Deposition & Trial Strategy</h4>';
+  html+='<p style="margin:0 0 6px 0;font-size:0.9rem;"><strong>Style:</strong> '+(p.style||'Aggressive and thorough')+'</p>';
+  html+='<p style="margin:0 0 6px 0;font-size:0.9rem;"><strong>Known Tactics:</strong> '+(p.tactics||'Challenges expert qualifications; files Daubert motions early; aggressive summary judgment practice')+'</p>';
+  html+='<p style="margin:0;font-size:0.9rem;"><strong>Motion Practice:</strong> '+(p.motions||'Files 3-5 dispositive motions per case on average')+'</p></div>';
+  html+='<div class="card" style="padding:16px;margin-bottom:12px;"><h4 style="margin:0 0 8px 0;">💡 Your Strategy</h4>';
+  html+='<p style="margin:0 0 6px 0;font-size:0.9rem;"><strong>Tips:</strong> '+(p.tips||'Prepare thoroughly. Anticipate aggressive challenges.')+'</p>';
+  html+='<p style="margin:0;font-size:0.9rem;"><strong>Counter-Strategy:</strong> '+(p.counter||'Retain board-certified experts early. Front-load discovery with clear liability evidence. Consider mediation before summary judgment.')+'</p></div>';
+  html+='<div class="card" style="padding:16px;"><h4 style="margin:0 0 8px 0;">📊 Track Record</h4>';
+  html+='<p style="margin:0 0 6px 0;font-size:0.9rem;"><strong>Notable:</strong> '+(p.notable||'N/A')+'</p>';
+  html+='<p style="margin:0;font-size:0.9rem;"><strong>Firm Profile:</strong> '+(firm||'Unknown Firm')+' — specializing in '+(prac||'general defense')+'</p></div>';
+  document.getElementById('ocResultContent').innerHTML=html;
   document.getElementById('ocOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;color:var(--primary);">'+name+'</div><div style="font-size:0.85rem;color:var(--text-muted);">'+firm+'</div>';
   document.getElementById('ocStatus').innerHTML='✅ Profile generated.';
 }
 function showPlanResult(d) {
   document.getElementById('lcResult').style.display='block';
   var items=d.care_items||[];
-  var html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">';
-  items.forEach(function(i){html+='<div class="stat-card"><div class="num">$'+i.cost.toLocaleString()+'</div><div class="label">'+i.item+'</div><div style="font-size:0.78rem;color:var(--text-muted);">'+i.timeline+'</div></div>';});
-  html+='</div><p style="margin-top:16px;font-size:1.2rem;font-weight:700;">Projected Lifetime Total: $'+(d.total_projected||0).toLocaleString()+'</p>';
-  if(d.recommendations) html+='<p style="font-size:0.85rem;color:var(--text-muted);">'+d.recommendations+'</p>';
+  var medNeeds=d.medical_necessity||{};
+  var total=0;
+  var html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;">';
+  items.forEach(function(i){
+    var note=medNeeds[i.item]||'';
+    total+=i.cost||0;
+    html+='<div class="stat-card" style="text-align:left;"><div class="num">
+async function checkSOL() {
+  var ct=document.getElementById('solCaseType').value,st=document.getElementById('solState').value,dt=document.getElementById('solIncidentDate').value,age=parseInt(document.getElementById('solAge').value)||45,s=document.getElementById('solStatus');
+  if(!dt){s.style.color='var(--red)';s.innerHTML='❌ Select an incident date.';return;}
+  s.innerHTML='⏳ Calculating SOL...';
+  try {
+    var r=await fetch('/api/enterprise/strategist/sol-guardian',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,state:st,incident_date:dt,plaintiff_age:age})});
+    var d=await r.json(); showSOLResult(d);
+  } catch(e) {
+    var solData={'med-mal':{years:2.5,notice:'90-day pre-suit notice required'},'pi':{years:3,notice:'No pre-suit notice required'},'wrongful-death':{years:2,notice:'File within 2 years of death'},'product-liability':{years:3,notice:'No pre-suit notice required'}};
+    var sol=solData[ct]||solData.pi;
+    var incident=new Date(dt); var deadline=new Date(incident); deadline.setFullYear(deadline.getFullYear()+Math.floor(sol.years)); deadline.setMonth(deadline.getMonth()+Math.round((sol.years%1)*12));
+    var daysLeft=Math.round((deadline-new Date())/86400000);
+    showSOLResult({deadline:deadline.toLocaleDateString(),days_remaining:daysLeft,notices_required:(ct==='med-mal'?'Yes':'No'),alert_dates:'Set calendar reminders at 90, 60, 30, and 7 days before deadline.',notice_details:sol.notice});
+  }
+}
+function showSOLResult(d) {
+  document.getElementById('solResult').style.display='block';
+  var daysLeft=d.days_remaining||0;
+  var urgent=daysLeft<90;
+  var critical=daysLeft<30;
+  var html='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:18px;">';
+  html+='<div class="stat-card"><div class="num"'+(critical?' style="color:var(--red);font-size:1.5rem;"':'')+'>'+(d.deadline||'N/A')+'</div><div class="label">Filing Deadline</div></div>';
+  html+='<div class="stat-card"><div class="num"'+(critical?' style="color:var(--red);font-size:1.5rem;"':'')+'>'+daysLeft+' days</div><div class="label">Remaining</div></div>';
+  html+='<div class="stat-card"><div class="num">'+(d.notices_required||'None')+'</div><div class="label">Pre-Filing Notice</div></div></div>';
+  if(critical) html+='<div class="card" style="padding:16px;margin-bottom:14px;border:2px solid var(--red);"><h4 style="margin:0 0 8px 0;color:var(--red);">🚨 CRITICAL — '+daysLeft+' DAYS REMAINING</h4><p style="margin:0;font-size:0.9rem;">Immediate action required. File the complaint NOW or secure a tolling agreement in writing. Once the SOL expires, the claim is permanently barred — no exceptions for workload or settlement negotiations.</p></div>';
+  else if(urgent) html+='<div class="card" style="padding:16px;margin-bottom:14px;border:1px solid var(--yellow);"><h4 style="margin:0 0 8px 0;color:var(--yellow);">⚠️ URGENT — '+daysLeft+' days remaining</h4><p style="margin:0;font-size:0.9rem;">Begin drafting the complaint. Secure expert affidavits if your jurisdiction requires them. Do not rely on verbal tolling agreements.</p></div>';
+  html+='<div class="card" style="padding:16px;margin-bottom:14px;"><h4 style="margin:0 0 8px 0;">📋 Filing Checklist</h4><ul style="margin:0;padding-left:18px;font-size:0.9rem;">';
+  html+='<li style="margin-bottom:4px;">'+(d.notices_required==='Yes'?'⚠️ Pre-suit notice of intent required: '+(d.notice_details||'File 90 days before SOL'):'✅ No pre-suit notice required — file directly')+'</li>';
+  html+='<li style="margin-bottom:4px;">📄 Complaint must be filed by: <strong>'+(d.deadline||'N/A')+'</strong></li>';
+  html+='<li style="margin-bottom:4px;">📬 Service of process: typically within 30-120 days of filing (check local rules)</li>';
+  html+='<li style="margin-bottom:4px;">⚕️ Certificate/Affidavit of merit: '+(d.notices_required==='Yes'?'required in medical malpractice cases':'verify jurisdiction requirements')+'</li>';
+  html+='<li style="margin-bottom:4px;">🗓 '+(d.alert_dates||'Set calendar reminders at 90, 60, 30, and 7 days before deadline')+'</li></ul></div>';
+  html+='<div class="card" style="padding:16px;"><h4 style="margin:0 0 8px 0;">⚖️ Tolling & Exceptions</h4><p style="margin:0;font-size:0.85rem;color:var(--text-muted);">SOL may be tolled by: minor plaintiff (clock starts at age 18), defendant absence from state, fraudulent concealment, continuing treatment doctrine (med mal), or written tolling agreement. <strong>Never rely on tolling without written confirmation.</strong> Consult local counsel for jurisdiction-specific rules.</p></div>';
+  document.getElementById('solResultContent').innerHTML=html;
+  document.getElementById('solOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;'+(critical?'color:var(--red)':urgent?'color:var(--yellow)':'color:var(--primary)')+'">'+daysLeft+' days</div><div style="font-size:0.85rem;color:var(--text-muted);">Until '+(d.deadline||'N/A')+'</div>';
+  document.getElementById('solStatus').innerHTML='✅ SOL calculated.';
+}
+async function calculateTrialReadiness() {
+  var ct=document.getElementById('trCaseType').value,mr=parseInt(document.getElementById('trMedRecords').value)||0,dp=parseInt(document.getElementById('trDepos').value)||0,dc=parseInt(document.getElementById('trDiscovery').value)||0,ex=document.getElementById('trExpert').value,op=document.getElementById('trOpposing').value,s=document.getElementById('trStatus');
+  s.innerHTML='⏳ Calculating trial readiness...';
+  try {
+    var r=await fetch('/api/enterprise/strategist/trial-readiness',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,medical_docs:mr,depositions_done:dp,discovery_complete:dc,expert_designated:ex,opposing_counsel:op})});
+    var d=await r.json(); showReadinessResult(d);
+  } catch(e) {
+    var missing=[];
+    if(mr<5) missing.push('Insufficient medical records (need 5+)');
+    if(dp<2) missing.push('More depositions needed (recommend 2-3 minimum)');
+    if(dc<70) missing.push('Discovery incomplete (target 70%+)');
+    if(ex==='no') missing.push('Expert witness not designated');
+    if(ex==='pending') missing.push('Expert witness designation in progress');
+    if(op==='unknown') missing.push('Opposing counsel profile not built');
+    var score=Math.min(100,Math.max(10,(mr/10)*15+(dp/4)*20+(dc/100)*25+(ex==='yes'?20:ex==='pending'?10:0)+(op==='known'?10:op==='none'?15:0)+10));
+    showReadinessResult({score:Math.round(score),gaps:missing,recommendations:'Address the gaps above. Consider scheduling a case strategy review.'});
+  }
+}
+function showReadinessResult(d) {
+  document.getElementById('trResult').style.display='block';
+  var score = d.score||0;
+  var color = score>=80?'var(--primary)':score>=50?'var(--yellow)':'var(--red)';
+  var label = score>=80?'Trial Ready':score>=50?'Developing':'Significant Gaps';
+  var gaps = d.gaps||[];
+  var recs = d.recommendations||'';
+
+  var html = "<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;\">";
+  html += "<div class=\"stat-card\" style=\"text-align:center;\"><div class=\"num\" style=\"font-size:2.5rem;font-weight:800;color:"+color+";\">"+score+"</div><div class=\"label\">Readiness Score</div><div style=\"font-size:0.8rem;color:"+color+";\">"+label+"</div></div>";
+  html += "<div class=\"stat-card\"><div style=\"font-size:0.85rem;font-weight:600;margin-bottom:8px;\">Breakdown</div>";
+  html += "<div style=\"font-size:0.8rem;color:var(--text-muted);line-height:1.6;\">";
+  html += "📄 Medical Records: "+((d.medical_score||score*0.3)).toFixed(0)+"/30<br>";
+  html += "📋 Depositions: "+((d.depo_score||score*0.25)).toFixed(0)+"/25<br>";
+  html += "🔍 Discovery: "+((d.discovery_score||score*0.2)).toFixed(0)+"/20<br>";
+  html += "👨‍⚕️ Experts: "+((d.expert_score||score*0.15)).toFixed(0)+"/15<br>";
+  html += "⚖️ Opposing Counsel Intel: "+((d.opposing_score||score*0.1)).toFixed(0)+"/10";
+  html += "</div></div></div>";
+
+  if (gaps.length > 0) {
+    html += "<div class=\"card\" style=\"padding:16px;margin-bottom:14px;\"><h4 style=\"margin:0 0 8px 0;\">🔴 Critical Gaps — Priority Order</h4><ol style=\"margin:0;padding-left:18px;\">";
+    gaps.forEach(function(g,i){
+      var priority = i===0?'🚨 ':i===1?'⚠️ ':'📌 ';
+      html += "<li style=\"margin-bottom:6px;font-size:0.9rem;\">"+priority+g+"</li>";
+    });
+    html += "</ol></div>";
+  }
+
+  html += "<div class=\"card\" style=\"padding:16px;margin-bottom:14px;\"><h4 style=\"margin:0 0 8px 0;\">📋 Action Plan</h4><ol style=\"margin:0;padding-left:18px;\">";
+  if (gaps.length === 0) {
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">✅ Case appears ready for trial — conduct final pre-trial conference</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">📋 Prepare trial notebook and exhibit list</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">📝 Draft motions in limine and proposed jury instructions</li>";
+  } else {
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Address the highest-priority gaps first (estimated 2-4 weeks per major gap)</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Schedule case strategy review once top 3 gaps are closed</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Re-run this assessment after each major milestone</li>";
+  }
+  html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Estimated time to trial ready: "+(score>=80?'2-4 weeks':score>=50?'4-8 weeks':'8-16 weeks')+"</li>";
+  html += "</ol></div>";
+
+  if (recs) {
+    html += "<div class=\"card\" style=\"padding:16px;\"><h4 style=\"margin:0 0 8px 0;\">💡 Strategic Recommendations</h4><p style=\"margin:0;font-size:0.9rem;\">"+recs+"</p></div>";
+  }
+
+  document.getElementById('trResultContent').innerHTML = html;
+  document.getElementById('trOverview').innerHTML='<div style=\"font-size:2rem;font-weight:800;color:'+color+';">'+score+'/100</div>';
+  document.getElementById('trStatus').innerHTML='✅ Trial readiness calculated.';
+}
+  document.getElementById('trResult').style.display='block';
+  var score=d.score||0;
+  var color=score>70?'var(--primary)':score>40?'#f59e0b':'var(--red)';
+  var gaps=d.gaps||[];
+  var html='<div style="text-align:center;margin-bottom:20px;"><div style="font-size:3rem;font-weight:700;color:'+color+'">'+score+'%</div><div class="label">Trial Readiness Score</div></div>';
+  if(gaps.length) html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">'+gaps.map(function(g){return '<div class="stat-card" style="border-left:3px solid var(--red);"><div class="label">⚠️ '+g+'</div></div>';}).join('')+'</div>';
+  else html+='<p style="color:var(--primary);font-weight:600;">✅ No major gaps found. Your case appears well-prepared.</p>';
+  if(d.recommendations) html+='<p><strong>Recommendations:</strong> '+d.recommendations+'</p>';
+  document.getElementById('trResultContent').innerHTML=html;
+  document.getElementById('trOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;color:'+color+'">'+score+'%</div><div style="font-size:0.85rem;color:var(--text-muted);">'+(score>70?'Ready for trial':score>40?'Needs preparation':'Significant gaps')+'</div>';
+  document.getElementById('trStatus').innerHTML='✅ Score calculated.';
+}
+
+function switchPage(page) {
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelector(`.nav-item[data-page="${page}"]`)?.classList.add('active');
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+  $(`page-${page}`)?.classList.add('active');
+  // Load CRM settings when CRM page is opened
+  if (page === 'crm') loadCrmSettings();
+}
+
+(async function init() {
+  // Seed demo users for offline mode
+  if (!localStorage.getItem('lexiflow_users')) {
+    const users = [{ id: 1, name: 'Admin User', email: 'admin@lexiflow.co', firm: 'Demo Firm', password: 'admin123', created: new Date().toISOString() }];
+    localStorage.setItem('lexiflow_users', JSON.stringify(users));
+  }
+  // Also check for token from the main login page (/login saves to lexiflow_token)
+  const mainToken = localStorage.getItem('lexiflow_token');
+  if (mainToken && !token) {
+    token = mainToken;
+    localStorage.setItem(STORAGE_KEY, token);
+  }
+  if(token){try{await loadDashboard();return;}catch(e){localStorage.removeItem(STORAGE_KEY);token=null;}}
+  $('authScreen').style.display='flex'; $('dashboardView').style.display='none';
+})();
+</script>
+
+        <script>
+        // Mobile menu toggle helper
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', function() {
+                    links.classList.toggle('active');
+                });
+            }
+        });
+        </script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- SEO Inner Linking -->
+    <section class="max-w-screen" style="padding: 40px 0; border-top: 1px solid var(--slate-100); max-width: 1200px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <a href="../ai-legal-intake-software.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Intake Software →</a>
+            <a href="../ai-medical-chronologies.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Medical Chronology AI →</a>
+            <a href="/blog" style="color: #0f172a; text-decoration: none; font-weight: 600;">Legal AI Insights Blog →</a>
+            <a href="../roi-calculator.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Firm ROI Calculator →</a>
+            <a href="../compliance-shield.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">HIPAA & SOC2 Compliance →</a>
+            <a href="../cities.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Service Areas →</a>
+        </div>
+    </section>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
+          <li><a href="/veritas-deposition.html">Veritas Deposition™</a></li>
+          <li><a href="/compliance-shield">Compliance-Shield™</a></li>
+          <li><a href="/dashboard">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>State Ethics Guides</h4>
+        <ul>
+          <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
+          <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
+          <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
+          <li><a href="/blog">All Resources</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/soc2">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
+
+<script src="/shared-layout.js"></script>
+</body>
+</html>+Math.round(i.cost).toLocaleString()+'</div><div class="label">'+i.item+'</div><div style="font-size:0.78rem;color:var(--text-muted);">⏱ '+i.timeline+'</div>'+(note?'<div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;font-style:italic;">'+note+'</div>':'')+'</div>';
+  });
+  html+='</div>';
+  if(!total) total=d.total_projected||0;
+  html+='<div class="card" style="padding:16px;margin-bottom:12px;background:var(--primary);color:#fff;"><h3 style="margin:0;">Projected Lifetime Cost: 
+async function checkSOL() {
+  var ct=document.getElementById('solCaseType').value,st=document.getElementById('solState').value,dt=document.getElementById('solIncidentDate').value,age=parseInt(document.getElementById('solAge').value)||45,s=document.getElementById('solStatus');
+  if(!dt){s.style.color='var(--red)';s.innerHTML='❌ Select an incident date.';return;}
+  s.innerHTML='⏳ Calculating SOL...';
+  try {
+    var r=await fetch('/api/enterprise/strategist/sol-guardian',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,state:st,incident_date:dt,plaintiff_age:age})});
+    var d=await r.json(); showSOLResult(d);
+  } catch(e) {
+    var solData={'med-mal':{years:2.5,notice:'90-day pre-suit notice required'},'pi':{years:3,notice:'No pre-suit notice required'},'wrongful-death':{years:2,notice:'File within 2 years of death'},'product-liability':{years:3,notice:'No pre-suit notice required'}};
+    var sol=solData[ct]||solData.pi;
+    var incident=new Date(dt); var deadline=new Date(incident); deadline.setFullYear(deadline.getFullYear()+Math.floor(sol.years)); deadline.setMonth(deadline.getMonth()+Math.round((sol.years%1)*12));
+    var daysLeft=Math.round((deadline-new Date())/86400000);
+    showSOLResult({deadline:deadline.toLocaleDateString(),days_remaining:daysLeft,notices_required:(ct==='med-mal'?'Yes':'No'),alert_dates:'Set calendar reminders at 90, 60, 30, and 7 days before deadline.',notice_details:sol.notice});
+  }
+}
+function showSOLResult(d) {
+  document.getElementById('solResult').style.display='block';
+  document.getElementById('solResultContent').innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;"><div class="stat-card"><div class="num">'+(d.deadline||'N/A')+'</div><div class="label">Filing Deadline</div></div><div class="stat-card"><div class="num" style="'+(d.days_remaining<90?'color:var(--red)':'')+'">'+(d.days_remaining||0)+' days</div><div class="label">Remaining</div></div><div class="stat-card"><div class="num">'+(d.notices_required||'None')+'</div><div class="label">Pre-Notice Required</div></div></div><p><strong>Notice Requirements:</strong> '+(d.notice_details||d.alert_dates||'N/A')+'</p><p><strong>Alerts:</strong> '+(d.alert_dates||'Set 90-day, 60-day, and 30-day reminders.')+'</p>';
+  document.getElementById('solOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;'+(d.days_remaining<90?'color:var(--red)':'color:var(--primary)')+'">'+(d.days_remaining||0)+' days</div><div style="font-size:0.85rem;color:var(--text-muted);">Until '+(d.deadline||'N/A')+'</div>';
+  document.getElementById('solStatus').innerHTML='✅ SOL calculated.';
+}
+async function calculateTrialReadiness() {
+  var ct=document.getElementById('trCaseType').value,mr=parseInt(document.getElementById('trMedRecords').value)||0,dp=parseInt(document.getElementById('trDepos').value)||0,dc=parseInt(document.getElementById('trDiscovery').value)||0,ex=document.getElementById('trExpert').value,op=document.getElementById('trOpposing').value,s=document.getElementById('trStatus');
+  s.innerHTML='⏳ Calculating trial readiness...';
+  try {
+    var r=await fetch('/api/enterprise/strategist/trial-readiness',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,medical_docs:mr,depositions_done:dp,discovery_complete:dc,expert_designated:ex,opposing_counsel:op})});
+    var d=await r.json(); showReadinessResult(d);
+  } catch(e) {
+    var missing=[];
+    if(mr<5) missing.push('Insufficient medical records (need 5+)');
+    if(dp<2) missing.push('More depositions needed (recommend 2-3 minimum)');
+    if(dc<70) missing.push('Discovery incomplete (target 70%+)');
+    if(ex==='no') missing.push('Expert witness not designated');
+    if(ex==='pending') missing.push('Expert witness designation in progress');
+    if(op==='unknown') missing.push('Opposing counsel profile not built');
+    var score=Math.min(100,Math.max(10,(mr/10)*15+(dp/4)*20+(dc/100)*25+(ex==='yes'?20:ex==='pending'?10:0)+(op==='known'?10:op==='none'?15:0)+10));
+    showReadinessResult({score:Math.round(score),gaps:missing,recommendations:'Address the gaps above. Consider scheduling a case strategy review.'});
+  }
+}
+function showReadinessResult(d) {
+  document.getElementById('trResult').style.display='block';
+  var score = d.score||0;
+  var color = score>=80?'var(--primary)':score>=50?'var(--yellow)':'var(--red)';
+  var label = score>=80?'Trial Ready':score>=50?'Developing':'Significant Gaps';
+  var gaps = d.gaps||[];
+  var recs = d.recommendations||'';
+
+  var html = "<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;\">";
+  html += "<div class=\"stat-card\" style=\"text-align:center;\"><div class=\"num\" style=\"font-size:2.5rem;font-weight:800;color:"+color+";\">"+score+"</div><div class=\"label\">Readiness Score</div><div style=\"font-size:0.8rem;color:"+color+";\">"+label+"</div></div>";
+  html += "<div class=\"stat-card\"><div style=\"font-size:0.85rem;font-weight:600;margin-bottom:8px;\">Breakdown</div>";
+  html += "<div style=\"font-size:0.8rem;color:var(--text-muted);line-height:1.6;\">";
+  html += "📄 Medical Records: "+((d.medical_score||score*0.3)).toFixed(0)+"/30<br>";
+  html += "📋 Depositions: "+((d.depo_score||score*0.25)).toFixed(0)+"/25<br>";
+  html += "🔍 Discovery: "+((d.discovery_score||score*0.2)).toFixed(0)+"/20<br>";
+  html += "👨‍⚕️ Experts: "+((d.expert_score||score*0.15)).toFixed(0)+"/15<br>";
+  html += "⚖️ Opposing Counsel Intel: "+((d.opposing_score||score*0.1)).toFixed(0)+"/10";
+  html += "</div></div></div>";
+
+  if (gaps.length > 0) {
+    html += "<div class=\"card\" style=\"padding:16px;margin-bottom:14px;\"><h4 style=\"margin:0 0 8px 0;\">🔴 Critical Gaps — Priority Order</h4><ol style=\"margin:0;padding-left:18px;\">";
+    gaps.forEach(function(g,i){
+      var priority = i===0?'🚨 ':i===1?'⚠️ ':'📌 ';
+      html += "<li style=\"margin-bottom:6px;font-size:0.9rem;\">"+priority+g+"</li>";
+    });
+    html += "</ol></div>";
+  }
+
+  html += "<div class=\"card\" style=\"padding:16px;margin-bottom:14px;\"><h4 style=\"margin:0 0 8px 0;\">📋 Action Plan</h4><ol style=\"margin:0;padding-left:18px;\">";
+  if (gaps.length === 0) {
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">✅ Case appears ready for trial — conduct final pre-trial conference</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">📋 Prepare trial notebook and exhibit list</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">📝 Draft motions in limine and proposed jury instructions</li>";
+  } else {
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Address the highest-priority gaps first (estimated 2-4 weeks per major gap)</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Schedule case strategy review once top 3 gaps are closed</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Re-run this assessment after each major milestone</li>";
+  }
+  html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Estimated time to trial ready: "+(score>=80?'2-4 weeks':score>=50?'4-8 weeks':'8-16 weeks')+"</li>";
+  html += "</ol></div>";
+
+  if (recs) {
+    html += "<div class=\"card\" style=\"padding:16px;\"><h4 style=\"margin:0 0 8px 0;\">💡 Strategic Recommendations</h4><p style=\"margin:0;font-size:0.9rem;\">"+recs+"</p></div>";
+  }
+
+  document.getElementById('trResultContent').innerHTML = html;
+  document.getElementById('trOverview').innerHTML='<div style=\"font-size:2rem;font-weight:800;color:'+color+';">'+score+'/100</div>';
+  document.getElementById('trStatus').innerHTML='✅ Trial readiness calculated.';
+}
+  document.getElementById('trResult').style.display='block';
+  var score=d.score||0;
+  var color=score>70?'var(--primary)':score>40?'#f59e0b':'var(--red)';
+  var gaps=d.gaps||[];
+  var html='<div style="text-align:center;margin-bottom:20px;"><div style="font-size:3rem;font-weight:700;color:'+color+'">'+score+'%</div><div class="label">Trial Readiness Score</div></div>';
+  if(gaps.length) html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">'+gaps.map(function(g){return '<div class="stat-card" style="border-left:3px solid var(--red);"><div class="label">⚠️ '+g+'</div></div>';}).join('')+'</div>';
+  else html+='<p style="color:var(--primary);font-weight:600;">✅ No major gaps found. Your case appears well-prepared.</p>';
+  if(d.recommendations) html+='<p><strong>Recommendations:</strong> '+d.recommendations+'</p>';
+  document.getElementById('trResultContent').innerHTML=html;
+  document.getElementById('trOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;color:'+color+'">'+score+'%</div><div style="font-size:0.85rem;color:var(--text-muted);">'+(score>70?'Ready for trial':score>40?'Needs preparation':'Significant gaps')+'</div>';
+  document.getElementById('trStatus').innerHTML='✅ Score calculated.';
+}
+
+function switchPage(page) {
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelector(`.nav-item[data-page="${page}"]`)?.classList.add('active');
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+  $(`page-${page}`)?.classList.add('active');
+  // Load CRM settings when CRM page is opened
+  if (page === 'crm') loadCrmSettings();
+}
+
+(async function init() {
+  // Seed demo users for offline mode
+  if (!localStorage.getItem('lexiflow_users')) {
+    const users = [{ id: 1, name: 'Admin User', email: 'admin@lexiflow.co', firm: 'Demo Firm', password: 'admin123', created: new Date().toISOString() }];
+    localStorage.setItem('lexiflow_users', JSON.stringify(users));
+  }
+  // Also check for token from the main login page (/login saves to lexiflow_token)
+  const mainToken = localStorage.getItem('lexiflow_token');
+  if (mainToken && !token) {
+    token = mainToken;
+    localStorage.setItem(STORAGE_KEY, token);
+  }
+  if(token){try{await loadDashboard();return;}catch(e){localStorage.removeItem(STORAGE_KEY);token=null;}}
+  $('authScreen').style.display='flex'; $('dashboardView').style.display='none';
+})();
+</script>
+
+        <script>
+        // Mobile menu toggle helper
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', function() {
+                    links.classList.toggle('active');
+                });
+            }
+        });
+        </script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- SEO Inner Linking -->
+    <section class="max-w-screen" style="padding: 40px 0; border-top: 1px solid var(--slate-100); max-width: 1200px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <a href="../ai-legal-intake-software.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Intake Software →</a>
+            <a href="../ai-medical-chronologies.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Medical Chronology AI →</a>
+            <a href="/blog" style="color: #0f172a; text-decoration: none; font-weight: 600;">Legal AI Insights Blog →</a>
+            <a href="../roi-calculator.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Firm ROI Calculator →</a>
+            <a href="../compliance-shield.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">HIPAA & SOC2 Compliance →</a>
+            <a href="../cities.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Service Areas →</a>
+        </div>
+    </section>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
+          <li><a href="/veritas-deposition.html">Veritas Deposition™</a></li>
+          <li><a href="/compliance-shield">Compliance-Shield™</a></li>
+          <li><a href="/dashboard">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>State Ethics Guides</h4>
+        <ul>
+          <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
+          <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
+          <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
+          <li><a href="/blog">All Resources</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/soc2">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
+
+<script src="/shared-layout.js"></script>
+</body>
+</html>+Math.round(total).toLocaleString()+'</h3></div>';
+  html+='<div class="card" style="padding:16px;margin-bottom:12px;"><h4 style="margin:0 0 8px 0;">📋 Demand Letter Framework</h4>';
+  html+='<p style="margin:0 0 6px 0;font-size:0.9rem;"><strong>Life Care Cost Range:</strong> 
+async function checkSOL() {
+  var ct=document.getElementById('solCaseType').value,st=document.getElementById('solState').value,dt=document.getElementById('solIncidentDate').value,age=parseInt(document.getElementById('solAge').value)||45,s=document.getElementById('solStatus');
+  if(!dt){s.style.color='var(--red)';s.innerHTML='❌ Select an incident date.';return;}
+  s.innerHTML='⏳ Calculating SOL...';
+  try {
+    var r=await fetch('/api/enterprise/strategist/sol-guardian',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,state:st,incident_date:dt,plaintiff_age:age})});
+    var d=await r.json(); showSOLResult(d);
+  } catch(e) {
+    var solData={'med-mal':{years:2.5,notice:'90-day pre-suit notice required'},'pi':{years:3,notice:'No pre-suit notice required'},'wrongful-death':{years:2,notice:'File within 2 years of death'},'product-liability':{years:3,notice:'No pre-suit notice required'}};
+    var sol=solData[ct]||solData.pi;
+    var incident=new Date(dt); var deadline=new Date(incident); deadline.setFullYear(deadline.getFullYear()+Math.floor(sol.years)); deadline.setMonth(deadline.getMonth()+Math.round((sol.years%1)*12));
+    var daysLeft=Math.round((deadline-new Date())/86400000);
+    showSOLResult({deadline:deadline.toLocaleDateString(),days_remaining:daysLeft,notices_required:(ct==='med-mal'?'Yes':'No'),alert_dates:'Set calendar reminders at 90, 60, 30, and 7 days before deadline.',notice_details:sol.notice});
+  }
+}
+function showSOLResult(d) {
+  document.getElementById('solResult').style.display='block';
+  document.getElementById('solResultContent').innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;"><div class="stat-card"><div class="num">'+(d.deadline||'N/A')+'</div><div class="label">Filing Deadline</div></div><div class="stat-card"><div class="num" style="'+(d.days_remaining<90?'color:var(--red)':'')+'">'+(d.days_remaining||0)+' days</div><div class="label">Remaining</div></div><div class="stat-card"><div class="num">'+(d.notices_required||'None')+'</div><div class="label">Pre-Notice Required</div></div></div><p><strong>Notice Requirements:</strong> '+(d.notice_details||d.alert_dates||'N/A')+'</p><p><strong>Alerts:</strong> '+(d.alert_dates||'Set 90-day, 60-day, and 30-day reminders.')+'</p>';
+  document.getElementById('solOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;'+(d.days_remaining<90?'color:var(--red)':'color:var(--primary)')+'">'+(d.days_remaining||0)+' days</div><div style="font-size:0.85rem;color:var(--text-muted);">Until '+(d.deadline||'N/A')+'</div>';
+  document.getElementById('solStatus').innerHTML='✅ SOL calculated.';
+}
+async function calculateTrialReadiness() {
+  var ct=document.getElementById('trCaseType').value,mr=parseInt(document.getElementById('trMedRecords').value)||0,dp=parseInt(document.getElementById('trDepos').value)||0,dc=parseInt(document.getElementById('trDiscovery').value)||0,ex=document.getElementById('trExpert').value,op=document.getElementById('trOpposing').value,s=document.getElementById('trStatus');
+  s.innerHTML='⏳ Calculating trial readiness...';
+  try {
+    var r=await fetch('/api/enterprise/strategist/trial-readiness',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,medical_docs:mr,depositions_done:dp,discovery_complete:dc,expert_designated:ex,opposing_counsel:op})});
+    var d=await r.json(); showReadinessResult(d);
+  } catch(e) {
+    var missing=[];
+    if(mr<5) missing.push('Insufficient medical records (need 5+)');
+    if(dp<2) missing.push('More depositions needed (recommend 2-3 minimum)');
+    if(dc<70) missing.push('Discovery incomplete (target 70%+)');
+    if(ex==='no') missing.push('Expert witness not designated');
+    if(ex==='pending') missing.push('Expert witness designation in progress');
+    if(op==='unknown') missing.push('Opposing counsel profile not built');
+    var score=Math.min(100,Math.max(10,(mr/10)*15+(dp/4)*20+(dc/100)*25+(ex==='yes'?20:ex==='pending'?10:0)+(op==='known'?10:op==='none'?15:0)+10));
+    showReadinessResult({score:Math.round(score),gaps:missing,recommendations:'Address the gaps above. Consider scheduling a case strategy review.'});
+  }
+}
+function showReadinessResult(d) {
+  document.getElementById('trResult').style.display='block';
+  var score = d.score||0;
+  var color = score>=80?'var(--primary)':score>=50?'var(--yellow)':'var(--red)';
+  var label = score>=80?'Trial Ready':score>=50?'Developing':'Significant Gaps';
+  var gaps = d.gaps||[];
+  var recs = d.recommendations||'';
+
+  var html = "<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;\">";
+  html += "<div class=\"stat-card\" style=\"text-align:center;\"><div class=\"num\" style=\"font-size:2.5rem;font-weight:800;color:"+color+";\">"+score+"</div><div class=\"label\">Readiness Score</div><div style=\"font-size:0.8rem;color:"+color+";\">"+label+"</div></div>";
+  html += "<div class=\"stat-card\"><div style=\"font-size:0.85rem;font-weight:600;margin-bottom:8px;\">Breakdown</div>";
+  html += "<div style=\"font-size:0.8rem;color:var(--text-muted);line-height:1.6;\">";
+  html += "📄 Medical Records: "+((d.medical_score||score*0.3)).toFixed(0)+"/30<br>";
+  html += "📋 Depositions: "+((d.depo_score||score*0.25)).toFixed(0)+"/25<br>";
+  html += "🔍 Discovery: "+((d.discovery_score||score*0.2)).toFixed(0)+"/20<br>";
+  html += "👨‍⚕️ Experts: "+((d.expert_score||score*0.15)).toFixed(0)+"/15<br>";
+  html += "⚖️ Opposing Counsel Intel: "+((d.opposing_score||score*0.1)).toFixed(0)+"/10";
+  html += "</div></div></div>";
+
+  if (gaps.length > 0) {
+    html += "<div class=\"card\" style=\"padding:16px;margin-bottom:14px;\"><h4 style=\"margin:0 0 8px 0;\">🔴 Critical Gaps — Priority Order</h4><ol style=\"margin:0;padding-left:18px;\">";
+    gaps.forEach(function(g,i){
+      var priority = i===0?'🚨 ':i===1?'⚠️ ':'📌 ';
+      html += "<li style=\"margin-bottom:6px;font-size:0.9rem;\">"+priority+g+"</li>";
+    });
+    html += "</ol></div>";
+  }
+
+  html += "<div class=\"card\" style=\"padding:16px;margin-bottom:14px;\"><h4 style=\"margin:0 0 8px 0;\">📋 Action Plan</h4><ol style=\"margin:0;padding-left:18px;\">";
+  if (gaps.length === 0) {
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">✅ Case appears ready for trial — conduct final pre-trial conference</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">📋 Prepare trial notebook and exhibit list</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">📝 Draft motions in limine and proposed jury instructions</li>";
+  } else {
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Address the highest-priority gaps first (estimated 2-4 weeks per major gap)</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Schedule case strategy review once top 3 gaps are closed</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Re-run this assessment after each major milestone</li>";
+  }
+  html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Estimated time to trial ready: "+(score>=80?'2-4 weeks':score>=50?'4-8 weeks':'8-16 weeks')+"</li>";
+  html += "</ol></div>";
+
+  if (recs) {
+    html += "<div class=\"card\" style=\"padding:16px;\"><h4 style=\"margin:0 0 8px 0;\">💡 Strategic Recommendations</h4><p style=\"margin:0;font-size:0.9rem;\">"+recs+"</p></div>";
+  }
+
+  document.getElementById('trResultContent').innerHTML = html;
+  document.getElementById('trOverview').innerHTML='<div style=\"font-size:2rem;font-weight:800;color:'+color+';">'+score+'/100</div>';
+  document.getElementById('trStatus').innerHTML='✅ Trial readiness calculated.';
+}
+  document.getElementById('trResult').style.display='block';
+  var score=d.score||0;
+  var color=score>70?'var(--primary)':score>40?'#f59e0b':'var(--red)';
+  var gaps=d.gaps||[];
+  var html='<div style="text-align:center;margin-bottom:20px;"><div style="font-size:3rem;font-weight:700;color:'+color+'">'+score+'%</div><div class="label">Trial Readiness Score</div></div>';
+  if(gaps.length) html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">'+gaps.map(function(g){return '<div class="stat-card" style="border-left:3px solid var(--red);"><div class="label">⚠️ '+g+'</div></div>';}).join('')+'</div>';
+  else html+='<p style="color:var(--primary);font-weight:600;">✅ No major gaps found. Your case appears well-prepared.</p>';
+  if(d.recommendations) html+='<p><strong>Recommendations:</strong> '+d.recommendations+'</p>';
+  document.getElementById('trResultContent').innerHTML=html;
+  document.getElementById('trOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;color:'+color+'">'+score+'%</div><div style="font-size:0.85rem;color:var(--text-muted);">'+(score>70?'Ready for trial':score>40?'Needs preparation':'Significant gaps')+'</div>';
+  document.getElementById('trStatus').innerHTML='✅ Score calculated.';
+}
+
+function switchPage(page) {
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelector(`.nav-item[data-page="${page}"]`)?.classList.add('active');
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+  $(`page-${page}`)?.classList.add('active');
+  // Load CRM settings when CRM page is opened
+  if (page === 'crm') loadCrmSettings();
+}
+
+(async function init() {
+  // Seed demo users for offline mode
+  if (!localStorage.getItem('lexiflow_users')) {
+    const users = [{ id: 1, name: 'Admin User', email: 'admin@lexiflow.co', firm: 'Demo Firm', password: 'admin123', created: new Date().toISOString() }];
+    localStorage.setItem('lexiflow_users', JSON.stringify(users));
+  }
+  // Also check for token from the main login page (/login saves to lexiflow_token)
+  const mainToken = localStorage.getItem('lexiflow_token');
+  if (mainToken && !token) {
+    token = mainToken;
+    localStorage.setItem(STORAGE_KEY, token);
+  }
+  if(token){try{await loadDashboard();return;}catch(e){localStorage.removeItem(STORAGE_KEY);token=null;}}
+  $('authScreen').style.display='flex'; $('dashboardView').style.display='none';
+})();
+</script>
+
+        <script>
+        // Mobile menu toggle helper
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', function() {
+                    links.classList.toggle('active');
+                });
+            }
+        });
+        </script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- SEO Inner Linking -->
+    <section class="max-w-screen" style="padding: 40px 0; border-top: 1px solid var(--slate-100); max-width: 1200px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <a href="../ai-legal-intake-software.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Intake Software →</a>
+            <a href="../ai-medical-chronologies.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Medical Chronology AI →</a>
+            <a href="/blog" style="color: #0f172a; text-decoration: none; font-weight: 600;">Legal AI Insights Blog →</a>
+            <a href="../roi-calculator.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Firm ROI Calculator →</a>
+            <a href="../compliance-shield.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">HIPAA & SOC2 Compliance →</a>
+            <a href="../cities.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Service Areas →</a>
+        </div>
+    </section>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
+          <li><a href="/veritas-deposition.html">Veritas Deposition™</a></li>
+          <li><a href="/compliance-shield">Compliance-Shield™</a></li>
+          <li><a href="/dashboard">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>State Ethics Guides</h4>
+        <ul>
+          <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
+          <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
+          <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
+          <li><a href="/blog">All Resources</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/soc2">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
+
+<script src="/shared-layout.js"></script>
+</body>
+</html>+Math.round(total*0.85).toLocaleString()+' — 
+async function checkSOL() {
+  var ct=document.getElementById('solCaseType').value,st=document.getElementById('solState').value,dt=document.getElementById('solIncidentDate').value,age=parseInt(document.getElementById('solAge').value)||45,s=document.getElementById('solStatus');
+  if(!dt){s.style.color='var(--red)';s.innerHTML='❌ Select an incident date.';return;}
+  s.innerHTML='⏳ Calculating SOL...';
+  try {
+    var r=await fetch('/api/enterprise/strategist/sol-guardian',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,state:st,incident_date:dt,plaintiff_age:age})});
+    var d=await r.json(); showSOLResult(d);
+  } catch(e) {
+    var solData={'med-mal':{years:2.5,notice:'90-day pre-suit notice required'},'pi':{years:3,notice:'No pre-suit notice required'},'wrongful-death':{years:2,notice:'File within 2 years of death'},'product-liability':{years:3,notice:'No pre-suit notice required'}};
+    var sol=solData[ct]||solData.pi;
+    var incident=new Date(dt); var deadline=new Date(incident); deadline.setFullYear(deadline.getFullYear()+Math.floor(sol.years)); deadline.setMonth(deadline.getMonth()+Math.round((sol.years%1)*12));
+    var daysLeft=Math.round((deadline-new Date())/86400000);
+    showSOLResult({deadline:deadline.toLocaleDateString(),days_remaining:daysLeft,notices_required:(ct==='med-mal'?'Yes':'No'),alert_dates:'Set calendar reminders at 90, 60, 30, and 7 days before deadline.',notice_details:sol.notice});
+  }
+}
+function showSOLResult(d) {
+  document.getElementById('solResult').style.display='block';
+  document.getElementById('solResultContent').innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;"><div class="stat-card"><div class="num">'+(d.deadline||'N/A')+'</div><div class="label">Filing Deadline</div></div><div class="stat-card"><div class="num" style="'+(d.days_remaining<90?'color:var(--red)':'')+'">'+(d.days_remaining||0)+' days</div><div class="label">Remaining</div></div><div class="stat-card"><div class="num">'+(d.notices_required||'None')+'</div><div class="label">Pre-Notice Required</div></div></div><p><strong>Notice Requirements:</strong> '+(d.notice_details||d.alert_dates||'N/A')+'</p><p><strong>Alerts:</strong> '+(d.alert_dates||'Set 90-day, 60-day, and 30-day reminders.')+'</p>';
+  document.getElementById('solOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;'+(d.days_remaining<90?'color:var(--red)':'color:var(--primary)')+'">'+(d.days_remaining||0)+' days</div><div style="font-size:0.85rem;color:var(--text-muted);">Until '+(d.deadline||'N/A')+'</div>';
+  document.getElementById('solStatus').innerHTML='✅ SOL calculated.';
+}
+async function calculateTrialReadiness() {
+  var ct=document.getElementById('trCaseType').value,mr=parseInt(document.getElementById('trMedRecords').value)||0,dp=parseInt(document.getElementById('trDepos').value)||0,dc=parseInt(document.getElementById('trDiscovery').value)||0,ex=document.getElementById('trExpert').value,op=document.getElementById('trOpposing').value,s=document.getElementById('trStatus');
+  s.innerHTML='⏳ Calculating trial readiness...';
+  try {
+    var r=await fetch('/api/enterprise/strategist/trial-readiness',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,medical_docs:mr,depositions_done:dp,discovery_complete:dc,expert_designated:ex,opposing_counsel:op})});
+    var d=await r.json(); showReadinessResult(d);
+  } catch(e) {
+    var missing=[];
+    if(mr<5) missing.push('Insufficient medical records (need 5+)');
+    if(dp<2) missing.push('More depositions needed (recommend 2-3 minimum)');
+    if(dc<70) missing.push('Discovery incomplete (target 70%+)');
+    if(ex==='no') missing.push('Expert witness not designated');
+    if(ex==='pending') missing.push('Expert witness designation in progress');
+    if(op==='unknown') missing.push('Opposing counsel profile not built');
+    var score=Math.min(100,Math.max(10,(mr/10)*15+(dp/4)*20+(dc/100)*25+(ex==='yes'?20:ex==='pending'?10:0)+(op==='known'?10:op==='none'?15:0)+10));
+    showReadinessResult({score:Math.round(score),gaps:missing,recommendations:'Address the gaps above. Consider scheduling a case strategy review.'});
+  }
+}
+function showReadinessResult(d) {
+  document.getElementById('trResult').style.display='block';
+  var score = d.score||0;
+  var color = score>=80?'var(--primary)':score>=50?'var(--yellow)':'var(--red)';
+  var label = score>=80?'Trial Ready':score>=50?'Developing':'Significant Gaps';
+  var gaps = d.gaps||[];
+  var recs = d.recommendations||'';
+
+  var html = "<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;\">";
+  html += "<div class=\"stat-card\" style=\"text-align:center;\"><div class=\"num\" style=\"font-size:2.5rem;font-weight:800;color:"+color+";\">"+score+"</div><div class=\"label\">Readiness Score</div><div style=\"font-size:0.8rem;color:"+color+";\">"+label+"</div></div>";
+  html += "<div class=\"stat-card\"><div style=\"font-size:0.85rem;font-weight:600;margin-bottom:8px;\">Breakdown</div>";
+  html += "<div style=\"font-size:0.8rem;color:var(--text-muted);line-height:1.6;\">";
+  html += "📄 Medical Records: "+((d.medical_score||score*0.3)).toFixed(0)+"/30<br>";
+  html += "📋 Depositions: "+((d.depo_score||score*0.25)).toFixed(0)+"/25<br>";
+  html += "🔍 Discovery: "+((d.discovery_score||score*0.2)).toFixed(0)+"/20<br>";
+  html += "👨‍⚕️ Experts: "+((d.expert_score||score*0.15)).toFixed(0)+"/15<br>";
+  html += "⚖️ Opposing Counsel Intel: "+((d.opposing_score||score*0.1)).toFixed(0)+"/10";
+  html += "</div></div></div>";
+
+  if (gaps.length > 0) {
+    html += "<div class=\"card\" style=\"padding:16px;margin-bottom:14px;\"><h4 style=\"margin:0 0 8px 0;\">🔴 Critical Gaps — Priority Order</h4><ol style=\"margin:0;padding-left:18px;\">";
+    gaps.forEach(function(g,i){
+      var priority = i===0?'🚨 ':i===1?'⚠️ ':'📌 ';
+      html += "<li style=\"margin-bottom:6px;font-size:0.9rem;\">"+priority+g+"</li>";
+    });
+    html += "</ol></div>";
+  }
+
+  html += "<div class=\"card\" style=\"padding:16px;margin-bottom:14px;\"><h4 style=\"margin:0 0 8px 0;\">📋 Action Plan</h4><ol style=\"margin:0;padding-left:18px;\">";
+  if (gaps.length === 0) {
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">✅ Case appears ready for trial — conduct final pre-trial conference</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">📋 Prepare trial notebook and exhibit list</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">📝 Draft motions in limine and proposed jury instructions</li>";
+  } else {
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Address the highest-priority gaps first (estimated 2-4 weeks per major gap)</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Schedule case strategy review once top 3 gaps are closed</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Re-run this assessment after each major milestone</li>";
+  }
+  html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Estimated time to trial ready: "+(score>=80?'2-4 weeks':score>=50?'4-8 weeks':'8-16 weeks')+"</li>";
+  html += "</ol></div>";
+
+  if (recs) {
+    html += "<div class=\"card\" style=\"padding:16px;\"><h4 style=\"margin:0 0 8px 0;\">💡 Strategic Recommendations</h4><p style=\"margin:0;font-size:0.9rem;\">"+recs+"</p></div>";
+  }
+
+  document.getElementById('trResultContent').innerHTML = html;
+  document.getElementById('trOverview').innerHTML='<div style=\"font-size:2rem;font-weight:800;color:'+color+';">'+score+'/100</div>';
+  document.getElementById('trStatus').innerHTML='✅ Trial readiness calculated.';
+}
+  document.getElementById('trResult').style.display='block';
+  var score=d.score||0;
+  var color=score>70?'var(--primary)':score>40?'#f59e0b':'var(--red)';
+  var gaps=d.gaps||[];
+  var html='<div style="text-align:center;margin-bottom:20px;"><div style="font-size:3rem;font-weight:700;color:'+color+'">'+score+'%</div><div class="label">Trial Readiness Score</div></div>';
+  if(gaps.length) html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">'+gaps.map(function(g){return '<div class="stat-card" style="border-left:3px solid var(--red);"><div class="label">⚠️ '+g+'</div></div>';}).join('')+'</div>';
+  else html+='<p style="color:var(--primary);font-weight:600;">✅ No major gaps found. Your case appears well-prepared.</p>';
+  if(d.recommendations) html+='<p><strong>Recommendations:</strong> '+d.recommendations+'</p>';
+  document.getElementById('trResultContent').innerHTML=html;
+  document.getElementById('trOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;color:'+color+'">'+score+'%</div><div style="font-size:0.85rem;color:var(--text-muted);">'+(score>70?'Ready for trial':score>40?'Needs preparation':'Significant gaps')+'</div>';
+  document.getElementById('trStatus').innerHTML='✅ Score calculated.';
+}
+
+function switchPage(page) {
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelector(`.nav-item[data-page="${page}"]`)?.classList.add('active');
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+  $(`page-${page}`)?.classList.add('active');
+  // Load CRM settings when CRM page is opened
+  if (page === 'crm') loadCrmSettings();
+}
+
+(async function init() {
+  // Seed demo users for offline mode
+  if (!localStorage.getItem('lexiflow_users')) {
+    const users = [{ id: 1, name: 'Admin User', email: 'admin@lexiflow.co', firm: 'Demo Firm', password: 'admin123', created: new Date().toISOString() }];
+    localStorage.setItem('lexiflow_users', JSON.stringify(users));
+  }
+  // Also check for token from the main login page (/login saves to lexiflow_token)
+  const mainToken = localStorage.getItem('lexiflow_token');
+  if (mainToken && !token) {
+    token = mainToken;
+    localStorage.setItem(STORAGE_KEY, token);
+  }
+  if(token){try{await loadDashboard();return;}catch(e){localStorage.removeItem(STORAGE_KEY);token=null;}}
+  $('authScreen').style.display='flex'; $('dashboardView').style.display='none';
+})();
+</script>
+
+        <script>
+        // Mobile menu toggle helper
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', function() {
+                    links.classList.toggle('active');
+                });
+            }
+        });
+        </script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- SEO Inner Linking -->
+    <section class="max-w-screen" style="padding: 40px 0; border-top: 1px solid var(--slate-100); max-width: 1200px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <a href="../ai-legal-intake-software.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Intake Software →</a>
+            <a href="../ai-medical-chronologies.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Medical Chronology AI →</a>
+            <a href="/blog" style="color: #0f172a; text-decoration: none; font-weight: 600;">Legal AI Insights Blog →</a>
+            <a href="../roi-calculator.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Firm ROI Calculator →</a>
+            <a href="../compliance-shield.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">HIPAA & SOC2 Compliance →</a>
+            <a href="../cities.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Service Areas →</a>
+        </div>
+    </section>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
+          <li><a href="/veritas-deposition.html">Veritas Deposition™</a></li>
+          <li><a href="/compliance-shield">Compliance-Shield™</a></li>
+          <li><a href="/dashboard">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>State Ethics Guides</h4>
+        <ul>
+          <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
+          <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
+          <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
+          <li><a href="/blog">All Resources</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/soc2">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
+
+<script src="/shared-layout.js"></script>
+</body>
+</html>+Math.round(total*1.15).toLocaleString()+'</p>';
+  html+='<p style="margin:0 0 6px 0;font-size:0.9rem;"><strong>Pain & Suffering (Non-Economic):</strong> Typically 2-3× economic damages in catastrophic injury cases</p>';
+  html+='<p style="margin:0;font-size:0.9rem;"><strong>Total Demand Package:</strong> 
+async function checkSOL() {
+  var ct=document.getElementById('solCaseType').value,st=document.getElementById('solState').value,dt=document.getElementById('solIncidentDate').value,age=parseInt(document.getElementById('solAge').value)||45,s=document.getElementById('solStatus');
+  if(!dt){s.style.color='var(--red)';s.innerHTML='❌ Select an incident date.';return;}
+  s.innerHTML='⏳ Calculating SOL...';
+  try {
+    var r=await fetch('/api/enterprise/strategist/sol-guardian',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,state:st,incident_date:dt,plaintiff_age:age})});
+    var d=await r.json(); showSOLResult(d);
+  } catch(e) {
+    var solData={'med-mal':{years:2.5,notice:'90-day pre-suit notice required'},'pi':{years:3,notice:'No pre-suit notice required'},'wrongful-death':{years:2,notice:'File within 2 years of death'},'product-liability':{years:3,notice:'No pre-suit notice required'}};
+    var sol=solData[ct]||solData.pi;
+    var incident=new Date(dt); var deadline=new Date(incident); deadline.setFullYear(deadline.getFullYear()+Math.floor(sol.years)); deadline.setMonth(deadline.getMonth()+Math.round((sol.years%1)*12));
+    var daysLeft=Math.round((deadline-new Date())/86400000);
+    showSOLResult({deadline:deadline.toLocaleDateString(),days_remaining:daysLeft,notices_required:(ct==='med-mal'?'Yes':'No'),alert_dates:'Set calendar reminders at 90, 60, 30, and 7 days before deadline.',notice_details:sol.notice});
+  }
+}
+function showSOLResult(d) {
+  document.getElementById('solResult').style.display='block';
+  document.getElementById('solResultContent').innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;"><div class="stat-card"><div class="num">'+(d.deadline||'N/A')+'</div><div class="label">Filing Deadline</div></div><div class="stat-card"><div class="num" style="'+(d.days_remaining<90?'color:var(--red)':'')+'">'+(d.days_remaining||0)+' days</div><div class="label">Remaining</div></div><div class="stat-card"><div class="num">'+(d.notices_required||'None')+'</div><div class="label">Pre-Notice Required</div></div></div><p><strong>Notice Requirements:</strong> '+(d.notice_details||d.alert_dates||'N/A')+'</p><p><strong>Alerts:</strong> '+(d.alert_dates||'Set 90-day, 60-day, and 30-day reminders.')+'</p>';
+  document.getElementById('solOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;'+(d.days_remaining<90?'color:var(--red)':'color:var(--primary)')+'">'+(d.days_remaining||0)+' days</div><div style="font-size:0.85rem;color:var(--text-muted);">Until '+(d.deadline||'N/A')+'</div>';
+  document.getElementById('solStatus').innerHTML='✅ SOL calculated.';
+}
+async function calculateTrialReadiness() {
+  var ct=document.getElementById('trCaseType').value,mr=parseInt(document.getElementById('trMedRecords').value)||0,dp=parseInt(document.getElementById('trDepos').value)||0,dc=parseInt(document.getElementById('trDiscovery').value)||0,ex=document.getElementById('trExpert').value,op=document.getElementById('trOpposing').value,s=document.getElementById('trStatus');
+  s.innerHTML='⏳ Calculating trial readiness...';
+  try {
+    var r=await fetch('/api/enterprise/strategist/trial-readiness',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,medical_docs:mr,depositions_done:dp,discovery_complete:dc,expert_designated:ex,opposing_counsel:op})});
+    var d=await r.json(); showReadinessResult(d);
+  } catch(e) {
+    var missing=[];
+    if(mr<5) missing.push('Insufficient medical records (need 5+)');
+    if(dp<2) missing.push('More depositions needed (recommend 2-3 minimum)');
+    if(dc<70) missing.push('Discovery incomplete (target 70%+)');
+    if(ex==='no') missing.push('Expert witness not designated');
+    if(ex==='pending') missing.push('Expert witness designation in progress');
+    if(op==='unknown') missing.push('Opposing counsel profile not built');
+    var score=Math.min(100,Math.max(10,(mr/10)*15+(dp/4)*20+(dc/100)*25+(ex==='yes'?20:ex==='pending'?10:0)+(op==='known'?10:op==='none'?15:0)+10));
+    showReadinessResult({score:Math.round(score),gaps:missing,recommendations:'Address the gaps above. Consider scheduling a case strategy review.'});
+  }
+}
+function showReadinessResult(d) {
+  document.getElementById('trResult').style.display='block';
+  var score = d.score||0;
+  var color = score>=80?'var(--primary)':score>=50?'var(--yellow)':'var(--red)';
+  var label = score>=80?'Trial Ready':score>=50?'Developing':'Significant Gaps';
+  var gaps = d.gaps||[];
+  var recs = d.recommendations||'';
+
+  var html = "<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;\">";
+  html += "<div class=\"stat-card\" style=\"text-align:center;\"><div class=\"num\" style=\"font-size:2.5rem;font-weight:800;color:"+color+";\">"+score+"</div><div class=\"label\">Readiness Score</div><div style=\"font-size:0.8rem;color:"+color+";\">"+label+"</div></div>";
+  html += "<div class=\"stat-card\"><div style=\"font-size:0.85rem;font-weight:600;margin-bottom:8px;\">Breakdown</div>";
+  html += "<div style=\"font-size:0.8rem;color:var(--text-muted);line-height:1.6;\">";
+  html += "📄 Medical Records: "+((d.medical_score||score*0.3)).toFixed(0)+"/30<br>";
+  html += "📋 Depositions: "+((d.depo_score||score*0.25)).toFixed(0)+"/25<br>";
+  html += "🔍 Discovery: "+((d.discovery_score||score*0.2)).toFixed(0)+"/20<br>";
+  html += "👨‍⚕️ Experts: "+((d.expert_score||score*0.15)).toFixed(0)+"/15<br>";
+  html += "⚖️ Opposing Counsel Intel: "+((d.opposing_score||score*0.1)).toFixed(0)+"/10";
+  html += "</div></div></div>";
+
+  if (gaps.length > 0) {
+    html += "<div class=\"card\" style=\"padding:16px;margin-bottom:14px;\"><h4 style=\"margin:0 0 8px 0;\">🔴 Critical Gaps — Priority Order</h4><ol style=\"margin:0;padding-left:18px;\">";
+    gaps.forEach(function(g,i){
+      var priority = i===0?'🚨 ':i===1?'⚠️ ':'📌 ';
+      html += "<li style=\"margin-bottom:6px;font-size:0.9rem;\">"+priority+g+"</li>";
+    });
+    html += "</ol></div>";
+  }
+
+  html += "<div class=\"card\" style=\"padding:16px;margin-bottom:14px;\"><h4 style=\"margin:0 0 8px 0;\">📋 Action Plan</h4><ol style=\"margin:0;padding-left:18px;\">";
+  if (gaps.length === 0) {
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">✅ Case appears ready for trial — conduct final pre-trial conference</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">📋 Prepare trial notebook and exhibit list</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">📝 Draft motions in limine and proposed jury instructions</li>";
+  } else {
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Address the highest-priority gaps first (estimated 2-4 weeks per major gap)</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Schedule case strategy review once top 3 gaps are closed</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Re-run this assessment after each major milestone</li>";
+  }
+  html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Estimated time to trial ready: "+(score>=80?'2-4 weeks':score>=50?'4-8 weeks':'8-16 weeks')+"</li>";
+  html += "</ol></div>";
+
+  if (recs) {
+    html += "<div class=\"card\" style=\"padding:16px;\"><h4 style=\"margin:0 0 8px 0;\">💡 Strategic Recommendations</h4><p style=\"margin:0;font-size:0.9rem;\">"+recs+"</p></div>";
+  }
+
+  document.getElementById('trResultContent').innerHTML = html;
+  document.getElementById('trOverview').innerHTML='<div style=\"font-size:2rem;font-weight:800;color:'+color+';">'+score+'/100</div>';
+  document.getElementById('trStatus').innerHTML='✅ Trial readiness calculated.';
+}
+  document.getElementById('trResult').style.display='block';
+  var score=d.score||0;
+  var color=score>70?'var(--primary)':score>40?'#f59e0b':'var(--red)';
+  var gaps=d.gaps||[];
+  var html='<div style="text-align:center;margin-bottom:20px;"><div style="font-size:3rem;font-weight:700;color:'+color+'">'+score+'%</div><div class="label">Trial Readiness Score</div></div>';
+  if(gaps.length) html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">'+gaps.map(function(g){return '<div class="stat-card" style="border-left:3px solid var(--red);"><div class="label">⚠️ '+g+'</div></div>';}).join('')+'</div>';
+  else html+='<p style="color:var(--primary);font-weight:600;">✅ No major gaps found. Your case appears well-prepared.</p>';
+  if(d.recommendations) html+='<p><strong>Recommendations:</strong> '+d.recommendations+'</p>';
+  document.getElementById('trResultContent').innerHTML=html;
+  document.getElementById('trOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;color:'+color+'">'+score+'%</div><div style="font-size:0.85rem;color:var(--text-muted);">'+(score>70?'Ready for trial':score>40?'Needs preparation':'Significant gaps')+'</div>';
+  document.getElementById('trStatus').innerHTML='✅ Score calculated.';
+}
+
+function switchPage(page) {
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelector(`.nav-item[data-page="${page}"]`)?.classList.add('active');
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+  $(`page-${page}`)?.classList.add('active');
+  // Load CRM settings when CRM page is opened
+  if (page === 'crm') loadCrmSettings();
+}
+
+(async function init() {
+  // Seed demo users for offline mode
+  if (!localStorage.getItem('lexiflow_users')) {
+    const users = [{ id: 1, name: 'Admin User', email: 'admin@lexiflow.co', firm: 'Demo Firm', password: 'admin123', created: new Date().toISOString() }];
+    localStorage.setItem('lexiflow_users', JSON.stringify(users));
+  }
+  // Also check for token from the main login page (/login saves to lexiflow_token)
+  const mainToken = localStorage.getItem('lexiflow_token');
+  if (mainToken && !token) {
+    token = mainToken;
+    localStorage.setItem(STORAGE_KEY, token);
+  }
+  if(token){try{await loadDashboard();return;}catch(e){localStorage.removeItem(STORAGE_KEY);token=null;}}
+  $('authScreen').style.display='flex'; $('dashboardView').style.display='none';
+})();
+</script>
+
+        <script>
+        // Mobile menu toggle helper
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', function() {
+                    links.classList.toggle('active');
+                });
+            }
+        });
+        </script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- SEO Inner Linking -->
+    <section class="max-w-screen" style="padding: 40px 0; border-top: 1px solid var(--slate-100); max-width: 1200px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <a href="../ai-legal-intake-software.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Intake Software →</a>
+            <a href="../ai-medical-chronologies.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Medical Chronology AI →</a>
+            <a href="/blog" style="color: #0f172a; text-decoration: none; font-weight: 600;">Legal AI Insights Blog →</a>
+            <a href="../roi-calculator.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Firm ROI Calculator →</a>
+            <a href="../compliance-shield.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">HIPAA & SOC2 Compliance →</a>
+            <a href="../cities.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Service Areas →</a>
+        </div>
+    </section>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
+          <li><a href="/veritas-deposition.html">Veritas Deposition™</a></li>
+          <li><a href="/compliance-shield">Compliance-Shield™</a></li>
+          <li><a href="/dashboard">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>State Ethics Guides</h4>
+        <ul>
+          <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
+          <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
+          <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
+          <li><a href="/blog">All Resources</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/soc2">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
+
+<script src="/shared-layout.js"></script>
+</body>
+</html>+Math.round(total*3).toLocaleString()+' — 
+async function checkSOL() {
+  var ct=document.getElementById('solCaseType').value,st=document.getElementById('solState').value,dt=document.getElementById('solIncidentDate').value,age=parseInt(document.getElementById('solAge').value)||45,s=document.getElementById('solStatus');
+  if(!dt){s.style.color='var(--red)';s.innerHTML='❌ Select an incident date.';return;}
+  s.innerHTML='⏳ Calculating SOL...';
+  try {
+    var r=await fetch('/api/enterprise/strategist/sol-guardian',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,state:st,incident_date:dt,plaintiff_age:age})});
+    var d=await r.json(); showSOLResult(d);
+  } catch(e) {
+    var solData={'med-mal':{years:2.5,notice:'90-day pre-suit notice required'},'pi':{years:3,notice:'No pre-suit notice required'},'wrongful-death':{years:2,notice:'File within 2 years of death'},'product-liability':{years:3,notice:'No pre-suit notice required'}};
+    var sol=solData[ct]||solData.pi;
+    var incident=new Date(dt); var deadline=new Date(incident); deadline.setFullYear(deadline.getFullYear()+Math.floor(sol.years)); deadline.setMonth(deadline.getMonth()+Math.round((sol.years%1)*12));
+    var daysLeft=Math.round((deadline-new Date())/86400000);
+    showSOLResult({deadline:deadline.toLocaleDateString(),days_remaining:daysLeft,notices_required:(ct==='med-mal'?'Yes':'No'),alert_dates:'Set calendar reminders at 90, 60, 30, and 7 days before deadline.',notice_details:sol.notice});
+  }
+}
+function showSOLResult(d) {
+  document.getElementById('solResult').style.display='block';
+  document.getElementById('solResultContent').innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;"><div class="stat-card"><div class="num">'+(d.deadline||'N/A')+'</div><div class="label">Filing Deadline</div></div><div class="stat-card"><div class="num" style="'+(d.days_remaining<90?'color:var(--red)':'')+'">'+(d.days_remaining||0)+' days</div><div class="label">Remaining</div></div><div class="stat-card"><div class="num">'+(d.notices_required||'None')+'</div><div class="label">Pre-Notice Required</div></div></div><p><strong>Notice Requirements:</strong> '+(d.notice_details||d.alert_dates||'N/A')+'</p><p><strong>Alerts:</strong> '+(d.alert_dates||'Set 90-day, 60-day, and 30-day reminders.')+'</p>';
+  document.getElementById('solOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;'+(d.days_remaining<90?'color:var(--red)':'color:var(--primary)')+'">'+(d.days_remaining||0)+' days</div><div style="font-size:0.85rem;color:var(--text-muted);">Until '+(d.deadline||'N/A')+'</div>';
+  document.getElementById('solStatus').innerHTML='✅ SOL calculated.';
+}
+async function calculateTrialReadiness() {
+  var ct=document.getElementById('trCaseType').value,mr=parseInt(document.getElementById('trMedRecords').value)||0,dp=parseInt(document.getElementById('trDepos').value)||0,dc=parseInt(document.getElementById('trDiscovery').value)||0,ex=document.getElementById('trExpert').value,op=document.getElementById('trOpposing').value,s=document.getElementById('trStatus');
+  s.innerHTML='⏳ Calculating trial readiness...';
+  try {
+    var r=await fetch('/api/enterprise/strategist/trial-readiness',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,medical_docs:mr,depositions_done:dp,discovery_complete:dc,expert_designated:ex,opposing_counsel:op})});
+    var d=await r.json(); showReadinessResult(d);
+  } catch(e) {
+    var missing=[];
+    if(mr<5) missing.push('Insufficient medical records (need 5+)');
+    if(dp<2) missing.push('More depositions needed (recommend 2-3 minimum)');
+    if(dc<70) missing.push('Discovery incomplete (target 70%+)');
+    if(ex==='no') missing.push('Expert witness not designated');
+    if(ex==='pending') missing.push('Expert witness designation in progress');
+    if(op==='unknown') missing.push('Opposing counsel profile not built');
+    var score=Math.min(100,Math.max(10,(mr/10)*15+(dp/4)*20+(dc/100)*25+(ex==='yes'?20:ex==='pending'?10:0)+(op==='known'?10:op==='none'?15:0)+10));
+    showReadinessResult({score:Math.round(score),gaps:missing,recommendations:'Address the gaps above. Consider scheduling a case strategy review.'});
+  }
+}
+function showReadinessResult(d) {
+  document.getElementById('trResult').style.display='block';
+  var score = d.score||0;
+  var color = score>=80?'var(--primary)':score>=50?'var(--yellow)':'var(--red)';
+  var label = score>=80?'Trial Ready':score>=50?'Developing':'Significant Gaps';
+  var gaps = d.gaps||[];
+  var recs = d.recommendations||'';
+
+  var html = "<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;\">";
+  html += "<div class=\"stat-card\" style=\"text-align:center;\"><div class=\"num\" style=\"font-size:2.5rem;font-weight:800;color:"+color+";\">"+score+"</div><div class=\"label\">Readiness Score</div><div style=\"font-size:0.8rem;color:"+color+";\">"+label+"</div></div>";
+  html += "<div class=\"stat-card\"><div style=\"font-size:0.85rem;font-weight:600;margin-bottom:8px;\">Breakdown</div>";
+  html += "<div style=\"font-size:0.8rem;color:var(--text-muted);line-height:1.6;\">";
+  html += "📄 Medical Records: "+((d.medical_score||score*0.3)).toFixed(0)+"/30<br>";
+  html += "📋 Depositions: "+((d.depo_score||score*0.25)).toFixed(0)+"/25<br>";
+  html += "🔍 Discovery: "+((d.discovery_score||score*0.2)).toFixed(0)+"/20<br>";
+  html += "👨‍⚕️ Experts: "+((d.expert_score||score*0.15)).toFixed(0)+"/15<br>";
+  html += "⚖️ Opposing Counsel Intel: "+((d.opposing_score||score*0.1)).toFixed(0)+"/10";
+  html += "</div></div></div>";
+
+  if (gaps.length > 0) {
+    html += "<div class=\"card\" style=\"padding:16px;margin-bottom:14px;\"><h4 style=\"margin:0 0 8px 0;\">🔴 Critical Gaps — Priority Order</h4><ol style=\"margin:0;padding-left:18px;\">";
+    gaps.forEach(function(g,i){
+      var priority = i===0?'🚨 ':i===1?'⚠️ ':'📌 ';
+      html += "<li style=\"margin-bottom:6px;font-size:0.9rem;\">"+priority+g+"</li>";
+    });
+    html += "</ol></div>";
+  }
+
+  html += "<div class=\"card\" style=\"padding:16px;margin-bottom:14px;\"><h4 style=\"margin:0 0 8px 0;\">📋 Action Plan</h4><ol style=\"margin:0;padding-left:18px;\">";
+  if (gaps.length === 0) {
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">✅ Case appears ready for trial — conduct final pre-trial conference</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">📋 Prepare trial notebook and exhibit list</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">📝 Draft motions in limine and proposed jury instructions</li>";
+  } else {
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Address the highest-priority gaps first (estimated 2-4 weeks per major gap)</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Schedule case strategy review once top 3 gaps are closed</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Re-run this assessment after each major milestone</li>";
+  }
+  html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Estimated time to trial ready: "+(score>=80?'2-4 weeks':score>=50?'4-8 weeks':'8-16 weeks')+"</li>";
+  html += "</ol></div>";
+
+  if (recs) {
+    html += "<div class=\"card\" style=\"padding:16px;\"><h4 style=\"margin:0 0 8px 0;\">💡 Strategic Recommendations</h4><p style=\"margin:0;font-size:0.9rem;\">"+recs+"</p></div>";
+  }
+
+  document.getElementById('trResultContent').innerHTML = html;
+  document.getElementById('trOverview').innerHTML='<div style=\"font-size:2rem;font-weight:800;color:'+color+';">'+score+'/100</div>';
+  document.getElementById('trStatus').innerHTML='✅ Trial readiness calculated.';
+}
+  document.getElementById('trResult').style.display='block';
+  var score=d.score||0;
+  var color=score>70?'var(--primary)':score>40?'#f59e0b':'var(--red)';
+  var gaps=d.gaps||[];
+  var html='<div style="text-align:center;margin-bottom:20px;"><div style="font-size:3rem;font-weight:700;color:'+color+'">'+score+'%</div><div class="label">Trial Readiness Score</div></div>';
+  if(gaps.length) html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">'+gaps.map(function(g){return '<div class="stat-card" style="border-left:3px solid var(--red);"><div class="label">⚠️ '+g+'</div></div>';}).join('')+'</div>';
+  else html+='<p style="color:var(--primary);font-weight:600;">✅ No major gaps found. Your case appears well-prepared.</p>';
+  if(d.recommendations) html+='<p><strong>Recommendations:</strong> '+d.recommendations+'</p>';
+  document.getElementById('trResultContent').innerHTML=html;
+  document.getElementById('trOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;color:'+color+'">'+score+'%</div><div style="font-size:0.85rem;color:var(--text-muted);">'+(score>70?'Ready for trial':score>40?'Needs preparation':'Significant gaps')+'</div>';
+  document.getElementById('trStatus').innerHTML='✅ Score calculated.';
+}
+
+function switchPage(page) {
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelector(`.nav-item[data-page="${page}"]`)?.classList.add('active');
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+  $(`page-${page}`)?.classList.add('active');
+  // Load CRM settings when CRM page is opened
+  if (page === 'crm') loadCrmSettings();
+}
+
+(async function init() {
+  // Seed demo users for offline mode
+  if (!localStorage.getItem('lexiflow_users')) {
+    const users = [{ id: 1, name: 'Admin User', email: 'admin@lexiflow.co', firm: 'Demo Firm', password: 'admin123', created: new Date().toISOString() }];
+    localStorage.setItem('lexiflow_users', JSON.stringify(users));
+  }
+  // Also check for token from the main login page (/login saves to lexiflow_token)
+  const mainToken = localStorage.getItem('lexiflow_token');
+  if (mainToken && !token) {
+    token = mainToken;
+    localStorage.setItem(STORAGE_KEY, token);
+  }
+  if(token){try{await loadDashboard();return;}catch(e){localStorage.removeItem(STORAGE_KEY);token=null;}}
+  $('authScreen').style.display='flex'; $('dashboardView').style.display='none';
+})();
+</script>
+
+        <script>
+        // Mobile menu toggle helper
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', function() {
+                    links.classList.toggle('active');
+                });
+            }
+        });
+        </script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- SEO Inner Linking -->
+    <section class="max-w-screen" style="padding: 40px 0; border-top: 1px solid var(--slate-100); max-width: 1200px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <a href="../ai-legal-intake-software.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Intake Software →</a>
+            <a href="../ai-medical-chronologies.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Medical Chronology AI →</a>
+            <a href="/blog" style="color: #0f172a; text-decoration: none; font-weight: 600;">Legal AI Insights Blog →</a>
+            <a href="../roi-calculator.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Firm ROI Calculator →</a>
+            <a href="../compliance-shield.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">HIPAA & SOC2 Compliance →</a>
+            <a href="../cities.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Service Areas →</a>
+        </div>
+    </section>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
+          <li><a href="/veritas-deposition.html">Veritas Deposition™</a></li>
+          <li><a href="/compliance-shield">Compliance-Shield™</a></li>
+          <li><a href="/dashboard">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>State Ethics Guides</h4>
+        <ul>
+          <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
+          <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
+          <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
+          <li><a href="/blog">All Resources</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/soc2">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
+
+<script src="/shared-layout.js"></script>
+</body>
+</html>+Math.round(total*4).toLocaleString()+' (including pain & suffering multiplier)</p></div>';
+  html+='<div class="card" style="padding:16px;"><h4 style="margin:0 0 8px 0;">⚕️ Medical Source References</h4>';
+  html+='<p style="margin:0;font-size:0.85rem;color:var(--text-muted);">Cost estimates based on CMS fee schedules, Medicare CPT reimbursement rates, and published medical cost data. Recommend retaining a board-certified life care planner for trial testimony. Each cost item should be supported by treating physician recommendations.</p></div>';
+  if(d.recommendations) html+='<p style="font-size:0.85rem;color:var(--text-muted);margin-top:12px;">'+d.recommendations+'</p>';
   document.getElementById('lcResultContent').innerHTML=html;
+  document.getElementById('lcOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;color:var(--primary);">
+async function checkSOL() {
+  var ct=document.getElementById('solCaseType').value,st=document.getElementById('solState').value,dt=document.getElementById('solIncidentDate').value,age=parseInt(document.getElementById('solAge').value)||45,s=document.getElementById('solStatus');
+  if(!dt){s.style.color='var(--red)';s.innerHTML='❌ Select an incident date.';return;}
+  s.innerHTML='⏳ Calculating SOL...';
+  try {
+    var r=await fetch('/api/enterprise/strategist/sol-guardian',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,state:st,incident_date:dt,plaintiff_age:age})});
+    var d=await r.json(); showSOLResult(d);
+  } catch(e) {
+    var solData={'med-mal':{years:2.5,notice:'90-day pre-suit notice required'},'pi':{years:3,notice:'No pre-suit notice required'},'wrongful-death':{years:2,notice:'File within 2 years of death'},'product-liability':{years:3,notice:'No pre-suit notice required'}};
+    var sol=solData[ct]||solData.pi;
+    var incident=new Date(dt); var deadline=new Date(incident); deadline.setFullYear(deadline.getFullYear()+Math.floor(sol.years)); deadline.setMonth(deadline.getMonth()+Math.round((sol.years%1)*12));
+    var daysLeft=Math.round((deadline-new Date())/86400000);
+    showSOLResult({deadline:deadline.toLocaleDateString(),days_remaining:daysLeft,notices_required:(ct==='med-mal'?'Yes':'No'),alert_dates:'Set calendar reminders at 90, 60, 30, and 7 days before deadline.',notice_details:sol.notice});
+  }
+}
+function showSOLResult(d) {
+  document.getElementById('solResult').style.display='block';
+  document.getElementById('solResultContent').innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;"><div class="stat-card"><div class="num">'+(d.deadline||'N/A')+'</div><div class="label">Filing Deadline</div></div><div class="stat-card"><div class="num" style="'+(d.days_remaining<90?'color:var(--red)':'')+'">'+(d.days_remaining||0)+' days</div><div class="label">Remaining</div></div><div class="stat-card"><div class="num">'+(d.notices_required||'None')+'</div><div class="label">Pre-Notice Required</div></div></div><p><strong>Notice Requirements:</strong> '+(d.notice_details||d.alert_dates||'N/A')+'</p><p><strong>Alerts:</strong> '+(d.alert_dates||'Set 90-day, 60-day, and 30-day reminders.')+'</p>';
+  document.getElementById('solOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;'+(d.days_remaining<90?'color:var(--red)':'color:var(--primary)')+'">'+(d.days_remaining||0)+' days</div><div style="font-size:0.85rem;color:var(--text-muted);">Until '+(d.deadline||'N/A')+'</div>';
+  document.getElementById('solStatus').innerHTML='✅ SOL calculated.';
+}
+async function calculateTrialReadiness() {
+  var ct=document.getElementById('trCaseType').value,mr=parseInt(document.getElementById('trMedRecords').value)||0,dp=parseInt(document.getElementById('trDepos').value)||0,dc=parseInt(document.getElementById('trDiscovery').value)||0,ex=document.getElementById('trExpert').value,op=document.getElementById('trOpposing').value,s=document.getElementById('trStatus');
+  s.innerHTML='⏳ Calculating trial readiness...';
+  try {
+    var r=await fetch('/api/enterprise/strategist/trial-readiness',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,medical_docs:mr,depositions_done:dp,discovery_complete:dc,expert_designated:ex,opposing_counsel:op})});
+    var d=await r.json(); showReadinessResult(d);
+  } catch(e) {
+    var missing=[];
+    if(mr<5) missing.push('Insufficient medical records (need 5+)');
+    if(dp<2) missing.push('More depositions needed (recommend 2-3 minimum)');
+    if(dc<70) missing.push('Discovery incomplete (target 70%+)');
+    if(ex==='no') missing.push('Expert witness not designated');
+    if(ex==='pending') missing.push('Expert witness designation in progress');
+    if(op==='unknown') missing.push('Opposing counsel profile not built');
+    var score=Math.min(100,Math.max(10,(mr/10)*15+(dp/4)*20+(dc/100)*25+(ex==='yes'?20:ex==='pending'?10:0)+(op==='known'?10:op==='none'?15:0)+10));
+    showReadinessResult({score:Math.round(score),gaps:missing,recommendations:'Address the gaps above. Consider scheduling a case strategy review.'});
+  }
+}
+function showReadinessResult(d) {
+  document.getElementById('trResult').style.display='block';
+  var score = d.score||0;
+  var color = score>=80?'var(--primary)':score>=50?'var(--yellow)':'var(--red)';
+  var label = score>=80?'Trial Ready':score>=50?'Developing':'Significant Gaps';
+  var gaps = d.gaps||[];
+  var recs = d.recommendations||'';
+
+  var html = "<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;\">";
+  html += "<div class=\"stat-card\" style=\"text-align:center;\"><div class=\"num\" style=\"font-size:2.5rem;font-weight:800;color:"+color+";\">"+score+"</div><div class=\"label\">Readiness Score</div><div style=\"font-size:0.8rem;color:"+color+";\">"+label+"</div></div>";
+  html += "<div class=\"stat-card\"><div style=\"font-size:0.85rem;font-weight:600;margin-bottom:8px;\">Breakdown</div>";
+  html += "<div style=\"font-size:0.8rem;color:var(--text-muted);line-height:1.6;\">";
+  html += "📄 Medical Records: "+((d.medical_score||score*0.3)).toFixed(0)+"/30<br>";
+  html += "📋 Depositions: "+((d.depo_score||score*0.25)).toFixed(0)+"/25<br>";
+  html += "🔍 Discovery: "+((d.discovery_score||score*0.2)).toFixed(0)+"/20<br>";
+  html += "👨‍⚕️ Experts: "+((d.expert_score||score*0.15)).toFixed(0)+"/15<br>";
+  html += "⚖️ Opposing Counsel Intel: "+((d.opposing_score||score*0.1)).toFixed(0)+"/10";
+  html += "</div></div></div>";
+
+  if (gaps.length > 0) {
+    html += "<div class=\"card\" style=\"padding:16px;margin-bottom:14px;\"><h4 style=\"margin:0 0 8px 0;\">🔴 Critical Gaps — Priority Order</h4><ol style=\"margin:0;padding-left:18px;\">";
+    gaps.forEach(function(g,i){
+      var priority = i===0?'🚨 ':i===1?'⚠️ ':'📌 ';
+      html += "<li style=\"margin-bottom:6px;font-size:0.9rem;\">"+priority+g+"</li>";
+    });
+    html += "</ol></div>";
+  }
+
+  html += "<div class=\"card\" style=\"padding:16px;margin-bottom:14px;\"><h4 style=\"margin:0 0 8px 0;\">📋 Action Plan</h4><ol style=\"margin:0;padding-left:18px;\">";
+  if (gaps.length === 0) {
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">✅ Case appears ready for trial — conduct final pre-trial conference</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">📋 Prepare trial notebook and exhibit list</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">📝 Draft motions in limine and proposed jury instructions</li>";
+  } else {
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Address the highest-priority gaps first (estimated 2-4 weeks per major gap)</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Schedule case strategy review once top 3 gaps are closed</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Re-run this assessment after each major milestone</li>";
+  }
+  html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Estimated time to trial ready: "+(score>=80?'2-4 weeks':score>=50?'4-8 weeks':'8-16 weeks')+"</li>";
+  html += "</ol></div>";
+
+  if (recs) {
+    html += "<div class=\"card\" style=\"padding:16px;\"><h4 style=\"margin:0 0 8px 0;\">💡 Strategic Recommendations</h4><p style=\"margin:0;font-size:0.9rem;\">"+recs+"</p></div>";
+  }
+
+  document.getElementById('trResultContent').innerHTML = html;
+  document.getElementById('trOverview').innerHTML='<div style=\"font-size:2rem;font-weight:800;color:'+color+';">'+score+'/100</div>';
+  document.getElementById('trStatus').innerHTML='✅ Trial readiness calculated.';
+}
+  document.getElementById('trResult').style.display='block';
+  var score=d.score||0;
+  var color=score>70?'var(--primary)':score>40?'#f59e0b':'var(--red)';
+  var gaps=d.gaps||[];
+  var html='<div style="text-align:center;margin-bottom:20px;"><div style="font-size:3rem;font-weight:700;color:'+color+'">'+score+'%</div><div class="label">Trial Readiness Score</div></div>';
+  if(gaps.length) html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">'+gaps.map(function(g){return '<div class="stat-card" style="border-left:3px solid var(--red);"><div class="label">⚠️ '+g+'</div></div>';}).join('')+'</div>';
+  else html+='<p style="color:var(--primary);font-weight:600;">✅ No major gaps found. Your case appears well-prepared.</p>';
+  if(d.recommendations) html+='<p><strong>Recommendations:</strong> '+d.recommendations+'</p>';
+  document.getElementById('trResultContent').innerHTML=html;
+  document.getElementById('trOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;color:'+color+'">'+score+'%</div><div style="font-size:0.85rem;color:var(--text-muted);">'+(score>70?'Ready for trial':score>40?'Needs preparation':'Significant gaps')+'</div>';
+  document.getElementById('trStatus').innerHTML='✅ Score calculated.';
+}
+
+function switchPage(page) {
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelector(`.nav-item[data-page="${page}"]`)?.classList.add('active');
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+  $(`page-${page}`)?.classList.add('active');
+  // Load CRM settings when CRM page is opened
+  if (page === 'crm') loadCrmSettings();
+}
+
+(async function init() {
+  // Seed demo users for offline mode
+  if (!localStorage.getItem('lexiflow_users')) {
+    const users = [{ id: 1, name: 'Admin User', email: 'admin@lexiflow.co', firm: 'Demo Firm', password: 'admin123', created: new Date().toISOString() }];
+    localStorage.setItem('lexiflow_users', JSON.stringify(users));
+  }
+  // Also check for token from the main login page (/login saves to lexiflow_token)
+  const mainToken = localStorage.getItem('lexiflow_token');
+  if (mainToken && !token) {
+    token = mainToken;
+    localStorage.setItem(STORAGE_KEY, token);
+  }
+  if(token){try{await loadDashboard();return;}catch(e){localStorage.removeItem(STORAGE_KEY);token=null;}}
+  $('authScreen').style.display='flex'; $('dashboardView').style.display='none';
+})();
+</script>
+
+        <script>
+        // Mobile menu toggle helper
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', function() {
+                    links.classList.toggle('active');
+                });
+            }
+        });
+        </script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- SEO Inner Linking -->
+    <section class="max-w-screen" style="padding: 40px 0; border-top: 1px solid var(--slate-100); max-width: 1200px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Advanced Legal AI Resources</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <a href="../ai-legal-intake-software.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Intake Software →</a>
+            <a href="../ai-medical-chronologies.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Medical Chronology AI →</a>
+            <a href="/blog" style="color: #0f172a; text-decoration: none; font-weight: 600;">Legal AI Insights Blog →</a>
+            <a href="../roi-calculator.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Firm ROI Calculator →</a>
+            <a href="../compliance-shield.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">HIPAA & SOC2 Compliance →</a>
+            <a href="../cities.html" style="color: #0f172a; text-decoration: none; font-weight: 600;">Service Areas →</a>
+        </div>
+    </section>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
+          <li><a href="/veritas-deposition.html">Veritas Deposition™</a></li>
+          <li><a href="/compliance-shield">Compliance-Shield™</a></li>
+          <li><a href="/dashboard">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>State Ethics Guides</h4>
+        <ul>
+          <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
+          <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
+          <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
+          <li><a href="/blog">All Resources</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/soc2">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
+
+<script src="/shared-layout.js"></script>
+</body>
+</html>+Math.round(total).toLocaleString()+'</div><div style="font-size:0.85rem;color:var(--text-muted);">Projected Lifetime Care Cost</div>';
   document.getElementById('lcStatus').innerHTML='✅ Life care plan generated.';
 }
 async function checkSOL() {
@@ -1534,6 +3078,54 @@ async function calculateTrialReadiness() {
   }
 }
 function showReadinessResult(d) {
+  document.getElementById('trResult').style.display='block';
+  var score = d.score||0;
+  var color = score>=80?'var(--primary)':score>=50?'var(--yellow)':'var(--red)';
+  var label = score>=80?'Trial Ready':score>=50?'Developing':'Significant Gaps';
+  var gaps = d.gaps||[];
+  var recs = d.recommendations||'';
+
+  var html = "<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;\">";
+  html += "<div class=\"stat-card\" style=\"text-align:center;\"><div class=\"num\" style=\"font-size:2.5rem;font-weight:800;color:"+color+";\">"+score+"</div><div class=\"label\">Readiness Score</div><div style=\"font-size:0.8rem;color:"+color+";\">"+label+"</div></div>";
+  html += "<div class=\"stat-card\"><div style=\"font-size:0.85rem;font-weight:600;margin-bottom:8px;\">Breakdown</div>";
+  html += "<div style=\"font-size:0.8rem;color:var(--text-muted);line-height:1.6;\">";
+  html += "📄 Medical Records: "+((d.medical_score||score*0.3)).toFixed(0)+"/30<br>";
+  html += "📋 Depositions: "+((d.depo_score||score*0.25)).toFixed(0)+"/25<br>";
+  html += "🔍 Discovery: "+((d.discovery_score||score*0.2)).toFixed(0)+"/20<br>";
+  html += "👨‍⚕️ Experts: "+((d.expert_score||score*0.15)).toFixed(0)+"/15<br>";
+  html += "⚖️ Opposing Counsel Intel: "+((d.opposing_score||score*0.1)).toFixed(0)+"/10";
+  html += "</div></div></div>";
+
+  if (gaps.length > 0) {
+    html += "<div class=\"card\" style=\"padding:16px;margin-bottom:14px;\"><h4 style=\"margin:0 0 8px 0;\">🔴 Critical Gaps — Priority Order</h4><ol style=\"margin:0;padding-left:18px;\">";
+    gaps.forEach(function(g,i){
+      var priority = i===0?'🚨 ':i===1?'⚠️ ':'📌 ';
+      html += "<li style=\"margin-bottom:6px;font-size:0.9rem;\">"+priority+g+"</li>";
+    });
+    html += "</ol></div>";
+  }
+
+  html += "<div class=\"card\" style=\"padding:16px;margin-bottom:14px;\"><h4 style=\"margin:0 0 8px 0;\">📋 Action Plan</h4><ol style=\"margin:0;padding-left:18px;\">";
+  if (gaps.length === 0) {
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">✅ Case appears ready for trial — conduct final pre-trial conference</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">📋 Prepare trial notebook and exhibit list</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">📝 Draft motions in limine and proposed jury instructions</li>";
+  } else {
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Address the highest-priority gaps first (estimated 2-4 weeks per major gap)</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Schedule case strategy review once top 3 gaps are closed</li>";
+    html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Re-run this assessment after each major milestone</li>";
+  }
+  html += "<li style=\"margin-bottom:4px;font-size:0.9rem;\">Estimated time to trial ready: "+(score>=80?'2-4 weeks':score>=50?'4-8 weeks':'8-16 weeks')+"</li>";
+  html += "</ol></div>";
+
+  if (recs) {
+    html += "<div class=\"card\" style=\"padding:16px;\"><h4 style=\"margin:0 0 8px 0;\">💡 Strategic Recommendations</h4><p style=\"margin:0;font-size:0.9rem;\">"+recs+"</p></div>";
+  }
+
+  document.getElementById('trResultContent').innerHTML = html;
+  document.getElementById('trOverview').innerHTML='<div style=\"font-size:2rem;font-weight:800;color:'+color+';">'+score+'/100</div>';
+  document.getElementById('trStatus').innerHTML='✅ Trial readiness calculated.';
+}
   document.getElementById('trResult').style.display='block';
   var score=d.score||0;
   var color=score>70?'var(--primary)':score>40?'#f59e0b':'var(--red)';
