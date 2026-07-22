@@ -1404,11 +1404,11 @@ async function uploadMedicalRecord() {
     const r = await fetch("/meritscan/upload", {method:"POST", body: form});
     const d = await r.json();
     document.getElementById("medicalResult").style.display="block";
-    document.getElementById("medicalResultContent").innerHTML = "<p><strong>Report ID:</strong> "+(d.report_id||d.id||"generated")+"</p><p><strong>Status:</strong> "+d.status+"</p><p><strong>Merit Score:</strong> "+(d.merit_score||"Pending")+"</p>";
+    document.getElementById("medicalResultContent").innerHTML = '<div class="card"><h4>Medical Analysis Result</h4><p><strong>Report ID:</strong> '+(d.report_id||d.id||"generated")+'</p><p><strong>Status:</strong> '+d.status+'</p><p><strong>Merit Score:</strong> '+(d.merit_score||"Pending")+'</p></div>';
     s.innerHTML="✅ Analysis started."; setTimeout(loadMedReports, 1000);
   } catch(e) {
     document.getElementById("medicalResult").style.display="block";
-    document.getElementById("medicalResultContent").innerHTML = "<p>✅ File <strong>"+file.name+"</strong> queued.</p><p style=\"font-size:0.82rem;color:var(--text-muted);\">AI processing will complete shortly.</p>";
+    document.getElementById("medicalResultContent").innerHTML = '<div class="card"><h4>File Queued</h4><p style="margin-bottom:4px;">\u2705 File <strong>'+file.name+'</strong> queued.</p><p style="margin:0;font-size:0.82rem;color:var(--text-muted);">AI processing will complete shortly.</p></div>';
     s.innerHTML="✅ File queued.";
   }
 }
@@ -1430,11 +1430,11 @@ async function uploadDeposition() {
     const r = await fetch("/veritas/upload", {method:"POST", body: form});
     const d = await r.json();
     document.getElementById("depoResult").style.display="block";
-    document.getElementById("depoResultContent").innerHTML = "<p><strong>Transcript ID:</strong> "+(d.transcript_id||d.id||"generated")+"</p><p><strong>Contradictions:</strong> "+(d.contradictions||"Processing...")+"</p><p><strong>Credibility:</strong> "+(d.credibility||"Pending")+"</p>";
+    document.getElementById("depoResultContent").innerHTML = '<div class="card"><h4>Deposition Analysis Result</h4><p><strong>Transcript ID:</strong> '+(d.transcript_id||d.id||"generated")+'</p><p><strong>Contradictions:</strong> '+(d.contradictions||"Processing...")+'</p><p><strong>Credibility:</strong> '+(d.credibility||"Pending")+'</p></div>';
     s.innerHTML="✅ Analysis started.";
   } catch(e) {
     document.getElementById("depoResult").style.display="block";
-    document.getElementById("depoResultContent").innerHTML = "<p>✅ Transcript <strong>"+file.name+"</strong> queued.</p><p style=\"font-size:0.82rem;color:var(--text-muted);\">Contradiction detection will complete shortly.</p>";
+    document.getElementById("depoResultContent").innerHTML = '<div class="card"><h4>Transcript Queued</h4><p style="margin-bottom:4px;">\u2705 Transcript <strong>'+file.name+'</strong> queued.</p><p style="margin:0;font-size:0.82rem;color:var(--text-muted);">Contradiction detection will complete shortly.</p></div>';
     s.innerHTML="✅ Queued.";
   }
 }
@@ -1449,11 +1449,11 @@ async function uploadDiscovery() {
     const r = await fetch("/chat/upload?lead_id=0", {method:"POST", body: form});
     const d = await r.json();
     document.getElementById("discResult").style.display="block";
-    document.getElementById("discResultContent").innerHTML = "<p><strong>Document:</strong> "+file.name+"</p><p><strong>Type:</strong> "+docType+"</p><p><strong>Status:</strong> "+(d.status||"Processing")+"</p>";
+    document.getElementById("discResultContent").innerHTML = '<div class="card"><h4>Discovery Document Result</h4><p><strong>Document:</strong> '+file.name+'</p><p><strong>Type:</strong> '+docType+'</p><p><strong>Status:</strong> '+(d.status||"Processing")+'</p></div>';
     s.innerHTML="✅ Document processed.";
   } catch(e) {
     document.getElementById("discResult").style.display="block";
-    document.getElementById("discResultContent").innerHTML = "<p>✅ Document <strong>"+file.name+"</strong> uploaded.</p><p style=\"font-size:0.82rem;color:var(--text-muted);\">AI review will complete shortly.</p>";
+    document.getElementById("discResultContent").innerHTML = '<div class="card"><h4>Document Uploaded</h4><p style="margin-bottom:4px;">\u2705 Document <strong>'+file.name+'</strong> uploaded.</p><p style="margin:0;font-size:0.82rem;color:var(--text-muted);">AI review will complete shortly.</p></div>';
     s.innerHTML="✅ Uploaded.";
   }
 }
@@ -1478,7 +1478,7 @@ async function calculateSettlement() {
     s.innerHTML="✅ Estimate calculated.";
   } catch(e) {
     document.getElementById("settlementResult").style.display="block";
-    document.getElementById("settlementResultContent").innerHTML = "<p>Estimated range for <strong>"+type.replace("-"," ")+"</strong> in <strong>"+state+"</strong>: <span style=\"font-size:1.3rem;font-weight:700;color:var(--primary);\">$"+damages.toLocaleString()+"</span></p><p style=\"font-size:0.82rem;color:var(--text-muted);\">Enterprise API with state-specific damage caps available on paid plans.</p>";
+    document.getElementById("settlementResultContent").innerHTML = '<div class="card"><h4>Settlement Estimate</h4><p style="margin-bottom:4px;">Estimated range for <strong>'+type.replace("-"," ")+'</strong> in <strong>'+state+'</strong>: <span style="font-size:1.3rem;font-weight:700;color:var(--primary);">$'+damages.toLocaleString()+'</span></p><p style="margin:0;font-size:0.82rem;color:var(--text-muted);">Enterprise API with state-specific damage caps available on paid plans.</p></div>';
     s.innerHTML="✅ Estimate shown.";
   }
 }
@@ -1538,7 +1538,7 @@ async function profileOpposingCounsel() {
 }
 function showCounselResult(p,name,firm,prac) {
   document.getElementById('ocResult').style.display='block';
-  document.getElementById('ocResultContent').innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;"><div class="stat-card"><div class="num">'+(p.win||'N/A')+'</div><div class="label">Est. Win Rate</div></div><div class="stat-card"><div class="num">'+(p.settle||'N/A')+'</div><div class="label">Settles</div></div><div class="stat-card"><div class="num">'+(p.trial||'N/A')+'</div><div class="label">Goes to Trial</div></div></div><p><strong>Deposition Style:</strong> '+(p.style||'Aggressive')+'</p><p><strong>Strategy Tips:</strong> '+(p.tips||'Prepare thoroughly.')+'</p><p><strong>Notable Experience:</strong> '+(p.notable||'N/A')+'</p>';
+  document.getElementById('ocResultContent').innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;"><div class="stat-card"><div class="num">'+(p.win||'N/A')+'</div><div class="label">Est. Win Rate</div></div><div class="stat-card"><div class="num">'+(p.settle||'N/A')+'</div><div class="label">Settles</div></div><div class="stat-card"><div class="num">'+(p.trial||'N/A')+'</div><div class="label">Goes to Trial</div></div></div><div class="card"><h4>Counsel Profile</h4><p><strong>Deposition Style:</strong> '+(p.style||'Aggressive')+'</p><p><strong>Strategy Tips:</strong> '+(p.tips||'Prepare thoroughly.')+'</p><p><strong>Notable Experience:</strong> '+(p.notable||'N/A')+'</p></div>';
   document.getElementById('ocOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;color:var(--primary);">'+name+'</div><div style="font-size:0.85rem;color:var(--text-muted);">'+firm+'</div>';
   document.getElementById('ocStatus').innerHTML='✅ Profile generated.';
 }
@@ -1547,7 +1547,7 @@ function showPlanResult(d) {
   var items=d.care_items||[];
   var html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">';
   items.forEach(function(i){html+='<div class="stat-card"><div class="num">$'+i.cost.toLocaleString()+'</div><div class="label">'+i.item+'</div><div style="font-size:0.78rem;color:var(--text-muted);">'+i.timeline+'</div></div>';});
-  html+='</div>';var total=d.total_projected||0;if(!total){items.forEach(function(i){total+=i.cost||0;});}html+='<div class="card" style="padding:14px;margin-bottom:12px;background:var(--primary);color:#fff;"><h3 style="margin:0;">Projected Lifetime Cost: $'+Math.round(total).toLocaleString()+'</h3></div>';html+='<div class="card" style="padding:14px;margin-bottom:12px;"><h4 style="margin:0 0 6px 0;">Demand Letter Framework</h4><p style="margin:0 0 4px 0;font-size:0.85rem;"><strong>Life Care Range:</strong> $'+Math.round(total*0.85).toLocaleString()+' — $'+Math.round(total*1.15).toLocaleString()+'</p><p style="margin:0 0 4px 0;font-size:0.85rem;"><strong>Pain & Suffering:</strong> 2-3x economic damages in catastrophic cases</p><p style="margin:0;font-size:0.85rem;"><strong>Total Demand Package:</strong> $'+Math.round(total*3).toLocaleString()+' — $'+Math.round(total*4).toLocaleString()+'</p></div>';html+='<div class="card" style="padding:14px;"><h4 style="margin:0 0 6px 0;">Medical Source Reference</h4><p style="margin:0;font-size:0.82rem;color:var(--text-muted);">Costs based on CMS fee schedules & Medicare CPT rates. Retain board-certified life care planner for testimony.</p></div>';
+  html+='</div>';var total=d.total_projected||0;if(!total){items.forEach(function(i){total+=i.cost||0;});}html+='<div class="card" style="padding:14px;margin-bottom:12px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-dark));text-align:center;border:1px solid rgba(201,168,76,0.2);"><h3 style="margin:0;color:var(--gold);">Projected Lifetime Cost: $'+Math.round(total).toLocaleString()+'</h3></div>';html+='<div class="card" style="padding:14px;margin-bottom:12px;"><h4 style="margin:0 0 6px 0;">Demand Letter Framework</h4><p style="margin:0 0 4px 0;font-size:0.85rem;"><strong>Life Care Range:</strong> $'+Math.round(total*0.85).toLocaleString()+' — $'+Math.round(total*1.15).toLocaleString()+'</p><p style="margin:0 0 4px 0;font-size:0.85rem;"><strong>Pain & Suffering:</strong> 2-3x economic damages in catastrophic cases</p><p style="margin:0;font-size:0.85rem;"><strong>Total Demand Package:</strong> $'+Math.round(total*3).toLocaleString()+' — $'+Math.round(total*4).toLocaleString()+'</p></div>';html+='<div class="card" style="padding:14px;"><h4 style="margin:0 0 6px 0;">Medical Source Reference</h4><p style="margin:0;font-size:0.82rem;color:var(--text-muted);">Costs based on CMS fee schedules & Medicare CPT rates. Retain board-certified life care planner for testimony.</p></div>';
   if(d.recommendations) html+='<p style="font-size:0.85rem;color:var(--text-muted);">'+d.recommendations+'</p>';
   document.getElementById('lcResultContent').innerHTML=html;
   document.getElementById('lcStatus').innerHTML='✅ Life care plan generated.';
@@ -1599,7 +1599,7 @@ function showReadinessResult(d) {
   var html='<div style="text-align:center;margin-bottom:20px;"><div style="font-size:3rem;font-weight:700;color:'+color+'">'+score+'%</div><div class="label">Trial Readiness Score</div></div>';
   if(gaps.length) html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">'+gaps.map(function(g){return '<div class="stat-card" style="border-left:3px solid var(--red);"><div class="label">⚠️ '+g+'</div></div>';}).join('')+'</div>';
   else html+='<p style="color:var(--primary);font-weight:600;">✅ No major gaps found. Your case appears well-prepared.</p>';
-  if(d.recommendations) html+='<p><strong>Recommendations:</strong> '+d.recommendations+'</p>';
+  if(d.recommendations) html+='<div class="card"><h4>Recommendations</h4><p style="margin:0;font-size:0.85rem;">'+d.recommendations+'</p></div>';
   document.getElementById('trResultContent').innerHTML=html;
   document.getElementById('trOverview').innerHTML='<div style="font-size:1.1rem;font-weight:700;color:'+color+'">'+score+'%</div><div style="font-size:0.85rem;color:var(--text-muted);">'+(score>70?'Ready for trial':score>40?'Needs preparation':'Significant gaps')+'</div>';
   document.getElementById('trStatus').innerHTML='✅ Score calculated.';
