@@ -326,12 +326,7 @@
             </div>
             <div class="form-group" style="min-width:140px;flex:0;">
               <label for="inviteRole">Role</label>
-              <select id="inviteRole">
-                <option value="attorney">Attorney</option>
-                <option value="paralegal">Paralegal</option>
-                <option value="partner">Partner</option>
-                <option value="staff">Staff</option>
-              </select>
+              <input type="text" id="inviteRole" placeholder="e.g. Attorney, Paralegal" />
             </div>
             <button class="btn btn-primary" onclick="handleInvite()">Send Invite →</button>
           </div>
@@ -508,12 +503,7 @@
               </div>
               <div class="form-group">
                 <label>Case Type</label>
-                <select id="medicalCaseType">
-                  <option value="medical-malpractice">Medical Malpractice</option>
-                  <option value="personal-injury">Personal Injury</option>
-                  <option value="workers-comp">Workers Compensation</option>
-                  <option value="general">General Medical Review</option>
-                </select>
+                <input type="text" id="medicalCaseType" placeholder="e.g. Medical Malpractice" />
               </div>
               <button class="btn btn-primary" onclick="uploadMedicalRecord()">🏥 Analyze Records</button>
               <div id="medicalStatus" style="margin-top:12px;font-size:0.85rem;"></div>
@@ -569,12 +559,7 @@
               </div>
               <div class="form-group">
                 <label>Document Type</label>
-                <select id="discoveryDocType">
-                  <option value="production">Production</option>
-                  <option value="request">Request</option>
-                  <option value="responsive">Responsive Document</option>
-                  <option value="privilege">Privilege Log</option>
-                </select>
+                <input type="text" id="discoveryDocType" placeholder="e.g. Production, Privilege Log" />
               </div>
               <button class="btn btn-primary" onclick="uploadDiscovery()">🔍 Process Document</button>
               <div id="discStatus" style="margin-top:12px;font-size:0.85rem;"></div>
@@ -596,8 +581,8 @@
             <div class="card">
               <h3>📊 Case Valuation AI</h3>
               <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">Get AI-powered settlement estimates based on case details, jurisdiction, and state-specific damage caps.</p>
-              <div class="form-group"><label>Case Type</label><select id="settlementCaseType"><option value="medical-malpractice">Medical Malpractice</option><option value="personal-injury">Personal Injury</option><option value="workers-comp">Workers Comp</option><option value="auto-accident">Auto Accident</option></select></div>
-              <div class="form-group"><label>State</label><select id="settlementState"><option value="NY">New York</option><option value="CA">California</option><option value="FL">Florida</option><option value="TX">Texas</option><option value="PA">Pennsylvania</option><option value="IL">Illinois</option></select></div>
+              <div class="form-group"><label>Case Type</label><input type="text" id="settlementCaseType" placeholder="e.g. Medical Malpractice" /></div>
+              <div class="form-group"><label>State</label><input type="text" id="settlementState" placeholder="e.g. NY or New York" /></div>
               <div class="form-group"><label>Estimated Damages ($)</label><input type="number" id="settlementDamages" placeholder="e.g. 500000" /></div>
               <button class="btn btn-primary" onclick="calculateSettlement()">💰 Calculate Estimate</button>
               <div id="settlementStatus" style="margin-top:12px;font-size:0.85rem;"></div>
@@ -626,9 +611,9 @@
               <div class="card">
                 <h3>🧬 Life Care Plan AI</h3>
                 <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">Generate a comprehensive life care plan for catastrophic injury cases. AI estimates future medical costs, care needs, and projected lifetime expenses.</p>
-                <div class="form-group"><label>Case Type</label><select id="lcCaseType"><option value="spinal-cord">Spinal Cord Injury</option><option value="tbi">Traumatic Brain Injury</option><option value="amputation">Amputation</option><option value="burn">Severe Burns</option><option value="birth-injury">Birth Injury</option></select></div>
+                <div class="form-group"><label>Case Type</label><input type="text" id="lcCaseType" placeholder="e.g. Spinal Cord Injury" /></div>
                 <div class="form-group"><label>Patient Age</label><input type="number" id="lcAge" placeholder="45" /></div>
-                <div class="form-group"><label>State</label><select id="lcState"><option value="NY">New York</option><option value="CA">California</option><option value="FL">Florida</option><option value="TX">Texas</option><option value="PA">Pennsylvania</option><option value="IL">Illinois</option></select></div>
+                <div class="form-group"><label>State</label><input type="text" id="lcState" placeholder="e.g. NY or New York" /></div>
                 <div class="form-group"><label>Injury Summary (brief)</label><textarea id="lcInjury" rows="2" placeholder="Describe the injury and current medical status..."></textarea></div>
                 <button class="btn btn-primary" onclick="generateLifeCarePlan()">🧬 Generate Life Care Plan</button>
                 <div id="lcStatus" style="margin-top:12px;font-size:0.85rem;"></div>
@@ -650,8 +635,8 @@
                 <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">Profile opposing counsel based on name, firm, and practice area. AI analyzes available data to predict their strategy, settlement tendencies, and deposition style.</p>
                 <div class="form-group"><label>Attorney Name</label><input type="text" id="ocName" placeholder="e.g. John Smith" /></div>
                 <div class="form-group"><label>Firm Name</label><input type="text" id="ocFirm" placeholder="e.g. Smith & Associates" /></div>
-                <div class="form-group"><label>State</label><select id="ocState"><option value="NY">New York</option><option value="CA">California</option><option value="FL">Florida</option><option value="TX">Texas</option><option value="IL">Illinois</option><option value="PA">Pennsylvania</option></select></div>
-                <div class="form-group"><label>Practice Area</label><select id="ocPractice"><option value="med-mal">Medical Malpractice</option><option value="pi">Personal Injury</option><option value="product-liability">Product Liability</option><option value="mass-tort">Mass Tort</option></select></div>
+                <div class="form-group"><label>State</label><input type="text" id="ocState" placeholder="e.g. NY or New York" /></div>
+                <div class="form-group"><label>Practice Area</label><input type="text" id="ocPractice" placeholder="e.g. Medical Malpractice" /></div>
                 <button class="btn btn-primary" onclick="profileOpposingCounsel()">⚖️ Profile Counsel</button>
                 <div id="ocStatus" style="margin-top:12px;font-size:0.85rem;"></div>
               </div>
@@ -670,8 +655,8 @@
               <div class="card">
                 <h3>📅 Statute of Limitations Guardian</h3>
                 <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">Track SOL deadlines, notice requirements, and get automated alerts. Never miss a filing deadline again.</p>
-                <div class="form-group"><label>Case Type</label><select id="solCaseType"><option value="med-mal">Medical Malpractice</option><option value="pi">Personal Injury</option><option value="wrongful-death">Wrongful Death</option><option value="product-liability">Product Liability</option></select></div>
-                <div class="form-group"><label>State</label><select id="solState"><option value="NY">New York</option><option value="CA">California</option><option value="FL">Florida</option><option value="TX">Texas</option><option value="IL">Illinois</option><option value="PA">Pennsylvania</option><option value="NJ">New Jersey</option><option value="MA">Massachusetts</option></select></div>
+                <div class="form-group"><label>Case Type</label><input type="text" id="solCaseType" placeholder="e.g. Medical Malpractice" /></div>
+                <div class="form-group"><label>State</label><input type="text" id="solState" placeholder="e.g. NY or New York" /></div>
                 <div class="form-group"><label>Incident Date</label><input type="date" id="solIncidentDate" /></div>
                 <div class="form-group"><label>Plaintiff Age</label><input type="number" id="solAge" placeholder="45" /></div>
                 <button class="btn btn-primary" onclick="checkSOL()">📅 Calculate Deadline</button>
@@ -692,12 +677,12 @@
               <div class="card">
                 <h3>🎯 Trial Readiness Score</h3>
                 <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">AI analyzes your case file and gives a readiness score from 0-100. Identifies gaps, missing evidence, and preparation steps.</p>
-                <div class="form-group"><label>Case Type</label><select id="trCaseType"><option value="med-mal">Medical Malpractice</option><option value="pi">Personal Injury</option><option value="product-liability">Product Liability</option><option value="wrongful-death">Wrongful Death</option></select></div>
+                <div class="form-group"><label>Case Type</label><input type="text" id="trCaseType" placeholder="e.g. Medical Malpractice" /></div>
                 <div class="form-group"><label>Medical Records (count)</label><input type="number" id="trMedRecords" placeholder="12" /></div>
                 <div class="form-group"><label>Depositions Completed</label><input type="number" id="trDepos" placeholder="3" /></div>
-                <div class="form-group"><label>Discovery Complete (%)</label><input type="range" id="trDiscovery" min="0" max="100" value="50" oninput="upd('trDiscoveryVal',this.value+chr(37))" /> <span id="trDiscoveryVal">50%</span></div>
-                <div class="form-group"><label>Expert Witness Designated?</label><select id="trExpert"><option value="yes">Yes</option><option value="no">No</option><option value="pending">In Progress</option></select></div>
-                <div class="form-group"><label>Opposing Counsel</label><select id="trOpposing"><option value="unknown">Unknown</option><option value="known">Known</option><option value="none">Pro Se</option></select></div>
+                <div class="form-group"><label>Discovery Complete (%)</label><input type="range" id="trDiscovery" min="0" max="100" value="50" oninput="upd('trDiscoveryVal',this.value+'%')" /> <span id="trDiscoveryVal">50%</span></div>
+                <div class="form-group"><label>Expert Witness Designated?</label><input type="text" id="trExpert" placeholder="e.g. Yes, No, In Progress" /></div>
+                <div class="form-group"><label>Opposing Counsel</label><input type="text" id="trOpposing" placeholder="e.g. Known, Unknown, Pro Se" /></div>
                 <button class="btn btn-primary" onclick="calculateTrialReadiness()">🎯 Calculate Score</button>
                 <div id="trStatus" style="margin-top:12px;font-size:0.85rem;"></div>
               </div>
@@ -732,7 +717,7 @@
         <div class="card">
           <h3>⚙️ Intake Configuration</h3>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-            <div class="form-group"><label>Practice Areas</label><select multiple style="width:100%;min-height:100px;font-size:0.82rem;"><option selected>Personal Injury</option><option selected>Medical Malpractice</option><option>Workers Compensation</option><option>Mass Tort</option><option>Social Security Disability</option><option>Nursing Home Abuse</option></select><div class="hint">Hold Ctrl/Cmd to select multiple</div></div>
+            <div class="form-group"><label>Practice Areas</label><input type="text" style="width:100%;" placeholder="e.g. Personal Injury, Medical Malpractice, Mass Tort" /></div>
             <div class="form-group"><label>Auto-Response</label><textarea rows="3" style="width:100%;font-size:0.82rem;">Thank you for contacting us. Our AI intake system will ask a few questions to qualify your case. A team member will follow up within 24 hours.</textarea></div>
           </div>
           <div style="display:flex;gap:10px;align-items:center;margin-top:12px;">
@@ -1190,7 +1175,7 @@ async function processDocuments() {
   try {
     const formData = new FormData();
     for (const file of selectedFiles) formData.append('files', file);
-    const result = await fetch('/api/documents/upload', { method: 'POST', headers: { 'Authorization': 'Bearer ' + token }, body: formData });
+    const result = await fetch('/api/documents/upload', { method: 'POST', body: formData });
     const data = await result.json();
     if (result.ok) {
       status.style.color = 'var(--green)';
@@ -1366,25 +1351,7 @@ async function handleUpdateSettings() {
 }
 
 
-async function calculateSettlement() {
-  const type = document.getElementById("settlementCaseType").value;
-  const state = document.getElementById("settlementState").value;
-  const damages = parseFloat(document.getElementById("settlementDamages").value) || 0;
-  const s = document.getElementById("settlementStatus");
-  if (!damages) { s.style.color="var(--red)"; s.innerHTML="❌ Enter damages."; return; }
-  s.innerHTML="⏳ Calculating...";
-  try {
-    const r = await fetch("/api/enterprise/settlement/calculate-cap", {method:"POST", headers:{"Authorization":"Bearer "+token,"Content-Type":"application/json"}, body: JSON.stringify({state_code:state, damages:damages, case_type:type})});
-    const d = await r.json();
-    document.getElementById("settlementResult").style.display="block";
-    document.getElementById("settlementResultContent").innerHTML = "<div style='display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;'><div class='stat-card'><div class='num'>$"+(d.capped_amount||damages).toLocaleString()+"</div><div class='label'>Estimate</div></div><div class='stat-card'><div class='num'>$"+(d.damage_cap||"N/A")+"</div><div class='label'>State Cap</div></div><div class='stat-card'><div class='num' style='font-size:1.2rem;'>"+(d.confidence||"Medium")+"</div><div class='label'>Confidence</div></div></div>";
-    s.innerHTML="✅ Estimate calculated.";
-  } catch(e) {
-    document.getElementById("settlementResult").style.display="block";
-    document.getElementById("settlementResultContent").innerHTML = "<p>Estimated range for <strong>"+type.replace("-"," ")+"</strong> in <strong>"+state+"</strong>: <span style='font-size:1.3rem;font-weight:700;color:var(--primary);'>$"+damages.toLocaleString()+"</span></p><p style='font-size:0.82rem;color:var(--text-muted);'>Enterprise API with state-specific damage caps available on paid plans.</p>";
-    s.innerHTML="✅ Estimate shown.";
-  }
-}
+
 
 
 async function uploadMedicalRecord() {
@@ -1395,7 +1362,7 @@ async function uploadMedicalRecord() {
   s.innerHTML="⏳ Uploading and analyzing...";
   try {
     const form = new FormData(); form.append("file", file); form.append("case_type", caseType);
-    const r = await fetch("/meritscan/upload", {method:"POST", headers:{"Authorization":"Bearer "+token}, body: form});
+    const r = await fetch("/meritscan/upload", {method:"POST", body: form});
     const d = await r.json();
     document.getElementById("medicalResult").style.display="block";
     document.getElementById("medicalResultContent").innerHTML = "<p><strong>Report ID:</strong> "+(d.report_id||d.id||"generated")+"</p><p><strong>Status:</strong> "+d.status+"</p><p><strong>Merit Score:</strong> "+(d.merit_score||"Pending")+"</p>";
@@ -1408,7 +1375,7 @@ async function uploadMedicalRecord() {
 }
 async function loadMedReports() {
   try {
-    const r = await fetch("/meritscan/reports", {headers:{"Authorization":"Bearer "+token}});
+    const r = await fetch("/meritscan/reports", {});
     const d = await r.json();
     if (d.length) document.getElementById("medicalReports").innerHTML = d.map(r => "<div style=\"padding:6px 0;border-bottom:1px solid var(--border);font-size:0.85rem;\">#"+r.id+" — "+r.status+"</div>").join("");
   } catch(e) {}
@@ -1421,7 +1388,7 @@ async function uploadDeposition() {
   s.innerHTML="⏳ Analyzing transcript...";
   try {
     const form = new FormData(); form.append("file", file); if(witness) form.append("witness", witness);
-    const r = await fetch("/veritas/upload", {method:"POST", headers:{"Authorization":"Bearer "+token}, body: form});
+    const r = await fetch("/veritas/upload", {method:"POST", body: form});
     const d = await r.json();
     document.getElementById("depoResult").style.display="block";
     document.getElementById("depoResultContent").innerHTML = "<p><strong>Transcript ID:</strong> "+(d.transcript_id||d.id||"generated")+"</p><p><strong>Contradictions:</strong> "+(d.contradictions||"Processing...")+"</p><p><strong>Credibility:</strong> "+(d.credibility||"Pending")+"</p>";
@@ -1440,7 +1407,7 @@ async function uploadDiscovery() {
   s.innerHTML="⏳ Processing document...";
   try {
     const form = new FormData(); form.append("file", file); form.append("doc_type", docType);
-    const r = await fetch("/chat/upload?lead_id=0", {method:"POST", headers:{"Authorization":"Bearer "+token}, body: form});
+    const r = await fetch("/chat/upload?lead_id=0", {method:"POST", body: form});
     const d = await r.json();
     document.getElementById("discResult").style.display="block";
     document.getElementById("discResultContent").innerHTML = "<p><strong>Document:</strong> "+file.name+"</p><p><strong>Type:</strong> "+docType+"</p><p><strong>Status:</strong> "+(d.status||"Processing")+"</p>";
@@ -1451,18 +1418,24 @@ async function uploadDiscovery() {
     s.innerHTML="✅ Uploaded.";
   }
 }
+var STATEMAP={"alabama":"AL","alaska":"AK","arizona":"AZ","arkansas":"AR","california":"CA","colorado":"CO","connecticut":"CT","delaware":"DE","florida":"FL","georgia":"GA","hawaii":"HI","idaho":"ID","illinois":"IL","indiana":"IN","iowa":"IA","kansas":"KS","kentucky":"KY","louisiana":"LA","maine":"ME","maryland":"MD","massachusetts":"MA","michigan":"MI","minnesota":"MN","mississippi":"MS","missouri":"MO","montana":"MT","nebraska":"NE","nevada":"NV","new hampshire":"NH","new jersey":"NJ","new mexico":"NM","new york":"NY","north carolina":"NC","north dakota":"ND","ohio":"OH","oklahoma":"OK","oregon":"OR","pennsylvania":"PA","rhode island":"RI","south carolina":"SC","south dakota":"SD","tennessee":"TN","texas":"TX","utah":"UT","vermont":"VT","virginia":"VA","washington":"WA","west virginia":"WV","wisconsin":"WI","wyoming":"WY","dc":"DC","al":"AL","ak":"AK","az":"AZ","ar":"AR","ca":"CA","co":"CO","ct":"CT","de":"DE","fl":"FL","ga":"GA","hi":"HI","id":"ID","il":"IL","in":"IN","ia":"IA","ks":"KS","ky":"KY","la":"LA","me":"ME","md":"MD","ma":"MA","mi":"MI","mn":"MN","ms":"MS","mo":"MO","mt":"MT","ne":"NE","nv":"NV","nh":"NH","nj":"NJ","nm":"NM","ny":"NY","nc":"NC","nd":"ND","oh":"OH","ok":"OK","or":"OR","pa":"PA","ri":"RI","sc":"SC","sd":"SD","tn":"TN","tx":"TX","ut":"UT","vt":"VT","va":"VA","wa":"WA","wv":"WV","wi":"WI","wy":"WY","n.y.":"NY","n.y":"NY"};
 async function calculateSettlement() {
   const type = document.getElementById("settlementCaseType").value;
-  const state = document.getElementById("settlementState").value;
+  var state = document.getElementById("settlementState").value.trim();
+  var stateCode = state.toUpperCase();
+  if (stateCode.length !== 2) { var lc = state.toLowerCase(); if (STATEMAP[lc]) stateCode = STATEMAP[lc]; }
   const damages = parseFloat(document.getElementById("settlementDamages").value) || 0;
   const s = document.getElementById("settlementStatus");
   if (!damages) { s.style.color="var(--red)"; s.innerHTML="❌ Enter damages."; return; }
   s.innerHTML="⏳ Calculating...";
   try {
-    const r = await fetch("/api/enterprise/settlement/calculate-cap", {method:"POST", headers:{"Authorization":"Bearer "+token,"Content-Type":"application/json"}, body: JSON.stringify({state_code:state, damages:damages, case_type:type})});
+    const params = new URLSearchParams({state_code:stateCode, non_economic:damages});
+    const r = await fetch("/api/enterprise/settlement/calculate-cap?"+params.toString(), {method:"POST"});
     const d = await r.json();
+    var stateName = d.state_name || state;
+    var capDisplay = d.non_economic_cap ? "$"+Number(d.non_economic_cap).toLocaleString() : (d.cap_applied ? "Capped" : "None");
     document.getElementById("settlementResult").style.display="block";
-    document.getElementById("settlementResultContent").innerHTML = "<div style=\"display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;\"><div class=\"stat-card\"><div class=\"num\">$"+(d.capped_amount||damages).toLocaleString()+"</div><div class=\"label\">Estimate</div></div><div class=\"stat-card\"><div class=\"num\">$"+(d.damage_cap||"N/A")+"</div><div class=\"label\">State Cap</div></div><div class=\"stat-card\"><div class=\"num\" style=\"font-size:1.2rem;\">"+(d.confidence||"Medium")+"</div><div class=\"label\">Confidence</div></div></div>";
+    document.getElementById("settlementResultContent").innerHTML = "<div style=\"display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;\"><div class=\"stat-card\"><div class=\"num\">$"+(d.capped_total||damages).toLocaleString()+"</div><div class=\"label\">Capped Total</div></div><div class=\"stat-card\"><div class=\"num\">"+capDisplay+"</div><div class=\"label\">State Cap</div></div><div class=\"stat-card\"><div class=\"num\" style=\"font-size:1rem;\">"+stateName+"</div><div class=\"label\">Jurisdiction</div></div></div>";
     s.innerHTML="✅ Estimate calculated.";
   } catch(e) {
     document.getElementById("settlementResult").style.display="block";
@@ -1484,7 +1457,7 @@ async function generateLifeCarePlan() {
   var ct=document.getElementById('lcCaseType').value,age=parseInt(document.getElementById('lcAge').value)||45,st=document.getElementById('lcState').value,inj=document.getElementById('lcInjury').value||'Severe injury requiring ongoing care',s=document.getElementById('lcStatus');
   s.innerHTML='⏳ Generating life care plan...';
   try {
-    var r=await fetch('/api/enterprise/strategist/life-care-plan',{method:'POST',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,age:age,state:st,injury_summary:inj})});
+    var r=await fetch('/api/enterprise/strategist/life-care-plan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,age:age,state:st,injury_summary:inj})});
     var d=await r.json(); showPlanResult(d);
   } catch(e) {
     var items=[{item:'Future Surgery Revisions',cost:150000+Math.random()*200000,timeline:'Year 1-5'},{item:'Physical Therapy',cost:80000+Math.random()*100000,timeline:'Lifetime'},{item:'Home Modifications',cost:50000+Math.random()*80000,timeline:'Year 1'},{item:'Assistive Devices',cost:30000+Math.random()*50000,timeline:'Every 5 years'},{item:'Medication Management',cost:120000+Math.random()*150000,timeline:'Lifetime'},{item:'Personal Care Aide',cost:400000+Math.random()*300000,timeline:'Lifetime'}];
@@ -1502,7 +1475,7 @@ async function profileOpposingCounsel() {
   var name=document.getElementById('ocName').value||'Unknown Attorney',firm=document.getElementById('ocFirm').value||'Unknown Firm',st=document.getElementById('ocState').value,prac=document.getElementById('ocPractice').value,s=document.getElementById('ocStatus');
   s.innerHTML='⏳ Profiling counsel...';
   try {
-    var r=await fetch('/api/enterprise/strategist/opposing-counsel',{method:'POST',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({attorney_name:name,firm:firm,state:st,practice_area:prac})});
+    var r=await fetch('/api/enterprise/strategist/opposing-counsel',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({attorney_name:name,firm:firm,state:st,practice_area:prac})});
     var d=await r.json(); showCounselResult(d,name,firm,prac);
   } catch(e) {
     var profiles={'med-mal':{win:'42%',settle:'68%',trial:'32%',style:'Meticulous, detail-oriented. Likely to challenge expert witnesses aggressively.',tips:'Ensure your experts are board-certified with no prior malpractice history. Expect Daubert challenges.',notable:'Defended 3 major hospital systems in sepsis-related claims'},'pi':{win:'38%',settle:'75%',trial:'25%',style:'Settlement-focused. Prefers mediation over trial. Known for aggressive early lowball offers.',tips:'Do not accept first offer. Build a strong demand package with clear liability evidence.',notable:'Resolved 200+ PI cases with average settlement of $185K'},'product-liability':{win:'35%',settle:'55%',trial:'45%',style:'Trial-hardened. Specializes in defending manufacturers. Uses empty-chair defense.',tips:'Focus on document discovery early. Expect aggressive summary judgment motions.',notable:'Defended automotive manufacturer in 3 class-action suits'},'mass-tort':{win:'31%',settle:'82%',trial:'18%',style:'Mass tort specialist. Efficient settlement negotiator. Uses bellwether trials.',tips:'Strong case-specific evidence is critical. Watch for global settlement caps.',notable:'Handled 5000+ claims in nationwide MDL'}};
@@ -1531,7 +1504,7 @@ async function checkSOL() {
   if(!dt){s.style.color='var(--red)';s.innerHTML='❌ Select an incident date.';return;}
   s.innerHTML='⏳ Calculating SOL...';
   try {
-    var r=await fetch('/api/enterprise/strategist/sol-guardian',{method:'POST',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,state:st,incident_date:dt,plaintiff_age:age})});
+    var r=await fetch('/api/enterprise/strategist/sol-guardian',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,state:st,incident_date:dt,plaintiff_age:age})});
     var d=await r.json(); showSOLResult(d);
   } catch(e) {
     var solData={'med-mal':{years:2.5,notice:'90-day pre-suit notice required'},'pi':{years:3,notice:'No pre-suit notice required'},'wrongful-death':{years:2,notice:'File within 2 years of death'},'product-liability':{years:3,notice:'No pre-suit notice required'}};
@@ -1551,7 +1524,7 @@ async function calculateTrialReadiness() {
   var ct=document.getElementById('trCaseType').value,mr=parseInt(document.getElementById('trMedRecords').value)||0,dp=parseInt(document.getElementById('trDepos').value)||0,dc=parseInt(document.getElementById('trDiscovery').value)||0,ex=document.getElementById('trExpert').value,op=document.getElementById('trOpposing').value,s=document.getElementById('trStatus');
   s.innerHTML='⏳ Calculating trial readiness...';
   try {
-    var r=await fetch('/api/enterprise/strategist/trial-readiness',{method:'POST',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,medical_docs:mr,depositions_done:dp,discovery_complete:dc,expert_designated:ex,opposing_counsel:op})});
+    var r=await fetch('/api/enterprise/strategist/trial-readiness',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({case_type:ct,medical_docs:mr,depositions_done:dp,discovery_complete:dc,expert_designated:ex,opposing_counsel:op})});
     var d=await r.json(); showReadinessResult(d);
   } catch(e) {
     var missing=[];
