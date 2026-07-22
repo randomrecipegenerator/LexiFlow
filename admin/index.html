@@ -69,6 +69,16 @@
     .dash-header .brand span { font-weight:600; color:var(--navy); font-size:15px; }
     .dash-header .user-info { display:flex; align-items:center; gap:12px; font-size:13px; color:var(--slate-600); }
     .dash-body { display:flex; flex:1; max-width:var(--max-width); margin:0 auto; width:100%; padding:0 28px; gap:0; }
+
+    /* Gear Dropdown */
+    .gear-menu { position:relative; }
+    .gear-btn { width:36px; height:36px; border-radius:8px; border:1px solid var(--slate-200); background:#fff; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
+    .gear-btn:hover { border-color:var(--gold); background:var(--slate-50); }
+    .gear-dropdown { display:none; position:absolute; right:0; top:44px; background:#fff; border:1px solid var(--slate-200); border-radius:10px; box-shadow:0 8px 32px rgba(0,0,0,0.1); min-width:200px; z-index:100; overflow:hidden; }
+    .gear-dropdown.open { display:block; animation:fadeIn 0.15s ease; }
+    .gear-dropdown .gear-item { display:flex; align-items:center; gap:10px; padding:10px 16px; font-size:13px; color:var(--slate-600); cursor:pointer; transition:all 0.1s; border:none; background:transparent; width:100%; text-align:left; }
+    .gear-dropdown .gear-item:hover { background:var(--slate-50); color:var(--navy); }
+    .gear-dropdown .gear-divider { border-top:1px solid var(--slate-100); margin:4px 0; }
     
     /* Sidebar */
     .sidebar { width:240px; min-width:240px; padding:24px 0; border-right:1px solid var(--slate-200); background:var(--slate-50); }
@@ -231,25 +241,31 @@
         <span>Signed in as</span>
         <span class="email" id="dashUserEmail">admin@firm.com</span>
         <span class="badge" id="dashUserRole">admin</span>
+        <div class="gear-menu">
+          <button class="gear-btn" onclick="toggleGearMenu(event)" title="Admin Settings">⚙️</button>
+          <div class="gear-dropdown" id="gearDropdown">
+            <button class="gear-item" onclick="switchPage('team');closeGearMenu()">👥 Team Management</button>
+            <button class="gear-item" onclick="switchPage('settings');closeGearMenu()">🏢 Firm Settings</button>
+            <button class="gear-item" onclick="switchPage('billing');closeGearMenu()">💳 Billing & Usage</button>
+            <div class="gear-divider"></div>
+            <button class="gear-item" onclick="switchPage('crm');closeGearMenu()">🔄 CRM Sync</button>
+            <button class="gear-item" onclick="switchPage('audit');closeGearMenu()">📋 Audit Log</button>
+          </div>
+        </div>
         <button class="logout-btn" onclick="handleLogout()">Sign Out</button>
       </div>
     </div>
   </div>
   <div class="dash-body">
-    <div class="dash-sidebar">
+        <div class="dash-sidebar">
       <div class="nav-item active" data-page="overview" onclick="switchPage('overview')">📊 Overview</div>
-      <div class="nav-item" data-page="team" onclick="switchPage('team')">👥 Team Management</div>
-      <div class="nav-item" data-page="settings" onclick="switchPage('settings')">⚙️ Firm Settings</div>
-      <div class="nav-item" data-page="billing" onclick="switchPage('billing')">💳 Billing &amp; Usage</div>
-      <div class="nav-item" data-page="crm" onclick="switchPage('crm')">🔄 CRM Sync</div>
       <div class="nav-item" data-page="documents" onclick="switchPage('documents')">📄 Document Upload</div>
       <div class="nav-item" data-page="medical" onclick="switchPage('medical')">🏥 AI Medical</div>
       <div class="nav-item" data-page="deposition" onclick="switchPage('deposition')">🎙️ Veritas Deposition</div>
       <div class="nav-item" data-page="discovery" onclick="switchPage('discovery')">🔍 Discovery Vault</div>
       <div class="nav-item" data-page="settlement" onclick="switchPage('settlement')">💰 Settlement Predictor</div>
-	      <div class="nav-item" data-page="strategist" onclick="switchPage('strategist')">🧬 Strategist™</div>
+      <div class="nav-item" data-page="strategist" onclick="switchPage('strategist')">🧬 Strategist™</div>
       <div class="nav-item" data-page="intake" onclick="switchPage('intake')">📞 AI Intake</div>
-      <div class="nav-item" data-page="audit" onclick="switchPage('audit')">📋 Audit Log</div>
     </div>
     <div class="dash-content">
       <!-- Overview -->
