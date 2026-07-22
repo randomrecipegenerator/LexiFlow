@@ -209,7 +209,7 @@
   <div class="auth-card">
     <div class="logo">
       <div class="icon">LF</div>
-      <h1>LexiFlow Admin</h1>
+      <h1>Firm Admin</h1>
       <p>Firm Onboarding &amp; Management</p>
     </div>
     <div id="loginForm">
@@ -916,10 +916,12 @@ async function handleLogin() {
   // Owner bypass: admin@lexiflow.co with any password
   if (email === 'admin@lexiflow.co') {
     token = 'admin-bypass-' + Date.now(); localStorage.setItem(STORAGE_KEY, token);
-    const u = { id: 1, name: 'Admin', email: 'admin@lexiflow.co', firm: 'LexiFlow Technologies Inc', role: 'owner' };
+    const bypassFirmData = JSON.parse(localStorage.getItem('lexiflow_firm') || '{}');
+    const bypassFirm = bypassFirmData.name || 'LexiFlow';
+    const u = { id: 1, name: 'Admin', email: 'admin@lexiflow.co', firm: bypassFirm, role: 'owner' };
     localStorage.setItem('lexiflow_user', JSON.stringify(u));
-    currentUser = { id: 1, email: 'admin@lexiflow.co', name: 'Admin', firm_name: 'LexiFlow Technologies Inc' };
-    currentFirm = { name: 'LexiFlow Technologies Inc', slug: 'lexiflow-technologies-inc' };
+    currentUser = { id: 1, email: 'admin@lexiflow.co', name: 'Admin', firm_name: bypassFirm };
+    currentFirm = { name: bypassFirm, slug: bypassFirm.toLowerCase().replace(/\s+/g,'-') };
     toast('Welcome back, Admin!'); btn.disabled=false; btn.textContent='Sign In'; enterDashboard(); return;
   }
   try {
@@ -970,7 +972,7 @@ async function loadDashboard() {
 
 function enterDashboard() {
   $('authScreen').style.display='none'; $('dashboardView').style.display='flex';
-  $('dashFirmName').textContent = currentFirm?.name||'LexiFlow Admin';
+  $('dashFirmName').textContent = currentFirm?.name||'Your Firm';
   $('dashUserEmail').textContent = currentUser?.email||'admin@firm.com';
   $('dashUserRole').textContent = currentUser?.role||'admin';
 }
@@ -1212,7 +1214,7 @@ async function processDocuments() {
   try {
     const formData = new FormData();
     for (const file of selectedFiles) formData.append('files', file);
-    const result = await fetch('/api/documents/upload', { method: 'POST', body: formData });
+    const result = await fetch('/api/documents/upload', { method: 'POST', headers: { 'Authorization': 'Bearer ' + (token || '') }, body: formData });
     const data = await result.json();
     if (result.ok) {
       status.style.color = 'var(--green)';

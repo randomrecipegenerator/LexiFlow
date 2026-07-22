@@ -227,22 +227,22 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
         formData.append('password', password);
         formData.append('firm_name', firmName);
 
-        const response = await fetch('/api/auth/register', {
+        const response = await fetch('/api/admin/firms/register', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: formData.toString()
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({firm_name: firmName, admin_email: email, password: password, branding_colors: JSON.stringify({primary:'#1e40af',accent:'#c9a84c'})})
         });
 
         const data = await response.json();
 
-         if (response.ok && data.status === 'success') {
-            status.style.color = '#059669';
-            status.innerHTML = '✓ Account created! Redirecting to your dashboard...';
-            btn.innerHTML = 'Redirecting...';
-            localStorage.setItem('lexiflow_admin_token', data.access_token);
-            localStorage.setItem('lexiflow_user', JSON.stringify(data.user));
-            localStorage.setItem('lexiflow_firm', JSON.stringify(data.firm));
-            setTimeout(() => { window.location.href = data.redirect || '/admin'; }, 1000);
+         if (response.ok && data.access_token) {
+                status.style.color = '#059669';
+                status.innerHTML = '✓ Account created! Redirecting to your dashboard...';
+                btn.innerHTML = 'Redirecting...';
+                localStorage.setItem('lexiflow_admin_token', data.access_token);
+                localStorage.setItem('lexiflow_user', JSON.stringify(data.user));
+                localStorage.setItem('lexiflow_firm', JSON.stringify(data.firm));
+                setTimeout(() => { window.location.href = '/admin'; }, 1000);
         } else {
             const errorMsg = data.detail || 'Registration failed. Please try again.';
             status.style.color = '#dc2626';
