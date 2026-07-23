@@ -242,7 +242,7 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
                 localStorage.setItem('lexiflow_admin_token', data.access_token);
                 localStorage.setItem('lexiflow_user', JSON.stringify(data.user));
                 localStorage.setItem('lexiflow_firm', JSON.stringify(data.firm));
-                setTimeout(() => { window.location.href = '/admin'; }, 1000);
+                setTimeout(() => { window.location.href = '/dashboard'; }, 1000);
         } else {
             const errorMsg = data.detail || 'Registration failed. Please try again.';
             status.style.color = '#dc2626';
@@ -279,7 +279,7 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
         status.style.color = '#059669';
         status.innerHTML = '✓ Account created! Redirecting to your dashboard...';
         btn.innerHTML = 'Redirecting...';
-        setTimeout(() => { window.location.href = '/admin/'; }, 1000);
+        setTimeout(() => { window.location.href = '/dashboard/'; }, 1000);
     }
 });
 </script>
