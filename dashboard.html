@@ -75,13 +75,6 @@
     .table-wrap td { padding:10px 12px; border-bottom:1px solid var(--navy-border); color:var(--text-primary); }
     .table-wrap tr:last-child td { border-bottom:none; }
     .table-wrap tr:hover td { background:rgba(255,255,255,0.02); }
-
-    .table-wrap { overflow-x:auto; }
-    .table-wrap table { width:100%; border-collapse:collapse; font-size:13px; }
-    .table-wrap th { text-align:left; padding:10px 12px; font-size:11px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; border-bottom:1px solid var(--navy-border); }
-    .table-wrap td { padding:10px 12px; border-bottom:1px solid var(--navy-border); color:var(--text-primary); }
-    .table-wrap tr:last-child td { border-bottom:none; }
-    .table-wrap tr:hover td { background:rgba(255,255,255,0.02); }
   </style>
 </head>
 <body>
@@ -388,10 +381,46 @@
 
         <!-- BILLING -->
         <div class="page-section" id="page-billing">
-            <header class="page-header"><div><h1><i class="bi bi-credit-card"></i> Billing & Usage</h1><p>Manage your subscription and view usage.</p></div></header>
-            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Subscription</h3></div>
+            <header class="page-header"><div><h1><i class="bi bi-credit-card"></i> Billing & Usage</h1><p>Manage your subscription and upgrade your plan.</p></div></header>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Current Subscription</h3></div>
                 <p style="color:var(--text-secondary);font-size:14px;">Current Tier: <strong style="color:var(--gold-accent);" id="billingTier">--</strong></p>
                 <p style="color:var(--text-muted);font-size:13px;">Documents This Month: <span id="billingDocs">0</span> / <span id="billingLimit">--</span></p>
+            </div>
+            <h3 style="margin-top:28px;margin-bottom:16px;color:var(--text-primary);">Upgrade Your Plan</h3>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+                <div class="v-card" style="text-align:center;">
+                    <div class="v-card-header"><h3 class="v-card-title">Starter</h3></div>
+                    <div class="metric-value" style="font-size:28px;">$29<span style="font-size:14px;color:var(--text-muted);">/mo</span></div>
+                    <ul style="list-style:none;padding:0;margin:12px 0;font-size:13px;color:var(--text-secondary);text-align:left;">
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> AI Intake Suite</li>
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> 50 docs/month</li>
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> Basic support</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/cNi6oJ1Oocxk9uDfjYa7C00" target="_blank" class="v-btn v-btn-outline" style="width:100%;">Select Starter</a>
+                </div>
+                <div class="v-card" style="text-align:center;border:2px solid var(--gold-accent);">
+                    <div style="position:absolute;top:-12px;right:20px;background:var(--gold-accent);color:var(--navy-bg);padding:2px 10px;border-radius:10px;font-size:11px;font-weight:700;">POPULAR</div>
+                    <div class="v-card-header"><h3 class="v-card-title">Professional</h3></div>
+                    <div class="metric-value" style="font-size:28px;">$99<span style="font-size:14px;color:var(--text-muted);">/mo</span></div>
+                    <ul style="list-style:none;padding:0;margin:12px 0;font-size:13px;color:var(--text-secondary);text-align:left;">
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> Everything in Starter</li>
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> 250 docs/month</li>
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> Priority AI processing</li>
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> CRM Integration</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/00w5kFfFe68WdKTefUa7C02" target="_blank" class="v-btn v-btn-primary" style="width:100%;">Select Professional</a>
+                </div>
+                <div class="v-card" style="text-align:center;">
+                    <div class="v-card-header"><h3 class="v-card-title">Enterprise</h3></div>
+                    <div class="metric-value" style="font-size:28px;">$129<span style="font-size:14px;color:var(--text-muted);">/mo</span></div>
+                    <ul style="list-style:none;padding:0;margin:12px 0;font-size:13px;color:var(--text-secondary);text-align:left;">
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> Everything in Professional</li>
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> 500 docs/month</li>
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> Veritas Deposition</li>
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> LexiFlow Strategist</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/bJefZj64EfJw6irdbQa7C01" target="_blank" class="v-btn v-btn-outline" style="width:100%;">Select Enterprise</a>
+                </div>
             </div>
         </div>
 
