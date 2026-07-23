@@ -63,7 +63,7 @@
     
     /* Dashboard Layout */
     .dashboard-view { display:none; flex-direction:column; min-height:calc(100vh - 80px); }
-    .dash-header { display:flex; align-items:center; justify-content:space-between; padding:16px 28px; border-bottom:1px solid var(--slate-200); background:#fff; position:sticky; top:80px; z-index:10; }
+    .dash-header { display:flex; align-items:center; justify-content:space-between; padding:16px 28px; border-top:1px solid var(--slate-200); background:#fff; z-index:10; }
     .dash-header .brand { display:flex; align-items:center; gap:12px; }
     .dash-header .icon { width:36px; height:36px; background:var(--gold); border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; color:var(--navy); }
     .dash-header .brand span { font-weight:600; color:var(--navy); font-size:15px; }
@@ -234,6 +234,7 @@
 
 <!-- ============ DASHBOARD ============ -->
 <div class="dashboard" id="dashboardView">
+  <div class="dash-body">
   <div class="dashboard-header">
     <div class="dash-header-inner">
       <div class="brand"><div class="icon">LF</div><span id="dashFirmName">Loading...</span></div>
@@ -256,7 +257,6 @@
       </div>
     </div>
   </div>
-  <div class="dash-body">
         <div class="dash-sidebar">
       <div class="nav-item active" data-page="overview" onclick="switchPage('overview')">📊 Overview</div>
       <div class="nav-item" data-page="documents" onclick="switchPage('documents')">📄 Document Upload</div>
