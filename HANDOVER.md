@@ -1,5 +1,8 @@
 # LexiFlow Technologies Inc Legal Suite - Manual Handover & Deployment Guide
 
+> **⚠️ STATUS: HISTORICAL REFERENCE ONLY (June 28, 2026)**
+> This document refers to an old ZIP archive (`lexiflow_update_20260526_final.zip`) that predates the Active Workspace UI overhaul, pricing update ($29/$99/$129), and Rodriguez v. Mount Sinai demo case. The live production codebase is at `/home/team/shared/LexiFlow-Final/`. Use the current directory for all deployments.
+
 This document provides instructions for manually deploying the LexiFlow Technologies Inc Suite using the provided ZIP archive. This is a fallback method while GitHub push access is being resolved.
 
 ## 1. Handover Artifacts
