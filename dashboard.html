@@ -178,6 +178,13 @@
                 <div class="v-card metric-card"><div style="display:flex;justify-content:space-between;"><span class="metric-label">Docs Processed</span><i class="bi bi-files metric-icon"></i></div><div class="metric-value">47.2k</div><div style="font-size:12px;color:var(--gold-accent);margin-top:4px;">Medical & Discovery</div></div>
                 <div class="v-card metric-card"><div style="display:flex;justify-content:space-between;"><span class="metric-label">System Health</span><i class="bi bi-cpu metric-icon"></i></div><div class="metric-value">99.9%</div><div style="font-size:12px;color:var(--success);margin-top:4px;">All AI Engines Online</div></div>
             </div>
+            <div class="v-card" style="margin-bottom:24px;"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-lightning-charge"></i> Quick Actions</h3></div>
+                <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                    <button class="v-btn v-btn-primary" onclick="switchPage('team')"><i class="bi bi-people"></i> Invite Team Members</button>
+                    <button class="v-btn v-btn-outline" onclick="switchPage('settings')"><i class="bi bi-building"></i> Configure Branding</button>
+                    <button class="v-btn v-btn-outline" onclick="switchPage('billing')"><i class="bi bi-credit-card"></i> View Billing</button>
+                </div>
+            </div>
             <div class="grid-2-1">
                 <div style="display:flex;flex-direction:column;gap:24px;">
                     <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-graph-up"></i> Conversion Trend</h3></div><div style="height:250px;"><canvas id="chart-conversion"></canvas></div></div>
