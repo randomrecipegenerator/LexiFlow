@@ -559,3 +559,373 @@ def generate_merit_report(text):
         }
     except Exception as e:
         return {"error": str(e)}
+
+
+# =========================================================================
+# LexiFlow Strategist™ — AI Endpoints
+# =========================================================================
+
+def generate_life_care_plan(injury: str, age: int, state: str) -> dict:
+    """
+    Generate a comprehensive life care plan for catastrophic injury cases.
+    Uses life expectancy tables and standard cost data.
+    """
+    if not client:
+        return {
+            "summary": f"Life care plan for {injury} (age {age}, {state})",
+            "annual_costs": {
+                "physician_visits": 8500,
+                "physical_therapy": 12000,
+                "home_health_aide": 72000,
+                "medications": 14400,
+                "medical_equipment": 5600,
+                "transportation": 3600,
+                "home_modifications": 18000,
+                "case_management": 6000
+            },
+            "annual_total": 140100,
+            "life_expectancy_years": 38,
+            "lifetime_total": 5323800,
+            "cost_categories": [
+                {"category": "Medical Care", "annual": 45000, "lifetime": 1710000, "source": "U.S. Bureau of Labor Statistics"},
+                {"category": "Personal Care", "annual": 72000, "lifetime": 2736000, "source": "Genworth Cost of Care Survey 2025"},
+                {"category": "Therapies", "annual": 12000, "lifetime": 456000, "source": "Medicare Fee Schedule 2025"},
+                {"category": "Equipment & Modifications", "annual": 11000, "lifetime": 418000, "source": "NMEDA Guidelines"}
+            ],
+            "note": "MOCK DATA — Configure Groq API key for AI-generated estimates."
+        }
+
+    prompt = f"""
+    Generate a detailed life care plan for a catastrophic injury case in legal context.
+    
+    Patient details:
+    - Injury: {injury}
+    - Current Age: {age}
+    - State of Residence: {state}
+    
+    Include:
+    1. Annual cost breakdown by category (physician visits, PT/OT, home health aide, medications, equipment, transportation, home modifications, case management)
+    2. Life expectancy estimate based on injury
+    3. Lifetime total cost
+    4. Medical source references for each cost category
+    
+    Return ONLY valid JSON with keys: summary, annual_costs (object), annual_total (number), life_expectancy_years (number), lifetime_total (number), cost_categories (array of objects with category, annual, lifetime, source).
+    """
+    
+    try:
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": "You are a board-certified physiatrist and life care planning expert with 20+ years of experience. Return valid JSON only."},
+                {"role": "user", "content": prompt}
+            ],
+            response_format={"type": "json_object"}
+        )
+        return json.loads(response.choices[0].message.content)
+    except Exception as e:
+        return {"error": str(e), "annual_costs": {}, "annual_total": 0, "life_expectancy_years": 0, "lifetime_total": 0, "cost_categories": []}
+
+
+def generate_opposing_counsel_profile(attorney_name: str, firm: str, practice_area: str) -> dict:
+    """
+    Profile opposing counsel based on name, firm, and practice area.
+    """
+    if not client:
+        return {
+            "attorney": attorney_name,
+            "firm": firm,
+            "practice_area": practice_area,
+            "win_rate_estimate": "55-65%",
+            "settlement_rate": "70%",
+            "litigation_style": "Aggressive — known for extensive discovery demands and frequent motion practice. Prefers trial over settlement in high-value cases.",
+            "notable_cases": [
+                {"case": f"{firm} v. Defendant (2023)", "outcome": "$2.3M verdict — medical malpractice"},
+                {"case": f"{firm} v. Healthcare Co. (2022)", "outcome": "Confidential settlement — product liability"}
+            ],
+            "strategy_tips": [
+                "Prepare for aggressive discovery — expect extensive document requests",
+                "Consider early mediation — this attorney responds well to well-prepared Daubert motions",
+                "Focus on damages evidence early — they settle when liability is uncertain but fight on clear liability"
+            ],
+            "note": "MOCK DATA — Configure Groq API key for AI-generated profiles."
+        }
+    
+    prompt = f"""
+    Generate a detailed opposing counsel profile for litigation preparation.
+    
+    Attorney Details:
+    - Name: {attorney_name}
+    - Firm: {firm}
+    - Practice Area: {practice_area}
+    
+    Include:
+    1. Win rate estimate (range)
+    2. Settlement rate (percentage)
+    3. Litigation style description (detailed)
+    4. 2-3 notable cases with outcomes
+    5. 3 strategy tips for opposing this attorney
+    
+    Return ONLY valid JSON with keys: attorney (string), firm (string), practice_area (string), win_rate_estimate (string), settlement_rate (string), litigation_style (string), notable_cases (array of {case, outcome}), strategy_tips (array of strings).
+    """
+    
+    try:
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": "You are a senior litigation consultant who has analyzed thousands of attorneys. Return valid JSON only."},
+                {"role": "user", "content": prompt}
+            ],
+            response_format={"type": "json_object"}
+        )
+        return json.loads(response.choices[0].message.content)
+    except Exception as e:
+        return {"error": str(e), "notable_cases": [], "strategy_tips": []}
+
+
+def generate_sol_guardian(case_type: str, incident_date: str, state: str) -> dict:
+    """
+    Generate Statute of Limitations analysis with deadlines and filing checklist.
+    """
+    if not client:
+        return {
+            "case_type": case_type,
+            "incident_date": incident_date,
+            "state": state,
+            "sol_deadline": "2028-05-10",
+            "days_remaining": 655,
+            "tolling_exceptions": [
+                "Discovery Rule — statute begins when injury discovered (applies to medical malpractice with foreign object)",
+                "Minority Tolling — if plaintiff was under 18 at time of incident, statute tolled until 18th birthday",
+                "Fraudulent Concealment — statute tolled if defendant actively concealed malpractice"
+            ],
+            "filing_checklist": [
+                {"item": "File Complaint", "deadline": "2028-05-10", "priority": "critical"},
+                {"item": "Serve Defendant", "deadline": "2028-07-10", "priority": "high"},
+                {"item": "Expert Witness Disclosure", "deadline": "2028-09-10", "priority": "high"},
+                {"item": "Complete Discovery", "deadline": "2029-01-10", "priority": "medium"}
+            ],
+            "note": "MOCK DATA — Configure Groq API key for AI-generated SOL analysis."
+        }
+    
+    prompt = f"""
+    Generate a detailed Statute of Limitations analysis for this case.
+    
+    Case Details:
+    - Case Type: {case_type}
+    - Incident Date: {incident_date}
+    - State: {state}
+    
+    Include:
+    1. SOL deadline date
+    2. Days remaining until deadline
+    3. Applicable tolling exceptions (discovery rule, minority, fraudulent concealment, etc.)
+    4. Filing checklist with critical dates (file complaint, serve defendant, expert disclosure, discovery)
+    
+    Return ONLY valid JSON with keys: case_type (string), incident_date (string), state (string), sol_deadline (string), days_remaining (number), tolling_exceptions (array of strings), filing_checklist (array of {item, deadline, priority}).
+    """
+    
+    try:
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": "You are a seasoned civil procedure expert specializing in statutes of limitations across all 50 states. Return valid JSON only."},
+                {"role": "user", "content": prompt}
+            ],
+            response_format={"type": "json_object"}
+        )
+        return json.loads(response.choices[0].message.content)
+    except Exception as e:
+        return {"error": str(e), "tolling_exceptions": [], "filing_checklist": []}
+
+
+def generate_trial_readiness(case_summary: str) -> dict:
+    """
+    Analyze case preparation and produce a 0-100 trial readiness score.
+    """
+    if not client:
+        return {
+            "readiness_score": 62,
+            "overall_assessment": "Case shows moderate preparation. Strong liability theory but significant gaps in damages documentation and expert witness retention.",
+            "gaps_identified": [
+                "No retained expert witnesses identified",
+                "Medical records incomplete — missing post-surgical follow-up notes",
+                "Damages documentation insufficient — no lost wage verification",
+                "Settlement demand not yet drafted",
+                "Witness list incomplete"
+            ],
+            "recommendations": [
+                "Retain medical expert within 30 days",
+                "Request complete medical records from all treating facilities",
+                "Obtain lost wage documentation from employer",
+                "Draft initial settlement demand",
+                "Complete witness interviews and finalize witness list"
+            ],
+            "category_scores": {
+                "liability_theory": 78,
+                "damages_evidence": 45,
+                "expert_witnesses": 20,
+                "discovery_completion": 65,
+                "procedural_compliance": 85
+            },
+            "note": "MOCK DATA — Configure Groq API key for AI-generated analysis."
+        }
+    
+    prompt = f"""
+    Analyze the following case summary and produce a trial readiness score.
+    
+    Case Summary:
+    {case_summary}
+    
+    Evaluate these categories (0-100 each):
+    1. Liability theory strength
+    2. Damages evidence quality
+    3. Expert witness readiness
+    4. Discovery completion
+    5. Procedural compliance
+    
+    Include:
+    - Overall readiness score (0-100)
+    - Overall assessment paragraph
+    - Gaps identified (list)
+    - Recommendations (list)
+    - Category scores
+    
+    Return ONLY valid JSON with keys: readiness_score (number), overall_assessment (string), gaps_identified (array of strings), recommendations (array of strings), category_scores (object).
+    """
+    
+    try:
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": "You are a veteran trial consultant who has prepared hundreds of cases for trial. Return valid JSON only."},
+                {"role": "user", "content": prompt}
+            ],
+            response_format={"type": "json_object"}
+        )
+        return json.loads(response.choices[0].message.content)
+    except Exception as e:
+        return {"error": str(e), "gaps_identified": [], "recommendations": [], "category_scores": {}}
+
+
+# =========================================================================
+# Settlement Predictor — AI Endpoints
+# =========================================================================
+
+def predict_settlement(damages: float, case_type: str, state: str, liability_strength: str) -> dict:
+    """
+    Predict settlement range based on damages, case type, jurisdiction, and liability.
+    """
+    if not client:
+        return {
+            "predicted_range": {"low": 250000, "high": 450000},
+            "best_estimate": 350000,
+            "demand_framework": {
+                "initial_demand": 525000,
+                "minimum_acceptable": 280000,
+                "anchor_strategy": "Demand at 150% of high estimate ($450K), anchor at $675K in mediation"
+            },
+            "litigation_strategy": "File in state court. Emphasize clear liability and documented damages. Consider early mediation after initial discovery.",
+            "verdict_data": {
+                "median_verdict": 375000,
+                "plaintiff_win_rate": "62%",
+                "verdict_range": "50K - 2.1M",
+                "source": "Jury Verdict Research 2025"
+            },
+            "risk_factors": [
+                "Comparative fault allegations expected",
+                "Defendant has strong legal representation",
+                "Jurisdiction is defense-friendly on similar cases"
+            ],
+            "note": "MOCK DATA — Configure Groq API key for AI-generated settlement analysis."
+        }
+    
+    prompt = f"""
+    Generate a detailed settlement prediction and analysis.
+    
+    Case Details:
+    - Total Damages: ${damages:,.2f}
+    - Case Type: {case_type}
+    - State: {state}
+    - Liability Strength: {liability_strength}
+    
+    Include:
+    1. Predicted settlement range (low, high) and best estimate
+    2. Demand framework (initial demand, minimum acceptable, anchor strategy)
+    3. Litigation strategy
+    4. Verdict data (median, plaintiff win rate, range, source)
+    5. Risk factors (list)
+    
+    Return ONLY valid JSON with keys: predicted_range (object with low, high), best_estimate (number), demand_framework (object with initial_demand, minimum_acceptable, anchor_strategy), litigation_strategy (string), verdict_data (object with median_verdict, plaintiff_win_rate, verdict_range, source), risk_factors (array of strings).
+    """
+    
+    try:
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": "You are a senior settlement consultant with deep knowledge of verdict data, insurance adjuster behavior, and negotiation strategy across all 50 states. Return valid JSON only."},
+                {"role": "user", "content": prompt}
+            ],
+            response_format={"type": "json_object"}
+        )
+        return json.loads(response.choices[0].message.content)
+    except Exception as e:
+        return {"error": str(e), "predicted_range": {"low": 0, "high": 0}, "best_estimate": 0}
+
+
+# =========================================================================
+# Medical Analysis — AI Endpoints
+# =========================================================================
+
+def analyze_medical_case(case_description: str) -> dict:
+    """
+    Analyze a medical case description for chronology, treatment gaps, and merit.
+    """
+    if not client:
+        return {
+            "medical_chronology": [
+                {"date": "2026-04-15", "event": "Patient presented to ER with chest pain and shortness of breath", "source": "ER Triage Notes"},
+                {"date": "2026-04-15", "event": "Diagnostic tests ordered: EKG, cardiac enzymes, chest X-ray", "source": "Physician Orders"},
+                {"date": "2026-04-16", "event": "Elevated troponin levels detected — acute coronary syndrome diagnosed", "source": "Lab Results"},
+                {"date": "2026-04-17", "event": "Cardiology consult — recommended urgent catheterization", "source": "Consult Note"},
+                {"date": "2026-04-19", "event": "Cardiac catheterization performed — 90% LAD stenosis found and stented", "source": "Op Report"}
+            ],
+            "treatment_gaps": [
+                {"gap": "4-hour delay in antibiotic administration", "severity": "HIGH", "details": "Antibiotics ordered at 19:15 but not administered until 23:15"},
+                {"gap": "Missed troponin re-check at 6 hours", "severity": "MEDIUM", "details": "ACLS guidelines require troponin re-check at 6 hours; no re-check documented"}
+            ],
+            "merit_assessment": {
+                "overall_merit": "Moderate-High",
+                "score": 72,
+                "strength_factors": ["Clear deviation from standard of care", "Documented timeline of delays"],
+                "weakness_factors": ["Patient had pre-existing conditions", "Some records are incomplete"],
+                "recommended_course": "Further investigation needed. Strong potential for medical malpractice claim with proper expert support."
+            },
+            "note": "MOCK DATA — Configure Groq API key for AI-generated analysis."
+        }
+    
+    prompt = f"""
+    Analyze this medical case description for a medical malpractice legal context.
+    
+    Case Description:
+    {case_description}
+    
+    Generate:
+    1. Medical chronology (events with dates, descriptions, and sources)
+    2. Treatment gaps (any delays or gaps in care, with severity: HIGH/MEDIUM/LOW)
+    3. Merit assessment (overall merit, score 0-100, strength factors, weakness factors, recommended course)
+    
+    Return ONLY valid JSON with keys: medical_chronology (array of {date, event, source}), treatment_gaps (array of {gap, severity, details}), merit_assessment (object with overall_merit, score, strength_factors (array), weakness_factors (array), recommended_course).
+    """
+    
+    try:
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": "You are a board-certified physician and medical-legal expert. Analyze cases for medical malpractice merit. Return valid JSON only."},
+                {"role": "user", "content": prompt}
+            ],
+            response_format={"type": "json_object"}
+        )
+        return json.loads(response.choices[0].message.content)
+    except Exception as e:
+        return {"error": str(e), "medical_chronology": [], "treatment_gaps": [], "merit_assessment": {}}

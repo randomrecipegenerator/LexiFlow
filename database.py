@@ -50,6 +50,7 @@ if not db_url:
         db_url = f"sqlite:///{db_path}"
 
 SQLALCHEMY_DATABASE_URL = db_url
+print(f"DEBUG database.py: db_url={db_url}")  # TEMP DEBUG
 logger.info(f"Database URL scheme: {db_url.split('://')[0] if '://' in db_url else 'unknown'}")
 
 # Configure engine based on database type

@@ -127,6 +127,121 @@ async def api_documents_list():
     """List uploaded documents."""
     return []
 
+
+# =========================================================================
+# LexiFlow Strategist™ Endpoints (powered by Groq LLM)
+# =========================================================================
+
+from ai_engine import (
+    generate_life_care_plan,
+    generate_opposing_counsel_profile,
+    generate_sol_guardian,
+    generate_trial_readiness,
+    predict_settlement,
+    analyze_medical_case,
+)
+from pydantic import BaseModel
+
+
+class LifeCarePlanRequest(BaseModel):
+    injury: str
+    age: int
+    state: str
+
+
+@api_router.post("/strategist/life-care-plan")
+async def strategist_life_care_plan(req: LifeCarePlanRequest):
+    """Generate a comprehensive life care plan for catastrophic injury cases."""
+    if not req.injury or not req.state or not req.age:
+        raise HTTPException(status_code=400, detail="injury, age, and state are required")
+    result = generate_life_care_plan(req.injury, req.age, req.state)
+    if "error" in result:
+        raise HTTPException(status_code=500, detail=result["error"])
+    return result
+
+
+class OpposingCounselRequest(BaseModel):
+    attorney_name: str
+    firm: str
+    practice_area: str
+
+
+@api_router.post("/strategist/opposing-counsel")
+async def strategist_opposing_counsel(req: OpposingCounselRequest):
+    """Profile opposing counsel with win rates, style, and strategy tips."""
+    if not req.attorney_name or not req.firm:
+        raise HTTPException(status_code=400, detail="attorney_name and firm are required")
+    result = generate_opposing_counsel_profile(req.attorney_name, req.firm, req.practice_area)
+    if "error" in result:
+        raise HTTPException(status_code=500, detail=result["error"])
+    return result
+
+
+class SOLGuardianRequest(BaseModel):
+    case_type: str
+    incident_date: str
+    state: str
+
+
+@api_router.post("/strategist/sol-guardian")
+async def strategist_sol_guardian(req: SOLGuardianRequest):
+    """Calculate Statute of Limitations deadline with tolling exceptions."""
+    if not req.case_type or not req.incident_date or not req.state:
+        raise HTTPException(status_code=400, detail="case_type, incident_date, and state are required")
+    result = generate_sol_guardian(req.case_type, req.incident_date, req.state)
+    if "error" in result:
+        raise HTTPException(status_code=500, detail=result["error"])
+    return result
+
+
+class TrialReadinessRequest(BaseModel):
+    case_summary: str
+
+
+@api_router.post("/strategist/trial-readiness")
+async def strategist_trial_readiness(req: TrialReadinessRequest):
+    """Analyze case preparation and produce a 0-100 readiness score."""
+    if not req.case_summary:
+        raise HTTPException(status_code=400, detail="case_summary is required")
+    result = generate_trial_readiness(req.case_summary)
+    if "error" in result:
+        raise HTTPException(status_code=500, detail=result["error"])
+    return result
+
+
+class SettlementPredictRequest(BaseModel):
+    damages: float
+    case_type: str
+    state: str
+    liability_strength: str
+
+
+@api_router.post("/settlement/predict")
+async def settlement_predict(req: SettlementPredictRequest):
+    """Predict settlement range, demand framework, and litigation strategy."""
+    if not req.case_type or not req.state:
+        raise HTTPException(status_code=400, detail="case_type and state are required")
+    result = predict_settlement(req.damages, req.case_type, req.state, req.liability_strength)
+    if "error" in result:
+        raise HTTPException(status_code=500, detail=result["error"])
+    return result
+
+
+class MedicalAnalyzeRequest(BaseModel):
+    case_description: str
+
+
+@api_router.post("/medical/analyze")
+async def medical_analyze(req: MedicalAnalyzeRequest):
+    """Analyze medical case for chronology, treatment gaps, and merit assessment."""
+    if not req.case_description:
+        raise HTTPException(status_code=400, detail="case_description is required")
+    result = analyze_medical_case(req.case_description)
+    if "error" in result:
+        raise HTTPException(status_code=500, detail=result["error"])
+    return result
+
+
 try:
     from usage_api import router as usage_router
     api_router.include_router(usage_router)
