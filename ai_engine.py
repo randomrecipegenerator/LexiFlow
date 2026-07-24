@@ -665,7 +665,7 @@ def generate_opposing_counsel_profile(attorney_name: str, firm: str, practice_ar
     4. 2-3 notable cases with outcomes
     5. 3 strategy tips for opposing this attorney
     
-    Return ONLY valid JSON with keys: attorney (string), firm (string), practice_area (string), win_rate_estimate (string), settlement_rate (string), litigation_style (string), notable_cases (array of {case, outcome}), strategy_tips (array of strings).
+    Return ONLY valid JSON with keys: attorney (string), firm (string), practice_area (string), win_rate_estimate (string), settlement_rate (string), litigation_style (string), notable_cases (array of {{case, outcome}}), strategy_tips (array of strings).
     """
     
     try:
@@ -721,7 +721,7 @@ def generate_sol_guardian(case_type: str, incident_date: str, state: str) -> dic
     3. Applicable tolling exceptions (discovery rule, minority, fraudulent concealment, etc.)
     4. Filing checklist with critical dates (file complaint, serve defendant, expert disclosure, discovery)
     
-    Return ONLY valid JSON with keys: case_type (string), incident_date (string), state (string), sol_deadline (string), days_remaining (number), tolling_exceptions (array of strings), filing_checklist (array of {item, deadline, priority}).
+    Return ONLY valid JSON with keys: case_type (string), incident_date (string), state (string), sol_deadline (string), days_remaining (number), tolling_exceptions (array of strings), filing_checklist (array of {{item, deadline, priority}}).
     """
     
     try:
@@ -914,7 +914,7 @@ def analyze_medical_case(case_description: str) -> dict:
     2. Treatment gaps (any delays or gaps in care, with severity: HIGH/MEDIUM/LOW)
     3. Merit assessment (overall merit, score 0-100, strength factors, weakness factors, recommended course)
     
-    Return ONLY valid JSON with keys: medical_chronology (array of {date, event, source}), treatment_gaps (array of {gap, severity, details}), merit_assessment (object with overall_merit, score, strength_factors (array), weakness_factors (array), recommended_course).
+    Return ONLY valid JSON with keys: medical_chronology (array of {{date, event, source}}), treatment_gaps (array of {{gap, severity, details}}), merit_assessment (object with overall_merit, score, strength_factors (array), weakness_factors (array), recommended_course).
     """
     
     try:

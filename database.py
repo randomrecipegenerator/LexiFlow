@@ -20,18 +20,14 @@ from sqlalchemy.orm import sessionmaker
 logger = logging.getLogger(__name__)
 
 # Determine the database URL
+# Production: Set DATABASE_URL to a libsql:// Turso URL or sqlite:// path
+# Local dev: Leave unset to use local SQLite (lexiflow.db in project root)
+# Vercel: Falls back to /tmp/lexiflow.db automatically
 db_url = os.getenv("DATABASE_URL")
 
 if not db_url:
-    # Check for Turso environment variables (set by the platform integration)
-    turso_url = os.getenv("turso_db_url") or os.getenv("turso_database_url") or os.getenv("TURSO_DATABASE_URL")
-    turso_token = os.getenv("turso_token") or os.getenv("turso_auth_token") or os.getenv("TURSO_AUTH_TOKEN")
-    if turso_url and turso_token:
-        # Construct libsql URL with auth token
-        db_url = f"{turso_url}?authToken={turso_token}"
-        logger.info("Using Turso edge database from environment variables")
     # Check if we are in a Vercel environment
-    elif os.getenv("VERCEL") or os.getenv("NOW_REGION"):
+    if os.getenv("VERCEL") or os.getenv("NOW_REGION"):
         db_url = "sqlite:////tmp/lexiflow.db"
         # Seed the /tmp database from the repository file if it doesn't exist
         import shutil
@@ -50,7 +46,6 @@ if not db_url:
         db_url = f"sqlite:///{db_path}"
 
 SQLALCHEMY_DATABASE_URL = db_url
-print(f"DEBUG database.py: db_url={db_url}")  # TEMP DEBUG
 logger.info(f"Database URL scheme: {db_url.split('://')[0] if '://' in db_url else 'unknown'}")
 
 # Configure engine based on database type
