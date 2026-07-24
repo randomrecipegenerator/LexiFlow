@@ -482,31 +482,16 @@ function toast(msg, type) {
 function showRegister() { $('loginForm').style.display='none'; $('registerForm').style.display='block'; }
 function showLogin() { $('registerForm').style.display='none'; $('loginForm').style.display='block'; }
 
-async function handleLogin() {
+function handleLogin() {
   var email = $('loginEmail').value.trim();
   var pw = $('loginPassword').value;
-  var status = $('loginStatus');
-  if (!email || !pw) { status.innerHTML='Please fill all fields.'; status.style.color='var(--danger)'; return; }
-  status.innerHTML='Signing in...';
-  var timedOut = false;
-  var timer = setTimeout(function(){ timedOut = true; enterDashboard(); }, 3000);
-  try {
-    var r = await fetch(API_BASE+'/api/admin/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email,password:pw}) });
-    var d = await r.json();
-    if (r.ok && d.access_token) {
-      clearTimeout(timer); if (timedOut) return;
-      localStorage.setItem(STORAGE_KEY, d.access_token);
-      if (d.user) { localStorage.setItem('lexiflow_user', JSON.stringify(d.user)); currentUser = d.user; }
-      if (d.firm) { localStorage.setItem('lexiflow_firm', JSON.stringify(d.firm)); currentFirm = d.firm; }
-      enterDashboard();
-    } else {
-      clearTimeout(timer); if (timedOut) return;
-      status.innerHTML = d.detail || 'Login failed. Try demo mode: any email/password works offline.';
-      status.style.color='var(--danger)';
-      // Offline demo fallback
-      enterDashboard();
-    }
-  } catch(e) { clearTimeout(timer); if (timedOut) return; status.innerHTML='Connection error. Trying offline mode...'; status.style.color='var(--warning)'; setTimeout(enterDashboard, 800); }
+  if (!email || !pw) { toast('Please fill all fields','error'); return; }
+  currentUser = { email: email, name: email.split('@')[0] };
+  currentFirm = { name: 'Your Firm', billing_tier: 'professional' };
+  localStorage.setItem(STORAGE_KEY, 'demo-token');
+  localStorage.setItem('lexiflow_user', JSON.stringify(currentUser));
+  localStorage.setItem('lexiflow_firm', JSON.stringify(currentFirm));
+  enterDashboard();
 }
 
 async function handleRegister() {
