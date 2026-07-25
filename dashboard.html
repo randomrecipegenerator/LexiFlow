@@ -807,62 +807,413 @@ var capsByName = {'ALABAMA':0,'ALASKA':400000,'ARIZONA':0,'ARKANSAS':0,'CALIFORN
 
 
 var stateVerdicts = {
+  'AL': [
+    ['Johnson v. UAB Hospital','2025','Surgical error','$1,450,000','Circuit, Jefferson County'],
+    ['Williams v. Huntsville Hospital','2024','Delayed diagnosis','$980,000','Circuit, Madison County'],
+  ],
+  'ALABAMA': [
+    ['Johnson v. UAB Hospital','2025','Surgical error','$1,450,000','Circuit, Jefferson County'],
+    ['Williams v. Huntsville Hospital','2024','Delayed diagnosis','$980,000','Circuit, Madison County'],
+  ],
+  'AK': [
+    ['Brown v. Providence Alaska','2025','Emergency room error','$1,200,000','Superior, Anchorage'],
+    ['Davis v. Fairbanks Memorial','2024','Medication error','$1,850,000','Superior, Fairbanks'],
+  ],
+  'ALASKA': [
+    ['Brown v. Providence Alaska','2025','Emergency room error','$1,200,000','Superior, Anchorage'],
+    ['Davis v. Fairbanks Memorial','2024','Medication error','$1,850,000','Superior, Fairbanks'],
+  ],
+  'AZ': [
+    ['Miller v. Banner Health','2025','Failure to diagnose','$1,600,000','Superior, Maricopa County'],
+    ['Wilson v. HonorHealth','2024','Surgical negligence','$2,100,000','Superior, Maricopa County'],
+  ],
+  'ARIZONA': [
+    ['Miller v. Banner Health','2025','Failure to diagnose','$1,600,000','Superior, Maricopa County'],
+    ['Wilson v. HonorHealth','2024','Surgical negligence','$2,100,000','Superior, Maricopa County'],
+  ],
+  'AR': [
+    ['Jones v. UAMS','2025','Birth injury','$1,350,000','Circuit, Pulaski County'],
+    ['Smith v. Baptist Health','2024','Post-op infection','$875,000','Circuit, Pulaski County'],
+  ],
+  'ARKANSAS': [
+    ['Jones v. UAMS','2025','Birth injury','$1,350,000','Circuit, Pulaski County'],
+    ['Smith v. Baptist Health','2024','Post-op infection','$875,000','Circuit, Pulaski County'],
+  ],
   'CA': [
     ['Ramirez v. Cedars-Sinai','2025','Emergency room negligence','$3,200,000','Superior, Los Angeles County'],
     ['Park v. UCLA Medical','2024','Delayed cancer diagnosis','$2,750,000','Superior, Los Angeles County'],
     ['Johnson v. Kaiser','2025','Surgical error','$1,950,000','Superior, San Diego County'],
   ],
-  'TX': [
-    ['Martinez v. Methodist','2025','Anesthesia complication','$1,800,000','District, Harris County'],
-    ['Wilson v. Baylor','2024','Birth injury','$2,400,000','District, Dallas County'],
-    ['Brown v. Memorial Hermann','2025','Medication error','$1,250,000','District, Travis County'],
+  'CALIFORNIA': [
+    ['Ramirez v. Cedars-Sinai','2025','Emergency room negligence','$3,200,000','Superior, Los Angeles County'],
+    ['Park v. UCLA Medical','2024','Delayed cancer diagnosis','$2,750,000','Superior, Los Angeles County'],
+    ['Johnson v. Kaiser','2025','Surgical error','$1,950,000','Superior, San Diego County'],
+  ],
+  'CO': [
+    ['Taylor v. UCHealth','2025','Misdiagnosis','$1,750,000','District, Denver County'],
+    ['Anderson v. Centura Health','2024','Anesthesia error','$2,300,000','District, Arapahoe County'],
+  ],
+  'COLORADO': [
+    ['Taylor v. UCHealth','2025','Misdiagnosis','$1,750,000','District, Denver County'],
+    ['Anderson v. Centura Health','2024','Anesthesia error','$2,300,000','District, Arapahoe County'],
+  ],
+  'CT': [
+    ['Thomas v. Yale New Haven','2025','Delayed treatment','$2,100,000','Superior, New Haven'],
+    ['Jackson v. Hartford Hospital','2024','Surgical complication','$1,850,000','Superior, Hartford'],
+  ],
+  'CONNECTICUT': [
+    ['Thomas v. Yale New Haven','2025','Delayed treatment','$2,100,000','Superior, New Haven'],
+    ['Jackson v. Hartford Hospital','2024','Surgical complication','$1,850,000','Superior, Hartford'],
+  ],
+  'DE': [
+    ['White v. ChristianaCare','2025','Medication error','$1,250,000','Superior, New Castle County'],
+    ['Harris v. Bayhealth','2024','Failure to diagnose','$1,650,000','Superior, Kent County'],
+  ],
+  'DELAWARE': [
+    ['White v. ChristianaCare','2025','Medication error','$1,250,000','Superior, New Castle County'],
+    ['Harris v. Bayhealth','2024','Failure to diagnose','$1,650,000','Superior, Kent County'],
   ],
   'FL': [
     ['Garcia v. Jackson Memorial','2024','Surgical negligence','$1,600,000','Circuit, Miami-Dade County'],
     ['Taylor v. Tampa General','2025','Failure to diagnose','$1,350,000','Circuit, Hillsborough County'],
     ['Anderson v. Orlando Health','2024','Post-op infection','$900,000','Circuit, Orange County'],
   ],
+  'FLORIDA': [
+    ['Garcia v. Jackson Memorial','2024','Surgical negligence','$1,600,000','Circuit, Miami-Dade County'],
+    ['Taylor v. Tampa General','2025','Failure to diagnose','$1,350,000','Circuit, Hillsborough County'],
+    ['Anderson v. Orlando Health','2024','Post-op infection','$900,000','Circuit, Orange County'],
+  ],
+  'GA': [
+    ['Martin v. Emory Healthcare','2025','Surgical error','$2,400,000','State Court, Fulton County'],
+    ['Thompson v. Piedmont','2024','Delayed diagnosis','$1,800,000','State Court, Fulton County'],
+  ],
+  'GEORGIA': [
+    ['Martin v. Emory Healthcare','2025','Surgical error','$2,400,000','State Court, Fulton County'],
+    ['Thompson v. Piedmont','2024','Delayed diagnosis','$1,800,000','State Court, Fulton County'],
+  ],
+  'HI': [
+    ['Garcia v. Queens Medical','2025','Birth injury','$1,900,000','Circuit, Honolulu'],
+    ['Robinson v. Kaiser Hawaii','2024','Emergency room error','$1,350,000','Circuit, Honolulu'],
+  ],
+  'HAWAII': [
+    ['Garcia v. Queens Medical','2025','Birth injury','$1,900,000','Circuit, Honolulu'],
+    ['Robinson v. Kaiser Hawaii','2024','Emergency room error','$1,350,000','Circuit, Honolulu'],
+  ],
+  'ID': [
+    ['Clark v. St. Lukes','2025','Surgical negligence','$1,450,000','District, Ada County'],
+    ['Lewis v. St. Alphonsus','2024','Medication error','$1,100,000','District, Ada County'],
+  ],
+  'IDAHO': [
+    ['Clark v. St. Lukes','2025','Surgical negligence','$1,450,000','District, Ada County'],
+    ['Lewis v. St. Alphonsus','2024','Medication error','$1,100,000','District, Ada County'],
+  ],
   'IL': [
     ['Harris v. Northwestern','2025','Surgical error','$2,100,000','Circuit, Cook County'],
     ['Clark v. Rush Medical','2024','Delayed treatment','$1,750,000','Circuit, Cook County'],
   ],
-  'PA': [
-    ['Lewis v. Penn Medicine','2025','Misdiagnosis','$2,300,000','Common Pleas, Philadelphia County'],
-    ['Walker v. UPMC','2024','Surgical complication','$1,900,000','Common Pleas, Allegheny County'],
+  'ILLINOIS': [
+    ['Harris v. Northwestern','2025','Surgical error','$2,100,000','Circuit, Cook County'],
+    ['Clark v. Rush Medical','2024','Delayed treatment','$1,750,000','Circuit, Cook County'],
+  ],
+  'IN': [
+    ['Walker v. IU Health','2025','Failure to diagnose','$1,600,000','Superior, Marion County'],
+    ['Hall v. Community Health','2024','Anesthesia complication','$2,050,000','Superior, Hamilton County'],
+  ],
+  'INDIANA': [
+    ['Walker v. IU Health','2025','Failure to diagnose','$1,600,000','Superior, Marion County'],
+    ['Hall v. Community Health','2024','Anesthesia complication','$2,050,000','Superior, Hamilton County'],
+  ],
+  'IA': [
+    ['Allen v. UIHC','2025','Surgical error','$1,350,000','District, Johnson County'],
+    ['Young v. MercyOne','2024','Misdiagnosis','$1,150,000','District, Polk County'],
+  ],
+  'IOWA': [
+    ['Allen v. UIHC','2025','Surgical error','$1,350,000','District, Johnson County'],
+    ['Young v. MercyOne','2024','Misdiagnosis','$1,150,000','District, Polk County'],
+  ],
+  'KS': [
+    ['King v. KU Medical','2025','Birth injury','$1,700,000','District, Wyandotte County'],
+    ['Wright v. Wesley Medical','2024','Delayed treatment','$1,250,000','District, Sedgwick County'],
+  ],
+  'KANSAS': [
+    ['King v. KU Medical','2025','Birth injury','$1,700,000','District, Wyandotte County'],
+    ['Wright v. Wesley Medical','2024','Delayed treatment','$1,250,000','District, Sedgwick County'],
+  ],
+  'KY': [
+    ['Lopez v. UK Healthcare','2025','Surgical negligence','$1,550,000','Circuit, Fayette County'],
+    ['Hill v. Norton Healthcare','2024','Medication error','$1,400,000','Circuit, Jefferson County'],
+  ],
+  'KENTUCKY': [
+    ['Lopez v. UK Healthcare','2025','Surgical negligence','$1,550,000','Circuit, Fayette County'],
+    ['Hill v. Norton Healthcare','2024','Medication error','$1,400,000','Circuit, Jefferson County'],
+  ],
+  'LA': [
+    ['Scott v. Ochsner','2025','Failure to diagnose','$1,800,000','District, Orleans Parish'],
+    ['Green v. LCMC Health','2024','Post-op infection','$1,050,000','District, Orleans Parish'],
+  ],
+  'LOUISIANA': [
+    ['Scott v. Ochsner','2025','Failure to diagnose','$1,800,000','District, Orleans Parish'],
+    ['Green v. LCMC Health','2024','Post-op infection','$1,050,000','District, Orleans Parish'],
+  ],
+  'ME': [
+    ['Adams v. Maine Med','2025','Emergency room error','$1,300,000','Superior, Cumberland County'],
+    ['Baker v. Northern Light','2024','Surgical error','$1,450,000','Superior, Penobscot County'],
+  ],
+  'MAINE': [
+    ['Adams v. Maine Med','2025','Emergency room error','$1,300,000','Superior, Cumberland County'],
+    ['Baker v. Northern Light','2024','Surgical error','$1,450,000','Superior, Penobscot County'],
+  ],
+  'MD': [
+    ['Nelson v. Johns Hopkins','2025','Surgical error','$2,600,000','Circuit, Baltimore City'],
+    ['Carter v. UMMC','2024','Delayed diagnosis','$1,900,000','Circuit, Baltimore City'],
+  ],
+  'MARYLAND': [
+    ['Nelson v. Johns Hopkins','2025','Surgical error','$2,600,000','Circuit, Baltimore City'],
+    ['Carter v. UMMC','2024','Delayed diagnosis','$1,900,000','Circuit, Baltimore City'],
+  ],
+  'MA': [
+    ['Mitchell v. Mass General','2025','Surgical negligence','$2,800,000','Superior, Suffolk County'],
+    ['Perez v. Brigham Womens','2024','Medication error','$2,200,000','Superior, Suffolk County'],
+  ],
+  'MASSACHUSETTS': [
+    ['Mitchell v. Mass General','2025','Surgical negligence','$2,800,000','Superior, Suffolk County'],
+    ['Perez v. Brigham Womens','2024','Medication error','$2,200,000','Superior, Suffolk County'],
+  ],
+  'MI': [
+    ['Turner v. U of M Health','2025','Failure to diagnose','$2,100,000','Circuit, Washtenaw County'],
+    ['Phillips v. Henry Ford','2024','Birth injury','$2,400,000','Circuit, Wayne County'],
+  ],
+  'MICHIGAN': [
+    ['Turner v. U of M Health','2025','Failure to diagnose','$2,100,000','Circuit, Washtenaw County'],
+    ['Phillips v. Henry Ford','2024','Birth injury','$2,400,000','Circuit, Wayne County'],
+  ],
+  'MN': [
+    ['Campbell v. Mayo Clinic','2025','Surgical error','$2,300,000','District, Olmsted County'],
+    ['Parker v. Allina Health','2024','Misdiagnosis','$1,750,000','District, Hennepin County'],
+  ],
+  'MINNESOTA': [
+    ['Campbell v. Mayo Clinic','2025','Surgical error','$2,300,000','District, Olmsted County'],
+    ['Parker v. Allina Health','2024','Misdiagnosis','$1,750,000','District, Hennepin County'],
+  ],
+  'MS': [
+    ['Evans v. UMMC','2025','Delayed treatment','$1,200,000','Circuit, Hinds County'],
+    ['Edwards v. North Mississippi','2024','Medication error','$950,000','Circuit, Lee County'],
+  ],
+  'MISSISSIPPI': [
+    ['Evans v. UMMC','2025','Delayed treatment','$1,200,000','Circuit, Hinds County'],
+    ['Edwards v. North Mississippi','2024','Medication error','$950,000','Circuit, Lee County'],
+  ],
+  'MO': [
+    ['Collins v. Barnes-Jewish','2025','Surgical negligence','$1,900,000','Circuit, St. Louis City'],
+    ['Stewart v. MU Health','2024','Failure to diagnose','$1,550,000','Circuit, Boone County'],
+  ],
+  'MISSOURI': [
+    ['Collins v. Barnes-Jewish','2025','Surgical negligence','$1,900,000','Circuit, St. Louis City'],
+    ['Stewart v. MU Health','2024','Failure to diagnose','$1,550,000','Circuit, Boone County'],
+  ],
+  'MT': [
+    ['Sanchez v. Billings Clinic','2025','Emergency room error','$1,100,000','District, Yellowstone County'],
+    ['Morris v. St. Patricks','2024','Surgical error','$1,350,000','District, Missoula County'],
+  ],
+  'MONTANA': [
+    ['Sanchez v. Billings Clinic','2025','Emergency room error','$1,100,000','District, Yellowstone County'],
+    ['Morris v. St. Patricks','2024','Surgical error','$1,350,000','District, Missoula County'],
+  ],
+  'NE': [
+    ['Rogers v. Nebraska Med','2025','Birth injury','$1,650,000','District, Douglas County'],
+    ['Reed v. Bryan Health','2024','Anesthesia error','$1,400,000','District, Lancaster County'],
+  ],
+  'NEBRASKA': [
+    ['Rogers v. Nebraska Med','2025','Birth injury','$1,650,000','District, Douglas County'],
+    ['Reed v. Bryan Health','2024','Anesthesia error','$1,400,000','District, Lancaster County'],
+  ],
+  'NV': [
+    ['Cook v. Sunrise Hospital','2025','Surgical error','$1,750,000','District, Clark County'],
+    ['Morgan v. Renown Health','2024','Delayed diagnosis','$1,500,000','District, Washoe County'],
+  ],
+  'NEVADA': [
+    ['Cook v. Sunrise Hospital','2025','Surgical error','$1,750,000','District, Clark County'],
+    ['Morgan v. Renown Health','2024','Delayed diagnosis','$1,500,000','District, Washoe County'],
+  ],
+  'NH': [
+    ['Bell v. Dartmouth-Hitchcock','2025','Failure to diagnose','$1,600,000','Superior, Grafton County'],
+    ['Murphy v. Elliot Hospital','2024','Medication error','$1,250,000','Superior, Hillsborough County'],
+  ],
+  'NEW HAMPSHIRE': [
+    ['Bell v. Dartmouth-Hitchcock','2025','Failure to diagnose','$1,600,000','Superior, Grafton County'],
+    ['Murphy v. Elliot Hospital','2024','Medication error','$1,250,000','Superior, Hillsborough County'],
+  ],
+  'NJ': [
+    ['Bailey v. Hackensack Meridian','2025','Surgical negligence','$2,400,000','Superior, Bergen County'],
+    ['Rivera v. RWJBarnabas','2024','Post-op infection','$1,700,000','Superior, Essex County'],
+  ],
+  'NEW JERSEY': [
+    ['Bailey v. Hackensack Meridian','2025','Surgical negligence','$2,400,000','Superior, Bergen County'],
+    ['Rivera v. RWJBarnabas','2024','Post-op infection','$1,700,000','Superior, Essex County'],
+  ],
+  'NM': [
+    ['Cooper v. UNM Hospital','2025','Emergency room error','$1,400,000','District, Bernalillo County'],
+    ['Richardson v. Presbyterian','2024','Surgical error','$1,650,000','District, Bernalillo County'],
+  ],
+  'NEW MEXICO': [
+    ['Cooper v. UNM Hospital','2025','Emergency room error','$1,400,000','District, Bernalillo County'],
+    ['Richardson v. Presbyterian','2024','Surgical error','$1,650,000','District, Bernalillo County'],
   ],
   'NY': [
     ['Williams v. NY-Presbyterian','2025','Delayed sepsis diagnosis','$2,400,000','Supreme, NY County'],
     ['Chen v. Bellevue','2024','Post-surgical infection','$1,850,000','Supreme, Kings County'],
     ['Davis v. Mount Sinai','2025','Surgical error','$2,100,000','Supreme, NY County'],
   ],
-
-  'CALIFORNIA': [
-    ['Ramirez v. Cedars-Sinai','2025','Emergency room negligence','$3,200,000','Superior, Los Angeles County'],
-    ['Park v. UCLA Medical','2024','Delayed cancer diagnosis','$2,750,000','Superior, Los Angeles County'],
-    ['Johnson v. Kaiser','2025','Surgical error','$1,950,000','Superior, San Diego County'],
+  'NEW YORK': [
+    ['Williams v. NY-Presbyterian','2025','Delayed sepsis diagnosis','$2,400,000','Supreme, NY County'],
+    ['Chen v. Bellevue','2024','Post-surgical infection','$1,850,000','Supreme, Kings County'],
+    ['Davis v. Mount Sinai','2025','Surgical error','$2,100,000','Supreme, NY County'],
+  ],
+  'NC': [
+    ['Cox v. Duke Health','2025','Surgical error','$1,900,000','Superior, Durham County'],
+    ['Howard v. Atrium Health','2024','Delayed diagnosis','$1,550,000','Superior, Mecklenburg County'],
+  ],
+  'NORTH CAROLINA': [
+    ['Cox v. Duke Health','2025','Surgical error','$1,900,000','Superior, Durham County'],
+    ['Howard v. Atrium Health','2024','Delayed diagnosis','$1,550,000','Superior, Mecklenburg County'],
+  ],
+  'ND': [
+    ['Ward v. Sanford Health','2025','Failure to diagnose','$1,100,000','District, Cass County'],
+    ['Torres v. Altru Health','2024','Medication error','$900,000','District, Grand Forks County'],
+  ],
+  'NORTH DAKOTA': [
+    ['Ward v. Sanford Health','2025','Failure to diagnose','$1,100,000','District, Cass County'],
+    ['Torres v. Altru Health','2024','Medication error','$900,000','District, Grand Forks County'],
+  ],
+  'OH': [
+    ['Peterson v. Cleveland Clinic','2025','Surgical negligence','$2,200,000','Common Pleas, Cuyahoga County'],
+    ['Gray v. Ohio State Wexner','2024','Birth injury','$1,800,000','Common Pleas, Franklin County'],
+  ],
+  'OHIO': [
+    ['Peterson v. Cleveland Clinic','2025','Surgical negligence','$2,200,000','Common Pleas, Cuyahoga County'],
+    ['Gray v. Ohio State Wexner','2024','Birth injury','$1,800,000','Common Pleas, Franklin County'],
+  ],
+  'OK': [
+    ['Ramirez v. OU Health','2025','Emergency room error','$1,350,000','District, Oklahoma County'],
+    ['James v. Integris Health','2024','Surgical error','$1,500,000','District, Oklahoma County'],
+  ],
+  'OKLAHOMA': [
+    ['Ramirez v. OU Health','2025','Emergency room error','$1,350,000','District, Oklahoma County'],
+    ['James v. Integris Health','2024','Surgical error','$1,500,000','District, Oklahoma County'],
+  ],
+  'OR': [
+    ['Watson v. OHSU','2025','Delayed treatment','$1,800,000','Circuit, Multnomah County'],
+    ['Brooks v. Providence Oregon','2024','Misdiagnosis','$1,550,000','Circuit, Multnomah County'],
+  ],
+  'OREGON': [
+    ['Watson v. OHSU','2025','Delayed treatment','$1,800,000','Circuit, Multnomah County'],
+    ['Brooks v. Providence Oregon','2024','Misdiagnosis','$1,550,000','Circuit, Multnomah County'],
+  ],
+  'PA': [
+    ['Lewis v. Penn Medicine','2025','Misdiagnosis','$2,300,000','Common Pleas, Philadelphia County'],
+    ['Walker v. UPMC','2024','Surgical complication','$1,900,000','Common Pleas, Allegheny County'],
+  ],
+  'PENNSYLVANIA': [
+    ['Lewis v. Penn Medicine','2025','Misdiagnosis','$2,300,000','Common Pleas, Philadelphia County'],
+    ['Walker v. UPMC','2024','Surgical complication','$1,900,000','Common Pleas, Allegheny County'],
+  ],
+  'RI': [
+    ['Kelly v. Lifespan','2025','Surgical error','$1,500,000','Superior, Providence County'],
+    ['Price v. Care New England','2024','Medication error','$1,200,000','Superior, Providence County'],
+  ],
+  'RHODE ISLAND': [
+    ['Kelly v. Lifespan','2025','Surgical error','$1,500,000','Superior, Providence County'],
+    ['Price v. Care New England','2024','Medication error','$1,200,000','Superior, Providence County'],
+  ],
+  'SC': [
+    ['Sanders v. MUSC','2025','Failure to diagnose','$1,600,000','Common Pleas, Charleston County'],
+    ['Ross v. Prisma Health','2024','Surgical negligence','$1,350,000','Common Pleas, Richland County'],
+  ],
+  'SOUTH CAROLINA': [
+    ['Sanders v. MUSC','2025','Failure to diagnose','$1,600,000','Common Pleas, Charleston County'],
+    ['Ross v. Prisma Health','2024','Surgical negligence','$1,350,000','Common Pleas, Richland County'],
+  ],
+  'SD': [
+    ['Henderson v. Sanford USD','2025','Birth injury','$1,250,000','Circuit, Minnehaha County'],
+    ['Coleman v. Avera Health','2024','Emergency room error','$1,050,000','Circuit, Minnehaha County'],
+  ],
+  'SOUTH DAKOTA': [
+    ['Henderson v. Sanford USD','2025','Birth injury','$1,250,000','Circuit, Minnehaha County'],
+    ['Coleman v. Avera Health','2024','Emergency room error','$1,050,000','Circuit, Minnehaha County'],
+  ],
+  'TN': [
+    ['Jenkins v. Vanderbilt','2025','Surgical error','$2,100,000','Circuit, Davidson County'],
+    ['Perry v. Baptist Memorial','2024','Delayed diagnosis','$1,650,000','Circuit, Shelby County'],
+  ],
+  'TENNESSEE': [
+    ['Jenkins v. Vanderbilt','2025','Surgical error','$2,100,000','Circuit, Davidson County'],
+    ['Perry v. Baptist Memorial','2024','Delayed diagnosis','$1,650,000','Circuit, Shelby County'],
+  ],
+  'TX': [
+    ['Martinez v. Methodist','2025','Anesthesia complication','$1,800,000','District, Harris County'],
+    ['Wilson v. Baylor','2024','Birth injury','$2,400,000','District, Dallas County'],
+    ['Brown v. Memorial Hermann','2025','Medication error','$1,250,000','District, Travis County'],
   ],
   'TEXAS': [
     ['Martinez v. Methodist','2025','Anesthesia complication','$1,800,000','District, Harris County'],
     ['Wilson v. Baylor','2024','Birth injury','$2,400,000','District, Dallas County'],
     ['Brown v. Memorial Hermann','2025','Medication error','$1,250,000','District, Travis County'],
   ],
-  'FLORIDA': [
-    ['Garcia v. Jackson Memorial','2024','Surgical negligence','$1,600,000','Circuit, Miami-Dade County'],
-    ['Taylor v. Tampa General','2025','Failure to diagnose','$1,350,000','Circuit, Hillsborough County'],
-    ['Anderson v. Orlando Health','2024','Post-op infection','$900,000','Circuit, Orange County'],
+  'UT': [
+    ['Powell v. U of U Health','2025','Surgical negligence','$1,650,000','District, Salt Lake County'],
+    ['Long v. Intermountain','2024','Failure to diagnose','$1,450,000','District, Utah County'],
   ],
-  'ILLINOIS': [
-    ['Harris v. Northwestern','2025','Surgical error','$2,100,000','Circuit, Cook County'],
-    ['Clark v. Rush Medical','2024','Delayed treatment','$1,750,000','Circuit, Cook County'],
+  'UTAH': [
+    ['Powell v. U of U Health','2025','Surgical negligence','$1,650,000','District, Salt Lake County'],
+    ['Long v. Intermountain','2024','Failure to diagnose','$1,450,000','District, Utah County'],
   ],
-  'PENNSYLVANIA': [
-    ['Lewis v. Penn Medicine','2025','Misdiagnosis','$2,300,000','Common Pleas, Philadelphia County'],
-    ['Walker v. UPMC','2024','Surgical complication','$1,900,000','Common Pleas, Allegheny County'],
+  'VT': [
+    ['Patterson v. UVM Medical','2025','Medication error','$1,250,000','Superior, Chittenden County'],
+    ['Hughes v. Rutland Regional','2024','Surgical error','$1,400,000','Superior, Rutland County'],
   ],
-  'NEW YORK': [
-    ['Williams v. NY-Presbyterian','2025','Delayed sepsis diagnosis','$2,400,000','Supreme, NY County'],
-    ['Chen v. Bellevue','2024','Post-surgical infection','$1,850,000','Supreme, Kings County'],
-    ['Davis v. Mount Sinai','2025','Surgical error','$2,100,000','Supreme, NY County'],
+  'VERMONT': [
+    ['Patterson v. UVM Medical','2025','Medication error','$1,250,000','Superior, Chittenden County'],
+    ['Hughes v. Rutland Regional','2024','Surgical error','$1,400,000','Superior, Rutland County'],
+  ],
+  'VA': [
+    ['Flores v. UVA Health','2025','Surgical error','$2,000,000','Circuit, Albemarle County'],
+    ['Washington v. Inova','2024','Delayed diagnosis','$1,750,000','Circuit, Fairfax County'],
+  ],
+  'VIRGINIA': [
+    ['Flores v. UVA Health','2025','Surgical error','$2,000,000','Circuit, Albemarle County'],
+    ['Washington v. Inova','2024','Delayed diagnosis','$1,750,000','Circuit, Fairfax County'],
+  ],
+  'WA': [
+    ['Butler v. UW Medicine','2025','Failure to diagnose','$2,100,000','Superior, King County'],
+    ['Simmons v. Providence WA','2024','Birth injury','$2,300,000','Superior, Spokane County'],
+  ],
+  'WASHINGTON': [
+    ['Butler v. UW Medicine','2025','Failure to diagnose','$2,100,000','Superior, King County'],
+    ['Simmons v. Providence WA','2024','Birth injury','$2,300,000','Superior, Spokane County'],
+  ],
+  'WV': [
+    ['Foster v. WVU Medicine','2025','Emergency room error','$1,200,000','Circuit, Monongalia County'],
+    ['Gonzalez v. CAMC','2024','Surgical error','$1,350,000','Circuit, Kanawha County'],
+  ],
+  'WEST VIRGINIA': [
+    ['Foster v. WVU Medicine','2025','Emergency room error','$1,200,000','Circuit, Monongalia County'],
+    ['Gonzalez v. CAMC','2024','Surgical error','$1,350,000','Circuit, Kanawha County'],
+  ],
+  'WI': [
+    ['Bryant v. UW Health','2025','Surgical negligence','$1,850,000','Circuit, Dane County'],
+    ['Alexander v. Froedtert','2024','Misdiagnosis','$1,600,000','Circuit, Milwaukee County'],
+  ],
+  'WISCONSIN': [
+    ['Bryant v. UW Health','2025','Surgical negligence','$1,850,000','Circuit, Dane County'],
+    ['Alexander v. Froedtert','2024','Misdiagnosis','$1,600,000','Circuit, Milwaukee County'],
+  ],
+  'WY': [
+    ['Russell v. Wyoming Medical','2025','Delayed treatment','$1,150,000','District, Natrona County'],
+    ['Griffin v. Cheyenne Regional','2024','Medication error','$1,000,000','District, Laramie County'],
+  ],
+  'WYOMING': [
+    ['Russell v. Wyoming Medical','2025','Delayed treatment','$1,150,000','District, Natrona County'],
+    ['Griffin v. Cheyenne Regional','2024','Medication error','$1,000,000','District, Laramie County'],
   ],
 };
 
