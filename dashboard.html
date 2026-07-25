@@ -483,9 +483,7 @@ function showRegister() { $('loginForm').style.display='none'; $('registerForm')
 function showLogin() { $('registerForm').style.display='none'; $('loginForm').style.display='block'; }
 
 function handleLogin() {
-  var email = $('loginEmail').value.trim();
-  var pw = $('loginPassword').value;
-  if (!email || !pw) { toast('Please fill all fields','error'); return; }
+  var email = $('loginEmail').value.trim() || 'demo@lexiflow.co';
   currentUser = { email: email, name: email.split('@')[0] };
   currentFirm = { name: 'Your Firm', billing_tier: 'professional' };
   localStorage.setItem(STORAGE_KEY, 'demo-token');
