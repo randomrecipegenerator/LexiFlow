@@ -850,13 +850,16 @@ function updateVerdictTable(stateUpper) {
   rows.innerHTML = html;
 }
 
+function setText(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; }
+function setHTML(id, val) { var el = document.getElementById(id); if (el) el.innerHTML = val; }
 function updateSettlementDisplay() {
-  var state = ($('settleState').value || 'New York').trim();
+  var state = (document.getElementById('settleState')?.value || 'New York').trim();
   var stateUpper = state.toUpperCase();
   var displayState = state.charAt(0).toUpperCase() + state.slice(1).toLowerCase();
   var cap = capsByCode[stateUpper] || capsByName[stateUpper] || 0;
-  var damages = parseFloat($('settleDamages').value) || 850000;
-  var mult = {strong:1.0, moderate:0.7, weak:0.35}[$('settleLiability').value] || 1.0;
+  var damages = parseFloat(document.getElementById('settleDamages')?.value) || 850000;
+  var liability = document.getElementById('settleLiability')?.value || 'strong';
+  var mult = {strong:1.0, moderate:0.7, weak:0.35}[liability] || 1.0;
   var capped = cap > 0 ? Math.min(damages * mult, cap) : damages * mult;
   var econ = Math.round(damages * 0.65 * mult);
   var total = capped + econ;
@@ -867,21 +870,21 @@ function updateSettlementDisplay() {
   var capDisplay = cap > 0 ? '$'+cap.toLocaleString() : '$0 (Uncapped)';
   var capNote = cap > 0 ? displayState+' — Cap: $'+cap.toLocaleString() : displayState+' — No cap on non-economic';
   var capText = cap > 0 ? 'a <strong>$'+cap.toLocaleString()+' cap</strong>' : '<strong>no statutory cap</strong>';
-  $('settleSampleState').textContent = displayState;
-  $('settleSampleNonEcon').textContent = '$'+capped.toLocaleString();
-  $('settleSampleEcon').textContent = '$'+econ.toLocaleString();
-  $('settleSampleTotal').textContent = '$'+total.toLocaleString();
-  $('settleEstValue').textContent = '$'+total.toLocaleString();
-  $('settleProbability').textContent = prob+'% Settlement Probability';
-  $('settleCap').textContent = capDisplay;
-  $('settleCapNote').textContent = capNote;
-  $('settleComps').textContent = comps.toLocaleString();
-  $('settleCompsNote').textContent = 'In '+displayState+' database';
-  $('settleVerdictState').textContent = displayState;
-  $('settleBottomNote').textContent = displayState;
-  $('settleCapText').innerHTML = capText;
-  $('settleRange').textContent = '$'+rangeLow.toLocaleString()+' - $'+rangeHigh.toLocaleString();
-  $('settleProbText').textContent = prob+'%';
+  setText('settleSampleState', displayState);
+  setText('settleSampleNonEcon', '$'+capped.toLocaleString());
+  setText('settleSampleEcon', '$'+econ.toLocaleString());
+  setText('settleSampleTotal', '$'+total.toLocaleString());
+  setText('settleEstValue', '$'+total.toLocaleString());
+  setText('settleProbability', prob+'% Settlement Probability');
+  setText('settleCap', capDisplay);
+  setText('settleCapNote', capNote);
+  setText('settleComps', comps.toLocaleString());
+  setText('settleCompsNote', 'In '+displayState+' database');
+  setText('settleVerdictState', displayState);
+  setText('settleBottomNote', displayState);
+  setHTML('settleCapText', capText);
+  setText('settleRange', '$'+rangeLow.toLocaleString()+' - $'+rangeHigh.toLocaleString());
+  setText('settleProbText', prob+'%');
   updateVerdictTable(stateUpper);
 }
 async function calculateSettlement() {
