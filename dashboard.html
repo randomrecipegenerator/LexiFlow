@@ -804,8 +804,13 @@ async function analyzeMedical() {
       res.innerHTML = ''; res.appendChild(medContainer.firstChild);
       renderStrategyFields(res, [
         {label:'Standard of Care Violations', val:d.standard_of_care_violations, asBullets:true},
+        {label:'Standard of Care Sources', val:d.standard_of_care_sources, asBullets:true},
         {label:'Causation Chain', val:d.causation_chain},
-        {label:'Cross-Examination Questions', val:d.cross_examination_questions, asBullets:true}
+        {label:'Causation Case Law', val:d.causation_case_law, asBullets:true},
+        {label:'Damages Precedent', val:d.damages_precedent, asBullets:true},
+        {label:'Medical Literature Challenges', val:d.medical_literature_challenges, asBullets:true},
+        {label:'Cross-Examination Questions', val:d.cross_examination_questions, asBullets:true},
+        {label:'Differentiation Strategies', val:d.differentiation_strategies, asBullets:true}
       ]); }
     else throw new Error(d.detail);
   } catch(e) { res.innerHTML = '<div class="v-card metric-card" style="border-left:3px solid var(--gold-accent);"><div style="font-size:12px;color:var(--text-muted);">Analysis queued</div></div>'; toast('Analysis queued','success'); }
@@ -1325,7 +1330,12 @@ async function calculateSettlement() {
         {label:'Voir Dire Strategy', val:d.voir_dire_strategy},
         {label:'Deposition Question Outline', val:d.deposition_question_outline, asNumbered:true},
         {label:'Negotiation Leverage Points', val:d.negotiation_leverage_points, asBullets:true},
-        {label:'Jury Psychology Notes', val:d.jury_psychology_notes ? 'Theme: '+(d.jury_psychology_notes.recommended_theme||'')+'. Bias: '+(d.jury_psychology_notes.known_bias||'')+'. Narrative: '+(d.jury_psychology_notes.key_damages_narrative||'')+'. Counter defense: '+(d.jury_psychology_notes.defense_narrative_to_counter||'') : ''}
+        {label:'Damage Cap Statutes', val:d.damage_cap_statutes, asBullets:true},
+        {label:'Key Case Law', val:d.key_case_law, asBullets:true},
+        {label:'Jury Instruction References', val:d.jury_instruction_references, asBullets:true},
+        {label:'Defense Feared Sections', val:d.defense_feared_sections, asBullets:true},
+        {label:'Jury Psychology Notes', val:d.jury_psychology_notes ? 'Theme: '+(d.jury_psychology_notes.recommended_theme||'')+'. Bias: '+(d.jury_psychology_notes.known_bias||'')+'. Narrative: '+(d.jury_psychology_notes.key_damages_narrative||'')+'. Counter defense: '+(d.jury_psychology_notes.defense_narrative_to_counter||'') : ''},
+        {label:'Differentiation Strategies', val:d.differentiation_strategies, asBullets:true}
       ]); return;
     }
     throw new Error(d.detail||'No prediction');
@@ -1367,12 +1377,17 @@ async function generateLifeCarePlan() {
       renderStrategyFields(res, [
         {label:'Damages Presentation Strategy', val:d.damages_presentation_strategy},
         {label:'Pain & Suffering Multiplier', val:'Multiplier: ' + (d.pain_and_suffering_multiplier?.recommended_multiplier||'3.0') + 'x — ' + (d.pain_and_suffering_multiplier?.rationale||'') + (d.pain_and_suffering_multiplier?.precedent_citations ? ' Precedent: '+d.pain_and_suffering_multiplier.precedent_citations : '')},
+        {label:'Life Expectancy Sources', val:d.life_expectancy_sources, asBullets:true},
+        {label:'Discount Rate Case Law', val:d.discount_rate_case_law, asBullets:true},
+        {label:'Collateral Source Rules', val:d.collateral_source_rules, asBullets:true},
+        {label:'Per Diem Argument Law', val:d.per_diem_argument_law, asBullets:true},
         {label:'Medical Expert Recs', val:d.medical_expert_recommendations, asBullets:true},
         {label:'Cross-Examination Prep', val:'Life Expectancy: '+(d.cross_examination_prep?.life_expectancy_attacks||'')+' Discount Rate: '+(d.cross_examination_prep?.discount_rate_attacks||'')+' Cost Categories: '+(d.cross_examination_prep?.cost_category_attacks||'')},
         {label:'Structured vs Lump Sum', val:d.structured_vs_lump_sum?.recommendation + ' (Split: '+(d.structured_vs_lump_sum?.recommended_split||'30/70')+')'},
         {label:'Medicare Lien Strategy', val:d.medicare_lien_negotiation_strategy},
         {label:'Day-in-the-Life Video', val:d.day_in_the_life_video?.recommendation + ' (Cost: '+(d.day_in_the_life_video?.production_cost||'')+')'},
-        {label:'Economic Expert Referral', val:d.economic_expert_referral}
+        {label:'Economic Expert Referral', val:d.economic_expert_referral},
+        {label:'Differentiation Strategies', val:d.differentiation_strategies, asBullets:true}
       ]); return;
     }
     throw new Error(d.detail||'No plan');
@@ -1403,9 +1418,13 @@ async function profileOpposingCounsel() {
       res.innerHTML = ''; res.appendChild(ocContainer.firstChild);
       renderStrategyFields(res, [
         {label:'Known Tactics', val:d.known_tactics, asBullets:true},
+        {label:'Rules of Professional Conduct', val:d.rules_of_professional_conduct, asBullets:true},
+        {label:'Discovery Abuse Case Law', val:d.discovery_abuse_case_law, asBullets:true},
+        {label:'Counter Motion Strategies', val:d.counter_motion_strategies, asBullets:true},
         {label:'Counter Strategies', val:d.counter_strategies, asBullets:true},
         {label:'Deposition Weaknesses', val:d.deposition_weaknesses, asBullets:true},
-        {label:'Recommended Approach', val:d.recommended_approach}
+        {label:'Recommended Approach', val:d.recommended_approach},
+        {label:'Differentiation Strategies', val:d.differentiation_strategies, asBullets:true}
       ]); return;
     }
     throw new Error(d.detail||'No profile');
@@ -1439,8 +1458,12 @@ async function checkSOL() {
       res.innerHTML = ''; res.appendChild(solContainer.firstChild);
       renderStrategyFields(res, [
         {label:'Tolling Doctrines', val:d.tolling_doctrines, asBullets:true},
+        {label:'Exact SOL Statutes', val:d.exact_sol_statutes, asBullets:true},
+        {label:'Tolling Case Law', val:d.tolling_case_law, asBullets:true},
+        {label:'Court Rule Deadlines', val:d.court_rule_deadlines, asBullets:true},
         {label:'Discovery Deadlines', val:d.discovery_deadlines ? d.discovery_deadlines.map(function(i){return i.item+': '+i.deadline}) : null, asBullets:true},
-        {label:'Expert Disclosure Deadlines', val:d.expert_disclosure_deadlines ? d.expert_disclosure_deadlines.map(function(i){return i.item+': '+i.deadline}) : null, asBullets:true}
+        {label:'Expert Disclosure Deadlines', val:d.expert_disclosure_deadlines ? d.expert_disclosure_deadlines.map(function(i){return i.item+': '+i.deadline}) : null, asBullets:true},
+        {label:'Differentiation Strategies', val:d.differentiation_strategies, asBullets:true}
       ]); return;
     }
     throw new Error(d.detail||'No SOL');
@@ -1497,8 +1520,13 @@ async function calculateTrialReadiness() {
       res.innerHTML = ''; res.appendChild(trContainer.firstChild);
       renderStrategyFields(res, [
         {label:'Evidence Gaps', val:d.evidence_gaps, asBullets:true},
+        {label:'Evidence Rules', val:d.evidence_rules, asBullets:true},
+        {label:'Daubert Strategy', val:d.daubert_strategy, asBullets:true},
+        {label:'Motion in Limine Suggestions', val:d.motion_in_limine_suggestions, asBullets:true},
+        {label:'Admissibility Case Law', val:d.admissibility_case_law, asBullets:true},
         {label:'Expert Recommendations', val:d.expert_recommendations, asBullets:true},
-        {label:'Motion Deadlines Checklist', val:d.motion_deadlines_checklist, asBullets:true}
+        {label:'Motion Deadlines Checklist', val:d.motion_deadlines_checklist, asBullets:true},
+        {label:'Differentiation Strategies', val:d.differentiation_strategies, asBullets:true}
       ]); return;
     }
     throw new Error(d.detail||'No score');
