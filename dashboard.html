@@ -748,6 +748,35 @@ function handleUpdateSettings() {
 
 // ─── HELPERS ──────────────────────────────
 function loadingHTML(msg) { return '<div class="load-placeholder"><div class="spinner"></div>'+msg+'</div>'; }
+// ─── STRATEGY FIELD RENDERER ─────────────────
+function renderStrategyFields(container, fields) {
+  var h = '';
+  for (var i = 0; i < fields.length; i++) {
+    var f = fields[i];
+    var val = f.val;
+    if (!val) continue;
+    if (Array.isArray(val)) {
+      if (val.length === 0) continue;
+      h += '<div class="v-card" style="margin-top:12px;"><div class="v-card-header"><h3 class="v-card-title">'+f.label+'</h3></div>';
+      if (f.asNumbered) {
+        h += '<ol style="padding:12px 12px 12px 32px;font-size:13px;color:var(--text-secondary);line-height:1.7;">';
+        for (var j = 0; j < val.length; j++) h += '<li>'+val[j]+'</li>';
+        h += '</ol>';
+      } else if (f.asBullets) {
+        h += '<ul style="padding:12px 12px 12px 20px;font-size:13px;color:var(--text-secondary);line-height:1.7;">';
+        for (var j = 0; j < val.length; j++) h += '<li>'+val[j]+'</li>';
+        h += '</ul>';
+      } else {
+        h += '<div style="padding:12px;font-size:13px;color:var(--text-secondary);line-height:1.7;">'+val.join('<br>')+'</div>';
+      }
+      h += '</div>';
+    } else {
+      h += '<div class="v-card" style="margin-top:12px;"><div class="v-card-header"><h3 class="v-card-title">'+f.label+'</h3></div><div style="padding:12px;font-size:13px;color:var(--text-secondary);line-height:1.6;">'+val+'</div></div>';
+    }
+  }
+  if (h) container.insertAdjacentHTML('beforeend', h);
+}
+
 
 // ─── DOCUMENT UPLOAD ───────────────────────
 async function uploadDocument() {
@@ -770,7 +799,14 @@ async function analyzeMedical() {
   try {
     var r = await fetch('/api/medical/analyze', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({case_description:desc}) });
     var d = await r.json();
-    if (r.ok) { var h = ''; if(d.merit_assessment) { h+='<div class="v-card" style="border-left:3px solid var(--gold-accent);"><div class="v-card-header"><h3 class="v-card-title">Merit Assessment</h3></div><div style="padding:12px;font-size:14px;color:var(--text-primary);">'+d.merit_assessment+'</div></div>'; } if(d.medical_chronology && d.medical_chronology.length) { h+='<div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Medical Chronology</h3></div><div class="table-wrap"><table><thead><tr><th>Date</th><th>Event</th><th>Source</th></tr></thead><tbody>'; d.medical_chronology.forEach(function(e){ h+='<tr><td>'+e.date+'</td><td>'+e.event+'</td><td style="font-size:12px;color:var(--text-muted);">'+e.source+'</td></tr>'; }); h+='</tbody></table></div></div>'; } if(d.treatment_gaps && d.treatment_gaps.length) { h+='<div class="v-card" style="border-left:3px solid var(--danger);"><div class="v-card-header"><h3 class="v-card-title">Treatment Gaps Found</h3></div><ul style="font-size:13px;color:var(--text-secondary);padding-left:16px;">'; d.treatment_gaps.forEach(function(g){ h+='<li>'+g+'</li>'; }); h+='</ul></div>'; } res.innerHTML = h || '<div class="v-card"><p style="color:var(--text-muted);">Analysis complete</p></div>'; }
+    if (r.ok) { var h = ''; if(d.merit_assessment) { h+='<div class="v-card" style="border-left:3px solid var(--gold-accent);"><div class="v-card-header"><h3 class="v-card-title">Merit Assessment</h3></div><div style="padding:12px;font-size:14px;color:var(--text-primary);">'+d.merit_assessment+'</div></div>'; } if(d.medical_chronology && d.medical_chronology.length) { h+='<div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Medical Chronology</h3></div><div class="table-wrap"><table><thead><tr><th>Date</th><th>Event</th><th>Source</th></tr></thead><tbody>'; d.medical_chronology.forEach(function(e){ h+='<tr><td>'+e.date+'</td><td>'+e.event+'</td><td style="font-size:12px;color:var(--text-muted);">'+e.source+'</td></tr>'; }); h+='</tbody></table></div></div>'; } if(d.treatment_gaps && d.treatment_gaps.length) { h+='<div class="v-card" style="border-left:3px solid var(--danger);"><div class="v-card-header"><h3 class="v-card-title">Treatment Gaps Found</h3></div><ul style="font-size:13px;color:var(--text-secondary);padding-left:16px;">'; d.treatment_gaps.forEach(function(g){ h+='<li>'+g+'</li>'; }); h+='</ul></div>'; }
+      var medContainer = document.createElement('div'); medContainer.innerHTML = h || '<div class="v-card"><p style="color:var(--text-muted);">Analysis complete</p></div>';
+      res.innerHTML = ''; res.appendChild(medContainer.firstChild);
+      renderStrategyFields(res, [
+        {label:'Standard of Care Violations', val:d.standard_of_care_violations, asBullets:true},
+        {label:'Causation Chain', val:d.causation_chain},
+        {label:'Cross-Examination Questions', val:d.cross_examination_questions, asBullets:true}
+      ]); }
     else throw new Error(d.detail);
   } catch(e) { res.innerHTML = '<div class="v-card metric-card" style="border-left:3px solid var(--gold-accent);"><div style="font-size:12px;color:var(--text-muted);">Analysis queued</div></div>'; toast('Analysis queued','success'); }
 }
@@ -1282,7 +1318,15 @@ async function calculateSettlement() {
       h += '<div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);">AI Value</div><div class="metric-value">$'+Number(d.estimated_value).toLocaleString()+'</div></div>';
       if (d.range_low) h += '<div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);">Range Low</div><div class="metric-value">$'+Number(d.range_low).toLocaleString()+'</div></div>';
       if (d.confidence) h += '<div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);">Confidence</div><div class="metric-value">'+d.confidence+'%</div></div>';
-      h += '</div>'; res.innerHTML = h; return;
+      h += '</div>';
+      var settleContainer = document.createElement('div'); settleContainer.innerHTML = h;
+      res.innerHTML = ''; res.appendChild(settleContainer.firstChild);
+      renderStrategyFields(res, [
+        {label:'Voir Dire Strategy', val:d.voir_dire_strategy},
+        {label:'Deposition Question Outline', val:d.deposition_question_outline, asNumbered:true},
+        {label:'Negotiation Leverage Points', val:d.negotiation_leverage_points, asBullets:true},
+        {label:'Jury Psychology Notes', val:d.jury_psychology_notes}
+      ]); return;
     }
     throw new Error(d.detail||'No prediction');
   } catch(e) {
@@ -1317,7 +1361,14 @@ async function generateLifeCarePlan() {
       var h = '<div class="v-card" style="border-left:3px solid var(--gold-accent);"><div class="v-card-header"><h3 class="v-card-title">Life Care Plan</h3></div><div class="metric-value">$'+Number(d.lifetime_cost).toLocaleString()+'</div>';
       if (d.years) h += '<div style="font-size:12px;color:var(--text-secondary);">'+d.years+' years of care</div>';
       if (d.breakdown) h += '<div style="font-size:12px;color:var(--text-primary);padding:12px;">'+d.breakdown+'</div>';
-      h += '</div>'; res.innerHTML = h; return;
+      h += '</div>';
+      var lcpContainer = document.createElement('div'); lcpContainer.innerHTML = h;
+      res.innerHTML = ''; res.appendChild(lcpContainer.firstChild);
+      renderStrategyFields(res, [
+        {label:'Medicare Lien Analysis', val:d.medicare_lien_analysis},
+        {label:'Structured Settlement Recommendation', val:d.structured_settlement_recommendation},
+        {label:'Pain & Suffering Multiplier Rationale', val:d.pain_suffering_multiplier_rationale}
+      ]); return;
     }
     throw new Error(d.detail||'No plan');
   } catch(e) {
@@ -1342,7 +1393,15 @@ async function profileOpposingCounsel() {
         '<div class="v-card metric-card"><div class="metric-value">'+(d.settle_rate||'--')+'%</div><div style="font-size:11px;color:var(--text-muted);">Settle Rate</div></div></div>'+
         '<p style="font-size:13px;color:var(--text-secondary);margin-top:8px;"><strong>Style:</strong> '+d.style+'</p>';
       if (d.notes) h += '<div style="padding:12px;font-size:12px;color:var(--text-muted);border-top:1px solid var(--navy-border);">'+d.notes+'</div>';
-      h += '</div>'; res.innerHTML = h; return;
+      h += '</div>';
+      var ocContainer = document.createElement('div'); ocContainer.innerHTML = h;
+      res.innerHTML = ''; res.appendChild(ocContainer.firstChild);
+      renderStrategyFields(res, [
+        {label:'Known Tactics', val:d.known_tactics, asBullets:true},
+        {label:'Counter Strategies', val:d.counter_strategies, asBullets:true},
+        {label:'Deposition Weaknesses', val:d.deposition_weaknesses, asBullets:true},
+        {label:'Recommended Approach', val:d.recommended_approach}
+      ]); return;
     }
     throw new Error(d.detail||'No profile');
   } catch(e) {
@@ -1368,10 +1427,16 @@ async function checkSOL() {
     if (r.ok && d.deadline) {
       var urgency = d.days_left < 90 ? 'var(--danger)' : d.days_left < 180 ? 'var(--warning)' : 'var(--success)';
       var notes = d.expired ? '<strong style="color:var(--danger);">EXPIRED</strong>' : d.days_left+' days remaining';
-      res.innerHTML = '<div class="v-card"><div class="v-card-header"><h3 class="v-card-title">SOL Deadline</h3></div>'+
+      var h = '<div class="v-card"><div class="v-card-header"><h3 class="v-card-title">SOL Deadline</h3></div>'+
         '<div class="metric-value" style="color:'+urgency+';">'+d.deadline+'</div>'+
         '<p style="font-size:14px;color:var(--text-secondary);margin-top:4px;">'+notes+' | '+(d.years||'?')+' year limit</p></div>';
-      return;
+      var solContainer = document.createElement('div'); solContainer.innerHTML = h;
+      res.innerHTML = ''; res.appendChild(solContainer.firstChild);
+      renderStrategyFields(res, [
+        {label:'Tolling Doctrines', val:d.tolling_doctrines, asBullets:true},
+        {label:'Discovery Deadlines', val:d.discovery_deadlines, asBullets:true},
+        {label:'Expert Disclosure Deadlines', val:d.expert_disclosure_deadlines, asBullets:true}
+      ]); return;
     }
     throw new Error(d.detail||'No SOL');
   } catch(e) {
@@ -1401,9 +1466,15 @@ async function calculateTrialReadiness() {
       var color = score > 70 ? 'var(--success)' : score > 40 ? 'var(--warning)' : 'var(--danger)';
       var label = score > 70 ? 'Ready for trial' : score > 40 ? 'Needs preparation' : 'Significant gaps';
       var gaps = d.gaps || [];
-      res.innerHTML = '<div class="v-card"><div style="text-align:center;padding:20px;"><div style="font-size:48px;font-weight:700;color:'+color+';">'+score+'%</div><p style="font-size:16px;color:var(--text-secondary);">'+label+'</p></div>'+
+      var h = '<div class="v-card"><div style="text-align:center;padding:20px;"><div style="font-size:48px;font-weight:700;color:'+color+';">'+score+'%</div><p style="font-size:16px;color:var(--text-secondary);">'+label+'</p></div>'+
         (gaps.length ? '<div style="padding:12px;border-top:1px solid var(--navy-border);"><ul style="font-size:13px;color:var(--text-secondary);padding-left:16px;">'+gaps.map(function(g){return '<li>'+g+'</li>';}).join('')+'</ul></div>' : '')+'</div>';
-      return;
+      var trContainer = document.createElement('div'); trContainer.innerHTML = h;
+      res.innerHTML = ''; res.appendChild(trContainer.firstChild);
+      renderStrategyFields(res, [
+        {label:'Evidence Gaps', val:d.evidence_gaps, asBullets:true},
+        {label:'Expert Recommendations', val:d.expert_recommendations, asBullets:true},
+        {label:'Motion Deadlines Checklist', val:d.motion_deadlines_checklist, asBullets:true}
+      ]); return;
     }
     throw new Error(d.detail||'No score');
   } catch(e) {
