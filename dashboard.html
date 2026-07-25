@@ -350,13 +350,11 @@
                 <div id="settleResult"><div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Sample Estimate — <span id="settleSampleState">New York</span></h3></div><div class="stat-grid" style="grid-template-columns:1fr 1fr;"><div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);">Non-Economic</div><div class="metric-value" style="font-size:22px;" id="settleSampleNonEcon">$595,000</div></div><div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);">Economic</div><div class="metric-value" style="font-size:22px;" id="settleSampleEcon">$386,750</div></div><div class="v-card metric-card" style="grid-column:span 2;border-left:3px solid var(--gold-accent);"><div style="font-size:11px;color:var(--text-muted);">Total</div><div class="metric-value" style="font-size:28px;" id="settleSampleTotal">$981,750</div></div></div></div></div>
             </div>
             <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-bar-chart"></i> Comparable Verdicts — <span id="settleVerdictState">New York</span> MedMal</h3></div>
-                <div class="table-wrap"><table><thead><tr><th>Case</th><th>Year</th><th>Injury</th><th>Verdict</th><th>Court</th></tr></thead><tbody>
+                <div class="table-wrap"><table><thead><tr><th>Case</th><th>Year</th><th>Injury</th><th>Verdict</th><th>Court</th></tr></thead>
                     <tbody id="settleVerdictRows">
                     <tr><td><strong>Williams v. NY-Presbyterian</strong></td><td>2025</td><td>Delayed sepsis diagnosis</td><td style="font-weight:600;color:var(--gold-accent);">$2,400,000</td><td style="font-size:12px;color:var(--text-muted);">Supreme, NY County</td></tr>
                     <tr><td><strong>Chen v. Bellevue</strong></td><td>2024</td><td>Post-surgical infection</td><td style="font-weight:600;color:var(--gold-accent);">$1,850,000</td><td style="font-size:12px;color:var(--text-muted);">Supreme, Kings County</td></tr>
                 </tbody>
-                    <tr><td><strong>Martinez v. Montefiore</strong></td><td>2024</td><td>Failure to diagnose stroke</td><td style="font-weight:600;color:var(--gold-accent);">$3,200,000</td><td style="font-size:12px;color:var(--text-muted);">Supreme, Bronx County</td></tr>
-                    <tr><td><strong>Davis v. Lenox Hill</strong></td><td>2023</td><td>Medication error</td><td style="font-weight:600;color:var(--gold-accent);">$975,000</td><td style="font-size:12px;color:var(--text-muted);">Supreme, NY County</td></tr>
                 </tbody></table></div>
                 <div style="padding:12px;background:var(--navy-bg);border-radius:8px;margin-top:12px;"><p style="font-size:12px;color:var(--text-secondary);"><span id="settleBottomNote">New York</span> has <strong id="settleCapText">no statutory cap</strong> on non-economic damages. Estimated range: <strong id="settleRange">$540,000 - $834,000</strong> (based on liability adjustment). Settlement probability: <strong id="settleProbText">74%</strong></p></div>
             </div>
@@ -809,6 +807,35 @@ var capsByName = {'ALABAMA':0,'ALASKA':400000,'ARIZONA':0,'ARKANSAS':0,'CALIFORN
 
 
 var stateVerdicts = {
+  'CA': [
+    ['Ramirez v. Cedars-Sinai','2025','Emergency room negligence','$3,200,000','Superior, Los Angeles County'],
+    ['Park v. UCLA Medical','2024','Delayed cancer diagnosis','$2,750,000','Superior, Los Angeles County'],
+    ['Johnson v. Kaiser','2025','Surgical error','$1,950,000','Superior, San Diego County'],
+  ],
+  'TX': [
+    ['Martinez v. Methodist','2025','Anesthesia complication','$1,800,000','District, Harris County'],
+    ['Wilson v. Baylor','2024','Birth injury','$2,400,000','District, Dallas County'],
+    ['Brown v. Memorial Hermann','2025','Medication error','$1,250,000','District, Travis County'],
+  ],
+  'FL': [
+    ['Garcia v. Jackson Memorial','2024','Surgical negligence','$1,600,000','Circuit, Miami-Dade County'],
+    ['Taylor v. Tampa General','2025','Failure to diagnose','$1,350,000','Circuit, Hillsborough County'],
+    ['Anderson v. Orlando Health','2024','Post-op infection','$900,000','Circuit, Orange County'],
+  ],
+  'IL': [
+    ['Harris v. Northwestern','2025','Surgical error','$2,100,000','Circuit, Cook County'],
+    ['Clark v. Rush Medical','2024','Delayed treatment','$1,750,000','Circuit, Cook County'],
+  ],
+  'PA': [
+    ['Lewis v. Penn Medicine','2025','Misdiagnosis','$2,300,000','Common Pleas, Philadelphia County'],
+    ['Walker v. UPMC','2024','Surgical complication','$1,900,000','Common Pleas, Allegheny County'],
+  ],
+  'NY': [
+    ['Williams v. NY-Presbyterian','2025','Delayed sepsis diagnosis','$2,400,000','Supreme, NY County'],
+    ['Chen v. Bellevue','2024','Post-surgical infection','$1,850,000','Supreme, Kings County'],
+    ['Davis v. Mount Sinai','2025','Surgical error','$2,100,000','Supreme, NY County'],
+  ],
+
   'CALIFORNIA': [
     ['Ramirez v. Cedars-Sinai','2025','Emergency room negligence','$3,200,000','Superior, Los Angeles County'],
     ['Park v. UCLA Medical','2024','Delayed cancer diagnosis','$2,750,000','Superior, Los Angeles County'],
