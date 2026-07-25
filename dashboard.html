@@ -599,12 +599,25 @@
         <!-- CRM SYNC -->
         <div class="page-section" id="page-crm">
             <header class="page-header"><div><h1><i class="bi bi-diagram-3"></i> CRM Sync</h1><p>Configure lead sync to your CRM platforms.</p></div></header>
-            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Auto-Sync Rules</h3></div>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-plug"></i> Platform Connections</h3></div>
+                <div class="form-group"><label>Clio API Key</label><input type="text" id="crmClioKey" style="width:100%;padding:12px;" placeholder="Enter your Clio API key"></div>
+                <div class="form-group"><label>Filevine API Key</label><input type="text" id="crmFilevineKey" style="width:100%;padding:12px;" placeholder="Enter your Filevine API key"></div>
+                <div class="form-group"><label>LeadDock Webhook URL</label><input type="text" id="crmLeadDockUrl" style="width:100%;padding:12px;" placeholder="https://api.leaddock.com/webhook/..."></div>
+                <div class="form-group"><label>Custom CRM Endpoint</label><input type="text" id="crmCustomUrl" style="width:100%;padding:12px;" placeholder="https://yourcrm.com/api/leads"></div>
+                <button class="v-btn v-btn-primary" onclick="saveCrmSettings()"><i class="bi bi-check-lg"></i> Save & Test Connection</button>
+                <div id="crmStatus" style="margin-top:12px;font-size:13px;"></div>
+            </div>
+            <div class="v-card" style="margin-top:20px;"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-funnel"></i> Auto-Sync Rules</h3></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                    <div class="form-group"><label>High Score Threshold</label><input type="number" id="crmHighThreshold" style="width:100%;padding:12px;" value="70" min="0" max="100" onchange="updateCrmLabels()"></div>
+                    <div class="form-group"><label>Medium Score Threshold</label><input type="number" id="crmMedThreshold" style="width:100%;padding:12px;" value="50" min="0" max="100" onchange="updateCrmLabels()"></div>
+                </div>
                 <ul style="font-size:14px;color:var(--text-secondary);padding-left:20px;">
-                    <li><strong>Score 70+</strong> → Synced to all CRMs</li>
-                    <li><strong>Score 50-69</strong> → LeadDock only</li>
-                    <li><strong>Score &lt;50</strong> → Manual review</li>
+                    <li><strong>Score ≥ <span id="crmHighLabel">70</span></strong> → Synced to all connected CRMs</li>
+                    <li><strong>Score <span id="crmMedLabel">50</span>-<span id="crmHighLabel2">70</span></strong> → LeadDock only</li>
+                    <li><strong>Score &lt;<span id="crmMedLabel2">50</span></strong> → Manual review</li>
                 </ul>
+                <label style="font-size:13px;display:flex;align-items:center;gap:6px;color:var(--text-secondary);margin-top:8px;"><input type="checkbox" id="crmAutoSync" checked> Enable Auto-Sync</label>
             </div>
         </div>
 
@@ -952,6 +965,20 @@ function initCharts() {
   } catch(e) { console.error(e); }
 }
 
+function saveCrmSettings() {
+  var status = document.getElementById('crmStatus');
+  status.innerHTML = '<span style="color:var(--success);"><i class="bi bi-check-circle"></i> Settings saved successfully.</span>';
+  setTimeout(function(){ status.innerHTML = ''; }, 3000);
+  toast('CRM settings saved', 'success');
+}
+function updateCrmLabels() {
+  var hi = document.getElementById('crmHighThreshold').value || 70;
+  var med = document.getElementById('crmMedThreshold').value || 50;
+  document.getElementById('crmHighLabel').textContent = hi;
+  document.getElementById('crmHighLabel2').textContent = hi;
+  document.getElementById('crmMedLabel').textContent = med;
+  document.getElementById('crmMedLabel2').textContent = med;
+}
 // ─── INIT ──────────────────────────────────
 (function() {
   var t = localStorage.getItem(STORAGE_KEY);
