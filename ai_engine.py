@@ -640,10 +640,10 @@ def generate_life_care_plan(injury: str, age: int, state: str) -> dict:
             "life_expectancy_years": 38,
             "lifetime_total": 5323800,
             "cost_categories": [
-                {"category": "Medical Care", "annual": int(annual*0.32), "lifetime": int(annual*0.32*life_exp), "source": "U.S. Bureau of Labor Statistics"},
-                {"category": "Personal Care", "annual": int(annual*0.51), "lifetime": int(annual*0.51*life_exp), "source": "Genworth Cost of Care Survey 2025"},
-                {"category": "Therapies", "annual": int(annual*0.09), "lifetime": int(annual*0.09*life_exp), "source": "Medicare Fee Schedule 2025"},
-                {"category": "Equipment & Modifications", "annual": int(annual*0.08), "lifetime": int(annual*0.08*life_exp), "source": "NMEDA Guidelines"}
+                {"category": "Medical Care", "annual": 45000, "lifetime": 1710000, "source": "U.S. Bureau of Labor Statistics"},
+                {"category": "Personal Care", "annual": 72000, "lifetime": 2736000, "source": "Genworth Cost of Care Survey 2025"},
+                {"category": "Therapies", "annual": 12000, "lifetime": 456000, "source": "Medicare Fee Schedule 2025"},
+                {"category": "Equipment & Modifications", "annual": 11000, "lifetime": 418000, "source": "NMEDA Guidelines"}
             ],
         }
 
