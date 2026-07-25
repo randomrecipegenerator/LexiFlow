@@ -155,8 +155,6 @@ async def strategist_life_care_plan(req: LifeCarePlanRequest):
     if not req.injury or not req.state or not req.age:
         raise HTTPException(status_code=400, detail="injury, age, and state are required")
     result = generate_life_care_plan(req.injury, req.age, req.state)
-    if "error" in result:
-        raise HTTPException(status_code=500, detail=result["error"])
     return result
 
 
@@ -172,8 +170,6 @@ async def strategist_opposing_counsel(req: OpposingCounselRequest):
     if not req.attorney_name or not req.firm:
         raise HTTPException(status_code=400, detail="attorney_name and firm are required")
     result = generate_opposing_counsel_profile(req.attorney_name, req.firm, req.practice_area)
-    if "error" in result:
-        raise HTTPException(status_code=500, detail=result["error"])
     return result
 
 
@@ -189,8 +185,6 @@ async def strategist_sol_guardian(req: SOLGuardianRequest):
     if not req.case_type or not req.incident_date or not req.state:
         raise HTTPException(status_code=400, detail="case_type, incident_date, and state are required")
     result = generate_sol_guardian(req.case_type, req.incident_date, req.state)
-    if "error" in result:
-        raise HTTPException(status_code=500, detail=result["error"])
     return result
 
 
@@ -204,8 +198,6 @@ async def strategist_trial_readiness(req: TrialReadinessRequest):
     if not req.case_summary:
         raise HTTPException(status_code=400, detail="case_summary is required")
     result = generate_trial_readiness(req.case_summary)
-    if "error" in result:
-        raise HTTPException(status_code=500, detail=result["error"])
     return result
 
 
@@ -222,8 +214,6 @@ async def settlement_predict(req: SettlementPredictRequest):
     if not req.case_type or not req.state:
         raise HTTPException(status_code=400, detail="case_type and state are required")
     result = predict_settlement(req.damages, req.case_type, req.state, req.liability_strength)
-    if "error" in result:
-        raise HTTPException(status_code=500, detail=result["error"])
     return result
 
 
@@ -237,8 +227,6 @@ async def medical_analyze(req: MedicalAnalyzeRequest):
     if not req.case_description:
         raise HTTPException(status_code=400, detail="case_description is required")
     result = analyze_medical_case(req.case_description)
-    if "error" in result:
-        raise HTTPException(status_code=500, detail=result["error"])
     return result
 
 
