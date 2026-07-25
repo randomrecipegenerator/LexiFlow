@@ -808,7 +808,7 @@ async function calculateSettlement() {
   var type = $('settleType').value;
   var state = $('settleState').value;
   var liability = $('settleLiability').value;
-  var stateNames = {CA:'California',NY:'New York',TX:'Texas',FL:'Florida'};
+  var stateName = state.charAt(0).toUpperCase() + state.slice(1).toLowerCase();
   var mult = {strong:1.0, moderate:0.7, weak:0.35}[liability] || 1.0;
   res.innerHTML = loadingHTML('AI calculating settlement value...');
   try {
@@ -823,8 +823,10 @@ async function calculateSettlement() {
     }
     throw new Error(d.detail||'No prediction');
   } catch(e) {
-    var caps = {CA:250000,NY:0,TX:250000,FL:500000};
-    var cap = caps[state] || 0;
+    var stateUpper = state.toUpperCase().trim();
+    var capsByCode = {CA:250000,NY:0,TX:250000,FL:500000,IL:500000,PA:0,GA:350000,OH:250000,NJ:0,MI:400000,MA:500000,WA:0,CO:300000,MD:350000,WI:500000};
+    var capsByName = {'CALIFORNIA':250000,'NEW YORK':0,'TEXAS':250000,'FLORIDA':500000,'ILLINOIS':500000,'PENNSYLVANIA':0,'GEORGIA':350000,'OHIO':250000,'NEW JERSEY':0,'MICHIGAN':400000,'MASSACHUSETTS':500000,'WASHINGTON':0,'COLORADO':300000,'MARYLAND':350000,'WISCONSIN':500000};
+    var cap = capsByCode[stateUpper] || capsByName[stateUpper] || 0;
     var capped = cap > 0 ? Math.min(damages * mult, cap) : damages * mult;
     var econ = Math.round(damages * 0.65 * mult);
     var total = capped + econ;
@@ -834,7 +836,7 @@ async function calculateSettlement() {
     h += '<div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);">Total Value</div><div class="metric-value">$'+total.toLocaleString()+'</div></div>';
     h += '</div>';
     h += '<div class="v-card" style="margin-top:12px;"><p style="font-size:13px;color:var(--text-secondary);">';
-    if (cap > 0) h += 'Statutory cap in '+stateNames[state]+': <strong>$'+cap.toLocaleString()+'</strong>. ';
+    if (cap > 0) h += 'Statutory cap in '+stateName+': <strong>$'+cap.toLocaleString()+'</strong>. ';
     h += 'Estimated range: $'+Math.round(total*0.55).toLocaleString()+' - $'+Math.round(total*0.85).toLocaleString()+'.</p></div>';
     res.innerHTML = h;
   }
