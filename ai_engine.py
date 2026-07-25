@@ -626,13 +626,42 @@ def generate_life_care_plan(injury: str, age: int, state: str) -> dict:
                 "recommended_multiplier": 3.0,
                 "rationale": "Catastrophic injury with permanent impairment justifies upper-mid range multiplier",
                 "estimated_non_economic": int(lifetime * 3.0),
-                "jurisdiction_notes": f"Courts in {state} typically award 2-4x economic damages for catastrophic injury"
+                "jurisdiction_notes": f"Courts in {state} typically award 2-4x economic damages for catastrophic injury",
+                "precedent_citations": "Cuevas v. Contra Costa County (2022) — $4.2M non-economic, 3.5x multiplier upheld; Wilson v. Mercy Hospital (2021) — 3.5x multiplier for spinal injury"
             },
+            "damages_presentation_strategy": "Present life care plan early in trial using a board-certified life care planner as the first expert. Use Day-in-the-Life video to establish pre-injury baseline, then overlay life care plan costs to show what was lost. Emphasize this is compensation for concrete quantifiable needs, not sympathy. Use large-format exhibits showing annual costs stacked over life expectancy. For settlement/adjuster presentations, lead with the life care plan summary and Medicare Set-Aside analysis first.",
+            "medical_expert_recommendations": [
+                {"specialty": "Physical Medicine & Rehabilitation", "testimony_points": "Confirms disability level, functional limitations, and long-term care needs", "priority": "Critical"},
+                {"specialty": "Life Care Planning (RN or PhD)", "testimony_points": "Presents the life care plan, defends each cost category, explains methodology", "priority": "Critical"},
+                {"specialty": "Vocational Expert", "testimony_points": "Lost earning capacity, employability assessment, job retraining feasibility", "priority": "High"},
+                {"specialty": "Economist", "testimony_points": "Discounts life care plan to present value, projects lost earnings", "priority": "High"},
+                {"specialty": "Pain Management Specialist", "testimony_points": "Confirms ongoing pain treatment needs and medication management", "priority": "Medium"}
+            ],
+            "cross_examination_prep": {
+                "life_expectancy_attacks": "Defense may argue shorter life expectancy. Prepare with peer-reviewed injury-specific studies. Life care planner should cite National Trauma Data Bank mortality data. Consider rebuttal biostatistics expert.",
+                "discount_rate_attacks": "Defense economist will apply 5-7% discount rate. Counter with PSS rate of 1-2% under IRC Sec 104(a)(2) and current bond yields.",
+                "cost_category_attacks": "Defense will challenge costs as speculative. Ensure each cost has foundation in treating physician order or recommendation."
+            },
+            "structured_vs_lump_sum": {
+                "recommendation": "Structured settlement for catastrophic injury with life expectancy over 20 years",
+                "structured_benefits": ["Tax-free under IRC Sec 104(a)(2)", "Protection from mismanagement/creditors", "Guaranteed lifetime payments via annuity", "Medicaid/SSI eligibility preserved"],
+                "lump_sum_benefits": ["Full liquidity for immediate needs", "Flexibility to invest for higher returns", "No annuity counterparty risk"],
+                "hybrid_approach": "Lump sum for immediate needs (home mods, vehicles, equipment) + structured payments for ongoing care",
+                "recommended_split": "30% lump sum / 70% structured"
+            },
+            "medicare_lien_negotiation_strategy": "Medicare liens mandatory under 42 CFR 411. Strategy: (1) Get CMS payment history early via Section 111; (2) Consider MSA for future care; (3) Negotiate CMS reduction under procurement costs (25-35% typical); (4) Use CMS-approved MSA vendor; (5) In cap states, assert pro-rata allocation reducing CMS recovery.",
+            "day_in_the_life_video": {
+                "recommendation": "Highly recommended for catastrophic injury cases",
+                "production_cost": "$5,000 - $15,000",
+                "best_practices": "Film 2-3 non-consecutive days; include morning routine, therapy, family interactions, mobility challenges; avoid dramatization; have life care planner narrate at trial",
+                "legal_foundation": "Admissible as demonstrative evidence under Evidence Code 1400-1560"
+            },
+            "economic_expert_referral": "For cases over $500K, retain PhD economist or CPA/ABV with PI damages experience. Key: ABV/CVA certification, prior testimony in jurisdiction, familiarity with IRS discount tables and PSS rulings. Referral: National Association of Forensic Economics (NAFE).",
             "note": "MOCK DATA — Configure Groq API key for AI-generated estimates."
         }
 
     prompt = f"""
-    Generate a comprehensive life care plan for a catastrophic injury case in legal context.
+    Generate a comprehensive life care plan for a catastrophic injury case in legal context, including litigation strategy.
     
     Patient details:
     - Injury: {injury}
@@ -648,9 +677,16 @@ def generate_life_care_plan(injury: str, age: int, state: str) -> dict:
     6. Structured settlement pros and cons
     7. Life insurance trust options (special needs trust, pooled trust, first-party vs third-party)
     8. Vocational rehabilitation costs (evaluation, retraining, job coaching, assistive technology)
-    9. Pain and suffering multiplier rationale (multiplier range, recommended multiplier, rationale, jurisdiction notes)
+    9. Pain and suffering multiplier with precedent citations (multiplier range, recommended multiplier, rationale, jurisdiction notes, case citations)
+    10. Damages presentation strategy for jury/adjuster (how to present the life care plan at trial and settlement)
+    11. Medical expert testimony recommendations (specific specialties needed, what each testifies about, priority level)
+    12. Cross-examination preparation for defense attacks on life expectancy, discount rate, and cost categories
+    13. Structured settlement vs lump sum analysis with hybrid approach recommendation
+    14. Medicare/Medicaid lien negotiation strategy (step-by-step)
+    15. Day-in-the-life video production recommendations and legal foundation
+    16. Economic expert referral guidance (credentials needed, referral sources)
     
-    Return ONLY valid JSON with keys: summary, annual_costs (object), annual_total (number), life_expectancy_years (number), lifetime_total (number), cost_categories (array of objects with category, annual, lifetime, source), medicare_medicaid_lien_analysis (object), structured_settlement (object with recommendation, pros (array), cons (array), typical_structure), life_insurance_trust_options (object), vocational_rehab_costs (object), pain_and_suffering_multiplier (object).
+    Return ONLY valid JSON with keys: summary, annual_costs (object), annual_total (number), life_expectancy_years (number), lifetime_total (number), cost_categories (array of objects with category, annual, lifetime, source), medicare_medicaid_lien_analysis (object), structured_settlement (object), life_insurance_trust_options (object), vocational_rehab_costs (object), pain_and_suffering_multiplier (object with precedent_citations), damages_presentation_strategy (string), medical_expert_recommendations (array of {{specialty, testimony_points, priority}}), cross_examination_prep (object with life_expectancy_attacks, discount_rate_attacks, cost_category_attacks), structured_vs_lump_sum (object with recommendation, structured_benefits (array), lump_sum_benefits (array), hybrid_approach, recommended_split), medicare_lien_negotiation_strategy (string), day_in_the_life_video (object with recommendation, production_cost, best_practices, legal_foundation), economic_expert_referral (string).
     """
     
     try:

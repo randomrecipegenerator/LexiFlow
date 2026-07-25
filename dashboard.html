@@ -1365,9 +1365,14 @@ async function generateLifeCarePlan() {
       var lcpContainer = document.createElement('div'); lcpContainer.innerHTML = h;
       res.innerHTML = ''; res.appendChild(lcpContainer.firstChild);
       renderStrategyFields(res, [
-        {label:'Medicare Lien Analysis', val:d.medicare_lien_analysis},
-        {label:'Structured Settlement Recommendation', val:d.structured_settlement_recommendation},
-        {label:'Pain & Suffering Multiplier Rationale', val:d.pain_suffering_multiplier_rationale}
+        {label:'Damages Presentation Strategy', val:d.damages_presentation_strategy},
+        {label:'Pain & Suffering Multiplier', val:'Multiplier: ' + (d.pain_and_suffering_multiplier?.recommended_multiplier||'3.0') + 'x — ' + (d.pain_and_suffering_multiplier?.rationale||'') + (d.pain_and_suffering_multiplier?.precedent_citations ? ' Precedent: '+d.pain_and_suffering_multiplier.precedent_citations : '')},
+        {label:'Medical Expert Recs', val:d.medical_expert_recommendations, asBullets:true},
+        {label:'Cross-Examination Prep', val:'Life Expectancy: '+(d.cross_examination_prep?.life_expectancy_attacks||'')+' Discount Rate: '+(d.cross_examination_prep?.discount_rate_attacks||'')+' Cost Categories: '+(d.cross_examination_prep?.cost_category_attacks||'')},
+        {label:'Structured vs Lump Sum', val:d.structured_vs_lump_sum?.recommendation + ' (Split: '+(d.structured_vs_lump_sum?.recommended_split||'30/70')+')'},
+        {label:'Medicare Lien Strategy', val:d.medicare_lien_negotiation_strategy},
+        {label:'Day-in-the-Life Video', val:d.day_in_the_life_video?.recommendation + ' (Cost: '+(d.day_in_the_life_video?.production_cost||'')+')'},
+        {label:'Economic Expert Referral', val:d.economic_expert_referral}
       ]); return;
     }
     throw new Error(d.detail||'No plan');
