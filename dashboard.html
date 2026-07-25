@@ -221,46 +221,140 @@
 
         <!-- AI MEDICAL -->
         <div class="page-section" id="page-medical">
-            <header class="page-header"><div><h1><i class="bi bi-heart-pulse"></i> AI Medical</h1><p>Generate medical chronologies and analyze records with AI.</p></div></header>
-            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Medical Record Analysis</h3></div>
-                <div class="form-group"><label>Case Description</label><textarea id="medCase" rows="3" style="width:100%;padding:12px;border:1px solid var(--navy-border);border-radius:8px;background:var(--navy-bg);color:var(--text-primary);" placeholder="Describe the medical case..."></textarea></div>
-                <button class="v-btn v-btn-primary" onclick="analyzeMedical()"><i class="bi bi-search"></i> Analyze</button>
-                <div id="medResult" style="margin-top:16px;"></div>
+            <header class="page-header"><div><h1><i class="bi bi-heart-pulse"></i> AI Medical</h1><p>Generate medical chronologies, analyze records, and assess case merit with AI.</p></div></header>
+            <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;">
+                <div class="v-card metric-card" style="border-left:3px solid var(--gold-accent);"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">AI Merit Score</div><div class="metric-value">92<span style="font-size:14px;color:var(--text-muted);">/100</span></div><div style="font-size:12px;color:var(--success);">Strong — Rodriguez v. Mount Sinai</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Liability</div><div class="metric-value">88%</div><div style="font-size:12px;color:var(--text-secondary);">35% weight</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Damages / Causation</div><div class="metric-value">94% / 91%</div><div style="font-size:12px;color:var(--text-secondary);">30% + 20% weight</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
+                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-search"></i> Analyze Records</h3></div>
+                    <div class="form-group"><label>Case Description</label><textarea id="medCase" rows="3" style="width:100%;padding:12px;border:1px solid var(--navy-border);border-radius:8px;background:var(--navy-bg);color:var(--text-primary);" placeholder="Describe the medical case..."></textarea></div>
+                    <button class="v-btn v-btn-primary" onclick="analyzeMedical()"><i class="bi bi-search"></i> Analyze</button>
+                    <div id="medResult" style="margin-top:16px;"></div>
+                </div>
+                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-calendar-week"></i> Sample Chronology — Rodriguez</h3></div>
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                        <div style="display:flex;gap:10px;padding:10px;background:var(--navy-bg);border-radius:8px;border-left:3px solid var(--gold-accent);"><div style="font-size:11px;color:var(--gold-accent);font-weight:700;min-width:70px;">Mar 14, 18:30</div><div><div style="font-size:13px;font-weight:600;">ER Admission</div><div style="font-size:12px;color:var(--text-muted);">qSOFA score: 2 (10% mortality). Sepsis protocol triggered.</div></div></div>
+                        <div style="display:flex;gap:10px;padding:10px;background:var(--navy-bg);border-radius:8px;border-left:3px solid var(--danger);"><div style="font-size:11px;color:var(--danger);font-weight:700;min-width:70px;">⚠️ 14.5h Gap</div><div><div style="font-size:13px;font-weight:600;">No Antibiotics</div><div style="font-size:12px;color:var(--text-muted);">MAR shows zero entries. Protocol requires 3-hour bundle.</div></div></div>
+                        <div style="display:flex;gap:10px;padding:10px;background:var(--navy-bg);border-radius:8px;border-left:3px solid #3b82f6;"><div style="font-size:11px;color:#3b82f6;font-weight:700;min-width:70px;">Mar 15, 10:15</div><div><div style="font-size:13px;font-weight:600;">Antibiotics Started</div><div style="font-size:12px;color:var(--text-muted);">IV antibiotics. Transferred to ICU.</div></div></div>
+                        <div style="display:flex;gap:10px;padding:10px;background:var(--navy-bg);border-radius:8px;border-left:3px solid var(--warning);"><div style="font-size:11px;color:var(--warning);font-weight:700;min-width:70px;">Mar 17, 09:00</div><div><div style="font-size:13px;font-weight:600;">Condition Worsened</div><div style="font-size:12px;color:var(--text-muted);">Septic shock. Vasopressors required.</div></div></div>
+                        <div style="display:flex;gap:10px;padding:10px;background:var(--navy-bg);border-radius:8px;border-left:3px solid var(--success);"><div style="font-size:11px;color:var(--success);font-weight:700;min-width:70px;">Mar 28, 14:00</div><div><div style="font-size:13px;font-weight:600;">Discharged</div><div style="font-size:12px;color:var(--text-muted);">With permanent organ damage. Ongoing specialist care.</div></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-file-text"></i> Recent Reports</h3></div>
+                <div class="table-wrap"><table><thead><tr><th>Case</th><th>Report Type</th><th>Findings</th><th>Date</th></tr></thead><tbody>
+                    <tr><td><strong>Rodriguez v. Mount Sinai</strong></td><td>Full Chronology</td><td>14.5h treatment gap found</td><td style="font-size:12px;color:var(--text-muted);">Today</td></tr>
+                    <tr><td><strong>Morrison v. City</strong></td><td>Merit Score</td><td>78/100 — Moderate liability</td><td style="font-size:12px;color:var(--text-muted);">Yesterday</td></tr>
+                    <tr><td><strong>Garcia v. Kaiser</strong></td><td>Record Summary</td><td>12 pages, 3 key events</td><td style="font-size:12px;color:var(--text-muted);">2 days ago</td></tr>
+                </tbody></table></div>
             </div>
         </div>
 
         <!-- VERITAS DEPOSITION -->
         <div class="page-section" id="page-deposition">
-            <header class="page-header"><div><h1><i class="bi bi-mic"></i> Veritas Deposition</h1><p>AI-powered deposition analysis and contradiction detection.</p></div></header>
-            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Deposition Analysis</h3></div>
-                <div class="form-group"><label>Upload Deposition</label><input type="file" id="depFile" style="width:100%;"></div>
-                <button class="v-btn v-btn-primary" onclick="analyzeDeposition()"><i class="bi bi-shield-check"></i> Analyze Deposition</button>
-                <div id="depResult" style="margin-top:16px;"></div>
+            <header class="page-header"><div><h1><i class="bi bi-mic"></i> Veritas Deposition</h1><p>AI-powered deposition analysis with contradiction detection, credibility scoring, and cross-examination prep.</p></div></header>
+            <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;">
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Contradictions</div><div class="metric-value" style="color:var(--danger);">7</div><div style="font-size:12px;color:var(--text-secondary);">Across 2 depositions</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Witness Credibility</div><div class="metric-value" style="color:var(--warning);">62%</div><div style="font-size:12px;color:var(--text-secondary);">Dr. Alan Miller</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Cross-Exam Qs</div><div class="metric-value">12</div><div style="font-size:12px;color:var(--text-secondary);">AI-generated</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
+                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-mic"></i> Analyze</h3></div>
+                    <div class="form-group"><label>Upload Transcript</label><input type="file" id="depFile" style="width:100%;padding:10px;"></div>
+                    <button class="v-btn v-btn-primary" onclick="analyzeDeposition()"><i class="bi bi-shield-check"></i> Analyze</button>
+                    <div id="depResult" style="margin-top:16px;"></div>
+                </div>
+                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-flag"></i> Contradictions — Dr. Miller</h3></div>
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                        <div style="background:rgba(239,68,68,0.06);border-left:3px solid var(--danger);padding:8px 10px;border-radius:6px;"><span style="font-size:11px;font-weight:600;color:var(--danger);">🔴 Critical</span> <span style="font-size:11px;color:var(--text-muted);">p.34:14-16</span><p style="font-size:12px;margin:2px 0 0;">Said antibiotics <strong>19:45</strong> — MAR shows <strong>10:15</strong> (14h gap)</p></div>
+                        <div style="background:rgba(251,191,36,0.06);border-left:3px solid var(--warning);padding:8px 10px;border-radius:6px;"><span style="font-size:11px;font-weight:600;color:var(--warning);">🟡 Significant</span> <span style="font-size:11px;color:var(--text-muted);">p.47:5-8</span><p style="font-size:12px;margin:2px 0 0;">Described <strong>"stable"</strong> — qSOFA 2 = 10% mortality</p></div>
+                        <div style="background:rgba(59,130,246,0.06);border-left:3px solid #3b82f6;padding:8px 10px;border-radius:6px;"><span style="font-size:11px;font-weight:600;color:#3b82f6;">🔵 Minor</span> <span style="font-size:11px;color:var(--text-muted);">p.52:22-24</span><p style="font-size:12px;margin:2px 0 0;">Said "ER throughout" — badge shows 47min absence</p></div>
+                        <div style="background:rgba(239,68,68,0.06);border-left:3px solid var(--danger);padding:8px 10px;border-radius:6px;"><span style="font-size:11px;font-weight:600;color:var(--danger);">🔴 Critical</span> <span style="font-size:11px;color:var(--text-muted);">p.71:3-6</span><p style="font-size:12px;margin:2px 0 0;">Claimed "protocol followed" — no 3-hour bundle</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-journal-text"></i> AI Cross-Examination Questions</h3></div>
+                <div style="padding:4px 0;">
+                    <div style="padding:8px;border-bottom:1px solid var(--navy-border);font-size:13px;font-style:italic;">"You said you confirmed antibiotics at 19:45. Why does the MAR show no antibiotics until 10:15?"</div>
+                    <div style="padding:8px;border-bottom:1px solid var(--navy-border);font-size:13px;font-style:italic;">"You called a qSOFA of 2 'stable' — isn't that a 10% mortality risk?"</div>
+                    <div style="padding:8px;font-size:13px;font-style:italic;">"Does the Sepsis Protocol require the 3-Hour Bundle? Was it initiated?"</div>
+                </div>
+            </div>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-clock-history"></i> Past Analyses</h3></div>
+                <div class="table-wrap"><table><thead><tr><th>Witness</th><th>Case</th><th>Contradictions</th><th>Credibility</th><th>Date</th></tr></thead><tbody>
+                    <tr><td><strong>Dr. Alan Miller</strong></td><td>Rodriguez v. Mount Sinai</td><td style="color:var(--danger);font-weight:600;">7</td><td>62%</td><td style="font-size:12px;color:var(--text-muted);">Today</td></tr>
+                    <tr><td><strong>Nurse J. Thompson</strong></td><td>Rodriguez v. Mount Sinai</td><td style="color:var(--warning);font-weight:600;">3</td><td>78%</td><td style="font-size:12px;color:var(--text-muted);">Yesterday</td></tr>
+                    <tr><td><strong>Dr. R. Patel</strong></td><td>Garcia v. Kaiser</td><td style="color:var(--text-muted);font-weight:600;">1</td><td>91%</td><td style="font-size:12px;color:var(--text-muted);">3 days ago</td></tr>
+                </tbody></table></div>
             </div>
         </div>
 
         <!-- DISCOVERY VAULT -->
         <div class="page-section" id="page-discovery">
-            <header class="page-header"><div><h1><i class="bi bi-search"></i> Discovery Vault</h1><p>Secure document storage with AI-powered discovery management.</p></div></header>
-            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Discovery Documents</h3></div>
-                <div class="form-group"><label>Upload Discovery</label><input type="file" id="discFile" style="width:100%;"></div>
-                <button class="v-btn v-btn-primary" onclick="uploadDiscovery()"><i class="bi bi-cloud-upload"></i> Upload</button>
-                <div id="discResult" style="margin-top:16px;"></div>
+            <header class="page-header"><div><h1><i class="bi bi-search"></i> Discovery Vault</h1><p>Secure document storage with AI-powered indexing, de-duplication, and category tagging.</p></div></header>
+            <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;">
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Total Documents</div><div class="metric-value">847</div><div style="font-size:12px;color:var(--text-secondary);">Across 3 matters</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Categories</div><div class="metric-value">12</div><div style="font-size:12px;color:var(--text-secondary);">Medical, Financial, etc.</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">De-Duplicated</div><div class="metric-value">94</div><div style="font-size:12px;color:var(--success);">Removed duplicates</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
+                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-cloud-upload"></i> Upload & Index</h3></div>
+                    <div class="form-group"><label>File</label><input type="file" id="discFile" style="width:100%;padding:10px;"></div>
+                    <div class="form-group"><label>Tags</label><input type="text" id="discTags" style="width:100%;" placeholder="sepsis, protocol, nursing"></div>
+                    <button class="v-btn v-btn-primary" onclick="uploadDiscovery()"><i class="bi bi-cloud-upload"></i> Upload & Index</button>
+                    <div id="discResult" style="margin-top:16px;"></div>
+                </div>
+                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-folder"></i> Categories</h3></div>
+                    <div style="display:flex;flex-direction:column;gap:6px;">
+                        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Medical Records</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">312</span></div>
+                        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Financial</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">198</span></div>
+                        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Correspondence</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">156</span></div>
+                        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Depositions</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">89</span></div>
+                        <div style="display:flex;justify-content:space-between;padding:6px 0;"><span style="font-size:13px;">Expert Reports</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">47</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-search"></i> Document Index</h3></div>
+                <div style="margin-bottom:12px;"><input type="text" style="width:100%;padding:10px;border:1px solid var(--navy-border);border-radius:8px;background:var(--navy-bg);color:var(--text-primary);" placeholder="Search by name, Bates number, or tag..."></div>
+                <div class="table-wrap"><table><thead><tr><th>Bates #</th><th>Document</th><th>Category</th><th>Pages</th><th>Date</th><th>Tags</th></tr></thead><tbody>
+                    <tr><td style="font-size:12px;color:var(--text-muted);font-family:monospace;">MS-0001</td><td><strong>MAR_TABLE_3</strong></td><td>Medical</td><td>12</td><td style="font-size:12px;color:var(--text-muted);">Mar 15</td><td><span class="v-badge" style="background:var(--navy-bg);font-size:10px;">sepsis</span></td></tr>
+                    <tr><td style="font-size:12px;color:var(--text-muted);font-family:monospace;">MS-0047</td><td><strong>ER_Triage_Page_1</strong></td><td>Medical</td><td>1</td><td style="font-size:12px;color:var(--text-muted);">Mar 15</td><td><span class="v-badge" style="background:var(--navy-bg);font-size:10px;">triage</span></td></tr>
+                    <tr><td style="font-size:12px;color:var(--text-muted);font-family:monospace;">MS-0089</td><td><strong>Nursing_Logs_P8-12</strong></td><td>Medical</td><td>5</td><td style="font-size:12px;color:var(--text-muted);">Mar 14</td><td><span class="v-badge" style="background:var(--navy-bg);font-size:10px;">nursing</span></td></tr>
+                    <tr><td style="font-size:12px;color:var(--text-muted);font-family:monospace;">MS-0156</td><td><strong>Insurance_Claim_2345</strong></td><td>Financial</td><td>8</td><td style="font-size:12px;color:var(--text-muted);">Mar 12</td><td><span class="v-badge" style="background:var(--navy-bg);font-size:10px;">insurance</span></td></tr>
+                    <tr><td style="font-size:12px;color:var(--text-muted);font-family:monospace;">MS-0234</td><td><strong>Defense_Exhibit_A</strong></td><td>Expert</td><td>24</td><td style="font-size:12px;color:var(--text-muted);">Mar 10</td><td><span class="v-badge" style="background:var(--navy-bg);font-size:10px;">expert</span></td></tr>
+                    <tr><td style="font-size:12px;color:var(--text-muted);font-family:monospace;">MS-0312</td><td><strong>Depo_Miller</strong></td><td>Deposition</td><td>112</td><td style="font-size:12px;color:var(--text-muted);">Mar 8</td><td><span class="v-badge" style="background:var(--navy-bg);font-size:10px;">deposition</span></td></tr>
+                </tbody></table></div>
             </div>
         </div>
 
         <!-- SETTLEMENT PREDICTOR -->
         <div class="page-section" id="page-settlement">
             <header class="page-header"><div><h1><i class="bi bi-cash-coin"></i> Settlement Predictor</h1><p>AI-powered settlement value estimation based on case data, jurisdiction, and historical comps.</p></div></header>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+            <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;">
+                <div class="v-card metric-card" style="border-left:3px solid var(--gold-accent);"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Estimated Value</div><div class="metric-value">$981,750</div><div style="font-size:12px;color:var(--success);">74% Settlement Probability</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Jurisdiction Cap</div><div class="metric-value">$0 (Uncapped)</div><div style="font-size:12px;color:var(--text-secondary);">New York — No cap on non-economic</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Comparable Verdicts</div><div class="metric-value">1,248</div><div style="font-size:12px;color:var(--text-secondary);">In jurisdictional database</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
                 <div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Case Details</h3></div>
-                    <div class="form-group"><label>Damages Claimed ($)</label><input type="number" id="settleDamages" style="width:100%;" value="850000"></div>
+                    <div class="form-group"><label>Damages ($)</label><input type="number" id="settleDamages" style="width:100%;" value="850000"></div>
                     <div class="form-group"><label>Case Type</label><select id="settleType" style="width:100%;padding:12px;"><option value="Medical Malpractice">Medical Malpractice</option><option value="Personal Injury">Personal Injury</option><option value="Wrongful Death">Wrongful Death</option></select></div>
                     <div class="form-group"><label>State</label><select id="settleState" style="width:100%;padding:12px;"><option value="CA">California</option><option value="NY" selected>New York</option><option value="TX">Texas</option><option value="FL">Florida</option></select></div>
                     <div class="form-group"><label>Liability</label><select id="settleLiability" style="width:100%;padding:12px;"><option value="strong">Strong (80-100%)</option><option value="moderate" selected>Moderate (50-79%)</option><option value="weak">Weak (&lt;50%)</option></select></div>
                     <button class="v-btn v-btn-primary" onclick="calculateSettlement()"><i class="bi bi-calculator"></i> Calculate</button>
                 </div>
-                <div id="settleResult"><div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Sample Estimate</h3></div><div class="stat-grid" style="grid-template-columns:1fr 1fr;"><div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);">Non-Economic</div><div class="metric-value" style="font-size:22px;">$595,000</div></div><div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);">Economic</div><div class="metric-value" style="font-size:22px;">$386,750</div></div><div class="v-card metric-card" style="grid-column:span 2;border-left:3px solid var(--gold-accent);"><div style="font-size:11px;color:var(--text-muted);">Estimated Value (NY)</div><div class="metric-value" style="font-size:28px;">$981,750</div></div></div></div></div>
+                <div id="settleResult"><div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Sample Estimate</h3></div><div class="stat-grid" style="grid-template-columns:1fr 1fr;"><div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);">Non-Economic</div><div class="metric-value" style="font-size:22px;">$595,000</div></div><div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);">Economic</div><div class="metric-value" style="font-size:22px;">$386,750</div></div><div class="v-card metric-card" style="grid-column:span 2;border-left:3px solid var(--gold-accent);"><div style="font-size:11px;color:var(--the-muted);">Total (NY)</div><div class="metric-value" style="font-size:28px;">$981,750</div></div></div></div></div>
+            </div>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-bar-chart"></i> Comparable Verdicts — New York MedMal</h3></div>
+                <div class="table-wrap"><table><thead><tr><th>Case</th><th>Year</th><th>Injury</th><th>Verdict</th><th>Court</th></tr></thead><tbody>
+                    <tr><td><strong>Williams v. NY-Presbyterian</strong></td><td>2025</td><td>Delayed sepsis diagnosis</td><td style="font-weight:600;color:var(--gold-accent);">$2,400,000</td><td style="font-size:12px;color:var(--text-muted);">Supreme, NY County</td></tr>
+                    <tr><td><strong>Chen v. Bellevue</strong></td><td>2024</td><td>Post-surgical infection</td><td style="font-weight:600;color:var(--gold-accent);">$1,850,000</td><td style="font-size:12px;color:var(--text-muted);">Supreme, Kings County</td></tr>
+                    <tr><td><strong>Martinez v. Montefiore</strong></td><td>2024</td><td>Failure to diagnose stroke</td><td style="font-weight:600;color:var(--gold-accent);">$3,200,000</td><td style="font-size:12px;color:var(--text-muted);">Supreme, Bronx County</td></tr>
+                    <tr><td><strong>Davis v. Lenox Hill</strong></td><td>2023</td><td>Medication error</td><td style="font-weight:600;color:var(--gold-accent);">$975,000</td><td style="font-size:12px;color:var(--text-muted);">Supreme, NY County</td></tr>
+                </tbody></table></div>
+                <div style="padding:12px;background:var(--navy-bg);border-radius:8px;margin-top:12px;"><p style="font-size:12px;color:var(--text-secondary);">New York has <strong>no statutory cap</strong> on non-economic damages. Estimated range: <strong>$540,000 - $834,000</strong> (based on liability adjustment). Settlement probability: <strong>74%</strong></p></div>
             </div>
         </div>
 
@@ -274,34 +368,97 @@
                 <button onclick="switchStrategistTab('readiness')"><i class="bi bi-clipboard-check"></i> Trial Readiness</button>
             </div>
             <div id="strategist-lifeplan">
-                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Life Care Plan Generator</h3></div>
-                    <div class="form-group"><label>Injury Description</label><textarea id="lcInjury" rows="2" style="width:100%;padding:12px;border:1px solid var(--navy-border);border-radius:8px;background:var(--navy-bg);color:var(--text-primary);" placeholder="e.g., Spinal cord injury at C5-C6, quadriplegia..."></textarea></div>
-                    <div class="form-group"><label>Patient Age</label><input type="number" id="lcAge" style="width:100%;" placeholder="35"></div>
-                    <button class="v-btn v-btn-primary" onclick="generateLifeCarePlan()"><i class="bi bi-graph-up"></i> Generate Plan</button>
-                    <div id="lcResult" style="margin-top:16px;"></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-graph-up"></i> Generate Plan</h3></div>
+                        <div class="form-group"><label>Injury</label><textarea id="lcInjury" rows="2" style="width:100%;padding:12px;border:1px solid var(--navy-border);border-radius:8px;background:var(--navy-bg);color:var(--text-primary);" placeholder="e.g., Spinal cord injury C5-C6"></textarea></div>
+                        <div class="form-group"><label>Age</label><input type="number" id="lcAge" style="width:100%;" placeholder="35" value="35"></div>
+                        <button class="v-btn v-btn-primary" onclick="generateLifeCarePlan()"><i class="bi bi-graph-up"></i> Generate Plan</button>
+                        <div id="lcResult" style="margin-top:16px;"></div>
+                    </div>
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-table"></i> Sample Cost Breakdown — C5-C6 Quadriplegia</h3></div>
+                        <div style="display:flex;flex-direction:column;gap:6px;">
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Skilled Nursing</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">$120,000/yr</span></div>
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Home Modifications</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">$85,000 one-time</span></div>
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Physical Therapy</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">$45,000/yr</span></div>
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Equipment & Supplies</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">$28,000/yr</span></div>
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Lost Earning Capacity</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">$65,000/yr</span></div>
+                            <div style="display:flex;justify-content:space-between;padding:10px 0 0;font-weight:700;"><span style="font-size:14px;">Total Lifetime Cost</span><span style="font-size:18px;color:var(--gold-accent);">$6,840,000</span></div>
+                        </div>
+                        <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">45-year life expectancy, 3% annual inflation. Source: Milliman Care Guidelines.</p>
+                    </div>
+                </div>
+                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-calendar"></i> Annual Cost Projections (Years 1-5)</h3></div>
+                    <div class="table-wrap"><table><thead><tr><th>Year</th><th>Age</th><th>Nursing</th><th>Therapy</th><th>Equipment</th><th>Lost Wages</th><th>Total</th></tr></thead><tbody>
+                        <tr><td>1</td><td>35</td><td>$120,000</td><td>$45,000</td><td>$113,000</td><td>$65,000</td><td style="font-weight:600;">$343,000</td></tr>
+                        <tr><td>2</td><td>36</td><td>$123,600</td><td>$46,350</td><td>$28,840</td><td>$66,950</td><td style="font-weight:600;">$265,740</td></tr>
+                        <tr><td>3</td><td>37</td><td>$127,308</td><td>$47,740</td><td>$29,705</td><td>$68,958</td><td style="font-weight:600;">$273,712</td></tr>
+                        <tr><td>4</td><td>38</td><td>$131,127</td><td>$49,173</td><td>$30,596</td><td>$71,027</td><td style="font-weight:600;">$281,924</td></tr>
+                        <tr><td>5</td><td>39</td><td>$135,061</td><td>$50,648</td><td>$31,514</td><td>$73,158</td><td style="font-weight:600;">$290,381</td></tr>
+                    </tbody></table></div>
                 </div>
             </div>
             <div id="strategist-opposing" style="display:none;">
-                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Opposing Counsel Profile</h3></div>
-                    <div class="form-group"><label>Attorney Name</label><input type="text" id="ocName" style="width:100%;" placeholder="Jane Smith"></div>
-                    <div class="form-group"><label>Firm</label><input type="text" id="ocFirm" style="width:100%;" placeholder="Defense Law Group"></div>
-                    <button class="v-btn v-btn-primary" onclick="profileOpposingCounsel()"><i class="bi bi-search"></i> Profile</button>
-                    <div id="ocResult" style="margin-top:16px;"></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-person-badge"></i> Profile Attorney</h3></div>
+                        <div class="form-group"><label>Name</label><input type="text" id="ocName" style="width:100%;" placeholder="Jane Smith"></div>
+                        <div class="form-group"><label>Firm</label><input type="text" id="ocFirm" style="width:100%;" placeholder="Defense Law Group"></div>
+                        <button class="v-btn v-btn-primary" onclick="profileOpposingCounsel()"><i class="bi bi-search"></i> Profile</button>
+                        <div id="ocResult" style="margin-top:16px;"></div>
+                    </div>
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-journal"></i> Settlement History — Defense Law Group</h3></div>
+                        <div style="display:flex;flex-direction:column;gap:6px;">
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;"><strong>Morrison v. City</strong> (2025)</span><span style="font-size:13px;color:var(--gold-accent);font-weight:600;">$425,000</span></div>
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;"><strong>Chen v. Bellevue</strong> (2024)</span><span style="font-size:13px;color:var(--gold-accent);font-weight:600;">$1,200,000</span></div>
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;"><strong>Rivera v. St. Luke's</strong> (2024)</span><span style="font-size:13px;color:var(--gold-accent);font-weight:600;">$680,000</span></div>
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;"><span style="font-size:13px;"><strong>Patel v. NYU Langone</strong> (2023)</span><span style="font-size:13px;color:var(--gold-accent);font-weight:600;">$2,100,000</span></div>
+                        </div>
+                        <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">Settlement range: $400K-$2.1M. Prefers to settle early in 60% of cases.</p>
+                    </div>
                 </div>
             </div>
             <div id="strategist-sol" style="display:none;">
-                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Statute of Limitations Guardian</h3></div>
-                    <div class="form-group"><label>Case Type</label><select id="solType" style="width:100%;padding:12px;border:1px solid var(--navy-border);border-radius:8px;background:var(--navy-bg);color:var(--text-primary);"><option>Medical Malpractice</option><option>Personal Injury</option><option>Wrongful Death</option></select></div>
-                    <div class="form-group"><label>Incident Date</label><input type="date" id="solDate" style="width:100%;"></div>
-                    <button class="v-btn v-btn-primary" onclick="checkSOL()"><i class="bi bi-calendar-check"></i> Check Deadlines</button>
-                    <div id="solResult" style="margin-top:16px;"></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-calendar-check"></i> Check Deadlines</h3></div>
+                        <div class="form-group"><label>Case Type</label><select id="solType" style="width:100%;padding:12px;"><option>Medical Malpractice</option><option>Personal Injury</option><option>Wrongful Death</option></select></div>
+                        <div class="form-group"><label>Incident Date</label><input type="date" id="solDate" style="width:100%;"></div>
+                        <button class="v-btn v-btn-primary" onclick="checkSOL()"><i class="bi bi-calendar-check"></i> Check</button>
+                        <div id="solResult" style="margin-top:16px;"></div>
+                    </div>
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-list-check"></i> Filing Checklist — NY MedMal</h3></div>
+                        <div style="display:flex;flex-direction:column;gap:6px;">
+                            <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="color:var(--success);">✅</span><span style="font-size:13px;">Notice of Claim filed within 90 days</span></div>
+                            <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="color:var(--success);">✅</span><span style="font-size:13px;">Certificate of Merit (Sec. 3012-a)</span></div>
+                            <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="color:var(--warning);">⏳</span><span style="font-size:13px;">Expert witness disclosure (90 days to go)</span></div>
+                            <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="color:var(--warning);">⏳</span><span style="font-size:13px;">Statute of Limitations deadline: <strong>2.5 years</strong></span></div>
+                            <div style="display:flex;align-items:center;gap:8px;padding:6px 0;"><span style="color:var(--text-muted);">ℹ️</span><span style="font-size:13px;">Tolling: <strong>Continuous treatment</strong> doctrine may apply</span></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div id="strategist-readiness" style="display:none;">
-                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Trial Readiness Score</h3></div>
-                    <div class="form-group"><label>Case Summary</label><textarea id="trSummary" rows="3" style="width:100%;padding:12px;border:1px solid var(--navy-border);border-radius:8px;background:var(--navy-bg);color:var(--text-primary);" placeholder="Describe case preparation status..."></textarea></div>
-                    <button class="v-btn v-btn-primary" onclick="calculateTrialReadiness()"><i class="bi bi-clipboard-check"></i> Score</button>
-                    <div id="trResult" style="margin-top:16px;"></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-clipboard-check"></i> Score Your Case</h3></div>
+                        <div class="form-group"><label>Case Summary</label><textarea id="trSummary" rows="3" style="width:100%;padding:12px;border:1px solid var(--navy-border);border-radius:8px;background:var(--navy-bg);color:var(--text-primary);" placeholder="Describe case preparation status..."></textarea></div>
+                        <button class="v-btn v-btn-primary" onclick="calculateTrialReadiness()"><i class="bi bi-clipboard-check"></i> Score</button>
+                        <div id="trResult" style="margin-top:16px;"></div>
+                    </div>
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-pie-chart"></i> Sample Score Breakdown</h3></div>
+                        <div style="display:flex;flex-direction:column;gap:6px;">
+                            <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:2px;"><span>Evidence Prepared</span><span style="font-weight:600;">85%</span></div><div style="height:6px;background:var(--navy-border);border-radius:3px;"><div style="height:100%;width:85%;background:var(--success);border-radius:3px;"></div></div></div>
+                            <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:2px;"><span>Witness Readiness</span><span style="font-weight:600;">62%</span></div><div style="height:6px;background:var(--navy-border);border-radius:3px;"><div style="height:100%;width:62%;background:var(--warning);border-radius:3px;"></div></div></div>
+                            <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:2px;"><span>Expert Reports</span><span style="font-weight:600;">45%</span></div><div style="height:6px;background:var(--navy-border);border-radius:3px;"><div style="height:100%;width:45%;background:var(--danger);border-radius:3px;"></div></div></div>
+                            <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:2px;"><span>Motions Practice</span><span style="font-weight:600;">70%</span></div><div style="height:6px;background:var(--navy-border);border-radius:3px;"><div style="height:100%;width:70%;background:var(--warning);border-radius:3px;"></div></div></div>
+                        </div>
+                        <div style="margin-top:12px;padding:10px;background:var(--navy-bg);border-radius:8px;">
+                            <p style="font-size:12px;color:var(--text-secondary);font-weight:600;margin-bottom:4px;">Priority Action Items</p>
+                            <ul style="font-size:12px;color:var(--text-muted);padding-left:16px;margin:0;">
+                                <li>Complete expert witness reports (due in 45 days)</li>
+                                <li>Deposition of Dr. Miller not yet scheduled</li>
+                                <li>Motion in limine deadline: 30 days before trial</li>
+                            </ul>
+                        </div>
+                        <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">Estimated trial timeline: <strong>8-12 months</strong> from filing</p>
+                    </div>
                 </div>
             </div>
         </div>
