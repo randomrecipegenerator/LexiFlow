@@ -629,21 +629,26 @@ def generate_life_care_plan(injury: str, age: int, state: str) -> dict:
         return json.loads(response.choices[0].message.content)
     except Exception as e:
         # Fall back to mock data on API error (invalid key, rate limit, etc.)
+        life_exp = max(5, 80 - age)
+        annual = 140100
+        if age > 65: annual = int(annual * 1.25)
+        elif age < 18: annual = int(annual * 1.5)
+        lifetime = int(annual * life_exp)
         return {
             "summary": f"Life care plan for {injury} (age {age}, {state})",
             "annual_costs": {
-                "physician_visits": 8500, "physical_therapy": 12000, "home_health_aide": 72000,
-                "medications": 14400, "medical_equipment": 5600, "transportation": 3600,
-                "home_modifications": 18000, "case_management": 6000
+                "physician_visits": int(8500 * annual/140100), "physical_therapy": int(12000 * annual/140100), "home_health_aide": int(72000 * annual/140100),
+                "medications": int(14400 * annual/140100), "medical_equipment": int(5600 * annual/140100), "transportation": int(3600 * annual/140100),
+                "home_modifications": int(18000 * annual/140100), "case_management": int(6000 * annual/140100)
             },
-            "annual_total": 140100,
-            "life_expectancy_years": 38,
-            "lifetime_total": 5323800,
+            "annual_total": int(annual),
+            "life_expectancy_years": life_exp,
+            "lifetime_total": lifetime,
             "cost_categories": [
-                {"category": "Medical Care", "annual": 45000, "lifetime": 1710000, "source": "U.S. Bureau of Labor Statistics"},
-                {"category": "Personal Care", "annual": 72000, "lifetime": 2736000, "source": "Genworth Cost of Care Survey 2025"},
-                {"category": "Therapies", "annual": 12000, "lifetime": 456000, "source": "Medicare Fee Schedule 2025"},
-                {"category": "Equipment & Modifications", "annual": 11000, "lifetime": 418000, "source": "NMEDA Guidelines"}
+                {"category": "Medical Care", "annual": int(annual*0.32), "lifetime": int(annual*0.32*life_exp), "source": "U.S. Bureau of Labor Statistics"},
+                {"category": "Personal Care", "annual": int(annual*0.51), "lifetime": int(annual*0.51*life_exp), "source": "Genworth Cost of Care Survey 2025"},
+                {"category": "Therapies", "annual": int(annual*0.09), "lifetime": int(annual*0.09*life_exp), "source": "Medicare Fee Schedule 2025"},
+                {"category": "Equipment & Modifications", "annual": int(annual*0.08), "lifetime": int(annual*0.08*life_exp), "source": "NMEDA Guidelines"}
             ],
         }
 
