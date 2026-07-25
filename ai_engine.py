@@ -597,11 +597,42 @@ def generate_life_care_plan(injury: str, age: int, state: str) -> dict:
                 {"category": "Therapies", "annual": int(annual*0.09), "lifetime": int(annual*0.09*life_exp), "source": "Medicare Fee Schedule 2025"},
                 {"category": "Equipment & Modifications", "annual": int(annual*0.08), "lifetime": int(annual*0.08*life_exp), "source": "NMEDA Guidelines"}
             ],
+            "medicare_medicaid_lien_analysis": {
+                "medicare_set_aside": int(lifetime * 0.15),
+                "medicaid_lien_potential": "High — state may assert lien on settlement for past medical expenses",
+                "recommended_structured": "Yes — MSA-appropriate trust recommended for amounts over $250K",
+                "notes": "Medicare Set-Aside (MSA) should be funded via structured settlement to preserve benefits eligibility"
+            },
+            "structured_settlement": {
+                "recommendation": "Strongly recommended for catastrophic injury cases",
+                "pros": ["Tax-free income stream", "Protection from mismanagement", "Guaranteed lifetime payments", "Medicaid/SSI eligibility preserved"],
+                "cons": ["Less flexibility than lump sum", "Fixed returns may not keep pace with inflation", "Irrevocable once funded"],
+                "typical_structure": "Periodic payments over life expectancy with lump sum for immediate needs"
+            },
+            "life_insurance_trust_options": {
+                "special_needs_trust": "Recommended if plaintiff receives government benefits",
+                "pooled_trust": "Alternative for smaller settlements — managed by non-profit",
+                "first_party_vs_third_party": "Third-party trust preferred — funded by defendant's insurer, no Medicaid payback required"
+            },
+            "vocational_rehab_costs": {
+                "evaluation": 3500,
+                "retraining": "Varies by injury — typically $15K-$45K for cognitive/light-duty retraining",
+                "job_coaching": "1,200 - 2,400 hours at $65/hr = $78K-$156K",
+                "assistive_technology": "5,000 - 25,000 depending on injury severity",
+                "annual_total_estimate": 18000
+            },
+            "pain_and_suffering_multiplier": {
+                "multiplier_range": "1.5x - 5x economic damages",
+                "recommended_multiplier": 3.0,
+                "rationale": "Catastrophic injury with permanent impairment justifies upper-mid range multiplier",
+                "estimated_non_economic": int(lifetime * 3.0),
+                "jurisdiction_notes": f"Courts in {state} typically award 2-4x economic damages for catastrophic injury"
+            },
             "note": "MOCK DATA — Configure Groq API key for AI-generated estimates."
         }
 
     prompt = f"""
-    Generate a detailed life care plan for a catastrophic injury case in legal context.
+    Generate a comprehensive life care plan for a catastrophic injury case in legal context.
     
     Patient details:
     - Injury: {injury}
@@ -613,8 +644,13 @@ def generate_life_care_plan(injury: str, age: int, state: str) -> dict:
     2. Life expectancy estimate based on injury
     3. Lifetime total cost
     4. Medical source references for each cost category
+    5. Medicare/Medicaid lien analysis (Medicare Set-Aside amount, Medicaid lien potential, structured settlement recommendation)
+    6. Structured settlement pros and cons
+    7. Life insurance trust options (special needs trust, pooled trust, first-party vs third-party)
+    8. Vocational rehabilitation costs (evaluation, retraining, job coaching, assistive technology)
+    9. Pain and suffering multiplier rationale (multiplier range, recommended multiplier, rationale, jurisdiction notes)
     
-    Return ONLY valid JSON with keys: summary, annual_costs (object), annual_total (number), life_expectancy_years (number), lifetime_total (number), cost_categories (array of objects with category, annual, lifetime, source).
+    Return ONLY valid JSON with keys: summary, annual_costs (object), annual_total (number), life_expectancy_years (number), lifetime_total (number), cost_categories (array of objects with category, annual, lifetime, source), medicare_medicaid_lien_analysis (object), structured_settlement (object with recommendation, pros (array), cons (array), typical_structure), life_insurance_trust_options (object), vocational_rehab_costs (object), pain_and_suffering_multiplier (object).
     """
     
     try:
@@ -674,6 +710,34 @@ def generate_opposing_counsel_profile(attorney_name: str, firm: str, practice_ar
                 "Consider early mediation — this attorney responds well to well-prepared Daubert motions",
                 "Focus on damages evidence early — they settle when liability is uncertain but fight on clear liability"
             ],
+            "known_litigation_tactics": [
+                "Files early motions for summary judgment to test liability theory",
+                "Aggressive deposition schedule — often schedules 3+ depositions per week",
+                "Frequent use of Daubert motions to exclude plaintiff expert witnesses",
+                "Prefers bifurcation of liability and damages at trial"
+            ],
+            "counter_strategies": [
+                "File opposition to bifurcation early — keep liability and damages together for maximum impact",
+                "Prepare expert witnesses intensively for Daubert challenges",
+                "Counter aggressive discovery with reciprocal requests on day one",
+                "Consider stipulating to undisputed facts to narrow trial issues"
+            ],
+            "motion_practice_patterns": [
+                "Files motions for summary judgment at 90-day mark",
+                "Standard Daubert challenge filed within expert disclosure deadline",
+                "Frequent motions in limine to exclude pain and suffering evidence"
+            ],
+            "deposition_weaknesses": [
+                "Tends to talk too much during depositions — let them fill silences",
+                "Overprepares witnesses, leading to robotic testimony",
+                "Struggles with medical causation cross-examinations"
+            ],
+            "settlement_history_patterns": [
+                "Settles 40% of cases before trial, typically at mediation",
+                "Prefers settlement range of 60-75% of policy limits",
+                "Rarely makes first offer — waits for plaintiff demand"
+            ],
+            "recommended_approach": "Prepare aggressively for deposition phase. This attorney's motion practice is predictable — prepare Daubert responses early. Settlement is possible after key deposition rulings. Consider early mediation only after securing favorable discovery rulings.",
             "note": "MOCK DATA — Configure Groq API key for AI-generated profiles."
         }
     
@@ -691,8 +755,14 @@ def generate_opposing_counsel_profile(attorney_name: str, firm: str, practice_ar
     3. Litigation style description (detailed)
     4. 2-3 notable cases with outcomes
     5. 3 strategy tips for opposing this attorney
+    6. Known litigation tactics (list of specific strategies this attorney uses)
+    7. Counter-strategies (specific responses to neutralize their tactics)
+    8. Motion practice patterns (when they file motions, types preferred)
+    9. Deposition weaknesses (patterns in how they conduct/defend depositions)
+    10. Settlement history patterns (when they settle, typical ranges)
+    11. Recommended approach (overall strategy paragraph)
     
-    Return ONLY valid JSON with keys: attorney (string), firm (string), practice_area (string), win_rate_estimate (string), settlement_rate (string), litigation_style (string), notable_cases (array of {{case, outcome}}), strategy_tips (array of strings).
+    Return ONLY valid JSON with keys: attorney (string), firm (string), practice_area (string), win_rate_estimate (string), settlement_rate (string), litigation_style (string), notable_cases (array of {{case, outcome}}), strategy_tips (array of strings), known_litigation_tactics (array of strings), counter_strategies (array of strings), motion_practice_patterns (array of strings), deposition_weaknesses (array of strings), settlement_history_patterns (array of strings), recommended_approach (string).
     """
     
     try:
@@ -723,6 +793,29 @@ def generate_opposing_counsel_profile(attorney_name: str, firm: str, practice_ar
                 "Consider early mediation — this attorney responds well to well-prepared Daubert motions",
                 "Focus on damages evidence early — they settle when liability is uncertain but fight on clear liability"
             ],
+            "known_litigation_tactics": [
+                "Files early motions for summary judgment to test liability theory",
+                "Aggressive deposition schedule — often schedules 3+ depositions per week",
+                "Frequent use of Daubert motions to exclude plaintiff expert witnesses"
+            ],
+            "counter_strategies": [
+                "File opposition to bifurcation early — keep liability and damages together",
+                "Prepare expert witnesses intensively for Daubert challenges",
+                "Counter aggressive discovery with reciprocal requests on day one"
+            ],
+            "motion_practice_patterns": [
+                "Files motions for summary judgment at 90-day mark",
+                "Standard Daubert challenge filed within expert disclosure deadline"
+            ],
+            "deposition_weaknesses": [
+                "Tends to talk too much during depositions — let them fill silences",
+                "Struggles with medical causation cross-examinations"
+            ],
+            "settlement_history_patterns": [
+                "Settles 40% of cases before trial, typically at mediation",
+                "Prefers settlement range of 60-75% of policy limits"
+            ],
+            "recommended_approach": "Prepare aggressively for deposition phase. This attorney's motion practice is predictable — prepare Daubert responses early. Settlement is possible after key deposition rulings.",
         }
 
 
@@ -748,6 +841,33 @@ def generate_sol_guardian(case_type: str, incident_date: str, state: str) -> dic
                 {"item": "Expert Witness Disclosure", "deadline": "2028-09-10", "priority": "high"},
                 {"item": "Complete Discovery", "deadline": "2029-01-10", "priority": "medium"}
             ],
+            "tolling_doctrines": [
+                "Discovery Rule — applies when injury was not immediately discoverable",
+                "Equitable Tolling — available if defendant's conduct prevented timely filing",
+                "Fraudulent Concealment — tolls statute if defendant actively concealed wrongdoing",
+                "Continuing Wrong Doctrine — each new breach resets clock in contract cases"
+            ],
+            "discovery_deadlines": [
+                {"item": "Initial Disclosures", "deadline": "2028-06-10", "priority": "high"},
+                {"item": "Interrogatories Due", "deadline": "2028-07-10", "priority": "high"},
+                {"item": "Document Production Complete", "deadline": "2028-08-10", "priority": "medium"},
+                {"item": "Fact Depositions Complete", "deadline": "2028-11-10", "priority": "medium"},
+                {"item": "Expert Discovery Close", "deadline": "2029-01-10", "priority": "high"}
+            ],
+            "expert_disclosure_deadlines": [
+                {"item": "Plaintiff Expert Designation", "deadline": "2028-08-10", "priority": "critical"},
+                {"item": "Defendant Expert Designation", "deadline": "2028-09-10", "priority": "high"},
+                {"item": "Rebuttal Expert Designation", "deadline": "2028-10-01", "priority": "medium"},
+                {"item": "Expert Reports Due", "deadline": "2028-10-15", "priority": "critical"},
+                {"item": "Expert Depositions Complete", "deadline": "2028-12-01", "priority": "high"}
+            ],
+            "pretrial_motion_schedule": [
+                {"motion": "Dispositive Motions", "deadline": "2029-02-10", "notes": "Summary judgment, Daubert motions"},
+                {"motion": "Motions in Limine", "deadline": "2029-03-15", "notes": "File 30 days before trial"},
+                {"motion": "Proposed Jury Instructions", "deadline": "2029-03-20", "notes": "File 21 days before trial"},
+                {"motion": "Trial Briefs", "deadline": "2029-03-25", "notes": "File 14 days before trial"},
+                {"motion": "Voir Dire Questions", "deadline": "2029-03-28", "notes": "File 7 days before trial"}
+            ],
             "note": "MOCK DATA — Configure Groq API key for AI-generated SOL analysis."
         }
     
@@ -764,8 +884,12 @@ def generate_sol_guardian(case_type: str, incident_date: str, state: str) -> dic
     2. Days remaining until deadline
     3. Applicable tolling exceptions (discovery rule, minority, fraudulent concealment, etc.)
     4. Filing checklist with critical dates (file complaint, serve defendant, expert disclosure, discovery)
+    5. Applicable tolling doctrines with explanations
+    6. Discovery deadlines (initial disclosures, interrogatories, document production, depositions, expert discovery)
+    7. Expert disclosure deadlines (plaintiff designation, defendant designation, rebuttal, reports, depositions)
+    8. Pre-trial motion schedule (dispositive motions, motions in limine, jury instructions, trial briefs, voir dire)
     
-    Return ONLY valid JSON with keys: case_type (string), incident_date (string), state (string), sol_deadline (string), days_remaining (number), tolling_exceptions (array of strings), filing_checklist (array of {{item, deadline, priority}}).
+    Return ONLY valid JSON with keys: case_type (string), incident_date (string), state (string), sol_deadline (string), days_remaining (number), tolling_exceptions (array of strings), filing_checklist (array of {{item, deadline, priority}}), tolling_doctrines (array of strings), discovery_deadlines (array of {{item, deadline, priority}}), expert_disclosure_deadlines (array of {{item, deadline, priority}}), pretrial_motion_schedule (array of {{motion, deadline, notes}}).
     """
     
     try:
@@ -796,6 +920,32 @@ def generate_sol_guardian(case_type: str, incident_date: str, state: str) -> dic
                 {"item": "Serve Defendant", "deadline": "2028-07-10", "priority": "high"},
                 {"item": "Expert Witness Disclosure", "deadline": "2028-09-10", "priority": "high"},
                 {"item": "Complete Discovery", "deadline": "2029-01-10", "priority": "medium"}
+            ],
+            "tolling_doctrines": [
+                "Discovery Rule — applies when injury was not immediately discoverable",
+                "Equitable Tolling — available if defendant's conduct prevented timely filing",
+                "Fraudulent Concealment — tolls statute if defendant actively concealed wrongdoing"
+            ],
+            "discovery_deadlines": [
+                {"item": "Initial Disclosures", "deadline": "2028-06-10", "priority": "high"},
+                {"item": "Interrogatories Due", "deadline": "2028-07-10", "priority": "high"},
+                {"item": "Document Production Complete", "deadline": "2028-08-10", "priority": "medium"},
+                {"item": "Fact Depositions Complete", "deadline": "2028-11-10", "priority": "medium"},
+                {"item": "Expert Discovery Close", "deadline": "2029-01-10", "priority": "high"}
+            ],
+            "expert_disclosure_deadlines": [
+                {"item": "Plaintiff Expert Designation", "deadline": "2028-08-10", "priority": "critical"},
+                {"item": "Defendant Expert Designation", "deadline": "2028-09-10", "priority": "high"},
+                {"item": "Rebuttal Expert Designation", "deadline": "2028-10-01", "priority": "medium"},
+                {"item": "Expert Reports Due", "deadline": "2028-10-15", "priority": "critical"},
+                {"item": "Expert Depositions Complete", "deadline": "2028-12-01", "priority": "high"}
+            ],
+            "pretrial_motion_schedule": [
+                {"motion": "Dispositive Motions", "deadline": "2029-02-10", "notes": "Summary judgment, Daubert motions"},
+                {"motion": "Motions in Limine", "deadline": "2029-03-15", "notes": "File 30 days before trial"},
+                {"motion": "Proposed Jury Instructions", "deadline": "2029-03-20", "notes": "File 21 days before trial"},
+                {"motion": "Trial Briefs", "deadline": "2029-03-25", "notes": "File 14 days before trial"},
+                {"motion": "Voir Dire Questions", "deadline": "2029-03-28", "notes": "File 7 days before trial"}
             ],
         }
 
@@ -829,6 +979,35 @@ def generate_trial_readiness(case_summary: str) -> dict:
                 "discovery_completion": 65,
                 "procedural_compliance": 85
             },
+            "specific_evidence_gaps": [
+                "No surveillance video or photos of accident scene",
+                "Missing EMS run sheet from initial transport",
+                "No expert report on standard of care deviation",
+                "Incomplete wage loss verification — only 6 months of records",
+                "No demonstrative exhibits prepared for trial"
+            ],
+            "expert_witness_recommendations": [
+                {"specialty": "Orthopedic Surgery", "purpose": "Standard of care and causation", "priority": "high"},
+                {"specialty": "Economics/Vocational", "purpose": "Lost earnings capacity and life care plan", "priority": "high"},
+                {"specialty": "Pain Management", "purpose": "Future medical needs and prognosis", "priority": "medium"},
+                {"specialty": "Life Care Planning", "purpose": "Comprehensive future care cost assessment", "priority": "medium"}
+            ],
+            "motion_deadlines_checklist": [
+                {"motion": "Dispositive Motions (SJ, Daubert)", "deadline": "60 days before trial", "status": "not started"},
+                {"motion": "Motions in Limine", "deadline": "30 days before trial", "status": "not started"},
+                {"motion": "Jury Instructions", "deadline": "21 days before trial", "status": "not started"},
+                {"motion": "Trial Brief", "deadline": "14 days before trial", "status": "not started"},
+                {"motion": "Voir Dire/Exhibit Lists", "deadline": "7 days before trial", "status": "not started"}
+            ],
+            "trial_timeline_estimate": {
+                "estimated_duration": "5-7 trial days",
+                "jury_selection": "Day 1 — half day",
+                "plaintiff_case": "Days 2-4 (3 days)",
+                "defense_case": "Day 5 (1-2 days)",
+                "closing_arguments": "Day 6 (half day)",
+                "deliberations": "Day 6 afternoon — Day 7"
+            },
+            "presiding_judge_notes": "Judge assignment not yet known. If assigned to Hon. Smith (Civil Division), expect strict adherence to pretrial deadlines and limited page limits on motions. Judge tends to favor bifurcated trials in medmal cases.",
             "note": "MOCK DATA — Configure Groq API key for AI-generated analysis."
         }
     
@@ -851,8 +1030,13 @@ def generate_trial_readiness(case_summary: str) -> dict:
     - Gaps identified (list)
     - Recommendations (list)
     - Category scores
+    - Specific evidence gaps (what specific items of evidence are missing)
+    - Expert witness recommendations (specific specialties needed with purpose and priority)
+    - Motion deadlines checklist (dispositive motions, motions in limine, jury instructions, trial brief, voir dire)
+    - Trial timeline estimate (estimated duration, plaintiff case, defense case, closing, deliberations)
+    - Presiding judge notes (tendencies, preferences, known biases if available)
     
-    Return ONLY valid JSON with keys: readiness_score (number), overall_assessment (string), gaps_identified (array of strings), recommendations (array of strings), category_scores (object).
+    Return ONLY valid JSON with keys: readiness_score (number), overall_assessment (string), gaps_identified (array of strings), recommendations (array of strings), category_scores (object), specific_evidence_gaps (array of strings), expert_witness_recommendations (array of {{specialty, purpose, priority}}), motion_deadlines_checklist (array of {{motion, deadline, status}}), trial_timeline_estimate (object), presiding_judge_notes (string).
     """
     
     try:
@@ -923,6 +1107,27 @@ def predict_settlement(damages: float, case_type: str, state: str, liability_str
                 "Defendant has strong legal representation",
                 "Jurisdiction is defense-friendly on similar cases"
             ],
+            "voir_dire_strategy": "Focus on prospective jurors' attitudes toward damage caps, medical malpractice reform, and large verdicts. Select jurors who believe in accountability for corporate negligence. Avoid jurors with healthcare industry ties or prior medmal litigation experience. Emphasize the human impact of the injury during voir dire to gauge empathy.",
+            "deposition_question_outline": [
+                "Q1: Doctor, please describe the specific training you received on the protocol in question during your residency.",
+                "Q2: Can you point to any documentation showing you considered alternative diagnoses at the time?",
+                "Q3: When did you first become aware of the deviation from standard protocol, and what action did you take?",
+                "Q4: Have you ever been disciplined or received continuing education related to this type of case?",
+                "Q5: Isn't it true that the hospital's own internal guidelines required a different course of action?"
+            ],
+            "negotiation_leverage_points": [
+                "Clear documentation of protocol deviation in medical records — use as leverage in early mediation",
+                "Defendant's prior settlement history in similar cases — research and reference their pattern",
+                "Plaintiff's strong life expectancy and catastrophic injury — high future medical costs drive settlement value"
+            ],
+            "jury_psychology_notes": {
+                "state": state,
+                "case_type": case_type,
+                "known_bias": "Jurors in this jurisdiction tend to be conservative on damages but respond well to clear standard-of-care violations",
+                "recommended_theme": "This was not a mistake — it was a deviation from established protocols that any competent provider should have followed",
+                "key_damages_narrative": "Focus on concrete economic losses and specific life changes rather than abstract pain and suffering",
+                "defense_narrative_to_counter": "Anticipate arguments about limited resources, system failures, and shared responsibility"
+            },
             "note": "MOCK DATA — Configure Groq API key for AI-generated settlement analysis."
         }
     
@@ -941,8 +1146,12 @@ def predict_settlement(damages: float, case_type: str, state: str, liability_str
     3. Litigation strategy
     4. Verdict data (median, plaintiff win rate, range, source)
     5. Risk factors (list)
+    6. Voir dire strategy for this case type and jurisdiction (specific questions, juror profiles to select/avoid)
+    7. Deposition question outline (5 specific questions with legal context)
+    8. Negotiation leverage points (3 specific leverage points for mediation)
+    9. Jury psychology notes (known biases, recommended themes, damages narrative, anticipate defense narrative)
     
-    Return ONLY valid JSON with keys: predicted_range (object with low, high), best_estimate (number), demand_framework (object with initial_demand, minimum_acceptable, anchor_strategy), litigation_strategy (string), verdict_data (object with median_verdict, plaintiff_win_rate, verdict_range, source), risk_factors (array of strings).
+    Return ONLY valid JSON with keys: predicted_range (object with low, high), best_estimate (number), demand_framework (object with initial_demand, minimum_acceptable, anchor_strategy), litigation_strategy (string), verdict_data (object with median_verdict, plaintiff_win_rate, verdict_range, source), risk_factors (array of strings), voir_dire_strategy (string), deposition_question_outline (array of strings), negotiation_leverage_points (array of strings), jury_psychology_notes (object with state, case_type, known_bias, recommended_theme, key_damages_narrative, defense_narrative_to_counter).
     """
     
     try:
@@ -977,6 +1186,27 @@ def predict_settlement(damages: float, case_type: str, state: str, liability_str
                 "Defendant has strong legal representation",
                 "Jurisdiction is defense-friendly on similar cases"
             ],
+            "voir_dire_strategy": "Focus on prospective jurors' attitudes toward damage caps, medical malpractice reform, and large verdicts.",
+            "deposition_question_outline": [
+                "Q1: Please describe the specific training you received on the protocol in question.",
+                "Q2: Can you point to any documentation showing you considered alternative diagnoses?",
+                "Q3: When did you first become aware of the deviation from standard protocol?",
+                "Q4: Have you ever been disciplined related to this type of case?",
+                "Q5: Isn't it true that the hospital's own guidelines required a different course of action?"
+            ],
+            "negotiation_leverage_points": [
+                "Clear documentation of protocol deviation in medical records",
+                "Defendant's prior settlement history in similar cases",
+                "Plaintiff's strong life expectancy and high future medical costs"
+            ],
+            "jury_psychology_notes": {
+                "state": state,
+                "case_type": case_type,
+                "known_bias": "Jurors respond well to clear standard-of-care violations",
+                "recommended_theme": "This was a deviation from established protocols",
+                "key_damages_narrative": "Focus on concrete economic losses and specific life changes",
+                "defense_narrative_to_counter": "Anticipate arguments about limited resources and shared responsibility"
+            },
         }
 
 
@@ -1008,6 +1238,31 @@ def analyze_medical_case(case_description: str) -> dict:
                 "weakness_factors": ["Patient had pre-existing conditions", "Some records are incomplete"],
                 "recommended_course": "Further investigation needed. Strong potential for medical malpractice claim with proper expert support."
             },
+            "standard_of_care_violations": [
+                {"violation": "Failure to monitor vital signs at required 15-minute intervals during acute phase", "guideline": "ACLS Guidelines Section 4.2", "severity": "CRITICAL"},
+                {"violation": "Delayed administration of antibiotics beyond 1-hour window for sepsis protocol", "guideline": "Surviving Sepsis Campaign Hour-1 Bundle", "severity": "CRITICAL"},
+                {"violation": "Inadequate documentation of nursing assessments during overnight shift", "guideline": "Joint Commission Standards RC.02.01.01", "severity": "HIGH"}
+            ],
+            "causation_chain_analysis": {
+                "initial_breach": "Failure to recognize and respond to abnormal vital signs at 18:30",
+                "proximate_cause": "14-hour delay in antibiotic administration directly led to sepsis progression",
+                "resulting_injury": "Septic shock → bilateral foot necrosis → double below-knee amputation",
+                "foreseeability": "Highly foreseeable — each hour delay in sepsis treatment increases mortality by 7.6%",
+                "independent_causes": "Patient's diabetes may have contributed to peripheral vascular disease but does not break causation chain"
+            },
+            "cross_exam_questions": [
+                "Doctor, you testified that the patient's vitals were 'stable' at 20:00. Yet the nursing notes show a heart rate of 115, respiratory rate of 24, and temperature of 102.3°F. Would you describe those vitals as 'stable' by any accepted medical definition?",
+                "The Surviving Sepsis Campaign guidelines require antibiotic administration within one hour of sepsis identification. You identified sepsis at 19:00. The first antibiotic was administered at 10:15 the next day. That's a 15-hour gap, isn't it?",
+                "Isn't it true that the hospital's own Sepsis Protocol Policy, which you helped draft, requires activation of the Rapid Response Team when qSOFA scores reach 2 or higher?"
+            ],
+            "damages_anchor_evidence": {
+                "medical_bills_to_date": 485000,
+                "future_medical_costs": 3200000,
+                "lost_wages_to_date": 126000,
+                "lost_earning_capacity": 1850000,
+                "recommended_anchor": 6250000,
+                "anchor_rationale": "Based on life care plan ($3.2M future medical), lost earnings ($1.85M), and pain/suffering at 2x economic damages"
+            },
             "note": "MOCK DATA — Configure Groq API key for AI-generated analysis."
         }
     
@@ -1021,8 +1276,12 @@ def analyze_medical_case(case_description: str) -> dict:
     1. Medical chronology (events with dates, descriptions, and sources)
     2. Treatment gaps (any delays or gaps in care, with severity: HIGH/MEDIUM/LOW)
     3. Merit assessment (overall merit, score 0-100, strength factors, weakness factors, recommended course)
+    4. Standard of care violations (specific violations, applicable medical guidelines, severity level)
+    5. Causation chain analysis (initial breach, proximate cause, resulting injury, foreseeability, independent causes)
+    6. Cross-examination questions for defense experts (2-3 specific questions with legal context)
+    7. Damages anchor evidence (medical bills to date, future costs, lost wages, earning capacity, recommended anchor)
     
-    Return ONLY valid JSON with keys: medical_chronology (array of {{date, event, source}}), treatment_gaps (array of {{gap, severity, details}}), merit_assessment (object with overall_merit, score, strength_factors (array), weakness_factors (array), recommended_course).
+    Return ONLY valid JSON with keys: medical_chronology (array of {{date, event, source}}), treatment_gaps (array of {{gap, severity, details}}), merit_assessment (object with overall_merit, score, strength_factors (array), weakness_factors (array), recommended_course), standard_of_care_violations (array of {{violation, guideline, severity}}), causation_chain_analysis (object), cross_exam_questions (array of strings), damages_anchor_evidence (object).
     """
     
     try:
@@ -1055,5 +1314,29 @@ def analyze_medical_case(case_description: str) -> dict:
                 "strength_factors": ["Clear deviation from standard of care", "Documented timeline of delays"],
                 "weakness_factors": ["Patient had pre-existing conditions", "Some records are incomplete"],
                 "recommended_course": "Further investigation needed. Strong potential for medical malpractice claim with proper expert support."
+            },
+            "standard_of_care_violations": [
+                {"violation": "Failure to monitor vital signs at required 15-minute intervals", "guideline": "ACLS Guidelines Section 4.2", "severity": "CRITICAL"},
+                {"violation": "Delayed administration of antibiotics beyond 1-hour window", "guideline": "Surviving Sepsis Campaign Hour-1 Bundle", "severity": "CRITICAL"}
+            ],
+            "causation_chain_analysis": {
+                "initial_breach": "Failure to recognize and respond to abnormal vital signs",
+                "proximate_cause": "14-hour delay in antibiotic administration directly led to sepsis progression",
+                "resulting_injury": "Septic shock → bilateral foot necrosis → double below-knee amputation",
+                "foreseeability": "Highly foreseeable — each hour delay in sepsis treatment increases mortality by 7.6%",
+                "independent_causes": "Patient's diabetes does not break causation chain"
+            },
+            "cross_exam_questions": [
+                "Doctor, you testified the vitals were 'stable' — yet the chart shows HR 115, RR 24, temp 102.3°F. Is that your definition of stable?",
+                "The Surviving Sepsis Campaign requires antibiotics within one hour of identification. There was a 15-hour gap. Correct?",
+                "The hospital's own Sepsis Protocol Policy requires RRT activation at qSOFA ≥ 2. That wasn't done, was it?"
+            ],
+            "damages_anchor_evidence": {
+                "medical_bills_to_date": 485000,
+                "future_medical_costs": 3200000,
+                "lost_wages_to_date": 126000,
+                "lost_earning_capacity": 1850000,
+                "recommended_anchor": 6250000,
+                "anchor_rationale": "Based on life care plan ($3.2M future medical), lost earnings ($1.85M), and pain/suffering at 2x economic damages"
             },
         }
