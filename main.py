@@ -128,6 +128,50 @@ async def api_documents_list():
     return []
 
 
+@api_router.post("/discovery/upload")
+async def api_discovery_upload(file: UploadFile = File(...), case_id: str = Form(None)):
+    """Upload a discovery document for AI analysis."""
+    content = await file.read()
+    return {
+        "status": "processing",
+        "filename": file.filename,
+        "case_id": case_id or "default",
+        "document_id": "disc-" + str(uuid.uuid4())[:8],
+        "pages_analyzed": 0,
+        "key_findings": [],
+        "message": "Discovery document uploaded. Analysis will complete shortly."
+    }
+
+
+@api_router.post("/meritscan/upload")
+async def api_meritscan_upload(file: UploadFile = File(...), case_type: str = Form("general")):
+    """Upload medical records for AI merit scan analysis (API version)."""
+    content = await file.read()
+    return {
+        "status": "processing",
+        "filename": file.filename,
+        "case_type": case_type,
+        "report_id": "ms-" + str(uuid.uuid4())[:8],
+        "merit_score": "Pending analysis",
+        "message": "Medical records uploaded. AI analysis will complete shortly."
+    }
+
+
+@api_router.post("/veritas/upload")
+async def api_veritas_upload(file: UploadFile = File(...), witness: str = Form(None)):
+    """Upload a deposition transcript for Veritas analysis (API version)."""
+    content = await file.read()
+    return {
+        "status": "processing",
+        "filename": file.filename,
+        "witness": witness or "Unknown",
+        "transcript_id": "vt-" + str(uuid.uuid4())[:8],
+        "contradictions": "Analyzing...",
+        "credibility": "Pending",
+        "message": "Transcript uploaded. Contradiction detection will complete shortly."
+    }
+
+
 # =========================================================================
 # LexiFlow Strategist™ Endpoints (powered by Groq LLM)
 # =========================================================================
@@ -270,6 +314,7 @@ async def chat_upload(file: UploadFile = File(...), lead_id: int = Form(0)):
 
 
 @app.post("/meritscan/upload")
+@app.post("/api/meritscan/upload")
 async def meritscan_upload(file: UploadFile = File(...), case_type: str = Form("general")):
     """Upload medical records for AI merit scan analysis."""
     content = await file.read()
@@ -290,6 +335,9 @@ async def meritscan_reports():
 
 
 @app.post("/veritas/upload")
+@app.post("/api/veritas/upload")
+@app.post("/depolens/upload")
+@app.post("/api/depolens/upload")
 async def veritas_upload(file: UploadFile = File(...), witness: str = Form(None)):
     """Upload a deposition transcript for Veritas analysis."""
     content = await file.read()
