@@ -1313,9 +1313,9 @@ async function calculateSettlement() {
   try {
     var r = await fetch('/api/settlement/predict', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({damages:damages, case_type:type, state:state, liability_strength:liability}) });
     var d = await r.json();
-    if (r.ok && d.estimated_value) {
+    if (r.ok && d.best_estimate) {
       var h = '<div class="stat-grid">';
-      h += '<div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);">AI Value</div><div class="metric-value">$'+Number(d.estimated_value).toLocaleString()+'</div></div>';
+      h += '<div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);">AI Value</div><div class="metric-value">$'+Number(d.best_estimate).toLocaleString()+'</div></div>';
       if (d.range_low) h += '<div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);">Range Low</div><div class="metric-value">$'+Number(d.range_low).toLocaleString()+'</div></div>';
       if (d.confidence) h += '<div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);">Confidence</div><div class="metric-value">'+d.confidence+'%</div></div>';
       h += '</div>';
@@ -1357,8 +1357,8 @@ async function generateLifeCarePlan() {
   try {
     var r = await fetch('/api/strategist/life-care-plan', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({injury:injury, age:age, state:'CA'}) });
     var d = await r.json();
-    if (r.ok && d.lifetime_cost) {
-      var h = '<div class="v-card" style="border-left:3px solid var(--gold-accent);"><div class="v-card-header"><h3 class="v-card-title">Life Care Plan</h3></div><div class="metric-value">$'+Number(d.lifetime_cost).toLocaleString()+'</div>';
+    if (r.ok && d.lifetime_total) {
+      var h = '<div class="v-card" style="border-left:3px solid var(--gold-accent);"><div class="v-card-header"><h3 class="v-card-title">Life Care Plan</h3></div><div class="metric-value">$'+Number(d.lifetime_total).toLocaleString()+'</div>';
       if (d.years) h += '<div style="font-size:12px;color:var(--text-secondary);">'+d.years+' years of care</div>';
       if (d.breakdown) h += '<div style="font-size:12px;color:var(--text-primary);padding:12px;">'+d.breakdown+'</div>';
       h += '</div>';
@@ -1387,11 +1387,11 @@ async function profileOpposingCounsel() {
   try {
     var r = await fetch('/api/strategist/opposing-counsel', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({attorney_name:name, firm:firm, practice_area:'Personal Injury'}) });
     var d = await r.json();
-    if (r.ok && d.style) {
+    if (r.ok && d.litigation_style) {
       var h = '<div class="v-card"><div class="v-card-header"><h3 class="v-card-title">'+name+'</h3><p style="color:var(--text-muted);">'+firm+'</p></div>'+
         '<div class="stat-grid"><div class="v-card metric-card"><div class="metric-value">'+(d.win_rate||'--')+'%</div><div style="font-size:11px;color:var(--text-muted);">Win Rate</div></div>'+
         '<div class="v-card metric-card"><div class="metric-value">'+(d.settle_rate||'--')+'%</div><div style="font-size:11px;color:var(--text-muted);">Settle Rate</div></div></div>'+
-        '<p style="font-size:13px;color:var(--text-secondary);margin-top:8px;"><strong>Style:</strong> '+d.style+'</p>';
+        '<p style="font-size:13px;color:var(--text-secondary);margin-top:8px;"><strong>Style:</strong> '+d.litigation_style+'</p>';
       if (d.notes) h += '<div style="padding:12px;font-size:12px;color:var(--text-muted);border-top:1px solid var(--navy-border);">'+d.notes+'</div>';
       h += '</div>';
       var ocContainer = document.createElement('div'); ocContainer.innerHTML = h;
@@ -1424,11 +1424,11 @@ async function checkSOL() {
   try {
     var r = await fetch('/api/strategist/sol-guardian', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({case_type:type, incident_date:date, state:'CA'}) });
     var d = await r.json();
-    if (r.ok && d.deadline) {
+    if (r.ok && d.sol_deadline) {
       var urgency = d.days_left < 90 ? 'var(--danger)' : d.days_left < 180 ? 'var(--warning)' : 'var(--success)';
       var notes = d.expired ? '<strong style="color:var(--danger);">EXPIRED</strong>' : d.days_left+' days remaining';
       var h = '<div class="v-card"><div class="v-card-header"><h3 class="v-card-title">SOL Deadline</h3></div>'+
-        '<div class="metric-value" style="color:'+urgency+';">'+d.deadline+'</div>'+
+        '<div class="metric-value" style="color:'+urgency+';">'+d.sol_deadline+'</div>'+
         '<p style="font-size:14px;color:var(--text-secondary);margin-top:4px;">'+notes+' | '+(d.years||'?')+' year limit</p></div>';
       var solContainer = document.createElement('div'); solContainer.innerHTML = h;
       res.innerHTML = ''; res.appendChild(solContainer.firstChild);
@@ -1461,7 +1461,7 @@ async function calculateTrialReadiness() {
   try {
     var r = await fetch('/api/strategist/trial-readiness', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({case_summary:summary||'General case'}) });
     var d = await r.json();
-    if (r.ok && d.score !== undefined) {
+    if (r.ok && d.readiness_score !== undefined) {
       var score = d.score;
       var color = score > 70 ? 'var(--success)' : score > 40 ? 'var(--warning)' : 'var(--danger)';
       var label = score > 70 ? 'Ready for trial' : score > 40 ? 'Needs preparation' : 'Significant gaps';
