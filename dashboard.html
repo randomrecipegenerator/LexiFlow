@@ -1465,9 +1465,29 @@ async function calculateTrialReadiness() {
       var score = d.readiness_score;
       var color = score > 70 ? 'var(--success)' : score > 40 ? 'var(--warning)' : 'var(--danger)';
       var label = score > 70 ? 'Ready for trial' : score > 40 ? 'Needs preparation' : 'Significant gaps';
-      var gaps = d.gaps || [];
-      var h = '<div class="v-card"><div style="text-align:center;padding:20px;"><div style="font-size:48px;font-weight:700;color:'+color+';">'+score+'%</div><p style="font-size:16px;color:var(--text-secondary);">'+label+'</p></div>'+
-        (gaps.length ? '<div style="padding:12px;border-top:1px solid var(--navy-border);"><ul style="font-size:13px;color:var(--text-secondary);padding-left:16px;">'+gaps.map(function(g){return '<li>'+g+'</li>';}).join('')+'</ul></div>' : '')+'</div>';
+      var h = '<div class="v-card" style="text-align:center;padding:24px;margin-bottom:16px;"><div style="font-size:56px;font-weight:700;color:'+color+';">'+score+'%</div><p style="font-size:18px;color:var(--text-secondary);margin-top:8px;">'+label+'</p>';
+      if (d.overall_assessment) h += '<p style="font-size:14px;color:var(--text-muted);margin-top:8px;">'+d.overall_assessment+'</p>';
+      h += '</div>';
+      if (d.category_scores) {
+        h += '<div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Score Breakdown</h3></div><div style="padding:12px;">';
+        var cats = d.category_scores;
+        for (var k in cats) {
+          var sv = cats[k]; var sc = sv > 70 ? 'var(--success)' : sv > 40 ? 'var(--warning)' : 'var(--danger)';
+          var kl = k.replace(/_/g,' ').replace(/\b\w/g,function(l){return l.toUpperCase()});
+          h += '<div style="margin-bottom:10px;"><div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-secondary);margin-bottom:3px;"><span>'+kl+'</span><span style="color:'+sc+';">'+sv+'%</span></div><div style="height:6px;background:var(--navy-border);border-radius:3px;"><div style="height:6px;width:'+sv+'%;background:'+sc+';border-radius:3px;"></div></div></div>';
+        }
+        h += '</div></div>';
+      }
+      if (d.gaps_identified && d.gaps_identified.length) {
+        h += '<div class="v-card" style="border-left:3px solid var(--danger);"><div class="v-card-header"><h3 class="v-card-title">What Needs Attention</h3></div><ul style="padding:12px 12px 12px 32px;font-size:13px;color:var(--text-secondary);line-height:1.8;">';
+        d.gaps_identified.forEach(function(g){ h += '<li>'+g+'</li>'; });
+        h += '</ul></div>';
+      }
+      if (d.recommendations && d.recommendations.length) {
+        h += '<div class="v-card" style="border-left:3px solid var(--success);"><div class="v-card-header"><h3 class="v-card-title">Recommended Next Steps</h3></div><ol style="padding:12px 12px 12px 32px;font-size:13px;color:var(--text-secondary);line-height:1.8;">';
+        d.recommendations.forEach(function(r){ h += '<li><strong>'+r+'</strong></li>'; });
+        h += '</ol></div>';
+      }
       var trContainer = document.createElement('div'); trContainer.innerHTML = h;
       res.innerHTML = ''; res.appendChild(trContainer.firstChild);
       renderStrategyFields(res, [
@@ -1481,10 +1501,12 @@ async function calculateTrialReadiness() {
     var score = summary ? 45 + (summary.length%40) : 55;
     var color = score > 70 ? 'var(--success)' : score > 40 ? 'var(--warning)' : 'var(--danger)';
     var label = score > 70 ? 'Ready for trial' : score > 40 ? 'Needs preparation' : 'Significant gaps';
-    var gaps = [];
-    if (score < 70) gaps.push('Expert witness reports pending');
-    if (score < 50) gaps.push('Deposition transcripts incomplete');
-    if (score < 40) gaps.push('Medical records not fully reviewed');
+    var gaps = [], recs = [];
+    if (score < 70) { gaps.push('Expert witness reports pending — retain within 30 days'); recs.push('Contact expert witness referral service for your jurisdiction'); }
+    if (score < 60) { gaps.push('Deposition transcripts not yet analyzed for inconsistencies'); recs.push('Run all deposition transcripts through Veritas Deposition analysis'); }
+    if (score < 50) { gaps.push('Medical records not fully reviewed by consulting physician'); recs.push('Send complete medical file to consulting physician for merit review'); }
+    if (score < 40) { gaps.push('Case theory not fully developed — liability and damages unlinked'); recs.push('Draft case theory memorandum connecting liability to damages'); }
+    if (score < 30) { gaps.push('Critical evidence missing — no expert reports, no witness statements'); recs.push('Prioritize evidence gathering: subpoena records, schedule witness interviews'); }
     res.innerHTML = '<div class="v-card"><div style="text-align:center;padding:20px;"><div style="font-size:48px;font-weight:700;color:'+color+';">'+score+'%</div><p style="font-size:16px;color:var(--text-secondary);">'+label+'</p></div>'+
       (gaps.length ? '<div style="padding:12px;border-top:1px solid var(--navy-border);"><ul style="font-size:13px;color:var(--text-secondary);padding-left:16px;">'+gaps.map(function(g){return '<li>'+g+'</li>';}).join('')+'</ul></div>' : '')+'</div>';
   }
