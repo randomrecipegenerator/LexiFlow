@@ -1325,7 +1325,7 @@ async function calculateSettlement() {
         {label:'Voir Dire Strategy', val:d.voir_dire_strategy},
         {label:'Deposition Question Outline', val:d.deposition_question_outline, asNumbered:true},
         {label:'Negotiation Leverage Points', val:d.negotiation_leverage_points, asBullets:true},
-        {label:'Jury Psychology Notes', val:d.jury_psychology_notes}
+        {label:'Jury Psychology Notes', val:d.jury_psychology_notes ? 'Theme: '+(d.jury_psychology_notes.recommended_theme||'')+'. Bias: '+(d.jury_psychology_notes.known_bias||'')+'. Narrative: '+(d.jury_psychology_notes.key_damages_narrative||'')+'. Counter defense: '+(d.jury_psychology_notes.defense_narrative_to_counter||'') : ''}
       ]); return;
     }
     throw new Error(d.detail||'No prediction');
