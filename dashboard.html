@@ -468,7 +468,6 @@ const STORAGE_KEY = 'lexiflow_admin_token';
 let token = localStorage.getItem(STORAGE_KEY) || null;
 let currentUser = null;
 let currentFirm = null;
-const API_BASE = '';
 
 function $(id) { return document.getElementById(id); }
 
@@ -492,29 +491,15 @@ function handleLogin() {
   enterDashboard();
 }
 
-async function handleRegister() {
-  var firm = $('regFirm').value.trim();
-  var email = $('regEmail').value.trim();
-  var pw = $('regPassword').value;
-  var status = $('regStatus');
-  if (!firm || !email || !pw) { status.innerHTML='Please fill all fields.'; status.style.color='var(--danger)'; return; }
-  status.innerHTML='Creating account...';
-  try {
-    var r = await fetch(API_BASE+'/api/admin/firms/register', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({firm_name:firm, admin_email:email, password:pw, branding_colors:'{}'}) });
-    var d = await r.json();
-    if (r.ok && d.access_token) {
-      localStorage.setItem(STORAGE_KEY, d.access_token);
-      if (d.user) localStorage.setItem('lexiflow_user', JSON.stringify(d.user));
-      if (d.firm) localStorage.setItem('lexiflow_firm', JSON.stringify(d.firm));
-      currentFirm = d.firm; currentUser = d.user;
-      status.innerHTML='Account created! Redirecting...';
-      status.style.color='var(--success)';
-      setTimeout(enterDashboard, 800);
-    } else {
-      status.innerHTML = d.detail || 'Registration failed.';
-      status.style.color='var(--danger)';
-    }
-  } catch(e) { status.innerHTML='Connection error. Trying offline...'; status.style.color='var(--warning)'; setTimeout(enterDashboard, 800); }
+function handleRegister() {
+  var firm = $('regFirm').value.trim() || 'Your Firm';
+  var email = $('regEmail').value.trim() || 'demo@lexiflow.co';
+  currentUser = { email: email, name: email.split('@')[0] };
+  currentFirm = { name: firm, billing_tier: 'starter' };
+  localStorage.setItem(STORAGE_KEY, 'demo-token');
+  localStorage.setItem('lexiflow_user', JSON.stringify(currentUser));
+  localStorage.setItem('lexiflow_firm', JSON.stringify(currentFirm));
+  enterDashboard();
 }
 
 function enterDashboard() {
