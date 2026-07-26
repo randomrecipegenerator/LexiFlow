@@ -1616,97 +1616,101 @@ def generate_sol_guardian(case_type: str, incident_date: str, state: str) -> dic
     Generate Statute of Limitations analysis with deadlines and filing checklist.
     """
     if not client:
-        return {
-            "case_type": case_type,
-            "incident_date": incident_date,
-            "state": state,
-            "sol_deadline": "2028-05-10",
-            "days_remaining": 655,
+        try:
+            inc_date = datetime.strptime(incident_date[:10], '%Y-%m-%d')
+        except:
+            inc_date = datetime.now()
+        case_key = case_type.lower().replace(' ','_')
+        sol_info = get_state_law(state).get('sol_statutes', {{}}).get(case_key, '2 years')
+        _m = re.search(r'(\d+)', str(sol_info))
+        sol_years = int(_m.group(1)) if _m else 2
+        now = datetime.now()
+        try:
+            sol_deadline = datetime(inc_date.year + sol_years, inc_date.month, inc_date.day)
+        except ValueError:
+            sol_deadline = datetime(inc_date.year + sol_years, 3, 1)
+        days_remaining = (sol_deadline - now).days
+        _base = sol_deadline
+        _serve = _base + timedelta(days=60)
+        _expert_disc = _base + timedelta(days=120)
+        _discovery_end = _base + timedelta(days=240)
+        _initial_disc = _base + timedelta(days=30)
+        _interrogs = _base + timedelta(days=60)
+        _doc_prod = _base + timedelta(days=90)
+        _fact_dep = _base + timedelta(days=180)
+        _pl_expert = _base + timedelta(days=90)
+        _def_expert = _base + timedelta(days=120)
+        _rebuttal = _base + timedelta(days=150)
+        _reports = _base + timedelta(days=165)
+        _expert_dep = _base + timedelta(days=210)
+        try:
+            _trial = datetime(_base.year + 1, _base.month, _base.day)
+        except ValueError:
+            _trial = datetime(_base.year + 1, 3, 1)
+        _disp_mtn = _trial - timedelta(days=60)
+        _limine = _trial - timedelta(days=30)
+        _jury_instr = _trial - timedelta(days=21)
+        _trial_brief = _trial - timedelta(days=14)
+        _voir_dire = _trial - timedelta(days=7)
+        def _fmt(d): return d.strftime('%Y-%m-%d')
+        state_name = get_state_law(state).get('name', state)
+        case_label = case_type.replace('_', ' ').title()
+        return {{
+            "case_type": case_type, "incident_date": incident_date[:10], "state": state,
+            "sol_deadline": _fmt(sol_deadline), "days_remaining": max(0, days_remaining),
             "tolling_exceptions": [
-                "Discovery Rule — statute begins when injury discovered (applies to medical malpractice with foreign object)",
-                "Minority Tolling — if plaintiff was under 18 at time of incident, statute tolled until 18th birthday",
-                "Fraudulent Concealment — statute tolled if defendant actively concealed malpractice"
+                f"Discovery Rule -- statute begins when injury discovered ({case_label})",
+                "Minority Tolling -- if plaintiff was under 18 at time of incident",
+                "Fraudulent Concealment -- statute tolled if defendant actively concealed wrongdoing"
             ],
             "filing_checklist": [
-                {"item": "File Complaint", "deadline": "2028-05-10", "priority": "critical"},
-                {"item": "Serve Defendant", "deadline": "2028-07-10", "priority": "high"},
-                {"item": "Expert Witness Disclosure", "deadline": "2028-09-10", "priority": "high"},
-                {"item": "Complete Discovery", "deadline": "2029-01-10", "priority": "medium"}
+                {{"item": "File Complaint", "deadline": _fmt(sol_deadline), "priority": "critical"}},
+                {{"item": "Serve Defendant", "deadline": _fmt(_serve), "priority": "high"}},
+                {{"item": "Expert Witness Disclosure", "deadline": _fmt(_expert_disc), "priority": "high"}},
+                {{"item": "Complete Discovery", "deadline": _fmt(_discovery_end), "priority": "medium"}}
             ],
             "tolling_doctrines": [
-                "Discovery Rule — applies when injury was not immediately discoverable",
-                "Equitable Tolling — available if defendant's conduct prevented timely filing",
-                "Fraudulent Concealment — tolls statute if defendant actively concealed wrongdoing",
-                "Continuing Wrong Doctrine — each new breach resets clock in contract cases"
+                f"Discovery Rule -- applies when injury not immediately discoverable ({case_label})",
+                "Equitable Tolling -- available if defendant''s conduct prevented timely filing",
+                "Fraudulent Concealment -- tolls statute if defendant actively concealed wrongdoing",
+                "Continuing Wrong Doctrine -- each new breach resets clock in some case types"
             ],
             "discovery_deadlines": [
-                {"item": "Initial Disclosures", "deadline": "2028-06-10", "priority": "high"},
-                {"item": "Interrogatories Due", "deadline": "2028-07-10", "priority": "high"},
-                {"item": "Document Production Complete", "deadline": "2028-08-10", "priority": "medium"},
-                {"item": "Fact Depositions Complete", "deadline": "2028-11-10", "priority": "medium"},
-                {"item": "Expert Discovery Close", "deadline": "2029-01-10", "priority": "high"}
+                {{"item": "Initial Disclosures", "deadline": _fmt(_initial_disc), "priority": "high"}},
+                {{"item": "Interrogatories Due", "deadline": _fmt(_interrogs), "priority": "high"}},
+                {{"item": "Document Production Complete", "deadline": _fmt(_doc_prod), "priority": "medium"}},
+                {{"item": "Fact Depositions Complete", "deadline": _fmt(_fact_dep), "priority": "medium"}},
+                {{"item": "Expert Discovery Close", "deadline": _fmt(_expert_dep), "priority": "high"}}
             ],
             "expert_disclosure_deadlines": [
-                {"item": "Plaintiff Expert Designation", "deadline": "2028-08-10", "priority": "critical"},
-                {"item": "Defendant Expert Designation", "deadline": "2028-09-10", "priority": "high"},
-                {"item": "Rebuttal Expert Designation", "deadline": "2028-10-01", "priority": "medium"},
-                {"item": "Expert Reports Due", "deadline": "2028-10-15", "priority": "critical"},
-                {"item": "Expert Depositions Complete", "deadline": "2028-12-01", "priority": "high"}
+                {{"item": "Plaintiff Expert Designation", "deadline": _fmt(_pl_expert), "priority": "critical"}},
+                {{"item": "Defendant Expert Designation", "deadline": _fmt(_def_expert), "priority": "high"}},
+                {{"item": "Rebuttal Expert Designation", "deadline": _fmt(_rebuttal), "priority": "medium"}},
+                {{"item": "Expert Reports Due", "deadline": _fmt(_reports), "priority": "critical"}},
+                {{"item": "Expert Depositions Complete", "deadline": _fmt(_expert_dep), "priority": "high"}}
             ],
             "pretrial_motion_schedule": [
-                {"motion": "Dispositive Motions", "deadline": "2029-02-10", "notes": "Summary judgment, Daubert motions"},
-                {"motion": "Motions in Limine", "deadline": "2029-03-15", "notes": "File 30 days before trial"},
-                {"motion": "Proposed Jury Instructions", "deadline": "2029-03-20", "notes": "File 21 days before trial"},
-                {"motion": "Trial Briefs", "deadline": "2029-03-25", "notes": "File 14 days before trial"},
-                {"motion": "Voir Dire Questions", "deadline": "2029-03-28", "notes": "File 7 days before trial"}
+                {{"motion": "Dispositive Motions", "deadline": _fmt(_disp_mtn), "notes": "Summary judgment, Daubert motions"}},
+                {{"motion": "Motions in Limine", "deadline": _fmt(_limine), "notes": "File 30 days before trial"}},
+                {{"motion": "Proposed Jury Instructions", "deadline": _fmt(_jury_instr), "notes": "File 21 days before trial"}},
+                {{"motion": "Trial Briefs", "deadline": _fmt(_trial_brief), "notes": "File 14 days before trial"}},
+                {{"motion": "Voir Dire Questions", "deadline": _fmt(_voir_dire), "notes": "File 7 days before trial"}}
             ],
-            "applicable_code_sections": get_state_law(state).get('sol_statutes',{}).get(case_type.lower().replace(' ','_'),'2-3 years typical for this case type in ' + get_state_law(state).get('name',state)) + '; ' + get_state_law(state).get('damage_caps',{}).get('statute','') + ' — damage cap',
-            "tolling_case_law": '; '.join([c['case']+' ('+str(c['year'])+') — '+c.get('holding','')[:60] for c in get_state_law(state).get('key_case_law',[]) if any(w in c.get('holding','').lower() for w in ['toll','discovery','sol','limitation','statute'])]) or 'Delayed discovery rule applies; equitable tolling available; ' + get_state_law(state).get('name',state) + ' tolling doctrines',
-            "court_rules": 'FRCP Rule 3 (commencement); FRCP Rule 4(m) (90-day service); ' + get_state_law(state).get('procedural_rules',{}).get('offer_of_judgment','State procedural rules') + '; state-specific service deadlines apply',
-            "differentiation_strategies": "Argue delayed discovery for latent injuries or foreign objects; assert equitable estoppel where defendant concealed wrongdoing; toll statute for minors/minority tolling under state statutes; preserve claim via pre-suit notice where applicable",
+            "applicable_code_sections": get_state_law(state).get('sol_statutes',{{}}).get(case_key,f"{sol_years} years typical for {case_label} in {state_name}"),
+            "tolling_case_law": state_name + ' tolling doctrines apply; discovery rule available',
+            "court_rules": f'FRCP Rule 3 (commencement); FRCP Rule 4(m) (90-day service); {state_name} procedural rules',
+            "differentiation_strategies": "Argue delayed discovery; assert equitable estoppel; toll statute for minors; preserve claim",
+            "strategic_timeline": {{
+                "critical_deadlines": [{{"deadline": _fmt(sol_deadline), "danger_level": "CRITICAL", "action": "File Complaint before SOL expires", "firm_action": f"File by {_fmt(sol_deadline)}", "consequences_if_missed": "Case barred forever", "days_at_risk": max(0, days_remaining)}}],
+                "pre_litigation_checklist": [f"Preserve evidence immediately -- spoliation letter to {state_name} defendants", "Obtain all medical records", "Identify expert witnesses", "Calculate damages with life care plan"],
+                "file_now_or_wait": f"FILE NOW -- {max(0, days_remaining)} days remaining until SOL" if days_remaining < 365 else f"Sufficient time -- SOL: {_fmt(sol_deadline)} ({days_remaining} days)",
+                "tolling_opportunities": ["Minority tolling if plaintiff under 18", "Discovery rule for foreign objects"],
+                "jurisdiction_shopping": f"File in {state_name} -- preferred venue",
+                "calendar_integration": f"Add {_fmt(sol_deadline)} as firm-wide deadline. Set 90-day and 30-day alerts."
+            }},
+            "note": "MOCK DATA -- Configure Groq API key for AI-generated SOL analysis."
+        }}
 
-            "strategic_timeline": {
-                "critical_deadlines": [
-                    {"item": "Statute of Limitations", "deadline": "Based on incident date and state SOL for this case type", "danger_level": "CRITICAL", "consequence": "Case is permanently barred if missed"},
-                    {"item": "Statute of Repose", "deadline": "Typically 3-10 years from incident regardless of discovery", "danger_level": "CRITICAL", "consequence": "Case is permanently barred — no equitable tolling"},
-                    {"item": "Pre-suit notice deadline", "deadline": "90 days before SOL in medmal (varies by state)", "danger_level": "HIGH", "consequence": "Procedural bar to filing — may require re-filing with notice"},
-                    {"item": "Certificate of Merit deadline", "deadline": "60-90 days after filing complaint (varies by state)", "danger_level": "HIGH", "consequence": "Case dismissed with prejudice if late or insufficient"},
-                    {"item": "Expert witness designation", "deadline": "Typically 90-180 days before trial", "danger_level": "HIGH", "consequence": "Expert testimony excluded"},
-                    {"item": "Discovery cutoff", "deadline": "Typically 30-60 days before trial", "danger_level": "MEDIUM", "consequence": "Evidence may be excluded"}
-                ],
-                "pre_litigation_checklist": [
-                    "1. Immediately: Send spoliation/hold letter to all potential defendants — preserve evidence, surveillance, documents, and electronically stored information",
-                    "2. Week 1: Obtain and secure all relevant medical records, incident reports, and employment records",
-                    "3. Week 2: Identify and consult with potential expert witnesses — secure their availability before SOL runs",
-                    "4. Week 3: Draft and send demand letter to all potential defendants with sufficient documentation to demonstrate claim value",
-                    "5. Week 4: Prepare complaint with all necessary state-specific pre-suit certifications",
-                    "6. Before filing: Verify all pre-suit notice requirements are satisfied — this varies significantly by state"
-                ],
-                "file_now_or_wait": {
-                    "recommendation": "File immediately if SOL is within 6 months or if defendant is destroying evidence. Consider waiting if: (1) settlement negotiations are progressing, (2) medical condition is still evolving, (3) discovery would be more efficient after filing.",
-                    "risk_assessment": "Risk of waiting: SOL running, evidence loss, witness memories fading. Risk of filing now: triggering defense costs, revealing strategy early, SOL clock on counterclaims."
-                },
-                "tolling_opportunities": [
-                    "Discovery Rule — SOL begins when injury discovered, not when it occurred (applies to foreign objects, latent diseases, fraudulent concealment)",
-                    "Minority Tolling — If plaintiff was under 18, SOL is tolled until 18th birthday in most states",
-                    "Equitable Tolling — Available if defendant's fraud or misconduct prevented timely filing",
-                    "Military Tolling — SOL tolled for active-duty military personnel under SCRA",
-                    "Insanity/Incapacity Tolling — Some states toll SOL for mental incapacity at time of accrual"
-                ],
-                "jurisdiction_shopping": {
-                    "analysis": "Check whether: (1) a different venue has longer SOL for this case type, (2) defendant's principal place of business creates jurisdiction elsewhere, (3) federal court has diversity jurisdiction with different procedural rules.",
-                    "caution": "Be careful of transferring to a jurisdiction with a shorter SOL — the transfer may not preserve the original filing date under state law."
-                },
-                "calendar_integration": [
-                    {"date": "Incident Date + SOL period = Filing Deadline", "priority": "CRITICAL", "action": "File complaint"},
-                    {"date": "Filing Date + 120 days", "priority": "HIGH", "action": "Serve all defendants"},
-                    {"date": "Service Date + 60 days", "priority": "HIGH", "action": "Initial disclosures due"},
-                    {"date": "Filing Date + 180 days", "priority": "HIGH", "action": "Expert witness designations due"},
-                    {"date": "Filing Date + 12 months", "priority": "MEDIUM", "action": "Discovery cutoff"}
-                ]
-            },
-            "note": "MOCK DATA — Configure Groq API key for AI-generated SOL analysis."
-        }
     
     prompt = f"""
     Generate a detailed Statute of Limitations analysis for this case.
@@ -1796,107 +1800,123 @@ def generate_trial_readiness(case_summary: str, state: str = "CA") -> dict:
     Analyze case preparation and produce a 0-100 trial readiness score.
     """
     if not client:
-        return {
-            "readiness_score": 62,
-            "overall_assessment": "Case shows moderate preparation. Strong liability theory but significant gaps in damages documentation and expert witness retention.",
-            "gaps_identified": [
-                "No retained expert witnesses identified",
-                "Medical records incomplete — missing post-surgical follow-up notes",
-                "Damages documentation insufficient — no lost wage verification",
-                "Settlement demand not yet drafted",
-                "Witness list incomplete"
-            ],
-            "recommendations": [
-                "Retain medical expert within 30 days",
-                "Request complete medical records from all treating facilities",
-                "Obtain lost wage documentation from employer",
-                "Draft initial settlement demand",
-                "Complete witness interviews and finalize witness list"
-            ],
-            "category_scores": {
-                "liability_theory": 78,
-                "damages_evidence": 45,
-                "expert_witnesses": 20,
-                "discovery_completion": 65,
-                "procedural_compliance": 85
-            },
+        # Keyword-based dynamic scoring
+        summary_lower = (case_summary or "").lower()
+        kw_expert = any(w in summary_lower for w in ["expert", "retained", "retain", "designation", "expert report"])
+        kw_medical = any(w in summary_lower for w in ["medical records", "records obtained", "med records", "chart"])
+        kw_wage = any(w in summary_lower for w in ["wage", "lost income", "loss of earnings", "employment records"])
+        kw_liability = any(w in summary_lower for w in ["liability clear", "admitted", "stipulated", "favorable", "liability established"])
+        kw_depo = any(w in summary_lower for w in ["deposition", "depo completed", "witness interviewed", "fact discovery"])
+        kw_demolisher = any(w in summary_lower for w in ["demand", "settlement demand", "mediation statement"])
+        kw_pi = any(w in summary_lower for w in ["personal injury", "auto", "car accident", "slip and fall", "premises"])
+        kw_mm = any(w in summary_lower for w in ["medical malpractice", "med mal", "surgical", "misdiagnosis"])
+        kw_mass = any(w in summary_lower for w in ["mass tort", "class action", "mdl", "multi-district"])
+        kw_wd = any(w in summary_lower for w in ["wrongful death", "death", "fatal"])
+        kw_trial = any(w in summary_lower for w in ["trial date set", "trial scheduled", "trial ready", "motions pending"])
+        kw_damages = any(w in summary_lower for w in ["damages calculated", "damages documented", "lien", "specials"])
+        def detect_injury_type(txt):
+            if any(w in txt for w in ["brain", "tbi", "head", "stroke", "anoxic"]): return "tbi"
+            if any(w in txt for w in ["spinal", "cord", "paralysis", "quad", "para"]): return "spinal"
+            if any(w in txt for w in ["burn", "third-degree", "fire", "explosion"]): return "burn"
+            if any(w in txt for w in ["amput", "loss of limb"]): return "amputation"
+            if any(w in txt for w in ["birth", "obstetric", "neonatal"]): return "birth"
+            return "general"
+        injury_type = detect_injury_type(summary_lower)
+        # Calculate category scores
+        liability_score = min(95, 40 + (30 if kw_liability else 0) + (15 if kw_mm else 0) + (10 if kw_depo else 0))
+        damages_score = min(95, 30 + (25 if kw_damages else 0) + (20 if kw_wage else 0) + (15 if kw_medical else 0) + (5 if kw_demolisher else 0))
+        expert_score = min(95, 15 + (50 if kw_expert else 0) + (10 if kw_depo else 0) + (10 if kw_medical else 0))
+        discovery_score = min(95, 40 + (30 if kw_depo else 0) + (15 if kw_medical else 0) + (10 if kw_demolisher else 0))
+        procedural_score = min(100, 60 + (25 if kw_trial else 0) + (15 if kw_demolisher else 0))
+        overall = int((liability_score + damages_score + expert_score + discovery_score + procedural_score) / 5)
+        # Generate assessment and recommendations based on scores
+        def gap(score, items, threshold=50):
+            return items if score < threshold else ["Minor refinement needed"]
+        gaps = []
+        recs = []
+        if expert_score < 50:
+            gaps.append("No retained expert witnesses identified")
+            recs.append("Retain medical expert within 30 days")
+        if damages_score < 50:
+            gaps.append("Damages documentation insufficient")
+            recs.append("Complete damages calculation with life care plan if catastrophic")
+        if discovery_score < 50:
+            gaps.append("Discovery incomplete")
+            recs.append("Complete fact discovery and schedule depositions")
+        if liability_score < 50:
+            gaps.append("Liability theory needs development")
+            recs.append("Strengthen liability framework and retain liability expert")
+        if not gaps:
+            gaps = ["Case is well-prepared. Minor administrative items remain."]
+            recs = ["File remaining pleadings on schedule", "Prepare trial exhibits and demonstratives"]
+        cat_scores = {{
+            "liability_theory": liability_score,
+            "damages_evidence": damages_score,
+            "expert_witnesses": expert_score,
+            "discovery_completion": discovery_score,
+            "procedural_compliance": procedural_score
+        }}
+        state_name = get_state_law(state).get('name', state)
+        return {{
+            "readiness_score": overall,
+            "overall_assessment": f"Case readiness: {overall}/100. {'Well-prepared' if overall >= 70 else 'Moderate preparation' if overall >= 45 else 'Significant gaps remain'}. Injury type: {injury_type}. Jurisdiction: {state_name}.",
+            "gaps_identified": gaps,
+            "recommendations": recs,
+            "category_scores": cat_scores,
             "specific_evidence_gaps": [
-                "No surveillance video or photos of accident scene",
-                "Missing EMS run sheet from initial transport",
-                "No expert report on standard of care deviation",
-                "Incomplete wage loss verification — only 6 months of records",
-                "No demonstrative exhibits prepared for trial"
+                "No surveillance video or photos of accident scene" if discovery_score < 60 else "Primary evidence documented",
+                "Medical records incomplete" if damages_score < 60 else "Medical records obtained" if damages_score < 90 else "Complete medical chronology prepared",
+                "No expert report on standard of care" if expert_score < 50 else "Expert identified" if expert_score < 80 else "Expert report received",
+                "Incomplete wage loss verification" if damages_score < 40 else "Wage loss documented",
+                "No demonstrative exhibits prepared" if overall < 60 else "Demonstrative exhibits in progress"
             ],
             "expert_witness_recommendations": [
-                {"specialty": "Orthopedic Surgery", "purpose": "Standard of care and causation", "priority": "high"},
-                {"specialty": "Economics/Vocational", "purpose": "Lost earnings capacity and life care plan", "priority": "high"},
-                {"specialty": "Pain Management", "purpose": "Future medical needs and prognosis", "priority": "medium"},
-                {"specialty": "Life Care Planning", "purpose": "Comprehensive future care cost assessment", "priority": "medium"}
+                {{"specialty": "Orthopedic Surgery", "purpose": "Standard of care and causation", "priority": "high"}} if "spine" in summary_lower or "ortho" in summary_lower or "fracture" in summary_lower else {{"specialty": "Medical Expert", "purpose": "Standard of care and causation", "priority": "high"}},
+                {{"specialty": "Economics/Vocational", "purpose": "Lost earnings capacity", "priority": "high"}},
+                {{"specialty": "Pain Management", "purpose": "Future medical needs", "priority": "medium"}},
+                {{"specialty": "Life Care Planning", "purpose": "Future care cost assessment", "priority": "medium"}}
             ],
             "motion_deadlines_checklist": [
-                {"motion": "Dispositive Motions (SJ, Daubert)", "deadline": "60 days before trial", "status": "not started"},
-                {"motion": "Motions in Limine", "deadline": "30 days before trial", "status": "not started"},
-                {"motion": "Jury Instructions", "deadline": "21 days before trial", "status": "not started"},
-                {"motion": "Trial Brief", "deadline": "14 days before trial", "status": "not started"},
-                {"motion": "Voir Dire/Exhibit Lists", "deadline": "7 days before trial", "status": "not started"}
+                {{"motion": "Dispositive Motions", "deadline": "60 days before trial", "status": "not started"}} if not kw_trial else {{"motion": "Dispositive Motions", "deadline": "Pending", "status": "filed"}},
+                {{"motion": "Motions in Limine", "deadline": "30 days before trial", "status": "not started"}},
+                {{"motion": "Jury Instructions", "deadline": "21 days before trial", "status": "not started"}},
+                {{"motion": "Trial Brief", "deadline": "14 days before trial", "status": "not started"}},
+                {{"motion": "Voir Dire/Exhibit Lists", "deadline": "7 days before trial", "status": "not started"}}
             ],
-            "trial_timeline_estimate": {
-                "estimated_duration": "5-7 trial days",
-                "jury_selection": "Day 1 — half day",
-                "plaintiff_case": "Days 2-4 (3 days)",
-                "defense_case": "Day 5 (1-2 days)",
-                "closing_arguments": "Day 6 (half day)",
-                "deliberations": "Day 6 afternoon — Day 7"
-            },
-            "presiding_judge_notes": "Judge assignment not yet known. If assigned to Hon. Smith (Civil Division), expect strict adherence to pretrial deadlines and limited page limits on motions. Judge tends to favor bifurcated trials in medmal cases.",
-            "evidence_rules": 'FRE 401/402 — relevance; FRE 702/703 — Daubert standard; FRE 801-807 — hearsay exceptions; FRE 803(4) — medical diagnosis exception; ' + get_state_law(state).get('jury_instructions',{}).get('system','State evidence code') + ' — state-specific rules',
-            "daubert_strategy": get_state_law(state).get('name',state) + ' gatekeeper standard; Daubert v. Merrell Dow (1993) 509 U.S. 579; Kumho Tire v. Carmichael (1999) 526 U.S. 137; Sargon Enterprises v. USC (2012) 55 Cal.4th 747; ' + ('Frye standard applies in some state courts' if state.upper() in ['WA','NY','NJ','MI','MN','PA','IL','CA'] else 'Daubert standard applies in this jurisdiction'),
-            "motion_in_limine_suggestions": 'MIL #1: Exclude plaintiff\'s pre-existing conditions without foundation; MIL #2: Preclude collateral source mention under ' + get_state_law(state).get('collateral_source_rule',{}).get('statute','applicable law') + '; MIL #3: Exclude defense expert outside scope (FRCP 26(a)(2)); MIL #4: Bifurcation opposition',
-            "admissibility_case_law": '; '.join([c['case']+' ('+str(c['year'])+')' for c in get_state_law(state).get('key_case_law',[])[:2]]) or 'Daubert v. Merrell Dow (1993) 509 U.S. 579; Kumho Tire v. Carmichael (1999) 526 U.S. 137; state evidence rules',
-            "differentiation_strategies": 'Frame evidence gaps as strengths — absence of contrary evidence suggests liability; argue missing records create adverse inference spoliation; cite defendant\'s own internal protocols as standard of care; use treating physicians as liability experts under ' + get_state_law(state).get('jury_instructions',{}).get('system','state rules'),
+            "trial_timeline_estimate": {{
+                "estimated_duration": f"{5 if kw_mm else 4}-{8 if kw_mm else 6} trial days",
+                "jury_selection": "Day 1 -- half day",
+                "plaintiff_case": f"Days 2-{4 if kw_mm else 3} ({3 if kw_mm else 2} days)",
+                "defense_case": f"Day {5 if kw_mm else 4} (1-2 days)",
+                "closing_arguments": f"Day {6 if kw_mm else 5} (half day)",
+                "deliberations": f"Day {6 if kw_mm else 5} afternoon -- Day {7 if kw_mm else 6}"
+            }},
+            "presiding_judge_notes": f"Judge assignment not yet known for {state_name}. Standard civil division guidelines apply.",
+            "evidence_rules": 'FRE 401/402 -- relevance; FRE 702/703 -- Daubert; FRE 803(4) -- medical diagnosis; ' + get_state_law(state).get('jury_instructions',{{}}).get('system','State evidence code'),
+            "daubert_strategy": state_name + ' gatekeeper standard; Daubert v. Merrell Dow (1993); Kumho Tire (1999); Sargon (2012)',
+            "motion_in_limine_suggestions": 'MIL #1: Exclude pre-existing conditions; MIL #2: Collateral source under ' + get_state_law(state).get('collateral_source_rule',{{}}).get('statute','applicable law') + '; MIL #3: Exclude defense expert outside scope; MIL #4: Bifurcation opposition',
+            "admissibility_case_law": '; '.join([c['case']+' ('+str(c['year'])+')' for c in get_state_law(state).get('key_case_law',[])[:2]]) or 'Daubert (1993); Kumho Tire (1999); state evidence rules' if state else 'Daubert (1993); Kumho Tire (1999)',
+            "differentiation_strategies": 'Frame evidence gaps as strengths; argue missing records create adverse inference spoliation; use treating physicians as liability experts under ' + get_state_law(state).get('jury_instructions',{{}}).get('system','state rules'),
+            "winning_checklist": {{
+                "priority_actions": [p for p in [
+                    {{"action": f"Retain {'orthopedic' if 'spine' in summary_lower or 'ortho' in summary_lower or 'fracture' in summary_lower else 'medical'} expert", "deadline": "30 days", "tier": "P0"}},
+                    {{"action": "Complete medical records review", "deadline": "45 days", "tier": "P0"}},
+                    {{"action": "Obtain wage loss verification", "deadline": "45 days", "tier": "P1"}},
+                    {{"action": "Draft settlement demand", "deadline": "60 days", "tier": "P1"}},
+                    {{"action": "Complete witness interviews", "deadline": "60 days", "tier": "P2"}},
+                    {{"action": "Prepare trial exhibits", "deadline": "90 days", "tier": "P2"}}
+                ] if True],
+                "make_or_break_factor": "Expert witness retention" if expert_score < 50 else "Damages documentation" if damages_score < 50 else "Discovery completion",
+                "next_action_recommendation": recs[0] if recs else "Case appears ready for trial scheduling",
+                "day_plan": {{
+                    "next_30_days": [recs[0]] if len(recs) > 0 else ["File remaining pleadings"],
+                    "days_31_60": [recs[1]] if len(recs) > 1 else ["Begin deposition preparation"],
+                    "days_61_90": [recs[2]] if len(recs) > 2 else ["Prepare trial exhibits"]
+                }}
+            }},
+            "note": "MOCK DATA -- Configure Groq API key for AI-generated analysis."
+        }}
 
-            "winning_checklist": {
-                "p0_actions": [
-                    {"action": "Retain and finalize all expert witnesses with signed reports", "deadline": "45 days before trial", "why": "Experts must survive Daubert/Frye challenge — need time for rebuttal"},
-                    {"action": "File Daubert motions to exclude defense experts", "deadline": "60 days before trial", "why": "Without this, defense experts will present unchallenged causation testimony"},
-                    {"action": "Complete all outstanding discovery", "deadline": "30 days before trial", "why": "Unexplored discovery creates dangerous surprises at trial"},
-                    {"action": "File motions in limine", "deadline": "30 days before trial", "why": "Preclude prejudicial evidence before jury selection"}
-                ],
-                "p1_actions": [
-                    {"action": "Prepare demonstrative exhibits and trial boards", "deadline": "45 days before trial", "why": "Visual evidence increases juror retention by 65% and verdict amounts"},
-                    {"action": "Conduct mock trial or focus group", "deadline": "60 days before trial", "why": "Test themes, identify juror biases, refine damage presentation"},
-                    {"action": "Prepare deposition designations for trial", "deadline": "30 days before trial", "why": "Lock in favorable testimony and impeach inconsistent witnesses"},
-                    {"action": "Finalize jury instructions and verdict form", "deadline": "21 days before trial", "why": "Ensure instructions favor your theory of the case"}
-                ],
-                "p2_actions": [
-                    {"action": "Prepare voir dire questions", "deadline": "14 days before trial", "why": "Identify biased jurors without alienating favorable ones"},
-                    {"action": "Draft opening statement and closing argument", "deadline": "7 days before trial", "why": "Refine narrative and practice delivery"},
-                    {"action": "Coordinate witness schedules and trial subpoenas", "deadline": "14 days before trial", "why": "Ensure all witnesses appear and are prepared"},
-                    {"action": "Prepare trial brief on key legal issues", "deadline": "21 days before trial", "why": "Educate judge on your legal theories before evidence begins"}
-                ],
-                "make_or_break": "The single most critical factor is whether your liability expert survives the Daubert challenge. If they do, you present standard-of-care evidence to the jury. If they don't, your case is dismissed. Prepare your expert's CV, methodology publications, and prior testimony transcript before filing the designation.",
-                "next_action": "Today: Review your expert witness designations. Identify any gaps in their reports. Have they addressed every element of the Daubert factors? If not, have them supplement immediately.",
-                "30_60_90_day_plan": {
-                    "30_days": "File all Daubert motions and motions in limine. Complete discovery. Finalize expert reports.",
-                    "60_days": "Conduct mock trial. Prepare demonstrative exhibits. Complete deposition designations.",
-                    "90_days": "Jury selection, opening statements, plaintiff's case-in-chief. Aim to rest plaintiff's case within 3 trial days."
-                }
-            },
-
-            "case_theory": {
-                "winning_narrative": "On April 15, 2026, the plaintiff walked into the ER with chest pain — a symptom that every doctor knows requires immediate evaluation. Instead of receiving the standard of care, the plaintiff waited. And waited. The standard of care required antibiotics within one hour of sepsis identification. The hospital took 15 hours. Not because the system was broken, but because individual providers made individual choices to deviate from their own protocols. Those choices had a consequence: the plaintiff lost both feet to preventable septic shock. This case is not about a medical error. It is about a system that failed because individuals failed to follow their own rules.",
-                "soc_violation_impact": "The most impactful violation is the delayed antibiotic administration (15-hour gap vs. 1-hour standard). This is the most powerful because: (1) The standard is absolute — Surviving Sepsis Campaign Hour-1 Bundle, not a judgment call; (2) The timing gap is dramatic — 15 hours vs. 1 hour; (3) The consequence is directly linked — every hour delay increases mortality by 7.6% per the medical literature.",
-                "causation_chain_simplified": "Here's what happened in plain English: The patient came in with an infection. The first sign of sepsis was at 7 PM. The hospital's own protocol says antibiotics must be started within one hour. The first dose was given at 10 AM the next day — 15 hours later. By then, the infection had spread through the bloodstream. The body's organs started shutting down. Blood flow to the feet stopped. The tissue died. Both feet had to be amputated. The timeline is not complicated: 15-hour delay → septic shock → amputation. Every hour of delay increases death risk by 7.6%.",
-                "defense_medical_theory": [
-                    {"defense_argument": "Blood cultures were needed before antibiotics", "rebuttal": "The Surviving Sepsis Campaign guidelines explicitly state: 'Antibiotics should be administered within one hour of recognition of sepsis, AFTER blood cultures if possible, but do not delay antibiotics for cultures.' The guidelines prioritize antibiotics over cultures."},
-                    {"defense_argument": "The patient's diabetes caused the peripheral vascular disease", "rebuttal": "The patient had well-controlled diabetes with no prior history of peripheral vascular disease. Medical records show normal pedal pulses on admission. The amputation was directly caused by septic shock-induced vasopressor therapy, not diabetes."},
-                    {"defense_argument": "The patient's condition was not clearly sepsis at presentation", "rebuttal": "The qSOFA score at presentation was 2 (altered mental status + respiratory rate ≥22). The hospital's own sepsis protocol requires RRT activation at qSOFA ≥2. The protocol was not followed."}
-                ],
-                "timeline_visual_strategy": "Create a large-format timeline for the courtroom wall with these highlighted events: (1) 7 PM: First abnormal vitals — highlight the qSOFA score of 2 in RED; (2) 7:15 PM: Sepsis protocol not activated — mark with a red X; (3) 10 AM next day: First antibiotics — highlight the 15-hour gap with a red bracket with '15 HOURS' in bold; (4) 48 hours later: Septic shock diagnosis — use a skull-and-crossbones icon; (5) Day 7: Amputation — photo of feet. Place the timeline where the jury can see it throughout trial.",
-                "damages_anchoring": "Link each medical event to specific dollar amounts on the timeline: (1) ER visit ($15K); (2) ICU stay — 7 days at $8K/day ($56K); (3) Surgical amputation ($85K); (4) Inpatient rehab — 30 days at $2K/day ($60K); (5) Prosthetics — bilateral ($50K); (6) Future medical: $3.2M (life care plan). Total to date: $485K. Recommended anchor for settlement/verdict: $6.25M — based on life care plan ($3.2M), lost earnings ($1.85M), and pain/suffering at 2x economic damages."
-            },
-            "note": "MOCK DATA — Configure Groq API key for AI-generated analysis."
-        }
     
     prompt = f"""
     Analyze the following case summary and produce a trial readiness score for {state}.
