@@ -1271,6 +1271,37 @@ def generate_life_care_plan(injury: str, age: int, state: str) -> dict:
             "collateral_source_rules": get_state_law(state).get('collateral_source_rule',{}).get('statute','Varies') + ' — ' + ('reduction applies' if 'reduction' in get_state_law(state).get('collateral_source_rule',{}).get('reduction','').lower() else 'no reduction' if 'no' in get_state_law(state).get('collateral_source_rule',{}).get('reduction','').lower() else 'consult local counsel'),
             "per_diem_argument_law": 'Beagle v. Vasold (1966) 65 Cal.2d 166 — per diem argument permitted; ' + get_state_law(state).get('jury_instructions',{}).get('system','State pattern') + ' — per diem instruction; Rodriguez v. McDonnell Douglas (1978) 87 Cal.App.3d 626 — per diem for future P&S',
             "differentiation_strategies": 'Argue life expectancy longer than CDC tables due to access to excellent care; use structured settlement to avoid tax under IRC Sec 104(a)(2); present per diem argument with simple math jurors can verify; ' + ('cite ' + get_state_law(state).get('damage_caps',{}).get('statute','') + ' cap limitations' if state in ['CA','TX','FL','PA'] else 'use state-specific jury instructions for damages'),
+
+            "damages_maximization": {
+                "jury_presentation_strategy": "Present the life care plan in THREE phases: (1) Day-in-the-Life video — establish the human story and create emotional investment; (2) Life Care Planner testimony — walk through each cost category with large-format exhibits showing annual costs stacked over life expectancy; (3) Economist testimony — discount to present value and project lost earnings. Always lead with the concrete numbers (annual cost: $140,100) before the emotional appeal.",
+                "cost_categories_by_impact": [
+                    {"category": "Home Health Aide ($72K/yr)", "jury_impact": "HIGH", "why": "Jurors can visualize someone needing help with bathing, dressing, feeding — creates empathy"},
+                    {"category": "Physical Therapy ($12K/yr)", "jury_impact": "MEDIUM-HIGH", "why": "Shows ongoing struggle and effort to recover — makes injury feel real"},
+                    {"category": "Home Modifications ($18K)", "jury_impact": "MEDIUM", "why": "Concrete, tangible need — ramp, widened doorways, accessible bathroom"},
+                    {"category": "Physician Visits ($8.5K/yr)", "jury_impact": "MEDIUM", "why": "Establishes permanence — this is a lifetime of medical care"},
+                    {"category": "Medications ($14.4K/yr)", "jury_impact": "MEDIUM", "why": "Daily reminder of injury — jurors think 'every day for the rest of their life'"},
+                    {"category": "Medical Equipment ($5.6K/yr)", "jury_impact": "LOW-MEDIUM", "why": "Technical — best presented as part of broader cost picture"}
+                ],
+                "humanization_techniques": [
+                    "Use the 'coffee test' — '$72,000/year for home health aide is $197/day. That's less than a cup of coffee every hour for 24 hours.'",
+                    "Stack dollar bills physically — show what $140K looks like in cash, then multiply by life expectancy years",
+                    "Use a timeline across the courtroom wall — mark each year of life expectancy with annual costs",
+                    "Have the plaintiff demonstrate one daily struggle (e.g., putting on a shirt) during testimony — let the jury see the effort"
+                ],
+                "defense_cost_attacks": [
+                    {"attack": "Life expectancy is shorter than claimed", "rebuttal": "Use CDC injury-specific life tables, SSA disability tables, and plaintiff's family longevity history. The defense expert is applying general population tables to a specific plaintiff."},
+                    {"attack": "Costs are speculative/not medically necessary", "rebuttal": "Every cost category must have foundation from a treating physician's order or rehabilitation prescription. Get written orders before trial."},
+                    {"attack": "Discount rate should be higher", "rebuttal": "Apply PSS (Personal Injury Settlement) discount rate of 1-2% under IRC Sec 104(a)(2), not the defense's 5-7% rate. Cite current bond yields."},
+                    {"attack": "Family can provide care for free", "rebuttal": "Family care is not free — it requires family members to leave employment or reduce hours. Cite lost caregiver wages. Also, family care is not professional care."}
+                ],
+                "settlement_presentation": "For adjuster/mediator presentations: (1) Lead with the life care plan summary — one page showing annual total × life expectancy = lifetime total; (2) Follow with Medicare Set-Aside analysis — shows you've considered the cost containment angle; (3) Present structured settlement illustration with specific annuity quotes from 3 providers; (4) Close with day-in-the-life video highlights — 3 minutes max. Total presentation: 20 minutes.",
+                "video_day_in_life": {
+                    "placement": "Open plaintiff's case with 5-7 minute video before any testimony. Jurors form opinions within the first hour.",
+                    "content": "Film 2-3 non-consecutive days. Include: morning routine (bathing, dressing), therapy session, family interactions (dinner, playtime), mobility challenges (stairs, bathroom). Show what they can't do, not just what they can.",
+                    "production": "Budget $5,000-$15,000. Use professional videographer with legal experience. Avoid dramatization — raw, authentic footage is most powerful.",
+                    "legal_foundation": "Admissible as demonstrative evidence under Evidence Code 1400-1560. Have a witness authenticate it showing it fairly and accurately depicts the plaintiff's daily life."
+                }
+            },
             "note": "MOCK DATA — Configure Groq API key for AI-generated estimates."
         }
 
@@ -1449,6 +1480,38 @@ def generate_opposing_counsel_profile(attorney_name: str, firm: str, practice_ar
             "discovery_abuse_case_law": 'SOSA v. DIRECTV (9th Cir. 2006) — spoliation; Fjelstad v. Am. Honda Motor (9th Cir. 1985) — discovery sanctions; ' + ('CCP 2023.010-2023.030' if state.upper()=='CA' else 'state discovery rules') + '; FRCP Rule 37(e)',
             "counter_motions": get_state_law(state).get('procedural_rules',{}).get('offer_of_judgment','FRCP 68') + ' — cost-shifting; FRCP Rule 56(d) — additional discovery; state summary judgment opposition rules',
             "differentiation_strategies": 'Focus on this attorney\'s specific pattern in YOUR case type; cite specific discovery abuses from prior cases in this jurisdiction; prepare Daubert opposition citing the ' + get_state_law(state).get('key_case_law',[{}])[0].get('court','state court') + ' standard',
+
+            "how_to_beat": {
+                "psychological_profile": "This attorney is results-driven and reputation-conscious. They fear looking weak to their client more than losing at trial. They are most vulnerable when their motion practice fails — it undercuts their confidence and their client's trust. They respond to displays of superior preparation, especially detailed knowledge of their own prior cases.",
+                "settlement_triggers": [
+                    "After losing a dispositive motion — they immediately pivot to settlement mode within 2 weeks",
+                    "When plaintiff's expert survives Daubert challenge — they recalculate risk significantly",
+                    "After deposition where their key witness contradicts prior sworn testimony",
+                    "When defense costs exceed 30% of policy limits — carrier pressure forces settlement"
+                ],
+                "deposition_weaknesses": [
+                    "Overprepares witnesses leading to robotic testimony — use this to make them appear coached",
+                    "Talks too much during depositions — ask open-ended questions and let silence work",
+                    "Struggles with medical causation — prepare 3 specific learned treatise questions that challenge their expert's methodology",
+                    "Weak on spoliation issues — push early for ESI protocol and test their document preservation"
+                ],
+                "motion_practice_weaknesses": [
+                    "Files boilerplate Daubert motions — counter with detailed expert CV, methodology publications, and prior testimony transcripts",
+                    "Over-relies on summary judgment in cases with factual disputes — leverage every disputed fact in opposition",
+                    "Weak on motions in limine — file your own early to force them to show their strategy",
+                    "Predictable timing — files MSJ at 90-day mark; have opposition ready by day 60"
+                ],
+                "recommended_tone": "Professional but aggressive. Be respectful in all written communications but make clear you are prepared for trial. Use their own words against them in every settlement demand. Schedule every deadline with precision — they respond to preparation, not bluster.",
+                "trial_vs_settle": {
+                    "analysis": "This attorney settles approximately 40% of cases at mediation, but fights to verdict in cases with clear liability. They rarely settle before discovery closes. The settlement window opens after unfavorable discovery rulings and closes once trial preparation begins in earnest.",
+                    "recommendation": "Prepare for trial aggressively from day one. Settlement is possible after key deposition rulings, but only if they believe you will actually try the case."
+                },
+                "defense_experts_to_preempt": [
+                    {"expert": "Dr. James Reynolds (defense biomechanics)", "counter": "Challenge his assumptions about plaintiff's activity level — depositions show plaintiff was sedentary"},
+                    {"expert": "Dr. Sarah Chen (defense life care planner)", "counter": "Her plans systematically undercount future medical cost inflation — use BLS medical CPI data"},
+                    {"expert": "Dr. Michael Torres (defense neurologist)", "counter": "He has been excluded in 3 prior cases for unreliable methodology under FRE 702/Daubert"}
+                ]
+            },
             "note": "MOCK DATA — Configure Groq API key for AI-generated profiles."
         }
     
@@ -1532,7 +1595,20 @@ def generate_opposing_counsel_profile(attorney_name: str, firm: str, practice_ar
             "discovery_abuse_case_law": 'SOSA v. DIRECTV (9th Cir. 2006) — spoliation; FRCP Rule 37(e); ' + ('CCP 2023.010' if state.upper()=='CA' else 'state discovery rules'),
             "counter_motions": get_state_law(state).get('procedural_rules',{}).get('offer_of_judgment','FRCP 68') + ' — cost-shifting; FRCP Rule 56(d); protective orders',
             "differentiation_strategies": 'Focus on this attorney\'s specific pattern in YOUR case type; cite prior discovery abuses in this jurisdiction; prepare Daubert opposition',
-        }
+        
+            "damages_maximization": {
+                "jury_presentation_strategy": "Phase 1: Day-in-Life video; Phase 2: Planner; Phase 3: Economist",
+                "cost_categories_by_impact": [{"category": "Home Health Aide", "jury_impact": "HIGH"}],
+                "defense_cost_attacks": [{"attack": "Life expectancy", "rebuttal": "CDC tables"}]
+            },
+
+            "how_to_beat": {
+                "psychological_profile": "Results-driven, fears looking weak",
+                "settlement_triggers": ["After losing dispositive motion"],
+                "recommended_tone": "Professional but aggressive",
+                "trial_vs_settle": {"analysis": "Settles 40% at mediation"}
+            },
+}
 
 
 def generate_sol_guardian(case_type: str, incident_date: str, state: str) -> dict:
@@ -1588,6 +1664,47 @@ def generate_sol_guardian(case_type: str, incident_date: str, state: str) -> dic
             "tolling_case_law": '; '.join([c['case']+' ('+str(c['year'])+') — '+c.get('holding','')[:60] for c in get_state_law(state).get('key_case_law',[]) if any(w in c.get('holding','').lower() for w in ['toll','discovery','sol','limitation','statute'])]) or 'Delayed discovery rule applies; equitable tolling available; ' + get_state_law(state).get('name',state) + ' tolling doctrines',
             "court_rules": 'FRCP Rule 3 (commencement); FRCP Rule 4(m) (90-day service); ' + get_state_law(state).get('procedural_rules',{}).get('offer_of_judgment','State procedural rules') + '; state-specific service deadlines apply',
             "differentiation_strategies": "Argue delayed discovery for latent injuries or foreign objects; assert equitable estoppel where defendant concealed wrongdoing; toll statute for minors/minority tolling under state statutes; preserve claim via pre-suit notice where applicable",
+
+            "strategic_timeline": {
+                "critical_deadlines": [
+                    {"item": "Statute of Limitations", "deadline": "Based on incident date and state SOL for this case type", "danger_level": "CRITICAL", "consequence": "Case is permanently barred if missed"},
+                    {"item": "Statute of Repose", "deadline": "Typically 3-10 years from incident regardless of discovery", "danger_level": "CRITICAL", "consequence": "Case is permanently barred — no equitable tolling"},
+                    {"item": "Pre-suit notice deadline", "deadline": "90 days before SOL in medmal (varies by state)", "danger_level": "HIGH", "consequence": "Procedural bar to filing — may require re-filing with notice"},
+                    {"item": "Certificate of Merit deadline", "deadline": "60-90 days after filing complaint (varies by state)", "danger_level": "HIGH", "consequence": "Case dismissed with prejudice if late or insufficient"},
+                    {"item": "Expert witness designation", "deadline": "Typically 90-180 days before trial", "danger_level": "HIGH", "consequence": "Expert testimony excluded"},
+                    {"item": "Discovery cutoff", "deadline": "Typically 30-60 days before trial", "danger_level": "MEDIUM", "consequence": "Evidence may be excluded"}
+                ],
+                "pre_litigation_checklist": [
+                    "1. Immediately: Send spoliation/hold letter to all potential defendants — preserve evidence, surveillance, documents, and electronically stored information",
+                    "2. Week 1: Obtain and secure all relevant medical records, incident reports, and employment records",
+                    "3. Week 2: Identify and consult with potential expert witnesses — secure their availability before SOL runs",
+                    "4. Week 3: Draft and send demand letter to all potential defendants with sufficient documentation to demonstrate claim value",
+                    "5. Week 4: Prepare complaint with all necessary state-specific pre-suit certifications",
+                    "6. Before filing: Verify all pre-suit notice requirements are satisfied — this varies significantly by state"
+                ],
+                "file_now_or_wait": {
+                    "recommendation": "File immediately if SOL is within 6 months or if defendant is destroying evidence. Consider waiting if: (1) settlement negotiations are progressing, (2) medical condition is still evolving, (3) discovery would be more efficient after filing.",
+                    "risk_assessment": "Risk of waiting: SOL running, evidence loss, witness memories fading. Risk of filing now: triggering defense costs, revealing strategy early, SOL clock on counterclaims."
+                },
+                "tolling_opportunities": [
+                    "Discovery Rule — SOL begins when injury discovered, not when it occurred (applies to foreign objects, latent diseases, fraudulent concealment)",
+                    "Minority Tolling — If plaintiff was under 18, SOL is tolled until 18th birthday in most states",
+                    "Equitable Tolling — Available if defendant's fraud or misconduct prevented timely filing",
+                    "Military Tolling — SOL tolled for active-duty military personnel under SCRA",
+                    "Insanity/Incapacity Tolling — Some states toll SOL for mental incapacity at time of accrual"
+                ],
+                "jurisdiction_shopping": {
+                    "analysis": "Check whether: (1) a different venue has longer SOL for this case type, (2) defendant's principal place of business creates jurisdiction elsewhere, (3) federal court has diversity jurisdiction with different procedural rules.",
+                    "caution": "Be careful of transferring to a jurisdiction with a shorter SOL — the transfer may not preserve the original filing date under state law."
+                },
+                "calendar_integration": [
+                    {"date": "Incident Date + SOL period = Filing Deadline", "priority": "CRITICAL", "action": "File complaint"},
+                    {"date": "Filing Date + 120 days", "priority": "HIGH", "action": "Serve all defendants"},
+                    {"date": "Service Date + 60 days", "priority": "HIGH", "action": "Initial disclosures due"},
+                    {"date": "Filing Date + 180 days", "priority": "HIGH", "action": "Expert witness designations due"},
+                    {"date": "Filing Date + 12 months", "priority": "MEDIUM", "action": "Discovery cutoff"}
+                ]
+            },
             "note": "MOCK DATA — Configure Groq API key for AI-generated SOL analysis."
         }
     
@@ -1737,6 +1854,47 @@ def generate_trial_readiness(case_summary: str, state: str = "CA") -> dict:
             "motion_in_limine_suggestions": 'MIL #1: Exclude plaintiff\'s pre-existing conditions without foundation; MIL #2: Preclude collateral source mention under ' + get_state_law(state).get('collateral_source_rule',{}).get('statute','applicable law') + '; MIL #3: Exclude defense expert outside scope (FRCP 26(a)(2)); MIL #4: Bifurcation opposition',
             "admissibility_case_law": '; '.join([c['case']+' ('+str(c['year'])+')' for c in get_state_law(state).get('key_case_law',[])[:2]]) or 'Daubert v. Merrell Dow (1993) 509 U.S. 579; Kumho Tire v. Carmichael (1999) 526 U.S. 137; state evidence rules',
             "differentiation_strategies": 'Frame evidence gaps as strengths — absence of contrary evidence suggests liability; argue missing records create adverse inference spoliation; cite defendant\'s own internal protocols as standard of care; use treating physicians as liability experts under ' + get_state_law(state).get('jury_instructions',{}).get('system','state rules'),
+
+            "winning_checklist": {
+                "p0_actions": [
+                    {"action": "Retain and finalize all expert witnesses with signed reports", "deadline": "45 days before trial", "why": "Experts must survive Daubert/Frye challenge — need time for rebuttal"},
+                    {"action": "File Daubert motions to exclude defense experts", "deadline": "60 days before trial", "why": "Without this, defense experts will present unchallenged causation testimony"},
+                    {"action": "Complete all outstanding discovery", "deadline": "30 days before trial", "why": "Unexplored discovery creates dangerous surprises at trial"},
+                    {"action": "File motions in limine", "deadline": "30 days before trial", "why": "Preclude prejudicial evidence before jury selection"}
+                ],
+                "p1_actions": [
+                    {"action": "Prepare demonstrative exhibits and trial boards", "deadline": "45 days before trial", "why": "Visual evidence increases juror retention by 65% and verdict amounts"},
+                    {"action": "Conduct mock trial or focus group", "deadline": "60 days before trial", "why": "Test themes, identify juror biases, refine damage presentation"},
+                    {"action": "Prepare deposition designations for trial", "deadline": "30 days before trial", "why": "Lock in favorable testimony and impeach inconsistent witnesses"},
+                    {"action": "Finalize jury instructions and verdict form", "deadline": "21 days before trial", "why": "Ensure instructions favor your theory of the case"}
+                ],
+                "p2_actions": [
+                    {"action": "Prepare voir dire questions", "deadline": "14 days before trial", "why": "Identify biased jurors without alienating favorable ones"},
+                    {"action": "Draft opening statement and closing argument", "deadline": "7 days before trial", "why": "Refine narrative and practice delivery"},
+                    {"action": "Coordinate witness schedules and trial subpoenas", "deadline": "14 days before trial", "why": "Ensure all witnesses appear and are prepared"},
+                    {"action": "Prepare trial brief on key legal issues", "deadline": "21 days before trial", "why": "Educate judge on your legal theories before evidence begins"}
+                ],
+                "make_or_break": "The single most critical factor is whether your liability expert survives the Daubert challenge. If they do, you present standard-of-care evidence to the jury. If they don't, your case is dismissed. Prepare your expert's CV, methodology publications, and prior testimony transcript before filing the designation.",
+                "next_action": "Today: Review your expert witness designations. Identify any gaps in their reports. Have they addressed every element of the Daubert factors? If not, have them supplement immediately.",
+                "30_60_90_day_plan": {
+                    "30_days": "File all Daubert motions and motions in limine. Complete discovery. Finalize expert reports.",
+                    "60_days": "Conduct mock trial. Prepare demonstrative exhibits. Complete deposition designations.",
+                    "90_days": "Jury selection, opening statements, plaintiff's case-in-chief. Aim to rest plaintiff's case within 3 trial days."
+                }
+            },
+
+            "case_theory": {
+                "winning_narrative": "On April 15, 2026, the plaintiff walked into the ER with chest pain — a symptom that every doctor knows requires immediate evaluation. Instead of receiving the standard of care, the plaintiff waited. And waited. The standard of care required antibiotics within one hour of sepsis identification. The hospital took 15 hours. Not because the system was broken, but because individual providers made individual choices to deviate from their own protocols. Those choices had a consequence: the plaintiff lost both feet to preventable septic shock. This case is not about a medical error. It is about a system that failed because individuals failed to follow their own rules.",
+                "soc_violation_impact": "The most impactful violation is the delayed antibiotic administration (15-hour gap vs. 1-hour standard). This is the most powerful because: (1) The standard is absolute — Surviving Sepsis Campaign Hour-1 Bundle, not a judgment call; (2) The timing gap is dramatic — 15 hours vs. 1 hour; (3) The consequence is directly linked — every hour delay increases mortality by 7.6% per the medical literature.",
+                "causation_chain_simplified": "Here's what happened in plain English: The patient came in with an infection. The first sign of sepsis was at 7 PM. The hospital's own protocol says antibiotics must be started within one hour. The first dose was given at 10 AM the next day — 15 hours later. By then, the infection had spread through the bloodstream. The body's organs started shutting down. Blood flow to the feet stopped. The tissue died. Both feet had to be amputated. The timeline is not complicated: 15-hour delay → septic shock → amputation. Every hour of delay increases death risk by 7.6%.",
+                "defense_medical_theory": [
+                    {"defense_argument": "Blood cultures were needed before antibiotics", "rebuttal": "The Surviving Sepsis Campaign guidelines explicitly state: 'Antibiotics should be administered within one hour of recognition of sepsis, AFTER blood cultures if possible, but do not delay antibiotics for cultures.' The guidelines prioritize antibiotics over cultures."},
+                    {"defense_argument": "The patient's diabetes caused the peripheral vascular disease", "rebuttal": "The patient had well-controlled diabetes with no prior history of peripheral vascular disease. Medical records show normal pedal pulses on admission. The amputation was directly caused by septic shock-induced vasopressor therapy, not diabetes."},
+                    {"defense_argument": "The patient's condition was not clearly sepsis at presentation", "rebuttal": "The qSOFA score at presentation was 2 (altered mental status + respiratory rate ≥22). The hospital's own sepsis protocol requires RRT activation at qSOFA ≥2. The protocol was not followed."}
+                ],
+                "timeline_visual_strategy": "Create a large-format timeline for the courtroom wall with these highlighted events: (1) 7 PM: First abnormal vitals — highlight the qSOFA score of 2 in RED; (2) 7:15 PM: Sepsis protocol not activated — mark with a red X; (3) 10 AM next day: First antibiotics — highlight the 15-hour gap with a red bracket with '15 HOURS' in bold; (4) 48 hours later: Septic shock diagnosis — use a skull-and-crossbones icon; (5) Day 7: Amputation — photo of feet. Place the timeline where the jury can see it throughout trial.",
+                "damages_anchoring": "Link each medical event to specific dollar amounts on the timeline: (1) ER visit ($15K); (2) ICU stay — 7 days at $8K/day ($56K); (3) Surgical amputation ($85K); (4) Inpatient rehab — 30 days at $2K/day ($60K); (5) Prosthetics — bilateral ($50K); (6) Future medical: $3.2M (life care plan). Total to date: $485K. Recommended anchor for settlement/verdict: $6.25M — based on life care plan ($3.2M), lost earnings ($1.85M), and pain/suffering at 2x economic damages."
+            },
             "note": "MOCK DATA — Configure Groq API key for AI-generated analysis."
         }
     
@@ -1835,7 +1993,19 @@ def generate_trial_readiness(case_summary: str, state: str = "CA") -> dict:
             "motion_in_limine_suggestions": 'MIL #1: Exclude plaintiff\'s pre-existing conditions without foundation; MIL #2: Preclude collateral source mention under ' + get_state_law(state).get('collateral_source_rule',{}).get('statute','applicable law') + '; MIL #3: Exclude defense expert outside scope (FRCP 26(a)(2)); MIL #4: Bifurcation opposition',
             "admissibility_case_law": '; '.join([c['case']+' ('+str(c['year'])+')' for c in get_state_law(state).get('key_case_law',[])[:2]]) or 'Daubert v. Merrell Dow (1993) 509 U.S. 579; Kumho Tire v. Carmichael (1999) 526 U.S. 137; state evidence rules',
             "differentiation_strategies": 'Frame evidence gaps as strengths — absence of contrary evidence suggests liability; argue missing records create adverse inference spoliation; cite defendant\'s own internal protocols as standard of care; use treating physicians as liability experts under ' + get_state_law(state).get('jury_instructions',{}).get('system','state rules'),
-        }
+        
+            "strategic_timeline": {
+                "critical_deadlines": [{"item": "SOL", "danger": "CRITICAL"}],
+                "pre_litigation_checklist": ["1. Spoliation letter", "2. Medical records"],
+                "file_now_or_wait": {"recommendation": "File if SOL within 6 months"}
+            },
+
+            "winning_checklist": {
+                "p0_actions": [{"action": "Finalize experts", "deadline": "45 days"}, {"action": "Daubert motions", "deadline": "60 days"}],
+                "p1_actions": [{"action": "Demonstrative exhibits", "deadline": "45 days"}],
+                "make_or_break": "Expert survival of Daubert"
+            },
+}
 
 
 # =========================================================================
@@ -1892,6 +2062,59 @@ def predict_settlement(damages: float, case_type: str, state: str, liability_str
                 "recommended_theme": "This was not a mistake — it was a deviation from established protocols that any competent provider should have followed",
                 "key_damages_narrative": "Focus on concrete economic losses and specific life changes rather than abstract pain and suffering",
                 "defense_narrative_to_counter": "Anticipate arguments about limited resources, system failures, and shared responsibility"
+            },
+
+            "winning_strategy": {
+                "roadmap": [
+                    "1. Week 1-2: Preserve evidence — send spoliation letter, preserve surveillance footage, obtain medical records with chain-of-custody",
+                    "2. Week 3-4: Retain liability expert (standard of care) and damages expert (life care plan/economics) — file required certificates",
+                    "3. Month 2: File complaint with specific discovery requests for defendant's internal policies and prior similar incidents — leverage state-specific pleading requirements",
+                    "4. Month 3-4: Propound written discovery targeting defendant's knowledge of defect/hazard; serve deposition notices for key witnesses",
+                    "5. Month 5: Take priority depositions — defendant's PMQ, treating physicians, liability expert — build the record for summary judgment opposition",
+                    "6. Month 6-7: Mediation after discovery but before expensive expert discovery — use state-specific mediation requirements to compel good faith participation",
+                    "7. Month 8+: Trial prep — Daubert motions to exclude defense experts, motions in limine, trial briefs"
+                ],
+                "strongest_arguments": [
+                    "1. Standard of care deviation is well-documented — 'The defendant's own internal policies required X, and they did Y. This is not a judgment call; it's a protocol violation.'",
+                    "2. Causation is clear — 'Before the defendant's action, the plaintiff was healthy/functional. After, they suffered X. The temporal connection is irrefutable.'",
+                    "3. Damages are concrete and well-documented with specific medical bills, lost wage records, and life care plan — juries award more when they see exact figures, not ranges"
+                ],
+                "weakest_points": [
+                    "1. Pre-existing conditions — Mitigation: Request plaintiff's pre-injury medical records proactively, identify and distinguish each pre-existing condition with specific treatment dates",
+                    "2. Comparative fault allegations — Mitigation: Frame plaintiff's actions as 'ordinary behavior in an extraordinary situation' using day-in-the-life evidence",
+                    "3. Contributing non-party actors — Mitigation: Name all potential defendants early to avoid empty-chair defense; use apportionment statutes to your advantage"
+                ],
+                "defense_playbook": [
+                    "Defense Argument 1: 'The standard of care was met' — Counter: 'Cite the specific protocol paragraph they violated. If the protocol is the standard, deviation is per se negligence.'",
+                    "Defense Argument 2: 'Causation is speculative' — Counter: 'The differential diagnosis eliminated other causes. The temporal proximity (X hours/days) is within the known medical latency period.'",
+                    "Defense Argument 3: 'Damages are inflated' — Counter: 'Every dollar is tied to a specific medical bill or life care plan line item with foundation from a treating physician.'"
+                ],
+                "settle_or_try": {
+                    "recommendation": "Strongly recommend trial if liability is 60%+ and damages exceed policy limits",
+                    "reasons": [
+                        "1. Clear liability with documented protocol violation eliminates defense's strongest argument",
+                        "2. State damage caps limit downside risk while catastrophic injury facts maximize jury appeal",
+                        "3. Defendant's insurance carrier has a history of settling only after unfavorable summary judgment rulings"
+                    ]
+                },
+                "settlement_anchors": {
+                    "opening_demand": "150% of high-end estimated verdict range — $675K for $450K estimated verdict",
+                    "walkaway": "70% of low-end estimate — $175K for $250K estimated range",
+                    "target": "Midpoint between low and high — $350K for typical $250K-$450K range",
+                    "rationale": "Demand high to create anchoring effect; walkaway at coverage floor ensures minimum recovery; target aligns with median verdict in jurisdiction"
+                },
+                "deposition_priority_witnesses": [
+                    "1. Defendant's PMQ (Person Most Qualified) — Extract admissions about policy violations, prior similar incidents, training deficiencies",
+                    "2. Plaintiff's treating physician — Lock in standard of care testimony before defense can influence them",
+                    "3. Defendant's liability expert (if retained) — Probe qualifications, methodology, and compensation to lay foundation for Daubert challenge",
+                    "4. Fact witnesses — Eyewitnesses to the incident/condition, emergency responders"
+                ],
+                "mediation_strategy": {
+                    "timing": "After key depositions but before expert exchanges — usually month 6-7",
+                    "reveal": "Strong liability evidence (documented protocol violation), concrete damages figures, compelling day-in-the-life highlights",
+                    "withhold": "Daubert motion strategy, weakest expert opinions, key deposition admissions you plan to exploit at trial",
+                    "technique": "Use bracketing — start high ($675K), bracket down only after defendant shows cards with a specific number. Never make the first move below $500K."
+                }
             },
             "note": "MOCK DATA — Configure Groq API key for AI-generated settlement analysis."
         }
@@ -1977,7 +2200,14 @@ def predict_settlement(damages: float, case_type: str, state: str, liability_str
                 "key_damages_narrative": "Focus on concrete economic losses and specific life changes",
                 "defense_narrative_to_counter": "Anticipate arguments about limited resources and shared responsibility"
             },
-        }
+        
+            "winning_strategy": {
+                "roadmap": ["1. Preserve evidence", "2. File complaint", "3. Key depositions", "4. Mediation", "5. Trial prep"],
+                "strongest_arguments": ["1. Documented protocol violation", "2. Clear causation"],
+                "settle_or_try": {"recommendation": "Try if liability strong"},
+                "settlement_anchors": {"opening_demand": "150% of high", "walkaway": "70% of low"}
+            },
+}
 
 
 # =========================================================================
@@ -2117,4 +2347,9 @@ def analyze_medical_case(case_description: str, state: str = "CA") -> dict:
             "standard_of_care_sources": 'Joint Commission Standards; CMS Conditions; Specialty guidelines; ' + get_state_law(state).get('name',state) + ' medical board standards',
             "causation_case_law": 'Loss of chance: Herskovits v. Group Health (1983); Res ipsa loquitur: Ybarra v. Spangard (1944); ' + '; '.join([c['case']+' ('+str(c['year'])+')' for c in get_state_law(state).get('key_case_law',[])[:2]]),
             "damages_precedent": '; '.join([c['case']+' ('+str(c['year'])+')' for c in get_state_law(state).get('key_case_law',[])[:3]]) or 'Federal: Jones & Laughlin Steel v. Pfeifer (1983)',
-        }
+        
+            "case_theory": {
+                "winning_narrative": "Standard protocol ignored. Consequence catastrophic.",
+                "causation_chain_simplified": "Protocol violation -> delay -> amputation"
+            },
+}
