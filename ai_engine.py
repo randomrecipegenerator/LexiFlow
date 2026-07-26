@@ -1432,87 +1432,41 @@ def generate_opposing_counsel_profile(attorney_name: str, firm: str, practice_ar
     Profile opposing counsel based on name, firm, and practice area.
     """
     if not client:
+        _pi = hash(attorney_name + firm) % 5
+        _profs = [
+            {"st":"Aggressive Litigator","w":"70-80%","s":"30%","lt":"Extremely aggressive. Files discovery day 1, 5+ depositions/week, sanctions motions.","t":["Files discovery day 1","5+ depositions/week","Sanctions motions","Refuses extensions","Bifurcation demands"],"c":["File reciprocal discovery immediately","Prepare witnesses for aggressive cross","Never ask extensions"],"dw":["Scripted cross","Struggles with deviations","Poor listener"],"mp":["SJ at 90 days","Daubert on all experts","Limine on damages"],"sh":["Settles 30%","Only after SJ loss","40-50% limits"],"ap":"Match intensity. File reciprocal discovery. Never ask extensions."},
+            {"st":"Settlement-Focused","w":"40-50%","s":"85%","lt":"Prefers resolution. Strategic negotiator. Uses mediation.","t":["Early mediation","Reasonable discovery","Professional tone","Settlement overtures","Private mediation"],"c":["Don't settle early","Build damages first","Use their reasonableness"],"dw":["Less deposition prep","Relies on charm","Settles too early"],"mp":["Prompt discovery","Early mediation","Reasonable confer"],"sh":["Settles 85%","Reasonable demands","Pays fair value"],"ap":"Don't settle early. Build your case first. Be willing to try it."},
+            {"st":"Defensive Specialist","w":"55-65%","s":"50%","lt":"Motion-heavy defense. Summary judgment, Daubert, procedural bars.","t":["SJ in every case","Aggressive Daubert","Cert of merit challenges","SOL defenses","Expert disqualification"],"c":["Prepare experts for Daubert","Document timing","Build damages case"],"dw":["Weak on damages","Ignores emotional impact","Poor jury connection"],"mp":["SJ at 90 days","Daubert at expert deadline","SOL early"],"sh":["Settles 50%","When liability weak","50-60% limits"],"ap":"Prepare experts for Daubert. Document all timing. Build damages."},
+            {"st":"Young Aggressive Associate","w":"45-55%","s":"40%","lt":"Eager to prove self. Works hard but lacks judgment. Makes procedural mistakes.","t":["Over-discover everything","Late filings","Emotional depositions","Reluctant to settle","Seeks partner input"],"c":["Be patient -- errors create record","Let them over-discover","Partner may step in"],"dw":["Excessive questions","Poor witness control","Gets frustrated"],"mp":["Overbroad discovery","Last-minute filings","Long deposition notices"],"sh":["Settles 40%","Needs partner approval","Holds for trial exp"],"ap":"Be patient. Their over-zealousness creates recordable errors."},
+            {"st":"Veteran Negotiator","w":"60-70%","s":"60%","lt":"Seasoned, strategic, pragmatic. Respected by judges.","t":["Strategic discovery","Effective mediation","Judicial leverage","Narrow motions","Fair posture"],"c":["Show respect","Prepare novel arguments","Use associates energy"],"dw":["Witness prep shortcuts","Overconfident","Misses creative arguments"],"mp":["Targeted discovery","Strategic mediation","Narrow motions"],"sh":["Settles 60%","Fair values","Fights on clear liability"],"ap":"Show respect. Prepare novel arguments."}
+        ]
+        _p = _profs[_pi]
         return {
-            "attorney": attorney_name,
-            "firm": firm,
-            "practice_area": practice_area,
-            "win_rate_estimate": "55-65%",
-            "settlement_rate": "70%",
-            "litigation_style": "Aggressive — known for extensive discovery demands and frequent motion practice. Prefers trial over settlement in high-value cases.",
+            "attorney": attorney_name, "firm": firm, "practice_area": practice_area,
+            "profile_type": _p["st"], "win_rate_estimate": _p["w"], "settlement_rate": _p["s"],
+            "litigation_style": _p["lt"],
             "notable_cases": [
-                {"case": f"{firm} v. Defendant (2023)", "outcome": "$2.3M verdict — medical malpractice"},
-                {"case": f"{firm} v. Healthcare Co. (2022)", "outcome": "Confidential settlement — product liability"}
+                {"case": f"{firm} v. Defendant (2023)", "outcome": f"${2 + _pi}.{3 - _pi}M verdict"},
+                {"case": f"{firm} v. Healthcare Co. (2022)", "outcome": f"Confidential settlement -- {_p['st']}"}
             ],
-            "strategy_tips": [
-                "Prepare for aggressive discovery — expect extensive document requests",
-                "Consider early mediation — this attorney responds well to well-prepared Daubert motions",
-                "Focus on damages evidence early — they settle when liability is uncertain but fight on clear liability"
-            ],
-            "known_litigation_tactics": [
-                "Files early motions for summary judgment to test liability theory",
-                "Aggressive deposition schedule — often schedules 3+ depositions per week",
-                "Frequent use of Daubert motions to exclude plaintiff expert witnesses",
-                "Prefers bifurcation of liability and damages at trial"
-            ],
-            "counter_strategies": [
-                "File opposition to bifurcation early — keep liability and damages together for maximum impact",
-                "Prepare expert witnesses intensively for Daubert challenges",
-                "Counter aggressive discovery with reciprocal requests on day one",
-                "Consider stipulating to undisputed facts to narrow trial issues"
-            ],
-            "motion_practice_patterns": [
-                "Files motions for summary judgment at 90-day mark",
-                "Standard Daubert challenge filed within expert disclosure deadline",
-                "Frequent motions in limine to exclude pain and suffering evidence"
-            ],
-            "deposition_weaknesses": [
-                "Tends to talk too much during depositions — let them fill silences",
-                "Overprepares witnesses, leading to robotic testimony",
-                "Struggles with medical causation cross-examinations"
-            ],
-            "settlement_history_patterns": [
-                "Settles 40% of cases before trial, typically at mediation",
-                "Prefers settlement range of 60-75% of policy limits",
-                "Rarely makes first offer — waits for plaintiff demand"
-            ],
-            "recommended_approach": "Prepare aggressively for deposition phase. This attorney's motion practice is predictable — prepare Daubert responses early. Settlement is possible after key deposition rulings. Consider early mediation only after securing favorable discovery rulings.",
-            "rules_of_professional_conduct": get_state_law(state).get('name','State') + ' Rules of Professional Conduct Rule 3.4 (fairness); Rule 3.5 (impartiality); Rule 3.7 (lawyer as witness); ABA Model Rules 4.1-4.4',
-            "discovery_abuse_case_law": 'SOSA v. DIRECTV (9th Cir. 2006) — spoliation; Fjelstad v. Am. Honda Motor (9th Cir. 1985) — discovery sanctions; ' + ('CCP 2023.010-2023.030' if state.upper()=='CA' else 'state discovery rules') + '; FRCP Rule 37(e)',
-            "counter_motions": get_state_law(state).get('procedural_rules',{}).get('offer_of_judgment','FRCP 68') + ' — cost-shifting; FRCP Rule 56(d) — additional discovery; state summary judgment opposition rules',
-            "differentiation_strategies": 'Focus on this attorney\'s specific pattern in YOUR case type; cite specific discovery abuses from prior cases in this jurisdiction; prepare Daubert opposition citing the ' + get_state_law(state).get('key_case_law',[{}])[0].get('court','state court') + ' standard',
-
+            "strategy_tips": _p["c"][:3],
+            "known_litigation_tactics": _p["t"], "counter_strategies": _p["c"],
+            "motion_practice_patterns": _p["mp"], "deposition_weaknesses": _p["dw"],
+            "settlement_history_patterns": _p["sh"], "recommended_approach": _p["ap"],
+            "rules_of_professional_conduct": get_state_law(state).get('name','State') + ' Rules of Professional Conduct; ABA Model Rules 4.1-4.4',
+            "discovery_abuse_case_law": 'SOSA v. DIRECTV (9th Cir. 2006) -- spoliation; FRCP Rule 37(e)',
+            "counter_motions": get_state_law(state).get('procedural_rules',{}).get('offer_of_judgment','FRCP 68') + ' -- cost-shifting; FRCP Rule 56(d)',
+            "differentiation_strategies": 'Focus on this attorney pattern; cite prior discovery abuses; prepare Daubert opposition',
             "how_to_beat": {
-                "psychological_profile": "This attorney is results-driven and reputation-conscious. They fear looking weak to their client more than losing at trial. They are most vulnerable when their motion practice fails — it undercuts their confidence and their client's trust. They respond to displays of superior preparation, especially detailed knowledge of their own prior cases.",
-                "settlement_triggers": [
-                    "After losing a dispositive motion — they immediately pivot to settlement mode within 2 weeks",
-                    "When plaintiff's expert survives Daubert challenge — they recalculate risk significantly",
-                    "After deposition where their key witness contradicts prior sworn testimony",
-                    "When defense costs exceed 30% of policy limits — carrier pressure forces settlement"
-                ],
-                "deposition_weaknesses": [
-                    "Overprepares witnesses leading to robotic testimony — use this to make them appear coached",
-                    "Talks too much during depositions — ask open-ended questions and let silence work",
-                    "Struggles with medical causation — prepare 3 specific learned treatise questions that challenge their expert's methodology",
-                    "Weak on spoliation issues — push early for ESI protocol and test their document preservation"
-                ],
-                "motion_practice_weaknesses": [
-                    "Files boilerplate Daubert motions — counter with detailed expert CV, methodology publications, and prior testimony transcripts",
-                    "Over-relies on summary judgment in cases with factual disputes — leverage every disputed fact in opposition",
-                    "Weak on motions in limine — file your own early to force them to show their strategy",
-                    "Predictable timing — files MSJ at 90-day mark; have opposition ready by day 60"
-                ],
-                "recommended_tone": "Professional but aggressive. Be respectful in all written communications but make clear you are prepared for trial. Use their own words against them in every settlement demand. Schedule every deadline with precision — they respond to preparation, not bluster.",
-                "trial_vs_settle": {
-                    "analysis": "This attorney settles approximately 40% of cases at mediation, but fights to verdict in cases with clear liability. They rarely settle before discovery closes. The settlement window opens after unfavorable discovery rulings and closes once trial preparation begins in earnest.",
-                    "recommendation": "Prepare for trial aggressively from day one. Settlement is possible after key deposition rulings, but only if they believe you will actually try the case."
-                },
-                "defense_experts_to_preempt": [
-                    {"expert": "Dr. James Reynolds (defense biomechanics)", "counter": "Challenge his assumptions about plaintiff's activity level — depositions show plaintiff was sedentary"},
-                    {"expert": "Dr. Sarah Chen (defense life care planner)", "counter": "Her plans systematically undercount future medical cost inflation — use BLS medical CPI data"},
-                    {"expert": "Dr. Michael Torres (defense neurologist)", "counter": "He has been excluded in 3 prior cases for unreliable methodology under FRE 702/Daubert"}
-                ]
+                "psychological_profile": f"Hash {_pi} -- {_p['st']}",
+                "settlement_triggers": ["After losing dispositive motion", "When expert survives Daubert"],
+                "deposition_weaknesses": _p["dw"],
+                "motion_practice_weaknesses": ["Boilerplate Daubert", "Over-relies on SJ"],
+                "recommended_tone": "Professional but aggressive",
+                "trial_vs_settle": {"analysis": f"Settles {_p['s']} at mediation"},
+                "defense_experts_to_preempt": [{"expert": "Biomechanics", "counter": "Challenge assumptions"}]
             },
-            "note": "MOCK DATA — Configure Groq API key for AI-generated profiles."
+            "note": "MOCK DATA -- Configure Groq API key for AI-generated profiles."
         }
     
     prompt = f"""
@@ -1551,65 +1505,43 @@ def generate_opposing_counsel_profile(attorney_name: str, firm: str, practice_ar
         )
         return json.loads(response.choices[0].message.content)
     except Exception as e:
-        # Fall back to mock data on API error
+        # Fall back to hash-driven profile data on API error
+        _pi = hash(attorney_name + firm) % 5
+        _profs = [
+            {"st":"Aggressive Litigator","w":"70-80%","s":"30%","lt":"Extremely aggressive. Files discovery day 1, 5+ depositions/week, sanctions motions.","t":["Files discovery day 1","5+ depositions/week","Sanctions motions","Refuses extensions","Bifurcation demands"],"c":["File reciprocal discovery immediately","Prepare witnesses for aggressive cross","Never ask extensions"],"dw":["Scripted cross","Struggles with deviations","Poor listener"],"mp":["SJ at 90 days","Daubert on all experts","Limine on damages"],"sh":["Settles 30%","Only after SJ loss","40-50% limits"],"ap":"Match intensity. File reciprocal discovery. Never ask extensions."},
+            {"st":"Settlement-Focused","w":"40-50%","s":"85%","lt":"Prefers resolution. Strategic negotiator. Uses mediation.","t":["Early mediation","Reasonable discovery","Professional tone","Settlement overtures","Private mediation"],"c":["Don't settle early","Build damages first","Use their reasonableness"],"dw":["Less deposition prep","Relies on charm","Settles too early"],"mp":["Prompt discovery","Early mediation","Reasonable confer"],"sh":["Settles 85%","Reasonable demands","Pays fair value"],"ap":"Don't settle early. Build your case first. Be willing to try it."},
+            {"st":"Defensive Specialist","w":"55-65%","s":"50%","lt":"Motion-heavy defense. Summary judgment, Daubert, procedural bars.","t":["SJ in every case","Aggressive Daubert","Cert of merit challenges","SOL defenses","Expert disqualification"],"c":["Prepare experts for Daubert","Document timing","Build damages case"],"dw":["Weak on damages","Ignores emotional impact","Poor jury connection"],"mp":["SJ at 90 days","Daubert at expert deadline","SOL early"],"sh":["Settles 50%","When liability weak","50-60% limits"],"ap":"Prepare experts for Daubert. Document all timing. Build damages."},
+            {"st":"Young Aggressive Associate","w":"45-55%","s":"40%","lt":"Eager to prove self. Works hard but lacks judgment. Makes procedural mistakes.","t":["Over-discover everything","Late filings","Emotional depositions","Reluctant to settle","Seeks partner input"],"c":["Be patient -- errors create record","Let them over-discover","Partner may step in"],"dw":["Excessive questions","Poor witness control","Gets frustrated"],"mp":["Overbroad discovery","Last-minute filings","Long deposition notices"],"sh":["Settles 40%","Needs partner approval","Holds for trial exp"],"ap":"Be patient. Their over-zealousness creates recordable errors."},
+            {"st":"Veteran Negotiator","w":"60-70%","s":"60%","lt":"Seasoned, strategic, pragmatic. Respected by judges.","t":["Strategic discovery","Effective mediation","Judicial leverage","Narrow motions","Fair posture"],"c":["Show respect","Prepare novel arguments","Use associates energy"],"dw":["Witness prep shortcuts","Overconfident","Misses creative arguments"],"mp":["Targeted discovery","Strategic mediation","Narrow motions"],"sh":["Settles 60%","Fair values","Fights on clear liability"],"ap":"Show respect. Prepare novel arguments."}
+        ]
+        _p = _profs[_pi]
         return {
-            "attorney": attorney_name,
-            "firm": firm,
-            "practice_area": practice_area,
-            "win_rate_estimate": "55-65%",
-            "settlement_rate": "70%",
-            "litigation_style": "Aggressive — known for extensive discovery demands and frequent motion practice. Prefers trial over settlement in high-value cases.",
+            "attorney": attorney_name, "firm": firm, "practice_area": practice_area,
+            "profile_type": _p["st"], "win_rate_estimate": _p["w"], "settlement_rate": _p["s"],
+            "litigation_style": _p["lt"],
             "notable_cases": [
-                {"case": f"{firm} v. Defendant (2023)", "outcome": "$2.3M verdict — medical malpractice"},
-                {"case": f"{firm} v. Healthcare Co. (2022)", "outcome": "Confidential settlement — product liability"}
+                {"case": f"{firm} v. Defendant (2023)", "outcome": f"${2 + _pi}.{3 - _pi}M verdict"},
+                {"case": f"{firm} v. Healthcare Co. (2022)", "outcome": f"Confidential settlement -- {_p['st']}"}
             ],
-            "strategy_tips": [
-                "Prepare for aggressive discovery — expect extensive document requests",
-                "Consider early mediation — this attorney responds well to well-prepared Daubert motions",
-                "Focus on damages evidence early — they settle when liability is uncertain but fight on clear liability"
-            ],
-            "known_litigation_tactics": [
-                "Files early motions for summary judgment to test liability theory",
-                "Aggressive deposition schedule — often schedules 3+ depositions per week",
-                "Frequent use of Daubert motions to exclude plaintiff expert witnesses"
-            ],
-            "counter_strategies": [
-                "File opposition to bifurcation early — keep liability and damages together",
-                "Prepare expert witnesses intensively for Daubert challenges",
-                "Counter aggressive discovery with reciprocal requests on day one"
-            ],
-            "motion_practice_patterns": [
-                "Files motions for summary judgment at 90-day mark",
-                "Standard Daubert challenge filed within expert disclosure deadline"
-            ],
-            "deposition_weaknesses": [
-                "Tends to talk too much during depositions — let them fill silences",
-                "Struggles with medical causation cross-examinations"
-            ],
-            "settlement_history_patterns": [
-                "Settles 40% of cases before trial, typically at mediation",
-                "Prefers settlement range of 60-75% of policy limits"
-            ],
-            "recommended_approach": "Prepare aggressively for deposition phase. This attorney's motion practice is predictable — prepare Daubert responses early. Settlement is possible after key deposition rulings.",
+            "strategy_tips": _p["c"][:3],
+            "known_litigation_tactics": _p["t"], "counter_strategies": _p["c"],
+            "motion_practice_patterns": _p["mp"], "deposition_weaknesses": _p["dw"],
+            "settlement_history_patterns": _p["sh"], "recommended_approach": _p["ap"],
             "rules_of_professional_conduct": get_state_law(state).get('name','State') + ' Rules of Professional Conduct; ABA Model Rules 4.1-4.4',
-            "discovery_abuse_case_law": 'SOSA v. DIRECTV (9th Cir. 2006) — spoliation; FRCP Rule 37(e); ' + ('CCP 2023.010' if state.upper()=='CA' else 'state discovery rules'),
-            "counter_motions": get_state_law(state).get('procedural_rules',{}).get('offer_of_judgment','FRCP 68') + ' — cost-shifting; FRCP Rule 56(d); protective orders',
-            "differentiation_strategies": 'Focus on this attorney\'s specific pattern in YOUR case type; cite prior discovery abuses in this jurisdiction; prepare Daubert opposition',
-        
-            "damages_maximization": {
-                "jury_presentation_strategy": "Phase 1: Day-in-Life video; Phase 2: Planner; Phase 3: Economist",
-                "cost_categories_by_impact": [{"category": "Home Health Aide", "jury_impact": "HIGH"}],
-                "defense_cost_attacks": [{"attack": "Life expectancy", "rebuttal": "CDC tables"}]
-            },
-
+            "discovery_abuse_case_law": 'SOSA v. DIRECTV (9th Cir. 2006) -- spoliation; FRCP Rule 37(e)',
+            "counter_motions": get_state_law(state).get('procedural_rules',{}).get('offer_of_judgment','FRCP 68') + ' -- cost-shifting; FRCP Rule 56(d)',
+            "differentiation_strategies": 'Focus on this attorney pattern; cite prior discovery abuses; prepare Daubert opposition',
             "how_to_beat": {
-                "psychological_profile": "Results-driven, fears looking weak",
-                "settlement_triggers": ["After losing dispositive motion"],
+                "psychological_profile": f"Hash {_pi} -- {_p['st']}",
+                "settlement_triggers": ["After losing dispositive motion", "When expert survives Daubert"],
+                "deposition_weaknesses": _p["dw"],
+                "motion_practice_weaknesses": ["Boilerplate Daubert", "Over-relies on SJ"],
                 "recommended_tone": "Professional but aggressive",
-                "trial_vs_settle": {"analysis": "Settles 40% at mediation"}
+                "trial_vs_settle": {"analysis": f"Settles {_p['s']} at mediation"},
+                "defense_experts_to_preempt": [{"expert": "Biomechanics", "counter": "Challenge assumptions"}]
             },
-}
-
+            "note": "MOCK DATA -- Configure Groq API key for AI-generated profiles. Exception fallback."
+        }
 
 def generate_sol_guardian(case_type: str, incident_date: str, state: str) -> dict:
     """
@@ -1744,56 +1676,101 @@ def generate_sol_guardian(case_type: str, incident_date: str, state: str) -> dic
         )
         return json.loads(response.choices[0].message.content)
     except Exception as e:
-        # Fall back to rich mock data on API error
+        # Fall back to dynamic SOL computation on API error
+        try:
+            inc_date = datetime.strptime(incident_date[:10], '%Y-%m-%d')
+        except:
+            inc_date = datetime.now()
+        case_key = case_type.lower().replace(' ','_')
+        sol_info = get_state_law(state).get('sol_statutes', {}).get(case_key, '2 years')
+        _m = re.search(r'(\d+)', str(sol_info))
+        sol_years = int(_m.group(1)) if _m else 2
+        now = datetime.now()
+        try:
+            sol_deadline = datetime(inc_date.year + sol_years, inc_date.month, inc_date.day)
+        except ValueError:
+            sol_deadline = datetime(inc_date.year + sol_years, 3, 1)
+        days_remaining = (sol_deadline - now).days
+        _base = sol_deadline
+        _serve = _base + timedelta(days=60)
+        _expert_disc = _base + timedelta(days=120)
+        _discovery_end = _base + timedelta(days=240)
+        _initial_disc = _base + timedelta(days=30)
+        _interrogs = _base + timedelta(days=60)
+        _doc_prod = _base + timedelta(days=90)
+        _fact_dep = _base + timedelta(days=180)
+        _pl_expert = _base + timedelta(days=90)
+        _def_expert = _base + timedelta(days=120)
+        _rebuttal = _base + timedelta(days=150)
+        _reports = _base + timedelta(days=165)
+        _expert_dep = _base + timedelta(days=210)
+        try:
+            _trial = datetime(_base.year + 1, _base.month, _base.day)
+        except ValueError:
+            _trial = datetime(_base.year + 1, 3, 1)
+        _disp_mtn = _trial - timedelta(days=60)
+        _limine = _trial - timedelta(days=30)
+        _jury_instr = _trial - timedelta(days=21)
+        _trial_brief = _trial - timedelta(days=14)
+        _voir_dire = _trial - timedelta(days=7)
+        def _fmt(d): return d.strftime('%Y-%m-%d')
+        state_name = get_state_law(state).get('name', state)
+        case_label = case_type.replace('_', ' ').title()
         return {
-            "case_type": case_type,
-            "incident_date": incident_date,
-            "state": state,
-            "sol_deadline": "2028-05-10",
-            "days_remaining": 655,
+            "case_type": case_type, "incident_date": incident_date[:10], "state": state,
+            "sol_deadline": _fmt(sol_deadline), "days_remaining": max(0, days_remaining),
             "tolling_exceptions": [
-                "Discovery Rule — statute begins when injury discovered (applies to medical malpractice with foreign object)",
-                "Minority Tolling — if plaintiff was under 18 at time of incident, statute tolled until 18th birthday",
-                "Fraudulent Concealment — statute tolled if defendant actively concealed malpractice"
+                f"Discovery Rule -- statute begins when injury discovered ({case_label})",
+                "Minority Tolling -- if plaintiff was under 18 at time of incident",
+                "Fraudulent Concealment -- statute tolled if defendant actively concealed wrongdoing"
             ],
             "filing_checklist": [
-                {"item": "File Complaint", "deadline": "2028-05-10", "priority": "critical"},
-                {"item": "Serve Defendant", "deadline": "2028-07-10", "priority": "high"},
-                {"item": "Expert Witness Disclosure", "deadline": "2028-09-10", "priority": "high"},
-                {"item": "Complete Discovery", "deadline": "2029-01-10", "priority": "medium"}
+                {"item": "File Complaint", "deadline": _fmt(sol_deadline), "priority": "critical"},
+                {"item": "Serve Defendant", "deadline": _fmt(_serve), "priority": "high"},
+                {"item": "Expert Witness Disclosure", "deadline": _fmt(_expert_disc), "priority": "high"},
+                {"item": "Complete Discovery", "deadline": _fmt(_discovery_end), "priority": "medium"}
             ],
             "tolling_doctrines": [
-                "Discovery Rule — applies when injury was not immediately discoverable",
-                "Equitable Tolling — available if defendant's conduct prevented timely filing",
-                "Fraudulent Concealment — tolls statute if defendant actively concealed wrongdoing"
+                f"Discovery Rule -- applies when injury not immediately discoverable ({case_label})",
+                "Equitable Tolling -- available if defendant conduct prevented timely filing",
+                "Fraudulent Concealment -- tolls statute if defendant actively concealed wrongdoing",
+                "Continuing Wrong Doctrine -- each new breach resets clock in some case types"
             ],
             "discovery_deadlines": [
-                {"item": "Initial Disclosures", "deadline": "2028-06-10", "priority": "high"},
-                {"item": "Interrogatories Due", "deadline": "2028-07-10", "priority": "high"},
-                {"item": "Document Production Complete", "deadline": "2028-08-10", "priority": "medium"},
-                {"item": "Fact Depositions Complete", "deadline": "2028-11-10", "priority": "medium"},
-                {"item": "Expert Discovery Close", "deadline": "2029-01-10", "priority": "high"}
+                {"item": "Initial Disclosures", "deadline": _fmt(_initial_disc), "priority": "high"},
+                {"item": "Interrogatories Due", "deadline": _fmt(_interrogs), "priority": "high"},
+                {"item": "Document Production Complete", "deadline": _fmt(_doc_prod), "priority": "medium"},
+                {"item": "Fact Depositions Complete", "deadline": _fmt(_fact_dep), "priority": "medium"},
+                {"item": "Expert Discovery Close", "deadline": _fmt(_expert_dep), "priority": "high"}
             ],
             "expert_disclosure_deadlines": [
-                {"item": "Plaintiff Expert Designation", "deadline": "2028-08-10", "priority": "critical"},
-                {"item": "Defendant Expert Designation", "deadline": "2028-09-10", "priority": "high"},
-                {"item": "Rebuttal Expert Designation", "deadline": "2028-10-01", "priority": "medium"},
-                {"item": "Expert Reports Due", "deadline": "2028-10-15", "priority": "critical"},
-                {"item": "Expert Depositions Complete", "deadline": "2028-12-01", "priority": "high"}
+                {"item": "Plaintiff Expert Designation", "deadline": _fmt(_pl_expert), "priority": "critical"},
+                {"item": "Defendant Expert Designation", "deadline": _fmt(_def_expert), "priority": "high"},
+                {"item": "Rebuttal Expert Designation", "deadline": _fmt(_rebuttal), "priority": "medium"},
+                {"item": "Expert Reports Due", "deadline": _fmt(_reports), "priority": "critical"},
+                {"item": "Expert Depositions Complete", "deadline": _fmt(_expert_dep), "priority": "high"}
             ],
             "pretrial_motion_schedule": [
-                {"motion": "Dispositive Motions", "deadline": "2029-02-10", "notes": "Summary judgment, Daubert motions"},
-                {"motion": "Motions in Limine", "deadline": "2029-03-15", "notes": "File 30 days before trial"},
-                {"motion": "Proposed Jury Instructions", "deadline": "2029-03-20", "notes": "File 21 days before trial"},
-                {"motion": "Trial Briefs", "deadline": "2029-03-25", "notes": "File 14 days before trial"},
-                {"motion": "Voir Dire Questions", "deadline": "2029-03-28", "notes": "File 7 days before trial"}
+                {"motion": "Dispositive Motions", "deadline": _fmt(_disp_mtn), "notes": "Summary judgment, Daubert motions"},
+                {"motion": "Motions in Limine", "deadline": _fmt(_limine), "notes": "File 30 days before trial"},
+                {"motion": "Proposed Jury Instructions", "deadline": _fmt(_jury_instr), "notes": "File 21 days before trial"},
+                {"motion": "Trial Briefs", "deadline": _fmt(_trial_brief), "notes": "File 14 days before trial"},
+                {"motion": "Voir Dire Questions", "deadline": _fmt(_voir_dire), "notes": "File 7 days before trial"}
             ],
-            "applicable_code_sections": get_state_law(state).get('sol_statutes',{}).get(case_type.lower().replace(' ','_'),'2-3 years typical for this case type in ' + get_state_law(state).get('name',state)),
-            "tolling_case_law": '; '.join([c['case']+' ('+str(c['year'])+')' for c in get_state_law(state).get('key_case_law',[]) if any(w in c.get('holding','').lower() for w in ['toll','discovery','sol','limitation'])]) or 'Delayed discovery rule applies; equitable tolling available',
-            "court_rules": 'FRCP 3, 4(m); ' + get_state_law(state).get('procedural_rules',{}).get('offer_of_judgment','state procedural rules'),
-            "differentiation_strategies": "Argue delayed discovery for latent injuries; assert equitable estoppel where defendant concealed; toll statute for minors; preserve via pre-suit notice"
+            "applicable_code_sections": get_state_law(state).get('sol_statutes',{}).get(case_key,f"{sol_years} years typical for {case_label} in {state_name}"),
+            "tolling_case_law": state_name + ' tolling doctrines apply; discovery rule available for latent injuries',
+            "court_rules": f'FRCP Rule 3 (commencement); FRCP Rule 4(m) (90-day service); {state_name} procedural rules',
+            "differentiation_strategies": "Argue delayed discovery for latent injuries; assert equitable estoppel; toll statute for minors",
+            "strategic_timeline": {
+                "critical_deadlines": [{"deadline": _fmt(sol_deadline), "danger_level": "CRITICAL", "action": "File Complaint before SOL expires", "firm_action": f"File by {_fmt(sol_deadline)}", "consequences_if_missed": "Case barred forever", "days_at_risk": max(0, days_remaining)}],
+                "pre_litigation_checklist": [f"Preserve evidence immediately -- spoliation letter to {state_name} defendants", "Obtain all medical records", "Identify expert witnesses", "Calculate damages with life care plan"],
+                "file_now_or_wait": f"FILE NOW -- {max(0, days_remaining)} days remaining until SOL" if days_remaining < 365 else f"Sufficient time -- SOL: {_fmt(sol_deadline)} ({days_remaining} days)",
+                "tolling_opportunities": ["Minority tolling if plaintiff under 18", "Discovery rule for foreign objects"],
+                "jurisdiction_shopping": f"File in {state_name} -- preferred venue",
+                "calendar_integration": f"Add {_fmt(sol_deadline)} as firm-wide deadline. Set 90-day and 30-day alerts."
+            },
+            "note": "MOCK DATA -- Configure Groq API key for AI-generated SOL analysis. Exception fallback."
         }
-
 
 def generate_trial_readiness(case_summary: str, state: str = "CA") -> dict:
     """
@@ -1957,80 +1934,94 @@ def generate_trial_readiness(case_summary: str, state: str = "CA") -> dict:
         )
         return json.loads(response.choices[0].message.content)
     except Exception as e:
-        # Fall back to mock data on API error
+        # Fall back to keyword-based dynamic scoring on API error
+        summary_lower = (case_summary or "").lower()
+        kw_expert = any(w in summary_lower for w in ["expert","retained","retain","designation","expert report"])
+        kw_medical = any(w in summary_lower for w in ["medical records","records obtained","med records","chart"])
+        kw_wage = any(w in summary_lower for w in ["wage","lost income","loss of earnings","employment records"])
+        kw_liability = any(w in summary_lower for w in ["liability clear","admitted","stipulated","favorable","liability established"])
+        kw_depo = any(w in summary_lower for w in ["deposition","depo completed","witness interviewed","fact discovery"])
+        kw_demolisher = any(w in summary_lower for w in ["demand","settlement demand","mediation statement"])
+        kw_trial = any(w in summary_lower for w in ["trial date set","trial scheduled","trial ready","motions pending"])
+        kw_damages = any(w in summary_lower for w in ["damages calculated","damages documented","lien","specials"])
+        kw_mm = any(w in summary_lower for w in ["medical malpractice","med mal","surgical","misdiagnosis"])
+        liability_score = min(95, 40 + (30 if kw_liability else 0) + (10 if kw_depo else 0))
+        damages_score = min(95, 30 + (25 if kw_damages else 0) + (20 if kw_wage else 0) + (15 if kw_medical else 0))
+        expert_score = min(95, 15 + (50 if kw_expert else 0) + (10 if kw_depo else 0))
+        discovery_score = min(95, 40 + (30 if kw_depo else 0) + (15 if kw_medical else 0))
+        procedural_score = min(100, 60 + (25 if kw_trial else 0) + (15 if kw_demolisher else 0))
+        overall = int((liability_score + damages_score + expert_score + discovery_score + procedural_score) / 5)
+        gaps = []
+        recs = []
+        if expert_score < 60: gaps.append("No retained expert witnesses identified"); recs.append("Retain medical expert within 30 days")
+        if damages_score < 60: gaps.append("Damages documentation insufficient"); recs.append("Complete damages calculation with life care plan")
+        if discovery_score < 60: gaps.append("Discovery incomplete"); recs.append("Complete fact discovery and schedule depositions")
+        if liability_score < 60: gaps.append("Liability theory needs development"); recs.append("Strengthen liability framework")
+        if not gaps: gaps = ["Case is well-prepared. Minor administrative items remain."]; recs = ["File remaining pleadings on schedule"]
+        state_name = get_state_law(state).get('name', state)
         return {
-            "readiness_score": 62,
-            "overall_assessment": "Case shows moderate preparation. Strong liability theory but significant gaps in damages documentation and expert witness retention.",
-            "gaps_identified": [
-                "No retained expert witnesses identified",
-                "Medical records incomplete — missing post-surgical follow-up notes",
-                "Damages documentation insufficient — no lost wage verification",
-                "Settlement demand not yet drafted",
-                "Witness list incomplete"
-            ],
-            "recommendations": [
-                "Retain medical expert within 30 days",
-                "Request complete medical records from all treating facilities",
-                "Obtain lost wage documentation from employer",
-                "Draft initial settlement demand",
-                "Complete witness interviews and finalize witness list"
-            ],
+            "readiness_score": overall,
+            "overall_assessment": f"Case readiness: {overall}/100. {'Well-prepared' if overall >= 70 else 'Moderate preparation' if overall >= 45 else 'Significant gaps remain'}. Jurisdiction: {state_name}.",
+            "gaps_identified": gaps,
+            "recommendations": recs,
             "category_scores": {
-                "liability_theory": 78,
-                "damages_evidence": 45,
-                "expert_witnesses": 20,
-                "discovery_completion": 65,
-                "procedural_compliance": 85
+                "liability_theory": liability_score, "damages_evidence": damages_score,
+                "expert_witnesses": expert_score, "discovery_completion": discovery_score,
+                "procedural_compliance": procedural_score
             },
             "specific_evidence_gaps": [
-                "No surveillance video or photos of accident scene",
-                "Missing EMS run sheet from initial transport",
-                "No expert report on standard of care deviation",
-                "Incomplete wage loss verification",
-                "No demonstrative exhibits prepared for trial"
+                "No surveillance video or photos of accident scene" if discovery_score < 60 else "Primary evidence documented",
+                "Medical records incomplete" if damages_score < 60 else "Medical records obtained" if damages_score < 90 else "Complete medical chronology prepared",
+                "No expert report on standard of care" if expert_score < 50 else "Expert identified" if expert_score < 80 else "Expert report received",
+                "Incomplete wage loss verification" if damages_score < 40 else "Wage loss documented",
+                "No demonstrative exhibits prepared" if overall < 60 else "Demonstrative exhibits in progress"
             ],
             "expert_witness_recommendations": [
-                {"specialty": "Orthopedic Surgery", "purpose": "Standard of care and causation", "priority": "high"},
+                {"specialty": "Medical Expert", "purpose": "Standard of care and causation", "priority": "high"},
                 {"specialty": "Economics/Vocational", "purpose": "Lost earnings capacity", "priority": "high"},
-                {"specialty": "Pain Management", "purpose": "Future medical needs", "priority": "medium"}
+                {"specialty": "Pain Management", "purpose": "Future medical needs", "priority": "medium"},
+                {"specialty": "Life Care Planning", "purpose": "Future care cost assessment", "priority": "medium"}
             ],
             "motion_deadlines_checklist": [
-                {"motion": "Dispositive Motions", "deadline": "60 days before trial", "status": "not started"},
+                {"motion": "Dispositive Motions", "deadline": "60 days before trial", "status": "not started" if not kw_trial else "filed"},
                 {"motion": "Motions in Limine", "deadline": "30 days before trial", "status": "not started"},
-                {"motion": "Jury Instructions", "deadline": "21 days before trial", "status": "not started"}
+                {"motion": "Jury Instructions", "deadline": "21 days before trial", "status": "not started"},
+                {"motion": "Trial Brief", "deadline": "14 days before trial", "status": "not started"},
+                {"motion": "Voir Dire/Exhibit Lists", "deadline": "7 days before trial", "status": "not started"}
             ],
             "trial_timeline_estimate": {
-                "estimated_duration": "5-7 trial days",
-                "jury_selection": "Day 1",
-                "plaintiff_case": "Days 2-4",
-                "defense_case": "Day 5",
-                "closing_arguments": "Day 6",
-                "deliberations": "Day 6-7"
+                "estimated_duration": f"{5 if kw_mm else 4}-{8 if kw_mm else 6} trial days",
+                "jury_selection": "Day 1 -- half day",
+                "plaintiff_case": f"Days 2-{4 if kw_mm else 3}",
+                "defense_case": f"Day {5 if kw_mm else 4}",
+                "closing_arguments": f"Day {6 if kw_mm else 5} (half day)",
+                "deliberations": f"Day {6 if kw_mm else 5} afternoon -- Day {7 if kw_mm else 6}"
             },
-            "presiding_judge_notes": "Judge assignment not yet known",
-            "evidence_rules": 'FRE 401/402 — relevance; FRE 702/703 — Daubert; FRE 801-807 — hearsay; ' + get_state_law(state).get('jury_instructions',{}).get('system','State evidence code') + ' — state-specific rules',
-            "daubert_strategy": get_state_law(state).get('name',state) + ' gatekeeper standard; Daubert v. Merrell Dow (1993) 509 U.S. 579; Kumho Tire v. Carmichael (1999) 526 U.S. 137; Sargon Enterprises v. USC (2012) 55 Cal.4th 747; ' + ('Frye standard applies in some state courts' if state.upper() in ['WA','NY','NJ','MI','MN','PA','IL','CA'] else 'Daubert standard applies in this jurisdiction'),
-            "motion_in_limine_suggestions": 'MIL #1: Exclude plaintiff\'s pre-existing conditions without foundation; MIL #2: Preclude collateral source mention under ' + get_state_law(state).get('collateral_source_rule',{}).get('statute','applicable law') + '; MIL #3: Exclude defense expert outside scope (FRCP 26(a)(2)); MIL #4: Bifurcation opposition',
-            "admissibility_case_law": '; '.join([c['case']+' ('+str(c['year'])+')' for c in get_state_law(state).get('key_case_law',[])[:2]]) or 'Daubert v. Merrell Dow (1993) 509 U.S. 579; Kumho Tire v. Carmichael (1999) 526 U.S. 137; state evidence rules',
-            "differentiation_strategies": 'Frame evidence gaps as strengths — absence of contrary evidence suggests liability; argue missing records create adverse inference spoliation; cite defendant\'s own internal protocols as standard of care; use treating physicians as liability experts under ' + get_state_law(state).get('jury_instructions',{}).get('system','state rules'),
-        
-            "strategic_timeline": {
-                "critical_deadlines": [{"item": "SOL", "danger": "CRITICAL"}],
-                "pre_litigation_checklist": ["1. Spoliation letter", "2. Medical records"],
-                "file_now_or_wait": {"recommendation": "File if SOL within 6 months"}
-            },
-
+            "presiding_judge_notes": f"Judge assignment not yet known for {state_name}.",
+            "evidence_rules": 'FRE 401/402 -- relevance; FRE 702/703 -- Daubert; FRE 803(4) -- medical diagnosis; ' + get_state_law(state).get('jury_instructions',{}).get('system','State evidence code'),
+            "daubert_strategy": state_name + ' gatekeeper standard; Daubert v. Merrell Dow (1993); Kumho Tire (1999)',
+            "motion_in_limine_suggestions": 'MIL #1: Exclude pre-existing conditions; MIL #2: Collateral source under ' + get_state_law(state).get('collateral_source_rule',{}).get('statute','applicable law'),
+            "admissibility_case_law": '; '.join([c_['case']+' ('+str(c_['year'])+')' for c_ in get_state_law(state).get('key_case_law',[])[:2]]) or 'Daubert (1993); Kumho Tire (1999)',
+            "differentiation_strategies": 'Frame evidence gaps as strengths; argue missing records create adverse inference; use treating physicians as liability experts under ' + get_state_law(state).get('jury_instructions',{}).get('system','state rules'),
             "winning_checklist": {
-                "p0_actions": [{"action": "Finalize experts", "deadline": "45 days"}, {"action": "Daubert motions", "deadline": "60 days"}],
-                "p1_actions": [{"action": "Demonstrative exhibits", "deadline": "45 days"}],
-                "make_or_break": "Expert survival of Daubert"
+                "priority_actions": [
+                    {"action": f"Retain medical expert", "deadline": "30 days", "tier": "P0"},
+                    {"action": "Complete medical records review", "deadline": "45 days", "tier": "P0"},
+                    {"action": "Obtain wage loss verification", "deadline": "45 days", "tier": "P1"},
+                    {"action": "Draft settlement demand", "deadline": "60 days", "tier": "P1"},
+                    {"action": "Complete witness interviews", "deadline": "60 days", "tier": "P2"},
+                    {"action": "Prepare trial exhibits", "deadline": "90 days", "tier": "P2"}
+                ],
+                "make_or_break_factor": "Expert witness retention" if expert_score < 60 else "Damages documentation" if damages_score < 60 else "Discovery completion",
+                "next_action_recommendation": recs[0] if recs else "Case appears ready for trial scheduling",
+                "day_plan": {
+                    "next_30_days": [recs[0]] if len(recs) > 0 else ["File remaining pleadings"],
+                    "days_31_60": [recs[1]] if len(recs) > 1 else ["Begin deposition preparation"],
+                    "days_61_90": [recs[2]] if len(recs) > 2 else ["Prepare trial exhibits"]
+                }
             },
-}
-
-
-# =========================================================================
-# Settlement Predictor — AI Endpoints
-# =========================================================================
+            "note": "MOCK DATA -- Configure Groq API key for AI-generated analysis. Exception fallback."
+        }
 
 def predict_settlement(damages: float, case_type: str, state: str, liability_strength: str) -> dict:
     """
