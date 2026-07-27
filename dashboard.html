@@ -890,7 +890,7 @@ async function analyzeMedical() {
       output += dividerH();
       // ── Render all strategy fields ──
       var medContainer = document.createElement('div'); medContainer.innerHTML = output;
-      res.innerHTML = ''; res.appendChild(medContainer.firstChild);
+      res.innerHTML = ''; while(medContainer.firstChild) res.appendChild(medContainer.firstChild);
       renderStrategyFields(res, [
         {label:'Standard of Care Sources', val:d.standard_of_care_sources, asBullets:true},
         {label:'Causation Chain', val:d.causation_chain},
@@ -1460,7 +1460,7 @@ async function calculateSettlement() {
       ]);
       output += dividerH();
       var settleContainer = document.createElement('div'); settleContainer.innerHTML = output;
-      res.innerHTML = ''; res.appendChild(settleContainer.firstChild);
+      res.innerHTML = ''; while(settleContainer.firstChild) res.appendChild(settleContainer.firstChild);
       renderStrategyFields(res, [
         {label:'Voir Dire Strategy', val:d.voir_dire_strategy},
         {label:'Deposition Question Outline', val:d.deposition_question_outline, asNumbered:true},
@@ -1558,7 +1558,7 @@ async function generateLifeCarePlan() {
       output += actionH('Retain a certified life care planner (CLCP) and economic expert immediately — their reports are the foundation of the damages case.');
       output += dividerH();
       var lcpContainer = document.createElement('div'); lcpContainer.innerHTML = output;
-      res.innerHTML = ''; res.appendChild(lcpContainer.firstChild);
+      res.innerHTML = ''; while(lcpContainer.firstChild) res.appendChild(lcpContainer.firstChild);
       renderStrategyFields(res, [
         {label:'Damages Presentation Strategy', val:d.damages_presentation_strategy},
         {label:'Pain & Suffering Multiplier', val:'Multiplier: ' + (d.pain_and_suffering_multiplier?.recommended_multiplier||'3.0') + 'x \u2014 ' + (d.pain_and_suffering_multiplier?.rationale||'') + (d.pain_and_suffering_multiplier?.precedent_citations ? ' Precedent: '+d.pain_and_suffering_multiplier.precedent_citations : '')},
@@ -1653,7 +1653,7 @@ async function profileOpposingCounsel() {
         : 'Prepare for trial from day one. File early motions to shape the legal landscape. Use depositions to lock in admissions and limit trial surprises.');
       output += dividerH();
       var ocContainer = document.createElement('div'); ocContainer.innerHTML = output;
-      res.innerHTML = ''; res.appendChild(ocContainer.firstChild);
+      res.innerHTML = ''; while(ocContainer.firstChild) res.appendChild(ocContainer.firstChild);
       renderStrategyFields(res, [
         {label:'Known Tactics', val:d.known_tactics, asBullets:true},
         {label:'Rules of Professional Conduct', val:d.rules_of_professional_conduct, asBullets:true},
@@ -1739,7 +1739,7 @@ async function checkSOL() {
       ]);
       output += dividerH();
       var solContainer = document.createElement('div'); solContainer.innerHTML = output;
-      res.innerHTML = ''; res.appendChild(solContainer.firstChild);
+      res.innerHTML = ''; while(solContainer.firstChild) res.appendChild(solContainer.firstChild);
       renderStrategyFields(res, [
         {label:'Tolling Doctrines', val:d.tolling_doctrines, asBullets:true},
         {label:'Exact SOL Statutes', val:d.exact_sol_statutes, asBullets:true},
