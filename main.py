@@ -261,16 +261,86 @@ async def settlement_predict(req: SettlementPredictRequest):
     return result
 
 
-class MedicalAnalyzeRequest(BaseModel):
-    case_description: str
-
-
 @api_router.post("/medical/analyze")
-async def medical_analyze(req: MedicalAnalyzeRequest):
-    """Analyze medical case for chronology, treatment gaps, and merit assessment."""
-    if not req.case_description:
-        raise HTTPException(status_code=400, detail="case_description is required")
-    result = analyze_medical_case(req.case_description)
+async def medical_analyze(request: Request):
+    """Analyze medical case for chronology, treatment gaps, and merit assessment.
+
+    Accepts both JSON ({\"case_description\": \"...\"}) and multipart/form-data
+    (case_description + optional file upload). Supports .txt, .pdf, and .docx
+    extraction with graceful fallbacks for missing libraries.
+    """
+    combined = ""
+    content_type = (request.headers.get("content-type") or "").lower()
+
+    if "multipart/form-data" in content_type or "application/x-www-form-urlencoded" in content_type:
+        # --- Form-data path (supports file uploads) ---
+        form = await request.form()
+        case_description = (form.get("case_description") or "").strip()
+        uploaded_file = form.get("file")
+
+        combined = case_description
+
+        if uploaded_file and hasattr(uploaded_file, "read"):
+            content = await uploaded_file.read()
+            filename = getattr(uploaded_file, "filename", "uploaded_file") or "uploaded_file"
+            file_text = ""
+
+            try:
+                if filename.endswith(".txt"):
+                    file_text = content.decode("utf-8", errors="replace")
+                elif filename.endswith(".pdf"):
+                    try:
+                        from PyPDF2 import PdfReader
+                        import io
+                        reader = PdfReader(io.BytesIO(content))
+                        file_text = "\n".join(
+                            page.extract_text() or "" for page in reader.pages
+                        )
+                    except ImportError:
+                        file_text = (
+                            f"[PDF uploaded: {filename} — text extraction requires PyPDF2]"
+                        )
+                elif filename.endswith((".docx", ".doc")):
+                    try:
+                        from docx import Document
+                        import io
+                        doc = Document(io.BytesIO(content))
+                        file_text = "\n".join(p.text for p in doc.paragraphs)
+                    except ImportError:
+                        file_text = (
+                            f"[DOCX uploaded: {filename} — text extraction requires python-docx]"
+                        )
+                else:
+                    file_text = content.decode("utf-8", errors="replace")
+
+                if not file_text.strip():
+                    file_text = f"[File uploaded: {filename} — no extractable text found]"
+            except Exception as e:
+                file_text = (
+                    f"[File uploaded: {filename} — could not extract text: {str(e)}]"
+                )
+
+            # Combine: case description + file content
+            if file_text:
+                combined = (
+                    (case_description + "\n\n" if case_description else "")
+                    + f"--- Uploaded File: {filename} ---\n"
+                    + file_text
+                )
+
+    else:
+        # --- JSON path (backward compatible) ---
+        body = await request.json()
+        case_description = (body.get("case_description") or "").strip()
+        combined = case_description
+
+    if not combined.strip():
+        raise HTTPException(
+            status_code=400,
+            detail="case_description or file is required",
+        )
+
+    result = analyze_medical_case(combined)
     return result
 
 
