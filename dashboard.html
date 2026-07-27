@@ -1524,8 +1524,20 @@ async function generateLifeCarePlan() {
       var output = '';
       // ── COST SUMMARY ──
       output += '<div class=\"v-card\" style=\"border-left:3px solid var(--gold-accent);margin-bottom:16px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\"><i class=\"bi bi-cash-stack\"></i> Cost Summary</h3></div><div class=\"metric-value\">$'+total.toLocaleString()+'</div>';
-      if (d.years) output += '<div style=\"font-size:12px;color:var(--text-secondary);\">'+d.years+' years of projected care</div>';
+      if (d.years) output += '<div style=\"font-size:12px;color:var(--text-secondary);margin-bottom:12px;\">'+d.years+' years of projected care</div>';
       if (d.breakdown) output += '<div style=\"padding:12px;font-size:12px;color:var(--text-primary);\">'+d.breakdown+'</div>';
+      // ── COST ALLOCATION PROGRESS BARS ──
+      var costCats = d.cost_breakdown || [
+        {label:'Skilled Nursing', pct:35},
+        {label:'Home Modification', pct:15},
+        {label:'Medical Equipment', pct:20},
+        {label:'Transportation', pct:10},
+        {label:'Therapies & Rehab', pct:12},
+        {label:'Miscellaneous', pct:8}
+      ];
+      output += '<div class=\"v-card\" style=\"margin-bottom:16px;border-left:3px solid var(--gold-accent);\"><div class=\"v-card-header\"><h3 class=\"v-card-title\"><i class=\"bi bi-pie-chart\"></i> Cost Allocation</h3></div><div style=\"padding:12px;\">';
+      costCats.forEach(function(c){ output += pBarH(c.pct, c.label); });
+      output += '</div></div>';
       output += '</div>';
       // ── HOW TO MAXIMIZE DAMAGES ──
       output += '<h3 style="font-size:14px;font-weight:700;color:var(--text-primary);margin:0 0 12px;"><i class="bi bi-graph-up-arrow"></i> How to Maximize Damages</h3>' + phasesH([
@@ -1568,7 +1580,18 @@ async function generateLifeCarePlan() {
     var annual = 85000 + (Math.random()*30000)|0;
     var lifeExp = 80 - age;
     var total = annual * lifeExp;
-    var output = '<div class=\"v-card\" style=\"border-left:3px solid var(--gold-accent);margin-bottom:16px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\"><i class=\"bi bi-cash-stack\"></i> Cost Summary</h3></div><div class=\"metric-value\">$'+total.toLocaleString()+'</div><div style=\"font-size:12px;color:var(--text-secondary);\">'+lifeExp+' years at ~$'+annual.toLocaleString()+'/year</div></div>';
+    var output = '<div class=\"v-card\" style=\"border-left:3px solid var(--gold-accent);margin-bottom:16px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\"><i class=\"bi bi-cash-stack\"></i> Cost Summary</h3></div><div class=\"metric-value\">$'+total.toLocaleString()+'</div><div style=\"font-size:12px;color:var(--text-secondary);margin-bottom:12px;\">'+lifeExp+' years at ~$'+annual.toLocaleString()+'/year</div>';
+    var cats = [
+      {label:'Skilled Nursing', pct:35},
+      {label:'Home Modification', pct:15},
+      {label:'Medical Equipment', pct:20},
+      {label:'Transportation', pct:10},
+      {label:'Therapies & Rehab', pct:12},
+      {label:'Miscellaneous', pct:8}
+    ];
+    output += '<div style=\"padding:8px 0;\">';
+    cats.forEach(function(c){ output += pBarH(c.pct, c.label); });
+    output += '</div></div>';
     output += '<h3 style="font-size:14px;font-weight:700;color:var(--text-primary);margin:0 0 12px;"><i class="bi bi-graph-up-arrow"></i> How to Maximize Damages</h3>' + phasesH([
       ['Liability','Connect each care need to defendant negligence.'],
       ['Humanization','Present day-in-the-life video and family testimony.'],
@@ -1615,6 +1638,19 @@ async function profileOpposingCounsel() {
         '<li><strong>3.</strong> '+(gamePlan[2]||'Present compelling evidence')+'</li></ol></div>';
       // ── NEGOTIATION STRATEGY ──
       output += '<div class=\"advice-box info\" style=\"margin-bottom:16px;\"><h3><span class=\"advice-icon\"><i class=\"bi bi-chat-dots\"></i></span> Negotiation Strategy</h3><p>'+(d.negotiation_strategy||'Maintain firm but professional tone. Open with strong anchor based on damages. Be prepared for aggressive pushback — this opponent respects strength.')+'</p></div>';
+      // ── SETTLE OR TRY? ──
+      var isSettler = (d.settlement_rate||50) > 65;
+      output += dividerH() + decisionBoxH('Settle or Try',
+        isSettler
+          ? ['Opponent settles '+(d.settlement_rate||'65')+'% of cases \u2014 high probability of resolution','Avoids trial risk and appeal','Client receives funds months sooner','Preserves attorney resources']
+          : ['Avoids trial risk and appeal','Client receives funds sooner','Preserves resources for other cases','Certainty of outcome'],
+        isSettler
+          ? ['May leave value on table if opponent senses urgency','No public record of wrongdoing','Confidentiality limits industry impact']
+          : ['Opponent tries '+(100-(d.settlement_rate||50))+'% of cases \u2014 expect trial','Higher risk of zero recovery','Extended timeline and costs']);
+      // ── WHAT TO DO NEXT ──
+      output += actionH(isSettler
+        ? 'Open with a strong but reasonable demand anchored to comparable verdicts. This opponent respects data-backed positions. Set a 60-day negotiation timeline before considering mediation.'
+        : 'Prepare for trial from day one. File early motions to shape the legal landscape. Use depositions to lock in admissions and limit trial surprises.');
       output += dividerH();
       var ocContainer = document.createElement('div'); ocContainer.innerHTML = output;
       res.innerHTML = ''; res.appendChild(ocContainer.firstChild);
@@ -1644,6 +1680,10 @@ async function profileOpposingCounsel() {
       '<div class=\"cons\"><h4><i class=\"bi bi-shield-exclamation\"></i> Weaknesses</h4><ul>'+wList[seed%5].map(function(w){return '<li>'+w+'</li>';}).join('')+'</ul></div></div>';
     output += '<div class=\"v-card\" style=\"margin-bottom:16px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\"><i class=\"bi bi-map\"></i> Your Game Plan</h3></div><ol style=\"padding:12px 12px 12px 32px;font-size:13px;color:var(--text-secondary);line-height:1.8;\"><li><strong>1.</strong> File early motions to establish favorable law</li><li><strong>2.</strong> Use deposition to lock in key admissions</li><li><strong>3.</strong> Present compelling visual evidence at trial</li></ol></div>';
     output += '<div class=\"advice-box info\" style=\"margin-bottom:16px;\"><h3><span class=\"advice-icon\"><i class=\"bi bi-chat-dots\"></i></span> Negotiation Strategy</h3><p>Maintain firm but professional tone. Open with strong anchor based on damages. Be prepared for aggressive pushback.</p></div>';
+    output += dividerH() + decisionBoxH('Settle or Try',
+      ['Avoids trial risk and appeal','Client receives funds sooner','Preserves resources for other cases'],
+      ['May leave value on table','No public record of wrongdoing','Extended timeline if opponent fights']);
+    output += actionH('Open with a strong demand anchored to comparable verdicts. Set a 60-day negotiation timeline. If no progress, prepare for motion practice and trial.');
     res.innerHTML = output;
   }
 }
@@ -1675,8 +1715,14 @@ async function checkSOL() {
       var waitCons = ['Risk of missing deadline','Client anxiety increases','Less time for discovery'];
       var pros = d.days_left < 120 ? filePros : waitPros;
       var cons = d.days_left < 120 ? fileCons : waitCons;
-      output += dividerH() + '<div class=\"pros-cons-grid\"><div class=\"pros\" style=\"border:1px solid rgba(16,185,129,0.2);\"><h4><i class=\"bi bi-check-circle-fill\" style=\"color:var(--success);\"></i> File Now \u2014 Pros</h4><ul>'+
-        pros.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul></div><div class=\"cons\" style=\"border:1px solid rgba(220,38,38,0.2);\"><h4><i class=\"bi bi-x-circle-fill\" style=\"color:var(--danger);\"></i> File Now \u2014 Cons</h4><ul>'+
+      var decision = d.days_left < 120 ? 'File Now' : 'Wait';
+      output += dividerH() + decisionBoxH(decision + ' or Wait',
+        decision === 'File Now' ? ['Preserves the claim from expiring','Stops the SOL clock','Allows discovery to begin','Avoids catastrophic deadline miss'] :
+          ['More time to investigate your claim','Stronger initial filing with complete evidence','Less likely to need amendments','Better position for demand negotiation'],
+        decision === 'File Now' ? ['May need to amend later if investigation is incomplete','Early filing may tip strategy to opposing counsel','Potential for early motion to dismiss'] :
+          ['Risk of missing deadline if not careful','Client anxiety increases with delay','Less time available for discovery']);
+      output += '<div class=\"pros-cons-grid\"><div class=\"pros\" style=\"border:1px solid rgba(16,185,129,0.2);\"><h4><i class=\"bi bi-check-circle-fill\" style=\"color:var(--success);\"></i> ' + decision + ' \u2014 Pros</h4><ul>'+
+        pros.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul></div><div class=\"cons\" style=\"border:1px solid rgba(220,38,38,0.2);\"><h4><i class=\"bi bi-x-circle-fill\" style=\"color:var(--danger);\"></i> ' + decision + ' \u2014 Cons</h4><ul>'+
         cons.map(function(c){return '<li>'+c+'</li>';}).join('')+'</ul></div></div>';
       // ── WHAT TO DO NEXT ──
       var nextAction = d.days_left < 30 ? 'Draft and file complaint IMMEDIATELY \u2014 you are in the danger zone. Consider filing first and amending later.' :
@@ -1721,8 +1767,14 @@ async function checkSOL() {
       '<p style=\"font-size:14px;color:var(--text-secondary);margin-top:4px;\">'+(daysLeft<0?'<strong style=\"color:var(--danger);\">EXPIRED</strong>':daysLeft+' days remaining')+' | '+years+' year limit for '+type+'</p></div>';
     var pros = daysLeft < 120 ? ['Preserves the claim','Stops the SOL clock','Allows discovery'] : ['More time to investigate','Stronger initial filing','Less amendments'];
     var cons = daysLeft < 120 ? ['May need to amend later','Early filing tips strategy','Potential early MTD'] : ['Risk of missing deadline','Client anxiety','Less discovery time'];
-    output += dividerH() + '<div class=\"pros-cons-grid\"><div class=\"pros\" style=\"border:1px solid rgba(16,185,129,0.2);\"><h4><i class=\"bi bi-check-circle-fill\" style=\"color:var(--success);\"></i> File Now \u2014 Pros</h4><ul>'+
-      pros.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul></div><div class=\"cons\" style=\"border:1px solid rgba(220,38,38,0.2);\"><h4><i class=\"bi bi-x-circle-fill\" style=\"color:var(--danger);\"></i> File Now \u2014 Cons</h4><ul>'+
+    var soldecision = daysLeft < 120 ? 'File Now' : 'Wait';
+    output += dividerH() + decisionBoxH(soldecision + ' or Wait',
+      soldecision === 'File Now' ? ['Preserves the claim from expiring','Stops the SOL clock','Allows discovery to begin'] :
+        ['More time to investigate','Stronger initial filing with complete evidence','Less likely to need amendments'],
+      soldecision === 'File Now' ? ['May need to amend later if incomplete','Early filing may tip strategy','Potential early motion to dismiss'] :
+        ['Risk of missing deadline','Client anxiety increases','Less time for discovery']);
+    output += '<div class=\"pros-cons-grid\"><div class=\"pros\" style=\"border:1px solid rgba(16,185,129,0.2);\"><h4><i class=\"bi bi-check-circle-fill\" style=\"color:var(--success);\"></i> ' + soldecision + ' \u2014 Pros</h4><ul>'+
+      pros.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul></div><div class=\"cons\" style=\"border:1px solid rgba(220,38,38,0.2);\"><h4><i class=\"bi bi-x-circle-fill\" style=\"color:var(--danger);\"></i> ' + soldecision + ' \u2014 Cons</h4><ul>'+
       cons.map(function(c){return '<li>'+c+'</li>';}).join('')+'</ul></div></div>';
     output += actionH(daysLeft<30?'Draft and file complaint IMMEDIATELY!':daysLeft<90?'Begin drafting complaint. Target filing within 30 days.':'Conduct pre-filing investigation. Target filing within 60 days.');
     output += checklistH(['Identify all defendants','Determine correct venue','Draft complaint','Gather supporting exhibits','Calculate filing fees']);
@@ -1774,6 +1826,18 @@ async function calculateTrialReadiness() {
         d.recommendations.forEach(function(r){ output += '<li><strong>'+r+'</strong></li>'; });
         output += '</ol></div>';
       }
+      // ── SETTLE OR TRY? ──
+      output += dividerH() + decisionBoxH('Settle or Try',
+        score > 70
+          ? ['Case is well-prepared for trial \u2014 strong negotiating position','Avoids trial risk and appeal timeline','Client certainty of outcome','Preserves resources']
+          : ['Guaranteed recovery avoids trial risk','Client receives funds sooner','Preserves resources','Avoids exposing case weaknesses at trial'],
+        score > 70
+          ? ['May leave value on table if jury would award more','No public verdict or accountability','Confidentiality limits industry impact']
+          : ['Leaves value on table if case strengthens','No public accountability','May signal weakness to future opponents']);
+      // ── WHAT TO DO NEXT ──
+      output += actionH(score > 70
+        ? 'Your case is trial-ready. Send a strong pre-trial demand reflecting your preparation. If settlement talks fail, proceed with confidence to trial.'
+        : 'Focus on closing the readiness gaps identified above. Prioritize expert witness retention and deposition analysis. Re-score in 60 days to track progress.');
       output += dividerH();
       res.innerHTML = output;
     } else {
@@ -1789,8 +1853,15 @@ async function calculateTrialReadiness() {
     if (score < 50) { gaps.push('Medical records not fully reviewed by consulting physician'); recs.push('Send complete medical file to consulting physician for merit review'); }
     if (score < 40) { gaps.push('Case theory not fully developed — liability and damages unlinked'); recs.push('Draft case theory memorandum connecting liability to damages'); }
     if (score < 30) { gaps.push('Critical evidence missing — no expert reports, no witness statements'); recs.push('Prioritize evidence gathering: subpoena records, schedule witness interviews'); }
-    res.innerHTML = '<div class="v-card"><div style="text-align:center;padding:20px;"><div style="font-size:48px;font-weight:700;color:'+color+';">'+score+'%</div><p style="font-size:16px;color:var(--text-secondary);">'+label+'</p></div>'+
+    var output2 = '<div class="v-card"><div style="text-align:center;padding:20px;"><div style="font-size:48px;font-weight:700;color:'+color+';">'+score+'%</div><p style="font-size:16px;color:var(--text-secondary);">'+label+'</p></div>'+
       (gaps.length ? '<div style="padding:12px;border-top:1px solid var(--navy-border);"><ul style="font-size:13px;color:var(--text-secondary);padding-left:16px;">'+gaps.map(function(g){return '<li>'+g+'</li>';}).join('')+'</ul></div>' : '')+'</div>';
+    output2 += dividerH() + decisionBoxH('Settle or Try',
+      ['Guaranteed recovery avoids trial risk','Client receives funds sooner','Allows more time to prepare if case settles','Preserves resources'],
+      ['May leave value on table','No public accountability','Confidentiality limits impact']);
+    output2 += actionH(score > 50
+      ? 'Focus on closing readiness gaps. Prioritize expert witness retention and complete medical record review. Re-evaluate in 60 days.'
+      : 'Conduct a serious settlement evaluation. The case has significant gaps that may be exploited at trial. Consider early mediation.');
+    res.innerHTML = output2;
   }
 }
 
