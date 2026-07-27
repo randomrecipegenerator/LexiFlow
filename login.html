@@ -35,6 +35,7 @@
     <input type="password" id="loginPassword" placeholder="••••••••" value="admin123">
     <div class="error" id="loginError">Invalid email or password</div>
     <button onclick="handleLogin()">Sign In</button>
+    <div class="switch" style="font-size:11px;color:var(--muted);margin-top:8px;">Demo mode — any email & password works</div>
     <div class="switch">Don't have an account? <a onclick="showRegister()">Register</a></div>
   </div>
 
@@ -69,9 +70,15 @@ function showRegister() { document.getElementById('loginForm').classList.add('hi
 function handleLogin() {
   const email = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPassword').value;
+  if (!email || !password) { document.getElementById('loginError').style.display = 'block'; return; }
   const users = JSON.parse(localStorage.getItem('lexiflow_users') || '[]');
-  const user = users.find(u => u.email === email && u.password === password);
-  if (!user) { document.getElementById('loginError').style.display = 'block'; return; }
+  let user = users.find(u => u.email === email && u.password === password);
+  if (!user) {
+    // Demo mode: accept any credentials, create user on the fly
+    user = { id: users.length + 1, name: email.split('@')[0], email, firm: 'My Firm', password, created: new Date().toISOString() };
+    users.push(user);
+    localStorage.setItem('lexiflow_users', JSON.stringify(users));
+  }
   document.getElementById('loginError').style.display = 'none';
   localStorage.setItem('lexiflow_user', JSON.stringify(user));
   localStorage.setItem('lexiflow_token', 'demo-token-' + Date.now());
