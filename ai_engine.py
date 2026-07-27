@@ -1180,129 +1180,151 @@ def generate_life_care_plan(injury: str, age: int, state: str) -> dict:
     Uses life expectancy tables and standard cost data.
     """
     if not client:
+        # Detect injury type from keywords in the injury parameter
+        injury_lower = injury.lower()
+        _injury = injury_lower
+        _is_spinal = any(w in _injury for w in ["spinal","sci","cord","paralysis","quad","para","vertebra"])
+        _is_tbi = any(w in _injury for w in ["brain","tbi","head","stroke","anoxic","cerebral","concussion"])
+        _is_burn = any(w in _injury for w in ["burn","third-degree","fire","explosion","electrical burn"])
+        _is_amputation = any(w in _injury for w in ["amput","loss of limb","prostheti","limb"])
+        _is_birth = any(w in _injury for w in ["birth","obstetric","neonatal","cerebral palsy","cp","brachial","erbs"])
         life_exp = max(5, 80 - age)
-        annual = 140100
-        if age > 65: annual = annual * 1.25
-        elif age < 18: annual = annual * 1.5
+        if _is_spinal:
+            annual = 250000
+            life_exp = int(life_exp * 0.85)
+            _profile = "spinal cord injury"
+            _specs = "24/7 home health aide, wheelchair, home modifications $80-150K, pressure sore prevention, bladder/bowel supplies"
+            _expert_specs = ["Physical Medicine & Rehabilitation", "Spinal Cord Injury Specialist", "Urologist (bowel/bladder)", "Pain Management"]
+        elif _is_tbi:
+            annual = 180000
+            life_exp = int(life_exp * 0.90)
+            _profile = "traumatic brain injury"
+            _specs = "cognitive therapy $45K/yr, behavioral management, supervised living, seizure management, neuropsych testing"
+            _expert_specs = ["Neuropsychologist", "Physiatrist (Brain Injury)", "Behavioral Neurologist", "Speech-Language Pathologist"]
+        elif _is_burn:
+            annual = 160000
+            life_exp = int(life_exp * 0.95)
+            _profile = "burn injury"
+            _specs = "reconstructive surgeries $25-75K each, compression garments, psychological counseling, scar management, physical therapy"
+            _expert_specs = ["Burn Surgeon", "Plastic/Reconstructive Surgeon", "Burn Psychologist", "Physical Therapist (Burn Rehab)"]
+        elif _is_amputation:
+            annual = 140000
+            life_exp = int(life_exp * 0.90)
+            _profile = "amputation"
+            _specs = "prosthetics $15-80K per limb (replaced every 3-5 years), gait training, phantom pain management, occupational therapy"
+            _expert_specs = ["Prosthetist/Orthotist", "Physical Medicine & Rehab", "Pain Management Specialist", "Occupational Therapist"]
+        elif _is_birth:
+            annual = 200000
+            life_exp = max(life_exp, 70 - age)  # children with birth injuries often live full lifespans
+            _profile = "birth injury"
+            _specs = "pediatric therapy $60K/yr, special education, lifelong care (70+ years), assistive communication, adaptive equipment"
+            _expert_specs = ["Pediatric Neurologist", "Developmental Pediatrician", "Pediatric Physiatrist", "Special Education Specialist"]
+        else:
+            annual = 140000
+            _profile = "catastrophic injury"
+            _specs = "comprehensive medical care, therapy, home health aide, equipment, modifications"
+            _expert_specs = ["Physical Medicine & Rehabilitation", "Life Care Planner (RN/PhD)", "Vocational Expert", "Economist"]
         lifetime = int(annual * life_exp)
+        # Build dynamic cost breakdowns
+        _hha = int(annual * 0.51)
+        _med = int(annual * 0.25)
+        _ther = int(annual * 0.12)
+        _equip = int(annual * 0.08)
+        _trans = int(annual * 0.04)
         return {
-            "summary": f"Life care plan for {injury} (age {age}, {state})",
+            "summary": f"Life care plan for {_profile}: {injury} (age {age}, {state}). {_specs}",
             "annual_costs": {
-                "physician_visits": int(8500 * (annual/140100)),
-                "physical_therapy": int(12000 * (annual/140100)),
-                "home_health_aide": int(72000 * (annual/140100)),
-                "medications": int(14400 * (annual/140100)),
-                "medical_equipment": int(5600 * (annual/140100)),
-                "transportation": int(3600 * (annual/140100)),
-                "home_modifications": int(18000 * (annual/140100)),
-                "case_management": int(6000 * (annual/140100))
+                "physician_visits": int(_med * 0.30), "physical_therapy": int(_ther * 0.50), "home_health_aide": _hha,
+                "medications": int(_med * 0.20), "medical_equipment": _equip, "transportation": _trans,
+                "home_modifications": int(_equip * 0.60), "case_management": int(_med * 0.10)
             },
-            "annual_total": int(annual),
-            "life_expectancy_years": life_exp,
-            "lifetime_total": lifetime,
+            "annual_total": annual, "life_expectancy_years": life_exp, "lifetime_total": lifetime,
             "cost_categories": [
-                {"category": "Medical Care", "annual": int(annual*0.32), "lifetime": int(annual*0.32*life_exp), "source": "U.S. Bureau of Labor Statistics"},
-                {"category": "Personal Care", "annual": int(annual*0.51), "lifetime": int(annual*0.51*life_exp), "source": "Genworth Cost of Care Survey 2025"},
-                {"category": "Therapies", "annual": int(annual*0.09), "lifetime": int(annual*0.09*life_exp), "source": "Medicare Fee Schedule 2025"},
-                {"category": "Equipment & Modifications", "annual": int(annual*0.08), "lifetime": int(annual*0.08*life_exp), "source": "NMEDA Guidelines"}
+                {"category": "Medical Care", "annual": _med, "lifetime": _med * life_exp, "source": "U.S. Bureau of Labor Statistics"},
+                {"category": "Personal Care", "annual": _hha, "lifetime": _hha * life_exp, "source": "Genworth Cost of Care Survey 2025"},
+                {"category": "Therapies", "annual": _ther, "lifetime": _ther * life_exp, "source": "Medicare Fee Schedule 2025"},
+                {"category": "Equipment & Modifications", "annual": _equip, "lifetime": _equip * life_exp, "source": "NMEDA Guidelines"}
             ],
             "medicare_medicaid_lien_analysis": {
                 "medicare_set_aside": int(lifetime * 0.15),
-                "medicaid_lien_potential": "High — state may assert lien on settlement for past medical expenses",
-                "recommended_structured": "Yes — MSA-appropriate trust recommended for amounts over $250K",
-                "notes": "Medicare Set-Aside (MSA) should be funded via structured settlement to preserve benefits eligibility"
+                "medicaid_lien_potential": "High -- state may assert lien on settlement for past medical expenses",
+                "recommended_structured": "Yes -- MSA-appropriate trust recommended for amounts over $250K",
+                "notes": "Medicare Set-Aside should be funded via structured settlement to preserve benefits eligibility"
             },
             "structured_settlement": {
                 "recommendation": "Strongly recommended for catastrophic injury cases",
-                "pros": ["Tax-free income stream", "Protection from mismanagement", "Guaranteed lifetime payments", "Medicaid/SSI eligibility preserved"],
+                "pros": ["Tax-free income stream under IRC Sec 104(a)(2)", "Protection from mismanagement", "Guaranteed lifetime payments via annuity", "Medicaid/SSI eligibility preserved"],
                 "cons": ["Less flexibility than lump sum", "Fixed returns may not keep pace with inflation", "Irrevocable once funded"],
                 "typical_structure": "Periodic payments over life expectancy with lump sum for immediate needs"
             },
             "life_insurance_trust_options": {
-                "special_needs_trust": "Recommended if plaintiff receives government benefits",
-                "pooled_trust": "Alternative for smaller settlements — managed by non-profit",
-                "first_party_vs_third_party": "Third-party trust preferred — funded by defendant's insurer, no Medicaid payback required"
+                "special_needs_trust": "Recommended if plaintiff receives government benefits -- preserves SSI/Medicaid eligibility under 42 USC 1396p(d)(4)(A)",
+                "pooled_trust": "Alternative for smaller settlements managed by non-profit under 42 USC 1396p(d)(4)(C)",
+                "first_party_vs_third_party": "Third-party trust preferred -- funded by defendant's insurer, no Medicaid payback required"
             },
             "vocational_rehab_costs": {
-                "evaluation": 3500,
-                "retraining": "Varies by injury — typically $15K-$45K for cognitive/light-duty retraining",
-                "job_coaching": "1,200 - 2,400 hours at $65/hr = $78K-$156K",
-                "assistive_technology": "5,000 - 25,000 depending on injury severity",
+                "evaluation": 3500, "retraining": f"Typically $15K-$45K for {_profile} retraining",
+                "job_coaching": "1,200-2,400 hours at $65/hr = $78K-$156K",
+                "assistive_technology": "5,000-25,000 depending on severity",
                 "annual_total_estimate": 18000
             },
             "pain_and_suffering_multiplier": {
-                "multiplier_range": "1.5x - 5x economic damages",
-                "recommended_multiplier": 3.0,
-                "rationale": "Catastrophic injury with permanent impairment justifies upper-mid range multiplier",
+                "multiplier_range": "1.5x-5x economic damages", "recommended_multiplier": 3.0,
+                "rationale": f"Catastrophic injury ({_profile}) with permanent impairment justifies upper-mid range multiplier",
                 "estimated_non_economic": int(lifetime * 3.0),
-                "jurisdiction_notes": f"Courts in {state} typically award 2-4x economic damages for catastrophic injury",
-                "precedent_citations": "Cuevas v. Contra Costa County (2022) — $4.2M non-economic, 3.5x multiplier upheld; Wilson v. Mercy Hospital (2021) — 3.5x multiplier for spinal injury"
+                "jurisdiction_notes": "Courts in this state typically award 2-4x economic damages for catastrophic injury",
+                "precedent_citations": "Cuevas v. Contra Costa County (2022) -- $4.2M non-economic; Wilson v. Mercy Hospital (2021) -- 3.5x multiplier for spinal injury"
             },
-            "damages_presentation_strategy": "Present life care plan early in trial using a board-certified life care planner as the first expert. Use Day-in-the-Life video to establish pre-injury baseline, then overlay life care plan costs to show what was lost. Emphasize this is compensation for concrete quantifiable needs, not sympathy. Use large-format exhibits showing annual costs stacked over life expectancy. For settlement/adjuster presentations, lead with the life care plan summary and Medicare Set-Aside analysis first.",
+            "damages_presentation_strategy": f"Present life care plan early with board-certified life care planner. Use Day-in-the-Life video establishing pre-injury baseline. Emphasize {_profile}-specific needs. Use large-format exhibits of annual costs over life expectancy.",
             "medical_expert_recommendations": [
-                {"specialty": "Physical Medicine & Rehabilitation", "testimony_points": "Confirms disability level, functional limitations, and long-term care needs", "priority": "Critical"},
-                {"specialty": "Life Care Planning (RN or PhD)", "testimony_points": "Presents the life care plan, defends each cost category, explains methodology", "priority": "Critical"},
-                {"specialty": "Vocational Expert", "testimony_points": "Lost earning capacity, employability assessment, job retraining feasibility", "priority": "High"},
-                {"specialty": "Economist", "testimony_points": "Discounts life care plan to present value, projects lost earnings", "priority": "High"},
-                {"specialty": "Pain Management Specialist", "testimony_points": "Confirms ongoing pain treatment needs and medication management", "priority": "Medium"}
+                {"specialty": _expert_specs[0], "testimony_points": "Confirms disability level, functional limitations", "priority": "Critical"},
+                {"specialty": _expert_specs[1], "testimony_points": "Presents life care plan, defends cost categories", "priority": "Critical"},
+                {"specialty": _expert_specs[2], "testimony_points": "Lost earning capacity, employability assessment", "priority": "High"},
+                {"specialty": _expert_specs[3], "testimony_points": "Discounts life care plan to present value", "priority": "High"}
             ],
             "cross_examination_prep": {
-                "life_expectancy_attacks": "Defense may argue shorter life expectancy. Prepare with peer-reviewed injury-specific studies. Life care planner should cite National Trauma Data Bank mortality data. Consider rebuttal biostatistics expert.",
-                "discount_rate_attacks": "Defense economist will apply 5-7% discount rate. Counter with PSS rate of 1-2% under IRC Sec 104(a)(2) and current bond yields.",
-                "cost_category_attacks": "Defense will challenge costs as speculative. Ensure each cost has foundation in treating physician order or recommendation."
+                "life_expectancy_attacks": f"Defense may argue shorter life expectancy (currently {life_exp} years). Cite CDC NVSR and SSA Period Life Tables. Rebut with biostatistics expert.",
+                "discount_rate_attacks": "Defense economist will apply 5-7%. Counter with PSS rate of 1-2% under IRC Sec 104(a)(2) Rulings.",
+                "cost_category_attacks": "Ensure each cost has foundation in treating physician order. Use learned treatises for SOC."
             },
             "structured_vs_lump_sum": {
-                "recommendation": "Structured settlement for catastrophic injury with life expectancy over 20 years",
-                "structured_benefits": ["Tax-free under IRC Sec 104(a)(2)", "Protection from mismanagement/creditors", "Guaranteed lifetime payments via annuity", "Medicaid/SSI eligibility preserved"],
-                "lump_sum_benefits": ["Full liquidity for immediate needs", "Flexibility to invest for higher returns", "No annuity counterparty risk"],
-                "hybrid_approach": "Lump sum for immediate needs (home mods, vehicles, equipment) + structured payments for ongoing care",
-                "recommended_split": "30% lump sum / 70% structured"
+                "recommendation": "Hybrid approach -- lump sum for immediate needs, structured for ongoing care",
+                "structured_benefits": ["Tax-free under IRC Sec 104(a)(2)", "Protection from creditors", "Guaranteed lifetime payments"],
+                "lump_sum_benefits": ["Full liquidity for home modifications, vehicles, equipment"],
+                "hybrid_approach": "30% lump sum / 70% structured",
+                "recommended_split": "30/70"
             },
-            "medicare_lien_negotiation_strategy": "Medicare liens mandatory under 42 CFR 411. Strategy: (1) Get CMS payment history early via Section 111; (2) Consider MSA for future care; (3) Negotiate CMS reduction under procurement costs (25-35% typical); (4) Use CMS-approved MSA vendor; (5) In cap states, assert pro-rata allocation reducing CMS recovery.",
-            "day_in_the_life_video": {
-                "recommendation": "Highly recommended for catastrophic injury cases",
-                "production_cost": "$5,000 - $15,000",
-                "best_practices": "Film 2-3 non-consecutive days; include morning routine, therapy, family interactions, mobility challenges; avoid dramatization; have life care planner narrate at trial",
-                "legal_foundation": "Admissible as demonstrative evidence under Evidence Code 1400-1560"
-            },
-            "economic_expert_referral": "For cases over $500K, retain PhD economist or CPA/ABV with PI damages experience. Key: ABV/CVA certification, prior testimony in jurisdiction, familiarity with IRS discount tables and PSS rulings. Referral: National Association of Forensic Economics (NAFE).",
-            "life_expectancy_sources": "CDC National Vital Statistics Reports (NVSR) Life Tables; SSA Period Life Table (2022); CDC Injury-Specific Mortality Studies; National Trauma Data Bank (NTDB) survival data; Social Security Administration (SSA) Disability Life Expectancy Tables",
-            "discount_rate_case_law": "Jones & Laughlin Steel v. Pfeifer (1983) 462 U.S. 523 — total offset method; Norfolk & Western Ry. v. Liepelt (1980) 444 U.S. 490 — after-tax discount rate; CA: Rodriguez v. McDonnell Douglas (1978) 87 Cal.App.3d 626 — present value methodology; PSS (Personal Injury Settlement) discount rate (IRS Sec 104(a)(2) Rulings)",
-            "collateral_source_rules": get_state_law(state).get('collateral_source_rule',{}).get('statute','Varies') + ' — ' + ('reduction applies' if 'reduction' in get_state_law(state).get('collateral_source_rule',{}).get('reduction','').lower() else 'no reduction' if 'no' in get_state_law(state).get('collateral_source_rule',{}).get('reduction','').lower() else 'consult local counsel'),
-            "per_diem_argument_law": 'Beagle v. Vasold (1966) 65 Cal.2d 166 — per diem argument permitted; ' + get_state_law(state).get('jury_instructions',{}).get('system','State pattern') + ' — per diem instruction; Rodriguez v. McDonnell Douglas (1978) 87 Cal.App.3d 626 — per diem for future P&S',
-            "differentiation_strategies": 'Argue life expectancy longer than CDC tables due to access to excellent care; use structured settlement to avoid tax under IRC Sec 104(a)(2); present per diem argument with simple math jurors can verify; ' + ('cite ' + get_state_law(state).get('damage_caps',{}).get('statute','') + ' cap limitations' if state in ['CA','TX','FL','PA'] else 'use state-specific jury instructions for damages'),
-
+            "medicare_lien_negotiation_strategy": "Step 1: Get CMS payment history via Section 111. Step 2: Consider MSA for future care. Step 3: Negotiate CMS reduction under procurement costs (25-35% typical). Step 4: Use CMS-approved MSA vendor.",
+            "day_in_the_life_video": {"recommendation": "Highly recommended", "production_cost": "$5,000-$15,000", "best_practices": "Film 2-3 days; include morning routine, therapy, family interactions; avoid dramatization", "legal_foundation": "Admissible under Evid Code 1400-1560"},
+            "economic_expert_referral": "Retain PhD economist or CPA/ABV. Referral: National Association of Forensic Economics (NAFE).",
+            "life_expectancy_sources": "CDC National Vital Statistics Reports; SSA Period Life Table (2022); National Trauma Data Bank",
+            "discount_rate_case_law": "Jones & Laughlin Steel v. Pfeifer (1983) 462 U.S. 523 -- total offset; Norfolk & Western Ry. v. Liepelt (1980) 444 U.S. 490 -- after-tax discount rate",
+            "collateral_source_rules": get_state_law(state).get('collateral_source_rule',{}).get('statute','Varies') + ' -- ' + ('reduction applies' if 'reduction' in get_state_law(state).get('collateral_source_rule',{}).get('reduction','').lower() else 'no reduction' if 'no' in get_state_law(state).get('collateral_source_rule',{}).get('reduction','').lower() else 'consult local counsel'),
+            "per_diem_argument_law": 'Beagle v. Vasold (1966) 65 Cal.2d 166 -- per diem permitted; ' + get_state_law(state).get('jury_instructions',{}).get('system','State pattern') + ' per diem instruction; Rodriguez v. McDonnell Douglas (1978) 87 Cal.App.3d 626 -- per diem for future P&S',
+            "differentiation_strategies": f'Argue life expectancy longer than CDC tables due to access to excellent care for {_profile}; use structured settlement to avoid tax under IRC Sec 104(a)(2); present per diem argument with simple math jurors can verify',
             "damages_maximization": {
-                "jury_presentation_strategy": "Present the life care plan in THREE phases: (1) Day-in-the-Life video — establish the human story and create emotional investment; (2) Life Care Planner testimony — walk through each cost category with large-format exhibits showing annual costs stacked over life expectancy; (3) Economist testimony — discount to present value and project lost earnings. Always lead with the concrete numbers (annual cost: $140,100) before the emotional appeal.",
+                "jury_presentation_strategy": f"Phase 1: Day-in-Life video showing {_profile} impact. Phase 2: Life Care Planner presents ${{annual:,}}/yr cost. Phase 3: Economist discounts to present value ${{lifetime:,}}.",
                 "cost_categories_by_impact": [
-                    {"category": "Home Health Aide ($72K/yr)", "jury_impact": "HIGH", "why": "Jurors can visualize someone needing help with bathing, dressing, feeding — creates empathy"},
-                    {"category": "Physical Therapy ($12K/yr)", "jury_impact": "MEDIUM-HIGH", "why": "Shows ongoing struggle and effort to recover — makes injury feel real"},
-                    {"category": "Home Modifications ($18K)", "jury_impact": "MEDIUM", "why": "Concrete, tangible need — ramp, widened doorways, accessible bathroom"},
-                    {"category": "Physician Visits ($8.5K/yr)", "jury_impact": "MEDIUM", "why": "Establishes permanence — this is a lifetime of medical care"},
-                    {"category": "Medications ($14.4K/yr)", "jury_impact": "MEDIUM", "why": "Daily reminder of injury — jurors think 'every day for the rest of their life'"},
-                    {"category": "Medical Equipment ($5.6K/yr)", "jury_impact": "LOW-MEDIUM", "why": "Technical — best presented as part of broader cost picture"}
+                    {"category": "Home Health Aide", "annual": _hha, "lifetime": _hha * life_exp, "jury_impact": "HIGH", "reason": "Juries connect with human care needs"},
+                    {"category": "Medical Care", "annual": _med, "lifetime": _med * life_exp, "jury_impact": "HIGH", "reason": "Concrete, verifiable costs"},
+                    {"category": "Therapies", "annual": _ther, "lifetime": _ther * life_exp, "jury_impact": "MEDIUM", "reason": "Ongoing need visible in daily life"},
+                    {"category": "Equipment", "annual": _equip, "lifetime": _equip * life_exp, "jury_impact": "MEDIUM", "reason": "Tangible necessity"}
                 ],
                 "humanization_techniques": [
-                    "Use the 'coffee test' — '$72,000/year for home health aide is $197/day. That's less than a cup of coffee every hour for 24 hours.'",
-                    "Stack dollar bills physically — show what $140K looks like in cash, then multiply by life expectancy years",
-                    "Use a timeline across the courtroom wall — mark each year of life expectancy with annual costs",
-                    "Have the plaintiff demonstrate one daily struggle (e.g., putting on a shirt) during testimony — let the jury see the effort"
+                    "Show pre-injury photos/video of plaintiff working, parenting, exercising",
+                    "Day-in-the-Life video contrasting pre/post injury daily routine",
+                    "Family testimony about emotional and financial impact",
+                    "Treating physician walks jury through plaintiff's limitations"
                 ],
-                "defense_cost_attacks": [
-                    {"attack": "Life expectancy is shorter than claimed", "rebuttal": "Use CDC injury-specific life tables, SSA disability tables, and plaintiff's family longevity history. The defense expert is applying general population tables to a specific plaintiff."},
-                    {"attack": "Costs are speculative/not medically necessary", "rebuttal": "Every cost category must have foundation from a treating physician's order or rehabilitation prescription. Get written orders before trial."},
-                    {"attack": "Discount rate should be higher", "rebuttal": "Apply PSS (Personal Injury Settlement) discount rate of 1-2% under IRC Sec 104(a)(2), not the defense's 5-7% rate. Cite current bond yields."},
-                    {"attack": "Family can provide care for free", "rebuttal": "Family care is not free — it requires family members to leave employment or reduce hours. Cite lost caregiver wages. Also, family care is not professional care."}
+                "defense_cost_attack_rebuttals": [
+                    {"attack": "Life expectancy is overstated", "rebuttal": f"CDC tables show {life_exp}-year life expectancy. Our biostatistics expert will confirm."},
+                    {"attack": "Costs are speculative", "rebuttal": "Each cost category has foundation in treating physician orders and standard billing rates."},
+                    {"attack": "Plaintiff can use family care", "rebuttal": "Family care is not free -- it carries lost wages, burnout, and reduced quality of care."}
                 ],
-                "settlement_presentation": "For adjuster/mediator presentations: (1) Lead with the life care plan summary — one page showing annual total × life expectancy = lifetime total; (2) Follow with Medicare Set-Aside analysis — shows you've considered the cost containment angle; (3) Present structured settlement illustration with specific annuity quotes from 3 providers; (4) Close with day-in-the-life video highlights — 3 minutes max. Total presentation: 20 minutes.",
-                "video_day_in_life": {
-                    "placement": "Open plaintiff's case with 5-7 minute video before any testimony. Jurors form opinions within the first hour.",
-                    "content": "Film 2-3 non-consecutive days. Include: morning routine (bathing, dressing), therapy session, family interactions (dinner, playtime), mobility challenges (stairs, bathroom). Show what they can't do, not just what they can.",
-                    "production": "Budget $5,000-$15,000. Use professional videographer with legal experience. Avoid dramatization — raw, authentic footage is most powerful.",
-                    "legal_foundation": "Admissible as demonstrative evidence under Evidence Code 1400-1560. Have a witness authenticate it showing it fairly and accurately depicts the plaintiff's daily life."
-                }
+                "settlement_presentation_strategy": "Present life care plan as a bound exhibit with color-coded cost categories. Use a nurse life care planner as the first witness. Have the economist present a visual timeline of costs over life expectancy.",
+                "day_in_the_life_placement": "Play Day-in-Life video during opening statement to establish baseline, then again during life care planner testimony to connect specific costs to specific needs."
             },
-            "note": "MOCK DATA — Configure Groq API key for AI-generated estimates."
+            "note": "MOCK DATA -- Configure Groq API key for AI-generated estimates."
         }
 
     prompt = f"""
@@ -1345,87 +1367,101 @@ def generate_life_care_plan(injury: str, age: int, state: str) -> dict:
         )
         return json.loads(response.choices[0].message.content)
     except Exception as e:
-        # Fall back to rich mock data on API error
+        # Fall back to injury-profile-based data on API error
+        injury_lower = injury.lower()
+        _is_spinal = any(w in injury_lower for w in ["spinal","sci","cord","paralysis","quad","para","vertebra"])
+        _is_tbi = any(w in injury_lower for w in ["brain","tbi","head","stroke","anoxic","cerebral","concussion"])
+        _is_burn = any(w in injury_lower for w in ["burn","third-degree","fire","explosion","electrical burn"])
+        _is_amputation = any(w in injury_lower for w in ["amput","loss of limb","prostheti","limb"])
+        _is_birth = any(w in injury_lower for w in ["birth","obstetric","neonatal","cerebral palsy","cp","brachial","erbs"])
         life_exp = max(5, 80 - age)
-        annual = 140100
-        if age > 65: annual = int(annual * 1.25)
-        elif age < 18: annual = int(annual * 1.5)
+        if _is_spinal:
+            annual = 250000; life_exp = int(life_exp * 0.85); _profile = "spinal cord injury"
+            _specs = "24/7 home health aide, wheelchair, home modifications $80-150K"
+            _expert_specs = ["Physical Medicine & Rehabilitation", "Spinal Cord Injury Specialist", "Urologist", "Pain Management"]
+        elif _is_tbi:
+            annual = 180000; life_exp = int(life_exp * 0.90); _profile = "traumatic brain injury"
+            _specs = "cognitive therapy $45K/yr, behavioral management, supervised living"
+            _expert_specs = ["Neuropsychologist", "Physiatrist (Brain Injury)", "Behavioral Neurologist", "Speech-Language Pathologist"]
+        elif _is_burn:
+            annual = 160000; life_exp = int(life_exp * 0.95); _profile = "burn injury"
+            _specs = "reconstructive surgeries $25-75K each, compression garments, scar management"
+            _expert_specs = ["Burn Surgeon", "Plastic/Reconstructive Surgeon", "Burn Psychologist", "Physical Therapist"]
+        elif _is_amputation:
+            annual = 140000; life_exp = int(life_exp * 0.90); _profile = "amputation"
+            _specs = "prosthetics $15-80K per limb (replaced every 3-5 years), gait training, phantom pain management"
+            _expert_specs = ["Prosthetist/Orthotist", "Physical Medicine & Rehab", "Pain Management Specialist", "Occupational Therapist"]
+        elif _is_birth:
+            annual = 200000; life_exp = max(life_exp, 70 - age); _profile = "birth injury"
+            _specs = "pediatric therapy $60K/yr, special education, lifelong care (70+ years)"
+            _expert_specs = ["Pediatric Neurologist", "Developmental Pediatrician", "Pediatric Physiatrist", "Special Education Specialist"]
+        else:
+            annual = 140000; _profile = "catastrophic injury"
+            _specs = "comprehensive medical care, therapy, home health aide"
+            _expert_specs = ["Physical Medicine & Rehabilitation", "Life Care Planner (RN/PhD)", "Vocational Expert", "Economist"]
         lifetime = int(annual * life_exp)
+        _hha = int(annual * 0.51); _med = int(annual * 0.25); _ther = int(annual * 0.12); _equip = int(annual * 0.08)
         return {
-            "summary": f"Life care plan for {injury} (age {age}, {state})",
+            "summary": f"Life care plan for {_profile}: {injury} (age {age}, {state}). {_specs}",
             "annual_costs": {
-                "physician_visits": int(8500 * annual/140100), "physical_therapy": int(12000 * annual/140100), "home_health_aide": int(72000 * annual/140100),
-                "medications": int(14400 * annual/140100), "medical_equipment": int(5600 * annual/140100), "transportation": int(3600 * annual/140100),
-                "home_modifications": int(18000 * annual/140100), "case_management": int(6000 * annual/140100)
+                "physician_visits": int(_med*0.30), "physical_therapy": int(_ther*0.50), "home_health_aide": _hha,
+                "medications": int(_med*0.20), "medical_equipment": _equip, "transportation": int(annual*0.04),
+                "home_modifications": int(_equip*0.60), "case_management": int(_med*0.10)
             },
-            "annual_total": int(annual),
-            "life_expectancy_years": life_exp,
-            "lifetime_total": lifetime,
+            "annual_total": annual, "life_expectancy_years": life_exp, "lifetime_total": lifetime,
             "cost_categories": [
-                {"category": "Medical Care", "annual": int(annual*0.32), "lifetime": int(annual*0.32*life_exp), "source": "U.S. Bureau of Labor Statistics"},
-                {"category": "Personal Care", "annual": int(annual*0.51), "lifetime": int(annual*0.51*life_exp), "source": "Genworth Cost of Care Survey 2025"},
-                {"category": "Therapies", "annual": int(annual*0.09), "lifetime": int(annual*0.09*life_exp), "source": "Medicare Fee Schedule 2025"},
-                {"category": "Equipment & Modifications", "annual": int(annual*0.08), "lifetime": int(annual*0.08*life_exp), "source": "NMEDA Guidelines"}
+                {"category": "Medical Care", "annual": _med, "lifetime": _med*life_exp, "source": "U.S. Bureau of Labor Statistics"},
+                {"category": "Personal Care", "annual": _hha, "lifetime": _hha*life_exp, "source": "Genworth Cost of Care Survey 2025"},
+                {"category": "Therapies", "annual": _ther, "lifetime": _ther*life_exp, "source": "Medicare Fee Schedule 2025"},
+                {"category": "Equipment & Modifications", "annual": _equip, "lifetime": _equip*life_exp, "source": "NMEDA Guidelines"}
             ],
             "medicare_medicaid_lien_analysis": {
-                "medicare_set_aside": int(lifetime * 0.15),
-                "medicaid_lien_potential": "High — state may assert lien on settlement for past medical expenses",
-                "recommended_structured": "Yes — MSA-appropriate trust recommended for amounts over $250K",
-                "notes": "Medicare Set-Aside should be funded via structured settlement to preserve benefits eligibility"
-            },
-            "structured_settlement": {
-                "recommendation": "Strongly recommended for catastrophic injury cases",
-                "pros": ["Tax-free income stream under IRC Sec 104(a)(2)", "Protection from mismanagement", "Guaranteed lifetime payments via annuity", "Medicaid/SSI eligibility preserved"],
-                "cons": ["Less flexibility than lump sum", "Fixed returns may not keep pace with inflation", "Irrevocable once funded"],
-                "typical_structure": "Periodic payments over life expectancy with lump sum for immediate needs"
-            },
-            "life_insurance_trust_options": {
-                "special_needs_trust": "Recommended if plaintiff receives government benefits — preserves SSI/Medicaid eligibility under 42 USC 1396p(d)(4)(A)",
-                "pooled_trust": "Alternative for smaller settlements managed by non-profit under 42 USC 1396p(d)(4)(C)",
-                "first_party_vs_third_party": "Third-party trust preferred — funded by defendant's insurer, no Medicaid payback required"
-            },
-            "vocational_rehab_costs": {
-                "evaluation": 3500, "retraining": "Typically $15K-$45K for cognitive retraining",
-                "job_coaching": "1,200-2,400 hours at $65/hr = $78K-$156K",
-                "assistive_technology": "5,000-25,000 depending on severity",
-                "annual_total_estimate": 18000
+                "medicare_set_aside": int(lifetime*0.15), "medicaid_lien_potential": "High -- state may assert lien on settlement",
+                "recommended_structured": "Yes -- MSA-appropriate trust recommended for amounts over $250K",
+                "notes": "Medicare Set-Aside should be funded via structured settlement"
             },
             "pain_and_suffering_multiplier": {
-                "multiplier_range": "1.5x-5x economic damages", "recommended_multiplier": 3.0,
-                "rationale": "Catastrophic injury with permanent impairment justifies upper-mid range multiplier",
-                "estimated_non_economic": int(lifetime * 3.0),
-                "jurisdiction_notes": "Courts in this state typically award 2-4x economic damages for catastrophic injury",
-                "precedent_citations": "Cuevas v. Contra Costa County (2022) — $4.2M non-economic, 3.5x multiplier; Wilson v. Mercy Hospital (2021) — 3.5x multiplier for spinal injury"
+                "multiplier_range": "1.5x-5x", "recommended_multiplier": 3.0,
+                "rationale": f"Catastrophic injury ({_profile}) with permanent impairment",
+                "estimated_non_economic": int(lifetime*3.0),
+                "jurisdiction_notes": "Courts in this state typically award 2-4x economic damages"
             },
-            "damages_presentation_strategy": "Present life care plan early with board-certified life care planner. Use Day-in-the-Life video establishing pre-injury baseline. Emphasize compensation for concrete needs, not sympathy. Use large-format exhibits of annual costs over life expectancy.",
+            "damages_presentation_strategy": f"Present life care plan with board-certified life care planner. Emphasize {_profile}-specific needs.",
             "medical_expert_recommendations": [
-                {"specialty": "Physical Medicine & Rehabilitation", "testimony_points": "Confirms disability level, functional limitations", "priority": "Critical"},
-                {"specialty": "Life Care Planning (RN or PhD)", "testimony_points": "Presents life care plan, defends cost categories", "priority": "Critical"},
-                {"specialty": "Vocational Expert", "testimony_points": "Lost earning capacity, employability assessment", "priority": "High"},
-                {"specialty": "Economist", "testimony_points": "Discounts life care plan to present value", "priority": "High"}
+                {"specialty": _expert_specs[0], "testimony_points": "Confirms disability level", "priority": "Critical"},
+                {"specialty": _expert_specs[1], "testimony_points": "Presents life care plan, defends costs", "priority": "Critical"},
+                {"specialty": _expert_specs[2], "testimony_points": "Lost earning capacity assessment", "priority": "High"},
+                {"specialty": _expert_specs[3], "testimony_points": "Discounts life care plan to present value", "priority": "High"}
             ],
             "cross_examination_prep": {
-                "life_expectancy_attacks": "Defense may argue shorter life expectancy. Cite CDC NVSR and SSA Period Life Tables. Rebut with biostatistics expert.",
-                "discount_rate_attacks": "Defense economist will apply 5-7%. Counter with PSS rate of 1-2% under IRC Sec 104(a)(2) Rulings.",
-                "cost_category_attacks": "Ensure each cost has foundation in treating physician order. Use learned treatises for SOC."
+                "life_expectancy_attacks": f"Defense may argue shorter life expectancy ({life_exp} years). Cite CDC NVSR tables.",
+                "discount_rate_attacks": "Defense economist will apply 5-7%. Counter with PSS rate of 1-2%.",
+                "cost_category_attacks": "Ensure each cost has foundation in treating physician order."
             },
             "structured_vs_lump_sum": {
-                "recommendation": "Hybrid approach — lump sum for immediate needs, structured for ongoing care",
-                "structured_benefits": ["Tax-free under IRC Sec 104(a)(2)", "Protection from creditors", "Guaranteed lifetime payments"],
-                "lump_sum_benefits": ["Full liquidity for home modifications, vehicles, equipment"],
-                "hybrid_approach": "30% lump sum / 70% structured",
-                "recommended_split": "30/70"
+                "recommendation": "Hybrid approach -- 30% lump sum / 70% structured",
+                "structured_benefits": ["Tax-free under IRC Sec 104(a)(2)", "Protection from creditors", "Guaranteed payments"],
+                "lump_sum_benefits": ["Full liquidity for home modifications, vehicles"]
             },
-            "medicare_lien_negotiation_strategy": "Step 1: Get CMS payment history via Section 111. Step 2: Consider MSA for future care. Step 3: Negotiate CMS reduction under procurement costs (25-35% typical). Step 4: Use CMS-approved MSA vendor.",
-            "day_in_the_life_video": {"recommendation": "Highly recommended", "production_cost": "$5,000-$15,000", "best_practices": "Film 2-3 days; include morning routine, therapy, family interactions; avoid dramatization", "legal_foundation": "Admissible under Evid Code 1400-1560"},
-            "economic_expert_referral": "Retain PhD economist or CPA/ABV. Referral: National Association of Forensic Economics (NAFE).",
-            "life_expectancy_sources": "CDC National Vital Statistics Reports; SSA Period Life Table (2022); National Trauma Data Bank",
-            "discount_rate_case_law": "Jones & Laughlin Steel v. Pfeifer (1983) 462 U.S. 523 — total offset; Norfolk & Western Ry. v. Liepelt (1980) 444 U.S. 490 — after-tax discount rate",
-            "collateral_source_rules": get_state_law(state).get('collateral_source_rule',{}).get('statute','Varies') + ' — ' + ('reduction applies' if 'reduction' in get_state_law(state).get('collateral_source_rule',{}).get('reduction','').lower() else 'no reduction' if 'no' in get_state_law(state).get('collateral_source_rule',{}).get('reduction','').lower() else 'consult local counsel'),
-            "per_diem_argument_law": 'Beagle v. Vasold (1966) 65 Cal.2d 166 — per diem permitted; ' + get_state_law(state).get('jury_instructions',{}).get('system','State pattern') + ' per diem instruction; Rodriguez v. McDonnell Douglas (1978) 87 Cal.App.3d 626 — per diem for future P&S',
-            "differentiation_strategies": 'Argue life expectancy longer than CDC tables due to access to excellent care; use structured settlement to avoid tax under IRC Sec 104(a)(2); present per diem argument with simple math jurors can verify; ' + ('cite ' + get_state_law(state).get('damage_caps',{}).get('statute','') + ' cap limitations' if state in ['CA','TX','FL','PA'] else 'use state-specific jury instructions for damages')
+            "collateral_source_rules": get_state_law(state).get('collateral_source_rule',{}).get('statute','Varies'),
+            "per_diem_argument_law": 'Beagle v. Vasold (1966) 65 Cal.2d 166 -- per diem permitted',
+            "differentiation_strategies": f'Argue life expectancy longer than CDC tables for {_profile}; present per diem argument',
+            "damages_maximization": {
+                "jury_presentation_strategy": f"Phase 1: Day-in-Life video. Phase 2: Life Care Planner. Phase 3: Economist.",
+                "cost_categories_by_impact": [
+                    {"category": "Home Health Aide", "annual": _hha, "lifetime": _hha*life_exp, "jury_impact": "HIGH"},
+                    {"category": "Medical Care", "annual": _med, "lifetime": _med*life_exp, "jury_impact": "HIGH"},
+                    {"category": "Therapies", "annual": _ther, "lifetime": _ther*life_exp, "jury_impact": "MEDIUM"},
+                    {"category": "Equipment", "annual": _equip, "lifetime": _equip*life_exp, "jury_impact": "MEDIUM"}
+                ],
+                "humanization_techniques": ["Pre-injury photos/video", "Day-in-Life video", "Family testimony", "Treating physician testimony"],
+                "defense_cost_attack_rebuttals": [
+                    {"attack": "Life expectancy overstated", "rebuttal": f"CDC tables confirm {life_exp} years."},
+                    {"attack": "Costs are speculative", "rebuttal": "Each cost has foundation in treating physician orders."}
+                ]
+            },
+            "note": "MOCK DATA -- Configure Groq API key for AI-generated estimates. Exception fallback."
         }
-
 
 def generate_opposing_counsel_profile(attorney_name: str, firm: str, practice_area: str, state: str = "CA") -> dict:
     """
@@ -1433,38 +1469,42 @@ def generate_opposing_counsel_profile(attorney_name: str, firm: str, practice_ar
     """
     if not client:
         _pi = hash(attorney_name + firm) % 5
-        _profs = [
-            {"st":"Aggressive Litigator","w":"70-80%","s":"30%","lt":"Extremely aggressive. Files discovery day 1, 5+ depositions/week, sanctions motions.","t":["Files discovery day 1","5+ depositions/week","Sanctions motions","Refuses extensions","Bifurcation demands"],"c":["File reciprocal discovery immediately","Prepare witnesses for aggressive cross","Never ask extensions"],"dw":["Scripted cross","Struggles with deviations","Poor listener"],"mp":["SJ at 90 days","Daubert on all experts","Limine on damages"],"sh":["Settles 30%","Only after SJ loss","40-50% limits"],"ap":"Match intensity. File reciprocal discovery. Never ask extensions."},
-            {"st":"Settlement-Focused","w":"40-50%","s":"85%","lt":"Prefers resolution. Strategic negotiator. Uses mediation.","t":["Early mediation","Reasonable discovery","Professional tone","Settlement overtures","Private mediation"],"c":["Don't settle early","Build damages first","Use their reasonableness"],"dw":["Less deposition prep","Relies on charm","Settles too early"],"mp":["Prompt discovery","Early mediation","Reasonable confer"],"sh":["Settles 85%","Reasonable demands","Pays fair value"],"ap":"Don't settle early. Build your case first. Be willing to try it."},
-            {"st":"Defensive Specialist","w":"55-65%","s":"50%","lt":"Motion-heavy defense. Summary judgment, Daubert, procedural bars.","t":["SJ in every case","Aggressive Daubert","Cert of merit challenges","SOL defenses","Expert disqualification"],"c":["Prepare experts for Daubert","Document timing","Build damages case"],"dw":["Weak on damages","Ignores emotional impact","Poor jury connection"],"mp":["SJ at 90 days","Daubert at expert deadline","SOL early"],"sh":["Settles 50%","When liability weak","50-60% limits"],"ap":"Prepare experts for Daubert. Document all timing. Build damages."},
-            {"st":"Young Aggressive Associate","w":"45-55%","s":"40%","lt":"Eager to prove self. Works hard but lacks judgment. Makes procedural mistakes.","t":["Over-discover everything","Late filings","Emotional depositions","Reluctant to settle","Seeks partner input"],"c":["Be patient -- errors create record","Let them over-discover","Partner may step in"],"dw":["Excessive questions","Poor witness control","Gets frustrated"],"mp":["Overbroad discovery","Last-minute filings","Long deposition notices"],"sh":["Settles 40%","Needs partner approval","Holds for trial exp"],"ap":"Be patient. Their over-zealousness creates recordable errors."},
-            {"st":"Veteran Negotiator","w":"60-70%","s":"60%","lt":"Seasoned, strategic, pragmatic. Respected by judges.","t":["Strategic discovery","Effective mediation","Judicial leverage","Narrow motions","Fair posture"],"c":["Show respect","Prepare novel arguments","Use associates energy"],"dw":["Witness prep shortcuts","Overconfident","Misses creative arguments"],"mp":["Targeted discovery","Strategic mediation","Narrow motions"],"sh":["Settles 60%","Fair values","Fights on clear liability"],"ap":"Show respect. Prepare novel arguments."}
+        _is_medmal = 'med mal' in practice_area.lower() or 'medical malpractice' in practice_area.lower()
+        _is_pi = 'personal injury' in practice_area.lower() or 'pi' in practice_area.lower() or 'auto' in practice_area.lower()
+        _def_tactics = "motions for certificate of merit, standard of care expert challenges, anti-SLAPP" if _is_medmal else "motions for summary judgment, Daubert challenges, bifurcation demands" if _is_pi else "dispositive motions, venue challenges, forum non conveniens"
+        _profiles = [
+            {"st":"Aggressive Litigator","w":"55-65%","s":"70%","lt":"Extensive discovery demands, frequent motion practice, prefers trial over settlement in high-value cases. Known for burying opposing counsel in paper while preparing intensively for trial.","t":["Files discovery on day 1","Aggressive deposition schedule -- 5+ per week","Frequent sanctions motions","Refuses to extend deadlines",f"Bifurcation demands, {_def_tactics}"],"c":["File reciprocal discovery immediately -- match their intensity","Prepare every witness for aggressive cross-examination","Never ask for extensions -- signals weakness to this attorney"],"dw":["Over-preparation leads to scripted cross-examination","Struggles when witnesses deviate from expected testimony","Poor listener -- misses follow-up opportunities during depositions"],"mp":["MSJ at 90-day mark","Daubert challenges on every expert witness","Motions in limine on damages evidence"],"sh":["Settles 30% before trial","Only after unfavorable summary judgment ruling","Prefers 40-50% of policy limits"],"ap":"Match their intensity. File reciprocal discovery immediately. Do not ask for extensions. Beat them on motion deadlines. Focus on creating a record for appeal of their aggressive discovery tactics.","tone":"Aggressive but professional -- do not let them goad you into unprofessional conduct"},
+            {"st":"Settlement-Focused","w":"40-50%","s":"85%","lt":"Prefers resolution over trial. Skilled negotiator who reads adjuster behavior well. Will use mediation strategically. Files professional, measured discovery requests. Avoids unnecessary motion practice.","t":["Early mediation demands at 90-day mark","Reasonable, targeted discovery requests","Professional correspondence -- never personal","Frequent settlement overtures through mediator","Private mediation with retired judges"],"c":["Do not settle early -- their early offers are below value","Build your damages case before serious negotiations","Use their reasonableness to extract concessions on discovery scope"],"dw":["Less prepared for depositions -- relies on charm over substance","Settles too early in strong cases, leaving value on the table","Overlooks creative damages theories"],"mp":["Prompt discovery responses","Early mediation requests","Reasonable meet-and-confer efforts"],"sh":["Settles 85% at or before mediation","Reasonable opening demands -- typically 60-70% of policy","Willing to pay fair value when liability is clear"],"ap":"Do not settle early. Build your damages case thoroughly before serious negotiations. Be willing to try the case -- this attorney will settle favorably once they see you are prepared for trial.","tone":"Professional and collaborative -- they respond well to reasoned arguments backed by evidence"},
+            {"st":"Defensive Specialist","w":"60-70%","s":"60%","lt":"Motion-heavy defense strategy. Focuses on summary judgment, Daubert challenges, and procedural bars. Specializes in winning on technical defenses rather than factual merits. Meticulous record-keeper.","t":["SJ in every case -- filed at earliest opportunity","Aggressive Daubert motions to exclude all plaintiff experts","Certificate of merit challenges (in medical malpractice)","SOL defenses aggressively pursued","Expert witness disqualification motions"],"c":["Prepare experts intensively for Daubert challenges -- mock testimony, written reports","Document all timing issues meticulously -- anticipate SOL arguments","Build strong damages case -- they have no effective response to catastrophic facts"],"dw":["Weak on damages phase -- focuses exclusively on liability","Ignores emotional impact of injuries on jury","Struggles connecting with jurors -- too technical"],"mp":["SJ filed at 90-day mark","Daubert motions at expert disclosure deadline","SOL motions at earliest opportunity"],"sh":["Settles 50% at mediation","Only when liability is weak or damages are catastrophic","Prefers 50-60% of policy limits"],"ap":"Prepare your experts for Daubert as if your case depends on it -- because it does. Document every timing issue. Build a damages case so compelling that no technical defense can overcome it.","tone":"Meticulous and precise -- match their attention to detail, cite every case, be prepared for every procedural argument"},
+            {"st":"Young Aggressive Associate","w":"35-45%","s":"50%","lt":"Eager to prove themselves. Works extremely hard but lacks seasoned judgment. Makes procedural mistakes that can be exploited. Very responsive but over-litigates routine matters. Seeks senior partner input on major decisions.","t":["Over-discover -- requests everything, including irrelevant materials","Late filings and procedural errors","Emotional, unfocused depositions","Reluctant to settle -- wants trial experience","Seeks senior partner input on major decisions"],"c":["Be patient -- their over-zealousness creates recordable errors","Let them over-discover -- it costs their client money","Senior partner may step in if they sense weakness -- build case early"],"dw":["Asks excessive questions -- loses control of deposition","Poor witness control -- lets witnesses ramble","Gets visibly frustrated when challenged","Makes procedural errors that can be preserved for appeal"],"mp":["Overbroad discovery requests","Close-to-deadline or late filings","Lengthy, unfocused deposition notices"],"sh":["Settles 40% of cases","Needs senior partner approval to settle","Holds out for trial experience -- may reject reasonable offers"],"ap":"Be patient and let them make mistakes. Their over-zealousness creates recordable errors. Their senior partner may step in late -- build your case strong before that happens. Consider trying the case against them.","tone":"Professional but firm -- do not let their inexperience dictate the pace. Document every procedural error."},
+            {"st":"Veteran Negotiator","w":"50-60%","s":"75%","lt":"Seasoned, strategic, and pragmatic. Knows when to fight and when to fold. Respected by judges. Uses professional relationships effectively. Unflappable in depositions and court. Fair but firm.","t":["Strategic discovery -- only what they need, well-targeted","Effective mediation use -- knows all mediators personally","Judicial relations leverage -- respected by bench","Narrow, targeted motions","Fair but firm posture in all proceedings"],"c":["Show respect but do not be intimidated by their reputation","Prepare novel legal arguments -- they rely on experience over innovation","Use younger associates' energy to outwork them on preparation"],"dw":["Takes shortcuts in witness preparation -- relies on experience","Can be overconfident -- may overlook creative arguments","May underestimate prepared, younger opponents"],"mp":["Targeted, focused discovery requests","Strategic mediation timing -- uses mediator relationships","Narrow, well-researched motions"],"sh":["Settles 60% of cases","Fair settlement values -- typically at policy limits in strong cases","Will fight through trial on cases with genuine liability disputes"],"ap":"Show respect for their experience but do not be intimidated. Prepare novel legal arguments they have not seen before. They will settle fairly when your evidence is strong and well-organized.","tone":"Respectful and professional -- acknowledge their experience. Be prepared with novel arguments they won't expect."}
         ]
-        _p = _profs[_pi]
+        _p = _profiles[_pi]
         return {
             "attorney": attorney_name, "firm": firm, "practice_area": practice_area,
             "profile_type": _p["st"], "win_rate_estimate": _p["w"], "settlement_rate": _p["s"],
-            "litigation_style": _p["lt"],
+            "litigation_style": _p["lt"] + f" Practice area: {practice_area}. Defense tactics: {_def_tactics}.",
             "notable_cases": [
-                {"case": f"{firm} v. Defendant (2023)", "outcome": f"${2 + _pi}.{3 - _pi}M verdict"},
-                {"case": f"{firm} v. Healthcare Co. (2022)", "outcome": f"Confidential settlement -- {_p['st']}"}
+                {"case": f"{attorney_name} / {firm} v. Defendant (2023)", "outcome": f"${2 + _pi}.{3 - _pi}M verdict -- {practice_area}"},
+                {"case": f"{attorney_name} / {firm} v. Healthcare Co. (2022)", "outcome": f"Confidential settlement -- {_p['st']} handling of {practice_area}"}
             ],
             "strategy_tips": _p["c"][:3],
             "known_litigation_tactics": _p["t"], "counter_strategies": _p["c"],
             "motion_practice_patterns": _p["mp"], "deposition_weaknesses": _p["dw"],
             "settlement_history_patterns": _p["sh"], "recommended_approach": _p["ap"],
+            "recommended_tone": _p["tone"],
             "rules_of_professional_conduct": get_state_law(state).get('name','State') + ' Rules of Professional Conduct; ABA Model Rules 4.1-4.4',
             "discovery_abuse_case_law": 'SOSA v. DIRECTV (9th Cir. 2006) -- spoliation; FRCP Rule 37(e)',
             "counter_motions": get_state_law(state).get('procedural_rules',{}).get('offer_of_judgment','FRCP 68') + ' -- cost-shifting; FRCP Rule 56(d)',
-            "differentiation_strategies": 'Focus on this attorney pattern; cite prior discovery abuses; prepare Daubert opposition',
+            "differentiation_strategies": f'Focus on {_p["st"]} specific pattern; cite prior discovery abuses; prepare Daubert opposition for {practice_area}',
             "how_to_beat": {
-                "psychological_profile": f"Hash {_pi} -- {_p['st']}",
-                "settlement_triggers": ["After losing dispositive motion", "When expert survives Daubert"],
+                "psychological_profile": f"Hash {_pi} -- {_p['st']}. {_p['tone'][:60]}",
+                "settlement_triggers": ["After losing dispositive motion", "When expert survives Daubert", "When damages evidence is strong"],
                 "deposition_weaknesses": _p["dw"],
-                "motion_practice_weaknesses": ["Boilerplate Daubert", "Over-relies on SJ"],
-                "recommended_tone": "Professional but aggressive",
-                "trial_vs_settle": {"analysis": f"Settles {_p['s']} at mediation"},
-                "defense_experts_to_preempt": [{"expert": "Biomechanics", "counter": "Challenge assumptions"}]
+                "motion_practice_weaknesses": ["Boilerplate Daubert", "Over-relies on SJ", "Predictable timing"],
+                "recommended_tone": _p["tone"],
+                "trial_vs_settle": {"analysis": f"Settles {_p['s']} at mediation. Profile: {_p['st']}. Practice area: {practice_area}."},
+                "defense_experts_to_preempt": [{"expert": "Biomechanics", "counter": "Challenge assumptions"}, {"expert": "Life Care Planner (Defense)", "counter": "Challenge methodology"}]
             },
             "note": "MOCK DATA -- Configure Groq API key for AI-generated profiles."
         }
@@ -1507,38 +1547,42 @@ def generate_opposing_counsel_profile(attorney_name: str, firm: str, practice_ar
     except Exception as e:
         # Fall back to hash-driven profile data on API error
         _pi = hash(attorney_name + firm) % 5
-        _profs = [
-            {"st":"Aggressive Litigator","w":"70-80%","s":"30%","lt":"Extremely aggressive. Files discovery day 1, 5+ depositions/week, sanctions motions.","t":["Files discovery day 1","5+ depositions/week","Sanctions motions","Refuses extensions","Bifurcation demands"],"c":["File reciprocal discovery immediately","Prepare witnesses for aggressive cross","Never ask extensions"],"dw":["Scripted cross","Struggles with deviations","Poor listener"],"mp":["SJ at 90 days","Daubert on all experts","Limine on damages"],"sh":["Settles 30%","Only after SJ loss","40-50% limits"],"ap":"Match intensity. File reciprocal discovery. Never ask extensions."},
-            {"st":"Settlement-Focused","w":"40-50%","s":"85%","lt":"Prefers resolution. Strategic negotiator. Uses mediation.","t":["Early mediation","Reasonable discovery","Professional tone","Settlement overtures","Private mediation"],"c":["Don't settle early","Build damages first","Use their reasonableness"],"dw":["Less deposition prep","Relies on charm","Settles too early"],"mp":["Prompt discovery","Early mediation","Reasonable confer"],"sh":["Settles 85%","Reasonable demands","Pays fair value"],"ap":"Don't settle early. Build your case first. Be willing to try it."},
-            {"st":"Defensive Specialist","w":"55-65%","s":"50%","lt":"Motion-heavy defense. Summary judgment, Daubert, procedural bars.","t":["SJ in every case","Aggressive Daubert","Cert of merit challenges","SOL defenses","Expert disqualification"],"c":["Prepare experts for Daubert","Document timing","Build damages case"],"dw":["Weak on damages","Ignores emotional impact","Poor jury connection"],"mp":["SJ at 90 days","Daubert at expert deadline","SOL early"],"sh":["Settles 50%","When liability weak","50-60% limits"],"ap":"Prepare experts for Daubert. Document all timing. Build damages."},
-            {"st":"Young Aggressive Associate","w":"45-55%","s":"40%","lt":"Eager to prove self. Works hard but lacks judgment. Makes procedural mistakes.","t":["Over-discover everything","Late filings","Emotional depositions","Reluctant to settle","Seeks partner input"],"c":["Be patient -- errors create record","Let them over-discover","Partner may step in"],"dw":["Excessive questions","Poor witness control","Gets frustrated"],"mp":["Overbroad discovery","Last-minute filings","Long deposition notices"],"sh":["Settles 40%","Needs partner approval","Holds for trial exp"],"ap":"Be patient. Their over-zealousness creates recordable errors."},
-            {"st":"Veteran Negotiator","w":"60-70%","s":"60%","lt":"Seasoned, strategic, pragmatic. Respected by judges.","t":["Strategic discovery","Effective mediation","Judicial leverage","Narrow motions","Fair posture"],"c":["Show respect","Prepare novel arguments","Use associates energy"],"dw":["Witness prep shortcuts","Overconfident","Misses creative arguments"],"mp":["Targeted discovery","Strategic mediation","Narrow motions"],"sh":["Settles 60%","Fair values","Fights on clear liability"],"ap":"Show respect. Prepare novel arguments."}
+        _is_medmal = 'med mal' in practice_area.lower() or 'medical malpractice' in practice_area.lower()
+        _is_pi = 'personal injury' in practice_area.lower() or 'pi' in practice_area.lower() or 'auto' in practice_area.lower()
+        _def_tactics = "motions for certificate of merit, standard of care expert challenges" if _is_medmal else "motions for summary judgment, Daubert challenges" if _is_pi else "dispositive motions, venue challenges"
+        _profiles = [
+            {"st":"Aggressive Litigator","w":"55-65%","s":"70%","lt":"Extensive discovery demands, frequent motion practice, prefers trial. Known for burying opposing counsel in paper.","t":["Files discovery on day 1","5+ depositions/week","Sanctions motions","Refuses extensions",f"Bifurcation, {_def_tactics}"],"c":["File reciprocal discovery immediately","Prepare witnesses for aggressive cross","Never ask extensions"],"dw":["Scripted cross","Struggles with deviations","Poor listener"],"mp":["SJ at 90 days","Daubert on all experts","Limine on damages"],"sh":["Settles 30%","Only after SJ loss","40-50% limits"],"ap":"Match intensity. File reciprocal discovery. Never ask extensions.","tone":"Aggressive but professional"},
+            {"st":"Settlement-Focused","w":"40-50%","s":"85%","lt":"Prefers resolution over trial. Strategic negotiator. Uses mediation effectively.","t":["Early mediation","Reasonable discovery","Professional tone","Settlement overtures","Private mediation"],"c":["Don't settle early","Build damages first","Use their reasonableness"],"dw":["Less deposition prep","Relies on charm","Settles too early"],"mp":["Prompt discovery","Early mediation","Reasonable confer"],"sh":["Settles 85%","Reasonable demands","Pays fair value"],"ap":"Don't settle early. Build your case first. Be willing to try it.","tone":"Professional and collaborative"},
+            {"st":"Defensive Specialist","w":"60-70%","s":"60%","lt":"Motion-heavy defense. Summary judgment, Daubert, procedural bars.","t":["SJ in every case","Aggressive Daubert","Cert of merit challenges","SOL defenses","Expert disqualification"],"c":["Prepare experts for Daubert","Document timing","Build damages case"],"dw":["Weak on damages","Ignores emotional impact","Poor jury connection"],"mp":["SJ at 90 days","Daubert at expert deadline","SOL early"],"sh":["Settles 50%","When liability weak","50-60% limits"],"ap":"Prepare experts for Daubert. Document all timing. Build damages.","tone":"Meticulous and precise"},
+            {"st":"Young Aggressive Associate","w":"35-45%","s":"50%","lt":"Eager to prove self. Works hard but lacks judgment. Makes procedural mistakes.","t":["Over-discover everything","Late filings","Emotional depositions","Reluctant to settle","Seeks partner input"],"c":["Be patient -- errors create record","Let them over-discover","Partner may step in"],"dw":["Excessive questions","Poor witness control","Gets frustrated"],"mp":["Overbroad discovery","Last-minute filings","Long deposition notices"],"sh":["Settles 40%","Needs partner approval","Holds for trial exp"],"ap":"Be patient. Their over-zealousness creates recordable errors.","tone":"Professional but firm"},
+            {"st":"Veteran Negotiator","w":"50-60%","s":"75%","lt":"Seasoned, strategic, pragmatic. Respected by judges. Knows when to fight.","t":["Strategic discovery","Effective mediation","Judicial leverage","Narrow motions","Fair posture"],"c":["Show respect","Prepare novel arguments","Use associates energy"],"dw":["Witness prep shortcuts","Overconfident","Misses creative arguments"],"mp":["Targeted discovery","Strategic mediation","Narrow motions"],"sh":["Settles 60%","Fair values","Fights on clear liability"],"ap":"Show respect. Prepare novel arguments.","tone":"Respectful and professional"}
         ]
-        _p = _profs[_pi]
+        _p = _profiles[_pi]
         return {
             "attorney": attorney_name, "firm": firm, "practice_area": practice_area,
             "profile_type": _p["st"], "win_rate_estimate": _p["w"], "settlement_rate": _p["s"],
-            "litigation_style": _p["lt"],
+            "litigation_style": _p["lt"] + f" Practice area: {practice_area}. Defense tactics: {_def_tactics}.",
             "notable_cases": [
-                {"case": f"{firm} v. Defendant (2023)", "outcome": f"${2 + _pi}.{3 - _pi}M verdict"},
-                {"case": f"{firm} v. Healthcare Co. (2022)", "outcome": f"Confidential settlement -- {_p['st']}"}
+                {"case": f"{attorney_name} / {firm} v. Defendant (2023)", "outcome": f"${2 + _pi}.{3 - _pi}M verdict -- {practice_area}"},
+                {"case": f"{attorney_name} / {firm} v. Healthcare Co. (2022)", "outcome": f"Confidential settlement -- {_p['st']} handling of {practice_area}"}
             ],
             "strategy_tips": _p["c"][:3],
             "known_litigation_tactics": _p["t"], "counter_strategies": _p["c"],
             "motion_practice_patterns": _p["mp"], "deposition_weaknesses": _p["dw"],
             "settlement_history_patterns": _p["sh"], "recommended_approach": _p["ap"],
+            "recommended_tone": _p["tone"],
             "rules_of_professional_conduct": get_state_law(state).get('name','State') + ' Rules of Professional Conduct; ABA Model Rules 4.1-4.4',
             "discovery_abuse_case_law": 'SOSA v. DIRECTV (9th Cir. 2006) -- spoliation; FRCP Rule 37(e)',
             "counter_motions": get_state_law(state).get('procedural_rules',{}).get('offer_of_judgment','FRCP 68') + ' -- cost-shifting; FRCP Rule 56(d)',
-            "differentiation_strategies": 'Focus on this attorney pattern; cite prior discovery abuses; prepare Daubert opposition',
+            "differentiation_strategies": f'Focus on {_p["st"]} specific pattern; cite prior discovery abuses; prepare Daubert opposition for {practice_area}',
             "how_to_beat": {
-                "psychological_profile": f"Hash {_pi} -- {_p['st']}",
-                "settlement_triggers": ["After losing dispositive motion", "When expert survives Daubert"],
+                "psychological_profile": f"Hash {_pi} -- {_p['st']}. Recommended tone: {_p['tone']}",
+                "settlement_triggers": ["After losing dispositive motion", "When expert survives Daubert", "When damages evidence is strong"],
                 "deposition_weaknesses": _p["dw"],
-                "motion_practice_weaknesses": ["Boilerplate Daubert", "Over-relies on SJ"],
-                "recommended_tone": "Professional but aggressive",
-                "trial_vs_settle": {"analysis": f"Settles {_p['s']} at mediation"},
-                "defense_experts_to_preempt": [{"expert": "Biomechanics", "counter": "Challenge assumptions"}]
+                "motion_practice_weaknesses": ["Boilerplate Daubert", "Over-relies on SJ", "Predictable timing"],
+                "recommended_tone": _p["tone"],
+                "trial_vs_settle": {"analysis": f"Settles {_p['s']} at mediation. Profile: {_p['st']}. Practice area: {practice_area}."},
+                "defense_experts_to_preempt": [{"expert": "Biomechanics", "counter": "Challenge assumptions"}, {"expert": "Life Care Planner (Defense)", "counter": "Challenge methodology"}]
             },
             "note": "MOCK DATA -- Configure Groq API key for AI-generated profiles. Exception fallback."
         }
