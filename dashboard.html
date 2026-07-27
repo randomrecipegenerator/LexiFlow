@@ -770,6 +770,10 @@ function renderStrategyFields(container, fields) {
         h += '<div style="padding:12px;font-size:13px;color:var(--text-secondary);line-height:1.7;">'+val.join('<br>')+'</div>';
       }
       h += '</div>';
+    } else if (typeof val === 'object' && val !== null) {
+      h += '<div class="v-card" style="margin-top:12px;"><div class="v-card-header"><h3 class="v-card-title">'+f.label+'</h3></div><div style="padding:12px;font-size:13px;color:var(--text-secondary);line-height:1.6;">';
+      for (var k in val) { if (val.hasOwnProperty(k)) { h += '<div style="display:flex;gap:8px;margin-bottom:6px;"><span style="font-weight:600;min-width:140px;text-transform:capitalize;">'+k.replace(/_/g,' ')+':</span><span>'+val[k]+'</span></div>'; } }
+      h += '</div></div>';
     } else {
       h += '<div class="v-card" style="margin-top:12px;"><div class="v-card-header"><h3 class="v-card-title">'+f.label+'</h3></div><div style="padding:12px;font-size:13px;color:var(--text-secondary);line-height:1.6;">'+val+'</div></div>';
     }
@@ -862,7 +866,17 @@ async function analyzeMedical() {
       var caseTheory = d.case_theory || (desc.length%5===0?'The evidence strongly supports a theory of delayed diagnosis causing preventable harm. The standard of care required timely imaging, which was not performed.':'This case hinges on whether the defendant\'s deviation from accepted medical practice directly caused the plaintiff\'s injuries. The medical records establish a clear timeline of negligence.');
       output += '<div class="v-card" style="border-left:3px solid var(--gold-accent);margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-bullseye"></i> Case Theory <span style="font-size:11px;color:var(--text-muted);font-weight:400;">— Winning Narrative</span></h3></div><div style="padding:12px;font-size:14px;color:var(--text-primary);line-height:1.6;">'+caseTheory+'</div></div>';
       // ── MERIT ASSESSMENT ──
-      if(d.merit_assessment) { output+='<div class="v-card" style="border-left:3px solid var(--gold-accent);margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title">Merit Assessment</h3></div><div style="padding:12px;font-size:14px;color:var(--text-primary);">'+d.merit_assessment+'</div></div>'; }
+      if(d.merit_assessment && typeof d.merit_assessment === 'object') {
+        var ma = d.merit_assessment;
+        var mc = ma.score > 70 ? 'var(--success)' : ma.score > 40 ? 'var(--warning)' : 'var(--danger)';
+        output += '<div class="v-card" style="border-left:3px solid ' + mc + ';margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-trophy"></i> Merit Assessment</h3></div>';
+        output += '<div style="padding:12px;"><div style="display:flex;gap:16px;align-items:center;margin-bottom:12px;"><div style="font-size:36px;font-weight:800;color:' + mc + ';">' + ma.score + '</div><div><div style="font-size:16px;font-weight:700;color:var(--text-primary);">' + (ma.overall_merit||'') + '</div><div style="font-size:13px;color:var(--text-secondary);">' + (ma.recommended_course||'') + '</div></div></div>';
+        if(ma.strength_factors && ma.strength_factors.length) { output += '<div style="margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:var(--success);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Strengths</div><ul style="margin:0;padding-left:16px;font-size:13px;color:var(--text-secondary);">'; ma.strength_factors.forEach(function(s){ output+='<li>'+s+'</li>'; }); output += '</ul></div>'; }
+        if(ma.weakness_factors && ma.weakness_factors.length) { output += '<div><div style="font-size:11px;font-weight:600;color:var(--danger);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Weaknesses</div><ul style="margin:0;padding-left:16px;font-size:13px;color:var(--text-secondary);">'; ma.weakness_factors.forEach(function(w){ output+='<li>'+w+'</li>'; }); output += '</ul></div>'; }
+        output += '</div></div>';
+      } else if(d.merit_assessment) {
+        output+='<div class="v-card" style="border-left:3px solid var(--gold-accent);margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title">Merit Assessment</h3></div><div style="padding:12px;font-size:14px;color:var(--text-primary);">'+d.merit_assessment+'</div></div>';
+      }
       // ── CAUSATION IN 30 SECONDS ──
       var cause30 = d.causation_30_seconds || (desc.length%3===0?'The delay in diagnosis directly caused the plaintiff to lose a window for effective treatment. The standard of care required X, the defendant did Y, and the patient suffered Z as a direct result.':'The defendant\'s failure to order the appropriate diagnostic test meant the underlying condition progressed from treatable to catastrophic. Simple causation: breach + delay = damages.');
       output += '<div class="advice-box info" style="margin-bottom:16px;"><h3><span class="advice-icon"><i class="bi bi-clock-history"></i></span> Causation in 30 Seconds <span style="font-size:11px;color:var(--text-muted);font-weight:400;">— Explain to Jury</span></h3><p>'+cause30+'</p></div>';
@@ -870,12 +884,26 @@ async function analyzeMedical() {
       if(d.medical_chronology && d.medical_chronology.length) { output+='<div class="v-card" style="margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title">Medical Chronology</h3></div><div class="table-wrap"><table><thead><tr><th>Date</th><th>Event</th><th>Source</th></tr></thead><tbody>'; d.medical_chronology.forEach(function(e){ output+='<tr><td>'+e.date+'</td><td>'+e.event+'</td><td style="font-size:12px;color:var(--text-muted);">'+e.source+'</td></tr>'; }); output+='</tbody></table></div></div>'; }
       // ── STANDARD OF CARE VIOLATIONS ──
       if(d.standard_of_care_violations && d.standard_of_care_violations.length) {
-        output += '<div class="v-card" style="border-left:3px solid var(--danger);margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-exclamation-triangle"></i> Standard of Care Violations</h3></div><ol style="padding:12px 12px 12px 32px;font-size:13px;color:var(--text-secondary);line-height:1.8;">';
-        d.standard_of_care_violations.forEach(function(v){ output+='<li>'+v+'</li>'; });
-        output += '</ol></div>';
+        output += '<div class="v-card" style="border-left:3px solid var(--danger);margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-exclamation-triangle"></i> Standard of Care Violations</h3></div><div style="padding:12px;display:flex;flex-direction:column;gap:10px;">';
+        d.standard_of_care_violations.forEach(function(v){
+          if(typeof v === 'object' && v !== null) {
+            var sc = v.severity === 'CRITICAL' ? 'var(--danger)' : v.severity === 'HIGH' ? 'var(--warning)' : 'var(--gold-accent)';
+            output += '<div style="border:1px solid var(--navy-border);border-radius:8px;padding:10px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><strong style="font-size:13px;color:var(--text-primary);">' + (v.violation||'') + '</strong> <span class="v-badge" style="background:' + sc + '20;color:' + sc + ';border:1px solid ' + sc + '40;">' + (v.severity||'') + '</span></div><div style="font-size:12px;color:var(--text-muted);">' + (v.guideline||'') + '</div></div>';
+          } else { output+='<li>'+v+'</li>'; }
+        });
+        output += '</div></div>';
       }
       // ── TREATMENT GAPS ──
-      if(d.treatment_gaps && d.treatment_gaps.length) { output+='<div class="v-card" style="border-left:3px solid var(--danger);margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title">Treatment Gaps Found</h3></div><ul style="font-size:13px;color:var(--text-secondary);padding-left:16px;">'; d.treatment_gaps.forEach(function(g){ output+='<li>'+g+'</li>'; }); output+='</ul></div>'; }
+      if(d.treatment_gaps && d.treatment_gaps.length) {
+        output+='<div class="v-card" style="border-left:3px solid var(--danger);margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-clock-history"></i> Treatment Gaps Found</h3></div><div style="padding:12px;display:flex;flex-direction:column;gap:10px;">';
+        d.treatment_gaps.forEach(function(g){
+          if(typeof g === 'object' && g !== null) {
+            var sc = g.severity === 'HIGH' ? 'var(--danger)' : g.severity === 'MEDIUM' ? 'var(--warning)' : 'var(--gold-accent)';
+            output += '<div style="border:1px solid var(--navy-border);border-radius:8px;padding:10px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><strong style="font-size:13px;color:var(--text-primary);">' + (g.gap||'') + '</strong> <span class="v-badge" style="background:' + sc + '20;color:' + sc + ';border:1px solid ' + sc + '40;">' + (g.severity||'') + '</span></div><div style="font-size:12px;color:var(--text-muted);">' + (g.details||'') + '</div></div>';
+          } else { output+='<li>'+g+'</li>'; }
+        });
+        output+='</div></div>';
+      }
       // ── DEFENSE MEDICAL THEORY ──
       var defTheory = d.defense_medical_theory || (desc.length%2===0?'The defense will argue the patient had pre-existing conditions that caused the poor outcome, not any negligence. They will challenge causation and point to patient non-compliance.':'Defense will claim the standard of care was met and the outcome was a known complication. They will attack the plaintiff\'s expert qualifications and rely on their own retrospective analysis.');
       output += '<div class="v-card" style="border-left:3px solid var(--warning);margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-shield-exclamation"></i> Defense Medical Theory</h3></div><div style="padding:12px;font-size:13px;color:var(--text-secondary);line-height:1.6;">'+defTheory+'</div></div>';
@@ -893,7 +921,7 @@ async function analyzeMedical() {
       res.innerHTML = ''; while(medContainer.firstChild) res.appendChild(medContainer.firstChild);
       renderStrategyFields(res, [
         {label:'Standard of Care Sources', val:d.standard_of_care_sources, asBullets:true},
-        {label:'Causation Chain', val:d.causation_chain},
+        {label:'Causation Chain', val:d.causation_chain_analysis || d.causation_chain},
         {label:'Causation Case Law', val:d.causation_case_law, asBullets:true},
         {label:'Damages Precedent', val:d.damages_precedent, asBullets:true},
         {label:'Medical Literature Challenges', val:d.medical_literature_challenges, asBullets:true},
