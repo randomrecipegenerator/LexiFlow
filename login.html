@@ -82,6 +82,7 @@ function handleLogin() {
   document.getElementById('loginError').style.display = 'none';
   localStorage.setItem('lexiflow_user', JSON.stringify(user));
   localStorage.setItem('lexiflow_token', 'demo-token-' + Date.now());
+  localStorage.setItem('lexiflow_admin_token', 'demo-token');
   window.location.href = '/dashboard/';
 }
 
@@ -99,6 +100,7 @@ function handleRegister() {
   localStorage.setItem('lexiflow_users', JSON.stringify(users));
   localStorage.setItem('lexiflow_user', JSON.stringify(newUser));
   localStorage.setItem('lexiflow_token', 'demo-token-' + Date.now());
+  localStorage.setItem('lexiflow_admin_token', 'demo-token');
   window.location.href = '/dashboard/';
 }
 
