@@ -231,6 +231,7 @@
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
                 <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-search"></i> Analyze Records</h3></div>
+                    <div class="form-group"><label>Upload Medical Records</label><input type="file" id="medFile" accept=".pdf,.docx,.doc,.txt,.png,.jpg,.jpeg" style="width:100%;padding:10px;border:1px solid var(--navy-border);border-radius:8px;background:var(--navy-bg);color:var(--text-primary);" onchange="document.getElementById('medFileName').textContent=this.files.length?this.files[0].name:''"><div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Supported: PDF, DOCX, TXT, images. <span id="medFileName" style="color:var(--gold-accent);"></span></div></div>
                     <div class="form-group"><label>Case Description</label><textarea id="medCase" rows="3" style="width:100%;padding:12px;border:1px solid var(--navy-border);border-radius:8px;background:var(--navy-bg);color:var(--text-primary);" placeholder="Describe the medical case..."></textarea></div>
                     <button class="v-btn v-btn-primary" onclick="analyzeMedical()"><i class="bi bi-search"></i> Analyze</button>
                     <div id="medResult" style="margin-top:16px;"></div>
@@ -855,10 +856,16 @@ async function uploadDocument() {
 }
 async function analyzeMedical() {
   var res = $('medResult');
-  var desc = ($('medCase')||{}).value || 'Medical analysis';
+  var desc = ($('medCase')||{}).value || '';
+  var fileInput = $('medFile');
+  var file = fileInput && fileInput.files.length ? fileInput.files[0] : null;
+  if (!desc && !file) { toast('Enter a case description or upload a file','error'); return; }
   res.innerHTML = loadingHTML('AI analyzing records...');
   try {
-    var r = await fetch('/api/medical/analyze', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({case_description:desc}) });
+    var fd = new FormData();
+    fd.append('case_description', desc);
+    if (file) fd.append('file', file);
+    var r = await fetch('/api/medical/analyze', { method:'POST', body:fd });
     var d = await r.json();
     if (r.ok) {
       var output = '';
