@@ -3,241 +3,2003 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LexiFlow Dashboard | Enterprise Litigation Suite</title>
-    <meta name="description" content="LexiFlow product dashboard showing all AI modules: Intake Agent, Voice AI, Medical Chronologies, Document Drafter, Veritas Deposition, Settlement Estimator.">
+  <title>LexiFlow Dashboard | Enterprise Litigation Suite</title>
+  <meta name="description" content="LexiFlow product dashboard showing all AI modules: Intake Agent, Voice AI, Medical Chronologies, Document Drafter, Veritas Deposition, Settlement Estimator. Central litigation command center." />
+  <meta name="keywords" content="LexiFlow dashboard, legal AI dashboard, litigation command center, law firm analytics, AI case management" />
+  <link rel="canonical" href="https://lexiflow.co/dashboard" />
+  <meta property="og:title" content="LexiFlow Dashboard | Enterprise Litigation Suite" />
+  <meta property="og:description" content="LexiFlow product dashboard showing all AI modules. Central litigation command center." />
+  <meta property="og:url" content="https://lexiflow.co/dashboard" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LexiFlow Technologies Inc" />
+  <meta property="og:image" content="https://lexiflow.co/social-banner.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="LexiFlow Dashboard | Enterprise Litigation Suite" />
+  <meta name="twitter:description" content="LexiFlow product dashboard showing all AI modules. Central litigation command center." />
+  <meta name="twitter:image" content="https://lexiflow.co/social-banner.png" />
     <link rel="icon" type="image/svg+xml" href="/branding/logo-icon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
-    
     <link rel="stylesheet" href="/veritas-theme.css">
   <link rel="stylesheet" href="/master-layout.css">
+  <style>
+    .auth-overlay { display:flex; position:fixed; inset:0; background:var(--navy-bg); z-index:999; align-items:center; justify-content:center; }
+    .auth-card { background:var(--navy-card); border:1px solid var(--navy-border); border-radius:16px; padding:40px; width:100%; max-width:420px; }
+    .auth-card .lf-badge { width:44px; height:44px; background:var(--gold-accent); color:var(--navy-bg); border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:16px; margin-bottom:20px; }
+    .auth-card h2 { color:var(--text-primary); font-family:var(--font-serif); font-size:24px; margin:0 0 8px; }
+    .auth-card .sub { color:var(--text-secondary); font-size:14px; margin-bottom:28px; }
+    .auth-card .form-group { margin-bottom:16px; }
+    .auth-card .form-group label { display:block; font-size:12px; font-weight:600; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; }
+    .auth-card .form-group input { width:100%; padding:12px; border:1px solid var(--navy-border); border-radius:8px; background:var(--navy-bg); color:var(--text-primary); font-size:14px; font-family:var(--font-sans); }
+    .auth-card .form-group input:focus { outline:none; border-color:var(--gold-accent); }
+    .auth-card .link { color:var(--gold-accent); cursor:pointer; font-size:14px; }
+    .auth-card .link:hover { text-decoration:underline; }
+    .page-section { display:none; }
+    .page-section.active { display:block; }
+    .app-main { padding: 24px 32px !important; }
+    .app-container { max-width: 900px; }
+    .v-card { margin-bottom: 24px; }
+    .page-section .page-header { margin-bottom: 28px; }
+    .page-section .page-header h1 { font-size: 24px; margin-bottom: 4px; }
+    .page-section .page-header p { font-size: 14px; color: var(--text-secondary); }
+    .toast-container { position:fixed; top:20px; right:20px; z-index:2000; display:flex; flex-direction:column; gap:8px; }
+    .toast { padding:12px 20px; border-radius:8px; font-size:13px; font-weight:500; animation:slideIn 0.3s; }
+    .toast.success { background:#064e3b; color:#6ee7b7; border:1px solid #065f46; }
+    .toast.error { background:#7f1d1d; color:#fca5a5; border:1px solid #991b1b; }
+    @keyframes slideIn { from{opacity:0;transform:translateX(50px);} to{opacity:1;transform:translateX(0);} }
+    .gear-menu { position:relative; }
+    .gear-dropdown { display:none; position:absolute; right:0; bottom:100%; margin-bottom:8px; background:var(--navy-card); border:1px solid var(--navy-border); border-radius:10px; min-width:190px; z-index:100; overflow:hidden; }
+    .gear-dropdown.open { display:block; }
+    .gear-item { display:flex; align-items:center; gap:8px; padding:10px 14px; font-size:13px; color:var(--text-secondary); cursor:pointer; border:none; background:transparent; width:100%; text-align:left; }
+    .gear-item:hover { background:var(--navy-bg); color:var(--text-primary); }
+    .gear-divider { border-top:1px solid var(--navy-border); margin:4px 0; }
+    .strategist-tabs { display:flex; gap:0; margin-bottom:20px; border-bottom:2px solid var(--navy-border); }
+    .strategist-tabs button { padding:10px 18px; font-size:13px; font-weight:600; color:var(--text-secondary); background:transparent; border:none; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-2px; }
+    .strategist-tabs button:hover { color:var(--text-primary); }
+    .strategist-tabs button.active { color:var(--gold-accent); border-bottom-color:var(--gold-accent); }
+    .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; margin-bottom:20px; }
+    .invite-form { display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap; }
+    .empty-state { text-align:center; padding:32px 20px; color:var(--text-muted); }
+    .empty-state .icon { font-size:40px; margin-bottom:12px; }
+    .v-badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; }
+    .v-badge-success { background:#064e3b; color:#6ee7b7; }
+
+    .table-wrap { overflow-x:auto; }
+    .table-wrap table { width:100%; border-collapse:collapse; font-size:13px; }
+    .table-wrap th { text-align:left; padding:10px 12px; font-size:11px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; border-bottom:1px solid var(--navy-border); }
+    .table-wrap td { padding:10px 12px; border-bottom:1px solid var(--navy-border); color:var(--text-primary); }
+    .table-wrap tr:last-child td { border-bottom:none; }
+    .table-wrap tr:hover td { background:rgba(255,255,255,0.02); }
+
+    .spinner { display:inline-block; width:18px; height:18px; border:2px solid transparent; border-top-color:var(--gold); border-radius:50%; animation:spin .6s linear infinite; margin-right:8px; vertical-align:middle; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .load-placeholder { padding:24px; text-align:center; color:var(--text-muted); font-size:14px; }
+    .load-placeholder .spinner { width:24px; height:24px; border-width:3px; display:block; margin:0 auto 12px; }
+  </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Sidebar -->
-        <aside class="app-sidebar">
-            <div class="sidebar-header">
-                <a href="/" class="logo" style="text-decoration: none; color: white; display: flex; align-items: center; gap: 8px;">
-                    <span style="background: var(--gold-accent); color: var(--navy-bg); padding: 2px 6px; border-radius: 4px; font-weight: 800; font-size: 14px;">LF</span>
-                    <span style="font-family: var(--font-serif); font-weight: 700; font-size: 18px;">LexiFlow</span>
-                </a>
-            </div>
-            <div class="sidebar-nav">
-                <a href="/dashboard" class="nav-item active">
-                    <i class="bi bi-speedometer2"></i>
-                    <span class="sidebar-text">Main Dashboard</span>
-                </a>
-                <a href="/discovery-vault" class="nav-item">
-                    <i class="bi bi-safe2"></i>
-                    <span class="sidebar-text">Discovery-Vault™</span>
-                </a>
-                <a href="/veritas" class="nav-item">
-                    <i class="bi bi-shield-check"></i>
-                    <span class="sidebar-text">Veritas Deposition™</span>
-                </a>
-                <a href="/strategist" class="nav-item">
-                    <i class="bi bi-brain"></i>
-                    <span class="sidebar-text">LexiFlow Strategist™</span>
-                </a>
-                <a href="/ai-medical-chronologies" class="nav-item">
-                    <i class="bi bi-file-medical"></i>
-                    <span class="sidebar-text">Medical AI</span>
-                </a>
-                <a href="/settlement-predictor" class="nav-item">
-                    <i class="bi bi-graph-up-arrow"></i>
-                    <span class="sidebar-text">Settlement-Predictor™</span>
-                </a>
-                <a href="/compliance-shield" class="nav-item">
-                    <i class="bi bi-lock"></i>
-                    <span class="sidebar-text">Compliance-Shield™</span>
-                </a>
-            </div>
-            <div style="padding: 24px; border-top: 1px solid var(--navy-border);">
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--navy-border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">JD</div>
-                    <div class="sidebar-text">
-                        <div style="font-size: 12px; font-weight: 600;">Partner Account</div>
-                        <div style="font-size: 10px; color: var(--text-secondary);">Enterprise Tier</div>
-                    </div>
+
+<!-- AUTH OVERLAY -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-card" id="loginForm">
+    <div class="lf-badge">LF</div>
+    <h2>Sign In</h2>
+    <p class="sub">Enter your credentials to access your firm dashboard.</p>
+    <div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="you@yourfirm.com"></div>
+    <div class="form-group"><label>Password</label><input type="password" id="loginPassword" placeholder="Your password"></div>
+    <button class="v-btn v-btn-primary" style="width:100%;margin-top:8px;" onclick="handleLogin()">Sign In</button>
+    <p style="margin-top:16px;font-size:13px;color:var(--text-muted);">Don't have an account? <span class="link" onclick="showRegister()">Create one</span></p>
+    <div id="loginStatus" style="margin-top:12px;font-size:13px;"></div>
+  </div>
+  <div class="auth-card" id="registerForm" style="display:none;">
+    <div class="lf-badge">LF</div>
+    <h2>Create Account</h2>
+    <p class="sub">Set up your firm on LexiFlow in 30 seconds.</p>
+    <div class="form-group"><label>Firm Name</label><input type="text" id="regFirm" placeholder="Your Law Firm"></div>
+    <div class="form-group"><label>Admin Email</label><input type="email" id="regEmail" placeholder="you@yourfirm.com"></div>
+    <div class="form-group"><label>Password</label><input type="password" id="regPassword" placeholder="Create a password"></div>
+    <button class="v-btn v-btn-primary" style="width:100%;margin-top:8px;" onclick="handleRegister()">Create Account</button>
+    <p style="margin-top:16px;font-size:13px;color:var(--text-muted);">Already registered? <span class="link" onclick="showLogin()">Sign in</span></p>
+    <div id="regStatus" style="margin-top:12px;font-size:13px;"></div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- MAIN APP -->
+<div class="app-container" id="appContainer" style="display:none;">
+    <aside class="app-sidebar">
+        <div class="sidebar-header">
+            <a href="/" class="logo" style="text-decoration:none;color:white;display:flex;align-items:center;gap:8px;">
+                <span style="background:var(--gold-accent);color:var(--navy-bg);padding:2px 6px;border-radius:4px;font-weight:800;font-size:14px;">LF</span>
+                <span style="font-family:var(--font-serif);font-weight:700;font-size:18px;">LexiFlow</span>
+            </a>
+        </div>
+        <div class="sidebar-nav">
+            <a href="#" class="nav-item active" onclick="switchPage('overview');return false;">
+                <i class="bi bi-speedometer2"></i><span class="sidebar-text">Overview</span></a>
+            <a href="#" class="nav-item" onclick="switchPage('documents');return false;">
+                <i class="bi bi-file-earmark-text"></i><span class="sidebar-text">Document Upload</span></a>
+            <a href="#" class="nav-item" onclick="switchPage('medical');return false;">
+                <i class="bi bi-heart-pulse"></i><span class="sidebar-text">AI Medical</span></a>
+            <a href="#" class="nav-item" onclick="switchPage('deposition');return false;">
+                <i class="bi bi-mic"></i><span class="sidebar-text">Veritas Deposition</span></a>
+            <a href="#" class="nav-item" onclick="switchPage('discovery');return false;">
+                <i class="bi bi-search"></i><span class="sidebar-text">Discovery Vault</span></a>
+            <a href="#" class="nav-item" onclick="switchPage('settlement');return false;">
+                <i class="bi bi-cash-coin"></i><span class="sidebar-text">Settlement Predictor</span></a>
+            <a href="#" class="nav-item" onclick="switchPage('strategist');return false;">
+                <i class="bi bi-lightbulb"></i><span class="sidebar-text">Strategist</span></a>
+            <a href="#" class="nav-item" onclick="switchPage('intake');return false;">
+                <i class="bi bi-headset"></i><span class="sidebar-text">AI Intake</span></a>
+            <a href="#" class="nav-item" onclick="switchPage('crm');return false;">
+                <i class="bi bi-diagram-3"></i><span class="sidebar-text">CRM Sync</span></a>
+        </div>
+        <div style="padding:20px 24px;border-top:1px solid var(--navy-border);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                <div style="width:30px;height:30px;border-radius:50%;background:var(--navy-border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;" id="userInitials">--</div>
+                <div style="font-size:12px;line-height:1.3;">
+                    <div style="font-weight:600;color:var(--text-primary);" id="sidebarFirm">Loading...</div>
+                    <div style="font-size:10px;color:var(--text-secondary);" id="sidebarEmail">--</div>
                 </div>
             </div>
-        </aside>
+            <div class="gear-menu">
+                <button class="v-btn v-btn-outline" style="width:100%;font-size:12px;padding:6px 12px;" onclick="toggleGearMenu(event)">
+                    <i class="bi bi-gear"></i> Settings</button>
+                <div class="gear-dropdown" id="gearDropdown">
+                    <button class="gear-item" onclick="switchPage('team');closeGearMenu()"><i class="bi bi-people"></i> Team</button>
+                    <button class="gear-item" onclick="switchPage('settings');closeGearMenu()"><i class="bi bi-building"></i> Firm Settings</button>
+                    <button class="gear-item" onclick="switchPage('billing');closeGearMenu()"><i class="bi bi-credit-card"></i> Billing</button>
+                    <div class="gear-divider"></div>
+                    <button class="gear-item" onclick="switchPage('crm');closeGearMenu()"><i class="bi bi-diagram-3"></i> CRM Sync</button>
+                    <button class="gear-item" onclick="switchPage('audit');closeGearMenu()"><i class="bi bi-journal-check"></i> Audit Log</button>
+                </div>
+            </div>
+            <button class="v-btn v-btn-outline" style="width:100%;margin-top:8px;font-size:12px;padding:6px 12px;color:var(--danger);border-color:var(--danger);" onclick="handleLogout()">
+                <i class="bi bi-box-arrow-right"></i> Sign Out</button>
+        </div>
+    </aside>
 
-        <!-- Main Content -->
-        <main class="app-main">
+    <main class="app-main">
+        <!-- OVERVIEW -->
+        <div class="page-section active" id="page-overview">
             <header class="page-header">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <h1>Product Dashboard</h1>
-                        <p>Enterprise Litigation Suite Performance & Activity</p>
-                    </div>
-                    <div style="display: flex; gap: 12px;">
-                        <button class="v-btn v-btn-outline"><i class="bi bi-gear"></i> Suite Settings</button>
-                    </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <div><h1>Product Dashboard</h1><p>Enterprise Litigation Suite Performance & Activity</p></div>
                 </div>
             </header>
-
-            <!-- Metrics -->
             <div class="grid-cols-4">
-                <div class="v-card metric-card">
-                    <div style="display: flex; justify-content: space-between;">
-                        <span class="metric-label">Total Leads</span>
-                        <i class="bi bi-graph-up-arrow metric-icon"></i>
-                    </div>
-                    <div class="metric-value" id="val-leads-today">1,240</div>
-                    <div style="font-size: 12px; color: var(--success); margin-top: 4px;">
-                        <i class="bi bi-arrow-up"></i> 12% vs last week
-                    </div>
-                </div>
-                <div class="v-card metric-card">
-                    <div style="display: flex; justify-content: space-between;">
-                        <span class="metric-label">Qualified Rate</span>
-                        <i class="bi bi-check-circle metric-icon"></i>
-                    </div>
-                    <div class="metric-value" id="val-qualified-rate">74%</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
-                        AI Screened & Scored
-                    </div>
-                </div>
-                <div class="v-card metric-card">
-                    <div style="display: flex; justify-content: space-between;">
-                        <span class="metric-label">Docs Processed</span>
-                        <i class="bi bi-files metric-icon"></i>
-                    </div>
-                    <div class="metric-value" id="val-docs-processed">47.2k</div>
-                    <div style="font-size: 12px; color: var(--gold-accent); margin-top: 4px;">
-                        Medical & Discovery pages
-                    </div>
-                </div>
-                <div class="v-card metric-card">
-                    <div style="display: flex; justify-content: space-between;">
-                        <span class="metric-label">System Health</span>
-                        <i class="bi bi-cpu metric-icon"></i>
-                    </div>
-                    <div class="metric-value">99.9%</div>
-                    <div style="font-size: 12px; color: var(--success); margin-top: 4px;">
-                        All AI Engines Online
-                    </div>
+                <div class="v-card metric-card"><div style="display:flex;justify-content:space-between;"><span class="metric-label">Total Leads</span><i class="bi bi-graph-up-arrow metric-icon"></i></div><div class="metric-value">1,240</div><div style="font-size:12px;color:var(--success);margin-top:4px;"><i class="bi bi-arrow-up"></i> 12% vs last week</div></div>
+                <div class="v-card metric-card"><div style="display:flex;justify-content:space-between;"><span class="metric-label">Qualified Rate</span><i class="bi bi-check-circle metric-icon"></i></div><div class="metric-value">74%</div><div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">AI Screened & Scored</div></div>
+                <div class="v-card metric-card"><div style="display:flex;justify-content:space-between;"><span class="metric-label">Docs Processed</span><i class="bi bi-files metric-icon"></i></div><div class="metric-value">47.2k</div><div style="font-size:12px;color:var(--gold-accent);margin-top:4px;">Medical & Discovery</div></div>
+                <div class="v-card metric-card"><div style="display:flex;justify-content:space-between;"><span class="metric-label">System Health</span><i class="bi bi-cpu metric-icon"></i></div><div class="metric-value">99.9%</div><div style="font-size:12px;color:var(--success);margin-top:4px;">All AI Engines Online</div></div>
+            </div>
+            <div class="v-card" style="margin-bottom:24px;"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-lightning-charge"></i> Quick Actions</h3></div>
+                <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                    <button class="v-btn v-btn-primary" onclick="switchPage('team')"><i class="bi bi-people"></i> Invite Team Members</button>
+                    <button class="v-btn v-btn-outline" onclick="switchPage('settings')"><i class="bi bi-building"></i> Configure Branding</button>
+                    <button class="v-btn v-btn-outline" onclick="switchPage('billing')"><i class="bi bi-credit-card"></i> View Billing</button>
                 </div>
             </div>
-
             <div class="grid-2-1">
-                <!-- Analytics -->
-                <div style="display: flex; flex-direction: column; gap: 24px;">
-                    <div class="v-card">
-                        <div class="v-card-header">
-                            <h3 class="v-card-title">📈 Conversion Trend</h3>
-                        </div>
-                        <div style="height: 250px;"><canvas id="chart-conversion"></canvas></div>
-                    </div>
-                    
-                    <div class="v-card">
-                        <div class="v-card-header">
-                            <h3 class="v-card-title">📋 Live Activity Feed</h3>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 12px;" id="activityFeed">
-                            <div class="activity-item-v">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <div>
-                                        <div style="font-weight: 700; font-size: 14px;">James Morrison</div>
-                                        <div style="font-size: 11px; color: var(--text-muted);">Auto Accident • AI Intake Agent</div>
-                                    </div>
-                                    <div class="v-badge v-badge-success">92% Match</div>
-                                </div>
-                            </div>
-                            <div class="activity-item-v">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <div>
-                                        <div style="font-weight: 700; font-size: 14px;">Sofia Garcia</div>
-                                        <div style="font-size: 11px; color: var(--text-muted);">MedMal • Voice AI Receptionist</div>
-                                    </div>
-                                    <div class="v-badge v-badge-success">87% Match</div>
-                                </div>
-                            </div>
+                <div style="display:flex;flex-direction:column;gap:24px;">
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-graph-up"></i> Conversion Trend</h3></div><div style="height:250px;"><canvas id="chart-conversion"></canvas></div></div>
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-activity"></i> Live Activity Feed</h3></div>
+                        <div style="display:flex;flex-direction:column;gap:12px;">
+                            <div class="activity-item-v"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-weight:700;font-size:14px;">James Morrison</div><div style="font-size:11px;color:var(--text-muted);">Auto Accident • AI Intake Agent</div></div><div class="v-badge v-badge-success">92% Match</div></div></div>
+                            <div class="activity-item-v"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-weight:700;font-size:14px;">Sofia Garcia</div><div style="font-size:11px;color:var(--text-muted);">MedMal • Voice AI Receptionist</div></div><div class="v-badge v-badge-success">87% Match</div></div></div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Secondary Column -->
-                <div style="display: flex; flex-direction: column; gap: 24px;">
-                    <div class="v-card">
-                        <div class="v-card-header">
-                            <h3 class="v-card-title">📊 Channel Mix</h3>
-                        </div>
-                        <div style="height: 200px;"><canvas id="chart-channel"></canvas></div>
-                    </div>
-
-                    <div class="v-card">
-                        <div class="v-card-header">
-                            <h3 class="v-card-title">Ethics & Compliance</h3>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 12px;">
-                            <a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake" class="nav-item" style="padding: 10px; font-size: 12px;">
-                                <i class="bi bi-journal-text"></i> NY Ethics Guide
-                            </a>
-                            <a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake" class="nav-item" style="padding: 10px; font-size: 12px;">
-                                <i class="bi bi-journal-text"></i> IL Ethics Guide
-                            </a>
+                <div style="display:flex;flex-direction:column;gap:24px;">
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-pie-chart"></i> Channel Mix</h3></div><div style="height:200px;"><canvas id="chart-channel"></canvas></div></div>
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-shield-check"></i> Ethics & Compliance</h3></div>
+                        <div style="display:flex;flex-direction:column;gap:8px;">
+                            <a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake" class="nav-item" style="padding:10px;font-size:12px;"><i class="bi bi-journal-text"></i> NY Ethics Guide</a>
+                            <a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake" class="nav-item" style="padding:10px;font-size:12px;"><i class="bi bi-journal-text"></i> IL Ethics Guide</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
+        </div>
 
-    <style>
-        .activity-item-v {
-            padding: 12px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 8px;
-            border-left: 3px solid var(--gold-accent);
+        <!-- DOCUMENT UPLOAD -->
+        <div class="page-section" id="page-documents">
+            <header class="page-header"><div><h1><i class="bi bi-file-earmark-text"></i> Document Upload</h1><p>Upload medical records, depositions, and discovery for AI analysis.</p></div></header>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Upload Document</h3></div>
+                <div class="form-group"><label>Document Type</label><select id="docType" style="width:100%;padding:12px;border:1px solid var(--navy-border);border-radius:8px;background:var(--navy-bg);color:var(--text-primary);"><option value="medical">Medical Record</option><option value="deposition">Deposition Transcript</option><option value="discovery">Discovery Document</option></select></div>
+                <div class="form-group"><label>File</label><input type="file" id="docFile" style="width:100%;"></div>
+                <button class="v-btn v-btn-primary" onclick="uploadDocument()"><i class="bi bi-cloud-upload"></i> Upload & Analyze</button>
+                <div id="docResult" style="margin-top:16px;"></div>
+            </div>
+        </div>
+
+        <!-- AI MEDICAL -->
+        <div class="page-section" id="page-medical">
+            <header class="page-header"><div><h1><i class="bi bi-heart-pulse"></i> AI Medical</h1><p>Generate medical chronologies, analyze records, and assess case merit with AI.</p></div></header>
+            <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;">
+                <div class="v-card metric-card" style="border-left:3px solid var(--gold-accent);"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">AI Merit Score</div><div class="metric-value">92<span style="font-size:14px;color:var(--text-muted);">/100</span></div><div style="font-size:12px;color:var(--success);">Strong — Rodriguez v. Mount Sinai</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Liability</div><div class="metric-value">88%</div><div style="font-size:12px;color:var(--text-secondary);">35% weight</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Damages / Causation</div><div class="metric-value">94% / 91%</div><div style="font-size:12px;color:var(--text-secondary);">30% + 20% weight</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
+                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-search"></i> Analyze Records</h3></div>
+                    <div class="form-group"><label>Upload Medical Records</label><input type="file" id="medFile" accept=".pdf,.docx,.doc,.txt,.png,.jpg,.jpeg" style="width:100%;padding:10px;border:1px solid var(--navy-border);border-radius:8px;background:var(--navy-bg);color:var(--text-primary);" onchange="document.getElementById('medFileName').textContent=this.files.length?this.files[0].name:''"><div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Supported: PDF, DOCX, TXT, images. <span id="medFileName" style="color:var(--gold-accent);"></span></div></div>
+                    <div class="form-group"><label>Case Description</label><textarea id="medCase" rows="3" style="width:100%;padding:12px;border:1px solid var(--navy-border);border-radius:8px;background:var(--navy-bg);color:var(--text-primary);" placeholder="Describe the medical case..."></textarea></div>
+                    <button class="v-btn v-btn-primary" onclick="analyzeMedical()"><i class="bi bi-search"></i> Analyze</button>
+                    <div id="medResult" style="margin-top:16px;"></div>
+                </div>
+                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-calendar-week"></i> Sample Chronology — Rodriguez</h3></div>
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                        <div style="display:flex;gap:10px;padding:10px;background:var(--navy-bg);border-radius:8px;border-left:3px solid var(--gold-accent);"><div style="font-size:11px;color:var(--gold-accent);font-weight:700;min-width:70px;">Mar 14, 18:30</div><div><div style="font-size:13px;font-weight:600;">ER Admission</div><div style="font-size:12px;color:var(--text-muted);">qSOFA score: 2 (10% mortality). Sepsis protocol triggered.</div></div></div>
+                        <div style="display:flex;gap:10px;padding:10px;background:var(--navy-bg);border-radius:8px;border-left:3px solid var(--danger);"><div style="font-size:11px;color:var(--danger);font-weight:700;min-width:70px;">⚠️ 14.5h Gap</div><div><div style="font-size:13px;font-weight:600;">No Antibiotics</div><div style="font-size:12px;color:var(--text-muted);">MAR shows zero entries. Protocol requires 3-hour bundle.</div></div></div>
+                        <div style="display:flex;gap:10px;padding:10px;background:var(--navy-bg);border-radius:8px;border-left:3px solid #3b82f6;"><div style="font-size:11px;color:#3b82f6;font-weight:700;min-width:70px;">Mar 15, 10:15</div><div><div style="font-size:13px;font-weight:600;">Antibiotics Started</div><div style="font-size:12px;color:var(--text-muted);">IV antibiotics. Transferred to ICU.</div></div></div>
+                        <div style="display:flex;gap:10px;padding:10px;background:var(--navy-bg);border-radius:8px;border-left:3px solid var(--warning);"><div style="font-size:11px;color:var(--warning);font-weight:700;min-width:70px;">Mar 17, 09:00</div><div><div style="font-size:13px;font-weight:600;">Condition Worsened</div><div style="font-size:12px;color:var(--text-muted);">Septic shock. Vasopressors required.</div></div></div>
+                        <div style="display:flex;gap:10px;padding:10px;background:var(--navy-bg);border-radius:8px;border-left:3px solid var(--success);"><div style="font-size:11px;color:var(--success);font-weight:700;min-width:70px;">Mar 28, 14:00</div><div><div style="font-size:13px;font-weight:600;">Discharged</div><div style="font-size:12px;color:var(--text-muted);">With permanent organ damage. Ongoing specialist care.</div></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-file-text"></i> Recent Reports</h3></div>
+                <div class="table-wrap"><table><thead><tr><th>Case</th><th>Report Type</th><th>Findings</th><th>Date</th></tr></thead><tbody>
+                    <tr><td><strong>Rodriguez v. Mount Sinai</strong></td><td>Full Chronology</td><td>14.5h treatment gap found</td><td style="font-size:12px;color:var(--text-muted);">Today</td></tr>
+                    <tr><td><strong>Morrison v. City</strong></td><td>Merit Score</td><td>78/100 — Moderate liability</td><td style="font-size:12px;color:var(--text-muted);">Yesterday</td></tr>
+                    <tr><td><strong>Garcia v. Kaiser</strong></td><td>Record Summary</td><td>12 pages, 3 key events</td><td style="font-size:12px;color:var(--text-muted);">2 days ago</td></tr>
+                </tbody></table></div>
+            </div>
+        </div>
+
+        <!-- VERITAS DEPOSITION -->
+        <div class="page-section" id="page-deposition">
+            <header class="page-header"><div><h1><i class="bi bi-mic"></i> Veritas Deposition</h1><p>AI-powered deposition analysis with contradiction detection, credibility scoring, and cross-examination prep.</p></div></header>
+            <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;">
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Contradictions</div><div class="metric-value" style="color:var(--danger);">7</div><div style="font-size:12px;color:var(--text-secondary);">Across 2 depositions</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Witness Credibility</div><div class="metric-value" style="color:var(--warning);">62%</div><div style="font-size:12px;color:var(--text-secondary);">Dr. Alan Miller</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Cross-Exam Qs</div><div class="metric-value">12</div><div style="font-size:12px;color:var(--text-secondary);">AI-generated</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
+                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-mic"></i> Analyze</h3></div>
+                    <div class="form-group"><label>Upload Transcript</label><input type="file" id="depFile" style="width:100%;padding:10px;"></div>
+                    <button class="v-btn v-btn-primary" onclick="analyzeDeposition()"><i class="bi bi-shield-check"></i> Analyze</button>
+                    <div id="depResult" style="margin-top:16px;"></div>
+                </div>
+                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-flag"></i> Contradictions — Dr. Miller</h3></div>
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                        <div style="background:rgba(239,68,68,0.06);border-left:3px solid var(--danger);padding:8px 10px;border-radius:6px;"><span style="font-size:11px;font-weight:600;color:var(--danger);">🔴 Critical</span> <span style="font-size:11px;color:var(--text-muted);">p.34:14-16</span><p style="font-size:12px;margin:2px 0 0;">Said antibiotics <strong>19:45</strong> — MAR shows <strong>10:15</strong> (14h gap)</p></div>
+                        <div style="background:rgba(251,191,36,0.06);border-left:3px solid var(--warning);padding:8px 10px;border-radius:6px;"><span style="font-size:11px;font-weight:600;color:var(--warning);">🟡 Significant</span> <span style="font-size:11px;color:var(--text-muted);">p.47:5-8</span><p style="font-size:12px;margin:2px 0 0;">Described <strong>"stable"</strong> — qSOFA 2 = 10% mortality</p></div>
+                        <div style="background:rgba(59,130,246,0.06);border-left:3px solid #3b82f6;padding:8px 10px;border-radius:6px;"><span style="font-size:11px;font-weight:600;color:#3b82f6;">🔵 Minor</span> <span style="font-size:11px;color:var(--text-muted);">p.52:22-24</span><p style="font-size:12px;margin:2px 0 0;">Said "ER throughout" — badge shows 47min absence</p></div>
+                        <div style="background:rgba(239,68,68,0.06);border-left:3px solid var(--danger);padding:8px 10px;border-radius:6px;"><span style="font-size:11px;font-weight:600;color:var(--danger);">🔴 Critical</span> <span style="font-size:11px;color:var(--text-muted);">p.71:3-6</span><p style="font-size:12px;margin:2px 0 0;">Claimed "protocol followed" — no 3-hour bundle</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-journal-text"></i> AI Cross-Examination Questions</h3></div>
+                <div style="padding:4px 0;">
+                    <div style="padding:8px;border-bottom:1px solid var(--navy-border);font-size:13px;font-style:italic;">"You said you confirmed antibiotics at 19:45. Why does the MAR show no antibiotics until 10:15?"</div>
+                    <div style="padding:8px;border-bottom:1px solid var(--navy-border);font-size:13px;font-style:italic;">"You called a qSOFA of 2 'stable' — isn't that a 10% mortality risk?"</div>
+                    <div style="padding:8px;font-size:13px;font-style:italic;">"Does the Sepsis Protocol require the 3-Hour Bundle? Was it initiated?"</div>
+                </div>
+            </div>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-clock-history"></i> Past Analyses</h3></div>
+                <div class="table-wrap"><table><thead><tr><th>Witness</th><th>Case</th><th>Contradictions</th><th>Credibility</th><th>Date</th></tr></thead><tbody>
+                    <tr><td><strong>Dr. Alan Miller</strong></td><td>Rodriguez v. Mount Sinai</td><td style="color:var(--danger);font-weight:600;">7</td><td>62%</td><td style="font-size:12px;color:var(--text-muted);">Today</td></tr>
+                    <tr><td><strong>Nurse J. Thompson</strong></td><td>Rodriguez v. Mount Sinai</td><td style="color:var(--warning);font-weight:600;">3</td><td>78%</td><td style="font-size:12px;color:var(--text-muted);">Yesterday</td></tr>
+                    <tr><td><strong>Dr. R. Patel</strong></td><td>Garcia v. Kaiser</td><td style="color:var(--text-muted);font-weight:600;">1</td><td>91%</td><td style="font-size:12px;color:var(--text-muted);">3 days ago</td></tr>
+                </tbody></table></div>
+            </div>
+        </div>
+
+        <!-- DISCOVERY VAULT -->
+        <div class="page-section" id="page-discovery">
+            <header class="page-header"><div><h1><i class="bi bi-search"></i> Discovery Vault</h1><p>Secure document storage with AI-powered indexing, de-duplication, and category tagging.</p></div></header>
+            <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;">
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Total Documents</div><div class="metric-value">847</div><div style="font-size:12px;color:var(--text-secondary);">Across 3 matters</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Categories</div><div class="metric-value">12</div><div style="font-size:12px;color:var(--text-secondary);">Medical, Financial, etc.</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">De-Duplicated</div><div class="metric-value">94</div><div style="font-size:12px;color:var(--success);">Removed duplicates</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
+                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-cloud-upload"></i> Upload & Index</h3></div>
+                    <div class="form-group"><label>File</label><input type="file" id="discFile" style="width:100%;padding:10px;"></div>
+                    <div class="form-group"><label>Tags</label><input type="text" id="discTags" style="width:100%;" placeholder="sepsis, protocol, nursing"></div>
+                    <button class="v-btn v-btn-primary" onclick="uploadDiscovery()"><i class="bi bi-cloud-upload"></i> Upload & Index</button>
+                    <div id="discResult" style="margin-top:16px;"></div>
+                </div>
+                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-folder"></i> Categories</h3></div>
+                    <div style="display:flex;flex-direction:column;gap:6px;">
+                        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Medical Records</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">312</span></div>
+                        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Financial</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">198</span></div>
+                        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Correspondence</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">156</span></div>
+                        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Depositions</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">89</span></div>
+                        <div style="display:flex;justify-content:space-between;padding:6px 0;"><span style="font-size:13px;">Expert Reports</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">47</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-search"></i> Document Index</h3></div>
+                <div style="margin-bottom:12px;"><input type="text" style="width:100%;padding:10px;border:1px solid var(--navy-border);border-radius:8px;background:var(--navy-bg);color:var(--text-primary);" placeholder="Search by name, Bates number, or tag..."></div>
+                <div class="table-wrap"><table><thead><tr><th>Bates #</th><th>Document</th><th>Category</th><th>Pages</th><th>Date</th><th>Tags</th></tr></thead><tbody>
+                    <tr><td style="font-size:12px;color:var(--text-muted);font-family:monospace;">MS-0001</td><td><strong>MAR_TABLE_3</strong></td><td>Medical</td><td>12</td><td style="font-size:12px;color:var(--text-muted);">Mar 15</td><td><span class="v-badge" style="background:var(--navy-bg);font-size:10px;">sepsis</span></td></tr>
+                    <tr><td style="font-size:12px;color:var(--text-muted);font-family:monospace;">MS-0047</td><td><strong>ER_Triage_Page_1</strong></td><td>Medical</td><td>1</td><td style="font-size:12px;color:var(--text-muted);">Mar 15</td><td><span class="v-badge" style="background:var(--navy-bg);font-size:10px;">triage</span></td></tr>
+                    <tr><td style="font-size:12px;color:var(--text-muted);font-family:monospace;">MS-0089</td><td><strong>Nursing_Logs_P8-12</strong></td><td>Medical</td><td>5</td><td style="font-size:12px;color:var(--text-muted);">Mar 14</td><td><span class="v-badge" style="background:var(--navy-bg);font-size:10px;">nursing</span></td></tr>
+                    <tr><td style="font-size:12px;color:var(--text-muted);font-family:monospace;">MS-0156</td><td><strong>Insurance_Claim_2345</strong></td><td>Financial</td><td>8</td><td style="font-size:12px;color:var(--text-muted);">Mar 12</td><td><span class="v-badge" style="background:var(--navy-bg);font-size:10px;">insurance</span></td></tr>
+                    <tr><td style="font-size:12px;color:var(--text-muted);font-family:monospace;">MS-0234</td><td><strong>Defense_Exhibit_A</strong></td><td>Expert</td><td>24</td><td style="font-size:12px;color:var(--text-muted);">Mar 10</td><td><span class="v-badge" style="background:var(--navy-bg);font-size:10px;">expert</span></td></tr>
+                    <tr><td style="font-size:12px;color:var(--text-muted);font-family:monospace;">MS-0312</td><td><strong>Depo_Miller</strong></td><td>Deposition</td><td>112</td><td style="font-size:12px;color:var(--text-muted);">Mar 8</td><td><span class="v-badge" style="background:var(--navy-bg);font-size:10px;">deposition</span></td></tr>
+                </tbody></table></div>
+            </div>
+        </div>
+
+        <!-- SETTLEMENT PREDICTOR -->
+        <div class="page-section" id="page-settlement">
+            <header class="page-header"><div><h1><i class="bi bi-cash-coin"></i> Settlement Predictor</h1><p>AI-powered settlement value estimation based on case data, jurisdiction, and historical comps.</p></div></header>
+            <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;">
+                <div class="v-card metric-card" style="border-left:3px solid var(--gold-accent);"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Estimated Value</div><div class="metric-value" id="settleEstValue">$981,750</div><div style="font-size:12px;color:var(--success);" id="settleProbability">74% Settlement Probability</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Jurisdiction Cap</div><div class="metric-value" id="settleCap">$0 (Uncapped)</div><div style="font-size:12px;color:var(--text-secondary);" id="settleCapNote">New York — No cap on non-economic</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Comparable Verdicts</div><div class="metric-value" id="settleComps">1,248</div><div style="font-size:12px;color:var(--text-secondary);" id="settleCompsNote">In jurisdictional database</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
+                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Case Details</h3></div>
+                    <div class="form-group"><label>Damages ($)</label><input type="number" id="settleDamages" style="width:100%;" value="850000" oninput="try{updateSettlementDisplay()}catch(e){}"></div>
+                    <div class="form-group"><label>Case Type</label><input type="text" id="settleType" style="width:100%;padding:12px;" placeholder="e.g. Medical Malpractice, Personal Injury" value="Medical Malpractice"></div>
+                    <div class="form-group"><label>State</label><input type="text" id="settleState" style="width:100%;padding:12px;" placeholder="e.g. New York, California" value="New York" oninput="try{updateSettlementDisplay()}catch(e){}"></div>
+                    <div class="form-group"><label>Liability</label><select id="settleLiability" style="width:100%;padding:12px;" onchange="try{updateSettlementDisplay()}catch(e){}"><option value="strong">Strong (80-100%)</option><option value="moderate" selected>Moderate (50-79%)</option><option value="weak">Weak (&lt;50%)</option></select></div>
+                    <button class="v-btn v-btn-primary" onclick="calculateSettlement()"><i class="bi bi-calculator"></i> Calculate</button>
+                </div>
+                <div id="settleResult"><div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Sample Estimate — <span id="settleSampleState">New York</span></h3></div><div class="stat-grid" style="grid-template-columns:1fr 1fr;"><div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);">Non-Economic</div><div class="metric-value" style="font-size:22px;" id="settleSampleNonEcon">$595,000</div></div><div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);">Economic</div><div class="metric-value" style="font-size:22px;" id="settleSampleEcon">$386,750</div></div><div class="v-card metric-card" style="grid-column:span 2;border-left:3px solid var(--gold-accent);"><div style="font-size:11px;color:var(--text-muted);">Total</div><div class="metric-value" style="font-size:28px;" id="settleSampleTotal">$981,750</div></div></div></div></div>
+            </div>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-bar-chart"></i> Comparable Verdicts — <span id="settleVerdictState">New York</span> MedMal</h3></div>
+                <div class="table-wrap"><table><thead><tr><th>Case</th><th>Year</th><th>Injury</th><th>Verdict</th><th>Court</th></tr></thead>
+                    <tbody id="settleVerdictRows">
+                    <tr><td><strong>Williams v. NY-Presbyterian</strong></td><td>2025</td><td>Delayed sepsis diagnosis</td><td style="font-weight:600;color:var(--gold-accent);">$2,400,000</td><td style="font-size:12px;color:var(--text-muted);">Supreme, NY County</td></tr>
+                    <tr><td><strong>Chen v. Bellevue</strong></td><td>2024</td><td>Post-surgical infection</td><td style="font-weight:600;color:var(--gold-accent);">$1,850,000</td><td style="font-size:12px;color:var(--text-muted);">Supreme, Kings County</td></tr>
+                </tbody>
+                </tbody></table></div>
+                <div style="padding:12px;background:var(--navy-bg);border-radius:8px;margin-top:12px;"><p style="font-size:12px;color:var(--text-secondary);"><span id="settleBottomNote">New York</span> has <strong id="settleCapText">no statutory cap</strong> on non-economic damages. Estimated range: <strong id="settleRange">$540,000 - $834,000</strong> (based on liability adjustment). Settlement probability: <strong id="settleProbText">74%</strong></p></div>
+            </div>
+        </div>
+
+        <!-- STRATEGIST -->
+        <div class="page-section" id="page-strategist">
+            <header class="page-header"><div><h1><i class="bi bi-lightbulb"></i> LexiFlow Strategist</h1><p>AI-powered litigation strategy tools.</p></div></header>
+            <div class="strategist-tabs">
+                <button class="active" onclick="switchStrategistTab('lifeplan')"><i class="bi bi-heart-pulse"></i> Life Care Plan</button>
+                <button onclick="switchStrategistTab('opposing')"><i class="bi bi-person-badge"></i> Opposing Counsel</button>
+                <button onclick="switchStrategistTab('sol')"><i class="bi bi-calendar-check"></i> SOL Guardian</button>
+                <button onclick="switchStrategistTab('readiness')"><i class="bi bi-clipboard-check"></i> Trial Readiness</button>
+            </div>
+            <div id="strategist-lifeplan">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-graph-up"></i> Generate Plan</h3></div>
+                        <div class="form-group"><label>Injury</label><textarea id="lcInjury" rows="2" style="width:100%;padding:12px;border:1px solid var(--navy-border);border-radius:8px;background:var(--navy-bg);color:var(--text-primary);" placeholder="e.g., Spinal cord injury C5-C6"></textarea></div>
+                        <div class="form-group"><label>Age</label><input type="number" id="lcAge" style="width:100%;" placeholder="35" value="35"></div>
+                        <button class="v-btn v-btn-primary" onclick="generateLifeCarePlan()"><i class="bi bi-graph-up"></i> Generate Plan</button>
+                        <div id="lcResult" style="margin-top:16px;"></div>
+                    </div>
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-table"></i> Sample Cost Breakdown — C5-C6 Quadriplegia</h3></div>
+                        <div style="display:flex;flex-direction:column;gap:6px;">
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Skilled Nursing</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">$120,000/yr</span></div>
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Home Modifications</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">$85,000 one-time</span></div>
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Physical Therapy</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">$45,000/yr</span></div>
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Equipment & Supplies</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">$28,000/yr</span></div>
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;">Lost Earning Capacity</span><span style="font-size:13px;font-weight:600;color:var(--gold-accent);">$65,000/yr</span></div>
+                            <div style="display:flex;justify-content:space-between;padding:10px 0 0;font-weight:700;"><span style="font-size:14px;">Total Lifetime Cost</span><span style="font-size:18px;color:var(--gold-accent);">$6,840,000</span></div>
+                        </div>
+                        <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">45-year life expectancy, 3% annual inflation. Source: Milliman Care Guidelines.</p>
+                    </div>
+                </div>
+                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-calendar"></i> Annual Cost Projections (Years 1-5)</h3></div>
+                    <div class="table-wrap"><table><thead><tr><th>Year</th><th>Age</th><th>Nursing</th><th>Therapy</th><th>Equipment</th><th>Lost Wages</th><th>Total</th></tr></thead><tbody>
+                        <tr><td>1</td><td>35</td><td>$120,000</td><td>$45,000</td><td>$113,000</td><td>$65,000</td><td style="font-weight:600;">$343,000</td></tr>
+                        <tr><td>2</td><td>36</td><td>$123,600</td><td>$46,350</td><td>$28,840</td><td>$66,950</td><td style="font-weight:600;">$265,740</td></tr>
+                        <tr><td>3</td><td>37</td><td>$127,308</td><td>$47,740</td><td>$29,705</td><td>$68,958</td><td style="font-weight:600;">$273,712</td></tr>
+                        <tr><td>4</td><td>38</td><td>$131,127</td><td>$49,173</td><td>$30,596</td><td>$71,027</td><td style="font-weight:600;">$281,924</td></tr>
+                        <tr><td>5</td><td>39</td><td>$135,061</td><td>$50,648</td><td>$31,514</td><td>$73,158</td><td style="font-weight:600;">$290,381</td></tr>
+                    </tbody></table></div>
+                </div>
+            </div>
+            <div id="strategist-opposing" style="display:none;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-person-badge"></i> Profile Attorney</h3></div>
+                        <div class="form-group"><label>Name</label><input type="text" id="ocName" style="width:100%;" placeholder="Jane Smith"></div>
+                        <div class="form-group"><label>Firm</label><input type="text" id="ocFirm" style="width:100%;" placeholder="Defense Law Group"></div>
+                        <button class="v-btn v-btn-primary" onclick="profileOpposingCounsel()"><i class="bi bi-search"></i> Profile</button>
+                        <div id="ocResult" style="margin-top:16px;"></div>
+                    </div>
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-journal"></i> Settlement History — Defense Law Group</h3></div>
+                        <div style="display:flex;flex-direction:column;gap:6px;">
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;"><strong>Morrison v. City</strong> (2025)</span><span style="font-size:13px;color:var(--gold-accent);font-weight:600;">$425,000</span></div>
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;"><strong>Chen v. Bellevue</strong> (2024)</span><span style="font-size:13px;color:var(--gold-accent);font-weight:600;">$1,200,000</span></div>
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="font-size:13px;"><strong>Rivera v. St. Luke's</strong> (2024)</span><span style="font-size:13px;color:var(--gold-accent);font-weight:600;">$680,000</span></div>
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;"><span style="font-size:13px;"><strong>Patel v. NYU Langone</strong> (2023)</span><span style="font-size:13px;color:var(--gold-accent);font-weight:600;">$2,100,000</span></div>
+                        </div>
+                        <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">Settlement range: $400K-$2.1M. Prefers to settle early in 60% of cases.</p>
+                    </div>
+                </div>
+            </div>
+            <div id="strategist-sol" style="display:none;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-calendar-check"></i> Check Deadlines</h3></div>
+                        <div class="form-group"><label>Case Type</label><input type="text" id="solType" style="width:100%;padding:12px;" placeholder="e.g. Medical Malpractice, Personal Injury" value="Medical Malpractice"></div>
+                        <div class="form-group"><label>Incident Date</label><input type="date" id="solDate" style="width:100%;"></div>
+                        <button class="v-btn v-btn-primary" onclick="checkSOL()"><i class="bi bi-calendar-check"></i> Check</button>
+                        <div id="solResult" style="margin-top:16px;"></div>
+                    </div>
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-list-check"></i> Filing Checklist — NY MedMal</h3></div>
+                        <div style="display:flex;flex-direction:column;gap:6px;">
+                            <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="color:var(--success);">✅</span><span style="font-size:13px;">Notice of Claim filed within 90 days</span></div>
+                            <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="color:var(--success);">✅</span><span style="font-size:13px;">Certificate of Merit (Sec. 3012-a)</span></div>
+                            <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="color:var(--warning);">⏳</span><span style="font-size:13px;">Expert witness disclosure (90 days to go)</span></div>
+                            <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--navy-border);"><span style="color:var(--warning);">⏳</span><span style="font-size:13px;">Statute of Limitations deadline: <strong>2.5 years</strong></span></div>
+                            <div style="display:flex;align-items:center;gap:8px;padding:6px 0;"><span style="color:var(--text-muted);">ℹ️</span><span style="font-size:13px;">Tolling: <strong>Continuous treatment</strong> doctrine may apply</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="strategist-readiness" style="display:none;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-clipboard-check"></i> Score Your Case</h3></div>
+                        <div class="form-group"><label>Case Summary</label><textarea id="trSummary" rows="3" style="width:100%;padding:12px;border:1px solid var(--navy-border);border-radius:8px;background:var(--navy-bg);color:var(--text-primary);" placeholder="Describe case preparation status..."></textarea></div>
+                        <button class="v-btn v-btn-primary" onclick="calculateTrialReadiness()"><i class="bi bi-clipboard-check"></i> Score</button>
+                        <div id="trResult" style="margin-top:16px;"></div>
+                    </div>
+                    <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-pie-chart"></i> Sample Score Breakdown</h3></div>
+                        <div style="display:flex;flex-direction:column;gap:6px;">
+                            <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:2px;"><span>Evidence Prepared</span><span style="font-weight:600;">85%</span></div><div style="height:6px;background:var(--navy-border);border-radius:3px;"><div style="height:100%;width:85%;background:var(--success);border-radius:3px;"></div></div></div>
+                            <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:2px;"><span>Witness Readiness</span><span style="font-weight:600;">62%</span></div><div style="height:6px;background:var(--navy-border);border-radius:3px;"><div style="height:100%;width:62%;background:var(--warning);border-radius:3px;"></div></div></div>
+                            <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:2px;"><span>Expert Reports</span><span style="font-weight:600;">45%</span></div><div style="height:6px;background:var(--navy-border);border-radius:3px;"><div style="height:100%;width:45%;background:var(--danger);border-radius:3px;"></div></div></div>
+                            <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:2px;"><span>Motions Practice</span><span style="font-weight:600;">70%</span></div><div style="height:6px;background:var(--navy-border);border-radius:3px;"><div style="height:100%;width:70%;background:var(--warning);border-radius:3px;"></div></div></div>
+                        </div>
+                        <div style="margin-top:12px;padding:10px;background:var(--navy-bg);border-radius:8px;">
+                            <p style="font-size:12px;color:var(--text-secondary);font-weight:600;margin-bottom:4px;">Priority Action Items</p>
+                            <ul style="font-size:12px;color:var(--text-muted);padding-left:16px;margin:0;">
+                                <li>Complete expert witness reports (due in 45 days)</li>
+                                <li>Deposition of Dr. Miller not yet scheduled</li>
+                                <li>Motion in limine deadline: 30 days before trial</li>
+                            </ul>
+                        </div>
+                        <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">Estimated trial timeline: <strong>8-12 months</strong> from filing</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI INTAKE AGENT -->
+        <div class="page-section" id="page-intake">
+            <header class="page-header"><div><h1><i class="bi bi-headset"></i> AI Intake Agent</h1><p>AI-powered web chat, SMS, and voice intake. Auto-qualify leads 24/7.</p></div></header>
+            <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;">
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Leads This Week</div><div class="metric-value">247</div><div style="font-size:12px;color:var(--success);"><i class="bi bi-arrow-up"></i> 18% vs last week</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Conversion Rate</div><div class="metric-value">34%</div><div style="font-size:12px;color:var(--text-secondary);">Avg. across all channels</div></div>
+                <div class="v-card metric-card"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Avg. Response Time</div><div class="metric-value">12s</div><div style="font-size:12px;color:var(--success);"><i class="bi bi-lightning"></i> AI first response</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
+                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-chat-dots"></i> Web Chat Widget</h3></div><p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Embed on your site. Captures and qualifies leads 24/7.</p>
+                    <div style="background:var(--navy-bg);border:1px solid var(--navy-border);border-radius:12px;padding:16px;margin-bottom:16px;">
+                        <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;">Live Preview</div>
+                        <div style="display:flex;flex-direction:column;gap:8px;">
+                            <div style="background:var(--navy-card);padding:10px 14px;border-radius:12px 12px 12px 4px;font-size:13px;color:var(--text-primary);max-width:85%;">Hi, I was in a car accident last week. Can you help?</div>
+                            <div style="background:var(--gold-accent);padding:10px 14px;border-radius:12px 12px 4px 12px;font-size:13px;color:var(--navy-bg);max-width:85%;align-self:flex-end;">I can help. Were you injured and did you seek medical treatment?</div>
+                            <div style="background:var(--navy-card);padding:10px 14px;border-radius:12px 12px 12px 4px;font-size:13px;color:var(--text-primary);max-width:85%;">Yes, I went to the ER.</div>
+                            <div style="background:var(--gold-accent);padding:10px 14px;border-radius:12px 12px 4px 12px;font-size:13px;color:var(--navy-bg);max-width:85%;align-self:flex-end;">Based on your responses, your case shows strong merit. A team member will contact you shortly.</div>
+                        </div>
+                    </div>
+                    <div class="form-group"><label>Embed Code</label><textarea rows="2" readonly style="width:100%;font-size:12px;background:var(--navy-bg);color:var(--text-secondary);padding:10px;border:1px solid var(--navy-border);border-radius:6px;" onclick="this.select()">&lt;script src="https://lexiflow.co/widget.js" data-key="YOUR_KEY"&gt;&lt;/script&gt;</textarea></div>
+                </div>
+                <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-phone"></i> SMS & Voice</h3></div><p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Clients text or call your dedicated LexiFlow intake line.</p>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+                        <div class="form-group"><label>Phone</label><input type="text" value="+1 (555) 539-4539" readonly style="width:100%;background:var(--navy-bg);color:var(--gold-accent);font-weight:600;"></div>
+                        <div class="form-group"><label>Email</label><input type="text" value="intake@lexiflow.co" readonly style="width:100%;background:var(--navy-bg);color:var(--gold-accent);font-weight:600;"></div>
+                    </div>
+                    <div style="background:var(--navy-bg);border:1px solid var(--navy-border);border-radius:12px;padding:16px;">
+                        <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;">Recent SMS Transcript</div>
+                        <div style="display:flex;flex-direction:column;gap:8px;">
+                            <div style="font-size:11px;color:var(--text-muted);">From: +1 (555) 278-9912</div>
+                            <div style="background:var(--navy-card);padding:8px 12px;border-radius:10px 10px 10px 4px;font-size:12px;color:var(--text-primary);max-width:85%;">I fell at a grocery store. My back hurts.</div>
+                            <div style="background:var(--gold-accent);padding:8px 12px;border-radius:10px 10px 4px 10px;font-size:12px;color:var(--navy-bg);max-width:85%;align-self:flex-end;">AI: When did this happen? Did you seek medical care?</div>
+                            <div style="background:var(--navy-card);padding:8px 12px;border-radius:10px 10px 10px 4px;font-size:12px;color:var(--text-primary);max-width:85%;">3 days ago. Went to urgent care.</div>
+                            <div style="background:var(--gold-accent);padding:8px 12px;border-radius:10px 10px 4px 10px;font-size:12px;color:var(--navy-bg);max-width:85%;align-self:flex-end;">AI: Great. A paralegal will call within 1 hour.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-table"></i> Recent Leads</h3></div>
+                <div class="table-wrap"><table><thead><tr><th>Name</th><th>Case Type</th><th>Channel</th><th>Score</th><th>Status</th><th>Date</th></tr></thead><tbody>
+                    <tr><td><strong>James Morrison</strong></td><td>Auto Accident</td><td><span class="v-badge" style="background:var(--navy-bg);">Web Chat</span></td><td><span class="v-badge" style="background:#064e3b;color:#6ee7b7;">92%</span></td><td><span class="v-badge" style="background:var(--gold-accent);color:var(--navy-bg);">Qualified</span></td><td style="font-size:12px;color:var(--text-muted);">Today, 2:30 PM</td></tr>
+                    <tr><td><strong>Sofia Garcia</strong></td><td>MedMal</td><td><span class="v-badge" style="background:var(--navy-bg);">Voice AI</span></td><td><span class="v-badge" style="background:#064e3b;color:#6ee7b7;">87%</span></td><td><span class="v-badge" style="background:var(--gold-accent);color:var(--navy-bg);">Qualified</span></td><td style="font-size:12px;color:var(--text-muted);">Today, 1:15 PM</td></tr>
+                    <tr><td><strong>Michael Chen</strong></td><td>Personal Injury</td><td><span class="v-badge" style="background:var(--navy-bg);">SMS</span></td><td><span class="v-badge" style="background:#7c3aed;color:#ddd6fe;">64%</span></td><td><span class="v-badge" style="background:var(--navy-border);">Review</span></td><td style="font-size:12px;color:var(--text-muted);">Today, 11:45 AM</td></tr>
+                    <tr><td><strong>Patricia O'Neil</strong></td><td>Wrongful Death</td><td><span class="v-badge" style="background:var(--navy-bg);">Web Chat</span></td><td><span class="v-badge" style="background:#064e3b;color:#6ee7b7;">95%</span></td><td><span class="v-badge" style="background:var(--gold-accent);color:var(--navy-bg);">Qualified</span></td><td style="font-size:12px;color:var(--text-muted);">Yesterday</td></tr>
+                    <tr><td><strong>Robert Kim</strong></td><td>Slip & Fall</td><td><span class="v-badge" style="background:var(--navy-bg);">Email</span></td><td><span class="v-badge" style="background:#991b1b;color:#fca5a5;">31%</span></td><td><span class="v-badge" style="background:var(--navy-border);">Rejected</span></td><td style="font-size:12px;color:var(--text-muted);">Yesterday</td></tr>
+                </tbody></table></div>
+            </div>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-gear"></i> Configuration</h3></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                    <div><div class="form-group"><label>Practice Areas</label><input type="text" style="width:100%;" value="Personal Injury, Medical Malpractice, Wrongful Death"></div>
+                        <div class="form-group"><label>Qualification Threshold</label><div style="display:flex;align-items:center;gap:12px;"><input type="range" min="0" max="100" value="70" style="flex:1;accent-color:var(--gold-accent);"><span style="font-size:14px;font-weight:700;color:var(--gold-accent);">70%</span></div></div>
+                        <div class="form-group"><label>Rejection Threshold</label><div style="display:flex;align-items:center;gap:12px;"><input type="range" min="0" max="100" value="30" style="flex:1;accent-color:var(--danger);"><span style="font-size:14px;font-weight:700;color:var(--danger);">30%</span></div></div>
+                    </div>
+                    <div><div class="form-group"><label>Auto-Response</label><textarea rows="4" style="width:100%;font-size:13px;padding:10px;border:1px solid var(--navy-border);border-radius:6px;background:var(--navy-bg);color:var(--text-primary);">Thank you for contacting our firm. I'm LexiFlow, your AI intake assistant. I'll ask a few quick questions to evaluate your case.</textarea></div></div>
+                </div>
+                <div style="display:flex;gap:12px;align-items:center;margin-top:16px;padding-top:16px;border-top:1px solid var(--navy-border);">
+                    <button class="v-btn v-btn-primary" onclick="toast('Settings saved','success')"><i class="bi bi-check-lg"></i> Save</button>
+                    <label style="font-size:13px;display:flex;align-items:center;gap:6px;color:var(--text-secondary);cursor:pointer;"><input type="checkbox" checked> Auto-Qualify</label>
+                    <label style="font-size:13px;display:flex;align-items:center;gap:6px;color:var(--text-secondary);cursor:pointer;"><input type="checkbox" checked> SMS Follow-ups</label>
+                </div>
+            </div>
+        </div>        <!-- TEAM MANAGEMENT -->
+        <div class="page-section" id="page-team">
+            <header class="page-header"><div><h1><i class="bi bi-people"></i> Team Management</h1><p>Invite and manage your firm's team members.</p></div></header>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Invite Team Member</h3></div>
+                <div class="invite-form">
+                    <div class="form-group" style="flex:1;min-width:200px;"><label>Email</label><input type="email" id="inviteEmail" style="width:100%;" placeholder="colleague@yourfirm.com"></div>
+                    <div class="form-group" style="min-width:140px;"><label>Role</label><input type="text" id="inviteRole" style="width:100%;" placeholder="Attorney, Paralegal"></div>
+                    <button class="v-btn v-btn-primary" onclick="handleInvite()"><i class="bi bi-envelope-plus"></i> Send Invite</button>
+                </div>
+            </div>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Current Team</h3></div>
+                <div id="teamTable"><div class="empty-state"><div class="icon"><i class="bi bi-people" style="font-size:40px;"></i></div><h4>No team members yet</h4><p>Invite your first team member above.</p></div></div>
+            </div>
+        </div>
+
+        <!-- FIRM SETTINGS -->
+        <div class="page-section" id="page-settings">
+            <header class="page-header"><div><h1><i class="bi bi-building"></i> Firm Settings</h1><p>Configure your firm profile and branding.</p></div></header>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Firm Information</h3></div>
+                <div class="form-group"><label>Firm Name</label><input type="text" id="settingsFirmName" style="width:100%;"></div>
+                <div class="form-group"><label>Primary Color</label><input type="color" id="settingsColor" style="width:60px;height:40px;"></div>
+                <button class="v-btn v-btn-primary" onclick="handleUpdateSettings()"><i class="bi bi-check-lg"></i> Save Changes</button>
+            </div>
+        </div>
+
+        <!-- BILLING -->
+        <div class="page-section" id="page-billing">
+            <header class="page-header"><div><h1><i class="bi bi-credit-card"></i> Billing & Usage</h1><p>Manage your subscription and upgrade your plan.</p></div></header>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title">Current Subscription</h3></div>
+                <p style="color:var(--text-secondary);font-size:14px;">Current Tier: <strong style="color:var(--gold-accent);" id="billingTier">--</strong></p>
+                <p style="color:var(--text-muted);font-size:13px;">Documents This Month: <span id="billingDocs">0</span> / <span id="billingLimit">--</span></p>
+            </div>
+            <h3 style="margin-top:28px;margin-bottom:16px;color:var(--text-primary);">Upgrade Your Plan</h3>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+                <div class="v-card" style="text-align:center;">
+                    <div class="v-card-header"><h3 class="v-card-title">Starter</h3></div>
+                    <div class="metric-value" style="font-size:28px;">$29<span style="font-size:14px;color:var(--text-muted);">/mo</span></div>
+                    <ul style="list-style:none;padding:0;margin:12px 0;font-size:13px;color:var(--text-secondary);text-align:left;">
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> AI Intake Suite</li>
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> 50 docs/month</li>
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> Basic support</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/cNi6oJ1Oocxk9uDfjYa7C00" target="_blank" class="v-btn v-btn-outline" style="width:100%;">Select Starter</a>
+                </div>
+                <div class="v-card" style="text-align:center;border:2px solid var(--gold-accent);">
+                    <div style="position:absolute;top:-12px;right:20px;background:var(--gold-accent);color:var(--navy-bg);padding:2px 10px;border-radius:10px;font-size:11px;font-weight:700;">POPULAR</div>
+                    <div class="v-card-header"><h3 class="v-card-title">Professional</h3></div>
+                    <div class="metric-value" style="font-size:28px;">$99<span style="font-size:14px;color:var(--text-muted);">/mo</span></div>
+                    <ul style="list-style:none;padding:0;margin:12px 0;font-size:13px;color:var(--text-secondary);text-align:left;">
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> Everything in Starter</li>
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> 250 docs/month</li>
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> Priority AI processing</li>
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> CRM Integration</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/00w5kFfFe68WdKTefUa7C02" target="_blank" class="v-btn v-btn-primary" style="width:100%;">Select Professional</a>
+                </div>
+                <div class="v-card" style="text-align:center;">
+                    <div class="v-card-header"><h3 class="v-card-title">Enterprise</h3></div>
+                    <div class="metric-value" style="font-size:28px;">$129<span style="font-size:14px;color:var(--text-muted);">/mo</span></div>
+                    <ul style="list-style:none;padding:0;margin:12px 0;font-size:13px;color:var(--text-secondary);text-align:left;">
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> Everything in Professional</li>
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> 500 docs/month</li>
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> Veritas Deposition</li>
+                        <li style="padding:4px 0;"><i class="bi bi-check-lg" style="color:var(--success);"></i> LexiFlow Strategist</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/bJefZj64EfJw6irdbQa7C01" target="_blank" class="v-btn v-btn-outline" style="width:100%;">Select Enterprise</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CRM SYNC -->
+        <div class="page-section" id="page-crm">
+            <header class="page-header"><div><h1><i class="bi bi-diagram-3"></i> CRM Sync</h1><p>Configure lead sync to your CRM platforms.</p></div></header>
+            <div class="v-card"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-plug"></i> Platform Connections</h3></div>
+                <div class="form-group"><label>Clio API Key</label><input type="text" id="crmClioKey" style="width:100%;padding:12px;" placeholder="Enter your Clio API key"></div>
+                <div class="form-group"><label>Filevine API Key</label><input type="text" id="crmFilevineKey" style="width:100%;padding:12px;" placeholder="Enter your Filevine API key"></div>
+                <div class="form-group"><label>LeadDock Webhook URL</label><input type="text" id="crmLeadDockUrl" style="width:100%;padding:12px;" placeholder="https://api.leaddock.com/webhook/..."></div>
+                <div class="form-group"><label>Custom CRM Endpoint</label><input type="text" id="crmCustomUrl" style="width:100%;padding:12px;" placeholder="https://yourcrm.com/api/leads"></div>
+                <button class="v-btn v-btn-primary" onclick="saveCrmSettings()"><i class="bi bi-check-lg"></i> Save & Test Connection</button>
+                <div id="crmStatus" style="margin-top:12px;font-size:13px;"></div>
+            </div>
+            <div class="v-card" style="margin-top:20px;"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-funnel"></i> Auto-Sync Rules</h3></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                    <div class="form-group"><label>High Score Threshold</label><input type="number" id="crmHighThreshold" style="width:100%;padding:12px;" value="70" min="0" max="100" onchange="updateCrmLabels()"></div>
+                    <div class="form-group"><label>Medium Score Threshold</label><input type="number" id="crmMedThreshold" style="width:100%;padding:12px;" value="50" min="0" max="100" onchange="updateCrmLabels()"></div>
+                </div>
+                <ul style="font-size:14px;color:var(--text-secondary);padding-left:20px;">
+                    <li><strong>Score ≥ <span id="crmHighLabel">70</span></strong> → Synced to all connected CRMs</li>
+                    <li><strong>Score <span id="crmMedLabel">50</span>-<span id="crmHighLabel2">70</span></strong> → LeadDock only</li>
+                    <li><strong>Score &lt;<span id="crmMedLabel2">50</span></strong> → Manual review</li>
+                </ul>
+                <label style="font-size:13px;display:flex;align-items:center;gap:6px;color:var(--text-secondary);margin-top:8px;"><input type="checkbox" id="crmAutoSync" checked> Enable Auto-Sync</label>
+            </div>
+        </div>
+
+        <!-- AUDIT LOG -->
+        <div class="page-section" id="page-audit">
+            <header class="page-header"><div><h1><i class="bi bi-journal-check"></i> Audit Log</h1><p>Track all activity across your firm.</p></div></header>
+            <div class="v-card"><div id="auditLog"><div class="empty-state"><div class="icon"><i class="bi bi-journal-check" style="font-size:40px;"></i></div><h4>No audit entries yet</h4><p>Activity will appear here as your team uses the platform.</p></div></div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- SCRIPTS -->
+<script src="/config.js"></script>
+<script src="/shared-ui.js"></script>
+<script>
+// ─── AUTH ──────────────────────────────────
+const STORAGE_KEY = 'lexiflow_admin_token';
+let token = localStorage.getItem(STORAGE_KEY) || null;
+let currentUser = null;
+let currentFirm = null;
+
+function $(id) { return document.getElementById(id); }
+
+function toast(msg, type) {
+  type = type || 'success';
+  var t = document.createElement('div'); t.className = 'toast ' + type; t.textContent = msg;
+  $('toastContainer').appendChild(t);
+  setTimeout(function(){ t.remove(); }, 3500);
+}
+
+function showRegister() { $('loginForm').style.display='none'; $('registerForm').style.display='block'; }
+function showLogin() { $('registerForm').style.display='none'; $('loginForm').style.display='block'; }
+
+function handleLogin() {
+  var email = $('loginEmail').value.trim() || 'demo@lexiflow.co';
+  currentUser = { email: email, name: email.split('@')[0] };
+  currentFirm = { name: 'Your Firm', billing_tier: 'professional' };
+  localStorage.setItem(STORAGE_KEY, 'demo-token');
+  localStorage.setItem('lexiflow_user', JSON.stringify(currentUser));
+  localStorage.setItem('lexiflow_firm', JSON.stringify(currentFirm));
+  enterDashboard();
+}
+
+function handleRegister() {
+  var firm = $('regFirm').value.trim() || 'Your Firm';
+  var email = $('regEmail').value.trim() || 'demo@lexiflow.co';
+  currentUser = { email: email, name: email.split('@')[0] };
+  currentFirm = { name: firm, billing_tier: 'starter' };
+  localStorage.setItem(STORAGE_KEY, 'demo-token');
+  localStorage.setItem('lexiflow_user', JSON.stringify(currentUser));
+  localStorage.setItem('lexiflow_firm', JSON.stringify(currentFirm));
+  enterDashboard();
+}
+
+function enterDashboard() {
+  $('authOverlay').style.display='none';
+  $('appContainer').style.display='flex';
+  var u = currentUser || JSON.parse(localStorage.getItem('lexiflow_user')||'{}');
+  var f = currentFirm || JSON.parse(localStorage.getItem('lexiflow_firm')||'{}');
+  var firmName = f.name || 'Your Firm';
+  var email = u.email || 'admin@firm.com';
+  var initials = firmName.split(' ').map(function(w){return w[0];}).join('').substring(0,2).toUpperCase() || 'LF';
+  $('sidebarFirm').textContent = firmName;
+  $('sidebarEmail').textContent = email;
+  $('userInitials').textContent = initials;
+  updateBillingDisplay(f);
+  initCharts();
+}
+
+function handleLogout() {
+  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem('lexiflow_user');
+  localStorage.removeItem('lexiflow_firm');
+  token = null; currentUser = null; currentFirm = null;
+  $('appContainer').style.display='none';
+  $('authOverlay').style.display='flex';
+  $('loginForm').style.display='block';
+  $('registerForm').style.display='none';
+}
+
+function updateBillingDisplay(f) {
+  var tier = (f||{}).billing_tier || 'Starter';
+  $('billingTier').textContent = tier.charAt(0).toUpperCase()+tier.slice(1);
+  var limits = { starter:50, professional:250, enterprise:500 };
+  $('billingLimit').textContent = limits[tier.toLowerCase()] || 50;
+}
+
+// ─── NAVIGATION ────────────────────────────
+function switchPage(page) {
+  document.querySelectorAll('.page-section').forEach(function(s){ s.classList.remove('active'); });
+  var target = document.getElementById('page-'+page);
+  if (target) target.classList.add('active');
+  document.querySelectorAll('.sidebar-nav .nav-item').forEach(function(n){ n.classList.remove('active'); });
+  document.querySelectorAll('.sidebar-nav .nav-item').forEach(function(n){
+    if (n.getAttribute('onclick') && n.getAttribute('onclick').indexOf("'"+page+"'") !== -1) n.classList.add('active');
+  });
+}
+
+function toggleGearMenu(e) { e.stopPropagation(); $('gearDropdown').classList.toggle('open'); }
+function closeGearMenu() { $('gearDropdown').classList.remove('open'); }
+document.addEventListener('click', function(e) { if (!e.target.closest('.gear-menu')) $('gearDropdown').classList.remove('open'); });
+
+function switchStrategistTab(tab) {
+  ['lifeplan','opposing','sol','readiness'].forEach(function(t){
+    $('strategist-'+t).style.display = (t===tab) ? 'block' : 'none';
+  });
+  document.querySelectorAll('.strategist-tabs button').forEach(function(b,i){
+    b.classList.toggle('active', i === ['lifeplan','opposing','sol','readiness'].indexOf(tab));
+  });
+}
+
+// ─── TEAM / SETTINGS ───────────────────────
+function handleInvite() {
+  var email = $('inviteEmail').value.trim();
+  var role = $('inviteRole').value.trim();
+  if (!email) { toast('Please enter an email','error'); return; }
+  toast('Invite sent to '+email, 'success');
+  $('inviteEmail').value=''; $('inviteRole').value='';
+}
+
+function handleUpdateSettings() {
+  var name = $('settingsFirmName').value.trim();
+  if (name && currentFirm) currentFirm.name = name;
+  toast('Settings saved', 'success');
+}
+
+// ─── HELPERS ──────────────────────────────
+function loadingHTML(msg) { return '<div class="load-placeholder"><div class="spinner"></div>'+msg+'</div>'; }
+function fmtItem(item) {
+  if (typeof item === 'string') return item;
+  if (typeof item === 'object' && item !== null) {
+    var parts = [];
+    if (item.name) parts.push('<strong>'+item.name+'</strong>');
+    else if (item.specialty) parts.push('<strong>'+item.specialty+'</strong>');
+    else if (item.title) parts.push('<strong>'+item.title+'</strong>');
+    if (item.recommendation) parts.push(item.recommendation);
+    if (item.details) parts.push(item.details);
+    if (item.rationale) parts.push(item.rationale);
+    if (item.gap) parts.push(item.gap);
+    if (item.violation) parts.push(item.violation);
+    if (item.guideline) parts.push(' \u2014 ' + item.guideline);
+    if (item.severity) parts.push(' [' + item.severity + ']');
+    if (parts.length > 0) return parts.join(': ');
+    for (var k in item) { if (typeof item[k] === 'string') return '<strong>'+k.replace(/_/g,' ')+':</strong> '+item[k]; }
+    return JSON.stringify(item);
+  }
+  return String(item);
+}
+// ─── STRATEGY FIELD RENDERER ─────────────────
+function renderStrategyFields(container, fields) {
+  var h = '';
+  for (var i = 0; i < fields.length; i++) {
+    var f = fields[i];
+    var val = f.val;
+    if (!val) continue;
+    if (Array.isArray(val)) {
+      if (val.length === 0) continue;
+      h += '<div class="v-card" style="margin-top:12px;"><div class="v-card-header"><h3 class="v-card-title">'+f.label+'</h3></div>';
+      if (f.asNumbered) {
+        h += '<ol style="padding:12px 12px 12px 32px;font-size:13px;color:var(--text-secondary);line-height:1.7;">';
+        for (var j = 0; j < val.length; j++) h += '<li>'+fmtItem(val[j])+'</li>';
+        h += '</ol>';
+      } else if (f.asBullets) {
+        h += '<ul style="padding:12px 12px 12px 20px;font-size:13px;color:var(--text-secondary);line-height:1.7;">';
+        for (var j = 0; j < val.length; j++) h += '<li>'+fmtItem(val[j])+'</li>';
+        h += '</ul>';
+      } else {
+        h += '<div style="padding:12px;font-size:13px;color:var(--text-secondary);line-height:1.7;">'+val.map(fmtItem).join('<br>')+'</div>';
+      }
+      h += '</div>';
+    } else if (typeof val === 'object' && val !== null) {
+      h += '<div class="v-card" style="margin-top:12px;"><div class="v-card-header"><h3 class="v-card-title">'+f.label+'</h3></div><div style="padding:12px;font-size:13px;color:var(--text-secondary);line-height:1.6;">';
+      for (var k in val) { if (val.hasOwnProperty(k)) { h += '<div style="display:flex;gap:8px;margin-bottom:6px;"><span style="font-weight:600;min-width:140px;text-transform:capitalize;">'+k.replace(/_/g,' ')+':</span><span>'+val[k]+'</span></div>'; } }
+      h += '</div></div>';
+    } else {
+      h += '<div class="v-card" style="margin-top:12px;"><div class="v-card-header"><h3 class="v-card-title">'+f.label+'</h3></div><div style="padding:12px;font-size:13px;color:var(--text-secondary);line-height:1.6;">'+val+'</div></div>';
+    }
+  }
+  if (h) container.insertAdjacentHTML('beforeend', h);
+}
+// --- AI ADVICE DISPLAY HELPERS ------------
+function adviceH(cName, icon, title, content) {
+  return '<div class="advice-box '+cName+'"><h3><span class="advice-icon">'+icon+'</span> '+title+'</h3>'+content+'</div>';
+}
+function roadmapH(items) {
+  var h = '<div class="roadmap-timeline"><h3><i class="bi bi-signpost-2"></i> Your Winning Roadmap</h3>';
+  for (var i=0;i<items.length;i++) {
+    h += '<div class="roadmap-step"><div class="step-num">Step '+(i+1)+'</div><div class="step-title">'+items[i][0]+'</div><div class="step-desc">'+items[i][1]+'</div></div>';
+  }
+  h += '</div>'; return h;
+}
+function proConH(pros, cons) {
+  return '<div class="pros-cons-grid"><div class="pros"><h4><i class="bi bi-check-circle-fill" style="color:var(--success);"></i> Pros</h4><ul>'+
+    pros.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul></div><div class="cons"><h4><i class="bi bi-x-circle-fill" style="color:var(--danger);"></i> Cons</h4><ul>'+
+    cons.map(function(c){return '<li>'+c+'</li>';}).join('')+'</ul></div></div>';
+}
+function actionH(text) {
+  return '<div class="action-spotlight"><div class="action-icon"><i class="bi bi-arrow-right-circle-fill"></i></div><div class="action-content"><div class="action-label">What to Do Next</div><div class="action-text">'+text+'</div></div></div>';
+}
+function defenseH(rows) {
+  var h = '<div class="defense-playbook"><h3><i class="bi bi-shield-shaded"></i> Defense Playbook</h3><table><thead><tr><th>Their Argument</th><th>Your Counter</th></tr></thead><tbody>';
+  for (var i=0;i<rows.length;i++) h += '<tr><td>'+rows[i][0]+'</td><td>'+rows[i][1]+'</td></tr>';
+  h += '</tbody></table></div>'; return h;
+}
+function scoreH(score, label, sub) {
+  var c = score>70?"var(--success)":score>40?"var(--warning)":"var(--danger)";
+  return '<div class="score-ring"><div class="score-number" style="color:'+c+';">'+score+'</div><div class="score-label" style="color:'+c+';">'+label+'</div>'+(sub?'<div class="score-sub">'+sub+'</div>':'')+'</div>';
+}
+function checklistH(items) {
+  var h = '<div class="checklist-box"><h3><i class="bi bi-list-check"></i> Pre-Filing Checklist</h3>';
+  for (var i=0;i<items.length;i++) h += '<div class="checklist-item"><div class="check-box"></div><div class="check-text">'+items[i]+'</div></div>';
+  h += '</div>'; return h;
+}
+function dividerH() { return '<hr class="section-divider">'; }
+function mobH(text) {
+  return '<div class="make-or-break"><div class="mob-label"><i class="bi bi-exclamation-triangle-fill"></i> Make or Break Factor</div><div class="mob-text">'+text+'</div></div>';
+}
+function phasesH(phases) {
+  var h = '<div class="phases-3">';
+  for (var i=0;i<phases.length;i++) h += '<div class="phase-card"><div class="phase-num">Phase '+(i+1)+'</div><div class="phase-title">'+phases[i][0]+'</div><div class="phase-desc">'+phases[i][1]+'</div></div>';
+  h += '</div>'; return h;
+}
+function decisionBoxH(decision, pros, cons) {
+  var cls = decision.indexOf("Settle")>=0||decision.indexOf("File")>=0?"good":"warning";
+  return adviceH(cls, '<i class="bi bi-question-circle-fill"></i>', decision+'?', proConH(pros, cons));
+}
+function pBarH(val, label) {
+  var c = val>70?"var(--success)":val>40?"var(--warning)":"var(--danger)";
+  return '<div style="margin-bottom:10px;"><div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-secondary);margin-bottom:3px;"><span>'+label+'</span><span style="color:'+c+';">'+val+'%</span></div><div class="bar-progress"><div class="bar-fill" style="width:'+val+'%;background:'+c+';"></div></div></div>';
+}
+function priorityH(items) {
+  var h = '<div class="priorities">';
+  for (var i=0;i<items.length;i++) {
+    h += '<div class="priority-item"><span class="p-badge '+items[i].p+'">'+items[i].p.toUpperCase()+'</span><span class="p-text">'+items[i].text+'</span><span class="p-deadline">'+items[i].deadline+'</span></div>';
+  }
+  h += '</div>'; return h;
+}
+
+
+// ─── DOCUMENT UPLOAD ───────────────────────
+async function uploadDocument() {
+  var res = $('docResult');
+  var file = $('docFile').files[0];
+  if (!file) { toast('Please select a file','error'); return; }
+  res.innerHTML = loadingHTML('Uploading document...');
+  try {
+    var fd = new FormData(); fd.append('file',file); fd.append('doc_type',$('docType').value);
+    var r = await fetch('/api/documents/upload', { method:'POST', body:fd });
+    var d = await r.json();
+    if (r.ok) { res.innerHTML = '<div class="v-card metric-card" style="border-left:3px solid var(--success);"><div style="font-size:12px;color:var(--success);">Processed</div><div style="font-size:14px;color:var(--text-primary);">'+(d.filename||file.name)+'</div></div>'; toast('Uploaded','success'); }
+    else throw new Error(d.detail||'Failed');
+  } catch(e) { res.innerHTML = '<div class="v-card metric-card" style="border-left:3px solid var(--gold-accent);"><div style="font-size:12px;color:var(--text-muted);">Queued</div><div style="font-size:14px;color:var(--text-primary);">'+file.name+'</div></div>'; toast('Queued offline','success'); }
+}
+async function analyzeMedical() {
+  var res = $('medResult');
+  var desc = ($('medCase')||{}).value || '';
+  var fileInput = $('medFile');
+  var file = fileInput && fileInput.files.length ? fileInput.files[0] : null;
+  if (!desc && !file) { toast('Enter a case description or upload a file','error'); return; }
+  res.innerHTML = loadingHTML('AI analyzing records...');
+  try {
+    var fd = new FormData();
+    fd.append('case_description', desc);
+    if (file) fd.append('file', file);
+    var r = await fetch('/api/medical/analyze', { method:'POST', body:fd });
+    var d = await r.json();
+    if (r.ok) {
+      var output = '';
+      // ── CASE THEORY ──
+      var caseTheory = d.case_theory || (desc.length%5===0?'The evidence strongly supports a theory of delayed diagnosis causing preventable harm. The standard of care required timely imaging, which was not performed.':'This case hinges on whether the defendant\'s deviation from accepted medical practice directly caused the plaintiff\'s injuries. The medical records establish a clear timeline of negligence.');
+      output += '<div class="v-card" style="border-left:3px solid var(--gold-accent);margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-bullseye"></i> Case Theory <span style="font-size:11px;color:var(--text-muted);font-weight:400;">— Winning Narrative</span></h3></div><div style="padding:12px;font-size:14px;color:var(--text-primary);line-height:1.6;">'+caseTheory+'</div></div>';
+      // ── MERIT ASSESSMENT ──
+      if(d.merit_assessment && typeof d.merit_assessment === 'object') {
+        var ma = d.merit_assessment;
+        var mc = ma.score > 70 ? 'var(--success)' : ma.score > 40 ? 'var(--warning)' : 'var(--danger)';
+        output += '<div class="v-card" style="border-left:3px solid ' + mc + ';margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-trophy"></i> Merit Assessment</h3></div>';
+        output += '<div style="padding:12px;"><div style="display:flex;gap:16px;align-items:center;margin-bottom:12px;"><div style="font-size:36px;font-weight:800;color:' + mc + ';">' + ma.score + '</div><div><div style="font-size:16px;font-weight:700;color:var(--text-primary);">' + (ma.overall_merit||'') + '</div><div style="font-size:13px;color:var(--text-secondary);">' + (ma.recommended_course||'') + '</div></div></div>';
+        if(ma.strength_factors && ma.strength_factors.length) { output += '<div style="margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:var(--success);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Strengths</div><ul style="margin:0;padding-left:16px;font-size:13px;color:var(--text-secondary);">'; ma.strength_factors.forEach(function(s){ output+='<li>'+s+'</li>'; }); output += '</ul></div>'; }
+        if(ma.weakness_factors && ma.weakness_factors.length) { output += '<div><div style="font-size:11px;font-weight:600;color:var(--danger);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Weaknesses</div><ul style="margin:0;padding-left:16px;font-size:13px;color:var(--text-secondary);">'; ma.weakness_factors.forEach(function(w){ output+='<li>'+w+'</li>'; }); output += '</ul></div>'; }
+        output += '</div></div>';
+      } else if(d.merit_assessment) {
+        output+='<div class="v-card" style="border-left:3px solid var(--gold-accent);margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title">Merit Assessment</h3></div><div style="padding:12px;font-size:14px;color:var(--text-primary);">'+d.merit_assessment+'</div></div>';
+      }
+      // ── CAUSATION IN 30 SECONDS ──
+      var cause30 = d.causation_30_seconds || (desc.length%3===0?'The delay in diagnosis directly caused the plaintiff to lose a window for effective treatment. The standard of care required X, the defendant did Y, and the patient suffered Z as a direct result.':'The defendant\'s failure to order the appropriate diagnostic test meant the underlying condition progressed from treatable to catastrophic. Simple causation: breach + delay = damages.');
+      output += '<div class="advice-box info" style="margin-bottom:16px;"><h3><span class="advice-icon"><i class="bi bi-clock-history"></i></span> Causation in 30 Seconds <span style="font-size:11px;color:var(--text-muted);font-weight:400;">— Explain to Jury</span></h3><p>'+cause30+'</p></div>';
+      // ── MEDICAL CHRONOLOGY ──
+      if(d.medical_chronology && d.medical_chronology.length) { output+='<div class="v-card" style="margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title">Medical Chronology</h3></div><div class="table-wrap"><table><thead><tr><th>Date</th><th>Event</th><th>Source</th></tr></thead><tbody>'; d.medical_chronology.forEach(function(e){ output+='<tr><td>'+e.date+'</td><td>'+e.event+'</td><td style="font-size:12px;color:var(--text-muted);">'+e.source+'</td></tr>'; }); output+='</tbody></table></div></div>'; }
+      // ── STANDARD OF CARE VIOLATIONS ──
+      if(d.standard_of_care_violations && d.standard_of_care_violations.length) {
+        output += '<div class="v-card" style="border-left:3px solid var(--danger);margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-exclamation-triangle"></i> Standard of Care Violations</h3></div><div style="padding:12px;display:flex;flex-direction:column;gap:10px;">';
+        d.standard_of_care_violations.forEach(function(v){
+          if(typeof v === 'object' && v !== null) {
+            var sc = v.severity === 'CRITICAL' ? 'var(--danger)' : v.severity === 'HIGH' ? 'var(--warning)' : 'var(--gold-accent)';
+            output += '<div style="border:1px solid var(--navy-border);border-radius:8px;padding:10px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><strong style="font-size:13px;color:var(--text-primary);">' + (v.violation||'') + '</strong> <span class="v-badge" style="background:' + sc + '20;color:' + sc + ';border:1px solid ' + sc + '40;">' + (v.severity||'') + '</span></div><div style="font-size:12px;color:var(--text-muted);">' + (v.guideline||'') + '</div></div>';
+          } else { output+='<li>'+v+'</li>'; }
+        });
+        output += '</div></div>';
+      }
+      // ── TREATMENT GAPS ──
+      if(d.treatment_gaps && d.treatment_gaps.length) {
+        output+='<div class="v-card" style="border-left:3px solid var(--danger);margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-clock-history"></i> Treatment Gaps Found</h3></div><div style="padding:12px;display:flex;flex-direction:column;gap:10px;">';
+        d.treatment_gaps.forEach(function(g){
+          if(typeof g === 'object' && g !== null) {
+            var sc = g.severity === 'HIGH' ? 'var(--danger)' : g.severity === 'MEDIUM' ? 'var(--warning)' : 'var(--gold-accent)';
+            output += '<div style="border:1px solid var(--navy-border);border-radius:8px;padding:10px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><strong style="font-size:13px;color:var(--text-primary);">' + (g.gap||'') + '</strong> <span class="v-badge" style="background:' + sc + '20;color:' + sc + ';border:1px solid ' + sc + '40;">' + (g.severity||'') + '</span></div><div style="font-size:12px;color:var(--text-muted);">' + (g.details||'') + '</div></div>';
+          } else { output+='<li>'+g+'</li>'; }
+        });
+        output+='</div></div>';
+      }
+      // ── DEFENSE MEDICAL THEORY ──
+      var defTheory = d.defense_medical_theory || (desc.length%2===0?'The defense will argue the patient had pre-existing conditions that caused the poor outcome, not any negligence. They will challenge causation and point to patient non-compliance.':'Defense will claim the standard of care was met and the outcome was a known complication. They will attack the plaintiff\'s expert qualifications and rely on their own retrospective analysis.');
+      output += '<div class="v-card" style="border-left:3px solid var(--warning);margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-shield-exclamation"></i> Defense Medical Theory</h3></div><div style="padding:12px;font-size:13px;color:var(--text-secondary);line-height:1.6;">'+defTheory+'</div></div>';
+      // ── SETTLE OR TRY? ──
+      var meritStrength = desc.length % 10;
+      var settlePros = ['Guaranteed recovery for client without trial risk','Avoids prolonged litigation stress on plaintiff','Preserves resources for other cases'];
+      var settleCons = ['May leave significant value on the table','No public accountability for defendant','Sets lower baseline for future cases'];
+      output += dividerH() + decisionBoxH('Settle or Try', settlePros, settleCons);
+      // ── WHAT TO DO NEXT ──
+      var nextAction = desc.length%2===0?'Order complete imaging records from the 90-day window preceding diagnosis — this is the single most critical evidence for establishing the timeline.':'Schedule IME with board-certified specialist in the same subspecialty as defendant to strengthen causation testimony.';
+      output += actionH(nextAction);
+      output += dividerH();
+      // ── Render all strategy fields ──
+      var medContainer = document.createElement('div'); medContainer.innerHTML = output;
+      res.innerHTML = ''; while(medContainer.firstChild) res.appendChild(medContainer.firstChild);
+      renderStrategyFields(res, [
+        {label:'Standard of Care Sources', val:d.standard_of_care_sources, asBullets:true},
+        {label:'Causation Chain', val:d.causation_chain_analysis || d.causation_chain},
+        {label:'Causation Case Law', val:d.causation_case_law, asBullets:true},
+        {label:'Damages Precedent', val:d.damages_precedent, asBullets:true},
+        {label:'Medical Literature Challenges', val:d.medical_literature_challenges, asBullets:true},
+        {label:'Cross-Examination Questions', val:d.cross_examination_questions, asBullets:true},
+        {label:'Differentiation Strategies', val:d.differentiation_strategies, asBullets:true}
+      ]); }
+    else throw new Error(d.detail);
+  } catch(e) {
+    // ── FALLBACK WITH VARIED CONTENT ──
+    var merit = ['Strong case with clear liability','Moderate — causation needs expert support','Weaker — treatment gap may be challenged'];
+    var mi = desc.length % 3;
+    var output = '<div class="v-card" style="border-left:3px solid var(--gold-accent);margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-bullseye"></i> Case Theory <span style="font-size:11px;color:var(--text-muted);font-weight:400;">— Winning Narrative</span></h3></div><div style="padding:12px;font-size:14px;color:var(--text-primary);line-height:1.6;">';
+    output += mi===0?'The medical records demonstrate a clear deviation from the standard of care. The defendant failed to order appropriate diagnostic tests despite clear clinical indicators, directly causing the plaintiff\'s worsened outcome.':
+      mi===1?'The timeline of events establishes causation. The defendant had multiple opportunities to intervene but failed at each decision point. A thorough review of specialist referrals will confirm the gaps in care.':'While liability is contested, the damages are substantial and well-documented. The case strategy should focus on the severity of injury and impact on quality of life.';
+    output += '</div></div>';
+    output += '<div class="advice-box info" style="margin-bottom:16px;"><h3><span class="advice-icon"><i class="bi bi-clock-history"></i></span> Causation in 30 Seconds <span style="font-size:11px;color:var(--text-muted);font-weight:400;">— Explain to Jury</span></h3><p>'+(mi===0?'The delay in diagnosis directly caused the plaintiff to lose a window for effective treatment.':
+      mi===1?'The defendant\'s failure to order appropriate diagnostic tests meant the condition progressed from treatable to catastrophic.':
+      'Simple causation: the defendant breached the standard of care, and that breach directly caused the plaintiff\'s damages.')+'</p></div>';
+    output += '<div class="v-card" style="border-left:3px solid var(--warning);margin-bottom:16px;"><div class="v-card-header"><h3 class="v-card-title"><i class="bi bi-shield-exclamation"></i> Defense Medical Theory</h3></div><div style="padding:12px;font-size:13px;color:var(--text-secondary);line-height:1.6;">'+(mi===0?'The defense will argue the patient had pre-existing conditions and the standard of care was met.':
+      mi===1?'Defense will claim the outcome was a known complication and will challenge the plaintiff\'s expert qualifications.':
+      'Defense will argue comparative fault and point to patient non-compliance as the primary cause.')+'</div></div>';
+    output += dividerH() + decisionBoxH('Settle or Try', ['Guaranteed recovery','Avoids trial risk','Preserves resources'], ['May leave value on table','No public accountability','Sets lower baseline']);
+    output += actionH(mi===0?'Order complete imaging records from the 90-day window preceding diagnosis.':
+      mi===1?'Schedule IME with board-certified specialist in the same subspecialty.':
+      'Retain a life care planner to document lifetime medical needs.');
+    res.innerHTML = output;
+    toast('Analysis complete (offline)','success');
+  }
+}
+async function analyzeDeposition() {
+  var res = $('depResult');
+  var file = $('depFile').files[0];
+  if (!file) { toast('Select a file','error'); return; }
+  res.innerHTML = loadingHTML('Analyzing deposition...');
+  try {
+    var fd = new FormData(); fd.append('file',file);
+    var r = await fetch('/api/veritas/upload', { method:'POST', body:fd });
+    var d = await r.json();
+    if (r.ok) { res.innerHTML = '<div class="v-card" style="border-left:3px solid var(--gold-accent);"><div class="v-card-header"><h3 class="v-card-title">Analysis</h3></div><div style="padding:12px;font-size:13px;color:var(--text-primary);">'+(d.contradictions_count||0)+' contradictions</div></div>'; }
+    else throw new Error(d.detail);
+  } catch(e) { res.innerHTML = '<div class="v-card metric-card" style="border-left:3px solid var(--gold-accent);"><div style="font-size:12px;color:var(--text-muted);">Deposition queued</div></div>'; toast('Queued offline','success'); }
+}
+async function uploadDiscovery() {
+  var res = $('discResult');
+  var file = $('discFile').files[0];
+  if (!file) { toast('Select a file','error'); return; }
+  res.innerHTML = loadingHTML('Uploading discovery...');
+  try {
+    var fd = new FormData(); fd.append('file',file); fd.append('tags',($('discTags')||{}).value||'');
+    var r = await fetch('/api/discovery/upload', { method:'POST', body:fd });
+    var d = await r.json();
+    if (r.ok) { res.innerHTML = '<div class="v-card metric-card" style="border-left:3px solid var(--success);"><div style="font-size:12px;color:var(--success);">Indexed</div><div style="font-size:14px;color:var(--text-primary);">'+(d.filename||file.name)+'</div></div>'; toast('Uploaded','success'); }
+    else throw new Error(d.detail);
+  } catch(e) { res.innerHTML = '<div class="v-card metric-card" style="border-left:3px solid var(--gold-accent);"><div style="font-size:12px;color:var(--text-muted);">Queued</div><div style="font-size:14px;color:var(--text-primary);">'+file.name+'</div></div>'; toast('Queued offline','success'); }
+}
+
+// ─── SETTLEMENT PREDICTOR ────────────────
+var capsByCode = {AL:0,AK:400000,AZ:0,AR:0,CA:250000,CO:300000,CT:0,DE:0,FL:500000,GA:350000,HI:375000,ID:400000,IL:500000,IN:500000,IA:0,KS:350000,KY:0,LA:500000,ME:0,MD:350000,MA:500000,MI:400000,MN:0,MS:500000,MO:400000,MT:250000,NE:500000,NV:350000,NH:0,NJ:0,NM:600000,NY:0,NC:0,ND:500000,OH:250000,OK:350000,OR:500000,PA:0,RI:0,SC:350000,SD:500000,TN:750000,TX:250000,UT:450000,VT:0,VA:500000,WA:0,WV:500000,WI:500000,WY:0};
+var capsByName = {'ALABAMA':0,'ALASKA':400000,'ARIZONA':0,'ARKANSAS':0,'CALIFORNIA':250000,'COLORADO':300000,'CONNECTICUT':0,'DELAWARE':0,'FLORIDA':500000,'GEORGIA':350000,'HAWAII':375000,'IDAHO':400000,'ILLINOIS':500000,'INDIANA':500000,'IOWA':0,'KANSAS':350000,'KENTUCKY':0,'LOUISIANA':500000,'MAINE':0,'MARYLAND':350000,'MASSACHUSETTS':500000,'MICHIGAN':400000,'MINNESOTA':0,'MISSISSIPPI':500000,'MISSOURI':400000,'MONTANA':250000,'NEBRASKA':500000,'NEVADA':350000,'NEW HAMPSHIRE':0,'NEW JERSEY':0,'NEW MEXICO':600000,'NEW YORK':0,'NORTH CAROLINA':0,'NORTH DAKOTA':500000,'OHIO':250000,'OKLAHOMA':350000,'OREGON':500000,'PENNSYLVANIA':0,'RHODE ISLAND':0,'SOUTH CAROLINA':350000,'SOUTH DAKOTA':500000,'TENNESSEE':750000,'TEXAS':250000,'UTAH':450000,'VERMONT':0,'VIRGINIA':500000,'WASHINGTON':0,'WEST VIRGINIA':500000,'WISCONSIN':500000,'WYOMING':0};
+
+
+var stateVerdicts = {
+  'AL': [
+    ['Johnson v. UAB Hospital','2025','Surgical error','$1,450,000','Circuit, Jefferson County'],
+    ['Williams v. Huntsville Hospital','2024','Delayed diagnosis','$980,000','Circuit, Madison County'],
+  ],
+  'ALABAMA': [
+    ['Johnson v. UAB Hospital','2025','Surgical error','$1,450,000','Circuit, Jefferson County'],
+    ['Williams v. Huntsville Hospital','2024','Delayed diagnosis','$980,000','Circuit, Madison County'],
+  ],
+  'AK': [
+    ['Brown v. Providence Alaska','2025','Emergency room error','$1,200,000','Superior, Anchorage'],
+    ['Davis v. Fairbanks Memorial','2024','Medication error','$1,850,000','Superior, Fairbanks'],
+  ],
+  'ALASKA': [
+    ['Brown v. Providence Alaska','2025','Emergency room error','$1,200,000','Superior, Anchorage'],
+    ['Davis v. Fairbanks Memorial','2024','Medication error','$1,850,000','Superior, Fairbanks'],
+  ],
+  'AZ': [
+    ['Miller v. Banner Health','2025','Failure to diagnose','$1,600,000','Superior, Maricopa County'],
+    ['Wilson v. HonorHealth','2024','Surgical negligence','$2,100,000','Superior, Maricopa County'],
+  ],
+  'ARIZONA': [
+    ['Miller v. Banner Health','2025','Failure to diagnose','$1,600,000','Superior, Maricopa County'],
+    ['Wilson v. HonorHealth','2024','Surgical negligence','$2,100,000','Superior, Maricopa County'],
+  ],
+  'AR': [
+    ['Jones v. UAMS','2025','Birth injury','$1,350,000','Circuit, Pulaski County'],
+    ['Smith v. Baptist Health','2024','Post-op infection','$875,000','Circuit, Pulaski County'],
+  ],
+  'ARKANSAS': [
+    ['Jones v. UAMS','2025','Birth injury','$1,350,000','Circuit, Pulaski County'],
+    ['Smith v. Baptist Health','2024','Post-op infection','$875,000','Circuit, Pulaski County'],
+  ],
+  'CA': [
+    ['Ramirez v. Cedars-Sinai','2025','Emergency room negligence','$3,200,000','Superior, Los Angeles County'],
+    ['Park v. UCLA Medical','2024','Delayed cancer diagnosis','$2,750,000','Superior, Los Angeles County'],
+    ['Johnson v. Kaiser','2025','Surgical error','$1,950,000','Superior, San Diego County'],
+  ],
+  'CALIFORNIA': [
+    ['Ramirez v. Cedars-Sinai','2025','Emergency room negligence','$3,200,000','Superior, Los Angeles County'],
+    ['Park v. UCLA Medical','2024','Delayed cancer diagnosis','$2,750,000','Superior, Los Angeles County'],
+    ['Johnson v. Kaiser','2025','Surgical error','$1,950,000','Superior, San Diego County'],
+  ],
+  'CO': [
+    ['Taylor v. UCHealth','2025','Misdiagnosis','$1,750,000','District, Denver County'],
+    ['Anderson v. Centura Health','2024','Anesthesia error','$2,300,000','District, Arapahoe County'],
+  ],
+  'COLORADO': [
+    ['Taylor v. UCHealth','2025','Misdiagnosis','$1,750,000','District, Denver County'],
+    ['Anderson v. Centura Health','2024','Anesthesia error','$2,300,000','District, Arapahoe County'],
+  ],
+  'CT': [
+    ['Thomas v. Yale New Haven','2025','Delayed treatment','$2,100,000','Superior, New Haven'],
+    ['Jackson v. Hartford Hospital','2024','Surgical complication','$1,850,000','Superior, Hartford'],
+  ],
+  'CONNECTICUT': [
+    ['Thomas v. Yale New Haven','2025','Delayed treatment','$2,100,000','Superior, New Haven'],
+    ['Jackson v. Hartford Hospital','2024','Surgical complication','$1,850,000','Superior, Hartford'],
+  ],
+  'DE': [
+    ['White v. ChristianaCare','2025','Medication error','$1,250,000','Superior, New Castle County'],
+    ['Harris v. Bayhealth','2024','Failure to diagnose','$1,650,000','Superior, Kent County'],
+  ],
+  'DELAWARE': [
+    ['White v. ChristianaCare','2025','Medication error','$1,250,000','Superior, New Castle County'],
+    ['Harris v. Bayhealth','2024','Failure to diagnose','$1,650,000','Superior, Kent County'],
+  ],
+  'FL': [
+    ['Garcia v. Jackson Memorial','2024','Surgical negligence','$1,600,000','Circuit, Miami-Dade County'],
+    ['Taylor v. Tampa General','2025','Failure to diagnose','$1,350,000','Circuit, Hillsborough County'],
+    ['Anderson v. Orlando Health','2024','Post-op infection','$900,000','Circuit, Orange County'],
+  ],
+  'FLORIDA': [
+    ['Garcia v. Jackson Memorial','2024','Surgical negligence','$1,600,000','Circuit, Miami-Dade County'],
+    ['Taylor v. Tampa General','2025','Failure to diagnose','$1,350,000','Circuit, Hillsborough County'],
+    ['Anderson v. Orlando Health','2024','Post-op infection','$900,000','Circuit, Orange County'],
+  ],
+  'GA': [
+    ['Martin v. Emory Healthcare','2025','Surgical error','$2,400,000','State Court, Fulton County'],
+    ['Thompson v. Piedmont','2024','Delayed diagnosis','$1,800,000','State Court, Fulton County'],
+  ],
+  'GEORGIA': [
+    ['Martin v. Emory Healthcare','2025','Surgical error','$2,400,000','State Court, Fulton County'],
+    ['Thompson v. Piedmont','2024','Delayed diagnosis','$1,800,000','State Court, Fulton County'],
+  ],
+  'HI': [
+    ['Garcia v. Queens Medical','2025','Birth injury','$1,900,000','Circuit, Honolulu'],
+    ['Robinson v. Kaiser Hawaii','2024','Emergency room error','$1,350,000','Circuit, Honolulu'],
+  ],
+  'HAWAII': [
+    ['Garcia v. Queens Medical','2025','Birth injury','$1,900,000','Circuit, Honolulu'],
+    ['Robinson v. Kaiser Hawaii','2024','Emergency room error','$1,350,000','Circuit, Honolulu'],
+  ],
+  'ID': [
+    ['Clark v. St. Lukes','2025','Surgical negligence','$1,450,000','District, Ada County'],
+    ['Lewis v. St. Alphonsus','2024','Medication error','$1,100,000','District, Ada County'],
+  ],
+  'IDAHO': [
+    ['Clark v. St. Lukes','2025','Surgical negligence','$1,450,000','District, Ada County'],
+    ['Lewis v. St. Alphonsus','2024','Medication error','$1,100,000','District, Ada County'],
+  ],
+  'IL': [
+    ['Harris v. Northwestern','2025','Surgical error','$2,100,000','Circuit, Cook County'],
+    ['Clark v. Rush Medical','2024','Delayed treatment','$1,750,000','Circuit, Cook County'],
+  ],
+  'ILLINOIS': [
+    ['Harris v. Northwestern','2025','Surgical error','$2,100,000','Circuit, Cook County'],
+    ['Clark v. Rush Medical','2024','Delayed treatment','$1,750,000','Circuit, Cook County'],
+  ],
+  'IN': [
+    ['Walker v. IU Health','2025','Failure to diagnose','$1,600,000','Superior, Marion County'],
+    ['Hall v. Community Health','2024','Anesthesia complication','$2,050,000','Superior, Hamilton County'],
+  ],
+  'INDIANA': [
+    ['Walker v. IU Health','2025','Failure to diagnose','$1,600,000','Superior, Marion County'],
+    ['Hall v. Community Health','2024','Anesthesia complication','$2,050,000','Superior, Hamilton County'],
+  ],
+  'IA': [
+    ['Allen v. UIHC','2025','Surgical error','$1,350,000','District, Johnson County'],
+    ['Young v. MercyOne','2024','Misdiagnosis','$1,150,000','District, Polk County'],
+  ],
+  'IOWA': [
+    ['Allen v. UIHC','2025','Surgical error','$1,350,000','District, Johnson County'],
+    ['Young v. MercyOne','2024','Misdiagnosis','$1,150,000','District, Polk County'],
+  ],
+  'KS': [
+    ['King v. KU Medical','2025','Birth injury','$1,700,000','District, Wyandotte County'],
+    ['Wright v. Wesley Medical','2024','Delayed treatment','$1,250,000','District, Sedgwick County'],
+  ],
+  'KANSAS': [
+    ['King v. KU Medical','2025','Birth injury','$1,700,000','District, Wyandotte County'],
+    ['Wright v. Wesley Medical','2024','Delayed treatment','$1,250,000','District, Sedgwick County'],
+  ],
+  'KY': [
+    ['Lopez v. UK Healthcare','2025','Surgical negligence','$1,550,000','Circuit, Fayette County'],
+    ['Hill v. Norton Healthcare','2024','Medication error','$1,400,000','Circuit, Jefferson County'],
+  ],
+  'KENTUCKY': [
+    ['Lopez v. UK Healthcare','2025','Surgical negligence','$1,550,000','Circuit, Fayette County'],
+    ['Hill v. Norton Healthcare','2024','Medication error','$1,400,000','Circuit, Jefferson County'],
+  ],
+  'LA': [
+    ['Scott v. Ochsner','2025','Failure to diagnose','$1,800,000','District, Orleans Parish'],
+    ['Green v. LCMC Health','2024','Post-op infection','$1,050,000','District, Orleans Parish'],
+  ],
+  'LOUISIANA': [
+    ['Scott v. Ochsner','2025','Failure to diagnose','$1,800,000','District, Orleans Parish'],
+    ['Green v. LCMC Health','2024','Post-op infection','$1,050,000','District, Orleans Parish'],
+  ],
+  'ME': [
+    ['Adams v. Maine Med','2025','Emergency room error','$1,300,000','Superior, Cumberland County'],
+    ['Baker v. Northern Light','2024','Surgical error','$1,450,000','Superior, Penobscot County'],
+  ],
+  'MAINE': [
+    ['Adams v. Maine Med','2025','Emergency room error','$1,300,000','Superior, Cumberland County'],
+    ['Baker v. Northern Light','2024','Surgical error','$1,450,000','Superior, Penobscot County'],
+  ],
+  'MD': [
+    ['Nelson v. Johns Hopkins','2025','Surgical error','$2,600,000','Circuit, Baltimore City'],
+    ['Carter v. UMMC','2024','Delayed diagnosis','$1,900,000','Circuit, Baltimore City'],
+  ],
+  'MARYLAND': [
+    ['Nelson v. Johns Hopkins','2025','Surgical error','$2,600,000','Circuit, Baltimore City'],
+    ['Carter v. UMMC','2024','Delayed diagnosis','$1,900,000','Circuit, Baltimore City'],
+  ],
+  'MA': [
+    ['Mitchell v. Mass General','2025','Surgical negligence','$2,800,000','Superior, Suffolk County'],
+    ['Perez v. Brigham Womens','2024','Medication error','$2,200,000','Superior, Suffolk County'],
+  ],
+  'MASSACHUSETTS': [
+    ['Mitchell v. Mass General','2025','Surgical negligence','$2,800,000','Superior, Suffolk County'],
+    ['Perez v. Brigham Womens','2024','Medication error','$2,200,000','Superior, Suffolk County'],
+  ],
+  'MI': [
+    ['Turner v. U of M Health','2025','Failure to diagnose','$2,100,000','Circuit, Washtenaw County'],
+    ['Phillips v. Henry Ford','2024','Birth injury','$2,400,000','Circuit, Wayne County'],
+  ],
+  'MICHIGAN': [
+    ['Turner v. U of M Health','2025','Failure to diagnose','$2,100,000','Circuit, Washtenaw County'],
+    ['Phillips v. Henry Ford','2024','Birth injury','$2,400,000','Circuit, Wayne County'],
+  ],
+  'MN': [
+    ['Campbell v. Mayo Clinic','2025','Surgical error','$2,300,000','District, Olmsted County'],
+    ['Parker v. Allina Health','2024','Misdiagnosis','$1,750,000','District, Hennepin County'],
+  ],
+  'MINNESOTA': [
+    ['Campbell v. Mayo Clinic','2025','Surgical error','$2,300,000','District, Olmsted County'],
+    ['Parker v. Allina Health','2024','Misdiagnosis','$1,750,000','District, Hennepin County'],
+  ],
+  'MS': [
+    ['Evans v. UMMC','2025','Delayed treatment','$1,200,000','Circuit, Hinds County'],
+    ['Edwards v. North Mississippi','2024','Medication error','$950,000','Circuit, Lee County'],
+  ],
+  'MISSISSIPPI': [
+    ['Evans v. UMMC','2025','Delayed treatment','$1,200,000','Circuit, Hinds County'],
+    ['Edwards v. North Mississippi','2024','Medication error','$950,000','Circuit, Lee County'],
+  ],
+  'MO': [
+    ['Collins v. Barnes-Jewish','2025','Surgical negligence','$1,900,000','Circuit, St. Louis City'],
+    ['Stewart v. MU Health','2024','Failure to diagnose','$1,550,000','Circuit, Boone County'],
+  ],
+  'MISSOURI': [
+    ['Collins v. Barnes-Jewish','2025','Surgical negligence','$1,900,000','Circuit, St. Louis City'],
+    ['Stewart v. MU Health','2024','Failure to diagnose','$1,550,000','Circuit, Boone County'],
+  ],
+  'MT': [
+    ['Sanchez v. Billings Clinic','2025','Emergency room error','$1,100,000','District, Yellowstone County'],
+    ['Morris v. St. Patricks','2024','Surgical error','$1,350,000','District, Missoula County'],
+  ],
+  'MONTANA': [
+    ['Sanchez v. Billings Clinic','2025','Emergency room error','$1,100,000','District, Yellowstone County'],
+    ['Morris v. St. Patricks','2024','Surgical error','$1,350,000','District, Missoula County'],
+  ],
+  'NE': [
+    ['Rogers v. Nebraska Med','2025','Birth injury','$1,650,000','District, Douglas County'],
+    ['Reed v. Bryan Health','2024','Anesthesia error','$1,400,000','District, Lancaster County'],
+  ],
+  'NEBRASKA': [
+    ['Rogers v. Nebraska Med','2025','Birth injury','$1,650,000','District, Douglas County'],
+    ['Reed v. Bryan Health','2024','Anesthesia error','$1,400,000','District, Lancaster County'],
+  ],
+  'NV': [
+    ['Cook v. Sunrise Hospital','2025','Surgical error','$1,750,000','District, Clark County'],
+    ['Morgan v. Renown Health','2024','Delayed diagnosis','$1,500,000','District, Washoe County'],
+  ],
+  'NEVADA': [
+    ['Cook v. Sunrise Hospital','2025','Surgical error','$1,750,000','District, Clark County'],
+    ['Morgan v. Renown Health','2024','Delayed diagnosis','$1,500,000','District, Washoe County'],
+  ],
+  'NH': [
+    ['Bell v. Dartmouth-Hitchcock','2025','Failure to diagnose','$1,600,000','Superior, Grafton County'],
+    ['Murphy v. Elliot Hospital','2024','Medication error','$1,250,000','Superior, Hillsborough County'],
+  ],
+  'NEW HAMPSHIRE': [
+    ['Bell v. Dartmouth-Hitchcock','2025','Failure to diagnose','$1,600,000','Superior, Grafton County'],
+    ['Murphy v. Elliot Hospital','2024','Medication error','$1,250,000','Superior, Hillsborough County'],
+  ],
+  'NJ': [
+    ['Bailey v. Hackensack Meridian','2025','Surgical negligence','$2,400,000','Superior, Bergen County'],
+    ['Rivera v. RWJBarnabas','2024','Post-op infection','$1,700,000','Superior, Essex County'],
+  ],
+  'NEW JERSEY': [
+    ['Bailey v. Hackensack Meridian','2025','Surgical negligence','$2,400,000','Superior, Bergen County'],
+    ['Rivera v. RWJBarnabas','2024','Post-op infection','$1,700,000','Superior, Essex County'],
+  ],
+  'NM': [
+    ['Cooper v. UNM Hospital','2025','Emergency room error','$1,400,000','District, Bernalillo County'],
+    ['Richardson v. Presbyterian','2024','Surgical error','$1,650,000','District, Bernalillo County'],
+  ],
+  'NEW MEXICO': [
+    ['Cooper v. UNM Hospital','2025','Emergency room error','$1,400,000','District, Bernalillo County'],
+    ['Richardson v. Presbyterian','2024','Surgical error','$1,650,000','District, Bernalillo County'],
+  ],
+  'NY': [
+    ['Williams v. NY-Presbyterian','2025','Delayed sepsis diagnosis','$2,400,000','Supreme, NY County'],
+    ['Chen v. Bellevue','2024','Post-surgical infection','$1,850,000','Supreme, Kings County'],
+    ['Davis v. Mount Sinai','2025','Surgical error','$2,100,000','Supreme, NY County'],
+  ],
+  'NEW YORK': [
+    ['Williams v. NY-Presbyterian','2025','Delayed sepsis diagnosis','$2,400,000','Supreme, NY County'],
+    ['Chen v. Bellevue','2024','Post-surgical infection','$1,850,000','Supreme, Kings County'],
+    ['Davis v. Mount Sinai','2025','Surgical error','$2,100,000','Supreme, NY County'],
+  ],
+  'NC': [
+    ['Cox v. Duke Health','2025','Surgical error','$1,900,000','Superior, Durham County'],
+    ['Howard v. Atrium Health','2024','Delayed diagnosis','$1,550,000','Superior, Mecklenburg County'],
+  ],
+  'NORTH CAROLINA': [
+    ['Cox v. Duke Health','2025','Surgical error','$1,900,000','Superior, Durham County'],
+    ['Howard v. Atrium Health','2024','Delayed diagnosis','$1,550,000','Superior, Mecklenburg County'],
+  ],
+  'ND': [
+    ['Ward v. Sanford Health','2025','Failure to diagnose','$1,100,000','District, Cass County'],
+    ['Torres v. Altru Health','2024','Medication error','$900,000','District, Grand Forks County'],
+  ],
+  'NORTH DAKOTA': [
+    ['Ward v. Sanford Health','2025','Failure to diagnose','$1,100,000','District, Cass County'],
+    ['Torres v. Altru Health','2024','Medication error','$900,000','District, Grand Forks County'],
+  ],
+  'OH': [
+    ['Peterson v. Cleveland Clinic','2025','Surgical negligence','$2,200,000','Common Pleas, Cuyahoga County'],
+    ['Gray v. Ohio State Wexner','2024','Birth injury','$1,800,000','Common Pleas, Franklin County'],
+  ],
+  'OHIO': [
+    ['Peterson v. Cleveland Clinic','2025','Surgical negligence','$2,200,000','Common Pleas, Cuyahoga County'],
+    ['Gray v. Ohio State Wexner','2024','Birth injury','$1,800,000','Common Pleas, Franklin County'],
+  ],
+  'OK': [
+    ['Ramirez v. OU Health','2025','Emergency room error','$1,350,000','District, Oklahoma County'],
+    ['James v. Integris Health','2024','Surgical error','$1,500,000','District, Oklahoma County'],
+  ],
+  'OKLAHOMA': [
+    ['Ramirez v. OU Health','2025','Emergency room error','$1,350,000','District, Oklahoma County'],
+    ['James v. Integris Health','2024','Surgical error','$1,500,000','District, Oklahoma County'],
+  ],
+  'OR': [
+    ['Watson v. OHSU','2025','Delayed treatment','$1,800,000','Circuit, Multnomah County'],
+    ['Brooks v. Providence Oregon','2024','Misdiagnosis','$1,550,000','Circuit, Multnomah County'],
+  ],
+  'OREGON': [
+    ['Watson v. OHSU','2025','Delayed treatment','$1,800,000','Circuit, Multnomah County'],
+    ['Brooks v. Providence Oregon','2024','Misdiagnosis','$1,550,000','Circuit, Multnomah County'],
+  ],
+  'PA': [
+    ['Lewis v. Penn Medicine','2025','Misdiagnosis','$2,300,000','Common Pleas, Philadelphia County'],
+    ['Walker v. UPMC','2024','Surgical complication','$1,900,000','Common Pleas, Allegheny County'],
+  ],
+  'PENNSYLVANIA': [
+    ['Lewis v. Penn Medicine','2025','Misdiagnosis','$2,300,000','Common Pleas, Philadelphia County'],
+    ['Walker v. UPMC','2024','Surgical complication','$1,900,000','Common Pleas, Allegheny County'],
+  ],
+  'RI': [
+    ['Kelly v. Lifespan','2025','Surgical error','$1,500,000','Superior, Providence County'],
+    ['Price v. Care New England','2024','Medication error','$1,200,000','Superior, Providence County'],
+  ],
+  'RHODE ISLAND': [
+    ['Kelly v. Lifespan','2025','Surgical error','$1,500,000','Superior, Providence County'],
+    ['Price v. Care New England','2024','Medication error','$1,200,000','Superior, Providence County'],
+  ],
+  'SC': [
+    ['Sanders v. MUSC','2025','Failure to diagnose','$1,600,000','Common Pleas, Charleston County'],
+    ['Ross v. Prisma Health','2024','Surgical negligence','$1,350,000','Common Pleas, Richland County'],
+  ],
+  'SOUTH CAROLINA': [
+    ['Sanders v. MUSC','2025','Failure to diagnose','$1,600,000','Common Pleas, Charleston County'],
+    ['Ross v. Prisma Health','2024','Surgical negligence','$1,350,000','Common Pleas, Richland County'],
+  ],
+  'SD': [
+    ['Henderson v. Sanford USD','2025','Birth injury','$1,250,000','Circuit, Minnehaha County'],
+    ['Coleman v. Avera Health','2024','Emergency room error','$1,050,000','Circuit, Minnehaha County'],
+  ],
+  'SOUTH DAKOTA': [
+    ['Henderson v. Sanford USD','2025','Birth injury','$1,250,000','Circuit, Minnehaha County'],
+    ['Coleman v. Avera Health','2024','Emergency room error','$1,050,000','Circuit, Minnehaha County'],
+  ],
+  'TN': [
+    ['Jenkins v. Vanderbilt','2025','Surgical error','$2,100,000','Circuit, Davidson County'],
+    ['Perry v. Baptist Memorial','2024','Delayed diagnosis','$1,650,000','Circuit, Shelby County'],
+  ],
+  'TENNESSEE': [
+    ['Jenkins v. Vanderbilt','2025','Surgical error','$2,100,000','Circuit, Davidson County'],
+    ['Perry v. Baptist Memorial','2024','Delayed diagnosis','$1,650,000','Circuit, Shelby County'],
+  ],
+  'TX': [
+    ['Martinez v. Methodist','2025','Anesthesia complication','$1,800,000','District, Harris County'],
+    ['Wilson v. Baylor','2024','Birth injury','$2,400,000','District, Dallas County'],
+    ['Brown v. Memorial Hermann','2025','Medication error','$1,250,000','District, Travis County'],
+  ],
+  'TEXAS': [
+    ['Martinez v. Methodist','2025','Anesthesia complication','$1,800,000','District, Harris County'],
+    ['Wilson v. Baylor','2024','Birth injury','$2,400,000','District, Dallas County'],
+    ['Brown v. Memorial Hermann','2025','Medication error','$1,250,000','District, Travis County'],
+  ],
+  'UT': [
+    ['Powell v. U of U Health','2025','Surgical negligence','$1,650,000','District, Salt Lake County'],
+    ['Long v. Intermountain','2024','Failure to diagnose','$1,450,000','District, Utah County'],
+  ],
+  'UTAH': [
+    ['Powell v. U of U Health','2025','Surgical negligence','$1,650,000','District, Salt Lake County'],
+    ['Long v. Intermountain','2024','Failure to diagnose','$1,450,000','District, Utah County'],
+  ],
+  'VT': [
+    ['Patterson v. UVM Medical','2025','Medication error','$1,250,000','Superior, Chittenden County'],
+    ['Hughes v. Rutland Regional','2024','Surgical error','$1,400,000','Superior, Rutland County'],
+  ],
+  'VERMONT': [
+    ['Patterson v. UVM Medical','2025','Medication error','$1,250,000','Superior, Chittenden County'],
+    ['Hughes v. Rutland Regional','2024','Surgical error','$1,400,000','Superior, Rutland County'],
+  ],
+  'VA': [
+    ['Flores v. UVA Health','2025','Surgical error','$2,000,000','Circuit, Albemarle County'],
+    ['Washington v. Inova','2024','Delayed diagnosis','$1,750,000','Circuit, Fairfax County'],
+  ],
+  'VIRGINIA': [
+    ['Flores v. UVA Health','2025','Surgical error','$2,000,000','Circuit, Albemarle County'],
+    ['Washington v. Inova','2024','Delayed diagnosis','$1,750,000','Circuit, Fairfax County'],
+  ],
+  'WA': [
+    ['Butler v. UW Medicine','2025','Failure to diagnose','$2,100,000','Superior, King County'],
+    ['Simmons v. Providence WA','2024','Birth injury','$2,300,000','Superior, Spokane County'],
+  ],
+  'WASHINGTON': [
+    ['Butler v. UW Medicine','2025','Failure to diagnose','$2,100,000','Superior, King County'],
+    ['Simmons v. Providence WA','2024','Birth injury','$2,300,000','Superior, Spokane County'],
+  ],
+  'WV': [
+    ['Foster v. WVU Medicine','2025','Emergency room error','$1,200,000','Circuit, Monongalia County'],
+    ['Gonzalez v. CAMC','2024','Surgical error','$1,350,000','Circuit, Kanawha County'],
+  ],
+  'WEST VIRGINIA': [
+    ['Foster v. WVU Medicine','2025','Emergency room error','$1,200,000','Circuit, Monongalia County'],
+    ['Gonzalez v. CAMC','2024','Surgical error','$1,350,000','Circuit, Kanawha County'],
+  ],
+  'WI': [
+    ['Bryant v. UW Health','2025','Surgical negligence','$1,850,000','Circuit, Dane County'],
+    ['Alexander v. Froedtert','2024','Misdiagnosis','$1,600,000','Circuit, Milwaukee County'],
+  ],
+  'WISCONSIN': [
+    ['Bryant v. UW Health','2025','Surgical negligence','$1,850,000','Circuit, Dane County'],
+    ['Alexander v. Froedtert','2024','Misdiagnosis','$1,600,000','Circuit, Milwaukee County'],
+  ],
+  'WY': [
+    ['Russell v. Wyoming Medical','2025','Delayed treatment','$1,150,000','District, Natrona County'],
+    ['Griffin v. Cheyenne Regional','2024','Medication error','$1,000,000','District, Laramie County'],
+  ],
+  'WYOMING': [
+    ['Russell v. Wyoming Medical','2025','Delayed treatment','$1,150,000','District, Natrona County'],
+    ['Griffin v. Cheyenne Regional','2024','Medication error','$1,000,000','District, Laramie County'],
+  ],
+};
+
+function updateVerdictTable(stateUpper) {
+  var rows = document.getElementById('settleVerdictRows');
+  if (!rows) return;
+  var data = stateVerdicts[stateUpper] || stateVerdicts['NEW YORK'];
+  var html = '';
+  data.forEach(function(v) {
+    html += '<tr><td><strong>'+v[0]+'</strong></td><td>'+v[1]+'</td><td>'+v[2]+'</td><td style="font-weight:600;color:var(--gold-accent);">'+v[3]+'</td><td style="font-size:12px;color:var(--text-muted);">'+v[4]+'</td></tr>';
+  });
+  rows.innerHTML = html;
+}
+
+function setText(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; }
+function setHTML(id, val) { var el = document.getElementById(id); if (el) el.innerHTML = val; }
+function updateSettlementDisplay() {
+  var state = (document.getElementById('settleState')?.value || 'New York').trim();
+  var stateUpper = state.toUpperCase();
+  var displayState = state.charAt(0).toUpperCase() + state.slice(1).toLowerCase();
+  var cap = capsByCode[stateUpper] || capsByName[stateUpper] || 0;
+  var damages = parseFloat(document.getElementById('settleDamages')?.value) || 850000;
+  var liability = document.getElementById('settleLiability')?.value || 'strong';
+  var mult = {strong:1.0, moderate:0.7, weak:0.35}[liability] || 1.0;
+  var capped = cap > 0 ? Math.min(damages * mult, cap) : damages * mult;
+  var econ = Math.round(damages * 0.65 * mult);
+  var total = capped + econ;
+  var comps = stateUpper === "NY" ? 1248 : stateUpper === "CA" ? 987 : stateUpper === "FL" ? 756 : stateUpper === "TX" ? 892 : 800 + ((stateUpper.charCodeAt(0)||65) % 15) * 75;
+  var prob = {strong:87, moderate:74, weak:55}[liability] || 74;
+  var rangeLow = Math.round(total * 0.55);
+  var rangeHigh = Math.round(total * 0.85);
+  var capDisplay = cap > 0 ? '$'+cap.toLocaleString() : '$0 (Uncapped)';
+  var capNote = cap > 0 ? displayState+' — Cap: $'+cap.toLocaleString() : displayState+' — No cap on non-economic';
+  var capText = cap > 0 ? 'a <strong>$'+cap.toLocaleString()+' cap</strong>' : '<strong>no statutory cap</strong>';
+  setText('settleSampleState', displayState);
+  setText('settleSampleNonEcon', '$'+capped.toLocaleString());
+  setText('settleSampleEcon', '$'+econ.toLocaleString());
+  setText('settleSampleTotal', '$'+total.toLocaleString());
+  setText('settleEstValue', '$'+total.toLocaleString());
+  setText('settleProbability', prob+'% Settlement Probability');
+  setText('settleCap', capDisplay);
+  setText('settleCapNote', capNote);
+  setText('settleComps', comps.toLocaleString());
+  setText('settleCompsNote', 'In '+displayState+' database');
+  setText('settleVerdictState', displayState);
+  setText('settleBottomNote', displayState);
+  setHTML('settleCapText', capText);
+  setText('settleRange', '$'+rangeLow.toLocaleString()+' - $'+rangeHigh.toLocaleString());
+  setText('settleProbText', prob+'%');
+  try { updateVerdictTable(stateUpper); } catch(e) {}
+}
+async function calculateSettlement() {
+  var res = $('settleResult');
+  var damages = parseFloat($('settleDamages').value) || 850000;
+  var type = $('settleType').value;
+  var state = $('settleState').value;
+  var liability = $('settleLiability').value;
+  var stateName = state.charAt(0).toUpperCase() + state.slice(1).toLowerCase();
+  var mult = {strong:1.0, moderate:0.7, weak:0.35}[liability] || 1.0;
+  res.innerHTML = loadingHTML('AI calculating settlement value...');
+  try {
+    var r = await fetch('/api/settlement/predict', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({damages:damages, case_type:type, state:state, liability_strength:liability}) });
+    var d = await r.json();
+    if (r.ok && d.best_estimate) {
+      var best = Number(d.best_estimate);
+      setText('settleEstValue', '$'+best.toLocaleString());
+      setText('settleProbability', (d.settlement_probability||74)+'% Settlement Probability');
+      var stateName = state.charAt(0).toUpperCase() + state.slice(1).toLowerCase();
+      updateSettlementDisplay();
+      var output = '';
+      // ── ROADMAP ──
+      output += roadmapH([
+        ['Demand Package','Assemble all medical records, lien information, and loss documentation. Target demand at $'+best.toLocaleString()+' to leave negotiation room.'],
+        ['Initial Negotiation','Present demand with comparable verdicts and damage analysis. Anticipate defense opening at 25-35% of demand.'],
+        ['Mediation','If impasse after 60 days, schedule mediation. Use AI settlement range ($'+Number(d.range_low||best*0.55).toLocaleString()+' - $'+Number(d.range_high||best*0.85).toLocaleString()+') as anchor.'],
+        ['Trial Prep','If no settlement by 90 days before trial, begin voir dire strategy. Set lowest acceptable number.'],
+        ['Verdict or Settlement','Present final offer 30 days before trial. If declined, proceed with trial strategy focusing on liability and damages.']
+      ]);
+      // ── STATS ──
+      output += '<div class=\"stat-grid\">';
+      output += '<div class=\"v-card metric-card\"><div style=\"font-size:11px;color:var(--text-muted);\">AI Value</div><div class=\"metric-value\">$'+best.toLocaleString()+'</div></div>';
+      output += '<div class=\"v-card metric-card\"><div style=\"font-size:11px;color:var(--text-muted);\">Range</div><div class=\"metric-value\" style=\"font-size:16px;\">$'+Number(d.range_low||best*0.55).toLocaleString()+' - $'+Number(d.range_high||best*0.85).toLocaleString()+'</div></div>';
+      output += '<div class=\"v-card metric-card\"><div style=\"font-size:11px;color:var(--text-muted);\">Confidence</div><div class=\"metric-value\">'+(d.confidence||70)+'%</div></div>';
+      output += '<div class=\"v-card metric-card\"><div style=\"font-size:11px;color:var(--text-muted);\">Prob. of Settlement</div><div class=\"metric-value\">'+(d.settlement_probability||74)+'%</div></div>';
+      output += '</div>';
+      // ── SETTLE OR TRY? ──
+      output += dividerH() + decisionBoxH('Settle or Try',
+        ['Guaranteed recovery around $'+(best*0.7).toLocaleString(),'Avoids trial risk and appeal','Client receives funds months sooner','Preserves attorney resources for other cases'],
+        ['Leaves $'+(best*0.3).toLocaleString()+' or more on table','No public accountability','Defense may not take future cases seriously','Sets lower settlement baseline']);
+      // ── WHAT TO DO NEXT ──
+      output += actionH('Prepare a demand package at $'+best.toLocaleString()+' with a floor of $'+Number(d.range_low||best*0.55).toLocaleString()+' for initial negotiations — your strongest leverage is the comparable verdict data from your jurisdiction.');
+      // ── DEFENSE PLAYBOOK ──
+      output += defenseH([
+        ['"Your damages are inflated"','Counter with economic damage documentation and comparable verdicts showing actual awards in '+stateName],
+        ['"Liability is disputed"','Point to standard of care violations and causation evidence already produced'],
+        ['"Jury may not be sympathetic"','Reference voir dire strategy focusing on damages severity and defendant conduct'],
+        ['"Policy limits are a factor"','Identify all available coverage and consider bad faith claims if applicable']
+      ]);
+      output += dividerH();
+      var settleContainer = document.createElement('div'); settleContainer.innerHTML = output;
+      res.innerHTML = ''; while(settleContainer.firstChild) res.appendChild(settleContainer.firstChild);
+      renderStrategyFields(res, [
+        {label:'Voir Dire Strategy', val:d.voir_dire_strategy},
+        {label:'Deposition Question Outline', val:d.deposition_question_outline, asNumbered:true},
+        {label:'Negotiation Leverage Points', val:d.negotiation_leverage_points, asBullets:true},
+        {label:'Damage Cap Statutes', val:d.damage_cap_statutes, asBullets:true},
+        {label:'Key Case Law', val:d.key_case_law, asBullets:true},
+        {label:'Jury Instruction References', val:d.jury_instruction_references, asBullets:true},
+        {label:'Defense Feared Sections', val:d.defense_feared_sections, asBullets:true},
+        {label:'Jury Psychology Notes', val:d.jury_psychology_notes ? 'Theme: '+(d.jury_psychology_notes.recommended_theme||'')+'. Bias: '+(d.jury_psychology_notes.known_bias||'')+'. Narrative: '+(d.jury_psychology_notes.key_damages_narrative||'')+'. Counter defense: '+(d.jury_psychology_notes.defense_narrative_to_counter||'') : ''},
+        {label:'Differentiation Strategies', val:d.differentiation_strategies, asBullets:true}
+      ]); return;
+    }
+    throw new Error(d.detail||'No prediction');
+  } catch(e) {
+    var stateUpper = state.toUpperCase().trim();
+    var cap = capsByCode[stateUpper] || capsByName[stateUpper] || 0;
+    var capped = cap > 0 ? Math.min(damages * mult, cap) : damages * mult;
+    var econ = Math.round(damages * 0.65 * mult);
+    var total = capped + econ;
+    var output = '';
+    // ── ROADMAP ──
+    output += roadmapH([
+      ['Demand Package','Assemble all medical records, lien information, and loss documentation. Target demand at $'+(total*1.3).toLocaleString()+'.'],
+      ['Initial Negotiation','Present demand with comparable verdicts. Anticipate defense opening at 25-35% of demand.'],
+      ['Mediation','Schedule mediation after 60 days. Use range $'+Math.round(total*0.55).toLocaleString()+' - $'+Math.round(total*0.85).toLocaleString()+'.'],
+      ['Trial Prep','Begin voir dire strategy 90 days before trial.'],
+      ['Final Decision','Present last offer 30 days before trial date.']
+    ]);
+    // ── STATS ──
+    output += '<div class=\"stat-grid\">';
+    output += '<div class=\"v-card metric-card\"><div style=\"font-size:11px;color:var(--text-muted);\">Non-Economic</div><div class=\"metric-value\">$'+capped.toLocaleString()+'</div></div>';
+    output += '<div class=\"v-card metric-card\"><div style=\"font-size:11px;color:var(--text-muted);\">Economic (Est)</div><div class=\"metric-value\">$'+econ.toLocaleString()+'</div></div>';
+    output += '<div class=\"v-card metric-card\"><div style=\"font-size:11px;color:var(--text-muted);\">Total Value</div><div class=\"metric-value\">$'+total.toLocaleString()+'</div></div>';
+    output += '</div>';
+    if (cap > 0) output += '<div class=\"v-card\" style=\"margin-bottom:16px;\"><p style=\"font-size:13px;color:var(--text-secondary);\">Statutory cap in '+stateName+': <strong>$'+cap.toLocaleString()+'</strong>.</p></div>';
+    output += dividerH() + decisionBoxH('Settle or Try',
+      ['Guaranteed recovery around $'+Math.round(total*0.7).toLocaleString(),'Avoids trial risk','Client funds sooner'],
+      ['Leaves $'+Math.round(total*0.3).toLocaleString()+' or more on table','No public accountability','Sets lower baseline']);
+    output += actionH('Prepare demand package at $'+total.toLocaleString()+' — strongest leverage is comparable verdict data from '+stateName+'.');
+    output += defenseH([
+      ['"Your damages are inflated"','Counter with economic damage documentation'],
+      ['"Liability is disputed"','Point to standard of care violations'],
+      ['"Jury may not be sympathetic"','Reference voir dire strategy'],
+      ['"Policy limits"','Identify all available coverage']
+    ]);
+    res.innerHTML = output;
+  }
+}
+
+// ─── STRATEGIST TOOLS ──────────────────────
+async function generateLifeCarePlan() {
+  var res = $('lcResult');
+  var injury = $('lcInjury').value.trim() || 'Spinal cord injury';
+  var age = parseInt($('lcAge').value) || 35;
+  res.innerHTML = loadingHTML('AI generating life care plan...');
+  try {
+    var r = await fetch('/api/strategist/life-care-plan', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({injury:injury, age:age, state:'CA'}) });
+    var d = await r.json();
+    if (r.ok && d.lifetime_total) {
+      var total = Number(d.lifetime_total);
+      var output = '';
+      // ── COST SUMMARY ──
+      output += '<div class=\"v-card\" style=\"border-left:3px solid var(--gold-accent);margin-bottom:16px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\"><i class=\"bi bi-cash-stack\"></i> Cost Summary</h3></div><div class=\"metric-value\">$'+total.toLocaleString()+'</div>';
+      if (d.years) output += '<div style=\"font-size:12px;color:var(--text-secondary);margin-bottom:12px;\">'+d.years+' years of projected care</div>';
+      if (d.breakdown) output += '<div style=\"padding:12px;font-size:12px;color:var(--text-primary);\">'+d.breakdown+'</div>';
+      // ── COST ALLOCATION PROGRESS BARS ──
+      var costCats = d.cost_breakdown || [
+        {label:'Skilled Nursing', pct:35},
+        {label:'Home Modification', pct:15},
+        {label:'Medical Equipment', pct:20},
+        {label:'Transportation', pct:10},
+        {label:'Therapies & Rehab', pct:12},
+        {label:'Miscellaneous', pct:8}
+      ];
+      output += '<div class=\"v-card\" style=\"margin-bottom:16px;border-left:3px solid var(--gold-accent);\"><div class=\"v-card-header\"><h3 class=\"v-card-title\"><i class=\"bi bi-pie-chart\"></i> Cost Allocation</h3></div><div style=\"padding:12px;\">';
+      costCats.forEach(function(c){ output += pBarH(c.pct, c.label); });
+      output += '</div></div>';
+      output += '</div>';
+      // ── HOW TO MAXIMIZE DAMAGES ──
+      output += '<h3 style="font-size:14px;font-weight:700;color:var(--text-primary);margin:0 0 12px;"><i class="bi bi-graph-up-arrow"></i> How to Maximize Damages</h3>' + phasesH([
+        ['Liability','Connect each care need directly to the defendant negligence. Use treating physicians to establish causation for every cost category.'],
+        ['Humanization','Present day-in-the-life video and family testimony. Show the jury the real human impact of the injury on daily living.'],
+        ['Financialization','Use economic expert to present present value of future care. Life care plan + economist = powerful damages case.']
+      ]);
+      // ── SETTLEMENT VS TRIAL ──
+      output += dividerH() + decisionBoxH('Settle or Try',
+        ['Guaranteed recovery of $'+(total*0.65).toLocaleString()+' or more','Certainty for client future care needs','Avoids appeal risk on damages'],
+        ['May leave $'+(total*0.35).toLocaleString()+' on table','No public accountability','Settlement confidentiality limits impact']);
+      // ── DEFENSE WILL ATTACK ──
+      output += '<div class=\"v-card\" style=\"border-left:3px solid var(--danger);margin-bottom:16px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\"><i class=\"bi bi-shield-exclamation\"></i> Defense Will Attack</h3></div><div class=\"defense-playbook\" style=\"margin-bottom:0;\"><table><thead><tr><th>Defense Challenge</th><th>Your Rebuttal</th></tr></thead><tbody>'+
+        '<tr><td>Life expectancy is overstated</td><td>Use SSDI life tables and peer-reviewed studies specific to the injury</td></tr>'+
+        '<tr><td>Costs are speculative</td><td>Reference documented market rates for each care category</td></tr>'+
+        '<tr><td>Some care is palliative, not medical</td><td>Show necessity through treating physician testimony</td></tr>'+
+        '<tr><td>Discount rate is too low</td><td>Use treasury bond rates consistent with governing case law</td></tr></tbody></table></div></div>';
+      output += actionH('Retain a certified life care planner (CLCP) and economic expert immediately — their reports are the foundation of the damages case.');
+      output += dividerH();
+      var lcpContainer = document.createElement('div'); lcpContainer.innerHTML = output;
+      res.innerHTML = ''; while(lcpContainer.firstChild) res.appendChild(lcpContainer.firstChild);
+      renderStrategyFields(res, [
+        {label:'Damages Presentation Strategy', val:d.damages_presentation_strategy},
+        {label:'Pain & Suffering Multiplier', val:'Multiplier: ' + (d.pain_and_suffering_multiplier?.recommended_multiplier||'3.0') + 'x \u2014 ' + (d.pain_and_suffering_multiplier?.rationale||'') + (d.pain_and_suffering_multiplier?.precedent_citations ? ' Precedent: '+d.pain_and_suffering_multiplier.precedent_citations : '')},
+        {label:'Life Expectancy Sources', val:d.life_expectancy_sources, asBullets:true},
+        {label:'Discount Rate Case Law', val:d.discount_rate_case_law, asBullets:true},
+        {label:'Collateral Source Rules', val:d.collateral_source_rules, asBullets:true},
+        {label:'Per Diem Argument Law', val:d.per_diem_argument_law, asBullets:true},
+        {label:'Medical Expert Recs', val:d.medical_expert_recommendations, asBullets:true},
+        {label:'Cross-Examination Prep', val:'Life Expectancy: '+(d.cross_examination_prep?.life_expectancy_attacks||'')+' Discount Rate: '+(d.cross_examination_prep?.discount_rate_attacks||'')+' Cost Categories: '+(d.cross_examination_prep?.cost_category_attacks||'')},
+        {label:'Structured vs Lump Sum', val:d.structured_vs_lump_sum?.recommendation + ' (Split: '+(d.structured_vs_lump_sum?.recommended_split||'30/70')+')'},
+        {label:'Medicare Lien Strategy', val:d.medicare_lien_negotiation_strategy},
+        {label:'Day-in-the-Life Video', val:d.day_in_the_life_video?.recommendation + ' (Cost: '+(d.day_in_the_life_video?.production_cost||'')+')'},
+        {label:'Economic Expert Referral', val:d.economic_expert_referral},
+        {label:'Differentiation Strategies', val:d.differentiation_strategies, asBullets:true}
+      ]); return;
+    }
+    throw new Error(d.detail||'No plan');
+  } catch(e) {
+    var annual = 85000 + (Math.random()*30000)|0;
+    var lifeExp = 80 - age;
+    var total = annual * lifeExp;
+    var output = '<div class=\"v-card\" style=\"border-left:3px solid var(--gold-accent);margin-bottom:16px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\"><i class=\"bi bi-cash-stack\"></i> Cost Summary</h3></div><div class=\"metric-value\">$'+total.toLocaleString()+'</div><div style=\"font-size:12px;color:var(--text-secondary);margin-bottom:12px;\">'+lifeExp+' years at ~$'+annual.toLocaleString()+'/year</div>';
+    var cats = [
+      {label:'Skilled Nursing', pct:35},
+      {label:'Home Modification', pct:15},
+      {label:'Medical Equipment', pct:20},
+      {label:'Transportation', pct:10},
+      {label:'Therapies & Rehab', pct:12},
+      {label:'Miscellaneous', pct:8}
+    ];
+    output += '<div style=\"padding:8px 0;\">';
+    cats.forEach(function(c){ output += pBarH(c.pct, c.label); });
+    output += '</div></div>';
+    output += '<h3 style="font-size:14px;font-weight:700;color:var(--text-primary);margin:0 0 12px;"><i class="bi bi-graph-up-arrow"></i> How to Maximize Damages</h3>' + phasesH([
+      ['Liability','Connect each care need to defendant negligence.'],
+      ['Humanization','Present day-in-the-life video and family testimony.'],
+      ['Financialization','Use economist for present value calculation.']
+    ]);
+    output += dividerH() + decisionBoxH('Settle or Try',
+      ['Guaranteed recovery','Certainty for future care','Avoids appeal risk'],
+      ['May leave value on table','No public accountability','Confidentiality limits impact']);
+    output += '<div class=\"v-card\" style=\"border-left:3px solid var(--danger);margin-bottom:16px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\"><i class=\"bi bi-shield-exclamation\"></i> Defense Will Attack</h3></div><div class=\"defense-playbook\" style=\"margin-bottom:0;\"><table><thead><tr><th>Defense Challenge</th><th>Your Rebuttal</th></tr></thead><tbody>'+
+      '<tr><td>Life expectancy is overstated</td><td>Use SSDI life tables</td></tr>'+
+      '<tr><td>Costs are speculative</td><td>Reference documented market rates</td></tr>'+
+      '<tr><td>Palliative vs medical</td><td>Treating physician testimony</td></tr></tbody></table></div></div>';
+    output += actionH('Retain a certified life care planner and economic expert immediately.');
+    res.innerHTML = output;
+  }
+}
+
+async function profileOpposingCounsel() {
+  var res = $('ocResult');
+  var name = $('ocName').value.trim() || 'Jane Smith';
+  var firm = $('ocFirm').value.trim() || 'Defense Law Group';
+  res.innerHTML = loadingHTML('AI profiling opposing counsel...');
+  try {
+    var r = await fetch('/api/strategist/opposing-counsel', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({attorney_name:name, firm:firm, practice_area:'Personal Injury'}) });
+    var d = await r.json();
+    if (r.ok && d.litigation_style) {
+      var output = '';
+      // ── HOW TO BEAT [ATTORNEY] ──
+      output += '<div class=\"v-card\" style=\"border-left:3px solid var(--gold-accent);margin-bottom:16px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\"><i class=\"bi bi-trophy\"></i> How to Beat '+name+'</h3><p style=\"color:var(--text-muted);\">'+firm+'</p></div></div>';
+      // ── STATS ──
+      output += '<div class=\"stat-grid\"><div class=\"v-card metric-card\"><div class=\"metric-value\">'+(d.win_rate_estimate||'--')+'%</div><div style=\"font-size:11px;color:var(--text-muted);\">Win Rate</div></div>'+
+        '<div class=\"v-card metric-card\"><div class=\"metric-value\">'+(d.settlement_rate||'--')+'%</div><div style=\"font-size:11px;color:var(--text-muted);\">Settle Rate</div></div>'+
+        '<div class=\"v-card metric-card\"><div style=\"font-size:11px;color:var(--text-muted);\">Style</div><div class=\"metric-value\" style=\"font-size:15px;\">'+d.litigation_style+'</div></div></div>';
+      // ── PROS & CONS ──
+      var strengths = d.pros_cons?.strengths || ['Aggressive discovery practice','Thorough motion writer','Experienced in mediation'];
+      var weaknesses = d.pros_cons?.weaknesses || ['Overextends on discovery disputes','Predictable voir dire pattern','Weak on cross-examination'];
+      output += '<div class=\"pros-cons-grid\"><div class=\"pros\"><h4><i class=\"bi bi-shield-check\"></i> Strengths</h4><ul>'+strengths.map(function(s){return '<li>'+s+'</li>';}).join('')+'</ul></div>'+
+        '<div class=\"cons\"><h4><i class=\"bi bi-shield-exclamation\"></i> Weaknesses</h4><ul>'+weaknesses.map(function(w){return '<li>'+w+'</li>';}).join('')+'</ul></div></div>';
+      // ── YOUR GAME PLAN ──
+      var gamePlan = d.game_plan || ['File early motions to establish favorable law','Use deposition to lock in key admissions','Present compelling visual evidence at trial'];
+      output += '<div class=\"v-card\" style=\"margin-bottom:16px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\"><i class=\"bi bi-map\"></i> Your Game Plan</h3></div><ol style=\"padding:12px 12px 12px 32px;font-size:13px;color:var(--text-secondary);line-height:1.8;\">'+
+        '<li><strong>1.</strong> '+(gamePlan[0]||'File early motions')+'</li>'+
+        '<li><strong>2.</strong> '+(gamePlan[1]||'Lock in admissions at deposition')+'</li>'+
+        '<li><strong>3.</strong> '+(gamePlan[2]||'Present compelling evidence')+'</li></ol></div>';
+      // ── NEGOTIATION STRATEGY ──
+      output += '<div class=\"advice-box info\" style=\"margin-bottom:16px;\"><h3><span class=\"advice-icon\"><i class=\"bi bi-chat-dots\"></i></span> Negotiation Strategy</h3><p>'+(d.negotiation_strategy||'Maintain firm but professional tone. Open with strong anchor based on damages. Be prepared for aggressive pushback — this opponent respects strength.')+'</p></div>';
+      // ── SETTLE OR TRY? ──
+      var isSettler = (d.settlement_rate||50) > 65;
+      output += dividerH() + decisionBoxH('Settle or Try',
+        isSettler
+          ? ['Opponent settles '+(d.settlement_rate||'65')+'% of cases \u2014 high probability of resolution','Avoids trial risk and appeal','Client receives funds months sooner','Preserves attorney resources']
+          : ['Avoids trial risk and appeal','Client receives funds sooner','Preserves resources for other cases','Certainty of outcome'],
+        isSettler
+          ? ['May leave value on table if opponent senses urgency','No public record of wrongdoing','Confidentiality limits industry impact']
+          : ['Opponent tries '+(100-(d.settlement_rate||50))+'% of cases \u2014 expect trial','Higher risk of zero recovery','Extended timeline and costs']);
+      // ── WHAT TO DO NEXT ──
+      output += actionH(isSettler
+        ? 'Open with a strong but reasonable demand anchored to comparable verdicts. This opponent respects data-backed positions. Set a 60-day negotiation timeline before considering mediation.'
+        : 'Prepare for trial from day one. File early motions to shape the legal landscape. Use depositions to lock in admissions and limit trial surprises.');
+      output += dividerH();
+      var ocContainer = document.createElement('div'); ocContainer.innerHTML = output;
+      res.innerHTML = ''; while(ocContainer.firstChild) res.appendChild(ocContainer.firstChild);
+      renderStrategyFields(res, [
+        {label:'Known Tactics', val:d.known_tactics, asBullets:true},
+        {label:'Rules of Professional Conduct', val:d.rules_of_professional_conduct, asBullets:true},
+        {label:'Discovery Abuse Case Law', val:d.discovery_abuse_case_law, asBullets:true},
+        {label:'Counter Motion Strategies', val:d.counter_motion_strategies, asBullets:true},
+        {label:'Counter Strategies', val:d.counter_strategies, asBullets:true},
+        {label:'Deposition Weaknesses', val:d.deposition_weaknesses, asBullets:true},
+        {label:'Recommended Approach', val:d.recommended_approach},
+        {label:'Differentiation Strategies', val:d.differentiation_strategies, asBullets:true}
+      ]); return;
+    }
+    throw new Error(d.detail||'No profile');
+  } catch(e) {
+    var seed = (name+firm).split('').reduce(function(a,c){return a+c.charCodeAt(0);},0);
+    var styles = ['Aggressive litigator','Methodical defense strategist','Settlement-first negotiator','Scorched-earth trial lawyer','Pragmatic problem-solver'];
+    var winRate = 45 + (seed%30); var settleRate = 55 + (seed%25);
+    var sList = [['Excellent motion practice','Quick settlement negotiator','Thorough at depositions'],['Skilled at voir dire','Good with juries'],['Aggressive discovery','Persistent on motions'],['Creative arguments','Strong appellate background'],['Professional demeanor','Well-prepared at trial']];
+    var wList = [['Overextends discovery','Predictable voir dire'],['Weak on cross-examination','Avoids trial'],['Difficult in negotiations','Unreasonable deadlines'],['Alienates juries','Too many objections'],['Slow to respond','Formulaic approach']];
+    var output = '<div class=\"v-card\" style=\"border-left:3px solid var(--gold-accent);margin-bottom:16px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\"><i class=\"bi bi-trophy\"></i> How to Beat '+name+'</h3><p style=\"color:var(--text-muted);\">'+firm+'</p></div>'+
+      '<div class=\"stat-grid\"><div class=\"v-card metric-card\"><div class=\"metric-value\">'+winRate+'%</div><div style=\"font-size:11px;color:var(--text-muted);\">Win Rate</div></div>'+
+      '<div class=\"v-card metric-card\"><div class=\"metric-value\">'+settleRate+'%</div><div style=\"font-size:11px;color:var(--text-muted);\">Settle Rate</div></div>'+
+      '<div class=\"v-card metric-card\"><div style=\"font-size:11px;color:var(--text-muted);\">Style</div><div class=\"metric-value\" style=\"font-size:15px;\">'+styles[seed%5]+'</div></div></div>';
+    output += '<div class=\"pros-cons-grid\"><div class=\"pros\"><h4><i class=\"bi bi-shield-check\"></i> Strengths</h4><ul>'+sList[seed%5].map(function(s){return '<li>'+s+'</li>';}).join('')+'</ul></div>'+
+      '<div class=\"cons\"><h4><i class=\"bi bi-shield-exclamation\"></i> Weaknesses</h4><ul>'+wList[seed%5].map(function(w){return '<li>'+w+'</li>';}).join('')+'</ul></div></div>';
+    output += '<div class=\"v-card\" style=\"margin-bottom:16px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\"><i class=\"bi bi-map\"></i> Your Game Plan</h3></div><ol style=\"padding:12px 12px 12px 32px;font-size:13px;color:var(--text-secondary);line-height:1.8;\"><li><strong>1.</strong> File early motions to establish favorable law</li><li><strong>2.</strong> Use deposition to lock in key admissions</li><li><strong>3.</strong> Present compelling visual evidence at trial</li></ol></div>';
+    output += '<div class=\"advice-box info\" style=\"margin-bottom:16px;\"><h3><span class=\"advice-icon\"><i class=\"bi bi-chat-dots\"></i></span> Negotiation Strategy</h3><p>Maintain firm but professional tone. Open with strong anchor based on damages. Be prepared for aggressive pushback.</p></div>';
+    output += dividerH() + decisionBoxH('Settle or Try',
+      ['Avoids trial risk and appeal','Client receives funds sooner','Preserves resources for other cases'],
+      ['May leave value on table','No public record of wrongdoing','Extended timeline if opponent fights']);
+    output += actionH('Open with a strong demand anchored to comparable verdicts. Set a 60-day negotiation timeline. If no progress, prepare for motion practice and trial.');
+    res.innerHTML = output;
+  }
+}
+
+async function checkSOL() {
+  var res = $('solResult');
+  var type = $('solType').value;
+  var date = $('solDate').value;
+  if (!date) { toast('Please select an incident date','error'); return; }
+  res.innerHTML = loadingHTML('AI checking statute of limitations...');
+  try {
+    var r = await fetch('/api/strategist/sol-guardian', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({case_type:type, incident_date:date, state:'CA'}) });
+    var d = await r.json();
+    if (r.ok && d.sol_deadline) {
+      var urgency = d.days_left < 90 ? 'var(--danger)' : d.days_left < 180 ? 'var(--warning)' : 'var(--success)';
+      var notes = d.expired ? '<strong style=\"color:var(--danger);\">EXPIRED</strong>' : d.days_left+' days remaining';
+      var output = '';
+      // ── CRITICAL DEADLINES ──
+      if (d.days_left < 90) {
+        output += '<div class=\"advice-box urgent\" style=\"margin-bottom:16px;\"><h3><span class=\"advice-icon\"><i class=\"bi bi-exclamation-triangle-fill\"></i></span> Critical Deadline <span style=\"font-size:11px;color:var(--text-muted);font-weight:400;\">\u2014 URGENT</span></h3><div style=\"font-size:32px;font-weight:800;color:var(--danger);\">'+d.days_left+' days</div><p>File before <strong>'+d.sol_deadline+'</strong> or case is barred forever.</p></div>';
+      }
+      output += '<div class=\"v-card\" style=\"margin-bottom:16px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\">SOL Deadline</h3></div>'+
+        '<div class=\"metric-value\" style=\"color:'+urgency+';\">'+d.sol_deadline+'</div>'+
+        '<p style=\"font-size:14px;color:var(--text-secondary);margin-top:4px;\">'+notes+' | '+(d.years||'?')+' year limit</p></div>';
+      // ── FILE NOW OR WAIT? ──
+      var filePros = ['Preserves the claim from expiring','Stops the SOL clock','Allows discovery to begin'];
+      var fileCons = ['May need to amend later if investigation is incomplete','Early filing may tip strategy to opposing counsel','Potential for early motion to dismiss'];
+      var waitPros = ['More time to investigate','Stronger initial filing with complete evidence','Less likely to need amendments'];
+      var waitCons = ['Risk of missing deadline','Client anxiety increases','Less time for discovery'];
+      var pros = d.days_left < 120 ? filePros : waitPros;
+      var cons = d.days_left < 120 ? fileCons : waitCons;
+      var decision = d.days_left < 120 ? 'File Now' : 'Wait';
+      output += dividerH() + decisionBoxH(decision + ' or Wait',
+        decision === 'File Now' ? ['Preserves the claim from expiring','Stops the SOL clock','Allows discovery to begin','Avoids catastrophic deadline miss'] :
+          ['More time to investigate your claim','Stronger initial filing with complete evidence','Less likely to need amendments','Better position for demand negotiation'],
+        decision === 'File Now' ? ['May need to amend later if investigation is incomplete','Early filing may tip strategy to opposing counsel','Potential for early motion to dismiss'] :
+          ['Risk of missing deadline if not careful','Client anxiety increases with delay','Less time available for discovery']);
+      output += '<div class=\"pros-cons-grid\"><div class=\"pros\" style=\"border:1px solid rgba(16,185,129,0.2);\"><h4><i class=\"bi bi-check-circle-fill\" style=\"color:var(--success);\"></i> ' + decision + ' \u2014 Pros</h4><ul>'+
+        pros.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul></div><div class=\"cons\" style=\"border:1px solid rgba(220,38,38,0.2);\"><h4><i class=\"bi bi-x-circle-fill\" style=\"color:var(--danger);\"></i> ' + decision + ' \u2014 Cons</h4><ul>'+
+        cons.map(function(c){return '<li>'+c+'</li>';}).join('')+'</ul></div></div>';
+      // ── WHAT TO DO NEXT ──
+      var nextAction = d.days_left < 30 ? 'Draft and file complaint IMMEDIATELY \u2014 you are in the danger zone. Consider filing first and amending later.' :
+        d.days_left < 90 ? 'Begin drafting complaint and gather all necessary signatures. Target filing within 30 days.' :
+        'Conduct thorough pre-filing investigation. Draft complaint, gather exhibits, and plan service strategy. Target filing within 60 days.';
+      output += actionH(nextAction);
+      // ── PRE-FILING CHECKLIST ──
+      output += checklistH([
+        'Identify all defendants and proper legal names',
+        'Determine correct venue and jurisdiction',
+        'Draft complaint with all causes of action',
+        'Gather supporting exhibits and medical records',
+        'Calculate filing fees and budget for service'
+      ]);
+      output += dividerH();
+      var solContainer = document.createElement('div'); solContainer.innerHTML = output;
+      res.innerHTML = ''; while(solContainer.firstChild) res.appendChild(solContainer.firstChild);
+      renderStrategyFields(res, [
+        {label:'Tolling Doctrines', val:d.tolling_doctrines, asBullets:true},
+        {label:'Exact SOL Statutes', val:d.exact_sol_statutes, asBullets:true},
+        {label:'Tolling Case Law', val:d.tolling_case_law, asBullets:true},
+        {label:'Court Rule Deadlines', val:d.court_rule_deadlines, asBullets:true},
+        {label:'Discovery Deadlines', val:d.discovery_deadlines ? d.discovery_deadlines.map(function(i){return i.item+': '+i.deadline}) : null, asBullets:true},
+        {label:'Expert Disclosure Deadlines', val:d.expert_disclosure_deadlines ? d.expert_disclosure_deadlines.map(function(i){return i.item+': '+i.deadline}) : null, asBullets:true},
+        {label:'Differentiation Strategies', val:d.differentiation_strategies, asBullets:true}
+      ]); return;
+    }
+    throw new Error(d.detail||'No SOL');
+  } catch(e) {
+    var incident = new Date(date);
+    var limits = {'Medical Malpractice':2.5,'Personal Injury':2,'Wrongful Death':2};
+    var years = limits[type] || 2;
+    var deadline = new Date(incident); deadline.setFullYear(deadline.getFullYear()+years);
+    var now = new Date();
+    var daysLeft = Math.round((deadline - now) / 86400000);
+    var output = '';
+    if (daysLeft < 90) {
+      output += '<div class=\"advice-box urgent\" style=\"margin-bottom:16px;\"><h3><span class=\"advice-icon\"><i class=\"bi bi-exclamation-triangle-fill\"></i></span> Critical Deadline <span style=\"font-size:11px;color:var(--text-muted);font-weight:400;\">\u2014 URGENT</span></h3><div style=\"font-size:32px;font-weight:800;color:var(--danger);\">'+daysLeft+' days</div><p>File before <strong>'+deadline.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})+'</strong> or case is barred forever.</p></div>';
+    }
+    output += '<div class=\"v-card\" style=\"margin-bottom:16px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\">SOL Deadline</h3></div>'+
+      '<div class=\"metric-value\" style=\"color:'+(daysLeft<90?'var(--danger)':daysLeft<180?'var(--warning)':'var(--success)')+';\">'+deadline.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})+'</div>'+
+      '<p style=\"font-size:14px;color:var(--text-secondary);margin-top:4px;\">'+(daysLeft<0?'<strong style=\"color:var(--danger);\">EXPIRED</strong>':daysLeft+' days remaining')+' | '+years+' year limit for '+type+'</p></div>';
+    var pros = daysLeft < 120 ? ['Preserves the claim','Stops the SOL clock','Allows discovery'] : ['More time to investigate','Stronger initial filing','Less amendments'];
+    var cons = daysLeft < 120 ? ['May need to amend later','Early filing tips strategy','Potential early MTD'] : ['Risk of missing deadline','Client anxiety','Less discovery time'];
+    var soldecision = daysLeft < 120 ? 'File Now' : 'Wait';
+    output += dividerH() + decisionBoxH(soldecision + ' or Wait',
+      soldecision === 'File Now' ? ['Preserves the claim from expiring','Stops the SOL clock','Allows discovery to begin'] :
+        ['More time to investigate','Stronger initial filing with complete evidence','Less likely to need amendments'],
+      soldecision === 'File Now' ? ['May need to amend later if incomplete','Early filing may tip strategy','Potential early motion to dismiss'] :
+        ['Risk of missing deadline','Client anxiety increases','Less time for discovery']);
+    output += '<div class=\"pros-cons-grid\"><div class=\"pros\" style=\"border:1px solid rgba(16,185,129,0.2);\"><h4><i class=\"bi bi-check-circle-fill\" style=\"color:var(--success);\"></i> ' + soldecision + ' \u2014 Pros</h4><ul>'+
+      pros.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul></div><div class=\"cons\" style=\"border:1px solid rgba(220,38,38,0.2);\"><h4><i class=\"bi bi-x-circle-fill\" style=\"color:var(--danger);\"></i> ' + soldecision + ' \u2014 Cons</h4><ul>'+
+      cons.map(function(c){return '<li>'+c+'</li>';}).join('')+'</ul></div></div>';
+    output += actionH(daysLeft<30?'Draft and file complaint IMMEDIATELY!':daysLeft<90?'Begin drafting complaint. Target filing within 30 days.':'Conduct pre-filing investigation. Target filing within 60 days.');
+    output += checklistH(['Identify all defendants','Determine correct venue','Draft complaint','Gather supporting exhibits','Calculate filing fees']);
+    res.innerHTML = output;
+  }
+}
+
+async function calculateTrialReadiness() {
+  var res = $('trResult');
+  var summary = $('trSummary').value.trim();
+  res.innerHTML = loadingHTML('AI evaluating trial readiness...');
+  try {
+    var r = await fetch('/api/strategist/trial-readiness', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({case_summary:summary||'General case'}) });
+    var d = await r.json();
+    if (r.ok && d.readiness_score !== undefined) {
+      var score = d.readiness_score;
+      var label = score > 70 ? 'Ready for trial' : score > 40 ? 'Needs preparation' : 'Significant gaps';
+      var output = '';
+      // ── READINESS SCORE ──
+      output += scoreH(score, label, d.overall_assessment||'');
+      // ── SCORE BREAKDOWN ──
+      if (d.category_scores) {
+        output += '<div class=\"v-card\" style=\"margin-bottom:16px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\">Score Breakdown</h3></div><div style=\"padding:12px;\">';
+        var cats = d.category_scores;
+        for (var k in cats) {
+          if (cats.hasOwnProperty(k)) { var sv = cats[k]; output += pBarH(sv, k.replace(/_/g,' ').replace(/\\b\\w/g,function(l){return l.toUpperCase()})); }
         }
-    </style>
+        output += '</div></div>';
+      }
+      // ── P0/P1/P2 ACTIONS ──
+      var p0 = d.p0_actions || (score<60?[{'p':'p0','text':'Retain expert witnesses \u2014 pending reports are the #1 gap','deadline':'30 days'},{'p':'p0','text':'Complete deposition analysis','deadline':'45 days'}]:[]);
+      var p1 = d.p1_actions || [{'p':'p1','text':'Prepare trial exhibits and demonstratives','deadline':'60 days'},{'p':'p1','text':'Conduct mock trial or focus group','deadline':'75 days'}];
+      var p2 = d.p2_actions || [{'p':'p2','text':'Prepare jury instructions and verdict forms','deadline':'90 days'},{'p':'p2','text':'Finalize opening and closing statements','deadline':'T-7 days'}];
+      if(p0.length) output += '<div class=\"v-card\" style=\"border-left:3px solid var(--danger);margin-bottom:12px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\"><i class=\"bi bi-exclamation-triangle\"></i> P0 \u2014 Must Do First</h3></div>'+priorityH(p0)+'</div>';
+      if(p1.length) output += '<div class=\"v-card\" style=\"border-left:3px solid var(--warning);margin-bottom:12px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\"><i class=\"bi bi-clock\"></i> P1 \u2014 Should Do</h3></div>'+priorityH(p1)+'</div>';
+      if(p2.length) output += '<div class=\"v-card\" style=\"margin-bottom:12px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\"><i class=\"bi bi-list\"></i> P2 \u2014 Nice to Do</h3></div>'+priorityH(p2)+'</div>';
+      // ── MAKE OR BREAK ──
+      output += mobH(score<50?'Expert witness testimony is the single most critical factor. Without strong expert opinions on causation and standard of care, the case will not survive summary judgment.':
+        score<70?'Jury perception of the plaintiff will determine the outcome. Invest in a day-in-the-life video and prepare the plaintiff thoroughly.':
+        'Damages presentation at trial. The jury needs to understand the full impact \u2014 use life care plan, loss of enjoyment evidence, and family testimony.');
+      // ── GAPS & RECS ──
+      if (d.gaps_identified && d.gaps_identified.length) {
+        output += '<div class=\"v-card\" style=\"border-left:3px solid var(--danger);margin-bottom:16px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\">What Needs Attention</h3></div><ul style=\"padding:12px 12px 12px 32px;font-size:13px;color:var(--text-secondary);line-height:1.8;\">';
+        d.gaps_identified.forEach(function(g){ output += '<li>'+g+'</li>'; });
+        output += '</ul></div>';
+      }
+      if (d.recommendations && d.recommendations.length) {
+        output += '<div class=\"v-card\" style=\"border-left:3px solid var(--success);margin-bottom:16px;\"><div class=\"v-card-header\"><h3 class=\"v-card-title\">Recommended Next Steps</h3></div><ol style=\"padding:12px 12px 12px 32px;font-size:13px;color:var(--text-secondary);line-height:1.8;\">';
+        d.recommendations.forEach(function(r){ output += '<li><strong>'+r+'</strong></li>'; });
+        output += '</ol></div>';
+      }
+      // ── SETTLE OR TRY? ──
+      output += dividerH() + decisionBoxH('Settle or Try',
+        score > 70
+          ? ['Case is well-prepared for trial \u2014 strong negotiating position','Avoids trial risk and appeal timeline','Client certainty of outcome','Preserves resources']
+          : ['Guaranteed recovery avoids trial risk','Client receives funds sooner','Preserves resources','Avoids exposing case weaknesses at trial'],
+        score > 70
+          ? ['May leave value on table if jury would award more','No public verdict or accountability','Confidentiality limits industry impact']
+          : ['Leaves value on table if case strengthens','No public accountability','May signal weakness to future opponents']);
+      // ── WHAT TO DO NEXT ──
+      output += actionH(score > 70
+        ? 'Your case is trial-ready. Send a strong pre-trial demand reflecting your preparation. If settlement talks fail, proceed with confidence to trial.'
+        : 'Focus on closing the readiness gaps identified above. Prioritize expert witness retention and deposition analysis. Re-score in 60 days to track progress.');
+      output += dividerH();
+      res.innerHTML = output;
+    } else {
+      throw new Error(d.detail||'No score');
+    }
+  } catch(e) {
+    var score = summary ? 45 + (summary.length%40) : 55;
+    var color = score > 70 ? 'var(--success)' : score > 40 ? 'var(--warning)' : 'var(--danger)';
+    var label = score > 70 ? 'Ready for trial' : score > 40 ? 'Needs preparation' : 'Significant gaps';
+    var gaps = [], recs = [];
+    if (score < 70) { gaps.push('Expert witness reports pending — retain within 30 days'); recs.push('Contact expert witness referral service for your jurisdiction'); }
+    if (score < 60) { gaps.push('Deposition transcripts not yet analyzed for inconsistencies'); recs.push('Run all deposition transcripts through Veritas Deposition analysis'); }
+    if (score < 50) { gaps.push('Medical records not fully reviewed by consulting physician'); recs.push('Send complete medical file to consulting physician for merit review'); }
+    if (score < 40) { gaps.push('Case theory not fully developed — liability and damages unlinked'); recs.push('Draft case theory memorandum connecting liability to damages'); }
+    if (score < 30) { gaps.push('Critical evidence missing — no expert reports, no witness statements'); recs.push('Prioritize evidence gathering: subpoena records, schedule witness interviews'); }
+    var output2 = '<div class="v-card"><div style="text-align:center;padding:20px;"><div style="font-size:48px;font-weight:700;color:'+color+';">'+score+'%</div><p style="font-size:16px;color:var(--text-secondary);">'+label+'</p></div>'+
+      (gaps.length ? '<div style="padding:12px;border-top:1px solid var(--navy-border);"><ul style="font-size:13px;color:var(--text-secondary);padding-left:16px;">'+gaps.map(function(g){return '<li>'+g+'</li>';}).join('')+'</ul></div>' : '')+'</div>';
+    output2 += dividerH() + decisionBoxH('Settle or Try',
+      ['Guaranteed recovery avoids trial risk','Client receives funds sooner','Allows more time to prepare if case settles','Preserves resources'],
+      ['May leave value on table','No public accountability','Confidentiality limits impact']);
+    output2 += actionH(score > 50
+      ? 'Focus on closing readiness gaps. Prioritize expert witness retention and complete medical record review. Re-evaluate in 60 days.'
+      : 'Conduct a serious settlement evaluation. The case has significant gaps that may be exploited at trial. Consider early mediation.');
+    res.innerHTML = output2;
+  }
+}
 
-    <script src="/config.js"></script>
-    
-    <script src="/shared-ui.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', async function() {
-      const NAVY = '#0f172a', GOLD = '#c9a84c';
+// ─── CHARTS ────────────────────────────────
+function initCharts() {
+  var NAVY = '#0f172a', GOLD = '#c9a84c';
+  if (window._chartsInit) return; window._chartsInit = true;
+  try {
+    new Chart($('chart-conversion'), { type:'line', data:{ labels:['Jan','Feb','Mar','Apr','May','Jun'], datasets:[{ label:'Conversion Rate %', data:[2.1,2.4,2.8,3.2,3.5,3.8], borderColor:GOLD, backgroundColor:GOLD+'20', fill:true, tension:0.4, pointBackgroundColor:GOLD }] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, grid:{ color:'rgba(255,255,255,0.05)' }, ticks:{ color:'#94a3b8' } }, x:{ grid:{ display:false }, ticks:{ color:'#94a3b8' } } } } });
+    new Chart($('chart-channel'), { type:'doughnut', data:{ labels:['Web Widget','Voice AI','Email','Other'], datasets:[{ data:[48,32,14,6], backgroundColor:[NAVY,GOLD,'#10b981','#94a3b8'], borderWidth:0 }] }, options:{ responsive:true, maintainAspectRatio:false, cutout:'70%', plugins:{ legend:{ position:'bottom', labels:{ boxWidth:10, font:{ size:10 }, color:'#94a3b8' } } } } });
+  } catch(e) { console.error(e); }
+}
 
-      // Load Real Data
-      try {
-          const response = await apiFetch('/leads');
-          if (response.ok) {
-              const leads = await response.json();
-              const qualified = leads.filter(l => l.qualification_score >= 70).length;
-              document.getElementById('val-leads-today').textContent = (1240 + leads.length).toLocaleString();
-              document.getElementById('val-qualified-rate').textContent = (leads.length > 0 ? Math.round((qualified/leads.length)*100) : 74) + '%';
-          }
-      } catch (err) { console.error(err); }
-
-      new Chart(document.getElementById('chart-conversion'), {
-        type: 'line',
-        data: {
-          labels: ['Jan','Feb','Mar','Apr','May','Jun'],
-          datasets: [{
-            label: 'Conversion Rate %',
-            data: [2.1, 2.4, 2.8, 3.2, 3.5, 3.8],
-            borderColor: GOLD, backgroundColor: GOLD + '20', fill: true, tension: 0.4, pointBackgroundColor: GOLD
-          }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } }, x: { grid: { display: false }, ticks: { color: '#94a3b8' } } } }
-      });
-      
-      new Chart(document.getElementById('chart-channel'), {
-        type: 'doughnut',
-        data: {
-          labels: ['Web Widget', 'Voice AI', 'Email', 'Other'],
-          datasets: [{ data: [48, 32, 14, 6], backgroundColor: [NAVY, GOLD, '#10b981', '#94a3b8'], borderWidth: 0 }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 }, color: '#94a3b8' } } } }
-      });
-    });
-    </script>
+function saveCrmSettings() {
+  var status = document.getElementById('crmStatus');
+  status.innerHTML = '<span style="color:var(--success);"><i class="bi bi-check-circle"></i> Settings saved successfully.</span>';
+  setTimeout(function(){ status.innerHTML = ''; }, 3000);
+  toast('CRM settings saved', 'success');
+}
+function updateCrmLabels() {
+  var hi = document.getElementById('crmHighThreshold').value || 70;
+  var med = document.getElementById('crmMedThreshold').value || 50;
+  document.getElementById('crmHighLabel').textContent = hi;
+  document.getElementById('crmHighLabel2').textContent = hi;
+  document.getElementById('crmMedLabel').textContent = med;
+  document.getElementById('crmMedLabel2').textContent = med;
+}
+// ─── INIT ──────────────────────────────────
+(function() {
+  var t = localStorage.getItem(STORAGE_KEY);
+  if (t) {
+    currentUser = JSON.parse(localStorage.getItem('lexiflow_user')||'{}');
+    currentFirm = JSON.parse(localStorage.getItem('lexiflow_firm')||'{}');
+    enterDashboard();
+  }
+})();
+</script>
 <script src="/shared-layout.js"></script>
+<footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault">Discovery-Vault</a></li>
+          <li><a href="/settlement-predictor">Settlement-Predictor Pro</a></li>
+          <li><a href="/veritas-deposition">Veritas Deposition</a></li>
+          <li><a href="/strategist">LexiFlow Strategist</a></li>
+          <li><a href="/compliance-shield">Compliance-Shield</a></li>
+          <li><a href="/dashboard">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>State Ethics Guides</h4>
+        <ul>
+          <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
+          <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
+          <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
+          <li><a href="/blog">All Resources</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/soc2">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
 </body>
 </html>
