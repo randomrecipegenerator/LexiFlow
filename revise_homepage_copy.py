@@ -1,113 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Legal Assistant | Legal Help, Contract Review &amp; Research</title>
-  <meta name="description" content="Ask legal questions, review documents, analyze contracts, research legal topics, and create legal drafts with our AI legal assistant." />
-  <meta name="keywords" content="AI legal assistant, legal help, contract review AI, legal research AI, AI lawyer, legal document analysis, legal document generator, law firm AI" />
-  <link rel="canonical" href="https://lexiflow.co/" />
-  <meta name="robots" content="index,follow" />
+#!/usr/bin/env python3
+"""Revise homepage demo copy: de-center from Rodriguez v. Mount Sinai, target AI legal keyword set naturally."""
+import io, re, json
 
-  <!-- Open Graph / Social Sharing -->
-  <meta property="og:title" content="AI Legal Assistant | Legal Help, Contract Review &amp; Research" />
-  <meta property="og:description" content="Ask legal questions, review documents, analyze contracts, research legal topics, and create legal drafts with our AI legal assistant." />
-  <meta property="og:url" content="https://lexiflow.co/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="LexiFlow Technologies Inc" />
-  <meta property="og:image" content="https://lexiflow.co/social-banner.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:locale" content="en_US" />
+path = "index.html"
+html = io.open(path, encoding="utf-8").read()
+orig = html
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="AI Legal Assistant | Legal Help, Contract Review &amp; Research" />
-  <meta name="twitter:description" content="Ask legal questions, review documents, analyze contracts, research legal topics, and create legal drafts with our AI legal assistant." />
-  <meta name="twitter:image" content="https://lexiflow.co/social-banner.png" />
+def rep(old, new, must=True):
+    global html
+    if old not in html:
+        if must:
+            raise SystemExit("NOT FOUND: " + old[:80])
+        return False
+    assert html.count(old) == 1, "AMBIGUOUS: " + old[:80]
+    html = html.replace(old, new, 1)
+    return True
 
-  <!-- Open Graph / Social Sharing -->
+# ---------- 1. FAQPage JSON-LD in <head> (must match new visible FAQ below) ----------
+faq_ld_old_start = "  <!-- Structured Data: FAQ -->"
+faq_ld_old_end = "</script>"
+i0 = html.find(faq_ld_old_start)
+i1 = html.find(faq_ld_old_end, i0) + len(faq_ld_old_end)
+faq_ld_old = html[i0:i1]
 
-  <!-- Twitter Card -->
-  <meta name="google-site-verification" content="SdZcqCNhIJHLlfx2BU22unsBd6smFsTf7o6pv-np5Zk" />
-
-  <!-- Open Graph / Social Sharing -->
-
-  <!-- Twitter Card -->
-
-  <!-- Structured Data: Organization -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "LexiFlow Technologies Inc",
-    "url": "https://lexiflow.co/",
-    "logo": "https://lexiflow.co/branding/logo-icon.svg",
-    "description": "AI-powered legal operations and matter management platform for plaintiff law firms. Automates intake, medical merit review, deposition analysis, and discovery.",
-    "foundingDate": "2025",
-    "sameAs": ["https://linkedin.com/company/lexiflow"],
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "sales",
-      "email": "info@lexiflow.co"
-    }
-  }
-  </script>
-
-  <!-- Structured Data: WebSite -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "LexiFlow",
-    "url": "https://lexiflow.co/",
-    "description": "AI-powered legal operations and matter management software for plaintiff law firms.",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": "https://lexiflow.co/search?q={search_term_string}"
-      },
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
-
-  <!-- Structured Data: SoftwareApplication -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "LexiFlow Legal Suite",
-    "operatingSystem": "Web",
-    "applicationCategory": "Legal Software",
-    "description": "AI-powered legal operations, intake automation, medical merit review, and deposition intelligence platform for plaintiff law firms.",
-    "url": "https://lexiflow.co/",
-    "offers": {
-      "@type": "Offer",
-      "price": "29.00",
-      "priceCurrency": "USD",
-      "description": "Starts at $29/month"
-    },
-    "creator": {
-      "@type": "Organization",
-      "name": "LexiFlow Technologies Inc"
-    }
-  }
-  </script>
-
-  <!-- Structured Data: BreadcrumbList -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://lexiflow.co/" }
-    ]
-  }
-  </script>
-
-  <!-- Structured Data: FAQ -->
+faq_ld_new = """  <!-- Structured Data: FAQ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -123,10 +39,10 @@
       },
       {
         "@type": "Question",
-        "name": "Can I get AI legal advice from LexiFlow?",
+        "name": "Is LexiFlow an AI lawyer that gives legal advice?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. LexiFlow is an AI legal assistant for lawyers and law firms, not an AI lawyer you consult for legal advice. It supports research, contract review, document analysis, and drafting, but it does not give legal advice and does not replace a licensed attorney. Every output is reviewed by your team before use."
+          "text": "No. LexiFlow is an AI legal assistant for lawyers and law firms. It supports research, contract review, document analysis, and drafting, but it does not give legal advice and does not replace a licensed attorney. Every output is reviewed by your team before use."
         }
       },
       {
@@ -163,73 +79,19 @@
       }
     ]
   }
-  </script>
+  </script>"""
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all';this.onload=null" />
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" /></noscript>
-  <link rel="icon" type="image/svg+xml" href="/branding/logo-icon.svg">
-  <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" media="print" onload="this.media='all';this.onload=null" />
-  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" /></noscript>
-  <style>
-    :root { --navy: #0f172a; --gold: #c9a84c; --gold-light: #e2c96e; --slate-50: #f8fafc; --slate-100: #f1f5f9; --slate-200: #e2e8f0; --slate-400: #94a3b8; --slate-600: #475569; --slate-900: #0f172a; --max-width: 1200px; --font-sans: 'Inter', sans-serif; --font-serif: 'Playfair Display', serif; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: var(--font-sans); background: #fff; color: var(--slate-900); line-height: 1.6; padding-top: 80px; }
-    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; }
-    .btn-cta { background: var(--gold); color: var(--navy); padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
-    .btn-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
-    .btn-outline-light { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #fff; display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; }
-    .btn-outline-light:hover { background: rgba(255,255,255,0.15); }
-    .hero { padding: 100px 0; background: linear-gradient(135deg, #0a1628, var(--navy), #1e3a5f); color: white; overflow: hidden; }
-    .hero-container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-    .hero h1 { font-family: var(--font-serif); font-size: 52px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 20px; line-height: 1.1; }
-    .hero h1 span { color: var(--gold); }
-    .hero p { font-size: 18px; color: rgba(255,255,255,0.8); margin-bottom: 32px; max-width: 600px; }
-    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding: 80px 40px; max-width: var(--max-width); margin: 0 auto; }
-    .card { padding: 40px; background: #fff; border: 1px solid var(--slate-200); border-radius: 24px; transition: all 0.3s; }
-    .card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
-    .card i { font-size: 32px; color: var(--gold); margin-bottom: 20px; display: block; }
-    .card h3 { font-family: var(--font-serif); font-size: 20px; margin-bottom: 12px; color: var(--navy); }
-    .card p { color: var(--slate-600); font-size: 14px; line-height: 1.6; }
-    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-    @media (max-width: 968px) { .hero-container { grid-template-columns: 1fr; text-align: center; } .hero p { margin: 0 auto 32px; } .grid { grid-template-columns: 1fr; } }
-    @media (max-width: 768px) { .container { padding: 0 20px; } .hero h1 { font-size: 28px; } .hero { padding: 60px 0; } .grid { padding: 40px 20px; } }
-  </style>
-  <link rel="stylesheet" href="/master-layout.css">
-  <link rel="stylesheet" href="/shared-layout.css">
-</head>
-<body>
-<nav>
-  <div class="nav-container">
-    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="/pricing">Pricing</a></li>
-      <li><a href="/solutions">Solutions</a></li>
-      <li><a href="/dashboard">Dashboard</a></li>
-      <li><a href="/blog">Blog</a></li>
-      <li class="resources-dropdown">
-        <a href="#">Resources ▾</a>
-        <div class="resources-menu">
-          <a href="/resources/medical-chronology-template">Medical Chronology Template</a>
-          <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a>
-          <a href="/resources/medical-record-review-checklist">Record Review Checklist</a>
-          <a href="/ssd-disability-medical-chronology-software">SSD & Disability AI</a>
-          <a href="/witness-testimony-analysis">Witness Testimony Analysis</a>
-          <a href="/case-studies">Case Studies</a>
-        </div>
-      </li>
-      <li><a href="/roi-calculator">ROI Calculator</a></li>
-      <li><a href="/login">Log In</a></li>
-      <li><a href="/signup" class="btn-cta">Get Started</a></li>
-    </ul>
-    <button class="nav-toggle" aria-label="Menu">☰</button>
-  </div>
-</nav>
+html = html[:i0] + faq_ld_new + html[i1:]
 
-<!-- Hero A: AI Legal Assistant -->
+# ---------- 2. Replace demo/case-study body block (Hero A through FAQ section) ----------
+block_start = "<!-- Hero A: Workspace Copy -->"
+block_end = "<!-- Ethics & Footer -->"
+b0 = html.find(block_start)
+b1 = html.find(block_end)
+assert b0 != -1 and b1 != -1, "body anchors missing"
+assert b0 < b1
+
+new_body = """<!-- Hero A: AI Legal Assistant -->
 <header class="hero">
   <div class="hero-container">
     <div>
@@ -321,7 +183,7 @@
     </div>
     <div style="display:flex;flex-direction:column;gap:24px;max-width:800px;margin:0 auto;">
       <div style="background:var(--slate-50);padding:32px;border-radius:16px;border:1px solid var(--slate-200);"><h4 style="font-family:var(--font-serif);font-size:20px;color:var(--navy);margin-bottom:12px;">What is an AI legal assistant?</h4><p style="color:var(--slate-600);font-size:15px;">An AI legal assistant is legal AI software that helps law firms ask legal questions, research legal topics, review and analyze contracts and documents, and create legal drafts &mdash; with source citations on every output and attorney review before anything is used.</p></div>
-      <div style="background:var(--slate-50);padding:32px;border-radius:16px;border:1px solid var(--slate-200);"><h4 style="font-family:var(--font-serif);font-size:20px;color:var(--navy);margin-bottom:12px;">Can I get AI legal advice from LexiFlow?</h4><p style="color:var(--slate-600);font-size:15px;">No. LexiFlow is an AI legal assistant for lawyers and law firms, not an AI lawyer you consult for legal advice. It supports research, contract review, document analysis, and drafting, but it does not give legal advice and does not replace a licensed attorney. Every output is reviewed by your team before use.</p></div>
+      <div style="background:var(--slate-50);padding:32px;border-radius:16px;border:1px solid var(--slate-200);"><h4 style="font-family:var(--font-serif);font-size:20px;color:var(--navy);margin-bottom:12px;">Is LexiFlow an AI lawyer that gives legal advice?</h4><p style="color:var(--slate-600);font-size:15px;">No. LexiFlow is an AI legal assistant for lawyers and law firms. It supports research, contract review, document analysis, and drafting, but it does not give legal advice and does not replace a licensed attorney. Every output is reviewed by your team before use.</p></div>
       <div style="background:var(--slate-50);padding:32px;border-radius:16px;border:1px solid var(--slate-200);"><h4 style="font-family:var(--font-serif);font-size:20px;color:var(--navy);margin-bottom:12px;">What can LexiFlow do with contracts?</h4><p style="color:var(--slate-600);font-size:15px;">LexiFlow provides AI contract review and AI contract analysis: it flags risky clauses, missing terms, and deadlines, and links every finding to the exact clause text so your team can verify it before acting.</p></div>
       <div style="background:var(--slate-50);padding:32px;border-radius:16px;border:1px solid var(--slate-200);"><h4 style="font-family:var(--font-serif);font-size:20px;color:var(--navy);margin-bottom:12px;">How does LexiFlow keep legal work accurate?</h4><p style="color:var(--slate-600);font-size:15px;">Accuracy first. Every AI output carries a citation back to its source, severity and confidence levels on findings, and a full audit trail. Attorneys remain in the loop on every decision before anything leaves the firm.</p></div>
       <div style="background:var(--slate-50);padding:32px;border-radius:16px;border:1px solid var(--slate-200);"><h4 style="font-family:var(--font-serif);font-size:20px;color:var(--navy);margin-bottom:12px;">Is LexiFlow HIPAA compliant?</h4><p style="color:var(--slate-600);font-size:15px;">Yes. We sign BAAs with firms handling PHI, maintain SOC 2 alignment, and provide attorney-in-the-loop controls aligned with state bar ethics guidelines.</p></div>
@@ -329,81 +191,24 @@
     </div>
   </section>
 
-<!-- Ethics & Footer -->
-  <section style="background:var(--slate-50);padding:80px 0;border-top:1px solid var(--slate-200);">
-    <div style="max-width:var(--max-width);margin:0 auto;padding:0 40px;">
-      <h2 style="font-family:var(--font-serif);font-size:32px;color:var(--navy);margin-bottom:8px;text-align:center;">Legal AI Ethics & Compliance</h2>
-      <p style="color:var(--slate-600);margin-bottom:32px;text-align:center;">Regulatory frameworks for modern law firms.</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
-        <a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake" style="display:block;padding:32px;background:white;border:1px solid var(--slate-200);border-radius:24px;text-decoration:none;"><h4 style="color:var(--navy);font-size:20px;margin-bottom:12px;font-family:var(--font-serif);">Pennsylvania AI Ethics</h4><p style="color:var(--slate-600);font-size:15px;">A practical framework for PA trial lawyers adopting AI in legal intake.</p></a>
-        <a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake" style="display:block;padding:32px;background:white;border:1px solid var(--slate-200);border-radius:24px;text-decoration:none;"><h4 style="color:var(--navy);font-size:20px;margin-bottom:12px;font-family:var(--font-serif);">Illinois AI Ethics</h4><p style="color:var(--slate-600);font-size:15px;">Ethics and Section 2-622 compliance for Illinois firm AI adoption.</p></a>
-        <a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake" style="display:block;padding:32px;background:white;border:1px solid var(--slate-200);border-radius:24px;text-decoration:none;"><h4 style="color:var(--navy);font-size:20px;margin-bottom:12px;font-family:var(--font-serif);">New York AI Ethics</h4><p style="color:var(--slate-600);font-size:15px;">Navigating 22 NYCRR Part 1200 and AI in MedMal intake.</p></a>
-      </div>
-    </div>
-  </section>
+"""
+html = html[:b0] + new_body + html[b1:]
 
-  <section style="padding:40px 0;border-top:1px solid var(--slate-100);max-width:var(--max-width);margin:0 auto;padding-left:40px;padding-right:40px;">
-    <h3 style="font-family:var(--font-serif);font-size:24px;margin-bottom:20px;color:var(--navy);">Advanced Legal AI Resources</h3>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;">
-      <a href="/ai-legal-intake-software" style="color:var(--navy);text-decoration:none;font-weight:600;">AI Legal Intake Software</a>
-      <a href="/ai-medical-chronologies" style="color:var(--navy);text-decoration:none;font-weight:600;">Medical Chronology AI</a>
-      <a href="/veritas-deposition" style="color:var(--navy);text-decoration:none;font-weight:600;">Veritas Deposition AI</a>
-      <a href="/strategist" style="color:var(--navy);text-decoration:none;font-weight:600;">LexiFlow Strategist</a>
-      <a href="/roi-calculator" style="color:var(--navy);text-decoration:none;font-weight:600;">Firm ROI Calculator</a>
-      <a href="/compliance-shield" style="color:var(--navy);text-decoration:none;font-weight:600;">HIPAA & SOC2 Compliance</a>
-      <a href="/ai-contract-review" style="color:var(--navy);text-decoration:none;font-weight:600;">AI Contract Review</a>
-      <a href="/ai-legal-research" style="color:var(--navy);text-decoration:none;font-weight:600;">AI Legal Research</a>
-      <a href="/ai-legal-document-analysis" style="color:var(--navy);text-decoration:none;font-weight:600;">AI Legal Document Analysis</a>
-      <a href="/ai-legal-document-generator" style="color:var(--navy);text-decoration:none;font-weight:600;">AI Legal Document Generator</a>
-      <a href="/ai-legal-assistant-for-lawyers" style="color:var(--navy);text-decoration:none;font-weight:600;">AI Legal Assistant for Lawyers</a>
-      <a href="/ai-legal-help" style="color:var(--navy);text-decoration:none;font-weight:600;">AI Legal Help</a>
-      <a href="/ai-lawyer" style="color:var(--navy);text-decoration:none;font-weight:600;">AI Lawyer</a>
-    </div>
-  </section>
+io.open(path, "w", encoding="utf-8").write(html)
+print("OK - homepage copy revised")
 
-  <footer>
-    <div class="footer-container">
-      <div class="footer-col">
-        <a href="/" class="footer-logo">LF LexiFlow</a>
-        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Products</h4>
-        <ul>
-          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
-          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
-          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
-          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
-          <li><a href="/discovery-vault">Discovery-Vault™</a></li>
-          <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
-          <li><a href="/veritas-deposition">Veritas Deposition™</a></li>
-          <li><a href="/strategist">LexiFlow Strategist™</a></li>
-          <li><a href="/compliance-shield">Compliance-Shield™</a></li>
-          <li><a href="/dashboard">Analytics Dashboard</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>State Ethics Guides</h4>
-        <ul>
-          <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
-          <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
-          <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
-          <li><a href="/blog">All Resources</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="/privacy">Privacy Policy</a></li>
-          <li><a href="/terms">Terms of Service</a></li>
-          <li><a href="/soc2">SOC2 Compliance</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
-    </div>
-  </footer>
-  <script src="/shared-layout.js"></script>
-</body>
-</html>
+# ---------- Validation ----------
+html = io.open(path, encoding="utf-8").read()
+blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S)
+for b in blocks:
+    json.loads(b)
+print("JSON-LD valid:", [json.loads(b).get("@type") for b in blocks])
+print("FAQ schema count:", len(json.loads([b for b in blocks if '"FAQPage"' in b][0])["mainEntity"]))
+h4s = re.findall(r'<h4[^>]*>(.*?)</h4>', html, re.S)
+print("Visible FAQ h4 count:", len([h for h in h4s if '?' in h]))
+print("H1 count:", len(re.findall(r'<h1', html)))
+print("Rodriguez mentions:", html.count("Rodriguez"))
+print("Mount Sinai mentions:", html.count("Mount Sinai"))
+kw = ["AI legal assistant","AI lawyer","AI legal help","AI legal advice","AI legal research","AI contract review","AI contract analysis","AI legal document review","AI legal document analysis","AI legal drafting","legal AI software","AI tools for lawyers","AI legal assistant for lawyers"]
+for k in kw:
+    print(f"  '{k}': {html.count(k)}")
