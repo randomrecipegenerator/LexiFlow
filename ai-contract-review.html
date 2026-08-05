@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Contract Review — Find Risks Faster | LexiFlow</title>
+  <meta name="description" content="AI contract review for law firms: flag risky clauses, missing terms, and deadlines in minutes. Traceable, defensible analysis your team can rely on." />
+  <meta name="keywords" content="AI contract review, contract analysis software, contract clause detection, legal document review AI, contract risk flags" />
+  <link rel="canonical" href="https://lexiflow.co/ai-contract-review" />
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="AI Contract Review — Find Risks Faster | LexiFlow" />
+  <meta property="og:description" content="AI contract review for law firms: flag risky clauses, missing terms, and deadlines in minutes. Traceable, defensible analysis your team can rely on." />
+  <meta property="og:url" content="https://lexiflow.co/ai-contract-review" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LexiFlow Technologies Inc" />
+  <meta property="og:image" content="https://lexiflow.co/social-banner.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Contract Review — Find Risks Faster | LexiFlow" />
+  <meta name="twitter:description" content="AI contract review for law firms: flag risky clauses, missing terms, and deadlines in minutes. Traceable, defensible analysis your team can rely on." />
+  <meta name="twitter:image" content="https://lexiflow.co/social-banner.png" />
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "LexiFlow Technologies Inc",
+    "url": "https://lexiflow.co/",
+    "logo": "https://lexiflow.co/branding/logo-icon.svg",
+    "description": "AI-powered legal assistant software for law firms — contract review, legal research, and document analysis."
+  }
+  </script>
+  <!-- JSON-LD: SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "LexiFlow AI Legal Assistant",
+    "operatingSystem": "Web",
+    "applicationCategory": "Legal Software",
+    "description": "AI contract review for law firms: flag risky clauses, missing terms, and deadlines in minutes. Traceable, defensible analysis your team can rely on.",
+    "url": "https://lexiflow.co/ai-contract-review",
+    "offers": {
+      "@type": "Offer",
+      "price": "29.00",
+      "priceCurrency": "USD",
+      "description": "Starts at $29/month"
+    }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" /></noscript>
+  <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" /></noscript>
+  <link rel="stylesheet" href="/master-layout.css">
+  <link rel="stylesheet" href="/shared-layout.css">
+  <style>
+    :root { --primary:#1a3a5c; --accent:#c9a84c; --navy:#0f172a; --gold:#c9a84c; --text-muted:#6b7280; --border:#e2e8f0; --bg-light:#f8fafc; --radius:8px; --radius-lg:16px; --font-sans:'Inter',sans-serif; --font-serif:'Playfair Display',Georgia,serif; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:var(--font-sans); color:#1a1a2e; background:var(--bg-light); line-height:1.6; }
+    .container { max-width:1100px; margin:0 auto; padding:0 24px; }
+    .hero { padding:120px 0 50px; background:linear-gradient(135deg,#0d1f33,var(--primary),#2a5a8c); color:#fff; text-align:center; }
+    .hero h1 { font-family:var(--font-serif); font-size:2.8rem; margin-bottom:16px; }
+    .hero h1 span { color:var(--accent); }
+    .hero p { color:rgba(255,255,255,0.85); max-width:650px; margin:0 auto 28px; }
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:var(--radius); font-weight:700; text-decoration:none; cursor:pointer; border:none; }
+    .btn-primary { background:var(--accent); color:#0d1f33; }
+    .btn-outline-light { background:transparent; color:#fff; border:1px solid rgba(255,255,255,0.3); }
+    .section { padding:60px 0; }
+    .section-alt { background:#fff; }
+    .section h2 { font-family:var(--font-serif); font-size:2rem; color:var(--navy); text-align:center; margin-bottom:12px; }
+    .section-label { color:var(--gold); text-transform:uppercase; font-size:12px; font-weight:700; letter-spacing:0.1em; display:block; text-align:center; margin-bottom:8px; }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+    .card { background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); padding:28px; }
+    .card h3 { font-size:1rem; color:var(--navy); margin-bottom:6px; }
+    .card p { font-size:0.85rem; color:var(--text-muted); }
+    .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; max-width:800px; margin:30px auto; }
+    .stat { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:var(--radius); padding:16px; }
+    .stat .num { font-family:var(--font-serif); font-size:1.8rem; font-weight:800; color:var(--accent); }
+    .stat .label { font-size:0.72rem; color:rgba(255,255,255,0.7); text-transform:uppercase; }
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start; }
+    .info-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); padding:32px; }
+    .info-card h3 { font-family:var(--font-serif); font-size:1.3rem; color:var(--navy); margin-bottom:12px; display:flex; align-items:center; gap:10px; }
+    .info-card ul { list-style:none; padding:0; }
+    .info-card ul li { padding:8px 0; border-bottom:1px solid var(--border); font-size:14px; color:var(--text-muted); display:flex; align-items:center; gap:10px; }
+    .info-card ul li:last-child { border-bottom:none; }
+    .info-card ul li i { color:var(--gold); }
+    .badge-accuracy { display:inline-flex; align-items:center; gap:6px; background:rgba(34,197,94,0.15); color:#4ade80; border:1px solid rgba(34,197,94,0.3); padding:6px 14px; border-radius:100px; font-weight:600; font-size:13px; text-transform:uppercase; letter-spacing:0.05em; }
+    @media (max-width:900px) { .grid-3 { grid-template-columns:1fr; } .stats { grid-template-columns:repeat(2,1fr); } .two-col { grid-template-columns:1fr; } }
+    @media (max-width:768px) { .hero h1 { font-size:1.4rem; } }
+  </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav>
+  <div class="nav-container">
+    <a href="/" class="logo"><span>LF</span> LexiFlow</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/solutions">Solutions</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li class="resources-dropdown">
+        <a href="#">Resources ▾</a>
+        <div class="resources-menu">
+          <a href="/resources/medical-chronology-template">Medical Chronology Template</a>
+          <a href="/resources/medical-chronology-sample">Medical Chronology Sample</a>
+          <a href="/resources/medical-record-review-checklist">Record Review Checklist</a>
+          <a href="/ssd-disability-medical-chronology-software">SSD & Disability AI</a>
+          <a href="/witness-testimony-analysis">Witness Testimony Analysis</a>
+          <a href="/case-studies">Case Studies</a>
+        </div>
+      </li>
+      <li><a href="/roi-calculator">ROI Calculator</a></li>
+      <li><a href="/login">Log In</a></li>
+      <li><a href="/signup" class="btn-cta">Get Started</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</nav>
+<!-- Hero -->
+<section class="hero"><div class="container">
+  <div style="margin-bottom:20px;"><span class="badge-accuracy"><i class="bi bi-cpu"></i> Reasoning AI — Not a Keyword Search</span></div>
+  <h1>AI Contract Review <span>for Law Firms</span></h1>
+  <p>Reviewing a 40-page agreement line by line is slow, expensive, and error-prone. LexiFlow's AI contract review reads every clause, flags risk language, surfaces missing terms, and gives your team a source-cited map of what changed or what is missing — in minutes, not days.</p>
+  <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+    <a href="/signup" class="btn btn-primary" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">🚀 Start Free Trial →</a>
+    <a href="/" class="btn btn-outline-light"><i class="bi bi-arrow-left"></i> Back to Home</a>
+  </div>
+</div></section>
+
+<!-- What It Does -->
+<section class="section section-alt"><div class="container">
+  <span class="section-label">What It Does</span>
+  <h2>Clause-Level Review With Source Citations</h2>
+  <p style="text-align:center;color:var(--text-muted);max-width:720px;margin:0 auto 32px;">LexiFlow parses the agreement into clauses, compares them against your firm's playbooks and common risk patterns, and produces a review memo where every flag links back to the exact clause text.</p>
+  <div class="grid-3">
+    <div class="card"><h3>🔍 Risk Flags</h3><p>Indemnity, liability caps, auto-renewal, exclusivity, non-compete, and change-of-control language flagged with severity levels and plain-English explanations.</p></div>
+    <div class="card"><h3>📋 Missing Terms</h3><p>Detects absent boilerplate your playbook requires: governing law, dispute resolution, notice periods, assignment rights, and data protection terms.</p></div>
+    <div class="card"><h3>⏱️ Deadline Extraction</h3><p>Auto-extracts renewal windows, termination notices, and performance deadlines into a timeline your team can calendar from day one.</p></div>
+  </div>
+</div></section>
+<!-- Why It Matters -->
+<section class="section"><div class="container">
+  <span class="section-label">Why It Matters</span>
+  <h2>Accuracy You Can Defend</h2>
+  <div class="two-col">
+    <div class="info-card"><h3><i class="bi bi-shield-check"></i> Every Flag Is Traceable</h3><ul>
+      <li><i class="bi bi-check2"></i> Citation back to clause, paragraph, and line</li>
+      <li><i class="bi bi-check2"></i> Severity classification: Critical / Significant / Minor</li>
+      <li><i class="bi bi-check2"></i> Plain-English rationale written for client review</li>
+      <li><i class="bi bi-check2"></i> Exportable redline-ready summary memo</li>
+    </ul></div>
+    <div class="info-card"><h3><i class="bi bi-robot"></i> Built for Attorney Review</h3><ul>
+      <li><i class="bi bi-check2"></i> Attorneys stay in the loop on every recommendation</li>
+      <li><i class="bi bi-check2"></i> No legal advice generated without human sign-off</li>
+      <li><i class="bi bi-check2"></i> HIPAA-grade data handling and signed BAAs available</li>
+      <li><i class="bi bi-check2"></i> Works alongside your existing document systems</li>
+    </ul></div>
+  </div>
+</div></section>
+<!-- CTA -->
+<section id="cta" style="background: var(--navy); color: white; padding: 60px 0;">
+  <div class="container" style="max-width: 700px; margin: 0 auto; text-align: center;">
+    <div style="display: inline-block; background: rgba(201,168,76,0.1); color: #c9a84c; padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px;">🤖 LexiFlow AI Legal Assistant</div>
+    <h2 style="font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; margin-bottom: 8px;">See It In Your Workspace</h2>
+    <p style="color: rgba(255,255,255,0.7); font-size: 14px; margin-bottom: 28px; max-width: 500px; margin-left: auto; margin-right: auto;">Try every AI tool free for 30 days — no credit card required. Your dashboard is ready in minutes.</p>
+    <div style="text-align:center;padding:20px 0;">
+      <a href="/signup" class="btn btn-primary" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;padding:16px 40px;">Start Free Trial →</a>
+      <a href="/" class="btn btn-outline-light" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;margin-left:12px;">Back to Home</a>
+    </div>
+    <p style="color: rgba(255,255,255,0.4); font-size: 12px; margin-top: 20px;">🔒 HIPAA Compliant · SOC 2 Certified · Signed BAA Available</p>
+  </div>
+</section>
+<!-- Related Resources -->
+<section class="max-w-screen" style="padding: 40px 0; border-top: 1px solid var(--border); max-width: 1200px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
+  <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; color: #0f172a;">Related AI Legal Resources</h3>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+    <a href="/" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Assistant — Home →</a>
+    <a href="/ai-legal-research" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Research →</a>
+    <a href="/ai-legal-document-analysis" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Document Analysis →</a>
+    <a href="/ai-legal-document-generator" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Document Generator →</a>
+    <a href="/ai-legal-assistant-for-lawyers" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Assistant for Lawyers →</a>
+    <a href="/ai-legal-help" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Legal Help →</a>
+    <a href="/ai-lawyer" style="color: #0f172a; text-decoration: none; font-weight: 600;">AI Lawyer Assistant →</a>
+    <a href="/pricing" style="color: #0f172a; text-decoration: none; font-weight: 600;">Pricing &amp; Plans →</a>
+  </div>
+</section>
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="/" class="footer-logo">LF LexiFlow</a>
+        <p>Advanced Reasoning AI for the Plaintiff-Side Revolution. Automating intake, discovery, and litigation intelligence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/ai-legal-intake-software">AI Intake Agent</a></li>
+          <li><a href="/voice-ai-receptionist">Voice AI Receptionist</a></li>
+          <li><a href="/ai-medical-chronologies">Medical Chronologies</a></li>
+          <li><a href="/auto-document-drafter">Auto-Doc Drafter</a></li>
+          <li><a href="/discovery-vault">Discovery-Vault™</a></li>
+          <li><a href="/settlement-predictor">Settlement-Predictor Pro™</a></li>
+          <li><a href="/veritas-deposition">Veritas Deposition™</a></li>
+          <li><a href="/strategist">LexiFlow Strategist™</a></li>
+          <li><a href="/compliance-shield">Compliance-Shield™</a></li>
+          <li><a href="/dashboard">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>State Ethics Guides</h4>
+        <ul>
+          <li><a href="/blog/new-york-trial-lawyers-ai-ethics-legal-intake">New York AI Ethics</a></li>
+          <li><a href="/blog/illinois-trial-lawyers-ai-ethics-legal-intake">Illinois AI Ethics</a></li>
+          <li><a href="/blog/pennsylvania-trial-lawyers-ai-ethics-legal-intake">Pennsylvania AI Ethics</a></li>
+          <li><a href="/blog">All Resources</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/soc2">SOC2 Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LexiFlow Technologies Inc. All rights reserved. | Enterprise-Grade AI for Law Firms.</p>
+    </div>
+  </footer>
+<script src="/shared-layout.js"></script>
+</body>
+</html>
