@@ -113,47 +113,45 @@
   }
   </script>
   <!-- JSON-LD: FAQPage -->
-  <script type="application/ld+json">
+  <script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "@id": "https://lexiflow.co/lexiflow-vs-traditional-intake/#faq",
+ "mainEntity": [
   {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "@id": "https://lexiflow.co/lexiflow-vs-traditional-intake/#faq",
-      "mainEntity": [
-          {
-              "@type": "Question",
-              "name": "What makes LexiFlow different from a traditional answering service?",
-              "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "LexiFlow legal AI uses advanced Reasoning AI to dynamically probe for case details, qualify leads in real-time, and sync structured data directly to your CRM - unlike traditional services that take messages and create delays."
-              }
-          },
-          {
-              "@type": "Question",
-              "name": "How much faster is AI intake compared to manual processes?",
-              "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "LexiFlow legal AI answers calls instantly with zero hold time, qualifies leads during the first conversation, and pushes structured data to your CRM immediately - reducing intake cycle time from hours to seconds."
-              }
-          },
-          {
-              "@type": "Question",
-              "name": "Can LexiFlow handle complex medical malpractice screening?",
-              "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes. LexiFlow legal AI is trained on medical and legal terminology, allowing it to probe for standard of care deviations, causation, and damages in medical malpractice cases during the initial intake call."
-              }
-          },
-          {
-              "@type": "Question",
-              "name": "Is LexiFlow more cost-effective than a call center?",
-              "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "LexiFlow legal AI provides 24/7/365 coverage at a fraction of the cost of a human-staffed call center, with no per-minute charges, no staffing limitations, and no drop-offs during peak hours."
-              }
-          }
-      ]
+   "@type": "Question",
+   "name": "How much does traditional legal intake cost compared to LexiFlow?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Traditional intake services often charge per minute or require full-time staff. LexiFlow provides flat-rate monthly pricing options designed to lower total intake overhead compared to per-minute or per-seat call center models."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the average reduction in lead response times with LexiFlow?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Traditional manual screening or call centers can take hours to verify and follow up with a lead. LexiFlow delivers instant 24/7/365 responsiveness, responding to web, SMS, and voice intake in seconds rather than hours."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does LexiFlow eliminate human data entry errors?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. LexiFlow automatically extracts structured data directly from callers and chats and transfers it via secure APIs into your CRM. This prevents spelling mistakes, lost notes, or incomplete records typical of manual intake transcribing."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How does LexiFlow address lead leakage?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Lead leakage occurs when interested claimants are placed on hold or sent to voicemail and decide to call a competitor instead. LexiFlow answers concurrent incoming calls and messages simultaneously, so callers are not left on hold or routed to voicemail."
+   }
   }
-  </script>
+ ]
+}</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -399,11 +397,11 @@
         <div style="display: flex; flex-direction: column; gap: 24px;">
           <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
             <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">How much does traditional legal intake cost compared to LexiFlow?</h3>
-            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Traditional intake services usually charge between $2.50 to $4.00 per minute or require full-time staff salaries of $35k–$50k annually. LexiFlow provides flat-rate monthly pricing options that typically reduce total intake overhead by 70% to 85%.</p>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Traditional intake services often charge per minute or require full-time staff. LexiFlow provides flat-rate monthly pricing options designed to lower total intake overhead compared to per-minute or per-seat call center models.</p>
           </div>
           <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
             <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">What is the average reduction in lead response times with LexiFlow?</h3>
-            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Traditional manual screening or call centers can take hours to verify and follow up with a lead. LexiFlow delivers instant 24/7/365 responsiveness, resulting in a 99% decrease in initial response latency (under 5 seconds for web/SMS/voice initiation).</p>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Traditional manual screening or call centers can take hours to verify and follow up with a lead. LexiFlow delivers instant 24/7/365 responsiveness, responding to web, SMS, and voice intake in seconds rather than hours.</p>
           </div>
           <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
             <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">Does LexiFlow eliminate human data entry errors?</h3>
@@ -411,7 +409,7 @@
           </div>
           <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
             <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">How does LexiFlow address lead leakage?</h3>
-            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Lead leakage occurs when interested claimants are placed on hold or sent to voicemail and decide to call a competitor instead. LexiFlow answers 100% of concurrent incoming calls and messages simultaneously, completely eliminating leakage caused by queue capacity bottlenecks.</p>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Lead leakage occurs when interested claimants are placed on hold or sent to voicemail and decide to call a competitor instead. LexiFlow answers concurrent incoming calls and messages simultaneously, so callers are not left on hold or routed to voicemail.</p>
           </div>
         </div>
       </div>

@@ -113,47 +113,45 @@
   }
   </script>
   <!-- JSON-LD: FAQPage -->
-  <script type="application/ld+json">
+  <script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "@id": "https://lexiflow.co/ai-legal-intake-vs-call-center/#faq",
+ "mainEntity": [
   {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "@id": "https://lexiflow.co/ai-legal-intake-vs-call-center/#faq",
-      "mainEntity": [
-          {
-              "@type": "Question",
-              "name": "How does AI intake compare to a human call center?",
-              "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "AI legal intake from LexiFlow legal AI answers instantly with zero hold times, qualifying the caller during the first conversation, while traditional call centers have average response times of 30-90 minutes. AI also captures detailed case data during the first conversation."
-              }
-          },
-          {
-              "@type": "Question",
-              "name": "Is AI legal intake more affordable than an outsourced call center?",
-              "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes. LexiFlow legal AI provides 24/7 coverage at a fixed monthly rate, while outsourcing to a human-staffed call center typically involves per-minute charges, after-hours surcharges, and limitations on concurrent calls."
-              }
-          },
-          {
-              "@type": "Question",
-              "name": "Can AI legal intake handle complex medical malpractice screening?",
-              "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes. LexiFlow legal AI is specifically trained on medical and legal terminology. It screens for key elements of medical negligence: establishing standard of care, detailing the breach, proving causation, and identifying catastrophic damages."
-              }
-          },
-          {
-              "@type": "Question",
-              "name": "Does AI intake replace my intake staff entirely?",
-              "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "No. LexiFlow legal AI augments your intake team by handling the first 80% of screening and data collection. Your staff focus on closing high-value cases rather than answering repetitive screening calls."
-              }
-          }
-      ]
+   "@type": "Question",
+   "name": "How does LexiFlow's AI legal intake compare to traditional outsourced call centers?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Traditional call centers rely on script-readers who lack legal or clinical depth, often causing high lead abandonment or inaccurate intake summaries. LexiFlow uses advanced Reasoning AI that understands context, asks dynamic qualifying questions, and integrates directly with your CRM with zero human error."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the error rate of LexiFlow versus human call center agents?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Human agents in high-volume call centers frequently misspell client names, omit medical details, or miss key timeline dates. LexiFlow's structured data extraction captures clean, complete data directly via API, reducing transcription errors."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can LexiFlow answer multiple calls at the exact same time?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. Unlike a call center that requires scaling staff or placing callers on hold during busy hours, LexiFlow can answer every incoming voice call and web chat simultaneously without hold time."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is LexiFlow capable of booking appointments directly into our CRM calendar?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. LexiFlow integrates natively with calendar schedulers, allowing the AI to book consultation slots directly into your Clio, Filevine, or Google Calendar the moment a lead meets your firm's qualification guidelines."
+   }
   }
-  </script>
+ ]
+}</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -238,7 +236,7 @@
         <span class="hero-badge" style="background: rgba(201, 168, 76, 0.2); color: var(--gold); padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600;">Speed-to-Lead Analysis</span>
       </div>
       <h1>AI Legal Intake vs. Outsourced Call Centers <br/><span class="highlight">The Ultimate Decision Guide</span></h1>
-      <p class="subtitle">Outsourced legal call centers rely on static scripts, struggle with agent turnover, and introduce delay. Discover how LexiFlow's Conversational Voice AI handles unlimited concurrent calls with zero wait times and 100% data consistency.</p>
+      <p class="subtitle">Outsourced legal call centers rely on static scripts, struggle with agent turnover, and introduce delay. Discover how LexiFlow's Conversational Voice AI handles concurrent calls without queue limits and captures structured case data consistently.</p>
       <div style="display: flex; justify-content: center; gap: 16px;">
         <a href="/signup" class="btn btn-primary">Try Live Voice Demo</a>
         <a href="/roi-calculator" class="btn btn-secondary">Calculate Staffing Savings</a>
@@ -266,7 +264,7 @@
             <tr>
               <td><strong>Hold Time & Queue Limits</strong></td>
               <td>Frequent queues, especially during peak call hours or holidays. Leads are placed on hold.</td>
-              <td><strong>0-second latency.</strong> LexiFlow handles unlimited concurrent calls instantly with zero wait times.</td>
+              <td><strong>No queue limits.</strong> LexiFlow handles concurrent calls instantly without hold times.</td>
             </tr>
             <tr>
               <td><strong>Consistency & Accuracy</strong></td>
@@ -336,7 +334,7 @@
             <span class="section-label">Ethical Oversight</span>
             <h2>Ensuring Absolute Professional Control Over AI Case Qualification</h2>
             <p>Law firms operate under highly regulated professional responsibility guidelines. Automated systems must never operate as a complete black box. In traditional call center models, managing quality control across dozens of operators is virtually impossible, introducing compliance and data security risks.</p>
-            <p>LexiFlow resolves this using a robust, secure staging environment. Every qualified lead is placed in a review staging dashboard. Your intake staff reviews the AI's case summary, listens to call recordings, verifies contact details, and confirms the case score before pushing the file into Clio Grow or Filevine Lead Docket. This structure guarantees 100% data integrity and total oversight.</p>
+            <p>LexiFlow resolves this using a robust, secure staging environment. Every qualified lead is placed in a review staging dashboard. Your intake staff reviews the AI's case summary, listens to call recordings, verifies contact details, and confirms the case score before pushing the file into Clio Grow or Filevine Lead Docket. This structure gives your intake staff full oversight before any case reaches the CRM.</p>
             <div class="compliance-bar">
               <h4>Safety & Auditing Guardrails:</h4>
               <p style="margin-bottom: 8px;"><strong>Full Audit Trails:</strong> Every call recording, transcript, and AI summary is permanently archived, creating a transparent audit path.</p>
@@ -401,11 +399,11 @@
           </div>
           <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
             <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">What is the error rate of LexiFlow versus human call center agents?</h3>
-            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Human agents in high-volume call centers frequently misspell client names, omit medical details, or miss key timeline dates. LexiFlow's structured data extraction features a 0% typo rate and captures exhaustive, clean data directly via API.</p>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Human agents in high-volume call centers frequently misspell client names, omit medical details, or miss key timeline dates. LexiFlow's structured data extraction captures clean, complete data directly via API, reducing transcription errors.</p>
           </div>
           <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
             <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">Can LexiFlow answer multiple calls at the exact same time?</h3>
-            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Yes. Unlike a call center that requires scaling staff or placing callers on hold during busy hours, LexiFlow has unlimited concurrent capacity, answering every voice call and web chat instantly and simultaneously.</p>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Yes. Unlike a call center that requires scaling staff or placing callers on hold during busy hours, LexiFlow can answer every incoming voice call and web chat simultaneously without hold time.</p>
           </div>
           <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
             <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">Is LexiFlow capable of booking appointments directly into our CRM calendar?</h3>

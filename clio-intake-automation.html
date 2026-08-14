@@ -117,47 +117,45 @@
   }
   </script>
   <!-- JSON-LD: FAQPage -->
-  <script type="application/ld+json">
+  <script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "@id": "https://lexiflow.co/clio-intake-automation/#faq",
+ "mainEntity": [
   {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "@id": "https://lexiflow.co/clio-intake-automation/#faq",
-      "mainEntity": [
-          {
-              "@type": "Question",
-              "name": "Does LexiFlow integrate with both Clio Grow and Clio Manage?",
-              "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes. LexiFlow legal AI offers a full bidirectional integration. Qualified leads and pipeline data flow into Clio Grow to initiate retainer signing, while clinical documents and medical chronologies are synchronized directly with Matter folders inside Clio Manage."
-              }
-          },
-          {
-              "@type": "Question",
-              "name": "How does LexiFlow prevent duplicate contacts in Clio?",
-              "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "LexiFlow legal AI automatically performs advanced duplicate check algorithms. Before any lead profiles or contacts are pushed, it evaluates email addresses and telephone numbers against your active Clio database to highlight and merge duplicate files."
-              }
-          },
-          {
-              "@type": "Question",
-              "name": "Can I map custom intake fields from LexiFlow to Clio?",
-              "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Absolutely. Through our granular custom mapping dashboard, your firm can link specific AI-extracted responses directly to your standard custom fields inside Clio Manage and Clio Grow."
-              }
-          },
-          {
-              "@type": "Question",
-              "name": "Is a developer required to set up the Clio integration?",
-              "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "No. The integration is built using OAuth 2.0 protocols. Legal administrators can connect LexiFlow legal AI and Clio with a single secure login sequence, without writing any custom code."
-              }
-          }
-      ]
+   "@type": "Question",
+   "name": "Does LexiFlow integrate with both Clio Grow and Clio Manage?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. LexiFlow offers a full bidirectional integration. Qualified leads and pipeline data flow into Clio Grow to initiate retainer signing, while clinical documents and medical chronologies are synchronized directly with Matter folders inside Clio Manage."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How does LexiFlow prevent duplicate contacts in Clio?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "LexiFlow automatically performs advanced duplicate check algorithms. Before any lead profiles or contacts are pushed, LexiFlow evaluates email addresses and telephone numbers against your active Clio database to highlight and merge duplicate files."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can I map custom intake fields from LexiFlow to Clio?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Absolutely. Through our granular custom mapping dashboard, your firm can link specific AI-extracted responses directly to your standard custom fields inside Clio Manage and Clio Grow."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is a developer required to set up the Clio integration?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. The integration is built using OAuth 2.0 protocols. Legal administrators can connect LexiFlow and Clio Grow/Manage with a single secure login sequence, without writing any custom code."
+   }
   }
-  </script>
+ ]
+}</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

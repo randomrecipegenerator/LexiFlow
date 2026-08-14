@@ -117,47 +117,45 @@
   }
   </script>
   <!-- JSON-LD: FAQPage -->
-  <script type="application/ld+json">
+  <script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "@id": "https://lexiflow.co/filevine-intake-automation/#faq",
+ "mainEntity": [
   {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "@id": "https://lexiflow.co/filevine-intake-automation/#faq",
-      "mainEntity": [
-          {
-              "@type": "Question",
-              "name": "Does LexiFlow integrate with both Filevine CRM and Lead Docket?",
-              "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes. LexiFlow legal AI offers a full bidirectional integration. Qualified leads flow into Lead Docket for initial qualification, while case materials and medical chronologies sync directly with Filevine CRM."
-              }
-          },
-          {
-              "@type": "Question",
-              "name": "How does LexiFlow prevent duplicate contacts in Filevine?",
-              "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "LexiFlow legal AI performs advanced duplicate detection using email and phone number matching against your Filevine database before any lead is pushed."
-              }
-          },
-          {
-              "@type": "Question",
-              "name": "Can I map custom intake fields from LexiFlow to Filevine?",
-              "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Absolutely. Through our granular custom mapping dashboard, your firm can link specific AI-extracted responses directly to your custom fields inside Filevine."
-              }
-          },
-          {
-              "@type": "Question",
-              "name": "Is a developer required to set up the Filevine integration?",
-              "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "No. The integration uses secure API protocols. Legal administrators can connect LexiFlow legal AI and Filevine with a single secure login sequence."
-              }
-          }
-      ]
+   "@type": "Question",
+   "name": "Does LexiFlow support custom layouts inside Filevine?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. LexiFlow is built to accommodate the highly customizable nature of Filevine. Our API connector allows you to map structured extraction variables directly to your firm's specific custom layout fields, including multi-select fields and customs tables."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How is intake data pushed to Filevine?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Once a lead is qualified, LexiFlow pushes the payload directly into Filevine or Lead Docket using official API endpoints. This triggers the automatic generation of a new Project, populates the Intake Section, and uploads associated intake summaries or call logs."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does LexiFlow support document mapping in Filevine?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Absolutely. AI-extracted medical summaries, PDF chronologies, and transcript sheets are automatically organized and posted to the \"Docs\" tab within the newly initialized Filevine Project under designated folders."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How secure is the API connection between LexiFlow and Filevine?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "LexiFlow uses OAuth 2.0 authentication to connect to your Filevine environment. All data synchronized is encrypted using TLS 1.3 in transit and AES-256 at rest."
+   }
   }
-  </script>
+ ]
+}</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -402,7 +400,7 @@
           </div>
           <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
             <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">How secure is the API connection between LexiFlow and Filevine?</h3>
-            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">LexiFlow uses enterprise-grade OAuth 2.0 authentication to connect to your Filevine environment. All data synchronized is fully encrypted using TLS 1.3 in transit and AES-256 at rest, backed by our HIPAA and SOC2 compliance programs.</p>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">LexiFlow uses OAuth 2.0 authentication to connect to your Filevine environment. All data synchronized is encrypted using TLS 1.3 in transit and AES-256 at rest.</p>
           </div>
         </div>
       </div>
