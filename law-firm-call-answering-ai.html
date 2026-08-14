@@ -28,6 +28,63 @@
   <!-- Open Graph / Social Sharing -->
 
   <!-- Twitter Card -->
+
+  <!-- JSON-LD: Organization + SoftwareApplication + BreadcrumbList + FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://lexiflow.co/#organization",
+    "name": "LexiFlow",
+    "legalName": "LexiFlow Technologies Inc",
+    "url": "https://lexiflow.co/",
+    "description": "LexiFlow legal AI automates legal intake, medical review, deposition intelligence, and case strategy for law firms.",
+    "logo": {"@type": "ImageObject", "url": "https://lexiflow.co/branding/logo-icon.svg"},
+    "sameAs": ["https://linkedin.com/company/lexiflow"],
+    "contactPoint": {"@type": "ContactPoint", "email": "info@lexiflow.co", "contactType": "sales", "availableLanguage": ["English", "Spanish"]}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "@id": "https://lexiflow.co/law-firm-call-answering-ai/#software",
+    "name": "LexiFlow Legal Suite",
+    "url": "https://lexiflow.co/law-firm-call-answering-ai",
+    "description": "LexiFlow legal AI law firm call answering captures and qualifies leads 24/7 with conversational voice AI, medical malpractice probing, and instant scheduling.",
+    "applicationCategory": "LegalSoftware",
+    "operatingSystem": "Web",
+    "offers": {"@type": "AggregateOffer", "lowPrice": "29", "highPrice": "129", "priceCurrency": "USD", "offerCount": "3"},
+    "author": {"@id": "https://lexiflow.co/#organization"},
+    "brand": {"@type": "Brand", "name": "LexiFlow Technologies Inc"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": "https://lexiflow.co/law-firm-call-answering-ai/#breadcrumb",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://lexiflow.co/"},
+      {"@type": "ListItem", "position": 2, "name": "AI Legal Intake", "item": "https://lexiflow.co/#ai-legal-intake"},
+      {"@type": "ListItem", "position": 3, "name": "Law Firm Call Answering AI", "item": "https://lexiflow.co/law-firm-call-answering-ai"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": "https://lexiflow.co/law-firm-call-answering-ai/#faq",
+    "mainEntity": [
+      {"@type": "Question", "name": "How does the AI receptionist handle emotional or distressed callers?", "acceptedAnswer": {"@type": "Answer", "text": "Our AI is trained using advanced empathy modeling and sentiment analysis. It detects conversational tone and emotional cues, dynamically adjusting its pacing and using warm, supportive language to ensure distressed callers feel heard and respected."}},
+      {"@type": "Question", "name": "Is the AI call answering service HIPAA compliant?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. LexiFlow legal AI operates with a secure BAA and meets HIPAA and SOC2 compliance standards. All voice logs, transcripts, and metadata are encrypted in-transit (TLS 1.3) and at-rest (AES-256)."}},
+      {"@type": "Question", "name": "Can the AI receptionist transfer calls to a live attorney?", "acceptedAnswer": {"@type": "Answer", "text": "Absolutely. You can configure rules inside the dashboard to route high-value leads immediately to a live attorney or intake coordinator via a secure, warm transfer or SMS notification."}},
+      {"@type": "Question", "name": "How long does it take to set up the AI call answering system?", "acceptedAnswer": {"@type": "Answer", "text": "Setup takes less than an hour. Our team helps you map your firm\u2019s qualification guidelines and connect your existing phone numbers or web elements without coding."}}
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />

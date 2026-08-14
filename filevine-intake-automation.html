@@ -33,16 +33,129 @@
 
   <!-- Twitter Card -->
 
-  <!-- JSON-LD -->
+    <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "LexiFlow Filevine Intake Integration",
-    "operatingSystem": "Web",
-    "applicationCategory": "Legal Software",
-    "description": "AI-powered legal intake automation that syncs seamlessly with Filevine CRM and Lead Docket.",
-    "url": "https://lexiflow.co/filevine-intake-automation"
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://lexiflow.co/#organization",
+      "name": "LexiFlow",
+      "legalName": "LexiFlow Technologies Inc",
+      "url": "https://lexiflow.co/",
+      "description": "LexiFlow legal AI automates legal intake, medical review, deposition intelligence, and case strategy for law firms.",
+      "logo": {
+          "@type": "ImageObject",
+          "url": "https://lexiflow.co/branding/logo-icon.svg"
+      },
+      "sameAs": [
+          "https://linkedin.com/company/lexiflow"
+      ],
+      "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "info@lexiflow.co",
+          "contactType": "sales",
+          "availableLanguage": [
+              "English",
+              "Spanish"
+          ]
+      }
+  }
+  </script>
+  <!-- JSON-LD: SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "@id": "https://lexiflow.co/filevine-intake-automation/#software",
+      "name": "LexiFlow Legal Suite",
+      "url": "https://lexiflow.co/filevine-intake-automation",
+      "description": "LexiFlow legal AI automates Filevine intake by syncing qualified leads with merit scores, medical chronologies, and case data directly to Filevine CRM and Lead Docket.",
+      "applicationCategory": "LegalSoftware",
+      "operatingSystem": "Web",
+      "offers": {
+          "@type": "AggregateOffer",
+          "lowPrice": "29",
+          "highPrice": "129",
+          "priceCurrency": "USD",
+          "offerCount": "3"
+      },
+      "author": {
+          "@id": "https://lexiflow.co/#organization"
+      },
+      "brand": {
+          "@type": "Brand",
+          "name": "LexiFlow Technologies Inc"
+      }
+  }
+  </script>
+  <!-- JSON-LD: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": "https://lexiflow.co/filevine-intake-automation/#breadcrumb",
+      "itemListElement": [
+          {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://lexiflow.co/"
+          },
+          {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Integrations",
+              "item": "https://lexiflow.co/"
+          },
+          {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Filevine Intake Automation",
+              "item": "https://lexiflow.co/filevine-intake-automation"
+          }
+      ]
+  }
+  </script>
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": "https://lexiflow.co/filevine-intake-automation/#faq",
+      "mainEntity": [
+          {
+              "@type": "Question",
+              "name": "Does LexiFlow integrate with both Filevine CRM and Lead Docket?",
+              "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. LexiFlow legal AI offers a full bidirectional integration. Qualified leads flow into Lead Docket for initial qualification, while case materials and medical chronologies sync directly with Filevine CRM."
+              }
+          },
+          {
+              "@type": "Question",
+              "name": "How does LexiFlow prevent duplicate contacts in Filevine?",
+              "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "LexiFlow legal AI performs advanced duplicate detection using email and phone number matching against your Filevine database before any lead is pushed."
+              }
+          },
+          {
+              "@type": "Question",
+              "name": "Can I map custom intake fields from LexiFlow to Filevine?",
+              "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Absolutely. Through our granular custom mapping dashboard, your firm can link specific AI-extracted responses directly to your custom fields inside Filevine."
+              }
+          },
+          {
+              "@type": "Question",
+              "name": "Is a developer required to set up the Filevine integration?",
+              "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. The integration uses secure API protocols. Legal administrators can connect LexiFlow legal AI and Filevine with a single secure login sequence."
+              }
+          }
+      ]
   }
   </script>
 
