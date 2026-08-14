@@ -51,6 +51,39 @@
     }
   }
   </script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is an AI medical chronology?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An AI medical chronology is a structured timeline of medical events extracted from patient records, organized in date order with source citations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does AI medical record review work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI reads clinical notes, lab results, and imaging reports via NLP, identifying key events in chronological order."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can AI identify treatment gaps?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The AI flags gaps in treatment and medication discrepancies with severity ratings and source citations."
+      }
+    }
+  ]
+}
+    </script>
+
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -285,7 +318,25 @@
     
 <script src="/shared-ui.js"></script>
 <script src="/shared-layout.js"></script>
-  <footer>
+  
+  <section style="background:#f8fafc;padding:60px 0;border-top:1px solid #e2e8f0;">
+    <div style="max-width:800px;margin:0 auto;padding:0 24px;">
+      <h2 style="font-size:32px;color:#1a3a5c;text-align:center;margin-bottom:40px;font-family:Georgia,serif;">Frequently Asked Questions</h2>
+      <div style="background:#fff;padding:24px;border-radius:8px;margin-bottom:12px;border:1px solid #e2e8f0;">
+        <h3 style="font-size:18px;color:#1a3a5c;margin-bottom:8px;">What is an AI medical chronology?</h3>
+        <p style="color:#6b7280;font-size:15px;line-height:1.7;">An AI medical chronology is a structured timeline of medical events extracted from patient records, organized in date order with source citations.</p>
+      </div>
+      <div style="background:#fff;padding:24px;border-radius:8px;margin-bottom:12px;border:1px solid #e2e8f0;">
+        <h3 style="font-size:18px;color:#1a3a5c;margin-bottom:8px;">How does AI medical record review work?</h3>
+        <p style="color:#6b7280;font-size:15px;line-height:1.7;">AI reads clinical notes, lab results, and imaging reports via NLP, identifying key events in chronological order.</p>
+      </div>
+      <div style="background:#fff;padding:24px;border-radius:8px;margin-bottom:12px;border:1px solid #e2e8f0;">
+        <h3 style="font-size:18px;color:#1a3a5c;margin-bottom:8px;">Can AI identify treatment gaps?</h3>
+        <p style="color:#6b7280;font-size:15px;line-height:1.7;">Yes. The AI flags gaps in treatment and medication discrepancies with severity ratings and source citations.</p>
+      </div>
+    </div>
+  </section>
+<footer>
     <div class="footer-container">
       <div class="footer-col">
         <a href="/" class="footer-logo">LF LexiFlow</a>
