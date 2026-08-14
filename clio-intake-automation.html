@@ -33,18 +33,129 @@
 
   <!-- Twitter Card -->
 
-  <!-- JSON-LD -->
+    <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "LexiFlow Clio Intake Integration",
-    "operatingSystem": "Web",
-    "applicationCategory": "Legal Software",
-    "description": "AI-powered legal intake automation that syncs seamlessly with Clio Grow and Clio Manage.",
-    "url": "https://lexiflow.co/clio-intake-automation"
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://lexiflow.co/#organization",
+      "name": "LexiFlow",
+      "legalName": "LexiFlow Technologies Inc",
+      "url": "https://lexiflow.co/",
+      "description": "LexiFlow legal AI automates legal intake, medical review, deposition intelligence, and case strategy for law firms.",
+      "logo": {
+          "@type": "ImageObject",
+          "url": "https://lexiflow.co/branding/logo-icon.svg"
+      },
+      "sameAs": [
+          "https://linkedin.com/company/lexiflow"
+      ],
+      "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "info@lexiflow.co",
+          "contactType": "sales",
+          "availableLanguage": [
+              "English",
+              "Spanish"
+          ]
+      }
   }
   </script>
+  <!-- JSON-LD: SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "@id": "https://lexiflow.co/clio-intake-automation/#software",
+      "name": "LexiFlow Legal Suite",
+      "url": "https://lexiflow.co/clio-intake-automation",
+      "description": "LexiFlow legal AI automates Clio intake by syncing AI-qualified leads directly to Clio Grow and Clio Manage with merit scores, medical summaries, and contact data.",
+      "applicationCategory": "LegalSoftware",
+      "operatingSystem": "Web",
+      "offers": {
+          "@type": "AggregateOffer",
+          "lowPrice": "29",
+          "highPrice": "129",
+          "priceCurrency": "USD",
+          "offerCount": "3"
+      },
+      "author": {
+          "@id": "https://lexiflow.co/#organization"
+      },
+      "brand": {
+          "@type": "Brand",
+          "name": "LexiFlow Technologies Inc"
+      }
+  }
+  </script>
+  <!-- JSON-LD: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": "https://lexiflow.co/clio-intake-automation/#breadcrumb",
+      "itemListElement": [
+          {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://lexiflow.co/"
+          },
+          {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Integrations",
+              "item": "https://lexiflow.co/"
+          },
+          {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Clio Intake Automation",
+              "item": "https://lexiflow.co/clio-intake-automation"
+          }
+      ]
+  }
+  </script>
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "@id": "https://lexiflow.co/clio-intake-automation/#faq",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Does LexiFlow integrate with both Clio Grow and Clio Manage?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. LexiFlow offers a full bidirectional integration. Qualified leads and pipeline data flow into Clio Grow to initiate retainer signing, while clinical documents and medical chronologies are synchronized directly with Matter folders inside Clio Manage."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How does LexiFlow prevent duplicate contacts in Clio?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "LexiFlow automatically performs advanced duplicate check algorithms. Before any lead profiles or contacts are pushed, LexiFlow evaluates email addresses and telephone numbers against your active Clio database to highlight and merge duplicate files."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can I map custom intake fields from LexiFlow to Clio?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Absolutely. Through our granular custom mapping dashboard, your firm can link specific AI-extracted responses directly to your standard custom fields inside Clio Manage and Clio Grow."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is a developer required to set up the Clio integration?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. The integration is built using OAuth 2.0 protocols. Legal administrators can connect LexiFlow and Clio Grow/Manage with a single secure login sequence, without writing any custom code."
+   }
+  }
+ ]
+}</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

@@ -28,6 +28,89 @@
   <!-- Open Graph / Social Sharing -->
 
   <!-- Twitter Card -->
+
+  <!-- JSON-LD: Organization + SoftwareApplication + BreadcrumbList + FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://lexiflow.co/#organization",
+    "name": "LexiFlow",
+    "legalName": "LexiFlow Technologies Inc",
+    "url": "https://lexiflow.co/",
+    "description": "LexiFlow legal AI automates legal intake, medical review, deposition intelligence, and case strategy for law firms.",
+    "logo": {"@type": "ImageObject", "url": "https://lexiflow.co/branding/logo-icon.svg"},
+    "sameAs": ["https://linkedin.com/company/lexiflow"],
+    "contactPoint": {"@type": "ContactPoint", "email": "info@lexiflow.co", "contactType": "sales", "availableLanguage": ["English", "Spanish"]}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "@id": "https://lexiflow.co/law-firm-call-answering-ai/#software",
+    "name": "LexiFlow Legal Suite",
+    "url": "https://lexiflow.co/law-firm-call-answering-ai",
+    "description": "LexiFlow legal AI law firm call answering captures and qualifies leads 24/7 with conversational voice AI, medical malpractice probing, and instant scheduling.",
+    "applicationCategory": "LegalSoftware",
+    "operatingSystem": "Web",
+    "offers": {"@type": "AggregateOffer", "lowPrice": "29", "highPrice": "129", "priceCurrency": "USD", "offerCount": "3"},
+    "author": {"@id": "https://lexiflow.co/#organization"},
+    "brand": {"@type": "Brand", "name": "LexiFlow Technologies Inc"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": "https://lexiflow.co/law-firm-call-answering-ai/#breadcrumb",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://lexiflow.co/"},
+      {"@type": "ListItem", "position": 2, "name": "AI Legal Intake", "item": "https://lexiflow.co/#ai-legal-intake"},
+      {"@type": "ListItem", "position": 3, "name": "Law Firm Call Answering AI", "item": "https://lexiflow.co/law-firm-call-answering-ai"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "@id": "https://lexiflow.co/law-firm-call-answering-ai/#faq",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How does the AI receptionist handle emotional or distressed callers?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Our AI is trained using advanced empathy modeling and sentiment analysis. It detects conversational tone and emotional cues, dynamically adjusting its pacing and using warm, supportive language to ensure distressed callers feel heard and respected."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is the AI call answering service HIPAA compliant?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "LexiFlow is designed for law firms handling protected health information, following HIPAA-aligned and SOC2-aligned security practices. All voice logs, transcripts, and metadata are encrypted in-transit (TLS 1.3) and at-rest (AES-256)."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can the AI receptionist transfer calls to a live attorney?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Absolutely. You can configure rules inside the dashboard to route high-value leads immediately to a live attorney or intake coordinator via a secure, warm transfer or SMS notification."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How long does it take to set up the AI call answering system?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Setup takes less than an hour. Our team helps you map your firm's qualification guidelines and connect your existing phone numbers or web elements without coding."
+   }
+  }
+ ]
+}</script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -129,11 +212,11 @@
         <div class="features-grid">
           <div class="features-text">
             <span class="section-label">The Intake Bottleneck</span>
-            <h2>Why Law Firms Lose 40% of Meritorious Leads to Delayed Callbacks</h2>
+            <h2>Why Delayed Callbacks Cost Law Firms Meritorious Leads</h2>
             <p>In high-stakes practice areas like Personal Injury, Medical Malpractice, and Mass Torts, speed-to-lead is not just a metric—it is the difference between securing a multi-million-dollar retainer and losing the client to a faster competitor. When a potential client experiences a life-altering incident, their immediate action is to call an attorney. If that call goes to voicemail or an unhelpful generic answering service, they hang up and dial the next listing on Google.</p>
             <p>Traditional call centers use rigid, static scripts. Human agents, despite their best efforts, often lack the specialized knowledge to probe for liability, ask about damage severity, or identify the critical statute of limitations. LexiFlow solves this permanently by replacing static logic with advanced Reasoning AI that converses naturally, adapts to the caller's narrative, and scores the case dynamically in real-time.</p>
             <ul class="feature-list">
-              <li><i class="bi bi-clock-history"></i> <strong>0-Second Hold Times:</strong> Handle unlimited concurrent incoming calls with zero queuing.</li>
+              <li><i class="bi bi-clock-history"></i> <strong>No Hold Queues:</strong> Handle concurrent incoming calls without queuing or voicemail.</li>
               <li><i class="bi bi-brain"></i> <strong>Dynamic Legal Probing:</strong> Adapts questions based on the caller's responses rather than following a linear script.</li>
               <li><i class="bi bi-emoji-smile"></i> <strong>Empathetic Tone Modulation:</strong> Adjusts pacing, warmth, and supportive phrasing to match the emotional context of injured callers.</li>
             </ul>
@@ -261,7 +344,7 @@
           </div>
           <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
             <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">Is the AI call answering service HIPAA compliant?</h3>
-            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">Yes. LexiFlow operates with a secure BAA and meets HIPAA and SOC2 compliance standards. All voice logs, transcripts, and metadata are encrypted in-transit (TLS 1.3) and at-rest (AES-256).</p>
+            <p style="color: var(--slate-600); font-size: 15px; margin: 0;">LexiFlow is designed for law firms handling protected health information, following HIPAA-aligned and SOC2-aligned security practices. All voice logs, transcripts, and metadata are encrypted in-transit (TLS 1.3) and at-rest (AES-256).</p>
           </div>
           <div style="background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--slate-200);">
             <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px;">Can the AI receptionist transfer calls to a live attorney?</h3>
